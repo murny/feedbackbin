@@ -1,0 +1,22 @@
+# Name of your application. Used to uniquely configure containers.
+service: feedbackbin
+
+# Name of the container image.
+image: murny/feedbackbin
+
+servers:
+  - 147.182.240.229
+
+registry:
+  username: murny
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+
+env:
+  secret:
+    - RAILS_MASTER_KEY
+
+builder:
+  remote:
+    arch: amd64
+    host: ssh://root@147.182.240.229
