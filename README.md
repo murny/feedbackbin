@@ -22,3 +22,8 @@ Things you may want to cover:
 * Deployment instructions
 
 * ...
+
+
+## License
+
+Inspired by [Plausible](https://plausible.io/blog/open-source-licenses), FeedbackBin is open-source under the GNU Affero General Public License Version 3 (AGPLv3) or any later version. You can [find it here](https://github.com/murny/feedbackbin/blob/main/LICENSE.md).
