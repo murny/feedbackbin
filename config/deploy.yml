@@ -5,14 +5,25 @@ service: feedbackbin
 image: murny/feedbackbin
 
 servers:
-  - 147.182.240.229
-
+  web:
+    hosts:
+      - 147.182.240.229
+    labels:
+      traefik.http.routers.feedbackbin.rule: Host(`feedbackbin.com`)
+      traefik.http.routers.feedbackbin_secure.entrypoints: websecure
+      traefik.http.routers.feedbackbin_secure.rule: Host(`feedbackbin.com`)
+      traefik.http.routers.feedbackbin_secure.tls: true
+      traefik.http.routers.feedbackbin_secure.tls.certresolver: letsencrypt
+    options:
+      network: "private"
 registry:
   username: murny
   password:
     - KAMAL_REGISTRY_PASSWORD
 
 env:
+  clear:
+    HOSTNAME: feedbackbin.com
   secret:
     - RAILS_MASTER_KEY
 
@@ -20,3 +31,21 @@ builder:
   remote:
     arch: amd64
     host: ssh://root@147.182.240.229
+
+traefik:
+  options:
+    publish:
+      - "443:443"
+    volume:
+      - "/letsencrypt/acme.json:/letsencrypt/acme.json"
+    network: "private"
+  args:
+    entryPoints.web.address: ":80"
+    entryPoints.websecure.address: ":443"
+    entryPoints.web.http.redirections.entryPoint.to: websecure # We want to force https
+    entryPoints.web.http.redirections.entryPoint.scheme: https
+    entryPoints.web.http.redirections.entrypoint.permanent: true
+    certificatesResolvers.letsencrypt.acme.email: "hello@feedbackbin.com"
+    certificatesResolvers.letsencrypt.acme.storage: "/letsencrypt/acme.json"
+    certificatesResolvers.letsencrypt.acme.httpchallenge: true
+    certificatesResolvers.letsencrypt.acme.httpchallenge.entrypoint: web
