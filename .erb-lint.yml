@@ -1,0 +1,26 @@
+---
+EnableDefaultLinters: true
+
+inherit_gem:
+  erblint-github:
+    - config/accessibility.yml
+
+exclude:
+  - '**/vendor/**/*'
+
+linters:
+  ErbSafety:
+    enabled: true
+  PartialInstanceVariable:
+    enabled: true
+  Rubocop:
+    enabled: true
+    rubocop_config:
+      inherit_from:
+        - .rubocop.yml
+      Layout/InitialIndentation:
+        Enabled: false
+      Layout/TrailingEmptyLines:
+        Enabled: false
+      Style/FrozenStringLiteralComment:
+        Enabled: false

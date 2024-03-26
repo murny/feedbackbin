@@ -54,6 +54,8 @@ group :development, :test do
   gem "debug", platforms: %i[mri windows]
 
   # Linters
+  gem "erb_lint", require: false
+  gem "erblint-github", require: false
   gem "rubocop", require: false
   gem "rubocop-capybara", require: false
   gem "rubocop-minitest", require: false
