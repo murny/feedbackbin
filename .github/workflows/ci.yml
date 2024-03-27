@@ -159,4 +159,6 @@ jobs:
 
       - run: gem install kamal
       - run: kamal lock release
+      - name: debug
+        run: echo $(git status --porcelain)
       - run: kamal deploy --skip-push
