@@ -17,7 +17,8 @@ servers:
     options:
       network: "private"
 registry:
-  username: murny
+  username:
+    - KAMAL_REGISTRY_USERNAME
   password:
     - KAMAL_REGISTRY_PASSWORD
 
