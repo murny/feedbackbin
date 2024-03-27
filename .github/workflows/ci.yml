@@ -144,6 +144,7 @@ jobs:
       - run: kamal lock release
       - run: kamal deploy --skip-push
         env:
+          DOCKER_BUILDKIT: 1
           KAMAL_REGISTRY_USERNAME: ${{secrets.KAMAL_REGISTRY_USERNAME}}
           KAMAL_REGISTRY_PASSWORD: ${{secrets.KAMAL_REGISTRY_PASSWORD}}
           RAILS_MASTER_KEY: ${{secrets.PRODUCTION_RAILS_MASTER_KEY}}
