@@ -135,7 +135,9 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
           push: true
-          tags: ${{github.repository}}:${{github.sha}}
+          tags: |
+            "murny/feedbackbin:latest"
+            "murny/feedbackbin:${{github.sha}}"
       - uses: ruby/setup-ruby@v1
         with:
           ruby-version: 3.3.0
