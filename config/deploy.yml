@@ -28,11 +28,6 @@ env:
   secret:
     - RAILS_MASTER_KEY
 
-builder:
-  remote:
-    arch: amd64
-    host: ssh://root@147.182.240.229
-
 traefik:
   options:
     publish:
