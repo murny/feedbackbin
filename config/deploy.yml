@@ -1,7 +1,4 @@
-# Name of your application. Used to uniquely configure containers.
 service: feedbackbin
-
-# Name of the container image.
 image: murny/feedbackbin
 
 servers:
