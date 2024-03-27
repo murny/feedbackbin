@@ -2,11 +2,7 @@
 
 # Make sure RUBY_VERSION matches the Ruby version in .ruby-version and Gemfile
 ARG RUBY_VERSION=3.3.0
-# TODO: Bug in Ruby 3.3.0 image with Arm64, pinning this to a specific sha256 that has a fix
-# https://github.com/docker-library/official-images/pull/16337
-# TODO: Remove this after the next Ruby release (3.3.1)
-# FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim as base
-FROM registry.docker.com/library/ruby@sha256:abcb7c3943a085f511397b65ba7ca32ad56af759a53af932c5e354e1a8f84bcb AS base
+FROM registry.docker.com/library/ruby:$RUBY_VERSION-slim as base
 
 # Rails app lives here
 WORKDIR /rails
