@@ -111,7 +111,6 @@ jobs:
           if-no-files-found: ignore
 
   deploy:
-    name: Deploy
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
     runs-on: ubuntu-latest
     needs:
@@ -161,6 +160,4 @@ jobs:
 
       - run: gem install kamal
       - run: kamal lock release
-      - name: debug
-        run: echo $(git status --porcelain)
       - run: kamal deploy --skip-push
