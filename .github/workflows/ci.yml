@@ -148,6 +148,8 @@ jobs:
           context: .
           cache-from: type=gha
           cache-to: type=gha,mode=max
+          labels: |
+            "service=feedbackbin"
           push: true
           tags: |
             "murny/feedbackbin:latest"
