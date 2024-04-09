@@ -1,0 +1,50 @@
+<%= turbo_refreshes_with method: :morph, scroll: :preserve %>
+
+<div class="w-full">
+  <% if notice.present? %>
+    <p class="py-2 px-3 bg-green-50 mb-5 text-green-500 font-medium rounded-lg inline-block" id="notice"><%= notice %></p>
+  <% end %>
+
+  <div class="flex justify-between items-center">
+    <h1 class="font-bold text-4xl">Posts</h1>
+    <%= link_to "New post", new_post_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+  </div>
+
+  <div class="max-w-7xl mx-auto mt-12">
+    <div class="shadow overflow-hidden rounded border-b border-gray-200">
+      <div class="flex justify-end mb-1">
+        <%= form_with url: posts_path, method: :get, data: {turbo_action: "replace", controller: "autosubmit", turbo_permanent: ""} do |form| %>
+          <%= form.text_field :title,
+                placeholder: "Search by title",
+                value: session.dig('filters', 'name'),
+                class: "border border-blue-500 rounded p-2",
+                data: {action: "autosubmit#submit"} %>
+        <% end %>
+      </div>
+
+      <table class="min-w-full bg-white">
+        <thead class="bg-gray-800 text-white">
+          <tr>
+            <th id="posts-title" class="text-left py-3 px-6 uppercase font-semibold text-sm hover:cursor-pointer">
+              <%= show_sort_indicator_for("title") %>
+              <%= sort_link(column: "title", label: "Title") %>
+            </th>
+            <th id="posts-team" class="text-left py-3 px-6 uppercase font-semibold text-sm hover:cursor-pointer">
+              <%= show_sort_indicator_for("statuses.name") %>
+              <%= sort_link(column: "statuses.name", label: "Status") %>
+            </th>
+          </tr>
+        </thead>
+
+        <tbody class="text-gray-700">
+          <% @posts.each do |post| %>
+            <tr>
+              <td class="text-left py-3 px-6"><%= post.title %></td>
+              <td class="text-left py-3 px-6"><%= post.status.name %></td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
