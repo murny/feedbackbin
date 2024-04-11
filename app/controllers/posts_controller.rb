@@ -8,6 +8,7 @@ class PostsController < ApplicationController
 
     @posts = Post.includes(:status)
     @posts = @posts.where("posts.title like ?", "%#{session["filters"]["title"]}%") if session["filters"]["title"].present?
+    @posts = @posts.where(status_id: session["filters"]["status_id"]) if session["filters"]["status_id"].present?
     @posts = @posts.order(session["filters"].slice("column", "direction").values.join(" "))
   end
 
@@ -75,6 +76,6 @@ class PostsController < ApplicationController
   end
 
   def filter_params
-    params.permit(:title, :column, :direction)
+    params.permit(:title, :status_id, :column, :direction)
   end
 end

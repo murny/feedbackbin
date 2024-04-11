@@ -3,12 +3,8 @@
 @tailwind utilities;
 
 
+/* TODO make this less bad */
 .sort {
-  position: absolute;
-  top: 1rem;
-  left: 0.5rem;
-  width: 0;
-  height: 0;
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
 }
