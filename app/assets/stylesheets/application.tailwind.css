@@ -1,18 +1,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-
-/* TODO make this less bad */
-.sort {
-  border-left: 6px solid transparent;
-  border-right: 6px solid transparent;
-}
-
-.sort-desc {
-  border-top: 8px solid #fff;
-}
-
-.sort-asc {
-  border-bottom: 8px solid #fff;
-}

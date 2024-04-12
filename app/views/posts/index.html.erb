@@ -33,15 +33,13 @@
         <% end %>
       </div>
 
-      <table class="min-w-full bg-white">
-        <thead class="bg-gray-800 text-white">
+      <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
-            <th id="posts-title" class="text-left py-3 px-6 uppercase font-semibold text-sm hover:cursor-pointer">
-              <%= show_sort_indicator_for("title") %>
+            <th scope="col" class="px-6 py-3">
               <%= sort_link(column: "title", label: "Title") %>
             </th>
-            <th id="posts-team" class="text-left py-3 px-6 uppercase font-semibold text-sm hover:cursor-pointer">
-              <%= show_sort_indicator_for("statuses.name") %>
+            <th scope="col" class="px-6 py-3">
               <%= sort_link(column: "statuses.name", label: "Status") %>
             </th>
           </tr>

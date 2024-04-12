@@ -3,7 +3,9 @@
 module PostsHelper
   def sort_link(column:, label:)
     direction = (column == session["filters"]["column"]) ? next_direction : "asc"
-    link_to(label, posts_path(column: column, direction: direction), data: {turbo_action: "replace"})
+    link_to(posts_path(column: column, direction: direction), data: {turbo_action: "replace"}, class: "flex items-center") do
+      tag.span(label) + show_sort_indicator_for(column)
+    end
   end
 
   def next_direction
@@ -11,10 +13,18 @@ module PostsHelper
   end
 
   def sort_indicator
-    tag.span(class: "sort sort-#{session["filters"]["direction"]}")
+    if session["filters"]["direction"] == "asc"
+      image_tag("arrow-up.svg", class: "w-3 h-3 ms-1.5 filter invert")
+    else
+      image_tag("arrow-down.svg", class: "w-3 h-3 ms-1.5 filter invert")
+    end
   end
 
   def show_sort_indicator_for(column)
-    sort_indicator if session["filters"]["column"] == column
+    if session["filters"]["column"] == column
+      sort_indicator if session["filters"]["column"] == column
+    else
+      image_tag("arrows-up-down.svg", class: "w-3 h-3 ms-1.5 filter invert")
+    end
   end
 end
