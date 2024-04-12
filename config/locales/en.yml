@@ -1,5 +1,12 @@
 ---
 en:
+  posts:
+    create:
+      notice: Post was successfully created.
+    destroy:
+      notice: Post was successfully destroyed.
+    update:
+      notice: Post was successfully updated.
   welcome:
     show:
       title: Hello world! Welcome to FeedbackBin!

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module PostsHelper
   def sort_link(column:, label:)
     direction = (column == session["filters"]["column"]) ? next_direction : "asc"
