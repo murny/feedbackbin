@@ -5,13 +5,10 @@ class PostsController < ApplicationController
 
   # GET /posts or /posts.json
   def index
-    session["filters"] ||= {}
-    session["filters"].merge!(filter_params)
-
     @posts = Post.includes(:status)
-    @posts = @posts.where("posts.title like ?", "%#{session["filters"]["title"]}%") if session["filters"]["title"].present?
-    @posts = @posts.where(status_id: session["filters"]["status_id"]) if session["filters"]["status_id"].present?
-    @posts = @posts.order(session["filters"].slice("column", "direction").values.join(" "))
+    @posts = @posts.where("posts.title like ?", "%#{params[:title]}%") if params[:title].present?
+    @posts = @posts.where(status_id: params[:status_id]) if params[:status_id].present?
+    @posts = @posts.order(params.slice("column", "direction").values.join(" "))
   end
 
   # GET /posts/1 or /posts/1.json
