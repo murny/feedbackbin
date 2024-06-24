@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/rails/rails.git
-  revision: cd4a6c17b6d36e21bbdaf227eb07091e88a5687f
+  revision: 2c0cf7f2e3c7cc88e84285178bd7d8028aba6968
   branch: 7-1-stable
   specs:
     actioncable (7.1.3.4)
@@ -190,10 +190,10 @@ GEM
     marcel (1.0.4)
     matrix (0.4.2)
     mini_mime (1.1.5)
-    minitest (5.23.1)
+    minitest (5.24.0)
     msgpack (1.7.2)
     mutex_m (0.2.0)
-    net-imap (0.4.13)
+    net-imap (0.4.14)
       date
       net-protocol
     net-pop (0.1.2)
@@ -225,7 +225,7 @@ GEM
     puma (6.4.2)
       nio4r (~> 2.0)
     racc (1.8.0)
-    rack (3.1.3)
+    rack (3.1.4)
     rack-session (2.0.0)
       rack (>= 3.0.0)
     rack-test (2.1.0)
