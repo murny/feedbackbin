@@ -1,37 +1,30 @@
 GIT
   remote: https://github.com/rails/rails.git
-  revision: df3d0e80d3c7f3489a287fcd46d97053487340e2
-  branch: 7-1-stable
+  revision: bfd3cfdbfc38b25e53e5fe85f1c77a61c9c600b7
   specs:
-    actioncable (7.1.3.4)
-      actionpack (= 7.1.3.4)
-      activesupport (= 7.1.3.4)
+    actioncable (8.0.0.alpha)
+      actionpack (= 8.0.0.alpha)
+      activesupport (= 8.0.0.alpha)
       nio4r (~> 2.0)
       websocket-driver (>= 0.6.1)
       zeitwerk (~> 2.6)
-    actionmailbox (7.1.3.4)
-      actionpack (= 7.1.3.4)
-      activejob (= 7.1.3.4)
-      activerecord (= 7.1.3.4)
-      activestorage (= 7.1.3.4)
-      activesupport (= 7.1.3.4)
-      mail (>= 2.7.1)
-      net-imap
-      net-pop
-      net-smtp
-    actionmailer (7.1.3.4)
-      actionpack (= 7.1.3.4)
-      actionview (= 7.1.3.4)
-      activejob (= 7.1.3.4)
-      activesupport (= 7.1.3.4)
-      mail (~> 2.5, >= 2.5.4)
-      net-imap
-      net-pop
-      net-smtp
+    actionmailbox (8.0.0.alpha)
+      actionpack (= 8.0.0.alpha)
+      activejob (= 8.0.0.alpha)
+      activerecord (= 8.0.0.alpha)
+      activestorage (= 8.0.0.alpha)
+      activesupport (= 8.0.0.alpha)
+      mail (>= 2.8.0)
+    actionmailer (8.0.0.alpha)
+      actionpack (= 8.0.0.alpha)
+      actionview (= 8.0.0.alpha)
+      activejob (= 8.0.0.alpha)
+      activesupport (= 8.0.0.alpha)
+      mail (>= 2.8.0)
       rails-dom-testing (~> 2.2)
-    actionpack (7.1.3.4)
-      actionview (= 7.1.3.4)
-      activesupport (= 7.1.3.4)
+    actionpack (8.0.0.alpha)
+      actionview (= 8.0.0.alpha)
+      activesupport (= 8.0.0.alpha)
       nokogiri (>= 1.8.5)
       racc
       rack (>= 2.2.4)
@@ -39,62 +32,63 @@ GIT
       rack-test (>= 0.6.3)
       rails-dom-testing (~> 2.2)
       rails-html-sanitizer (~> 1.6)
-    actiontext (7.1.3.4)
-      actionpack (= 7.1.3.4)
-      activerecord (= 7.1.3.4)
-      activestorage (= 7.1.3.4)
-      activesupport (= 7.1.3.4)
+      useragent (~> 0.16)
+    actiontext (8.0.0.alpha)
+      actionpack (= 8.0.0.alpha)
+      activerecord (= 8.0.0.alpha)
+      activestorage (= 8.0.0.alpha)
+      activesupport (= 8.0.0.alpha)
       globalid (>= 0.6.0)
       nokogiri (>= 1.8.5)
-    actionview (7.1.3.4)
-      activesupport (= 7.1.3.4)
+    actionview (8.0.0.alpha)
+      activesupport (= 8.0.0.alpha)
       builder (~> 3.1)
       erubi (~> 1.11)
       rails-dom-testing (~> 2.2)
       rails-html-sanitizer (~> 1.6)
-    activejob (7.1.3.4)
-      activesupport (= 7.1.3.4)
+    activejob (8.0.0.alpha)
+      activesupport (= 8.0.0.alpha)
       globalid (>= 0.3.6)
-    activemodel (7.1.3.4)
-      activesupport (= 7.1.3.4)
-    activerecord (7.1.3.4)
-      activemodel (= 7.1.3.4)
-      activesupport (= 7.1.3.4)
+    activemodel (8.0.0.alpha)
+      activesupport (= 8.0.0.alpha)
+    activerecord (8.0.0.alpha)
+      activemodel (= 8.0.0.alpha)
+      activesupport (= 8.0.0.alpha)
       timeout (>= 0.4.0)
-    activestorage (7.1.3.4)
-      actionpack (= 7.1.3.4)
-      activejob (= 7.1.3.4)
-      activerecord (= 7.1.3.4)
-      activesupport (= 7.1.3.4)
+    activestorage (8.0.0.alpha)
+      actionpack (= 8.0.0.alpha)
+      activejob (= 8.0.0.alpha)
+      activerecord (= 8.0.0.alpha)
+      activesupport (= 8.0.0.alpha)
       marcel (~> 1.0)
-    activesupport (7.1.3.4)
+    activesupport (8.0.0.alpha)
       base64
       bigdecimal
-      concurrent-ruby (~> 1.0, >= 1.0.2)
+      concurrent-ruby (~> 1.0, >= 1.3.1)
       connection_pool (>= 2.2.5)
       drb
       i18n (>= 1.6, < 2)
+      logger (>= 1.4.2)
       minitest (>= 5.1)
-      mutex_m
-      tzinfo (~> 2.0)
-    rails (7.1.3.4)
-      actioncable (= 7.1.3.4)
-      actionmailbox (= 7.1.3.4)
-      actionmailer (= 7.1.3.4)
-      actionpack (= 7.1.3.4)
-      actiontext (= 7.1.3.4)
-      actionview (= 7.1.3.4)
-      activejob (= 7.1.3.4)
-      activemodel (= 7.1.3.4)
-      activerecord (= 7.1.3.4)
-      activestorage (= 7.1.3.4)
-      activesupport (= 7.1.3.4)
+      tzinfo (~> 2.0, >= 2.0.5)
+    rails (8.0.0.alpha)
+      actioncable (= 8.0.0.alpha)
+      actionmailbox (= 8.0.0.alpha)
+      actionmailer (= 8.0.0.alpha)
+      actionpack (= 8.0.0.alpha)
+      actiontext (= 8.0.0.alpha)
+      actionview (= 8.0.0.alpha)
+      activejob (= 8.0.0.alpha)
+      activemodel (= 8.0.0.alpha)
+      activerecord (= 8.0.0.alpha)
+      activestorage (= 8.0.0.alpha)
+      activesupport (= 8.0.0.alpha)
       bundler (>= 1.15.0)
-      railties (= 7.1.3.4)
-    railties (7.1.3.4)
-      actionpack (= 7.1.3.4)
-      activesupport (= 7.1.3.4)
-      irb
+      railties (= 8.0.0.alpha)
+    railties (8.0.0.alpha)
+      actionpack (= 8.0.0.alpha)
+      activesupport (= 8.0.0.alpha)
+      irb (~> 1.13)
       rackup (>= 1.0.0)
       rake (>= 12.2)
       thor (~> 1.0, >= 1.2.2)
@@ -107,6 +101,7 @@ GEM
       public_suffix (>= 2.0.2, < 7.0)
     ast (2.4.2)
     base64 (0.2.0)
+    bcrypt (3.1.20)
     better_html (2.1.1)
       actionview (>= 6.0)
       activesupport (>= 6.0)
@@ -194,7 +189,6 @@ GEM
     mini_mime (1.1.5)
     minitest (5.24.1)
     msgpack (1.7.2)
-    mutex_m (0.2.0)
     net-imap (0.4.14)
       date
       net-protocol
@@ -221,6 +215,11 @@ GEM
     parser (3.3.4.0)
       ast (~> 2.4.1)
       racc
+    propshaft (0.9.0)
+      actionpack (>= 7.0.0)
+      activesupport (>= 7.0.0)
+      rack
+      railties (>= 7.0.0)
     psych (5.1.2)
       stringio
     public_suffix (6.0.1)
@@ -293,13 +292,6 @@ GEM
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
     smart_properties (1.17.0)
-    sprockets (4.2.1)
-      concurrent-ruby (~> 1.0)
-      rack (>= 2.2.4, < 4)
-    sprockets-rails (3.5.1)
-      actionpack (>= 6.1)
-      activesupport (>= 6.1)
-      sprockets (>= 3.0.0)
     sqlite3 (2.0.2-aarch64-linux-gnu)
     sqlite3 (2.0.2-arm-linux-gnu)
     sqlite3 (2.0.2-arm64-darwin)
@@ -345,6 +337,7 @@ GEM
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.5.0)
+    useragent (0.16.10)
     web-console (4.2.1)
       actionview (>= 6.0.0)
       activemodel (>= 6.0.0)
@@ -362,12 +355,13 @@ GEM
 PLATFORMS
   aarch64-linux
   arm-linux
-  arm64-darwin
+  arm64-darwin-23
   x86-linux
-  x86_64-darwin
+  x86_64-darwin-21
   x86_64-linux
 
 DEPENDENCIES
+  bcrypt (~> 3.1.7)
   bootsnap
   brakeman
   bundler-audit
@@ -378,6 +372,7 @@ DEPENDENCIES
   i18n-tasks
   importmap-rails
   jbuilder
+  propshaft
   puma (>= 5.0)
   rails!
   redis (>= 4.0.1)
@@ -387,7 +382,6 @@ DEPENDENCIES
   rubocop-performance
   rubocop-rails
   selenium-webdriver
-  sprockets-rails
   sqlite3 (~> 2.0)
   standard
   stimulus-rails
@@ -397,7 +391,7 @@ DEPENDENCIES
   web-console
 
 RUBY VERSION
-   ruby 3.3.0p0
+   ruby 3.3.1p55
 
 BUNDLED WITH
-   2.5.6
+   2.5.15
