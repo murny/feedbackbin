@@ -4,19 +4,24 @@ source "https://rubygems.org"
 
 ruby "3.3.1"
 
-# Use specific branch of Rails
+# Rails
 gem "rails", github: "rails/rails"
 
 # Use sqlite3 as the database for Active Record
 gem "sqlite3", "~> 2.0"
 
-# Use the Puma web server [https://github.com/puma/puma]
-gem "puma", ">= 5.0"
+# Deployment
+gem "puma", "~> 6.4"
 
+# Assets
 gem "propshaft"
 gem "importmap-rails"
+
+# Hotwire
 gem "turbo-rails"
 gem "stimulus-rails"
+
+
 gem "tailwindcss-rails"
 
 # Build JSON APIs with ease [https://github.com/rails/jbuilder]
@@ -37,8 +42,8 @@ gem "tzinfo-data", platforms: %i[windows jruby]
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
 
-# Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
-# gem "image_processing", "~> 1.2"
+# Media handling
+gem "image_processing", ">= 1.2"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
