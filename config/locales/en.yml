@@ -1,5 +1,5 @@
 ---
 en:
-  welcome:
-    show:
+  feedbacks:
+    index:
       title: Hello world! Welcome to FeedbackBin!
