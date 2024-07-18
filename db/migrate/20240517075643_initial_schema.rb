@@ -16,7 +16,7 @@ class InitialSchema < ActiveRecord::Migration[8.0]
       t.bigint "record_id", null: false
       t.datetime "created_at", null: false
       t.datetime "updated_at", null: false
-      t.index [ "record_type", "record_id", "name" ], name: "index_action_text_rich_texts_uniqueness", unique: true
+      t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
     end
 
     create_table "active_storage_attachments", force: :cascade do |t|

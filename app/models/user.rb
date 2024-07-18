@@ -1,5 +1,9 @@
+# frozen_string_literal: true
+
 class User < ApplicationRecord
-  include Mentionable, Role, Transferable
+  include Transferable
+  include Role
+  include Mentionable
 
   has_many :sessions, dependent: :destroy
 
@@ -15,7 +19,7 @@ class User < ApplicationRecord
   end
 
   def title
-    [ name, bio ].compact_blank.join(" – ")
+    [name, bio].compact_blank.join(" – ")
   end
 
   def deactivate
@@ -33,11 +37,12 @@ class User < ApplicationRecord
   end
 
   private
-    def deactived_email_address
-      email_address.gsub(/@/, "-deactivated-#{SecureRandom.uuid}@")
-    end
 
-    def close_remote_connections
-      ActionCable.server.remote_connections.where(current_user: self).disconnect reconnect: false
-    end
+  def deactived_email_address
+    email_address.gsub(/@/, "-deactivated-#{SecureRandom.uuid}@")
+  end
+
+  def close_remote_connections
+    ActionCable.server.remote_connections.where(current_user: self).disconnect reconnect: false
+  end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Account::Joinable
   extend ActiveSupport::Concern
 
@@ -10,7 +12,8 @@ module Account::Joinable
   end
 
   private
-    def generate_join_code
-      SecureRandom.alphanumeric(12).scan(/.{4}/).join("-")
-    end
+
+  def generate_join_code
+    SecureRandom.alphanumeric(12).scan(/.{4}/).join("-")
+  end
 end

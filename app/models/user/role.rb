@@ -1,8 +1,10 @@
+# frozen_string_literal: true
+
 module User::Role
   extend ActiveSupport::Concern
 
   included do
-    enum :role, %i[ member administrator ], default: :member
+    enum :role, %i[member administrator], default: :member
   end
 
   def can_administer?

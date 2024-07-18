@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module SystemTestHelper
   include ActionView::Helpers::JavaScriptHelper
 
@@ -8,6 +10,7 @@ module SystemTestHelper
     fill_in "password", with: password
 
     click_on "log_in"
+
     assert_selector "h2", text: "Handbook"
   end
 
