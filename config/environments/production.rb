@@ -50,7 +50,7 @@ Rails.application.configure do
 
   # Always be SSL'ing (unless told not to)
   config.assume_ssl = ENV["DISABLE_SSL"].blank?
-  config.force_ssl  = ENV["DISABLE_SSL"].blank?
+  config.force_ssl = ENV["DISABLE_SSL"].blank?
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = true
