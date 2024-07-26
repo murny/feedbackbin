@@ -8,11 +8,15 @@ ruby "3.3.1"
 gem "rails", github: "rails/rails"
 
 # Datastores
-gem "sqlite3", "~> 2.0"
+gem "sqlite3", "~> 1.4"
 gem "redis", ">= 4.0.1"
+
+# Jobs
+gem "solid_queue"
 
 # Deployment
 gem "puma", "~> 6.4"
+gem "thruster"
 
 # Frontend
 gem "propshaft"

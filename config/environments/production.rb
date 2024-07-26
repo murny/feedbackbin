@@ -22,8 +22,10 @@ Rails.application.configure do
   # key such as config/credentials/production.key. This key is used to decrypt credentials (and other encrypted files).
   # config.require_master_key = true
 
-  # Disable serving static files from `public/`, relying on NGINX/Apache to do so instead.
-  # config.public_file_server.enabled = false
+  # Assets are cacheable
+  config.public_file_server.headers = {
+    "Cache-Control" => "public, max-age=#{1.year.to_i}"
+  }
 
   # Compress CSS using a preprocessor.
   # config.assets.css_compressor = :sass
@@ -46,9 +48,9 @@ Rails.application.configure do
   # config.action_cable.url = "wss://example.com/cable"
   # config.action_cable.allowed_request_origins = [ "http://example.com", /http:\/\/example.*/ ]
 
-  # Assume all access to the app is happening through a SSL-terminating reverse proxy.
-  # Can be used together with config.force_ssl for Strict-Transport-Security and secure cookies.
-  # config.assume_ssl = true
+  # Always be SSL'ing (unless told not to)
+  config.assume_ssl = ENV["DISABLE_SSL"].blank?
+  config.force_ssl  = ENV["DISABLE_SSL"].blank?
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
   config.force_ssl = true
@@ -67,11 +69,11 @@ Rails.application.configure do
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
 
   # Use a different cache store in production.
-  # config.cache_store = :mem_cache_store
+  config.cache_store = :redis_cache_store
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
-  # config.active_job.queue_adapter = :resque
-  # config.active_job.queue_name_prefix = "feedback_bin_production"
+  config.active_job.queue_adapter = :solid_queue
+  config.active_job.queue_name_prefix = "feedback_bin_production"
 
   config.action_mailer.perform_caching = false
 
@@ -96,4 +98,7 @@ Rails.application.configure do
   # ]
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
+
+  # SQLite is good, actually
+  config.active_record.sqlite3_production_warning = false
 end
