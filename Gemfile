@@ -2,13 +2,11 @@
 
 source "https://rubygems.org"
 
-ruby "3.3.1"
-
 # Rails
-gem "rails", github: "rails/rails"
+gem "rails", github: "rails/rails", branch: "main"
 
 # Datastores
-gem "sqlite3", "~> 2.0"
+gem "sqlite3", ">= 1.4"
 gem "redis", ">= 4.0.1"
 
 # Jobs
@@ -17,6 +15,7 @@ gem "solid_queue"
 # Deployment
 gem "puma", "~> 6.4"
 gem "thruster"
+gem "kamal", require: false
 
 # Frontend
 gem "propshaft"
@@ -25,7 +24,9 @@ gem "turbo-rails"
 gem "stimulus-rails"
 gem "tailwindcss-rails"
 
+# API
 gem "jbuilder"
+
 
 gem "bcrypt", "~> 3.1.7"
 
@@ -37,7 +38,7 @@ gem "image_processing", ">= 1.2"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
-  gem "debug", platforms: %i[mri windows]
+  gem "debug", platforms: %i[mri windows], require: "debug/prelude"
 
   gem "i18n-tasks", require: false
 

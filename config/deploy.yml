@@ -1,6 +1,8 @@
 service: feedbackbin
+
 image: murny/feedbackbin
 
+# Deploy to these servers.
 servers:
   web:
     hosts:
@@ -13,17 +15,30 @@ servers:
       traefik.http.routers.feedbackbin_secure.tls.certresolver: letsencrypt
     options:
       network: "private"
+
+# Credentials for your image host.
 registry:
-  username:
-    - KAMAL_REGISTRY_USERNAME
+  username: murny
   password:
     - KAMAL_REGISTRY_PASSWORD
 
+# Inject ENV variables into containers (secrets come from .env).
+# Remember to run `kamal env push` after making changes!
 env:
   clear:
     HOSTNAME: feedbackbin.com
   secret:
     - RAILS_MASTER_KEY
+
+# Use a persistent storage volume for sqlite database files and local Active Storage files.
+# Recommended to change this to a mounted volume path that is backed up off server.
+volumes:
+  - "example_app_storage:/rails/storage"
+
+# Bridge fingerprinted assets, like JS and CSS, between versions to avoid
+# hitting 404 on in-flight requests. Combines all files from new and old
+# version inside the asset_path.
+asset_path: /rails/public/assets
 
 traefik:
   options:
@@ -42,3 +57,46 @@ traefik:
     certificatesResolvers.letsencrypt.acme.storage: "/letsencrypt/acme.json"
     certificatesResolvers.letsencrypt.acme.httpchallenge: true
     certificatesResolvers.letsencrypt.acme.httpchallenge.entrypoint: web
+
+# Use a different ssh user than root
+# ssh:
+#   user: app
+
+# Configure builder setup (defaults to multi-arch images).
+# builder:
+#   # Build same-arch image locally (use for x86->x86)
+#   multiarch: false
+#
+#   # Build diff-arch image via remote server
+#   remote:
+#     arch: amd64
+#     host: ssh://app@192.168.0.1
+#
+#   args:
+#     RUBY_VERSION: ruby-3.2.2
+#   secrets:
+#     - GITHUB_TOKEN
+#     - RAILS_MASTER_KEY
+
+# Use accessory services (secrets come from .env).
+# accessories:
+#   db:
+#     image: mysql:8.0
+#     host: 192.168.0.2
+#     port: 3306
+#     env:
+#       clear:
+#         MYSQL_ROOT_HOST: '%'
+#       secret:
+#         - MYSQL_ROOT_PASSWORD
+#     files:
+#       - config/mysql/production.cnf:/etc/mysql/my.cnf
+#       - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
+#     directories:
+#       - data:/var/lib/mysql
+#   redis:
+#     image: redis:7.0
+#     host: 192.168.0.2
+#     port: 6379
+#     directories:
+#       - data:/data
