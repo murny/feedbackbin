@@ -64,6 +64,7 @@ jobs:
 
   test:
     runs-on: ubuntu-latest
+    services:
       redis:
         image: redis
         ports:
