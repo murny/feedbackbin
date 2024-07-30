@@ -144,8 +144,5 @@ jobs:
       - uses: webfactory/ssh-agent@v0.9.0
         with:
           ssh-private-key: ${{secrets.SSH_PRIVATE_KEY}}
-
-      # TODO: Uncomment this when we have a new server up and running
-      # - run: gem install kamal
-      # - run: kamal lock release
-      # - run: kamal deploy --skip-push
+      - run: bin/kamal lock release
+      - run: bin/kamal deploy --skip-push

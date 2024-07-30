@@ -6,7 +6,7 @@ image: murny/feedbackbin
 servers:
   web:
     hosts:
-      - 147.182.240.229
+      - 137.184.81.72
     labels:
       traefik.http.routers.feedbackbin.rule: Host(`feedbackbin.com`)
       traefik.http.routers.feedbackbin_secure.entrypoints: websecure
@@ -33,7 +33,7 @@ env:
 # Use a persistent storage volume for sqlite database files and local Active Storage files.
 # Recommended to change this to a mounted volume path that is backed up off server.
 volumes:
-  - "example_app_storage:/rails/storage"
+  - "feedbackbin_storage:/rails/storage"
 
 # Bridge fingerprinted assets, like JS and CSS, between versions to avoid
 # hitting 404 on in-flight requests. Combines all files from new and old
