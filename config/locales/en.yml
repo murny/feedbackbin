@@ -1,5 +1,9 @@
 ---
 en:
-  feedbacks:
-    index:
-      title: Hello world! Welcome to FeedbackBin!
+  posts:
+    create:
+      successfully_created: Post was successfully created.
+    destroy:
+      successfully_destroyed: Post was successfully destroyed.
+    update:
+      successfully_updated: Post was successfully updated.
