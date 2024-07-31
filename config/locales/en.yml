@@ -7,3 +7,7 @@ en:
       successfully_destroyed: Post was successfully destroyed.
     update:
       successfully_updated: Post was successfully updated.
+  sessions:
+    create:
+      invalid_credentials: "Try another email address or password."
+      rate_limited: "Please try again later."

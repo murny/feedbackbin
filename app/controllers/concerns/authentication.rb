@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Authentication
   extend ActiveSupport::Concern
 
@@ -23,13 +25,13 @@ module Authentication
   end
 
   def resume_session
-    if session = find_session_by_cookie
+    if (session = find_session_by_cookie)
       set_current_session session
     end
   end
 
   def find_session_by_cookie
-    if token = cookies.signed[:session_token]
+    if (token = cookies.signed[:session_token])
       Session.find_by(token: token)
     end
   end
