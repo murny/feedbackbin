@@ -11,13 +11,6 @@ module SystemTestHelper
 
     click_on "log_in"
 
-    assert_selector "h2", text: "Handbook"
-  end
-
-  def fill_house_editor(name, content)
-    execute_script <<~JS
-      const editor = document.querySelector("[name='#{name}']")
-      editor.value = "#{escape_javascript(content)}"
-    JS
+    assert_selector "h1", text: "Posts"
   end
 end

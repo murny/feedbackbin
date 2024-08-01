@@ -14,6 +14,8 @@ class PostsTest < ApplicationSystemTestCase
   end
 
   test "should create post" do
+    sign_in(users(:shane).email_address)
+
     visit posts_url
     click_on "New post"
 
@@ -26,6 +28,8 @@ class PostsTest < ApplicationSystemTestCase
   end
 
   test "should update Post" do
+    sign_in(users(:shane).email_address)
+
     visit post_url(@post)
     click_on "Edit this post", match: :first
 
@@ -38,6 +42,8 @@ class PostsTest < ApplicationSystemTestCase
   end
 
   test "should destroy Post" do
+    sign_in(users(:shane).email_address)
+
     visit post_url(@post)
     click_on "Destroy this post", match: :first
 
