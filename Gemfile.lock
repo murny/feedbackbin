@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/rails/rails.git
-  revision: 52189d25d6ebca22e9e530cf31e49842e85ff7dd
+  revision: d7fcb97b44227afc91ed8017cd6e56d451926c26
   branch: main
   specs:
     actioncable (8.0.0.alpha)
@@ -71,6 +71,7 @@ GIT
       i18n (>= 1.6, < 2)
       logger (>= 1.4.2)
       minitest (>= 5.1)
+      securerandom (>= 0.3)
       tzinfo (~> 2.0, >= 2.0.5)
     rails (8.0.0.alpha)
       actioncable (= 8.0.0.alpha)
@@ -142,12 +143,12 @@ GEM
     dotenv (2.8.1)
     drb (2.2.1)
     ed25519 (1.3.0)
-    erb_lint (0.5.0)
+    erb_lint (0.6.0)
       activesupport
       better_html (>= 2.0.1)
       parser (>= 2.7.1.4)
       rainbow
-      rubocop
+      rubocop (>= 1)
       smart_properties
     erblint-github (1.0.1)
     erubi (1.13.0)
@@ -293,7 +294,7 @@ GEM
     regexp_parser (2.9.2)
     reline (0.5.9)
       io-console (~> 0.5)
-    rexml (3.3.2)
+    rexml (3.3.4)
       strscan
     rubocop (1.64.1)
       json (~> 2.3)
@@ -326,6 +327,7 @@ GEM
       ffi (~> 1.12)
       logger
     rubyzip (2.3.2)
+    securerandom (0.3.1)
     selenium-webdriver (4.23.0)
       base64 (~> 0.2)
       logger (~> 1.4)
