@@ -1,5 +1,23 @@
 ---
 en:
+  passwords:
+    create:
+      password_reset_instructions_sent: Password reset instructions sent (if user with that email address exists).
+    edit:
+      confirm_new_password_placeholder: Repeat new password
+      new_password_placeholder: Enter new password
+      update_your_password: Update your password
+    new:
+      email_address_placeholder: Enter your email address
+      email_reset_instructions: Email reset instructions
+      forgot_your_password: Forgot your password?
+    password_reset_link_is_invalid: Password reset link is invalid or has expired.
+    update:
+      password_has_been_reset: Password has been reset.
+      passwords_did_not_match: Passwords did not match.
+  passwords_mailer:
+    reset:
+      reset_your_password: Reset your password
   posts:
     create:
       successfully_created: Post was successfully created.

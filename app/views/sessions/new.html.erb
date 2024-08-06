@@ -1,23 +1,28 @@
 <% content_for(:title) { t(".sign_in") } %>
 <% turbo_page_requires_reload %>
 
-<div class="mb-4 text-center">
-    <h1 class="mb-px"><%= t(".sign_in") %></h1>
-    <%#= t(".sign_up_html", link: link_to("sign up for an account", new_registration_path, class: "font-semibold")) %>
+<div class="mx-auto md:w-2/3 w-full">
+  <h1 class="font-bold text-4xl"><%= t(".sign_in") %></h1>
+
+  <%= form_with url: session_path, class: "contents" do |form| %>
+    <div class="my-5">
+      <%= form.label :email_address %>
+      <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: t(".email_address_placeholder"), value: params[:email_address], class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="my-5">
+      <%= form.label :password %>
+      <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: t(".password_placeholder"), maxlength: 72, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
+    </div>
+
+    <div class="col-span-6 sm:flex sm:items-center sm:gap-4">
+      <div class="inline">
+        <%= form.submit t(".sign_in"), class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
+      </div>
+
+      <div class="mt-4 text-sm text-gray-500 sm:mt-0">
+        <%= link_to "Forgot password?", new_password_path, class: "text-gray-700 underline" %>
+      </div>
+    </div>
+  <% end %>
 </div>
-
-<%= form_with(url: session_path, class: "contents") do |form| %>
-  <div class="form-group">
-    <%= form.label :email_address %>
-    <%= form.email_field :email_address, required: true, class: "form-control", autofocus: true, autocomplete: "username", placeholder: t(".email_address_placeholder"), value: params[:email_address] %>
-  </div>
-
-  <div class="form-group">
-    <%= form.label :password %>
-    <%= form.password_field :password, required: true, class: "form-control", autocomplete: "current-password", placeholder: t(".password_placeholder"), maxlength: 72 %>
-  </div>
-
-  <div class="form-group">
-    <%= form.submit t(".sign_in"), id: "log_in", class: "btn btn-primary btn-expanded" %>
-  </div>
-<% end %>

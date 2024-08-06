@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  resources :passwords, param: :token, only: %i[new create edit update]
   resource :session, only: %i[new create destroy]
   resources :posts
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

@@ -21,10 +21,17 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <main class="container mx-auto mt-28 px-5 flex">
-      <%= render "shared/flash" %>
-      <%= yield %>
-    </main>
+
+  <body class="h-full font-sans antialiased font-normal leading-normal bg-gray-50">
+    <div class="main flex flex-col">
+      <header>
+        <%= render "shared/navbar" %>
+        <%= render "shared/flash" %>
+      </header>
+      <main class="px-3 lg:px-0 h-full">
+        <%= yield %>
+      </main>
+    </div>
+    <%#= render partial: "footer" %>
   </body>
 </html>

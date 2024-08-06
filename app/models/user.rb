@@ -8,7 +8,7 @@ class User < ApplicationRecord
   has_many :sessions, dependent: :destroy
 
   has_one_attached :avatar
-  has_secure_password validations: false
+  has_secure_password
 
   scope :active, -> { where(active: true) }
   scope :filtered_by, ->(query) { where("name like ?", "%#{query}%") }
