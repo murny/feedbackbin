@@ -9,7 +9,7 @@ module SystemTestHelper
     fill_in "email_address", with: email_address
     fill_in "password", with: password
 
-    click_on "log_in"
+    click_on "Sign in"
 
     assert_selector "h1", text: "Posts"
   end

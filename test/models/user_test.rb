@@ -3,9 +3,13 @@
 require "test_helper"
 
 class UserTest < ActiveSupport::TestCase
-  test "user does not prevent very long passwords" do
-    users(:shane).update(password: "secret" * 50)
+  def setup
+    @user = users(:shane)
+  end
+  test "invalid if using very long password" do
+    @user.update(password: "secret" * 15)
 
-    assert_predicate users(:shane), :valid?
+    assert_not @user.valid?
+    assert_equal "is too long", @user.errors[:password].first
   end
 end
