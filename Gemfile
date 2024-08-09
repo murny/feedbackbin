@@ -19,10 +19,11 @@ gem "kamal", require: false
 
 # Frontend
 gem "propshaft"
-gem "importmap-rails"
 gem "turbo-rails"
 gem "stimulus-rails"
 gem "tailwindcss-rails"
+gem "jsbundling-rails"
+gem "cssbundling-rails"
 
 # API
 gem "jbuilder"
