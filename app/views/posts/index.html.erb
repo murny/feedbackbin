@@ -1,17 +1,33 @@
-<div class="w-full">
-  <% content_for :title, "Posts" %>
+<%= content_for :title, t("posts.index.title") %>
+<%= turbo_stream_from :posts %>
 
-  <div class="flex justify-between items-center">
-    <h1 class="font-bold text-4xl">Posts</h1>
-    <%= link_to "New post", new_post_path, class: "rounded-lg py-3 px-5 bg-blue-600 text-white block font-medium" %>
+<div class="container px-4 mx-auto my-8">
+  <div class="flex items-center justify-between mb-4">
+    <div>
+      <h1 class="h3">Posts</h1>
+
+      <div class="text-sm font-medium">
+        <span class="text-gray-500 dark:text-gray-300/75">Sort by:</span>
+        <%= sortable @posts, :title, "Title", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+        <%= sortable @posts, :description, "Description", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+      </div>
+    </div>
+
+    <%= link_to t("posts.new.title"), new_post_path, class: "btn btn-secondary" %>
   </div>
 
-  <div id="posts" class="min-w-full">
-    <% @posts.each do |post| %>
-      <%= render post %>
-      <p>
-        <%= link_to "Show this post", post, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
-      </p>
-    <% end %>
-  </div>
+  <%= tag.div id: ("posts" if first_page?(@pagy.page)), class: "bg-white dark:bg-gray-900 dark:border dark:border-gray-700 rounded-md shadow p-6 space-y-8" do %>
+    <%= render partial: "posts/post", collection: @posts, as: :post, cached: true %>
+
+    <div class="hidden only:block text-center">
+      <p class="mb-4 h3">Create your first Post</p>
+      <%= link_to t("posts.new.title"), new_post_path, class: "btn btn-primary" %>
+    </div>
+  <% end %>
+
+  <% if @pagy.pages > 1 %>
+    <div class="my-6 text-center">
+      <%== pagy_nav(@pagy) %>
+    </div>
+  <% end %>
 </div>

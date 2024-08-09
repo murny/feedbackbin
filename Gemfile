@@ -27,6 +27,8 @@ gem "tailwindcss-rails"
 # API
 gem "jbuilder"
 
+gem "pagy", "~> 9.0"
+
 gem "bcrypt", "~> 3.1.7"
 
 gem "tzinfo-data", platforms: %i[windows jruby]

@@ -249,6 +249,7 @@ GEM
       racc (~> 1.4)
     nokogiri (1.16.7-x86_64-linux)
       racc (~> 1.4)
+    pagy (9.0.5)
     parallel (1.25.1)
     parser (3.3.4.0)
       ast (~> 2.4.1)
@@ -433,6 +434,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kamal
+  pagy (~> 9.0)
   propshaft
   puma (~> 6.4)
   rails!

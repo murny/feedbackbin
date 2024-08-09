@@ -1,7 +1,15 @@
-<div class="mx-auto md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl">New post</h1>
+<%= content_for :title, t("posts.new.title") %>
 
-  <%= render "form", post: @post %>
+<div class="container px-4 mx-auto my-8">
+  <div class="flex items-center justify-between mb-4">
+    <h1 class="h3">
+      <%= link_to t("posts.index.title"), posts_path, class: "text-black dark:text-white" %>
+      <span class="text-gray-400 font-light mx-2">\</span>
+      <%= t("posts.new.title") %>
+    </h1>
+  </div>
 
-  <%= link_to "Back to posts", posts_path, class: "ml-2 rounded-lg py-3 px-5 bg-gray-100 inline-block font-medium" %>
+  <div class="p-8 bg-white dark:bg-gray-900 dark:border dark:border-gray-700 rounded shadow">
+    <%= render "form", post: @post %>
+  </div>
 </div>

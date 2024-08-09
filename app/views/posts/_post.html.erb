@@ -1,12 +1,14 @@
 <div id="<%= dom_id post %>">
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Title:</strong>
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Title</p>
     <%= post.title %>
-  </p>
-
-  <p class="my-5">
-    <strong class="block font-medium mb-1">Description:</strong>
+  </div>
+  <div class="mb-4">
+    <p class="text-sm font-medium text-gray-500">Description</p>
     <%= post.description %>
-  </p>
+  </div>
 
+  <% if action_name != "show" %>
+    <%= link_to "View this post", post, class: "btn btn-secondary" %>
+  <% end %>
 </div>

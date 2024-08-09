@@ -4,6 +4,15 @@ en:
     navbar:
       log_in: Log in
       sign_out: Sign out
+  are_you_sure: Are you sure?
+  cancel: Cancel
+  delete: Delete
+  edit: Edit
+  errors:
+    messages:
+      not_saved:
+        one: '1 error prohibited this %{resource} from being saved:'
+        other: "%{count} errors prohibited this %{resource} from being saved:"
   passwords:
     create:
       password_reset_instructions_sent: Password reset instructions sent (if user with that email address exists).
@@ -27,6 +36,12 @@ en:
       successfully_created: Post was successfully created.
     destroy:
       successfully_destroyed: Post was successfully destroyed.
+    edit:
+      title: Edit Post
+    index:
+      title: Posts
+    new:
+      title: New Post
     update:
       successfully_updated: Post was successfully updated.
   sessions:
