@@ -21,7 +21,6 @@ gem "kamal", require: false
 gem "propshaft"
 gem "turbo-rails"
 gem "stimulus-rails"
-gem "tailwindcss-rails"
 gem "jsbundling-rails"
 gem "cssbundling-rails"
 
