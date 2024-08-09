@@ -17,35 +17,37 @@ class PostsTest < ApplicationSystemTestCase
     sign_in(users(:shane).email_address)
 
     visit posts_url
-    click_on "New post"
+    click_on "New Post"
 
     fill_in "Description", with: @post.description
     fill_in "Title", with: @post.title
     click_on "Create Post"
 
     assert_text "Post was successfully created"
-    click_on "Back"
   end
 
   test "should update Post" do
     sign_in(users(:shane).email_address)
 
     visit post_url(@post)
-    click_on "Edit this post", match: :first
+    click_on "Edit", match: :first
 
     fill_in "Description", with: @post.description
     fill_in "Title", with: @post.title
     click_on "Update Post"
 
     assert_text "Post was successfully updated"
-    click_on "Back"
   end
 
   test "should destroy Post" do
     sign_in(users(:shane).email_address)
 
     visit post_url(@post)
-    click_on "Destroy this post", match: :first
+    click_on "Edit", match: :first
+
+    accept_confirm do
+      click_on "Delete", match: :first
+    end
 
     assert_text "Post was successfully destroyed"
   end
