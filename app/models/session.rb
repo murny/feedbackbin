@@ -3,8 +3,6 @@
 class Session < ApplicationRecord
   ACTIVITY_REFRESH_RATE = 1.hour
 
-  has_secure_token
-
   belongs_to :user
 
   before_create { self.last_active_at ||= Time.zone.now }

@@ -1,8 +1,14 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  # authentification
+  get "sign_in", to: "sessions#new"
+  get "sign_up", to: "registrations#new"
+
   resources :passwords, param: :token, only: %i[new create edit update]
-  resource :session, only: %i[new create destroy]
+  resource :session, only: %i[create destroy]
+  resources :registrations, only: %i[create]
+
   resources :posts
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 

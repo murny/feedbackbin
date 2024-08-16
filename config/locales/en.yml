@@ -44,6 +44,20 @@ en:
       title: New Post
     update:
       successfully_updated: Post was successfully updated.
+  registrations:
+    create:
+      signed_up_successfully: Welcome! You have signed up successfully.
+    new:
+      already_have_an_account: Already have an account?
+      email_address_placeholder: Enter your email address
+      login: Log in
+      password_hint: "(at least 8 characters)"
+      password_placeholder: Enter your password
+      sign_up: Sign up
+      title: Sign up
+  registrations_mailer:
+    email_verification:
+      verify_your_email: Verify your email
   sessions:
     create:
       invalid_credentials: Try another email address or password.

@@ -1,0 +1,15 @@
+<h1 class="text-center mb-6"><%= t(".title") %></h1>
+
+<%= form_with(url: sign_up_path, class: "flex flex-col gap-4 w-full max-w-sm") do |form| %>
+  <%= render "error_messages", resource: @user %>
+
+  <%= form.text_field :name, autocomplete: "name", placeholder: "Name", autofocus: true, required: true %>
+  <%= form.email_field :email_address, label: false, placeholder: t(".email_address_placeholder"), required: true, autocomplete: "email" %>
+  <%= form.password_field :password, label: false, placeholder: t(".password_placeholder"), hint: t(".password_hint"), required: true, autocomplete: "current-password" %>
+  <%= form.submit t(".sign_up"), id: :sign_up, class: "mt-4" %>
+<% end %>
+
+<div class="mt-4">
+  <%= t(".already_have_an_account") %>
+  <%= link_to t(".login"), sign_in_path, class: "link link-primary" %>
+</div>

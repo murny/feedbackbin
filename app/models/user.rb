@@ -10,6 +10,9 @@ class User < ApplicationRecord
   has_one_attached :avatar
   has_secure_password
 
+  validates :name, presence: true
+  validates :email_address, presence: true, uniqueness: true, format: {with: URI::MailTo::EMAIL_REGEXP}
+
   scope :active, -> { where(active: true) }
   scope :filtered_by, ->(query) { where("name like ?", "%#{query}%") }
   scope :ordered, -> { order(:name) }

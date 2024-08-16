@@ -65,13 +65,11 @@ ActiveRecord::Schema[8.0].define(version: 2024_07_30_220819) do
 
   create_table "sessions", force: :cascade do |t|
     t.integer "user_id", null: false
-    t.string "token", null: false
     t.string "ip_address"
     t.string "user_agent"
     t.datetime "last_active_at", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["token"], name: "index_sessions_on_token", unique: true
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
