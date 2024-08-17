@@ -12,12 +12,10 @@
       <%= form.email_field :name, required: true, autofocus: true, autocomplete: "name", placeholder: t(".name_placeholder"), class: "input input-bordered w-full" %>
     </div>
 
-
     <div class="form-control w-full">
       <%= form.label :email_address, class: "label" %>
       <%= form.email_field :email_address, required: true, autocomplete: "email", placeholder: t(".email_address_placeholder"), class: "input input-bordered w-full" %>
     </div>
-
 
     <div class="form-control w-full">
       <%= form.label :password, class: "label" %>
@@ -26,7 +24,6 @@
         <span class="label-text-alt"><%= t(".password_hint") %></span>
       </div>
     </div>
-
 
     <%= form.submit t(".sign_up"), class: "btn btn-primary mt-6" %>
   <% end %>
