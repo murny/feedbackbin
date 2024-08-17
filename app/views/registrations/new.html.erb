@@ -1,15 +1,39 @@
-<h1 class="text-center mb-6"><%= t(".title") %></h1>
+<% content_for(:title) { t(".title") } %>
+<% turbo_page_requires_reload %>
 
-<%= form_with(url: sign_up_path, class: "flex flex-col gap-4 w-full max-w-sm") do |form| %>
-  <%= render "error_messages", resource: @user %>
+<div class="min-h-[calc(100vh-4rem)] w-full flex flex-col items-center justify-center">
+  <h1 class="font-bold text-4xl text-center mb-6"><%= t(".title") %></h1>
 
-  <%= form.text_field :name, autocomplete: "name", placeholder: "Name", autofocus: true, required: true %>
-  <%= form.email_field :email_address, label: false, placeholder: t(".email_address_placeholder"), required: true, autocomplete: "email" %>
-  <%= form.password_field :password, label: false, placeholder: t(".password_placeholder"), hint: t(".password_hint"), required: true, autocomplete: "current-password" %>
-  <%= form.submit t(".sign_up"), id: :sign_up, class: "mt-4" %>
-<% end %>
+  <%= form_with url: sign_up_path, class: "flex flex-col max-w-sm gap-6 w-full" do |form| %>
+    <%= render "error_messages", resource: @user %>
 
-<div class="mt-4">
-  <%= t(".already_have_an_account") %>
-  <%= link_to t(".login"), sign_in_path, class: "link link-primary" %>
+    <div class="form-control w-full">
+      <%= form.label :name, class: "label" %>
+      <%= form.email_field :name, required: true, autofocus: true, autocomplete: "name", placeholder: t(".name_placeholder"), class: "input input-bordered w-full" %>
+    </div>
+
+
+    <div class="form-control w-full">
+      <%= form.label :email_address, class: "label" %>
+      <%= form.email_field :email_address, required: true, autocomplete: "email", placeholder: t(".email_address_placeholder"), class: "input input-bordered w-full" %>
+    </div>
+
+
+    <div class="form-control w-full">
+      <%= form.label :password, class: "label" %>
+      <%= form.email_field :password, required: true, autocomplete: "current-password", placeholder: t(".password_placeholder"), class: "input input-bordered w-full" %>
+      <div class="label">
+        <span class="label-text-alt"><%= t(".password_hint") %></span>
+      </div>
+    </div>
+
+
+    <%= form.submit t(".sign_up"), class: "btn btn-primary mt-6" %>
+  <% end %>
+
+  <div class="mt-4">
+    <%= t(".already_have_an_account") %>
+
+    <%= link_to t(".login"), sign_in_path, class: "link link-primary" %>
+  </div>
 </div>

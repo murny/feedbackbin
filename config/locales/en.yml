@@ -2,6 +2,7 @@
 en:
   application:
     navbar:
+      sign_up: Sign up
       log_in: Log in
       sign_out: Sign out
   are_you_sure: Are you sure?
@@ -51,6 +52,7 @@ en:
       already_have_an_account: Already have an account?
       email_address_placeholder: Enter your email address
       login: Log in
+      name_placeholder: Enter your name
       password_hint: "(at least 8 characters)"
       password_placeholder: Enter your password
       sign_up: Sign up

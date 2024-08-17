@@ -1,18 +1,38 @@
-<nav class="flex flex-wrap items-center justify-between px-4 py-2 bg-white text-sm font-medium" data-controller="toggle">
-    <div class="flex items-center flex-shrink-0 mr-6">
-    <%= link_to root_path, class: "flex items-center text-gray-700 hover:text-gray-800" do %>
-      <%#= render_svg "logo", styles: "fill-current" %>
-      <span><%= "FeedbackBin" %></span>
+<div class="navbar shadow px-4 bg-base-100">
+  <div class="flex-1">
+    <%= link_to "FeedbackBin", root_path, class: "btn btn-ghost text-xl" %>
+  </div>
+  <div class="flex-none gap-2">
+    <div class="form-control">
+      <input type="text" placeholder="Search" class="input input-bordered w-24 md:w-auto" />
+    </div>
+    <% if authenticated? %>
+      <div class="dropdown dropdown-end">
+        <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+          <div class="w-10 rounded-full">
+            <img
+              alt="Tailwind CSS Navbar component"
+              src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+          </div>
+        </div>
+        <ul
+          tabindex="0"
+          class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
+          <li>
+            <a class="justify-between">
+              Profile
+              <span class="badge">New</span>
+            </a>
+          </li>
+          <li><a>Settings</a></li>
+          <li><%= button_to t(".sign_out"), session_path, method: :delete %></li>
+        </ul>
+      </div>
+    <% else %>
+      <div class="flex gap-4 items-center">
+        <%= link_to t(".sign_up"), sign_up_path, class: "btn btn-primary btn-outline" %>
+        <%= link_to t(".log_in"), sign_in_path, class: "btn btn-primary" %>
+      </ul>
     <% end %>
   </div>
-
-  <div>
-    <div>
-      <% if authenticated? %>
-        <%= button_to t(".sign_out"), session_path, method: :delete, class: "w-full text-left block p-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100" %>
-      <% else %>
-        <%= link_to t(".log_in"), sign_in_path, class: "nav-link" %>
-      <% end %>
-    </div>
-  </div>
-</nav>
+</div>

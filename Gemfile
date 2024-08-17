@@ -11,6 +11,7 @@ gem "redis", ">= 4.0.1"
 
 # Jobs
 gem "solid_queue"
+gem "mission_control-jobs"
 
 # Deployment
 gem "puma", "~> 6.4"
