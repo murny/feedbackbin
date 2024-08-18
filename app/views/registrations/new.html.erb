@@ -4,12 +4,12 @@
 <div class="min-h-[calc(100vh-4rem)] w-full flex flex-col items-center justify-center">
   <h1 class="font-bold text-4xl text-center mb-6"><%= t(".title") %></h1>
 
-  <%= form_with url: sign_up_path, class: "flex flex-col max-w-sm gap-6 w-full" do |form| %>
+  <%= form_with url: registrations_path, class: "flex flex-col max-w-sm gap-6 w-full" do |form| %>
     <%= render "error_messages", resource: @user %>
 
     <div class="form-control w-full">
       <%= form.label :name, class: "label" %>
-      <%= form.email_field :name, required: true, autofocus: true, autocomplete: "name", placeholder: t(".name_placeholder"), class: "input input-bordered w-full" %>
+      <%= form.text_field :name, required: true, autofocus: true, autocomplete: "name", placeholder: t(".name_placeholder"), class: "input input-bordered w-full" %>
     </div>
 
     <div class="form-control w-full">
@@ -19,7 +19,7 @@
 
     <div class="form-control w-full">
       <%= form.label :password, class: "label" %>
-      <%= form.email_field :password, required: true, autocomplete: "current-password", placeholder: t(".password_placeholder"), class: "input input-bordered w-full" %>
+      <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: t(".password_placeholder"), class: "input input-bordered w-full" %>
       <div class="label">
         <span class="label-text-alt"><%= t(".password_hint") %></span>
       </div>

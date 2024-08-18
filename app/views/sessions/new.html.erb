@@ -11,12 +11,10 @@
     </div>
 
     <div class="form-control w-full">
-      <div class="flex justify-between items-center">
-        <%= form.label :password, class: "label" %>
-        <%= link_to "Forgot password?", new_password_path, class: "link link-primary" %>
-      </div>
+      <%= form.label :password, class: "label" %>
       <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: t(".password_placeholder"), maxlength: 72, class: "input input-bordered w-full" %>
     </div>
+    <%= link_to "Forgot password?", new_password_path, class: "text-right link link-primary" %>
 
     <%= form.submit t(".sign_in"), class: "btn btn-primary mt-6" %>
   <% end %>

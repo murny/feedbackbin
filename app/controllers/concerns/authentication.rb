@@ -17,7 +17,7 @@ module Authentication
   private
 
   def authenticated?
-    resume_session unless Current.session
+    # TODO: this needs to be improved on allow_unauthenticated_access pages?
 
     Current.session.present?
   end

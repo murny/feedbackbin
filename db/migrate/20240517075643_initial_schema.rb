@@ -67,7 +67,7 @@ class InitialSchema < ActiveRecord::Migration[8.0]
       t.datetime "created_at", null: false
       t.datetime "updated_at", null: false
       t.index ["email_address"], name: "index_users_on_email_address", unique: true
-      t.index ["name"], name: "index_users_on_name", unique: true
+      t.index ["name"], name: "index_users_on_name"
     end
 
     add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
