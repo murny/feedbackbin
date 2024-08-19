@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class RegistrationsControllerTest < ActionDispatch::IntegrationTest
+class Users::RegistrationsControllerTest < ActionDispatch::IntegrationTest
   test "should get new" do
     get sign_up_url
 
@@ -11,7 +11,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
 
   test "should sign up" do
     assert_difference("User.count") do
-      post registrations_url, params: {
+      post users_registrations_url, params: {
         name: "Jane Doe",
         email_address: "new@example.com",
         password: "password123456",
@@ -28,7 +28,7 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
   test "should not sign up with invalid data" do
     assert_no_difference("User.count") do
       assert_no_enqueued_emails do
-        post registrations_url, params: {
+        post users_registrations_url, params: {
           name: "Jane Doe",
           email_address: "bad_email",
           password: "password123456",

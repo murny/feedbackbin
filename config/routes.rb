@@ -2,12 +2,14 @@
 
 Rails.application.routes.draw do
   # authentification
-  get "sign_in", to: "sessions#new"
-  get "sign_up", to: "registrations#new"
+  get "sign_in", to: "users/sessions#new"
+  get "sign_up", to: "users/registrations#new"
 
-  resources :passwords, param: :token, only: %i[new create edit update]
-  resource :session, only: %i[create destroy]
-  resources :registrations, only: %i[create]
+  namespace :users do
+    resources :password_resets, param: :token, only: %i[new create edit update]
+    resource :session, only: %i[create destroy]
+    resources :registrations, only: %i[create]
+  end
 
   resources :posts
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html

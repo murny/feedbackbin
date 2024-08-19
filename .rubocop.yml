@@ -21,7 +21,7 @@ Rails/CreateTableWithTimestamps:
     - db/migrate/20240517075643_initial_schema.rb
 
 Rails/DynamicFindBy:
-  AllowMethods:
+  AllowedMethods:
     - find_by_password_reset_token
     - find_by_password_reset_token!
 

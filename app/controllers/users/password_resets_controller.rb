@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-class PasswordsController < ApplicationController
+class Users::PasswordResetsController < ApplicationController
   allow_unauthenticated_access
   before_action :set_user_by_token, only: %i[edit update]
-  rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to new_password_path, alert: t("passwords.create.rate_limited") }
+  rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to new_users_password_reset_path, alert: t("users.password_resets.create.rate_limited") }
 
   def new
   end
@@ -17,7 +17,7 @@ class PasswordsController < ApplicationController
       redirect_to sign_in_url, notice: t(".password_reset_instructions_sent")
 
     else
-      redirect_to new_password_path, alert: t(".verify_email_first")
+      redirect_to new_users_password_reset_path, alert: t(".verify_email_first")
     end
   end
 
@@ -25,7 +25,7 @@ class PasswordsController < ApplicationController
     if @user.update(params.permit(:password, :password_confirmation))
       redirect_to sign_in_url, notice: t(".password_has_been_reset")
     else
-      redirect_to edit_password_path(params[:token]), alert: t(".passwords_did_not_match")
+      redirect_to edit_users_password_reset_path(params[:token]), alert: t(".passwords_did_not_match")
     end
   end
 
@@ -34,6 +34,6 @@ class PasswordsController < ApplicationController
   def set_user_by_token
     @user = User.find_by_password_reset_token!(params[:token])
   rescue ActiveSupport::MessageVerifier::InvalidSignature
-    redirect_to new_password_path, alert: t("passwords.password_reset_link_is_invalid")
+    redirect_to new_users_password_reset_path, alert: t("users.password_resets.password_reset_link_is_invalid")
   end
 end

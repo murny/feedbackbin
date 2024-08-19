@@ -4,7 +4,7 @@
 <div class="min-h-[calc(100vh-4rem)] w-full flex flex-col items-center justify-center">
   <h1 class="font-bold text-4xl text-center mb-6"><%= t(".title") %></h1>
 
-  <%= form_with url: registrations_path, class: "flex flex-col max-w-sm gap-6 w-full" do |form| %>
+  <%= form_with url: users_registrations_path, class: "flex flex-col max-w-sm gap-6 w-full" do |form| %>
     <%= render "error_messages", resource: @user %>
 
     <div class="form-control w-full">

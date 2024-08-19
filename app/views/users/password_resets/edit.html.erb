@@ -1,7 +1,7 @@
 <div class="mx-auto md:w-2/3 w-full">
   <h1 class="font-bold text-4xl"><% t(".update_your_password") %></h1>
 
-  <%= form_with url: password_path(params[:token]), method: :put, class: "contents" do |form| %>
+  <%= form_with url: users_password_reset_path(params[:token]), method: :put, class: "contents" do |form| %>
     <div class="my-5">
       <%= form.label :password %>
       <%= form.password_field :password, required: true, autocomplete: "new-password", placeholder: t(".new_password_placeholder"), maxlength: 72, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>

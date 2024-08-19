@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-class SessionsController < ApplicationController
+class Users::SessionsController < ApplicationController
   allow_unauthenticated_access only: %i[new create]
-  rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to sign_in_url, alert: t("sessions.create.rate_limited") }
+  rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to sign_in_url, alert: t("users.sessions.create.rate_limited") }
 
   def new
   end

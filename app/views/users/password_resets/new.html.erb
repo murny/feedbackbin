@@ -1,7 +1,7 @@
 <div class="min-h-[calc(100vh-4rem)] w-full flex flex-col items-center justify-center">
   <h1 class="font-bold text-4xl text-center mb-6"><%= t(".forgot_your_password") %></h1>
 
-  <%= form_with url: passwords_path, class: "flex flex-col gap-4 w-full max-w-sm" do |form| %>
+  <%= form_with url: users_password_resets_path, class: "flex flex-col gap-4 w-full max-w-sm" do |form| %>
 
     <div class="form-control w-full">
       <%= form.label :email_address, class: "label" %>

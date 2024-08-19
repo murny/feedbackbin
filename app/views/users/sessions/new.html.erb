@@ -4,7 +4,7 @@
 <div class="min-h-[calc(100vh-4rem)] w-full flex flex-col items-center justify-center">
   <h1 class="font-bold text-4xl text-center mb-6"><%= t(".sign_in") %></h1>
 
-  <%= form_with url: session_path, class: "flex flex-col max-w-sm gap-6 w-full" do |form| %>
+  <%= form_with url: users_session_path, class: "flex flex-col max-w-sm gap-6 w-full" do |form| %>
     <div class="form-control w-full">
       <%= form.label :email_address, class: "label" %>
       <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "username", placeholder: t(".email_address_placeholder"), value: params[:email_address], class: "input input-bordered w-full" %>
@@ -14,7 +14,7 @@
       <%= form.label :password, class: "label" %>
       <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: t(".password_placeholder"), maxlength: 72, class: "input input-bordered w-full" %>
     </div>
-    <%= link_to "Forgot password?", new_password_path, class: "text-right link link-primary" %>
+    <%= link_to "Forgot password?", new_users_password_reset_path, class: "text-right link link-primary" %>
 
     <%= form.submit t(".sign_in"), class: "btn btn-primary mt-6" %>
   <% end %>
