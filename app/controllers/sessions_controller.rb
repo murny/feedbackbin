@@ -10,7 +10,7 @@ class SessionsController < ApplicationController
   def create
     if (user = User.authenticate_by(params.permit(:email_address, :password)))
       start_new_session_for user
-      redirect_to after_authentication_url
+      redirect_to after_authentication_url, notice: t(".signed_in_successfully")
     else
       redirect_to sign_in_url, alert: t(".invalid_credentials")
     end
@@ -18,6 +18,6 @@ class SessionsController < ApplicationController
 
   def destroy
     terminate_session
-    redirect_to sign_in_url
+    redirect_to sign_in_url, notice: t(".signed_out_successfully")
   end
 end

@@ -3,5 +3,6 @@
 shane:
   name: Shane
   email_address: shane@feedbackbin.com
+  email_verified: true
   password_digest: <%= password_digest %>
   role: administrator

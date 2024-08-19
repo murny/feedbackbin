@@ -61,6 +61,7 @@ class InitialSchema < ActiveRecord::Migration[8.0]
       t.string "name", null: false
       t.text "bio"
       t.string "email_address", null: false
+      t.boolean "email_verified", null: false, default: false
       t.string "password_digest", null: false
       t.integer "role", default: 0, null: false
       t.boolean "active", default: true, null: false

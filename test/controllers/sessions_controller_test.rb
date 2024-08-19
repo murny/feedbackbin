@@ -17,6 +17,7 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     post session_url, params: {email_address: @user.email_address, password: "secret123456"}
 
     assert_redirected_to root_url
+    assert_equal "You have signed in successfully.", flash[:notice]
   end
 
   test "should not sign in with wrong credentials" do
@@ -32,5 +33,6 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     delete session_url(@user.sessions.last)
 
     assert_redirected_to sign_in_url
+    assert_equal "You have signed out successfully.", flash[:notice]
   end
 end

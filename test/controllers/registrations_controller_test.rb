@@ -11,9 +11,32 @@ class RegistrationsControllerTest < ActionDispatch::IntegrationTest
 
   test "should sign up" do
     assert_difference("User.count") do
-      post registrations_url, params: {name: "Jane Doe", email_address: "new@example.com", password: "123456", password_confirmation: "123456"}
+      post registrations_url, params: {
+        name: "Jane Doe",
+        email_address: "new@example.com",
+        password: "password123456",
+        password_confirmation: "password123456"
+      }
     end
 
+    assert_enqueued_email_with RegistrationsMailer, :email_verification, args: [User.last]
+
     assert_redirected_to root_url
+    assert_equal "Welcome! You have signed up successfully.", flash[:notice]
+  end
+
+  test "should not sign up with invalid data" do
+    assert_no_difference("User.count") do
+      assert_no_enqueued_emails do
+        post registrations_url, params: {
+          name: "Jane Doe",
+          email_address: "bad_email",
+          password: "password123456",
+          password_confirmation: "password123456"
+        }
+      end
+    end
+
+    assert_response :unprocessable_entity
   end
 end

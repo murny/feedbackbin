@@ -13,6 +13,8 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :email_address, presence: true, uniqueness: true, format: {with: URI::MailTo::EMAIL_REGEXP}
 
+  normalizes :email_address, with: -> { _1.strip.downcase }
+
   scope :active, -> { where(active: true) }
   scope :filtered_by, ->(query) { where("name like ?", "%#{query}%") }
   scope :ordered, -> { order(:name) }

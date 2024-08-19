@@ -17,6 +17,8 @@ en:
   passwords:
     create:
       password_reset_instructions_sent: Password reset instructions sent (if user with that email address exists).
+      verify_email_first: "You can't reset your password until you verify your email"
+      rate_limited: Please try again later.
     edit:
       confirm_new_password_placeholder: Repeat new password
       new_password_placeholder: Enter new password
@@ -64,8 +66,11 @@ en:
     create:
       invalid_credentials: Try another email address or password.
       rate_limited: Please try again later.
+      signed_in_successfully: You have signed in successfully.
     new:
       email_address_placeholder: Enter your email address
       password_placeholder: Enter your password
       sign_in: Sign in
       sign_up: Sign up
+    destroy:
+      signed_out_successfully: You have signed out successfully.
