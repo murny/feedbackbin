@@ -6,6 +6,7 @@ module Authentication
   included do
     before_action :require_authentication
     helper_method :authenticated?
+    helper_method :current_user
   end
 
   class_methods do
@@ -17,9 +18,14 @@ module Authentication
   private
 
   def authenticated?
-    # TODO: this needs to be improved on allow_unauthenticated_access pages?
+    current_user.present?
+  end
 
-    Current.session.present?
+  def current_user
+    Current.user ||= begin
+      resume_session
+      Current.user
+    end
   end
 
   def require_authentication
@@ -33,8 +39,8 @@ module Authentication
   end
 
   def find_session_by_cookie
-    if (token = cookies.signed[:session_token])
-      Session.find_signed(token)
+    if (token = cookies.encrypted[:session_token])
+      Session.find_by(id: token)
     end
   end
 
@@ -55,7 +61,8 @@ module Authentication
 
   def set_current_session(session)
     Current.session = session
-    cookies.signed.permanent[:session_token] = {value: session.signed_id, httponly: true, same_site: :lax}
+    Current.user = session.user
+    cookies.encrypted.permanent[:session_token] = {value: session.id, httponly: true, same_site: :lax}
   end
 
   def terminate_session
