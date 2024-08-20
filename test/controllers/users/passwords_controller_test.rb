@@ -20,7 +20,7 @@ class Users::PasswordResetsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should send a password reset email" do
-    assert_enqueued_email_with PasswordsMailer, :reset, args: [@user] do
+    assert_enqueued_email_with UsersMailer, :password_reset, args: [@user] do
       post users_password_resets_url, params: {email_address: @user.email_address}
     end
 

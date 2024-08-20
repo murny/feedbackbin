@@ -13,7 +13,7 @@ class Users::PasswordResetsController < ApplicationController
 
   def create
     if (user = User.find_by(email_address: params[:email_address], email_verified: true))
-      PasswordsMailer.reset(user).deliver_later
+      UsersMailer.password_reset(user).deliver_later
       redirect_to sign_in_url, notice: t(".password_reset_instructions_sent")
 
     else

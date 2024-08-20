@@ -13,7 +13,7 @@ class Users::RegistrationsController < ApplicationController
     if @user.save
       start_new_session_for(@user)
 
-      RegistrationsMailer.email_verification(@user).deliver_later
+      UsersMailer.email_verification(@user).deliver_later
 
       redirect_to root_path, notice: t(".signed_up_successfully")
     else

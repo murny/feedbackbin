@@ -14,9 +14,11 @@ en:
       not_saved:
         one: '1 error prohibited this %{resource} from being saved:'
         other: "%{count} errors prohibited this %{resource} from being saved:"
-  passwords_mailer:
-    reset:
+  users_mailer:
+    password_reset:
       reset_your_password: Reset your password
+    email_verification:
+      verify_your_email: Verify your email
   posts:
     create:
       successfully_created: Post was successfully created.
@@ -30,9 +32,6 @@ en:
       title: New Post
     update:
       successfully_updated: Post was successfully updated.
-  registrations_mailer:
-    email_verification:
-      verify_your_email: Verify your email
   users:
     password_resets:
       create:
