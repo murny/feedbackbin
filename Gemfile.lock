@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/rails/rails.git
-  revision: 36b030d3e30c94f662800c9c69cd7cf504ed3639
+  revision: ac104520ee8518441bb4f8c2c7835d0bb8fd6800
   branch: main
   specs:
     actioncable (8.0.0.alpha)
@@ -132,6 +132,8 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
+    childprocess (5.1.0)
+      logger (~> 1.5)
     concurrent-ruby (1.3.4)
     connection_pool (2.4.1)
     crass (1.0.6)
@@ -209,6 +211,16 @@ GEM
       thor (~> 1.2)
       zeitwerk (~> 2.5)
     language_server-protocol (3.17.0.3)
+    launchy (3.0.1)
+      addressable (~> 2.8)
+      childprocess (~> 5.0)
+    letter_opener (1.10.0)
+      launchy (>= 2.2, < 4)
+    letter_opener_web (3.0.0)
+      actionmailer (>= 6.1)
+      letter_opener (~> 1.9)
+      railties (>= 6.1)
+      rexml
     lint_roller (1.1.0)
     logger (1.6.0)
     loofah (2.22.0)
@@ -317,7 +329,7 @@ GEM
       rubocop-ast (>= 1.31.1, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 3.0)
-    rubocop-ast (1.32.0)
+    rubocop-ast (1.32.1)
       parser (>= 3.3.1.0)
     rubocop-capybara (2.21.0)
       rubocop (~> 1.41)
@@ -374,7 +386,7 @@ GEM
     standard-performance (1.4.0)
       lint_roller (~> 1.1)
       rubocop-performance (~> 1.21.0)
-    stimulus-rails (1.3.3)
+    stimulus-rails (1.3.4)
       railties (>= 6.0.0)
     stringio (3.1.1)
     strscan (3.1.0)
@@ -432,6 +444,7 @@ DEPENDENCIES
   jbuilder
   jsbundling-rails
   kamal
+  letter_opener_web (~> 3.0)
   mission_control-jobs
   pagy (~> 9.0)
   propshaft

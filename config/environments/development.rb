@@ -41,6 +41,9 @@ Rails.application.configure do
   # Don't care if the mailer can't send.
   config.action_mailer.raise_delivery_errors = false
 
+  # Deliver emails to Letter Opener for development
+  config.action_mailer.delivery_method = :letter_opener_web
+
   # Disable caching for Action Mailer templates even if Action Controller
   # caching is enabled.
   config.action_mailer.perform_caching = false
