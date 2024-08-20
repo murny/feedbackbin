@@ -28,6 +28,10 @@ en:
     update:
       successfully_updated: Post was successfully updated.
   users:
+    settings:
+      emails:
+        update:
+          email_changed: Your email address has been changed.
     email_verifications:
       create:
         email_verification_sent: We've sent you an email with a link to verify your email address

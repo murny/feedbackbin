@@ -18,13 +18,9 @@
         <ul
           tabindex="0"
           class="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow">
-          <li>
-            <a class="justify-between">
-              Profile
-              <span class="badge">New</span>
-            </a>
-          </li>
-          <li><a>Settings</a></li>
+          <li><a>Profile</a></li>
+          <li><%= link_to "Settings", edit_users_settings_profile_path %></li>
+          <div class="divider mt-0 mb-0"></div>
           <li><%= button_to t(".sign_out"), users_session_path, method: :delete %></li>
         </ul>
       </div>
