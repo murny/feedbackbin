@@ -12,12 +12,17 @@ class User < ApplicationRecord
 
   validates :name, presence: true
   validates :email_address, presence: true, uniqueness: true, format: {with: URI::MailTo::EMAIL_REGEXP}
+  # validates :password, allow_nil: true, length: {minimum: 10}, not_pwned: true
 
   normalizes :email_address, with: -> { _1.strip.downcase }
 
   scope :active, -> { where(active: true) }
   scope :filtered_by, ->(query) { where("name like ?", "%#{query}%") }
   scope :ordered, -> { order(:name) }
+
+  generates_token_for :email_verification, expires_in: 2.days do
+    email_address
+  end
 
   def initials
     name.scan(/\b\w/).join

@@ -3,4 +3,4 @@ Hey there,
 This is to confirm that <%= @user.email_address %> is the email you want to use on your account. If you ever lose your password, that's where we'll email a reset link.
 
 You must hit the link below to confirm that you received this email.
-<%= link_to "Yes, use this email for my account", identity_email_verification_url(sid: @signed_id) %>
+<%= link_to "Yes, use this email for my account", users_email_verification_url(token: @token) %>

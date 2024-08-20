@@ -14,11 +14,6 @@ en:
       not_saved:
         one: '1 error prohibited this %{resource} from being saved:'
         other: "%{count} errors prohibited this %{resource} from being saved:"
-  users_mailer:
-    password_reset:
-      reset_your_password: Reset your password
-    email_verification:
-      verify_your_email: Verify your email
   posts:
     create:
       successfully_created: Post was successfully created.
@@ -33,6 +28,12 @@ en:
     update:
       successfully_updated: Post was successfully updated.
   users:
+    email_verifications:
+      create:
+        email_verification_sent: We've sent you an email with a link to verify your email address
+      invalid_token: That email verification link is invalid or has expired
+      show:
+        email_verified: Thank you for verifying your email address
     password_resets:
       create:
         password_reset_instructions_sent: Password reset instructions sent (if user with that email address exists).
@@ -74,3 +75,8 @@ en:
         password_placeholder: Enter your password
         sign_in: Sign in
         sign_up: Sign up
+  users_mailer:
+    email_verification:
+      verify_your_email: Verify your email
+    password_reset:
+      reset_your_password: Reset your password

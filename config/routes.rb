@@ -6,9 +6,10 @@ Rails.application.routes.draw do
   get "sign_up", to: "users/registrations#new"
 
   namespace :users do
-    resources :password_resets, param: :token, only: %i[new create edit update]
-    resource :session, only: %i[create destroy]
-    resources :registrations, only: %i[create]
+    resources :password_resets, param: :token, only: [:new, :create, :edit, :update]
+    resource :session, only: [:create, :destroy]
+    resource :email_verification, only: [:show, :create]
+    resources :registrations, only: [:create]
   end
 
   resources :posts
