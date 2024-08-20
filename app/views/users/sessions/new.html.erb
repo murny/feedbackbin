@@ -1,5 +1,4 @@
 <% content_for(:title) { t(".sign_in") } %>
-<% turbo_page_requires_reload %>
 
 <div class="min-h-[calc(100vh-4rem)] w-full flex flex-col items-center justify-center">
   <h1 class="font-bold text-4xl text-center mb-6"><%= t(".sign_in") %></h1>
@@ -14,7 +13,7 @@
       <%= form.label :password, class: "label" %>
       <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: t(".password_placeholder"), maxlength: 72, class: "input input-bordered w-full" %>
     </div>
-    <%= link_to "Forgot password?", new_users_password_reset_path, class: "text-right link link-primary" %>
+    <%= link_to t(".forgot_your_password"), new_users_password_reset_path, class: "text-right link link-primary" %>
 
     <%= form.submit t(".sign_in"), class: "btn btn-primary mt-6" %>
   <% end %>

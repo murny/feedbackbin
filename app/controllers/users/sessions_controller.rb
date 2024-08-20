@@ -18,6 +18,6 @@ class Users::SessionsController < ApplicationController
 
   def destroy
     terminate_session
-    redirect_to sign_in_url, notice: t(".signed_out_successfully")
+    redirect_back(fallback_location: sign_in_url, notice: t(".signed_out_successfully"))
   end
 end

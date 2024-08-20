@@ -56,12 +56,12 @@ en:
         signed_up_successfully: Welcome! You have signed up successfully.
       new:
         already_have_an_account: Already have an account?
+        create_account: Create account
         email_address_placeholder: Enter your email address
         login: Log in
         name_placeholder: Enter your name
         password_hint: "(at least 8 characters)"
         password_placeholder: Enter your password
-        sign_up: Sign up
         title: Sign up
     sessions:
       create:
@@ -72,6 +72,7 @@ en:
         signed_out_successfully: You have signed out successfully.
       new:
         email_address_placeholder: Enter your email address
+        forgot_your_password: Forgot your password?
         password_placeholder: Enter your password
         sign_in: Sign in
         sign_up: Sign up

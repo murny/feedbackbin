@@ -1,5 +1,4 @@
 <% content_for(:title) { t(".title") } %>
-<% turbo_page_requires_reload %>
 
 <div class="min-h-[calc(100vh-4rem)] w-full flex flex-col items-center justify-center">
   <h1 class="font-bold text-4xl text-center mb-6"><%= t(".title") %></h1>
@@ -25,7 +24,7 @@
       </div>
     </div>
 
-    <%= form.submit t(".sign_up"), class: "btn btn-primary mt-6" %>
+    <%= form.submit t(".create_account"), class: "btn btn-primary mt-6" %>
   <% end %>
 
   <div class="mt-4">
