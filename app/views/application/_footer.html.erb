@@ -1,0 +1,10 @@
+<footer class="w-full h-auto px-2 py-4 text-sm lg:px-6">
+  <div class="flex flex-col-reverse p-4 text-sm lg:flex-row lg:justify-between lg:p-0">
+    <div class="text-gray-700 dark:text-gray-50">© <%= Date.current.year %> FeedBackBin</div>
+    <ul class="list-none flex flex-wrap items-center justify-center">
+      <li><%= link_to t(".about"), about_path, class: "text-gray-700 hover:text-gray-800 dark:text-gray-50 dark:hover:text-gray-200 no-underline block px-4 lg:my-0 my-2" %></li>
+      <li><%= link_to t(".privacy"), privacy_path, class: "text-gray-700 hover:text-gray-800 dark:text-gray-50 dark:hover:text-gray-200 no-underline block lg:my-0 my-2 px-4" %></li>
+      <li><%= link_to t(".terms"), terms_path, class: "text-gray-700 hover:text-gray-800 dark:text-gray-50 dark:hover:text-gray-200 no-underline block lg:my-0 my-2 px-4" %></li>
+    </ul>
+  </div>
+</footer>

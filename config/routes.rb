@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+
   # authentification
   get "sign_in", to: "users/sessions#new"
   get "sign_up", to: "users/registrations#new"
@@ -20,7 +22,12 @@ Rails.application.routes.draw do
   end
 
   resources :posts
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
+
+  scope controller: :static do
+    get :about
+    get :terms
+    get :privacy
+  end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.

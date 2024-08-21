@@ -8,6 +8,10 @@ en:
     users_settings_navbar:
       password: Password
       profile: Profile
+    footer:
+      about: About
+      privacy: Privacy
+      terms: Terms
   are_you_sure: Are you sure?
   cancel: Cancel
   delete: Delete
