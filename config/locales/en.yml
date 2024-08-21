@@ -5,6 +5,9 @@ en:
       log_in: Log in
       sign_out: Sign out
       sign_up: Sign up
+    users_settings_navbar:
+      password: Password
+      profile: Profile
   are_you_sure: Are you sure?
   cancel: Cancel
   delete: Delete
@@ -76,6 +79,19 @@ en:
         password_placeholder: Enter your password
         sign_in: Sign in
         sign_up: Sign up
+    settings:
+      profiles:
+        update:
+          profile_updated: Your profile has been updated.
+      emails:
+        update:
+          email_changed: Your email address has been changed.
+      passwords:
+        edit:
+          update: Update
+          update_password: Update password
+        update:
+          password_changed: Your password has been changed.
   users_mailer:
     email_verification:
       verify_your_email: Verify your email

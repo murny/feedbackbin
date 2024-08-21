@@ -1,0 +1,31 @@
+<% if Current.user.email_verified? %>
+  <h1>Change your email</h1>
+<% else %>
+  <h1>Verify your email</h1>
+  <p>We sent a verification email to the address below. Check that email and follow those instructions to confirm it's your email address.</p>
+  <p><%= button_to "Re-send verification email", users_email_verification_path %></p>
+<% end %>
+
+<%= form_with(url: users_settings_email_path, method: :patch) do |form| %>
+  <%= render "error_messages", resource: current_user %>
+
+  <div>
+    <%= form.label :email_address, "New email", style: "display: block" %>
+    <%= form.email_field :email_address, required: true, autofocus: true %>
+  </div>
+
+  <div>
+    <%= form.label :password_challenge, style: "display: block" %>
+    <%= form.password_field :password_challenge, required: true, autocomplete: "current-password" %>
+  </div>
+
+  <div>
+    <%= form.submit "Save changes" %>
+  </div>
+<% end %>
+
+<br>
+
+<div>
+  <%= link_to "Back", root_path %>
+</div>

@@ -10,6 +10,13 @@ Rails.application.routes.draw do
     resource :session, only: [:create, :destroy]
     resource :email_verification, only: [:show, :create]
     resources :registrations, only: [:create]
+
+    namespace :settings do
+      resources :sessions, only: [:index]
+      resource :profile, only: [:edit, :update]
+      resource :password, only: [:edit, :update]
+      resource :email, only: [:edit, :update]
+    end
   end
 
   resources :posts
