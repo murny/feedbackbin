@@ -1,5 +1,3 @@
-<p style="color: red"><%= alert %></p>
-
 <% if Current.user.email_verified? %>
   <h1>Change your email</h1>
 <% else %>
@@ -9,17 +7,7 @@
 <% end %>
 
 <%= form_with(url: users_settings_email_path, method: :patch) do |form| %>
-  <% if @user.errors.any? %>
-    <div style="color: red">
-      <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
-
-      <ul>
-        <% @user.errors.each do |error| %>
-          <li><%= error.full_message %></li>
-        <% end %>
-      </ul>
-    </div>
-  <% end %>
+  <%= render "error_messages", resource: current_user %>
 
   <div>
     <%= form.label :email_address, "New email", style: "display: block" %>

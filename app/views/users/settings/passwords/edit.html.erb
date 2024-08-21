@@ -1,12 +1,12 @@
 <div class="flex flex-wrap my-4 lg:px-4">
   <div class="w-full mb-4 lg:w-1/4 lg:p-4">
-    <%= render partial: "account_navbar" %>
+    <%= render partial: "users_settings_navbar" %>
   </div>
 
   <div class="w-full lg:w-3/4 lg:p-4">
     <div class="lg:p-10 p-4 bg-white rounded-lg border border-gray-200 dark:bg-gray-900 dark:border-gray-700">
       <h1 class="h3 mb-4"><%= t(".update_password") %></h1>
-      <%= form_with(model: current_user, url: users_settings_password_path, local: true, html: { method: :put }, class: "max-w-lg") do |f| %>
+      <%= form_with(model: current_user, url: users_settings_password_path, local: true, html: {method: :put}, class: "max-w-lg") do |f| %>
         <%= render "error_messages", resource: current_user %>
 
         <div class="form-group">

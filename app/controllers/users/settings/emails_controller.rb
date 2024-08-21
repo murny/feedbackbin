@@ -10,9 +10,9 @@ class Users::Settings::EmailsController < ApplicationController
     if @user.update(user_params)
       if @user.email_address_previously_changed?
         UsersMailer.email_verification(@user).deliver_later
-        redirect_to root_path, notice: t(".email_changed")
+        redirect_to edit_users_settings_email_path, notice: t(".email_changed")
       else
-        redirect_to root_path
+        redirect_to edit_users_settings_email_path
       end
     else
       render :edit, status: :unprocessable_entity
