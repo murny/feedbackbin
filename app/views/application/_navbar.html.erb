@@ -1,6 +1,6 @@
 <div class="navbar shadow px-4 bg-base-100">
   <div class="flex-1">
-    <%= link_to "FeedbackBin", root_path, class: "btn btn-ghost text-xl" %>
+    <%= link_to "FeedbackBin", root_path, class: "" %>
   </div>
   <div class="flex-none gap-2">
     <div class="form-control">
@@ -8,11 +8,9 @@
     </div>
     <% if authenticated? %>
       <div class="dropdown dropdown-end">
-        <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar" id="navbar_toggle">
+        <div tabindex="0" role="button" class="" id="navbar_toggle">
           <div class="w-10 rounded-full">
-            <img
-              alt="Tailwind CSS Navbar component"
-              src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp">
+            <%#= image_tag current_user.avatar_url, class: "rounded-full" %>
           </div>
         </div>
         <ul
@@ -26,8 +24,8 @@
       </div>
     <% else %>
       <div class="flex gap-4 items-center">
-        <%= link_to t(".sign_up"), sign_up_path, class: "btn btn-primary btn-outline" %>
-        <%= link_to t(".log_in"), sign_in_path, class: "btn btn-primary" %>
+        <%= link_to t(".sign_up"), sign_up_path, class: "" %>
+        <%= link_to t(".log_in"), sign_in_path, class: "" %>
       </ul>
     <% end %>
   </div>

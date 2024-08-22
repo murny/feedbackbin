@@ -4,5 +4,9 @@
 
 import { application } from "./application"
 
+import { Dropdown, Toggle } from "tailwindcss-stimulus-components"
+application.register('dropdown', Dropdown)
+application.register('toggle', Toggle)
+
 import HelloController from "./hello_controller"
 application.register("hello", HelloController)
