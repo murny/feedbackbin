@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="h-full">
+<html class="h-full bg-gray-100">
   <head>
     <title><%= content_for(:title) || "FeedbackBin" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -22,11 +22,9 @@
 
   <body class="h-full flex flex-col">
     <div class="flex flex-col flex-1">
-      <header>
-        <%= render "navbar" %>
-        <%= render "flash" %>
-      </header>
-      <main class="px-3 lg:px-0 h-full">
+      <%= render "flash" %>
+      <%= render "navbar" %>
+      <main class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
         <%= yield %>
       </main>
     </div>

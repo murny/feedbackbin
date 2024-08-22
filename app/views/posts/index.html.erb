@@ -1,24 +1,27 @@
 <%= content_for :title, t("posts.index.title") %>
 <%= turbo_stream_from :posts %>
 
-<div class="container px-4 mx-auto my-8">
-  <div class="flex items-center justify-between mb-4">
-    <div>
-      <h1 class="h3">Posts</h1>
-
-      <div class="text-sm font-medium">
-        <span class="text-gray-500 dark:text-gray-300/75">Sort by:</span>
-        <%= sortable @posts, :title, "Title", class: "text-gray-700 dark:text-gray-300 mr-1" %>
-        <%= sortable @posts, :description, "Description", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+<div class="divide-y divide-gray-200 overflow-hidden rounded-lg bg-white shadow">
+  <div class="px-4 py-5 sm:px-6">
+     <div class="-ml-4 -mt-2 flex flex-wrap items-center justify-between sm:flex-nowrap">
+        <div class="ml-4 mt-2">
+          <h1 class="text-base font-semibold leading-6 text-gray-900 h3">Feedback</h1>
+          <div class="text-sm font-medium">
+            <span class="text-gray-500 dark:text-gray-300/75">Sort by:</span>
+            <%= sortable @posts, :title, "Title", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+            <%= sortable @posts, :description, "Description", class: "text-gray-700 dark:text-gray-300 mr-1" %>
+          </div>
+        </div>
+        <div class="ml-4 mt-2 flex-shrink-0">
+          <%= link_to t("posts.new.title"), new_post_path, class: "relative inline-flex items-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+        </div>
       </div>
-    </div>
-
-    <%= link_to t("posts.new.title"), new_post_path, class: "btn btn-primary" %>
   </div>
 
-  <%= tag.div id: ("posts" if first_page?(@pagy.page)), class: "bg-white dark:bg-gray-900 dark:border dark:border-gray-700 rounded-md shadow p-6 space-y-8" do %>
-    <%= render partial: "posts/post", collection: @posts, as: :post, cached: true %>
-
+  <%= tag.div id: ("posts" if first_page?(@pagy.page)), class: "overflow-hidden bg-white shadow sm:rounded-md" do %>
+    <ul role="list" class="divide-y divide-gray-200">
+      <%= render partial: "posts/post", collection: @posts, as: :post, cached: true %>
+    </ul>
     <div class="hidden only:block text-center">
       <p class="mb-4 h3">Create your first Post</p>
       <%= link_to t("posts.new.title"), new_post_path, class: "btn btn-primary" %>
