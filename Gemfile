@@ -6,7 +6,7 @@ source "https://rubygems.org"
 gem "rails", github: "rails/rails", branch: "main"
 
 # Datastores
-gem "sqlite3", ">= 1.4"
+gem "sqlite3", ">= 2.0"
 gem "redis", ">= 4.0.1"
 
 # Jobs
@@ -15,7 +15,7 @@ gem "mission_control-jobs"
 
 # Deployment
 gem "puma", "~> 6.4"
-gem "thruster"
+gem "thruster", require: false
 gem "kamal", require: false
 
 # Frontend

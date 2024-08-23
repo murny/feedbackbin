@@ -469,7 +469,7 @@ DEPENDENCIES
   rubocop-rails
   selenium-webdriver
   solid_queue
-  sqlite3 (>= 1.4)
+  sqlite3 (>= 2.0)
   standard
   stimulus-rails
   tailwindcss-rails
