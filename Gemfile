@@ -25,6 +25,7 @@ gem "stimulus-rails"
 gem "jsbundling-rails"
 gem "cssbundling-rails"
 
+gem "inline_svg"
 # API
 gem "jbuilder"
 

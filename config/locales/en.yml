@@ -1,17 +1,20 @@
 ---
 en:
   application:
+    footer:
+      about: About
+      privacy: Privacy
+      terms: Terms
     navbar:
-      log_in: Log in
+      links:
+        ideas: Ideas
+        roadmap: Roadmap
+      sign_in: Sign in
       sign_out: Sign out
       sign_up: Sign up
     users_settings_navbar:
       password: Password
       profile: Profile
-    footer:
-      about: About
-      privacy: Privacy
-      terms: Terms
   are_you_sure: Are you sure?
   cancel: Cancel
   delete: Delete
@@ -84,9 +87,6 @@ en:
         sign_in: Sign in
         sign_up: Sign up
     settings:
-      profiles:
-        update:
-          profile_updated: Your profile has been updated.
       emails:
         update:
           email_changed: Your email address has been changed.
@@ -96,6 +96,9 @@ en:
           update_password: Update password
         update:
           password_changed: Your password has been changed.
+      profiles:
+        update:
+          profile_updated: Your profile has been updated.
   users_mailer:
     email_verification:
       verify_your_email: Verify your email

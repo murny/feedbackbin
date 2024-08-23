@@ -2,34 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-
-/*
-NAVBAR CSS
-*/
-.nav-link {
-  @apply block no-underline text-gray-500 hover:text-gray-800 px-2 py-1 text-base font-medium whitespace-nowrap;
-  line-height: 30px;
-
-  &.active {
-    @apply font-semibold;
+@layer components {
+  .btn {
+    @apply rounded-md px-2.5 py-1.5 text-sm font-semibold shadow-sm;
   }
 
-  &:focus {
-    @apply text-gray-900;
+  .btn-primary {
+    @apply bg-indigo-600 text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600;
   }
-}
 
-@media (min-width: 1024px) {
-  .nav-link {
-    @apply inline-flex my-0 mr-3;
-    line-height: 40px;
-  }
-}
-
-.dropdown-menu {
-  min-width: 100%;
-
-  @screen lg {
-    min-width: 200px;
+  .btn-secondary {
+    @apply bg-white text-gray-900 ring-1 ring-inset ring-gray-300 hover:bg-gray-50;
   }
 }
