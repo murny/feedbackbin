@@ -10,18 +10,18 @@ class PostsTest < ApplicationSystemTestCase
   test "visiting the index" do
     visit posts_url
 
-    assert_selector "h1", text: "Posts"
+    assert_selector "h1", text: "Feedback"
   end
 
   test "should create post" do
     sign_in(users(:shane).email_address)
 
     visit posts_url
-    click_on "New Post"
+    click_link "New Post"
 
     fill_in "Description", with: @post.description
     fill_in "Title", with: @post.title
-    click_on "Create Post"
+    click_button "Create Post"
 
     assert_text "Post was successfully created"
   end
@@ -30,11 +30,11 @@ class PostsTest < ApplicationSystemTestCase
     sign_in(users(:shane).email_address)
 
     visit post_url(@post)
-    click_on "Edit", match: :first
+    click_link "Edit", match: :first
 
     fill_in "Description", with: @post.description
     fill_in "Title", with: @post.title
-    click_on "Update Post"
+    click_button "Update Post"
 
     assert_text "Post was successfully updated"
   end
@@ -43,10 +43,10 @@ class PostsTest < ApplicationSystemTestCase
     sign_in(users(:shane).email_address)
 
     visit post_url(@post)
-    click_on "Edit", match: :first
+    click_link "Edit", match: :first
 
     accept_confirm do
-      click_on "Delete", match: :first
+      click_button "Delete", match: :first
     end
 
     assert_text "Post was successfully destroyed"

@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/rails/rails.git
-  revision: 984b10b6fca7572a6d60150a06f43095210a11f6
+  revision: c1d04cc092003d990061a6640a8ac5b469a852c5
   branch: main
   specs:
     actioncable (8.0.0.alpha)
@@ -117,10 +117,10 @@ GEM
     bindex (0.8.1)
     bootsnap (1.18.4)
       msgpack (~> 1.2)
-    brakeman (6.1.2)
+    brakeman (6.2.1)
       racc
     builder (3.3.0)
-    bundler-audit (0.9.1)
+    bundler-audit (0.9.2)
       bundler (>= 1.2.0, < 3)
       thor (~> 1.0)
     capybara (3.40.0)
@@ -315,7 +315,7 @@ GEM
     regexp_parser (2.9.2)
     reline (0.5.9)
       io-console (~> 0.5)
-    rexml (3.3.5)
+    rexml (3.3.6)
       strscan
     rubocop (1.65.1)
       json (~> 2.3)

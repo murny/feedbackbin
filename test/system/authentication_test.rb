@@ -13,7 +13,7 @@ class AuthenticationTest < ApplicationSystemTestCase
     fill_in "Email", with: @user.email_address
     fill_in "Password", with: "secret123456"
 
-    click_on "Sign in"
+    click_button "Sign in"
 
     assert_text "You have signed in successfully."
   end
@@ -21,8 +21,8 @@ class AuthenticationTest < ApplicationSystemTestCase
   test "signing out" do
     sign_in @user.email_address
 
-    find_by_id("navbar_toggle").click
-    click_on "Sign out"
+    find_by_id("user-menu-button").click
+    click_button "Sign out"
 
     assert_text "You have signed out successfully."
   end
@@ -34,7 +34,7 @@ class AuthenticationTest < ApplicationSystemTestCase
     fill_in "Email address", with: "shane@email.com"
     fill_in "Password", with: "SecretPassword"
 
-    click_on "Create account"
+    click_button "Create account"
 
     assert_text "Welcome! You have signed up successfully"
   end
