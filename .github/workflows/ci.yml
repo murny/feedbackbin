@@ -25,6 +25,22 @@ jobs:
       - name: Bundler Audit Check
         run: bundle exec bundle-audit check --update
 
+  scan_js:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: .ruby-version
+          bundler-cache: true
+
+      - name: Scan for security vulnerabilities in JavaScript dependencies
+        run: bin/importmap audit
+
   lint:
     runs-on: ubuntu-latest
     steps:
@@ -87,6 +103,7 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - scan_ruby
+      - scan_js
       - lint
       - test
     env:

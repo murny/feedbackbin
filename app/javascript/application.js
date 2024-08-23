@@ -3,4 +3,4 @@ import "@rails/activestorage"
 import "@rails/actiontext"
 import "trix"
 
-import "./controllers"
+import "controllers"

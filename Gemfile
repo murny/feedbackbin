@@ -22,10 +22,11 @@ gem "kamal", require: false
 gem "propshaft"
 gem "turbo-rails"
 gem "stimulus-rails"
-gem "jsbundling-rails"
-gem "cssbundling-rails"
+gem "importmap-rails"
+gem "tailwindcss-rails"
 
 gem "inline_svg"
+
 # API
 gem "jbuilder"
 
