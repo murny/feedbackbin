@@ -8,11 +8,11 @@ en:
     navbar:
       links:
         ideas: Ideas
+        letter_opener: Letter opener
+        mission_control_jobs: Mission control jobs
         roadmap: Roadmap
         settings: Settings
         your_profile: Your profile
-        letter_opener: Letter opener
-        mission_control_jobs: Mission control jobs
       sign_in: Sign in
       sign_out: Sign out
       sign_up: Sign up
