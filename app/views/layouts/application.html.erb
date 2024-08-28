@@ -22,9 +22,9 @@
 
   <body class="h-full flex flex-col">
     <div class="flex flex-col flex-1">
-      <%= render "flash" %>
       <%= render "navbar" %>
-      <main class="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
+      <%= render "flash" %>
+      <main class="container mx-auto px-4 sm:px-6 lg:px-8">
         <%= yield %>
       </main>
     </div>

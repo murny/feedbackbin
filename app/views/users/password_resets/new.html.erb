@@ -1,13 +1,24 @@
-<div class="min-h-[calc(100vh-4rem)] w-full flex flex-col items-center justify-center">
-  <h1 class="font-bold text-4xl text-center mb-6"><%= t(".forgot_your_password") %></h1>
+<% content_for(:title) { t(".forgot_your_password") } %>
 
-  <%= form_with url: users_password_resets_path, class: "flex flex-col gap-4 w-full max-w-sm" do |form| %>
+<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <h1 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-white">
+      <%= t(".forgot_your_password") %>
+    </h1>
+  </div>
 
-    <div class="form-control w-full">
-      <%= form.label :email_address, class: "label" %>
-      <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "email", placeholder: t(".email_address_placeholder"), value: params[:email_address], class: "input input-bordered w-full" %>
-    </div>
+  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+    <%= form_with url: users_password_resets_path, class: "space-y-6" do |form| %>
+      <div>
+        <%= form.label :email_address, class: "form-label" %>
+        <div class="mt-2">
+          <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "email", placeholder: t(".email_address_placeholder"), value: params[:email_address], class: "form-input" %>
+        </div>
+      </div>
 
-    <%= form.submit t(".email_reset_instructions"), class: "btn btn-primary mt-6" %>
-  <% end %>
+      <div>
+        <%= form.submit t(".email_reset_instructions"), class: "btn btn-primary btn-block" %>
+      </div>
+    <% end %>
+  </div>
 </div>

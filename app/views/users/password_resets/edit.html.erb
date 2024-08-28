@@ -1,19 +1,31 @@
-<div class="mx-auto md:w-2/3 w-full">
-  <h1 class="font-bold text-4xl"><% t(".update_your_password") %></h1>
+<% content_for(:title) { t(".update_your_password") } %>
 
-  <%= form_with url: users_password_reset_path(params[:token]), method: :put, class: "contents" do |form| %>
-    <div class="my-5">
-      <%= form.label :password, "New password" %>
-      <%= form.password_field :password, required: true, autocomplete: "new-password", placeholder: t(".new_password_placeholder"), maxlength: 72, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-    </div>
+<div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+    <h1 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-white">
+      <%= t(".update_your_password") %>
+    </h1>
+  </div>
 
-    <div class="my-5">
-      <%= form.label :password_confirmation, "Confirm new password" %>
-      <%= form.password_field :password_confirmation, required: true, autocomplete: "new-password", placeholder: t(".confirm_new_password_placeholder"), maxlength: 72, class: "block shadow rounded-md border border-gray-400 outline-none px-3 py-2 mt-2 w-full" %>
-    </div>
+  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+    <%= form_with url: users_password_reset_path(params[:token]), method: :put, class: "space-y-6" do |form| %>
+      <div>
+        <%= form.label :password, "New password", class: "form-label" %>
+        <div class="mt-2">
+          <%= form.password_field :password, required: true, autofocus: true, autocomplete: "new-password", placeholder: t(".new_password_placeholder"), maxlength: 72, class: "form-input" %>
+        </div>
+      </div>
 
-    <div class="inline">
-      <%= form.submit t(".update_your_password"), class: "rounded-lg py-3 px-5 bg-blue-600 text-white inline-block font-medium cursor-pointer" %>
-    </div>
-  <% end %>
+      <div>
+        <%= form.label :password_confirmation, "Confirm new password", class: "form-label" %>
+        <div class="mt-2">
+          <%= form.password_field :password_confirmation, required: true, autocomplete: "new-password", placeholder: t(".confirm_new_password_placeholder"), maxlength: 72, class: "form-input" %>
+        </div>
+      </div>
+
+      <div>
+        <%= form.submit t(".update_your_password"), class: "btn btn-primary btn-block" %>
+      </div>
+    <% end %>
+  </div>
 </div>
