@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/rails/rails.git
-  revision: f0fd6ab1259b3bacf0e7e53f3a9b1757a327d822
+  revision: 171c4e4d377d9653a79d38c94bdfadf1a2c4c312
   branch: main
   specs:
     actioncable (8.0.0.alpha)
@@ -242,7 +242,7 @@ GEM
       stimulus-rails
       turbo-rails
     msgpack (1.7.2)
-    net-imap (0.4.14)
+    net-imap (0.4.15)
       date
       net-protocol
     net-pop (0.1.2)
