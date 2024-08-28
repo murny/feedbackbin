@@ -37,7 +37,10 @@ Rails.application.routes.draw do
   get "service-worker", to: "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest", to: "rails/pwa#manifest", as: :pwa_manifest
 
-  mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
+  if Rails.env.local?
+    mount LetterOpenerWeb::Engine, at: "/letter_opener"
+    mount MissionControl::Jobs::Engine, at: "/jobs"
+  end
 
   root "posts#index"
 end

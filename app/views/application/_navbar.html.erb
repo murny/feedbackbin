@@ -73,7 +73,7 @@
                 </button>
               </div>
 
-              <div class="hidden absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+              <div class="hidden absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                   role="menu"
                   aria-orientation="vertical"
                   aria-labelledby="user-menu-button"
@@ -85,9 +85,23 @@
                   data-transition-leave="transition ease-in duration-75"
                   data-transition-leave-from="opacity-100 tscale-100"
                   data-transition-leave-to="opacity-0 scale-95">
-                <%= link_to t(".links.your_profile"), "TODO", class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100", tab_index: "-1", role: "menuitem" %>
-                <%= link_to t(".links.settings"), edit_users_settings_profile_path, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100", tab_index: "-1", role: "menuitem" %>
-                <%= button_to t(".sign_out"), users_session_path, method: :delete, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
+                <div class="px-4 py-3" role="none">
+                  <p class="text-sm" role="none">Signed in as</p>
+                  <p class="truncate text-sm font-medium text-gray-900" role="none">tom@example.com</p>
+                </div>
+                <div class="py-1" role="none">
+                  <%= link_to t(".links.your_profile"), "TODO", class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100", tab_index: "-1", role: "menuitem" %>
+                  <%= link_to t(".links.settings"), edit_users_settings_profile_path, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100", tab_index: "-1", role: "menuitem" %>
+                </div>
+                <% if Rails.env.local? %>
+                  <div class="py-1" role="none">
+                    <%= link_to t(".links.letter_opener"), letter_opener_web_path, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100", tab_index: "-1", role: "menuitem" %>
+                  <%= link_to t(".links.mission_control_jobs"), mission_control_jobs_path, class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100", tab_index: "-1", role: "menuitem" %>
+                  </div>
+                <% end %>
+                <div class="py-1" role="none">
+                  <%= button_to t(".sign_out"), users_session_path, method: :delete, class: "w-full text-left block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100" %>
+                </div>
               </div>
             </div>
           <% else %>
