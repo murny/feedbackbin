@@ -67,6 +67,7 @@ en:
       new:
         already_have_an_account: Already have an account?
         create_account: Create account
+        create_your_account_html: Welcome!<br>Let's create your new account
         email_address_placeholder: Enter your email address
         login: Log in
         name_placeholder: Enter your name
@@ -83,8 +84,10 @@ en:
       new:
         email_address_placeholder: Enter your email address
         forgot_your_password: Forgot your password?
+        need_an_account: Need an account?
         password_placeholder: Enter your password
         sign_in: Sign in
+        sign_in_to_your_account: Sign in to your account
         sign_up: Sign up
     settings:
       emails:
