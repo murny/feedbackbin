@@ -8,7 +8,8 @@
   }
 
   .btn-primary {
-    @apply bg-indigo-600 text-white hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:focus-visible:outline-indigo-500 dark:hover:bg-indigo-400 dark:bg-indigo-500;
+    @apply bg-indigo-600 text-white hover:bg-indigo-500 dark:hover:bg-indigo-400 dark:bg-indigo-500;
+    @apply focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 dark:focus-visible:outline-indigo-500;
   }
 
   .btn-secondary {
@@ -24,8 +25,11 @@
   }
 
   .form-input {
-    @apply block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 text-gray-900 ring-gray-300 placeholder:text-gray-400 dark:placeholder:text-gray-500 dark:ring-white/10 dark:bg-white/5 dark:text-white
-    block w-full rounded-md border-0 py-1.5 shadow-sm ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-500 sm:text-sm sm:leading-6 text-gray-900 ring-gray-300 placeholder:text-gray-400 dark:placeholder:text-gray-500 dark:ring-white/10 dark:bg-white/5 dark:text-white;
+    @apply block w-full rounded-md border-0 py-1.5 shadow-sm;
+    @apply ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-indigo-500 ring-gray-300;
+    @apply sm:text-sm sm:leading-6 text-gray-900 placeholder:text-gray-400;
+    @apply dark:placeholder:text-gray-500 dark:ring-white/10 dark:bg-white/5 dark:text-white;
+
   }
 }
 
