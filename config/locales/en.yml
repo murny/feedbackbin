@@ -1,5 +1,8 @@
 ---
 en:
+  admin:
+    base:
+      unauthorized: You are not authorized to access this page.
   application:
     footer:
       about: About
@@ -7,6 +10,7 @@ en:
       terms: Terms
     navbar:
       links:
+        admin: Admin
         ideas: Ideas
         letter_opener: Letter opener
         mission_control_jobs: Mission control jobs
