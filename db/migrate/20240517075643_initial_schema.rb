@@ -47,6 +47,21 @@ class InitialSchema < ActiveRecord::Migration[8.0]
       t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
     end
 
+    create_table "connected_identities", force: :cascade do |t|
+      t.bigint "owner_id"
+      t.string "provider"
+      t.string "uid"
+      t.string "refresh_token"
+      t.datetime "expires_at", precision: nil
+      t.text "auth"
+      t.datetime "created_at", precision: nil, null: false
+      t.datetime "updated_at", precision: nil, null: false
+      t.string "access_token"
+      t.string "access_token_secret"
+      t.string "owner_type"
+      t.index ["owner_id", "owner_type"], name: "index_connected_identities_on_owner_id_and_owner_type"
+    end
+
     create_table "posts", force: :cascade do |t|
       t.string "title", null: false
       t.text "description"

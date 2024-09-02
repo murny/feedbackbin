@@ -44,6 +44,48 @@
       </div>
    <% end %>
 
+
+          <%= link_to new_user_sessions_passwordless_path, class: "btn-secondary flex w-full items-center justify-center gap-3" do %>
+            <%= inline_svg_tag "icons/outline/sparkles.svg", class: "h-5 w-5" %>
+            <span class="text-sm font-semibold leading-6"><%= t(".sign_in_with_provider", provider: "Magic Link") %></span>
+          <% end %>
+
+          <% if Rails.env.local? %>
+            <%= button_to "/auth/developer",
+                  method: :post,
+                  data: {turbo: false},
+                  class: "flex items-center justify-center gap-3 w-full btn-secondary" do %>
+              <%= inline_svg_tag "icons/outline/user_circle.svg", class: "h-5 w-5" %>
+
+              <span class="text-sm font-semibold leading-6"><%= t(".sign_in_with_provider", provider: "Developer") %></span>
+            <% end %>
+          <% end %>
+
+          <%= button_to "/auth/google",
+                method: :post,
+                data: {turbo: false},
+                class: "flex items-center justify-center gap-3 w-full btn-secondary" do %>
+            <%= inline_svg_tag "icons/brand/google.svg", class: "h-5 w-5" %>
+
+            <span class="text-sm font-semibold leading-6"><%= t(".sign_in_with_provider", provider: "Google") %></span>
+          <% end %>
+
+          <%= button_to "/auth/facebook",
+                method: :post,
+                data: {turbo: false},
+                class: "flex items-center justify-center gap-3 w-full btn-secondary" do %>
+            <%= inline_svg_tag "icons/brand/facebook.svg", class: "h-5 w-5" %>
+            <span class="text-sm font-semibold leading-6"><%= t(".sign_in_with_provider", provider: "Facebook") %></span>
+          <% end %>
+
+          <%= button_to "/auth/apple",
+                method: :post,
+                data: {turbo: false},
+                class: "flex items-center justify-center gap-3 w-full btn-secondary" do %>
+            <%= inline_svg_tag "icons/brand/apple.svg", class: "h-5 w-5" %>
+            <span class="text-sm font-semibold leading-6"><%= t(".sign_in_with_provider", provider: "Apple") %></span>
+          <% end %>
+
     <p class="mt-10 text-center text-sm text-gray-500 dark:text-gray-400">
       <%= t(".need_an_account") %>
       <%= link_to t(".sign_up"), sign_up_path, class: "font-semibold leading-6 text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300" %>

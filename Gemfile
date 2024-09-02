@@ -27,19 +27,26 @@ gem "stimulus-rails"
 gem "importmap-rails"
 gem "tailwindcss-rails"
 
+gem "pagy", "~> 9.0"
+
 gem "inline_svg"
 
 # API
 gem "jbuilder"
 
-gem "pagy", "~> 9.0"
-
+# Authentication
 gem "bcrypt", "~> 3.1.7"
+gem "omniauth"
+gem "omniauth-rails_csrf_protection"
+gem "omniauth-apple"
+gem "omniauth-google-oauth2"
+gem "omniauth-facebook"
 
 gem "tzinfo-data", platforms: %i[windows jruby]
 
 gem "bootsnap", require: false
 
+# ActiveStorage
 gem "image_processing", ">= 1.2"
 
 group :development, :test do
