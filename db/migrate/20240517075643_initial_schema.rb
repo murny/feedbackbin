@@ -69,6 +69,23 @@ class InitialSchema < ActiveRecord::Migration[8.0]
       t.datetime "updated_at", null: false
     end
 
+    create_table "user_identities", force: :cascade do |t|
+      t.bigint "owner_id"
+      t.string "owner_type"
+      t.string "provider_name"
+      t.string "provider_uid"
+      t.string "refresh_token"
+      t.datetime "expires_at", precision: nil
+      t.text "auth"
+      t.string "access_token"
+      t.string "access_token_secret"
+      t.datetime "created_at", precision: nil, null: false
+      t.datetime "updated_at", precision: nil, null: false
+      t.index ["provider_name", "provider_uid"], name: "index_user_identities_on_provider_name_and_provider_uid", unique: true
+      t.index ["provider_name", "owner_id"], name: "index_user_identities_on_provider_name_and_owner_id", unique: true
+      t.index ["owner_id", "owner_type"], name: "index_user_identities_on_owner_id_and_owner_type"
+    end
+
     create_table "changelogs", force: :cascade do |t|
       t.string "title", null: false
       t.string "kind", null: false

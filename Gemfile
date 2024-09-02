@@ -27,7 +27,7 @@ gem "stimulus-rails"
 gem "importmap-rails"
 gem "tailwindcss-rails"
 
-gem "pagy", "~> 9.0"
+gem "pagy", "~> 9.1"
 
 gem "inline_svg"
 
@@ -38,7 +38,6 @@ gem "jbuilder"
 gem "bcrypt", "~> 3.1.7"
 gem "omniauth"
 gem "omniauth-rails_csrf_protection"
-gem "omniauth-apple"
 gem "omniauth-google-oauth2"
 gem "omniauth-facebook"
 
