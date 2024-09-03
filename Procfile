@@ -1,3 +1,3 @@
 web: bundle exec thrust bin/start-app
 redis: redis-server config/redis.conf
-workers: bundle exec rake solid_queue:start
+workers: bin/jobs
