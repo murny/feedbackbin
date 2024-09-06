@@ -36,6 +36,8 @@ test:
   cache: *cache
   queue: *queue
 
+# Store production database in the storage/ directory, which by default
+# is mounted as a persistent Docker volume in config/deploy.yml.
 production:
   primary: *primary
   cache: *cache
