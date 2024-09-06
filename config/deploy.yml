@@ -1,5 +1,7 @@
+# Name of your application. Used to uniquely configure containers.
 service: feedbackbin
 
+# Name of the container image.
 image: murny/feedbackbin
 
 # Deploy to these servers.
@@ -15,20 +17,42 @@ servers:
       traefik.http.routers.feedbackbin_secure.tls.certresolver: letsencrypt
     options:
       network: "private"
+  # job:
+  #   hosts:
+  #     - 192.168.0.1
+  #   cmd: bin/jobs
 
 # Credentials for your image host.
 registry:
+  # Specify the registry server, if you're not using Docker Hub
+  # server: registry.digitalocean.com / ghcr.io / ...
   username: murny
+
+  # Always use an access token rather than real password when possible.
   password:
     - KAMAL_REGISTRY_PASSWORD
 
 # Inject ENV variables into containers (secrets come from .env).
 # Remember to run `kamal env push` after making changes!
 env:
-  clear:
-    HOSTNAME: feedbackbin.com
   secret:
     - RAILS_MASTER_KEY
+  clear:
+    HOSTNAME: feedbackbin.com
+
+    # Run the Solid Queue Supervisor inside the web server's Puma process to do jobs.
+    # When you start using multiple servers, you should split out job processing to a dedicated machine.
+    SOLID_QUEUE_IN_PUMA: true
+
+    # Set number of processes dedicated to Solid Queue (default: 1)
+    # JOB_CONCURRENCY: 3
+
+    # Set number of cores available to the application on each server (default: 1).
+    # WEB_CONCURRENCY: 2
+
+    # Match this to any external database server to configure Active Record correctly
+    # DB_HOST: 192.168.0.2
+
 
 # Use a persistent storage volume for sqlite database files and local Active Storage files.
 # Recommended to change this to a mounted volume path that is backed up off server.
@@ -73,7 +97,7 @@ traefik:
 #     host: ssh://app@192.168.0.1
 #
 #   args:
-#     RUBY_VERSION: ruby-3.2.2
+#     RUBY_VERSION: ruby-3.3.4
 #   secrets:
 #     - GITHUB_TOKEN
 #     - RAILS_MASTER_KEY

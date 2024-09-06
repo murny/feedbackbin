@@ -45,15 +45,18 @@ Rails.application.configure do
   # config.action_cable.url = "wss://example.com/cable"
   # config.action_cable.allowed_request_origins = [ "http://example.com", /http:\/\/example.*/ ]
 
-  # Always be SSL'ing (unless told not to)
+  # Assume all access to the app is happening through a SSL-terminating reverse proxy.
+  # Can be used together with config.force_ssl for Strict-Transport-Security and secure cookies.
   config.assume_ssl = ENV["DISABLE_SSL"].blank?
-  config.force_ssl = ENV["DISABLE_SSL"].blank?
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  config.force_ssl = true
+  config.force_ssl = ENV["DISABLE_SSL"].blank?
 
   # Skip http-to-https redirect for the default health check endpoint.
   # config.ssl_options = { redirect: { exclude: ->(request) { request.path == "/up" } } }
+
+  # Prevent healthchecks from clogging up the logs
+  config.silence_healthcheck_path = "/up"
 
   # Log to STDOUT by default
   config.logger = ActiveSupport::Logger.new($stdout)
@@ -63,17 +66,18 @@ Rails.application.configure do
   # Prepend all log lines with the following tags.
   config.log_tags = [:request_id]
 
-  # Info include generic and useful information about system operation, but avoids logging too much
+  # "info" includes generic and useful information about system operation, but avoids logging too much
   # information to avoid inadvertent exposure of personally identifiable information (PII). If you
   # want to log everything, set the level to "debug".
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "info")
 
   # Use a different cache store in production.
-  config.cache_store = :redis_cache_store
+  config.cache_store = :solid_cache_store
 
   # Use a real queuing backend for Active Job (and separate queues per environment).
   config.active_job.queue_adapter = :solid_queue
-  config.active_job.queue_name_prefix = "feedback_bin_production"
+  config.solid_queue.connects_to = {database: {writing: :queue}}
+  config.active_job.queue_name_prefix = "feedbackbin_production"
 
   # Disable caching for Action Mailer templates even if Action Controller
   # caching is enabled.
@@ -112,7 +116,4 @@ Rails.application.configure do
   # ]
   # Skip DNS rebinding protection for the default health check endpoint.
   # config.host_authorization = { exclude: ->(request) { request.path == "/up" } }
-
-  # SQLite is good, actually
-  config.active_record.sqlite3_production_warning = false
 end
