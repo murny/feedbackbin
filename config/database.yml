@@ -8,19 +8,35 @@ default: &default
   adapter: sqlite3
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 10 } %>
   timeout: 5000
-  default_transaction_mode: immediate
+
+primary: &primary
+  <<: *default
+  database: storage/<%= Rails.env %>.sqlite3
+
+cache: &cache
+  <<: *default
+  database: storage/<%= Rails.env %>_cache.sqlite3
+  migrations_paths: db/cache_migrate
+
+queue: &queue
+  <<: *default
+  database: storage/<%= Rails.env %>_queue.sqlite3
+  migrations_paths: db/queue_migrate
 
 development:
-  <<: *default
-  database: storage/development.sqlite3
+  primary: *primary
+  cache: *cache
+  queue: *queue
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  <<: *default
-  database: storage/test.sqlite3
+  primary: *primary
+  cache: *cache
+  queue: *queue
 
 production:
-  <<: *default
-  database: storage/production.sqlite3
+  primary: *primary
+  cache: *cache
+  queue: *queue
