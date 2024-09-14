@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/rails/rails.git
-  revision: 7f660a700d828cd9d472b0a57b1e32d7918cd88e
+  revision: cefd95bf11c0b075a31bdb64c34f6b4084c1a9ce
   branch: main
   specs:
     actioncable (8.0.0.alpha)
@@ -312,10 +312,6 @@ GEM
     rake (13.2.1)
     rdoc (6.7.0)
       psych (>= 4.0.0)
-    redis (5.3.0)
-      redis-client (>= 0.22.0)
-    redis-client (0.22.2)
-      connection_pool
     regexp_parser (2.9.2)
     reline (0.5.10)
       io-console (~> 0.5)
@@ -359,6 +355,11 @@ GEM
       rubyzip (>= 1.2.2, < 3.0)
       websocket (~> 1.0)
     smart_properties (1.17.0)
+    solid_cable (3.0.0)
+      actioncable (>= 7.2)
+      activejob (>= 7.2)
+      activerecord (>= 7.2)
+      railties (>= 7.2)
     solid_cache (1.0.6)
       activejob (>= 7.2)
       activerecord (>= 7.2)
@@ -397,17 +398,17 @@ GEM
     stimulus-rails (1.3.4)
       railties (>= 6.0.0)
     stringio (3.1.1)
-    tailwindcss-rails (2.7.3)
+    tailwindcss-rails (2.7.4)
       railties (>= 7.0.0)
-    tailwindcss-rails (2.7.3-aarch64-linux)
+    tailwindcss-rails (2.7.4-aarch64-linux)
       railties (>= 7.0.0)
-    tailwindcss-rails (2.7.3-arm-linux)
+    tailwindcss-rails (2.7.4-arm-linux)
       railties (>= 7.0.0)
-    tailwindcss-rails (2.7.3-arm64-darwin)
+    tailwindcss-rails (2.7.4-arm64-darwin)
       railties (>= 7.0.0)
-    tailwindcss-rails (2.7.3-x86_64-darwin)
+    tailwindcss-rails (2.7.4-x86_64-darwin)
       railties (>= 7.0.0)
-    tailwindcss-rails (2.7.3-x86_64-linux)
+    tailwindcss-rails (2.7.4-x86_64-linux)
       railties (>= 7.0.0)
     terminal-table (3.0.2)
       unicode-display_width (>= 1.1.1, < 3)
@@ -418,13 +419,13 @@ GEM
     thruster (0.1.8-x86_64-darwin)
     thruster (0.1.8-x86_64-linux)
     timeout (0.4.1)
-    turbo-rails (2.0.6)
+    turbo-rails (2.0.7)
       actionpack (>= 6.0.0)
       activejob (>= 6.0.0)
       railties (>= 6.0.0)
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
-    unicode-display_width (2.5.0)
+    unicode-display_width (2.6.0)
     uri (0.13.1)
     useragent (0.16.10)
     web-console (4.2.1)
@@ -470,14 +471,14 @@ DEPENDENCIES
   propshaft
   puma (~> 6.4)
   rails!
-  redis (>= 4.0.1)
   rubocop
   rubocop-capybara
   rubocop-minitest
   rubocop-performance
   rubocop-rails
   selenium-webdriver
-  solid_cache (~> 1.0)
+  solid_cable
+  solid_cache
   solid_queue
   sqlite3 (>= 2.0)
   standard

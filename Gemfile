@@ -7,11 +7,13 @@ gem "rails", github: "rails/rails", branch: "main"
 
 # Datastores
 gem "sqlite3", ">= 2.0"
-gem "redis", ">= 4.0.1"
 
 # Jobs
 gem "solid_queue"
 gem "mission_control-jobs"
+
+gem "solid_cache"
+gem "solid_cable"
 
 # Deployment
 gem "puma", "~> 6.4"
@@ -76,5 +78,3 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
-
-gem "solid_cache", "~> 1.0"

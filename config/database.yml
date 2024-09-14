@@ -23,8 +23,14 @@ queue: &queue
   database: storage/<%= Rails.env %>_queue.sqlite3
   migrations_paths: db/queue_migrate
 
+cable: &cable
+  <<: *default
+  database: storage/<%= Rails.env %>_cable.sqlite3
+  migrations_paths: db/cable_migrate
+
 development:
   primary: *primary
+  cable: *cable
   cache: *cache
   queue: *queue
 
@@ -33,6 +39,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   primary: *primary
+  cable: *cable
   cache: *cache
   queue: *queue
 
@@ -40,5 +47,6 @@ test:
 # is mounted as a persistent Docker volume in config/deploy.yml.
 production:
   primary: *primary
+  cable: *cable
   cache: *cache
   queue: *queue
