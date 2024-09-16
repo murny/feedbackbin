@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/rails/rails.git
-  revision: cefd95bf11c0b075a31bdb64c34f6b4084c1a9ce
+  revision: 87bee3640b2a135a360c9af13f0e610bef8df131
   branch: main
   specs:
     actioncable (8.0.0.alpha)
@@ -171,7 +171,7 @@ GEM
       activesupport (>= 6.1)
     highline (3.1.1)
       reline
-    i18n (1.14.5)
+    i18n (1.14.6)
       concurrent-ruby (~> 1.0)
     i18n-tasks (1.0.14)
       activesupport (>= 4.0.2)
@@ -197,7 +197,7 @@ GEM
     irb (1.14.0)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
-    jbuilder (2.12.0)
+    jbuilder (2.13.0)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
     json (2.7.2)
