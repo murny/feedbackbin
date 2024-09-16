@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     end
   end
 
+  resources :users, only: [:show]
   resources :posts
 
   scope controller: :static do

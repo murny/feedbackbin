@@ -10,11 +10,13 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-User.create!(
-  name: "Shane Murnaghan",
-  email_address: "shane.murnaghan@feedbackbin.com",
-  password: "password",
-  password_confirmation: "password",
-  email_verified: true,
-  role: User.roles[:administrator]
-)
+if Rails.env.development?
+  User.find_or_create_by!(
+    name: "Shane Murnaghan",
+    email_address: "shane.murnaghan@feedbackbin.com",
+    password: "password",
+    password_confirmation: "password",
+    email_verified: true,
+    role: User.roles[:administrator]
+  )
+end
