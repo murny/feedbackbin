@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  extend Authenticated
+
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # authentification
@@ -37,7 +39,7 @@ Rails.application.routes.draw do
     get :privacy
   end
 
-  constraints(AdminConstraint.new) do
+  authenticated :admin do
     draw :admin
   end
 
