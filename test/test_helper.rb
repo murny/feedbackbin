@@ -13,5 +13,15 @@ module ActiveSupport
     fixtures :all
 
     include SessionTestHelper
+
+    # Properly clean up ActiveStorage after each test run
+    def after_teardown
+      super
+      FileUtils.rm_rf(ActiveStorage::Blob.service.root)
+    end
+
+    parallelize_setup do |i|
+      ActiveStorage::Blob.service.root = "#{ActiveStorage::Blob.service.root}-#{i}"
+    end
   end
 end
