@@ -1,5 +1,10 @@
 ---
 en:
+  activerecord:
+    errors:
+      messages:
+        image_format_not_supported: image format not supported
+        max_file_size_invalid: image over %{size}
   admin:
     base:
       unauthorized: You are not authorized to access this page.
