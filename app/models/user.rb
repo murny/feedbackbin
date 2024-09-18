@@ -13,8 +13,11 @@ class User < ApplicationRecord
   validates :name, presence: true
   validates :email_address, presence: true, uniqueness: true, format: {with: URI::MailTo::EMAIL_REGEXP}
   # validates :password, allow_nil: true, length: {minimum: 10}, not_pwned: true
+  validates :avatar, resizable_image: true, max_file_size: 2.megabytes
 
   normalizes :email_address, with: -> { _1.strip.downcase }
+
+  before_save :anonymize_avatar_filename
 
   scope :active, -> { where(active: true) }
   scope :filtered_by, ->(query) { where("name like ?", "%#{query}%") }
@@ -54,5 +57,11 @@ class User < ApplicationRecord
 
   def close_remote_connections
     ActionCable.server.remote_connections.where(current_user: self).disconnect reconnect: false
+  end
+
+  def anonymize_avatar_filename
+    if avatar.attached?
+      avatar.blob.filename = "avatar#{avatar.filename.extension_with_delimiter}"
+    end
   end
 end
