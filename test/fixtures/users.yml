@@ -6,3 +6,9 @@ shane:
   email_verified: true
   password_digest: <%= password_digest %>
   role: administrator
+
+user:
+  name: Jane Doe
+  email_address: jane.doe@feedbackbin.com
+  password_digest: <%= password_digest %>
+  bio: Hi I'm Jane Doe
