@@ -5,6 +5,11 @@ en:
       messages:
         image_format_not_supported: image format not supported
         max_file_size_invalid: image over %{size}
+      models:
+        user:
+          attributes:
+            username:
+              invalid: can only contain letters, numbers, and underscores
   admin:
     base:
       unauthorized: You are not authorized to access this page.
@@ -81,16 +86,16 @@ en:
         already_have_an_account: Already have an account?
         create_account: Create account
         create_your_account_html: Welcome!<br>Let's create your new account
+        email_address_hint: Never shown to the public
         email_address_placeholder: Enter your email address
-        email_address_hint: "Never shown to the public"
         login: Log in
-        username_placeholder: Enter your username
-        username_hint: "unique, no spaces, short"
+        name_hint: Your full name (Optional)
         name_placeholder: Enter your name
-        name_hint: "Your full name (Optional)"
         password_hint: "(at least 10 characters)"
         password_placeholder: Enter your password
         title: Sign up
+        username_hint: unique, no spaces, short
+        username_placeholder: Enter your username
     sessions:
       create:
         invalid_credentials: Try another email address or password.
@@ -117,7 +122,8 @@ en:
         update:
           password_changed: Your password has been changed.
       profiles:
-        update:
+        update_notice:
+          avatar_updated: Your avatar has been updated. It may take up to 30 minutes to update everywhere.
           profile_updated: Your profile has been updated.
   users_mailer:
     email_verification:

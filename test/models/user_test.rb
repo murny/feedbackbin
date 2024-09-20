@@ -5,8 +5,87 @@ require "minitest/mock"
 
 class UserTest < ActiveSupport::TestCase
   def setup
-    @user = users(:shane)
+    @user = users(:user)
   end
+
+  test "valid user" do
+    assert_predicate @user, :valid?
+  end
+
+  test "invalid without username" do
+    @user.username = nil
+
+    assert_not @user.valid?
+    assert_equal(I18n.t("errors.messages.blank"), @user.errors[:username].first)
+  end
+
+  test "invalid if username contains non alphanumeric characters" do
+    @user.username = "user@name"
+
+    assert_not @user.valid?
+    assert_equal("can only contain letters, numbers, and underscores", @user.errors[:username].first)
+  end
+
+  test "invalid if username longer then 20 characters" do
+    @user.username = "coolusername1234567890"
+
+    assert_not @user.valid?
+    assert_equal("is too long (maximum is 20 characters)", @user.errors[:username].first)
+  end
+
+  test "invalid if username shorter then 3 characters" do
+    @user.username = "ab"
+
+    assert_not @user.valid?
+    assert_equal("is too short (minimum is 3 characters)", @user.errors[:username].first)
+  end
+
+  test "invalid if username taken already" do
+    @user.username = "Murny"
+
+    assert_not @user.valid?
+    assert_equal("has already been taken", @user.errors[:username].first)
+  end
+
+  test "username gets stripped when saved" do
+    @user.update!(username: " ExAmPlE_UsErNaMe ")
+
+    assert_equal "ExAmPlE_UsErNaMe", @user.username
+  end
+
+  test "name gets stripped when saved" do
+    @user.update!(name: " John      Doe      ")
+
+    assert_equal "John Doe", @user.name
+  end
+
+  test "invalid without email address" do
+    @user.email_address = nil
+
+    assert_not @user.valid?
+    assert_equal(I18n.t("errors.messages.blank"), @user.errors[:email_address].first)
+  end
+
+  test "invalid if email address taken already" do
+    @user.email_address = "shane.murnaghan@feedbackbin.com"
+
+    assert_not @user.valid?
+    assert_equal("has already been taken", @user.errors[:email_address].first)
+  end
+
+  test "invalid if email address not a valid email address" do
+    @user.email_address = "bad_email_address_here"
+
+    assert_not @user.valid?
+    assert_equal("is invalid", @user.errors[:email_address].first)
+  end
+
+  test "email address gets downcased and stripped when saved" do
+    @user.update!(email_address: " John.Doe@example.com ")
+
+    assert_equal "john.doe@example.com", @user.email_address
+  end
+
   test "invalid if using very long password" do
     @user.update(password: "secret" * 15)
 
@@ -14,13 +93,18 @@ class UserTest < ActiveSupport::TestCase
     assert_equal "is too long", @user.errors[:password].first
   end
 
-  test "avatar is present?" do
-    avatar = @user.avatar
+  test "invalid without valid role set" do
+    @user.role = :super_admin
 
-    assert_predicate @user, :valid?
-    assert_predicate avatar, :attached?
+    assert_not @user.valid?
+    assert_equal("is not included in the list", @user.errors[:role].first)
+  end
 
-    assert_equal 31648, avatar.byte_size
+  test "invalid when bio is too large" do
+    @user.bio = "abc" * 100
+
+    assert_not @user.valid?
+    assert_equal("is too long (maximum is 255 characters)", @user.errors[:bio].first)
   end
 
   test "should accept avatars of valid file formats" do
@@ -37,6 +121,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "should enforce a maximum avatar file size" do
+    @user.avatar.attach(io: file_fixture("racecar.jpeg").open, filename: "racecar.jpeg", content_type: "image/jpeg")
     @user.avatar.blob.stub :byte_size, 3.megabytes do
       assert_not @user.valid?
       assert_equal("image over 2 MB", @user.errors[:avatar].first)

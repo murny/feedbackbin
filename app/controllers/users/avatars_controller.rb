@@ -2,6 +2,7 @@
 
 class Users::AvatarsController < ApplicationController
   include ActiveStorage::Streaming
+  allow_unauthenticated_access only: %i[show]
 
   def show
     @user = User.find(params[:user_id])

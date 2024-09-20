@@ -4,7 +4,7 @@ require "test_helper"
 
 class User::RoleTest < ActiveSupport::TestCase
   test "creating users makes them members by default" do
-    assert_predicate User.create!(name: "User", email_address: "user@example.com", password: "secret123456"), :member?
+    assert_predicate User.create!(username: "test_user", name: "User", email_address: "user@example.com", password: "secret123456"), :member?
   end
 
   test "can_administer?" do

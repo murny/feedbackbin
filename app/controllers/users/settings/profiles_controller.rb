@@ -26,7 +26,7 @@ class Users::Settings::ProfilesController < ApplicationController
 
   def update_notice
     if params[:user][:avatar]
-      "It may take up to 30 minutes to change your avatar everywhere."
+      t(".avatar_updated")
     else
       t(".profile_updated")
     end
