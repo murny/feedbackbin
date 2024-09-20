@@ -30,7 +30,16 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :users, only: [:show]
+  resources :users, only: :show do
+    scope module: "users" do
+      resource :avatar, only: %i[show destroy]
+    end
+  end
+
+  direct :fresh_user_avatar do |user, options|
+    route_for :user_avatar, user, v: user.updated_at.to_fs(:number)
+  end
+
   resources :posts
 
   scope controller: :static do
