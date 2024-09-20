@@ -1,5 +1,5 @@
 <%= form_with(model: current_user, url: users_settings_profile_path, method: :patch,
-      data: { controller: "form", action: "keydown.enter->form#submit:prevent" }, class: 'mt-10') do |form| %>
+      data: {controller: "form", action: "keydown.enter->form#submit:prevent"}, class: "mt-10") do |form| %>
   <div class="space-y-12">
     <div class="border-b border-gray-900/10 dark:border-white/10 pb-12">
       <h2 class="text-base font-semibold leading-7 text-gray-900 dark:text-white">Profile</h2>
@@ -29,7 +29,7 @@
         <div class="sm:col-span-4">
           <%= form.label :name, class: "form-label" %>
           <div class="mt-2">
-            <%= form.text_field :name, autocomplete: "name", class: "form-input"  %>
+            <%= form.text_field :name, autocomplete: "name", class: "form-input" %>
           </div>
         </div>
 
