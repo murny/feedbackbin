@@ -17,7 +17,7 @@ class Users::Settings::ProfilesController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:name, :avatar, :email_address, :password, :bio).compact
+    params.require(:user).permit(:username, :name, :avatar, :email_address, :password, :bio).compact
   end
 
   def set_user
@@ -26,9 +26,9 @@ class Users::Settings::ProfilesController < ApplicationController
 
   def update_notice
     if params[:user][:avatar]
-      t(".avatar_updated")
+      t("users.settings.profiles.avatar_updated")
     else
-      t(".profile_updated")
+      t("users.settings.profiles.profile_updated")
     end
   end
 end

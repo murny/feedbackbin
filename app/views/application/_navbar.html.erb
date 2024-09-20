@@ -1,4 +1,4 @@
-<nav class="bg-white shadow dark:bg-gray-800" data-controller="toggle">
+<nav class="sticky top-0 z-40 bg-white shadow dark:bg-gray-800" data-controller="toggle">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <div class="flex h-16 justify-between">
       <div class="flex">
@@ -87,7 +87,7 @@
                   data-transition-leave-to="opacity-0 scale-95">
                 <div class="px-4 py-3" role="none">
                   <p class="text-sm" role="none">Signed in as</p>
-                  <p class="truncate text-sm font-medium text-gray-900" role="none"><%= current_user.email_address %></p>
+                  <p class="truncate text-sm font-medium text-gray-900" role="none"><%= current_user.username %></p>
                 </div>
                 <div class="py-1" role="none">
                   <%= link_to t(".links.your_profile"),
@@ -167,7 +167,7 @@
           </div>
           <div class="ml-3">
             <div class="text-base font-medium text-gray-800 dark:text-white"><%= current_user.name %></div>
-            <div class="text-sm font-medium text-gray-500 dark:text-gray-400"><%= current_user.email_address %></div>
+            <div class="text-sm font-medium text-gray-500 dark:text-gray-400"><%= current_user.username %></div>
           </div>
           <button type="button" class="relative ml-auto flex-shrink-0 rounded-full bg-white dark:bg-gray-800 p-1 text-gray-400 hover:text-gray-500 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-white focus:ring-offset-2 dark:focus:ring-offset-gray-800">
             <span class="absolute -inset-1.5"></span>
