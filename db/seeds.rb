@@ -12,6 +12,7 @@
 
 if Rails.env.development?
   User.find_or_create_by!(
+    username: "Murny",
     name: "Shane Murnaghan",
     email_address: "shane.murnaghan@feedbackbin.com",
     password: "password",

@@ -82,9 +82,13 @@ en:
         create_account: Create account
         create_your_account_html: Welcome!<br>Let's create your new account
         email_address_placeholder: Enter your email address
+        email_address_hint: "Never shown to the public"
         login: Log in
+        username_placeholder: Enter your username
+        username_hint: "unique, no spaces, short"
         name_placeholder: Enter your name
-        password_hint: "(at least 8 characters)"
+        name_hint: "Your full name (Optional)"
+        password_hint: "(at least 10 characters)"
         password_placeholder: Enter your password
         title: Sign up
     sessions:
