@@ -1,4 +1,4 @@
-require "zlib"
+# frozen_string_literal: true
 
 module Users::AvatarsHelper
   AVATAR_COLORS = %w[
@@ -6,6 +6,7 @@ module Users::AvatarsHelper
     #736356 #AD1D1D #BF7C2A #C09C6F #698F9C #7C956B #5D618F #3B3633 #67695E
   ]
 
+  # Returns the background color for the user's avatar initials using a deterministic algorithm based on the user's ID.
   def avatar_background_color(user)
     AVATAR_COLORS[Zlib.crc32(user.to_param) % AVATAR_COLORS.size]
   end

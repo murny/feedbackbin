@@ -25,7 +25,7 @@ module Users
     private
 
     def user_params
-      params.permit(:name, :email_address, :password, :password_confirmation)
+      params.permit(:username, :name, :email_address, :password, :password_confirmation)
     end
   end
 end
