@@ -93,13 +93,6 @@ class UserTest < ActiveSupport::TestCase
     assert_equal "is too long", @user.errors[:password].first
   end
 
-  test "invalid without valid role set" do
-    @user.role = :super_admin
-
-    assert_not @user.valid?
-    assert_equal("is not included in the list", @user.errors[:role].first)
-  end
-
   test "invalid when bio is too large" do
     @user.bio = "abc" * 100
 

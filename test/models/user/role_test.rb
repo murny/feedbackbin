@@ -13,4 +13,11 @@ class User::RoleTest < ActiveSupport::TestCase
     assert_not User.new(role: :member).can_administer?
     assert_not User.new.can_administer?
   end
+
+  test "Roles must be a valid role" do
+    @user.role = :super_admin
+
+    assert_not @user.valid?
+    assert_equal("is not included in the list", @user.errors[:role].first)
+  end
 end
