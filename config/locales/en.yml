@@ -123,6 +123,8 @@ en:
           password_changed: Your password has been changed.
       profiles:
         avatar_updated: Your avatar has been updated. It may take up to 30 minutes to update everywhere.
+        edit:
+          change_avatar: Change avatar
         profile_updated: Your profile has been updated.
   users_mailer:
     email_verification:
