@@ -1,1 +1,1 @@
-shane_avatar_blob: <%= ActiveStorage::FixtureSet.blob(filename: 'random.jpeg', service_name: 'test') %>
+# shane_avatar_blob: <%= ActiveStorage::FixtureSet.blob(filename: 'random.jpeg', service_name: 'test') %>

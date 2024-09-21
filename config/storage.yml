@@ -2,6 +2,11 @@ test:
   service: Disk
   root: <%= Rails.root.join("tmp/storage") %>
 
+# # https://guides.rubyonrails.org/active_storage_overview.html#adding-attachments-to-fixtures
+# test_fixtures:
+#   service: Disk
+#   root: <%= Rails.root.join("tmp/storage_fixtures") %>
+
 local:
   service: Disk
   root: <%= Rails.root.join("storage") %>

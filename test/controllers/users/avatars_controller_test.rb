@@ -24,7 +24,7 @@ class Users::AvatarsControllerTest < ActionDispatch::IntegrationTest
     @shane = users(:shane)
     sign_in @shane
 
-    assert_predicate @shane.avatar, :attached?
+    @shane.update! avatar: fixture_file_upload("random.jpeg", "image/jpeg")
 
     delete user_avatar_url(@shane)
 
