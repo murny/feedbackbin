@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
+  MAX_USERNAME_LENGTH = 20
+
   include Transferable
   include Role
   include Mentionable
@@ -10,12 +12,24 @@ class User < ApplicationRecord
   has_one_attached :avatar
   has_secure_password
 
-  validates :name, presence: true
-  validates :email_address, presence: true, uniqueness: true, format: {with: URI::MailTo::EMAIL_REGEXP}
-  # validates :password, allow_nil: true, length: {minimum: 10}, not_pwned: true
+  validates :username, presence: true,
+    length: {minimum: 3, maximum: MAX_USERNAME_LENGTH},
+    uniqueness: {case_sensitive: false},
+    format: {
+      with: /\A[a-z0-9_]+\z/i
+    }
+
+  validates :email_address, presence: true,
+    uniqueness: {case_sensitive: false},
+    format: {with: URI::MailTo::EMAIL_REGEXP}
+
+  validates :password, allow_nil: true, length: {minimum: 10}
   validates :avatar, resizable_image: true, max_file_size: 2.megabytes
+  validates :bio, length: {maximum: 255}
 
   normalizes :email_address, with: -> { _1.strip.downcase }
+  normalizes :username, with: ->(username) { username.squish }
+  normalizes :name, with: ->(name) { name.squish }
 
   before_save :anonymize_avatar_filename
 

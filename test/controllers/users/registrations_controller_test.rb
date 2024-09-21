@@ -12,7 +12,8 @@ class Users::RegistrationsControllerTest < ActionDispatch::IntegrationTest
   test "should sign up" do
     assert_difference("User.count") do
       post users_registrations_url, params: {
-        name: "Jane Doe",
+        username: "john_smith",
+        name: "John Smith",
         email_address: "new@example.com",
         password: "password123456",
         password_confirmation: "password123456"

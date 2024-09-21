@@ -11,12 +11,12 @@
 #   end
 
 if Rails.env.development?
-  User.find_or_create_by!(
-    name: "Shane Murnaghan",
-    email_address: "shane.murnaghan@feedbackbin.com",
-    password: "password",
-    password_confirmation: "password",
-    email_verified: true,
-    role: User.roles[:administrator]
-  )
+  User.find_or_create_by!(email_address: "shane.murnaghan@feedbackbin.com") do |admin|
+    admin.name = "Shane Murnaghan"
+    admin.username = "Murny"
+    admin.password = "password123"
+    admin.password_confirmation = "password123"
+    admin.email_verified = true
+    admin.role = User.roles[:administrator]
+  end
 end
