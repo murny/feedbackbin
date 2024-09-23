@@ -11,7 +11,7 @@
 #   end
 
 if Rails.env.development?
-  shane = User.find_or_create_by!(email_address: "shane.murnaghan@feedbackbin.com") do |admin|
+  User.find_or_create_by!(email_address: "shane.murnaghan@feedbackbin.com") do |admin|
     admin.name = "Shane Murnaghan"
     admin.username = "Murny"
     admin.password = "password123"
