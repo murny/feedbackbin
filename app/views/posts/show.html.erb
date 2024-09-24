@@ -4,9 +4,7 @@
 <div class="container px-4 mx-auto my-8">
   <div class="flex items-center justify-between mb-4">
     <h1 class="h3">
-      <%= link_to t("posts.index.title"), posts_path, class: "text-black dark:text-white" %>
-      <span class="text-gray-400 dark:text-gray-500 font-light mx-2">\</span>
-      <span class="text-gray-400 dark:text-gray-500">Post #<%= @post.id %></span>
+      Post #<%= @post.id %>
     </h1>
     <%= link_to t("edit"), edit_post_path(@post), class: "btn btn-secondary" %>
   </div>
