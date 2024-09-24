@@ -122,6 +122,7 @@ search:
 ignore_unused:
   - 'activerecord.errors.messages.*'
   - 'activerecord.errors.models.*'
+  - 'pagy.*'
 # - 'activerecord.attributes.*'
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'
