@@ -3,7 +3,7 @@
 
 <div class="container px-4 mx-auto my-8">
   <div class="flex items-center justify-between mb-4">
-    <h1 class="h3">
+    <h1 class="h3 text-gray-900 dark:text-white">
       Post #<%= @post.id %>
     </h1>
     <%= link_to t("edit"), edit_post_path(@post), class: "btn btn-secondary" %>
@@ -15,7 +15,7 @@
 </div>
 
 <section class="bg-white dark:bg-gray-900 py-8 lg:py-16 antialiased">
-  <div class="max-w-2xl mx-auto px-4">
+  <div class="mx-auto px-4">
       <div class="flex justify-between items-center mb-6">
         <h2 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">Discussion (20)</h2>
     </div>
