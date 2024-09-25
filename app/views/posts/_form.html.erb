@@ -1,17 +1,19 @@
 <%= form_with(model: post) do |form| %>
-  <%= render "error_messages", resource: form.object %>
+  <div class="grid mb-4 gap-4 sm:grid-cols-2 sm:gap-6 sm:mb">
+    <%= render "error_messages", resource: form.object %>
 
-  <div class="form-group">
-    <%= form.label :title %>
-    <%= form.text_field :title, class: "form-control" %>
+    <div class="sm:col-span-2">
+      <%= form.label :title, class: "form-label mb-2" %>
+      <%= form.text_field :title, class: "form-input" %>
+    </div>
+
+    <div class="sm:col-span-2">
+      <%= form.label :description, class: "form-label mb-2" %>
+      <%= form.text_area :description, rows: 4, class: "form-input" %>
+    </div>
   </div>
 
-  <div class="form-group">
-    <%= form.label :description %>
-    <%= form.text_area :description, rows: 4, class: "form-control" %>
-  </div>
-
-  <div>
+  <div class="flex items-center space-x-4">
     <%= form.submit class: "btn btn-primary" %>
 
     <% if form.object.new_record? %>

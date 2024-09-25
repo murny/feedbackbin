@@ -4,7 +4,7 @@
       <div class="flex">
         <%= link_to root_path, class: "flex-shrink-0 flex items-center" do %>
           <%= inline_svg_tag "mark.svg", class: "h-8 w-8 text-blue-400" %>
-          <span class="ml-1 font-bold text-blue-400">FeedbackBin</span>
+          <span class="ml-1 font-bold text-blue-400 hidden md:block">FeedbackBin</span>
         <% end %>
 
         <div class="hidden md:ml-6 md:flex md:items-center md:space-x-4">
@@ -21,7 +21,7 @@
                 inactive_class: "text-gray-900 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white" %>
         </div>
       </div>
-      <div class="flex flex-1 items-center justify-center px-2 md:ml-6 md:justify-end">
+      <div class="flex flex-1 items-center justify-center px-6 md:ml-6 md:justify-end">
         <div class="w-full max-w-lg md:max-w-xs">
           <label for="search" class="sr-only">Search</label>
           <div class="relative">
