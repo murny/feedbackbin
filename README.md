@@ -1,6 +1,6 @@
 # FeedbackBin
 
-DISCLAIMER: Very early software, everything is in flight and in progress. 
+DISCLAIMER: Very early software, everything is in flight and in progress.
 
 TODO: Add description/screenshots/etc in this section
 
@@ -27,7 +27,7 @@ TODO: Add section about credentials and other configuration setup?
 
 ## Running the application
 
-1. Run `bin/setup` 
+1. Run `bin/setup`
 
 By default `bin/setup` will also run `bin/dev` which will start the Rails server. To opt out of this use `bin/setup --skip-server` instead.
 
@@ -63,7 +63,26 @@ Run tests by using `bin/rails test:system`.
 ## Deployment
 TODO: Need to add more info here, but essentially we use [Kamal](https://github.com/basecamp/kamal)
 
-Will need to add docs here for setting up a VPS/Adding let's encrypt and configuration/commands required.
+### Server Provisioning
+
+You will need to acquire a VPS (a cheap Digital Ocean droplet or hetzner vps should be more than fine depending on your needs)
+
+Server hardening:
+ - add your ssh key to the vps
+ - force ssh only via ssh key (e.g set `PasswordAuthentication no` in `/etc/ssh/sshd_config` then `systemctl restart ssh`)
+ - setup a basic firewall for your server which allows outgoing traffic but denys all traffic except for port 22/80/443.
+ - update/upgrade/remove/clean up packages on the system
+ - many more things...fail2ban? etc? need to improve these docs
+
+Domain/DNS:
+- Create a CNAME and A DNS record for your VPS
+
+Kamal
+- update deploy.yml to your server information
+- Set env var for KAMAL_REGISTRY_PASSWORD and your master key file
+- run `kamal setup` to deploy application
+
+Will need to add docs here for setting up a VPS/Provisioning and kamal configuration/commands required.
 
 ## Contributing
 TODO: Need to add more info here
