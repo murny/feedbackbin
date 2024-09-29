@@ -5,9 +5,7 @@ require "active_support/core_ext/integer/time"
 Rails.application.configure do
   # Settings specified here will take precedence over those in config/application.rb.
 
-  # In the development environment your application's code is reloaded any time
-  # it changes. This slows down response time but is perfect for development
-  # since you don't have to restart the web server when you make code changes.
+  # Make code changes take effect immediately without server restart.
   config.enable_reloading = true
 
   # Do not eager load code on boot.
@@ -29,7 +27,7 @@ Rails.application.configure do
     config.action_controller.perform_caching = false
   end
 
-  # Change this to :null_store to avoid any caching
+  # Change to :null_store to avoid any caching.
   config.cache_store = :solid_cache_store
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
@@ -46,8 +44,7 @@ Rails.application.configure do
   # Deliver emails to Letter Opener for development
   config.action_mailer.delivery_method = :letter_opener_web
 
-  # Disable caching for Action Mailer templates even if Action Controller
-  # caching is enabled.
+  # Make template changes take effect immediately.
   config.action_mailer.perform_caching = false
 
   # Set localhost to be used by links generated in mailer templates.

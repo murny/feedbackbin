@@ -6,7 +6,7 @@ source "https://rubygems.org"
 gem "rails", github: "rails/rails", branch: "main"
 
 # Datastores
-gem "sqlite3", ">= 2.0"
+gem "sqlite3", ">= 2.1"
 
 # Jobs
 gem "solid_queue"
