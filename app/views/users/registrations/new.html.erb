@@ -1,20 +1,20 @@
 <% content_for(:title) { t(".title") } %>
 
 <div class="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-  <div class="sm:mx-auto sm:w-full sm:max-w-sm">
+  <div class="sm:mx-auto sm:w-full sm:max-w-md">
     <h1 class="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-white">
       <%= t(".create_your_account_html") %>
     </h1>
   </div>
 
-  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+  <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
     <%= form_with url: users_registrations_path, class: "space-y-6" do |form| %>
       <%= render "error_messages", resource: @user %>
 
       <div>
         <%= form.label :email_address, class: "form-label" %>
         <div class="mt-2">
-          <%= form.email_field :email_address, required: true, autocomplete: "email", placeholder: t(".email_address_placeholder"), class: "form-input" %>
+          <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "email", placeholder: t(".email_address_placeholder"), value: @user.email_address, class: "form-input" %>
         </div>
         <p class="mt-3 text-sm leading-6 text-gray-600 dark:text-gray-400"><%= t(".email_address_hint") %></p>
       </div>
@@ -22,7 +22,7 @@
       <div>
         <%= form.label :username, class: "form-label" %>
         <div class="mt-2">
-          <%= form.text_field :username, required: true, autofocus: true, autocomplete: "username", placeholder: t(".username_placeholder"), class: "form-input" %>
+          <%= form.text_field :username, required: true, autocomplete: "username", placeholder: t(".username_placeholder"), value: @user.username, class: "form-input" %>
         </div>
         <p class="mt-3 text-sm leading-6 text-gray-600 dark:text-gray-400"><%= t(".username_hint") %></p>
       </div>
@@ -30,7 +30,7 @@
       <div>
         <%= form.label :password, class: "form-label" %>
         <div class="mt-2">
-          <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: t(".password_placeholder"), class: "form-input" %>
+          <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: t(".password_placeholder"), value: @user.password, class: "form-input" %>
         </div>
         <p class="mt-3 text-sm leading-6 text-gray-600 dark:text-gray-400"><%= t(".password_hint") %></p>
       </div>
@@ -38,7 +38,7 @@
       <div>
         <%= form.label :name, class: "form-label" %>
         <div class="mt-2">
-          <%= form.text_field :name, required: false, autofocus: true, autocomplete: "name", placeholder: t(".name_placeholder"), class: "form-input" %>
+          <%= form.text_field :name, required: false, autofocus: true, autocomplete: "name", placeholder: t(".name_placeholder"), value: @user.name, class: "form-input" %>
         </div>
         <p class="mt-3 text-sm leading-6 text-gray-600 dark:text-gray-400"><%= t(".name_hint") %></p>
       </div>
