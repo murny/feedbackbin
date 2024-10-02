@@ -10,10 +10,8 @@
   <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
     <%= form_with url: users_password_resets_path, class: "space-y-6" do |form| %>
       <div>
-        <%= form.label :email_address, class: "form-label" %>
-        <div class="mt-2">
-          <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "email", placeholder: t(".email_address_placeholder"), value: params[:email_address], class: "form-input" %>
-        </div>
+        <%= form.label :email_address %>
+        <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "email", placeholder: t(".email_address_placeholder"), value: params[:email_address] %>
       </div>
 
       <div>

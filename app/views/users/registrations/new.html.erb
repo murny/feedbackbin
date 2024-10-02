@@ -8,38 +8,30 @@
   </div>
 
   <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-[480px]">
-    <%= form_with url: users_registrations_path, class: "space-y-6" do |form| %>
+    <%= form_with(model: @user, url: users_registrations_path, class: "space-y-6") do |form| %>
       <%= render "error_messages", resource: @user %>
 
       <div>
-        <%= form.label :email_address, class: "form-label" %>
-        <div class="mt-2">
-          <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "email", placeholder: t(".email_address_placeholder"), value: @user.email_address, class: "form-input" %>
-        </div>
+        <%= form.label :email_address %>
+        <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "email", placeholder: t(".email_address_placeholder") %>
         <p class="mt-3 text-sm leading-6 text-gray-600 dark:text-gray-400"><%= t(".email_address_hint") %></p>
       </div>
 
       <div>
-        <%= form.label :username, class: "form-label" %>
-        <div class="mt-2">
-          <%= form.text_field :username, required: true, autocomplete: "username", placeholder: t(".username_placeholder"), value: @user.username, class: "form-input" %>
-        </div>
+        <%= form.label :username %>
+        <%= form.text_field :username, required: true, autocomplete: "username", placeholder: t(".username_placeholder") %>
         <p class="mt-3 text-sm leading-6 text-gray-600 dark:text-gray-400"><%= t(".username_hint") %></p>
       </div>
 
       <div>
-        <%= form.label :password, class: "form-label" %>
-        <div class="mt-2">
-          <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: t(".password_placeholder"), value: @user.password, class: "form-input" %>
-        </div>
+        <%= form.label :password %>
+        <%= form.password_field :password, required: true, autocomplete: "current-password", placeholder: t(".password_placeholder") %>
         <p class="mt-3 text-sm leading-6 text-gray-600 dark:text-gray-400"><%= t(".password_hint") %></p>
       </div>
 
       <div>
-        <%= form.label :name, class: "form-label" %>
-        <div class="mt-2">
-          <%= form.text_field :name, required: false, autofocus: true, autocomplete: "name", placeholder: t(".name_placeholder"), value: @user.name, class: "form-input" %>
-        </div>
+        <%= form.label :name %>
+        <%= form.text_field :name, required: false, autofocus: true, autocomplete: "name", placeholder: t(".name_placeholder") %>
         <p class="mt-3 text-sm leading-6 text-gray-600 dark:text-gray-400"><%= t(".name_hint") %></p>
       </div>
 
@@ -50,7 +42,7 @@
 
     <p class="mt-10 text-center text-sm text-gray-500 dark:text-gray-400">
       <%= t(".already_have_an_account") %>
-      <%= link_to t(".login"), sign_in_path, class: "font-semibold leading-6 text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300" %>
+      <%= link_to t(".login"), sign_in_path, class: "font-semibold leading-6 text-blue-600 hover:text-blue-500 dark:text-blue-400 dark:hover:text-blue-300" %>
     </p>
   </div>
 </div>

@@ -1,15 +1,15 @@
-<%= form_with(model: post, builder: FormBuilders::TailwindFormBuilder) do |form| %>
+<%= form_with(model: post) do |form| %>
   <div class="space-y-6 pt-4">
     <%= render "error_messages", resource: form.object %>
 
     <div>
       <%= form.label :title %>
-      <%= form.text_field :title, autofocus: true %>
+      <%= form.text_field :title, autofocus: true, placeholder: "Add a title" %>
     </div>
 
     <div>
       <%= form.label :description %>
-      <%= form.text_area :description, rows: 4 %>
+      <%= form.text_area :description, rows: 4, placeholder: "Add your description here..." %>
     </div>
   </div>
 

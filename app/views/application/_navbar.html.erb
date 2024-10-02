@@ -33,7 +33,7 @@
             <input id="search"
                    name="search"
                    autocomplete="off"
-                   class="block w-full rounded-md border-0 bg-white dark:bg-gray-700 py-1.5 pl-10 pr-3 text-gray-900 dark:text-gray-300 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 dark:focus:bg-white dark:focus:text-gray-900 dark:focus:ring-0 sm:text-sm sm:leading-6"
+                   class="block w-full rounded-md border-0 bg-white dark:bg-gray-700 py-1.5 pl-10 pr-3 text-gray-900 dark:text-gray-300 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 dark:focus:bg-white dark:focus:text-gray-900 dark:focus:ring-0 sm:text-sm sm:leading-6"
                    placeholder="Search"
                    type="search">
           </div>
@@ -42,7 +42,7 @@
       <div class="flex items-center md:hidden">
         <!-- Mobile menu button -->
         <button type="button"
-                class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-500  dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-inset  focus:ring-indigo-500 dark:focus:ring-white"
+                class="relative inline-flex items-center justify-center rounded-md p-2 text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-500  dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-inset  focus:ring-blue-500 dark:focus:ring-white"
                 aria-controls="mobile-menu"
                 aria-expanded="false"
                 data-action="click->toggle#toggle touch->toggle#toggle">
@@ -59,7 +59,7 @@
       </div>
       <div class="hidden md:ml-4 md:flex md:flex-shrink-0 md:items-center">
         <% if authenticated? %>
-          <button type="button" class="relative rounded-full bg-white dark:bg-gray-800 p-1 text-gray-400 hover:text-gray-500 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-white focus:ring-offset-2 dark:focus:ring-offset-gray-800">
+          <button type="button" class="relative rounded-full bg-white dark:bg-gray-800 p-1 text-gray-400 hover:text-gray-500 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-white focus:ring-offset-2 dark:focus:ring-offset-gray-800">
             <span class="absolute -inset-1.5"></span>
             <span class="sr-only">View notifications</span>
             <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
@@ -71,7 +71,7 @@
           <div class="relative ml-3" data-controller="dropdown">
             <div>
               <button type="button"
-                      class="relative flex rounded-full bg-white dark:bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-white focus:ring-offset-2 dark:focus:ring-offset-gray-800"
+                      class="relative flex rounded-full bg-white dark:bg-gray-800 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-white focus:ring-offset-2 dark:focus:ring-offset-gray-800"
                       id="user-menu-button"
                       aria-expanded="false"
                       aria-haspopup="true"
@@ -177,7 +177,7 @@
             <div class="text-base font-medium text-gray-800 dark:text-white"><%= Current.user.name %></div>
             <div class="text-sm font-medium text-gray-500 dark:text-gray-400"><%= Current.user.username %></div>
           </div>
-          <button type="button" class="relative ml-auto flex-shrink-0 rounded-full bg-white dark:bg-gray-800 p-1 text-gray-400 hover:text-gray-500 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:focus:ring-white focus:ring-offset-2 dark:focus:ring-offset-gray-800">
+          <button type="button" class="relative ml-auto flex-shrink-0 rounded-full bg-white dark:bg-gray-800 p-1 text-gray-400 hover:text-gray-500 dark:hover:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-white focus:ring-offset-2 dark:focus:ring-offset-gray-800">
             <span class="absolute -inset-1.5"></span>
             <span class="sr-only">View notifications</span>
             <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
