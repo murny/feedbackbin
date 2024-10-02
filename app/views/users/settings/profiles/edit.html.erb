@@ -29,14 +29,14 @@
 
     <div class="md:col-span-2">
       <div class="float-right">
-      <% if current_user.avatar.attached? %>
-        <%= button_to user_avatar_path(current_user), method: :delete, class: "btn btn-secondary" do %>
+      <% if @user.avatar.attached? %>
+        <%= button_to user_avatar_path(@user), method: :delete, class: "btn btn-secondary" do %>
           Delete avatar
         <% end %>
       <% end %>
       </div>
 
-      <%= form_with(model: current_user,
+      <%= form_with(model: @user,
             url: users_settings_profile_path,
             method: :patch,
             data: {controller: "form", action: "keydown.enter->form#submit:prevent"}) do |form| %>
