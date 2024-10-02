@@ -10,12 +10,12 @@
   <%= render "error_messages", resource: @user %>
 
   <div>
-    <%= form.label :email_address, "New email", style: "display: block" %>
+    <%= form.label :email_address, "New email" %>
     <%= form.email_field :email_address, required: true, autofocus: true %>
   </div>
 
   <div>
-    <%= form.label :password_challenge, style: "display: block" %>
+    <%= form.label :password_challenge %>
     <%= form.password_field :password_challenge, required: true, autocomplete: "current-password" %>
   </div>
 
