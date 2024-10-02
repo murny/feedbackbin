@@ -1,4 +1,4 @@
-<% if Current.user.email_verified? %>
+<% if @user.email_verified? %>
   <h1>Change your email</h1>
 <% else %>
   <h1>Verify your email</h1>
@@ -7,7 +7,7 @@
 <% end %>
 
 <%= form_with(url: users_settings_email_path, method: :patch) do |form| %>
-  <%= render "error_messages", resource: current_user %>
+  <%= render "error_messages", resource: @user %>
 
   <div>
     <%= form.label :email_address, "New email", style: "display: block" %>

@@ -6,8 +6,8 @@
   <div class="w-full lg:w-3/4 lg:p-4">
     <div class="lg:p-10 p-4 bg-white rounded-lg border border-gray-200 dark:bg-gray-900 dark:border-gray-700">
       <h1 class="h3 mb-4"><%= t(".update_password") %></h1>
-      <%= form_with(model: current_user, url: users_settings_password_path, local: true, html: {method: :put}, class: "max-w-lg") do |f| %>
-        <%= render "error_messages", resource: current_user %>
+      <%= form_with(model: @user, url: users_settings_password_path, local: true, html: {method: :put}, class: "max-w-lg") do |f| %>
+        <%= render "error_messages", resource: @user %>
 
         <div class="form-group">
           <%= f.label :current_password %>

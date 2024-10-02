@@ -7,10 +7,11 @@ class User < ApplicationRecord
   include Role
   include Mentionable
 
+  has_secure_password
+
   has_many :sessions, dependent: :destroy
 
   has_one_attached :avatar
-  has_secure_password
 
   validates :username, presence: true,
     length: {minimum: 3, maximum: MAX_USERNAME_LENGTH},
@@ -27,7 +28,7 @@ class User < ApplicationRecord
   validates :avatar, resizable_image: true, max_file_size: 2.megabytes
   validates :bio, length: {maximum: 255}
 
-  normalizes :email_address, with: -> { _1.strip.downcase }
+  normalizes :email_address, with: ->(email) { email.strip.downcase }
   normalizes :username, with: ->(username) { username.squish }
   normalizes :name, with: ->(name) { name.squish }
 
