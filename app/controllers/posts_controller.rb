@@ -55,7 +55,7 @@ class PostsController < ApplicationController
     @post.destroy!
 
     respond_to do |format|
-      format.html { redirect_to posts_url, notice: t(".successfully_destroyed") }
+      format.html { redirect_to posts_url, status: :see_other, notice: t(".successfully_destroyed") }
       format.json { head :no_content }
     end
   end
