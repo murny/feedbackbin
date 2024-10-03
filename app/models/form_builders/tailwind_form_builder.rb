@@ -8,7 +8,7 @@ module FormBuilders
     "placeholder:text-gray-400 dark:placeholder:text-gray-500"
 
     INPUT_INVALID_CLASSES = "block w-full rounded-md py-1.5 shadow-sm sm:text-sm sm:leading-6 " \
-    "border border-red-500 dark:border-red-500 bg-red-50 dark:bg-gray-700 text-red-900 dark:text-red-500 " \
+    "border border-red-500 dark:border-red-500 bg-red-50 dark:bg-white/5 text-red-900 dark:text-red-500 " \
     "focus:ring-red-500  focus:border-red-500 placeholder-red-700 dark:placeholder-red-500"
 
     SELECT_CLASSES = "block w-full mt-6 sm:mt-0 border rounded-md py-2 px-3 focus:outline-none " \
