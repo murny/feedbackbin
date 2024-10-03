@@ -17,17 +17,18 @@ module FormBuilders
     LABEL_VALID_CLASSES = "block text-sm font-medium leading-6 text-gray-900 dark:text-white"
     LABEL_INVALID_CLASSES = "block mb-2 text-sm font-medium text-red-700 dark:text-red-500"
     ERROR_MESSAGE_CLASSES = "mt-2 text-sm text-red-600 dark:text-red-500"
+    CHECKBOX_CLASSES = "h-4 w-4 border-gray-300 rounded"
 
     def text_field(attribute, options = {}, &block)
       if options[:leading_icon]
         default_opts = {class: "#{classes_for_input(attribute, options)} pl-10"}
 
-        text_layout(attribute) { leading_icon(&block) + super(attribute, options.merge(default_opts)) }
+        text_layout(attribute) { leading_icon(&block) + super(attribute, options.merge(default_opts)) } + attribute_error_message(attribute)
       else
         default_opts = {class: classes_for_input(attribute, options)}
 
-        text_layout(attribute) { super(attribute, options.merge(default_opts)) }
-      end + attribute_error_message(attribute)
+        text_layout(attribute) { super(attribute, options.merge(default_opts)) } + attribute_error_message(attribute)
+      end
     end
 
     def email_field(attribute, options = {})
@@ -61,13 +62,13 @@ module FormBuilders
     end
 
     def check_box(attribute, options = {}, checked_value = "1", unchecked_value = "0")
-      default_opts = {class: "#{options[:class]} h-4 w-4 border-gray-300 rounded"}
+      default_opts = {class: [CHECKBOX_CLASSES, options[:class]].compact.join(" ")}
 
       super(attribute, options.merge(default_opts), checked_value, unchecked_value)
     end
 
     def select(attribute, choices, options = {}, html_options = {})
-      default_opts = {class: "#{SELECT_CLASSES} #{html_options[:class]}"}
+      default_opts = {class: [SELECT_CLASSES, html_options[:class]].compact.join(" ")}
 
       super(attribute, choices, options, html_options.merge(default_opts))
     end
@@ -122,7 +123,7 @@ module FormBuilders
       return if @object.blank? || @object.errors[attribute].blank?
 
       @template.content_tag :div, class: ERROR_MESSAGE_CLASSES do
-        @object.errors[attribute].first
+        @object.errors[attribute].to_sentence.upcase_first
       end
     end
   end
