@@ -10,7 +10,7 @@ class PostsTest < ApplicationSystemTestCase
   test "visiting the index" do
     visit posts_url
 
-    assert_selector "h1", text: "Feedback"
+    assert_selector "a", text: "New Post"
   end
 
   test "should create post" do
@@ -19,7 +19,7 @@ class PostsTest < ApplicationSystemTestCase
     visit posts_url
     click_link "New Post"
 
-    fill_in "Description", with: @post.description
+    fill_in_rich_text_area "Body", with: @post.body
     fill_in "Title", with: @post.title
     click_button "Create Post"
 
@@ -32,7 +32,7 @@ class PostsTest < ApplicationSystemTestCase
     visit post_url(@post)
     click_link "Edit", match: :first
 
-    fill_in "Description", with: @post.description
+    fill_in_rich_text_area "Body", with: @post.body
     fill_in "Title", with: @post.title
     click_button "Update Post"
 

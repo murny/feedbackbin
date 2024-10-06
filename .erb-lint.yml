@@ -22,5 +22,7 @@ linters:
         Enabled: false
       Layout/TrailingEmptyLines:
         Enabled: false
+      Lint/UselessAssignment:
+        Enabled: false
       Style/FrozenStringLiteralComment:
         Enabled: false

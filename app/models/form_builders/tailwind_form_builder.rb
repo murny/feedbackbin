@@ -56,6 +56,12 @@ module FormBuilders
       text_layout(attribute) { super(attribute, options.merge(default_opts)) } + attribute_error_message(attribute)
     end
 
+    def rich_text_area(attribute, options = {})
+      default_opts = {class: "mt-1 #{classes_for_input(attribute, options)}"}
+
+      text_layout(attribute) { super(attribute, options.merge(default_opts)) } + attribute_error_message(attribute)
+    end
+
     def label(attribute, text = nil, options = {}, &)
       default_opts = {class: classes_for_label(attribute, options)}
 
