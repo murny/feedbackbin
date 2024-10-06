@@ -35,6 +35,11 @@ en:
       profile: Profile
   are_you_sure: Are you sure?
   cancel: Cancel
+  comments:
+    create:
+      successfully_created: Comment was successfully created.
+    destroy:
+      successfully_destroyed: Comment was successfully destroyed.
   delete: Delete
   edit: Edit
   errors:

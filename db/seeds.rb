@@ -11,7 +11,7 @@
 #   end
 
 if Rails.env.development?
-  User.find_or_create_by!(email_address: "shane.murnaghan@feedbackbin.com") do |admin|
+  admin = User.find_or_create_by!(email_address: "shane.murnaghan@feedbackbin.com") do |admin|
     admin.name = "Shane Murnaghan"
     admin.username = "Murny"
     admin.password = "password123"
@@ -21,10 +21,12 @@ if Rails.env.development?
   end
 
   Post.find_or_create_by!(title: "Could you please add dark mode") do |post|
-    post.description = "I would love to see dark mode on this site, please give support for it"
+    post.body = "I would love to see dark mode on this site, please give support for it"
+    post.author = admin
   end
 
   Post.find_or_create_by!(title: "Multiple boards?") do |post|
-    post.description = "I would like to be able to create multiple boards, is this possible?"
+    post.body = "I would like to be able to create multiple boards, is this possible?"
+    post.author = admin
   end
 end

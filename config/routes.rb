@@ -40,7 +40,9 @@ Rails.application.routes.draw do
     route_for :user_avatar, user, v: user.updated_at.to_fs(:number)
   end
 
+  resource :like, only: [:update]
   resources :posts
+  resources :comments
 
   scope controller: :static do
     get :about
