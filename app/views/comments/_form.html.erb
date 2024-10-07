@@ -28,5 +28,10 @@
     </div>
   <% end %>
 <% else %>
-  <%= link_to "Sign up", sign_up_path %> or <%= link_to "login", sign_in_path %> to comment
+  <p class="text-base font-semibold leading-7 text-gray-900 dark:text-white">
+    <%= link_to "Sign up", sign_up_path, class: "font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300" %>
+    or
+    <%= link_to "login", sign_in_path, class: "font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300" %>
+    to comment
+  </p>
 <% end %>
