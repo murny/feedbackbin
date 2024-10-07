@@ -32,7 +32,7 @@ gem "inline_svg"
 # API
 gem "jbuilder"
 
-gem "pagy", "~> 9.0"
+gem "pagy", "~> 9.1"
 
 gem "bcrypt", "~> 3.1.7"
 
