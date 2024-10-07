@@ -1,37 +1,39 @@
-<% if Current.user.present? %>
-  <% model = [local_assigns[:commentable], comment].compact %>
+<%= tag.div class: local_assigns[:class], data: local_assigns[:data] do %>
+  <% if Current.user.present? %>
+    <% model = [local_assigns[:commentable], comment].compact %>
 
-  <%= tag.div id: dom_id_for_records(*model), class: local_assigns[:class], data: local_assigns[:data] do %>
-    <div class="flex items-start">
-      <div class="mr-3 my-4 shrink-0 hidden sm:block">
-          <%= avatar_tag Current.user, class: "w-9 h-9 rounded-full", alt: Current.user.name %>
-      </div>
+    <%= tag.div id: dom_id_for_records(*model) do %>
+      <div class="flex items-start">
+        <div class="mr-3 my-4 shrink-0 hidden sm:block">
+            <%= avatar_tag Current.user, class: "w-9 h-9 rounded-full", alt: Current.user.name %>
+        </div>
 
-      <%= form_with model: comment, class: "my-4 w-full" do |form| %>
+        <%= form_with model: comment, class: "my-4 w-full" do |form| %>
 
-        <% if form.object.errors.any? %>
-          <div class="alert alert-danger">
-            <% form.object.errors.full_messages.each do |message| %>
-              <div><%= message %></div>
-            <% end %>
+          <% if form.object.errors.any? %>
+            <div class="alert alert-danger">
+              <% form.object.errors.full_messages.each do |message| %>
+                <div><%= message %></div>
+              <% end %>
+            </div>
+          <% end %>
+          <%= form.hidden_field :commentable_id, value: commentable.id %>
+          <%= form.hidden_field :commentable_type, value: commentable.class.to_s %>
+
+          <%= form.rich_text_area :body, id: "#{dom_id_for_records(*model)}_body", placeholder: "Write a comment..." %>
+          <div class="mt-5 flex items-center space-x-4 justify-end">
+            <%= form.submit class: "btn btn-primary" %>
+            <%= link_to "Cancel", comment, class: "btn btn-secondary" if form.object.persisted? %>
           </div>
         <% end %>
-        <%= form.hidden_field :commentable_id, value: commentable.id %>
-        <%= form.hidden_field :commentable_type, value: commentable.class.to_s %>
-
-        <%= form.rich_text_area :body, id: "#{dom_id_for_records(*model)}_body", placeholder: "Write a comment..." %>
-        <div class="mt-5 flex items-center space-x-4 justify-end">
-          <%= form.submit class: "btn btn-primary" %>
-          <%= link_to "Cancel", comment, class: "btn btn-secondary" if form.object.persisted? %>
-        </div>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
+  <% else %>
+    <p class="text-base font-semibold leading-7 text-gray-900 dark:text-white">
+      <%= link_to "Sign up", sign_up_path, class: "font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300" %>
+      or
+      <%= link_to "login", sign_in_path, class: "font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300" %>
+      to comment
+    </p>
   <% end %>
-<% else %>
-  <p class="text-base font-semibold leading-7 text-gray-900 dark:text-white">
-    <%= link_to "Sign up", sign_up_path, class: "font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300" %>
-    or
-    <%= link_to "login", sign_in_path, class: "font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300" %>
-    to comment
-  </p>
 <% end %>
