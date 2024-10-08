@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_05_17_075643) do
+ActiveRecord::Schema[8.0].define(version: 2024_10_08_044018) do
   create_table "accounts", force: :cascade do |t|
     t.string "name", null: false
     t.string "join_code", null: false
@@ -56,6 +56,13 @@ ActiveRecord::Schema[8.0].define(version: 2024_05_17_075643) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "boards", force: :cascade do |t|
+    t.string "name", null: false
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "comments", force: :cascade do |t|
     t.bigint "creator_id", null: false
     t.string "commentable_type", null: false
@@ -85,7 +92,9 @@ ActiveRecord::Schema[8.0].define(version: 2024_05_17_075643) do
     t.integer "likes_count", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "board_id", null: false
     t.index ["author_id"], name: "index_posts_on_author_id"
+    t.index ["board_id"], name: "index_posts_on_board_id"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -117,6 +126,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_05_17_075643) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "users", column: "creator_id"
   add_foreign_key "likes", "users", column: "voter_id"
+  add_foreign_key "posts", "boards"
   add_foreign_key "posts", "users", column: "author_id"
   add_foreign_key "sessions", "users"
 end
