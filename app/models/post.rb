@@ -7,6 +7,8 @@ class Post < ApplicationRecord
   has_rich_text :body
 
   belongs_to :author, class_name: "User", default: -> { Current.user }
+  belongs_to :board
+
   has_many :comments, as: :commentable, dependent: :destroy
 
   broadcasts_refreshes
