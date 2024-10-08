@@ -8,6 +8,7 @@ class Post < ApplicationRecord
 
   belongs_to :author, class_name: "User", default: -> { Current.user }
   belongs_to :board
+  belongs_to :status, optional: true
 
   has_many :comments, as: :commentable, dependent: :destroy
 
