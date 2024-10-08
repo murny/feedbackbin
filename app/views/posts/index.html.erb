@@ -59,7 +59,7 @@
     <% end %>
 
     <% if @pagy.pages > 1 %>
-      <div class="flex items-center justify-between border-t border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 px-4 py-3 sm:px-6">
+      <div class="flex items-center justify-between px-4 py-3 sm:px-6">
         <%== pagy_info(@pagy) %>
         <%== pagy_nav(@pagy) %>
       </div>

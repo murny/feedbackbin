@@ -12,7 +12,7 @@
     <%= render partial: "comments/form", locals: {comment: Comment.new, commentable: post} %>
 
     <%= tag.div id: "#{dom_id(post)}_comments", class: "divide-y divide-gray-200 dark:divide-gray-800" do %>
-      <%= render partial: "comments/comment_with_replies", collection: post.comments.where(parent_id: nil), as: :comment, locals: {nested_comment: false} %>
+      <%= render partial: "comments/comment_with_replies", collection: post.comments.where(parent_id: nil).ordered, as: :comment, locals: {nested_comment: false} %>
     <% end %>
   </div>
 </section>

@@ -5,6 +5,6 @@
 
   <div id="<%= dom_id(comment) %>_comments">
     <%= render partial: "comments/form", locals: {commentable: comment, comment: Comment.new, data: {comment_reply_target: "form"}, class: "hidden"} %>
-    <%= render partial: "comments/comment_with_replies", collection: comment.comments, as: :comment %>
+    <%= render partial: "comments/comment_with_replies", collection: comment.comments.ordered, as: :comment %>
   </div>
 </div>
