@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_10_08_044018) do
+ActiveRecord::Schema[8.0].define(version: 2024_10_08_053141) do
   create_table "accounts", force: :cascade do |t|
     t.string "name", null: false
     t.string "join_code", null: false
@@ -92,9 +92,11 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_08_044018) do
     t.integer "likes_count", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "board_id", null: false
+    t.integer "board_id", null: false
+    t.integer "status_id"
     t.index ["author_id"], name: "index_posts_on_author_id"
     t.index ["board_id"], name: "index_posts_on_board_id"
+    t.index ["status_id"], name: "index_posts_on_status_id"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -105,6 +107,14 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_08_044018) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["user_id"], name: "index_sessions_on_user_id"
+  end
+
+  create_table "statuses", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "color", null: false
+    t.integer "position", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
@@ -127,6 +137,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_08_044018) do
   add_foreign_key "comments", "users", column: "creator_id"
   add_foreign_key "likes", "users", column: "voter_id"
   add_foreign_key "posts", "boards"
+  add_foreign_key "posts", "statuses"
   add_foreign_key "posts", "users", column: "author_id"
   add_foreign_key "sessions", "users"
 end
