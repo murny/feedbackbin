@@ -11,3 +11,8 @@ two:
   record: two (Post)
   name: body
   body: <p>Can we upvotes?</p>
+
+two:
+  record: one (Comment)
+  name: body
+  body: <p>Thanks for the suggestion!</p>

@@ -26,7 +26,9 @@ module Authentication
   end
 
   def resume_session
-    Current.session = find_session_by_cookie
+    session = find_session_by_cookie
+    session&.resume(user_agent: request.user_agent, ip_address: request.remote_ip)
+    Current.session = session
   end
 
   def find_session_by_cookie
