@@ -13,6 +13,14 @@ class Users::SessionsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "new redirects to first run when no users exist" do
+    User.destroy_all
+
+    get sign_in_url
+
+    assert_redirected_to first_run_url
+  end
+
   test "should sign in" do
     post users_session_url, params: {email_address: @user.email_address, password: "secret123456"}
 

@@ -5,6 +5,8 @@ Rails.application.routes.draw do
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
+  resource :first_run, only: %i[show create]
+
   # authentification
   get "sign_in", to: "users/sessions#new"
   get "sign_up", to: "users/registrations#new"

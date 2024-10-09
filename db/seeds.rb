@@ -9,24 +9,3 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
-
-if Rails.env.development?
-  admin = User.find_or_create_by!(email_address: "shane.murnaghan@feedbackbin.com") do |admin|
-    admin.name = "Shane Murnaghan"
-    admin.username = "Murny"
-    admin.password = "password123"
-    admin.password_confirmation = "password123"
-    admin.email_verified = true
-    admin.role = User.roles[:administrator]
-  end
-
-  Post.find_or_create_by!(title: "Could you please add dark mode") do |post|
-    post.body = "I would love to see dark mode on this site, please give support for it"
-    post.author = admin
-  end
-
-  Post.find_or_create_by!(title: "Multiple boards?") do |post|
-    post.body = "I would like to be able to create multiple boards, is this possible?"
-    post.author = admin
-  end
-end

@@ -6,7 +6,7 @@ class Comment < ApplicationRecord
 
   belongs_to :creator, class_name: "User", default: -> { Current.user }
 
-  belongs_to :commentable, polymorphic: true, counter_cache: true
+  belongs_to :commentable, polymorphic: true, counter_cache: true, touch: true
   belongs_to :parent, optional: true, class_name: "Comment"
   has_many :comments, foreign_key: :parent_id, inverse_of: :parent, dependent: :destroy
 
