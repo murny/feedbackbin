@@ -1,11 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
-one:
-  name: MyString
-  color: '#ff0000'
+in_progress:
+  name: In Progress
+  color: '#0000ff'
   position: 1
 
-two:
-  name: MyString
+complete:
+  name: Complete
   color: '#00ff00'
   position: 2
