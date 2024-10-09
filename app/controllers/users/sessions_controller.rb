@@ -5,6 +5,8 @@ module Users
     allow_unauthenticated_access only: %i[new create]
     rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to sign_in_url, alert: t("users.sessions.create.rate_limited") }
 
+    before_action :ensure_user_exists, only: :new
+
     def new
     end
 
@@ -20,6 +22,12 @@ module Users
     def destroy
       terminate_session
       redirect_back(fallback_location: sign_in_url, notice: t(".signed_out_successfully"))
+    end
+
+    private
+
+    def ensure_user_exists
+      redirect_to first_run_url if User.none?
     end
   end
 end

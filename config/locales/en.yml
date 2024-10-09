@@ -47,6 +47,18 @@ en:
       not_saved:
         one: '1 error prohibited this %{resource} from being saved:'
         other: "%{count} errors prohibited this %{resource} from being saved:"
+  first_runs:
+    show:
+      create_account: Create account
+      email_address_hint: Never shown to the public
+      email_address_placeholder: Enter your email address
+      name_hint: Your full name (Optional)
+      name_placeholder: Enter your name
+      password_hint: "(at least 10 characters)"
+      password_placeholder: Enter your password
+      title: Set up FeedbackBin
+      username_hint: unique, no spaces, short
+      username_placeholder: Enter your username
   pagy:
     aria_label:
       nav:

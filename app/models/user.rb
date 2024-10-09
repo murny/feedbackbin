@@ -9,6 +9,7 @@ class User < ApplicationRecord
 
   has_secure_password
 
+  has_many :posts, dependent: :destroy, foreign_key: :author_id, inverse_of: :author
   has_many :sessions, dependent: :destroy
   has_many :comments, dependent: :destroy, foreign_key: :creator_id, inverse_of: :creator
   has_many :likes, dependent: :destroy, foreign_key: :voter_id, inverse_of: :voter
