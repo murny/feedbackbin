@@ -21,10 +21,13 @@ Rails.application.routes.draw do
     resources :registrations, only: [:create]
 
     namespace :settings do
-      resources :sessions, only: [:index]
-      resource :profile, only: [:edit, :update]
-      resource :password, only: [:edit, :update]
-      resource :email, only: [:edit, :update]
+      resources :sessions, only: [:index, :destroy]
+      resource :profile, only: [:show, :update]
+      resource :account, only: [:show, :update]
+      resource :appearance, only: [:show, :update]
+      resource :notifications, only: [:show, :update]
+      resource :password, only: [:update]
+      resource :email, only: [:update]
     end
 
     namespace :sessions do

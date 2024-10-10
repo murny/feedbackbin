@@ -1,0 +1,114 @@
+<%= render partial: "users/settings/header" %>
+
+<div class="divide-y divide-white/5">
+  <div class="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
+    <div>
+      <h2 class="text-base font-semibold leading-7 text-gray-900 dark:text-white">Username</h2>
+      <p class="mt-1 text-sm leading-6 text-gray-600 dark:text-gray-400"><%= t(".username_hint") %></p>
+    </div>
+
+    <%= form_with(model: @user,
+          url: users_settings_account_path,
+          method: :patch,
+          class: "md:col-span-2",
+          data: {controller: "form", action: "keydown.enter->form#submit:prevent"}) do |form| %>
+      <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:max-w-xl sm:grid-cols-6">
+          <div class="col-span-full">
+            <%= form.label :username %>
+            <%= form.text_field :username,
+                  autocomplete: "username",
+                  placeholder: "jane_doe",
+                  leading_icon: true do %>
+              <%= inline_svg "icons/outline/at-symbol.svg", class: "h-5 w-5 text-gray-600 dark:text-gray-400", aria: true, title: "Username", desc: "@ icon" %>
+            <% end %>
+            <p class="mt-3 text-sm leading-6 text-gray-600 dark:text-gray-400"><%= t(".username_warning") %></p>
+          </div>
+      </div>
+
+      <div class="mt-8 flex">
+        <%= form.submit t(".update_username") %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
+    <div>
+      <h2 class="text-base font-semibold leading-7 text-gray-900 dark:text-white">Email Address</h2>
+      <p class="mt-1 text-sm leading-6 text-gray-600 dark:text-gray-400"><%= t(".email_address_hint") %></p>
+    </div>
+
+    <%= form_with(model: @user,
+          url: users_settings_email_path,
+          method: :patch,
+          class: "md:col-span-2",
+          data: {controller: "form", action: "keydown.enter->form#submit:prevent"}) do |form| %>
+      <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:max-w-xl sm:grid-cols-6">
+        <div class="col-span-full">
+          <%= form.label :email_address %>
+          <%= form.email_field :email_address, required: true, autocomplete: "email", placeholder: t(".email_address_placeholder") %>
+          <p class="mt-3 text-sm leading-6 text-gray-600 dark:text-gray-400"><%= t(".email_address_hint") %></p>
+        </div>
+
+        <div class="col-span-full">
+          <%= form.label :password_challenge %>
+          <%= form.password_field :password_challenge, autocomplete: "current-password" %>
+        </div>
+      </div>
+
+      <div class="mt-8 flex">
+        <%= form.submit t(".update_email_address") %>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
+    <div>
+      <h2 class="text-base font-semibold leading-7 text-gray-900 dark:text-white">Change password</h2>
+      <p class="mt-1 text-sm leading-6 text-gray-600 dark:text-gray-400">Update your password associated with your account.</p>
+    </div>
+
+     <%= form_with(model: @user,
+           url: users_settings_password_path,
+           method: :patch,
+           class: "md:col-span-2",
+           data: {controller: "form", action: "keydown.enter->form#submit:prevent"}) do |form| %>
+      <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:max-w-xl sm:grid-cols-6">
+        <div class="col-span-full">
+          <label for="current-password" class="block text-sm font-medium leading-6 text-white">Current password</label>
+          <div class="mt-2">
+            <input id="current-password" name="current_password" type="password" autocomplete="current-password" class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:text-sm sm:leading-6">
+          </div>
+        </div>
+
+        <div class="col-span-2">
+          <label for="new-password" class="block text-sm font-medium leading-6 text-white">New password</label>
+          <div class="mt-2">
+            <input id="new-password" name="new_password" type="password" autocomplete="new-password" class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:text-sm sm:leading-6">
+          </div>
+        </div>
+
+        <div class="col-span-2">
+          <label for="confirm-password" class="block text-sm font-medium leading-6 text-white">Confirm password</label>
+          <div class="mt-2">
+            <input id="confirm-password" name="confirm_password" type="password" autocomplete="new-password" class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-blue-500 sm:text-sm sm:leading-6">
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-8 flex">
+        <button type="submit" class="rounded-md bg-blue-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-500">Save</button>
+      </div>
+    <% end %>
+  </div>
+
+  <div class="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
+    <div>
+      <h2 class="text-base font-semibold leading-7 text-gray-900 dark:text-white">Delete account</h2>
+      <p class="mt-1 text-sm leading-6 text-gray-600 dark:text-gray-400">No longer want to use our service? You can delete your account here. This action is not reversible. All information related to this account will be deleted permanently.</p>
+    </div>
+
+    <form class="flex items-start md:col-span-2">
+      <button type="submit" class="rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-400">Yes, delete my account</button>
+    </form>
+  </div>
+</div>

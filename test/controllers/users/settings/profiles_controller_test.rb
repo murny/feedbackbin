@@ -7,8 +7,8 @@ class Users::Settings::ProfilesControllerTest < ActionDispatch::IntegrationTest
     sign_in(users(:shane))
   end
 
-  test "should get edit" do
-    get edit_users_settings_profile_url
+  test "should get show" do
+    get users_settings_profile_url
 
     assert_response :success
   end
@@ -16,7 +16,7 @@ class Users::Settings::ProfilesControllerTest < ActionDispatch::IntegrationTest
   test "should be able to update profile" do
     patch users_settings_profile_url, params: {user: {name: "Murny", bio: "I am a developer"}}
 
-    assert_redirected_to edit_users_settings_profile_url
+    assert_redirected_to users_settings_profile_url
     assert_equal "Your profile has been updated.", flash[:notice]
   end
 end

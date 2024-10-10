@@ -28,7 +28,7 @@ class Users::AvatarsControllerTest < ActionDispatch::IntegrationTest
 
     delete user_avatar_url(@shane)
 
-    assert_redirected_to edit_users_settings_profile_url
+    assert_redirected_to users_settings_profile_url
     assert_not_predicate @shane.reload.avatar, :attached?
   end
 end

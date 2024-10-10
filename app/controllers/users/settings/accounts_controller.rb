@@ -1,11 +1,14 @@
 # frozen_string_literal: true
 
-class Users::Settings::PasswordsController < ApplicationController
+class Users::Settings::AccountsController < ApplicationController
   before_action :set_user
+
+  def show
+  end
 
   def update
     if @user.update(user_params)
-      redirect_to users_settings_password_path, notice: t(".password_changed")
+      redirect_to users_settings_account_path, notice: t(".account_updated")
     else
       render :edit, status: :unprocessable_entity
     end
@@ -14,7 +17,7 @@ class Users::Settings::PasswordsController < ApplicationController
   private
 
   def user_params
-    params.permit(:password, :password_confirmation, :password_challenge).with_defaults(password_challenge: "")
+    params.require(:user).permit(:username).compact
   end
 
   def set_user

@@ -1,0 +1,66 @@
+<%= render partial: "users/settings/header" %>
+
+<div class="divide-y divide-white/5">
+  <div class="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
+    <div>
+      <h2 class="text-base font-semibold leading-7 text-gray-900 dark:text-white">Profile</h2>
+      <p class="mt-1 text-sm leading-6 text-gray-600 dark:text-gray-400">This information will be displayed publicly so be careful what you share.</p>
+    </div>
+
+    <div class="md:col-span-2">
+      <div class="float-right">
+      <% if @user.avatar.attached? %>
+        <%= button_to user_avatar_path(@user), method: :delete, class: "btn btn-secondary" do %>
+          Delete avatar
+        <% end %>
+      <% end %>
+      </div>
+
+      <%= form_with(model: @user,
+            url: users_settings_profile_path,
+            method: :patch,
+            data: {controller: "form", action: "keydown.enter->form#submit:prevent"}) do |form| %>
+
+        <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:max-w-xl sm:grid-cols-6">
+          <div class="col-span-full flex items-center gap-x-8"
+                data-controller="upload-preview">
+            <%= image_tag fresh_user_avatar_path(@user),
+                  role: "presentation",
+                  class: "h-24 w-24 flex-none rounded-lg bg-gray-800 object-cover",
+                  data: {"upload-preview-target": "image"} %>
+            <div>
+                <%= form.file_field :avatar, accept: "image/*", data: {upload_preview_target: "input", action: "upload-preview#previewImage"}, class: "hidden" %>
+                <%= form.label :avatar, t(".change_avatar"), class: "btn btn-secondary" %>
+              <p class="mt-2 text-xs leading-5 text-gray-600 dark:text-gray-400">JPG, GIF or PNG. 2MB max.</p>
+            </div>
+          </div>
+
+          <div class="col-span-full">
+            <%= form.label :name %>
+            <%= form.text_field :name, autocomplete: "name" %>
+          </div>
+
+          <div class="col-span-full">
+            <%= form.label :username %>
+            <%= form.text_field :username,
+                  autocomplete: "username",
+                  placeholder: "jane_doe",
+                  leading_icon: true do %>
+                      <%= inline_svg "icons/outline/at-symbol.svg", class: "h-5 w-5 text-gray-600 dark:text-gray-400", aria: true, title: "Username", desc: "@ icon" %>
+            <% end %>
+          </div>
+
+          <div class="col-span-full">
+            <%= form.label :bio %>
+            <%= form.text_area :bio, row: 4 %>
+            <p class="mt-3 text-sm leading-6 text-gray-600 dark:text-gray-400">Write a few sentences about yourself.</p>
+          </div>
+        </div>
+
+        <div class="mt-8 flex">
+          <%= form.submit "Save" %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>

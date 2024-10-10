@@ -3,16 +3,13 @@
 class Users::Settings::EmailsController < ApplicationController
   before_action :set_user
 
-  def edit
-  end
-
   def update
     if @user.update(user_params)
       if @user.email_address_previously_changed?
         UsersMailer.email_verification(@user).deliver_later
-        redirect_to edit_users_settings_email_path, notice: t(".email_changed")
+        redirect_to users_settings_account_path, notice: t(".email_changed")
       else
-        redirect_to edit_users_settings_email_path
+        redirect_to users_settings_account_path
       end
     else
       render :edit, status: :unprocessable_entity
@@ -22,7 +19,7 @@ class Users::Settings::EmailsController < ApplicationController
   private
 
   def user_params
-    params.permit(:email_address, :password_challenge).with_defaults(password_challenge: "")
+    params.expect(user: [:email_address, :password_challenge])
   end
 
   def set_user

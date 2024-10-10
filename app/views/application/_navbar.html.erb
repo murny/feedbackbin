@@ -14,7 +14,7 @@
                 active_class: "bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white",
                 inactive_class: "text-gray-900 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white" %>
 
-          <%= active_link_to t(".links.ideas"),
+          <%= active_link_to t(".links.feedback"),
                 posts_path,
                 class: "rounded-md px-3 py-2 text-sm font-medium",
                 active_class: "bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white",
@@ -33,7 +33,7 @@
             <input id="search"
                    name="search"
                    autocomplete="off"
-                   class="block w-full rounded-md border-0 bg-white dark:bg-gray-700 py-1.5 pl-10 pr-3 text-gray-900 dark:text-gray-300 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-600 dark:focus:bg-white dark:focus:text-gray-900 dark:focus:ring-0 sm:text-sm sm:leading-6"
+                   class="block w-full pl-10 p-2.5 sm:text-sm rounded-md bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white dark:placeholder-gray-400 focus:ring-primary-500 focus:border-primary-500 dark:focus:ring-primary-500 dark:focus:border-primary-500"
                    placeholder="Search"
                    type="search">
           </div>
@@ -105,7 +105,7 @@
                       tab_index: "-1",
                       role: "menuitem" %>
                 <%= link_to t(".links.settings"),
-                      edit_users_settings_profile_path,
+                      users_settings_profile_path,
                       class: "block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100",
                       tab_index: "-1",
                       role: "menuitem" %>
@@ -161,7 +161,7 @@
             class: "rounded-md px-3 py-2 text-base font-medium",
             active_class: "bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white",
             inactive_class: "text-gray-900 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white" %>
-      <%= active_link_to t(".links.ideas"),
+      <%= active_link_to t(".links.feedback"),
             posts_path,
             class: "rounded-md px-3 py-2 text-base font-medium",
             active_class: "bg-gray-100 text-gray-900 dark:bg-gray-900 dark:text-white",
@@ -190,7 +190,7 @@
                 user_path(Current.user),
                 class: "block rounded-md px-3 py-2 text-base font-medium text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white" %>
           <%= link_to t(".links.settings"),
-                edit_users_settings_profile_path,
+                users_settings_profile_path,
                 class: "block rounded-md px-3 py-2 text-base font-medium text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white" %>
           <%= button_to t(".sign_out"), users_session_path, method: :delete, class: "block rounded-md px-3 py-2 text-base font-medium text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-700 hover:text-gray-900 dark:hover:text-white" %>
         </div>

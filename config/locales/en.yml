@@ -21,7 +21,7 @@ en:
     navbar:
       links:
         admin: Admin
-        ideas: Ideas
+        feedback: Feedback
         letter_opener: Letter opener
         mission_control_jobs: Mission control jobs
         roadmap: Roadmap
@@ -30,9 +30,6 @@ en:
       sign_in: Sign in
       sign_out: Sign out
       sign_up: Sign up
-    users_settings_navbar:
-      password: Password
-      profile: Profile
   are_you_sure: Are you sure?
   cancel: Cancel
   comments:
@@ -92,6 +89,9 @@ en:
     update:
       successfully_updated: Post was successfully updated.
   users:
+    avatars:
+      destroy:
+        avatar_removed: Your avatar has been removed.
     email_verifications:
       create:
         email_verification_sent: We've sent you an email with a link to verify your email address
@@ -148,20 +148,32 @@ en:
         sign_in_to_your_account: Sign in to your account
         sign_up: Sign up
     settings:
+      accounts:
+        show:
+          email_address_hint: Never shown to the public
+          email_address_placeholder: Enter your email address
+          update_email_address: Update email address
+          update_username: Update username
+          username_hint: unique, no spaces, short
+          username_warning: Changing your username will break all previous mentions and links to your profile.
+        update:
+          account_updated: Your account has been updated.
       emails:
         update:
           email_changed: Your email address has been changed.
       passwords:
-        edit:
-          update: Update
-          update_password: Update password
         update:
           password_changed: Your password has been changed.
       profiles:
         avatar_updated: Your avatar has been updated. It may take up to 30 minutes to update everywhere.
-        edit:
-          change_avatar: Change avatar
         profile_updated: Your profile has been updated.
+        show:
+          change_avatar: Change avatar
+      sessions:
+        destroy:
+          session_revoked: This session was successfully revoked
+        index:
+          are_you_sure_you_may_be_logged_out: Are you sure? You may be logged out if this is your current session.
   users_mailer:
     email_verification:
       verify_your_email: Verify your email
