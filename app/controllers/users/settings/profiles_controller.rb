@@ -3,12 +3,12 @@
 class Users::Settings::ProfilesController < ApplicationController
   before_action :set_user
 
-  def edit
+  def show
   end
 
   def update
     if @user.update(user_params)
-      redirect_to edit_users_settings_profile_path, notice: update_notice
+      redirect_to users_settings_profile_path, notice: update_notice
     else
       render :edit, status: :unprocessable_entity
     end
@@ -17,7 +17,7 @@ class Users::Settings::ProfilesController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:username, :name, :avatar, :email_address, :password, :bio).compact
+    params.require(:user).permit(:name, :avatar, :bio).compact
   end
 
   def set_user

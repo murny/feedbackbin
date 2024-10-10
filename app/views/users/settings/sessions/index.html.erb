@@ -1,28 +1,36 @@
-<div class="container mt-8">
-  <h1 class="text-center mb-8">Devices & Sessions</h1>
+<%= render partial: "users/settings/header" %>
 
-  <div id="sessions">
-    <% @sessions.each do |session| %>
-      <%= tag.div id: dom_id(session) do %>
-        <div class="flex items-center gap-4">
-          <div class="flex flex-col gap-4">
-            <div class="div">
-              <strong>User Agent:</strong>
-              <%= session.user_agent %>
+<div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
+  <div class="flow-root">
+    <h3 class="text-xl font-semibold dark:text-white">Devices & Sessions</h3>
+    <ul class="divide-y divide-gray-200 dark:divide-gray-700">
+      <% @sessions.each do |session| %>
+        <li class="py-4">
+          <div class="flex items-center space-x-4">
+            <div class="flex-shrink-0">
+              <svg class="w-6 h-6 dark:text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
             </div>
-
-            <div>
-              <strong>Ip Address:</strong>
-              <%= session.ip_address %>
+            <div class="flex-1 min-w-0">
+              <p class="text-base font-semibold text-gray-900 truncate dark:text-white">
+                <%= UserAgent.parse(session.user_agent).browser %> on <%= UserAgent.parse(session.user_agent).platform %>
+              </p>
+              <p class="text-sm font-normal text-gray-500 truncate dark:text-gray-400">
+                <%= session.ip_address %>
+              </p>
+              <p class="text-sm font-normal text-gray-500 truncate dark:text-gray-400">
+                <%= local_datetime_tag session.last_active_at, style: :datetime %>
+              </p>
             </div>
-            <div>
-              <strong>Created at:</strong>
-              <%= l(session.created_at.to_date, default: "", format: :long) %>
+            <div class="inline-flex items-center">
+              <%= button_to "Revoke",
+                    users_settings_session_path(session),
+                    method: :delete,
+                    class: "px-3 py-2 mb-3 mr-3 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700",
+                    form: {data: {turbo_confirm: t(".are_you_sure_you_may_be_logged_out")}} %>
             </div>
           </div>
-          <%= button_to "Log out", users_session_path, method: :delete %>
-        </div>
-      <% end %>
-    <% end %>
+        </li>
+     <% end %>
+    </ul>
   </div>
 </div>
