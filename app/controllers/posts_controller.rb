@@ -6,7 +6,8 @@ class PostsController < ApplicationController
 
   # GET /posts or /posts.json
   def index
-    @pagy, @posts = pagy(Post.sort_by_params(params[:sort], sort_direction))
+    @board = Board.first
+    @pagy, @posts = pagy(@board.posts.sort_by_params(params[:sort], sort_direction))
   end
 
   # GET /posts/1 or /posts/1.json
