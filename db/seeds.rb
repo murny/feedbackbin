@@ -9,3 +9,8 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+Status.find_or_create_by!(name: "In Progress", color: "#FFA500", position: 1)
+Status.find_or_create_by!(name: "Planned", color: "#FF0000", position: 2)
+Status.find_or_create_by!(name: "Archived", color: "#000000", position: 3)
+Status.find_or_create_by!(name: "Complete", color: "#008000", position: 4)

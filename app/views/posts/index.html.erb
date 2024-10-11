@@ -4,6 +4,9 @@
 <section class="max-w-6xl mx-auto px-4 sm:px-6">
   <div class="md:pr-6 lg:pr-10">
     <div class="border-b border-gray-800 p-6">
+      <h1 class="mb-3 text-3xl font-bold text-gray-900 sm:text-4xl sm:leading-none sm:tracking-tight dark:text-white"><%= @board.name %></h1>
+      <p class="mb-6 text-lg font-normal text-gray-500 sm:text-xl dark:text-gray-400"><%= @board.description %></p>
+
       <div class="text-center md:text-left md:flex justify-between items-center">
         <div class="mb-4 md:mb-0 md:order-1 md:ml-6">
           <%= link_to t("posts.new.title"), new_post_path, class: "px-4 py-2 text-sm font-medium inline-flex items-center justify-center rounded-full leading-5 whitespace-nowrap py-1.5 text-white bg-blue-500 hover:bg-blue-600" %>
@@ -42,7 +45,7 @@
         </div>
       <% else %>
         <ul role="list" class="flex flex-col space-y-3 mb-8">
-          <%= render partial: "posts/post", collection: @posts, as: :post, cached: true %>
+          <%= render partial: "posts/post", collection: @posts, as: :post %>
         </ul>
       <% end %>
     <% end %>
