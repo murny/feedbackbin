@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_10_08_053141) do
+ActiveRecord::Schema[8.0].define(version: 2024_10_11_230444) do
   create_table "accounts", force: :cascade do |t|
     t.string "name", null: false
     t.string "join_code", null: false
@@ -59,6 +59,14 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_08_053141) do
   create_table "boards", force: :cascade do |t|
     t.string "name", null: false
     t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "changelogs", force: :cascade do |t|
+    t.string "title", null: false
+    t.string "kind", null: false
+    t.datetime "published_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -128,6 +136,7 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_08_053141) do
     t.boolean "active", default: true, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "changelogs_read_at"
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end

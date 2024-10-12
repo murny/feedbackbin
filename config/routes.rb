@@ -49,6 +49,8 @@ Rails.application.routes.draw do
   resources :posts
   resources :comments
 
+  resources :changelogs, only: [:index, :show]
+
   scope controller: :static do
     get :about
     get :terms
