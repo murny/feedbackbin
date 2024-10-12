@@ -4,7 +4,7 @@
   <% end %>
 
   <h2 class="font-semibold text-gray-900 text-lg mb-2 dark:text-gray-100"><%= changelog.title %></h2>
-  <%= tag.div class: "mb-2 #{changelog_color(changelog)}" %>
+  <%= tag.div class: "mb-2 #{changelog_color(changelog)}" do %>
     <%= changelog.kind.humanize.titleize %>
   <% end %>
 
