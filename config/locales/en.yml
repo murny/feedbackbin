@@ -26,13 +26,22 @@ en:
         mission_control_jobs: Mission control jobs
         roadmap: Roadmap
         settings: Settings
-        your_profile: Your profile
         whats_new: What's new?
+        your_profile: Your profile
       sign_in: Sign in
       sign_out: Sign out
       sign_up: Sign up
   are_you_sure: Are you sure?
   cancel: Cancel
+  changelogs:
+    index:
+      description: New updates and improvements to %{name}
+      empty_placeholder: Exciting stuff coming very soon!
+      title: What's New
+    show:
+      back: Back
+      description: New updates and improvements to %{name}
+      title: What's New
   comments:
     create:
       successfully_created: Comment was successfully created.
@@ -45,15 +54,6 @@ en:
       not_saved:
         one: '1 error prohibited this %{resource} from being saved:'
         other: "%{count} errors prohibited this %{resource} from being saved:"
-  changelogs:
-    index:
-        title: "What's New"
-        description: "New updates and improvements to %{name}"
-        empty_placeholder: "Exciting stuff coming very soon!"
-    show:
-      title: "What's New"
-      description: "New updates and improvements to %{name}"
-      back: "Back"
   first_runs:
     show:
       create_account: Create account

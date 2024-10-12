@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class ChangelogsController < ApplicationController
   before_action :mark_as_read, if: :authenticated?
 

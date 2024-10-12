@@ -47,3 +47,6 @@
 /.dockerignore
 /Dockerfile*
 compose.yaml
+
+# Ignore test files
+/test/*

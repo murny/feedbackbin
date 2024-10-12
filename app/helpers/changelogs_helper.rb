@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module ChangelogsHelper
   CHANGELOG_COLORS = {
     "new" => "bg-primary-100 text-primary-600",
