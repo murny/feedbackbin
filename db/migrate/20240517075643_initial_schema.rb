@@ -47,6 +47,21 @@ class InitialSchema < ActiveRecord::Migration[8.0]
       t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
     end
 
+    create_table "boards", force: :cascade do |t|
+      t.string "name", null: false
+      t.text "description"
+      t.datetime "created_at", null: false
+      t.datetime "updated_at", null: false
+    end
+
+    create_table "changelogs", force: :cascade do |t|
+      t.string "title", null: false
+      t.string "kind", null: false
+      t.datetime "published_at"
+      t.datetime "created_at", null: false
+      t.datetime "updated_at", null: false
+    end
+
     create_table "comments", force: :cascade do |t|
       t.bigint "creator_id", null: false
       t.string "commentable_type", null: false
@@ -76,7 +91,11 @@ class InitialSchema < ActiveRecord::Migration[8.0]
       t.integer "likes_count", default: 0, null: false
       t.datetime "created_at", null: false
       t.datetime "updated_at", null: false
+      t.integer "board_id", null: false
+      t.integer "status_id"
       t.index ["author_id"], name: "index_posts_on_author_id"
+      t.index ["board_id"], name: "index_posts_on_board_id"
+      t.index ["status_id"], name: "index_posts_on_status_id"
     end
 
     create_table "sessions", force: :cascade do |t|
@@ -87,6 +106,14 @@ class InitialSchema < ActiveRecord::Migration[8.0]
       t.datetime "created_at", null: false
       t.datetime "updated_at", null: false
       t.index ["user_id"], name: "index_sessions_on_user_id"
+    end
+
+    create_table "statuses", force: :cascade do |t|
+      t.string "name", null: false
+      t.string "color", null: false
+      t.integer "position", null: false
+      t.datetime "created_at", null: false
+      t.datetime "updated_at", null: false
     end
 
     create_table "users", force: :cascade do |t|
@@ -100,6 +127,7 @@ class InitialSchema < ActiveRecord::Migration[8.0]
       t.boolean "active", default: true, null: false
       t.datetime "created_at", null: false
       t.datetime "updated_at", null: false
+      t.datetime "changelogs_read_at"
       t.index ["email_address"], name: "index_users_on_email_address", unique: true
       t.index ["username"], name: "index_users_on_username", unique: true
     end
@@ -108,6 +136,8 @@ class InitialSchema < ActiveRecord::Migration[8.0]
     add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
     add_foreign_key "comments", "users", column: "creator_id"
     add_foreign_key "likes", "users", column: "voter_id"
+    add_foreign_key "posts", "boards"
+    add_foreign_key "posts", "statuses"
     add_foreign_key "posts", "users", column: "author_id"
     add_foreign_key "sessions", "users"
   end
