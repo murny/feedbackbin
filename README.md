@@ -1,8 +1,21 @@
 # FeedbackBin
 
-DISCLAIMER: Very early software, everything is in flight and in progress.
+> **Warning**
+> This is a work-in-progress.
+>
+> FeedbackBin is in heavy active development towards a minimal viable product (MVP).
+>
+> Stay tune for updates.
 
-TODO: Add description/screenshots/etc in this section
+TODO: Add description/screenshots/What is FeedbackBin? etc in this section
+
+## Table of Contents
+
+## Community
+
+## Contributing
+
+## Getting Started
 
 ## Technology Stack
 
