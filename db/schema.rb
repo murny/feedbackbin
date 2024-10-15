@@ -13,9 +13,38 @@
 ActiveRecord::Schema[8.0].define(version: 2024_10_11_230444) do
   create_table "accounts", force: :cascade do |t|
     t.string "name", null: false
-    t.string "join_code", null: false
+    t.bigint "owner_id"
+    t.string "domain"
+    t.string "subdomain"
+    t.integer "account_users_count", default: 0
+    t.string "billing_email"
+    t.text "extra_billing_info"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["owner_id"], name: "index_accounts_on_owner_id"
+  end
+
+  create_table "account_invitations", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.bigint "invited_by_id"
+    t.string "token", null: false
+    t.string "name", null: false
+    t.string "email", null: false
+    t.jsonb "roles", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id", "email"], name: "index_account_invitations_on_account_id_and_email", unique: true
+    t.index ["invited_by_id"], name: "index_account_invitations_on_invited_by_id"
+    t.index ["token"], name: "index_account_invitations_on_token", unique: true
+  end
+
+  create_table "account_users", force: :cascade do |t|
+    t.bigint "account_id"
+    t.bigint "user_id"
+    t.jsonb "roles", default: {}, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id", "user_id"], name: "index_account_users_on_account_id_and_user_id", unique: true
   end
 
   create_table "action_text_rich_texts", force: :cascade do |t|

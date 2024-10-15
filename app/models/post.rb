@@ -10,6 +10,8 @@ class Post < ApplicationRecord
   belongs_to :board
   belongs_to :status, optional: true
 
+  # has_many :commenters, through: :comments, source: :creator
+  # has_many :voters, through: :likes, source: :voter
   has_many :comments, as: :commentable, dependent: :destroy
 
   broadcasts_refreshes
