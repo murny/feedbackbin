@@ -1,4 +1,4 @@
-module Account::Transfer
+module Account::Transferable
   extend ActiveSupport::Concern
 
   # An account can be transferred by the owner if it:

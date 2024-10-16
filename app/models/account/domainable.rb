@@ -1,4 +1,4 @@
-module Account::Domains
+module Account::Domainable
   extend ActiveSupport::Concern
 
   included do

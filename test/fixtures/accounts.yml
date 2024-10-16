@@ -1,3 +1,15 @@
 feedbackbin:
-  name: feedbackbin
-  join_code: ab1c-def2-G3hi
+  owner: shane
+  name: "FeedbackBin"
+  domain: feedbackbin.com
+  subdomain: meta
+
+company:
+  owner: user
+  name: "Hooli"
+  domain: hooli.com
+  subdomain: feedback
+
+invited:
+  owner: invited
+  name: "Invited Account"

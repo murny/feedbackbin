@@ -4,7 +4,6 @@ class User < ApplicationRecord
   MAX_USERNAME_LENGTH = 20
 
   include Transferable
-  include Role
   include Mentionable
 
   has_secure_password

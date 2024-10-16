@@ -1,10 +1,7 @@
 class AccountInvitation < ApplicationRecord
-  ROLES = AccountUser::ROLES
-
-  include AccountUser::Roles
-
   belongs_to :account
   belongs_to :invited_by, class_name: "User", optional: true
+
   has_secure_token
 
   validates :name, :email, presence: true

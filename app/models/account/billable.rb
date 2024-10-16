@@ -1,4 +1,4 @@
-# module Account::Billing
+# module Account::Billable
 #   extend ActiveSupport::Concern
 
 #   included do

@@ -1,0 +1,19 @@
+one:
+  address_type: 0
+  line1: 123 Fake Street
+  line2:
+  city: Springfield
+  state: Springfield's State
+  country: US
+  postal_code: 12345
+  addressable: feedbackbin (Account)
+
+company_billing_address:
+  address_type: 0
+  line1: Hooli Headquarters
+  line2: 123 Sand Hill Road
+  city: Menlo Park
+  state: California
+  country: US
+  postal_code: 12345
+  addressable: company (Account)

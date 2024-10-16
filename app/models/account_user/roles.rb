@@ -1,46 +1,13 @@
-module AccountUser::Roles
-  # Adds roles to a model along with helper methods and scopes
-  #
-  # To use, add a `roles:json` column to your model.
-  # Then include this module with a ROLES constant of available roles
-  #
-  #   ROLES = [:admin, :member]
-  #   include Rolified
-  #
-  # Then you can assign and check roles:
-  #
-  #   account_user.admin = true
-  #   account_user.admin? #=> true
-  #   account_user.active_roles #=> [:admin]
-  #
-  #   AccountUser.admin
+# frozen_string_literal: true
 
+module AccountUser::Role
   extend ActiveSupport::Concern
 
   included do
-    # Add account roles to this line
-    # Do NOT to use any reserved words like `user` or `account`
-    self::ROLES = [:admin, :member]
-
-    # Cast roles to/from booleans
-    self::ROLES.each do |role|
-      scope role, -> { where("roles @> ?", {role => true}.to_json) }
-
-      define_method(:"#{role}=") { |value| super(ActiveRecord::Type::Boolean.new.cast(value)) }
-      define_method(:"#{role}?") { send(role) }
-    end
-
-    # Store the roles in the roles json column and cast to booleans
-    store_accessor :roles, *self::ROLES
-
-    # You can use Postgres' jsonb operators to query the roles jsonb column
-    # https://www.postgresql.org/docs/current/functions-json.html
-    #
-    # Query where roles contains:
-    # scope :managers, -> { where("roles @> ?", {manager: true}.to_json) }
+    enum :role, {member: 0, administrator: 1}, default: :member, validate: true
   end
 
-  def active_roles
-    self.class::ROLES.select { |role| send(:"#{role}?") }.compact
+  def can_administer?
+    administrator?
   end
 end
