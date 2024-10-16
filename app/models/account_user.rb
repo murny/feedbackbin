@@ -1,6 +1,6 @@
 class AccountUser < ApplicationRecord
   include UpdatesSubscriptionQuantity
-  include Roles
+  include Role
 
   belongs_to :account, counter_cache: true
   belongs_to :user

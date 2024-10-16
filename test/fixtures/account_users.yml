@@ -1,5 +1,5 @@
 feedback_admin:
-  account: feedback
+  account: feedbackbin
   user: shane
   role: administrator
 

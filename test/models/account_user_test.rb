@@ -2,20 +2,20 @@ require "test_helper"
 
 class AccountUserTest < ActiveSupport::TestCase
   test "converts roles to booleans" do
-    member = AccountUser.new admin: "1"
+    member = AccountUser.new role: :administrator
 
-    assert_equal true, member.admin
+    assert_equal true, member.administrator
   end
 
   test "can be assigned a role" do
-    member = AccountUser.new admin: true
+    member = AccountUser.new role: :administrator
 
-    assert_equal true, member.admin
-    assert_equal true, member.admin?
+    assert_equal true, member.administrator
+    assert_equal true, member.administrator?
   end
 
   test "role can be false" do
-    member = AccountUser.new admin: false
+    member = AccountUser.new role: false
 
     assert_equal false, member.admin
     assert_equal false, member.admin?

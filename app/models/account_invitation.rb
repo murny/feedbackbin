@@ -16,7 +16,7 @@ class AccountInvitation < ApplicationRecord
   end
 
   def accept!(user)
-    account_user = account.account_users.new(user: user, roles: roles)
+    account_user = account.account_users.new(user: user, role: :member)
     if account_user.valid?
       ApplicationRecord.transaction do
         account_user.save!

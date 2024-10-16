@@ -1,0 +1,76 @@
+personal:
+  name: Personal
+  amount: 1900
+  interval: month
+  stripe_id: personal
+  braintree_id: personal
+  details:
+    features:
+      - Unlimited access
+
+business:
+  name: Business
+  amount: 7900
+  interval: month
+  stripe_id: business
+  braintree_id: business
+  details:
+    features:
+      - Unlimited access
+
+personal_annual:
+  name: Personal
+  amount: 19000
+  interval: year
+  stripe_id: personal-annual
+  braintree_id: personal-annual
+
+business_annual:
+  name: Business
+  amount: 79000
+  interval: year
+  stripe_id: business-annual
+  braintree_id: business-annual
+  details:
+    features:
+      - Unlimited access
+      - Business Feature
+
+personal_with_trial:
+  name: Personal with Trial
+  amount: 1900
+  interval: month
+  stripe_id: personal-monthly-trial
+  braintree_id: personal-monthly-trial
+  details:
+    features:
+      - Unlimited access
+
+hidden:
+  name: Hidden Plan
+  amount: 1000
+  interval: month
+  hidden: true
+  stripe_id: hidden
+  braintree_id: hidden
+
+per_seat:
+  name: Per Seat Plan
+  amount: 2500
+  interval: month
+  hidden: true
+  unit_label: "seat"
+  charge_per_unit: true
+  stripe_id: per_seat
+  braintree_id: per_seat
+  fake_processor_id: per_seat
+
+enterprise:
+  name: Enterprise Contact Us Plan
+  amount: 2500
+  interval: month
+  hidden: false
+  contact_url: 'mailto:user@example.com'
+  stripe_id: enterprise
+  braintree_id: enterprise
+  fake_processor_id: enterprise

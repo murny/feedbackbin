@@ -1,4 +1,4 @@
-module UpdatesSubscriptionQuantity
+module AccountUser::UpdatesSubscriptionQuantity
   # Per Unit subscriptions (i.e. $10/user/mo) can include this module to add callbacks
   # to automatically update the subscription quantity when records are created or destroyed.
   #

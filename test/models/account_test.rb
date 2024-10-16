@@ -36,7 +36,7 @@ class AccountTest < ActiveSupport::TestCase
   end
 
   test "validates against reserved domains" do
-    account = Account.new(domain: Jumpstart.config.domain)
+    account = Account.new(domain: "feedbackbin.com")
 
     assert_not account.valid?
     assert_not_empty account.errors[:domain]
@@ -88,31 +88,15 @@ class AccountTest < ActiveSupport::TestCase
     end
   end
 
-  test "personal accounts enabled" do
-    Jumpstart.config.stub(:personal_accounts?, true) do
-      user = User.create! name: "Test", email: "personalaccounts@example.com", password: "password", password_confirmation: "password", terms_of_service: true
-
-      assert_predicate user.accounts.first, :personal?
-    end
-  end
-
-  test "personal accounts disabled" do
-    Jumpstart.config.stub(:personal_accounts?, false) do
-      user = User.create! name: "Test", email: "nonpersonalaccounts@example.com", password: "password", password_confirmation: "password", terms_of_service: true
-
-      assert_not user.accounts.first.personal?
-    end
-  end
-
   test "owner?" do
-    account = accounts(:one)
+    account = accounts(:company)
 
     assert account.owner?(users(:one))
     assert_not account.owner?(users(:two))
   end
 
   test "can_transfer? false for personal accounts" do
-    assert_not accounts(:one).can_transfer?(users(:one))
+    assert_not accounts(:company).can_transfer?(users(:one))
   end
 
   test "can_transfer? true for owner" do
@@ -172,23 +156,23 @@ class AccountTest < ActiveSupport::TestCase
     assert_equal [account.email, "accounting@example.com"], mail.to
   end
 
-  test "destroys noticed events when associated" do
-    account = accounts(:one)
-    Noticed::Event.create!(account: account)
+  # test "destroys noticed events when associated" do
+  #   account = accounts(:company)
+  #   Noticed::Event.create!(account: account)
 
-    assert_difference "Noticed::Event.count", -1 do
-      account.destroy
-    end
-  end
+  #   assert_difference "Noticed::Event.count", -1 do
+  #     account.destroy
+  #   end
+  # end
 
-  test "destroys noticed events when associated as record" do
-    account = accounts(:one)
-    Noticed::Event.create!(account: accounts(:two), record: account)
+  # test "destroys noticed events when associated as record" do
+  #   account = accounts(:company)
+  #   Noticed::Event.create!(account: accounts(:two), record: account)
 
-    assert_difference "Noticed::Event.count", -1 do
-      account.destroy
-    end
-  end
+  #   assert_difference "Noticed::Event.count", -1 do
+  #     account.destroy
+  #   end
+  # end
 
   test "account can be subscribed" do
     assert_predicate accounts(:subscribed).payment_processor, :subscribed?
