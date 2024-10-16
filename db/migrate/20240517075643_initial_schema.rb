@@ -4,7 +4,7 @@ class InitialSchema < ActiveRecord::Migration[8.0]
   def change
     create_table "account_invitations", force: :cascade do |t|
       t.bigint "account_id", null: false
-      t.bigint "invited_by_id", null: false
+      t.bigint "invited_by_id"
       t.string "token", null: false
       t.string "name", null: false
       t.string "email", null: false
@@ -150,7 +150,7 @@ class InitialSchema < ActiveRecord::Migration[8.0]
       t.bigint "owner_id"
       t.string "processor", null: false
       t.string "processor_id"
-      t.boolean "default"
+      t.boolean "default", default: false, null: false
       t.json "data"
       t.string "stripe_account"
       t.datetime "deleted_at", precision: nil
@@ -166,7 +166,7 @@ class InitialSchema < ActiveRecord::Migration[8.0]
       t.bigint "owner_id"
       t.string "processor", null: false
       t.string "processor_id"
-      t.boolean "default"
+      t.boolean "default", default: false, null: false
       t.json "data"
       t.datetime "created_at", null: false
       t.datetime "updated_at", null: false
@@ -177,7 +177,7 @@ class InitialSchema < ActiveRecord::Migration[8.0]
     create_table "pay_payment_methods", force: :cascade do |t|
       t.bigint "customer_id", null: false
       t.string "processor_id", null: false
-      t.boolean "default"
+      t.boolean "default", default: false, null: false
       t.string "payment_method_type"
       t.json "data"
       t.string "stripe_account"
@@ -198,7 +198,7 @@ class InitialSchema < ActiveRecord::Migration[8.0]
       t.datetime "current_period_end", precision: nil
       t.datetime "trial_ends_at", precision: nil
       t.datetime "ends_at", precision: nil
-      t.boolean "metered"
+      t.boolean "metered", default: false, null: false
       t.string "pause_behavior"
       t.datetime "pause_starts_at", precision: nil
       t.datetime "pause_resumes_at", precision: nil
@@ -231,12 +231,12 @@ class InitialSchema < ActiveRecord::Migration[8.0]
       t.datetime "created_at", precision: nil, null: false
       t.datetime "updated_at", precision: nil, null: false
       t.integer "trial_period_days", default: 0
-      t.boolean "hidden"
+      t.boolean "hidden", default: false, null: false
       t.string "currency"
       t.integer "interval_count", default: 1
       t.string "description"
       t.string "unit_label"
-      t.boolean "charge_per_unit"
+      t.boolean "charge_per_unit", default: false, null: false
       t.string "stripe_id"
       t.string "braintree_id"
       t.string "paddle_billing_id"

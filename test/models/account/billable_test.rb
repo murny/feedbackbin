@@ -2,17 +2,30 @@
 
 require "test_helper"
 
-class Account::JoinableTest < ActiveSupport::TestCase
-  test "new accounts get a joinable code" do
-    Account.destroy_all
-    account = Account.create!(name: "Chat")
+class Account::BillableTest < ActiveSupport::TestCase
+  test "billing_email shouldn't be included in receipts if empty" do
+    account = accounts(:company)
+    account.update!(billing_email: nil)
+    pay_customer = account.set_payment_processor :fake_processor, allow_fake: true
+    pay_charge = pay_customer.charge(10_00)
 
-    assert_match(/\w{4}-\w{4}-\w{4}/, account.join_code)
+    mail = Pay::UserMailer.with(pay_customer: pay_customer, pay_charge: pay_charge).receipt
+
+    assert_equal [account.email], mail.to
   end
 
-  test "accounts can reset join code" do
-    assert_changes -> { accounts(:feedbackbin).reload.join_code } do
-      accounts(:feedbackbin).reset_join_code
-    end
+  test "billing_email should be included in receipts if present" do
+    account = accounts(:company)
+    account.update!(billing_email: "accounting@example.com")
+    pay_customer = account.set_payment_processor :fake_processor, allow_fake: true
+    pay_charge = pay_customer.charge(10_00)
+
+    mail = Pay::UserMailer.with(pay_customer: pay_customer, pay_charge: pay_charge).receipt
+
+    assert_equal ["accounting@example.com"], mail.to
   end
+
+  # test "account can be subscribed" do
+  #   assert_predicate accounts(:subscribed).payment_processor, :subscribed?
+  # end
 end

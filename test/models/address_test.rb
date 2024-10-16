@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 require "test_helper"
 
 class AddressTest < ActiveSupport::TestCase
   setup do
     @address = Address.new(
-      addressable: accounts(:one),
+      addressable: accounts(:company),
       address_type: "billing",
       line1: "1 Apple Way",
       city: "Cupertino",
@@ -31,7 +33,7 @@ class AddressTest < ActiveSupport::TestCase
   end
 
   test "does not update pay customer if addressable is not a pay object" do
-    @address.addressable = users(:one)
+    @address.addressable = users(:user)
     assert_nothing_raised do
       @address.stub :update_pay_customer_addresses, -> { raise StandardError } do
         @address.save!

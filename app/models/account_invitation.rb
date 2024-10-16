@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class AccountInvitation < ApplicationRecord
   belongs_to :account
   belongs_to :invited_by, class_name: "User", optional: true
@@ -23,9 +25,9 @@ class AccountInvitation < ApplicationRecord
         destroy!
       end
 
-      [account.owner, invited_by].uniq.each do |recipient|
-        Account::AcceptedInviteNotifier.with(account: account, record: user).deliver(recipient)
-      end
+      # [account.owner, invited_by].uniq.each do |recipient|
+      #   Account::AcceptedInviteNotifier.with(account: account, record: user).deliver(recipient)
+      # end
 
       account_user
     else

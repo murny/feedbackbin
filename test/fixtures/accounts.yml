@@ -1,8 +1,6 @@
 feedbackbin:
   owner: shane
   name: "FeedbackBin"
-  domain: feedbackbin.com
-  subdomain: meta
 
 company:
   owner: user

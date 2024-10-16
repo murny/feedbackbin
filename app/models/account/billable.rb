@@ -1,9 +1,11 @@
+# frozen_string_literal: true
+
 module Account::Billable
   extend ActiveSupport::Concern
 
   included do
-    has_one :billing_address, -> { where(address_type: :billing) }, class_name: "Address", as: :addressable
-    has_one :shipping_address, -> { where(address_type: :shipping) }, class_name: "Address", as: :addressable
+    has_one :billing_address, -> { where(address_type: :billing) }, class_name: "Address", as: :addressable, dependent: :destroy, inverse_of: :addressable
+    has_one :shipping_address, -> { where(address_type: :shipping) }, class_name: "Address", as: :addressable, dependent: :destroy, inverse_of: :addressable
 
     pay_customer stripe_attributes: :stripe_attributes
 
@@ -19,7 +21,7 @@ module Account::Billable
   # Email address used for Pay customers and receipts
   # Defaults to billing_email if defined, otherwise uses the account owner's email
   def email
-    billing_email? ? billing_email : owner.email
+    billing_email? ? billing_email : owner.email_address
   end
 
   # Used for per-unit subscriptions on create and update
