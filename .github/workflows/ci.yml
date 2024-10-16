@@ -57,7 +57,7 @@ jobs:
         run: bin/rubocop -f github
 
       - name: Lint ERB files for consistent style
-        run: bundle exec erblint --lint-all
+        run: bundle exec erb_lint --lint-all
 
       - name: Lint en.yml with i18n-tasks
         run: bundle exec i18n-tasks health en
