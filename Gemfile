@@ -78,3 +78,9 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "authentication-zero", "~> 4.0"
+# Use OmniAuth to support multi-provider authentication [https://github.com/omniauth/omniauth]
+gem "omniauth"
+# Provides a mitigation against CVE-2015-9284 [https://github.com/cookpad/omniauth-rails_csrf_protection]
+gem "omniauth-rails_csrf_protection"

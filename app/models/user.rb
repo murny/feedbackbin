@@ -9,6 +9,8 @@ class User < ApplicationRecord
 
   has_secure_password
 
+  belongs_to :account
+
   has_many :posts, dependent: :destroy, foreign_key: :author_id, inverse_of: :author
   has_many :sessions, dependent: :destroy
   has_many :comments, dependent: :destroy, foreign_key: :creator_id, inverse_of: :creator
@@ -36,6 +38,14 @@ class User < ApplicationRecord
   normalizes :name, with: ->(name) { name.squish }
 
   before_save :anonymize_avatar_filename
+
+  # before_validation if: :email_changed?, on: :update do
+  #   self.verified = false
+  # end
+  #
+  # after_update if: :password_digest_previously_changed? do
+  #   sessions.where.not(id: Current.session).delete_all
+  # end
 
   scope :active, -> { where(active: true) }
   scope :filtered_by, ->(query) { where("name like ?", "%#{query}%") }

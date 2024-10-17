@@ -1,12 +1,18 @@
-# frozen_string_literal: true
-
 class ApplicationController < ActionController::Base
-  include Authentication
-  include Pagy::Backend
-  include Sortable
+  before_action :set_current_request_details
+  before_action :authenticate
 
-  # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.
-  allow_browser versions: :modern
+  private
+    def authenticate
+      if session_record = Session.find_by_id(cookies.signed[:session_token])
+        Current.session = session_record
+      else
+        redirect_to sign_in_path
+      end
+    end
 
-  rate_limit to: 100, within: 1.minute
+    def set_current_request_details
+      Current.user_agent = request.user_agent
+      Current.ip_address = request.ip
+    end
 end
