@@ -98,6 +98,11 @@ en:
       title: New Post
     update:
       successfully_updated: Post was successfully updated.
+  user_mailer:
+    email_verification:
+      verify_your_email: Verify your email
+    password_reset:
+      reset_your_password: Reset your password
   users:
     avatars:
       destroy:
@@ -184,8 +189,3 @@ en:
           session_revoked: This session was successfully revoked
         index:
           are_you_sure_you_may_be_logged_out: Are you sure? You may be logged out if this is your current session.
-  users_mailer:
-    email_verification:
-      verify_your_email: Verify your email
-    password_reset:
-      reset_your_password: Reset your password

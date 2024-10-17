@@ -7,5 +7,5 @@ one:
 
 two:
   title: MyString
-  author: user
+  author: one
   board: one

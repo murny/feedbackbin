@@ -15,7 +15,7 @@ class User::RoleTest < ActiveSupport::TestCase
   end
 
   test "Roles must be a valid role" do
-    @user = users(:user)
+    @user = users(:one)
     @user.role = :super_admin
 
     assert_not @user.valid?

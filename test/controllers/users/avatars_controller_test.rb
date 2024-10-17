@@ -4,7 +4,7 @@ require "test_helper"
 
 class Users::AvatarsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @user = users(:user)
+    @user = users(:one)
   end
 
   test "show initials" do

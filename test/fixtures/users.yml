@@ -8,7 +8,7 @@ shane:
   password_digest: <%= password_digest %>
   role: administrator
 
-user:
+one:
   username: jane_doe
   name: Jane Doe
   email_address: jane.doe@feedbackbin.com

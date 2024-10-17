@@ -12,7 +12,7 @@ module Users
     end
 
     def create
-      UsersMailer.email_verification(Current.user).deliver_later
+      UserMailer.email_verification(Current.user).deliver_later
       redirect_to root_path, notice: t(".email_verification_sent")
     end
 

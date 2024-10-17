@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class UsersMailer < ApplicationMailer
+class UserMailer < ApplicationMailer
   def email_verification(user)
     @user = user
     @token = @user.generate_token_for(:email_verification)

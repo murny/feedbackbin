@@ -5,7 +5,7 @@ require "minitest/mock"
 
 class UserTest < ActiveSupport::TestCase
   def setup
-    @user = users(:user)
+    @user = users(:one)
   end
 
   test "valid user" do

@@ -6,7 +6,7 @@ class Users::Settings::EmailsController < ApplicationController
   def update
     if @user.update(user_params)
       if @user.email_address_previously_changed?
-        UsersMailer.email_verification(@user).deliver_later
+        UserMailer.email_verification(@user).deliver_later
         redirect_to users_settings_account_path, notice: t(".email_changed")
       else
         redirect_to users_settings_account_path

@@ -4,11 +4,11 @@ require "test_helper"
 
 class Users::AvatarsHelperTest < ActionView::TestCase
   setup do
-    @user = users(:user)
+    @user = users(:one)
   end
 
   test "avatar_background_color" do
-    assert_equal "#7C956B", avatar_background_color(@user)
+    assert_equal "#67695E", avatar_background_color(@user)
   end
 
   test "avatar_tag" do

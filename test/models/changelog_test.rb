@@ -12,7 +12,7 @@ class ChangelogTest < ActiveSupport::TestCase
   end
 
   test "unread? returns false when no changelogs and never read" do
-    user = users(:user)
+    user = users(:one)
     user.update(changelogs_read_at: nil)
     Changelog.delete_all
 
@@ -20,7 +20,7 @@ class ChangelogTest < ActiveSupport::TestCase
   end
 
   test "unread? returns false when no changelogs" do
-    user = users(:user)
+    user = users(:one)
     user.update(changelogs_read_at: 1.month.ago)
     Changelog.delete_all
 
@@ -28,14 +28,14 @@ class ChangelogTest < ActiveSupport::TestCase
   end
 
   test "unread? returns true with unread changelogs" do
-    user = users(:user)
+    user = users(:one)
     user.update(changelogs_read_at: Changelog.maximum(:published_at) - 1.month)
 
     assert Changelog.unread?(user)
   end
 
   test "unread? returns false with no unread changelogs" do
-    user = users(:user)
+    user = users(:one)
     user.update(changelogs_read_at: Changelog.maximum(:published_at) + 1.month)
 
     assert_not Changelog.unread?(user)

@@ -27,14 +27,19 @@ gem "stimulus-rails"
 gem "importmap-rails"
 gem "tailwindcss-rails"
 
-gem "inline_svg"
-
 # API
 gem "jbuilder"
 
+# View
 gem "pagy", "~> 9.1"
+gem "inline_svg"
 
+# Authentication
 gem "bcrypt", "~> 3.1.7"
+gem "omniauth"
+gem "omniauth-rails_csrf_protection"
+gem "omniauth-google-oauth2"
+gem "omniauth-facebook"
 
 gem "tzinfo-data", platforms: %i[windows jruby]
 
@@ -46,11 +51,10 @@ group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[mri windows], require: "debug/prelude"
 
-  gem "i18n-tasks", require: false
-
   # Linters
   gem "erb_lint", require: false
   gem "erblint-github", require: false
+  gem "i18n-tasks", require: false
   gem "rubocop", require: false
   gem "rubocop-capybara", require: false
   gem "rubocop-minitest", require: false

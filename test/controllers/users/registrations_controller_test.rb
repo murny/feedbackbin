@@ -20,7 +20,7 @@ class Users::RegistrationsControllerTest < ActionDispatch::IntegrationTest
       }}
     end
 
-    assert_enqueued_email_with UsersMailer, :email_verification, args: [User.last]
+    assert_enqueued_email_with UserMailer, :email_verification, args: [User.last]
 
     assert_redirected_to root_url
     assert_equal "Welcome! You have signed up successfully.", flash[:notice]
