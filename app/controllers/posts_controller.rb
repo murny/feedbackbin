@@ -3,6 +3,7 @@
 class PostsController < ApplicationController
   before_action :set_post, only: %i[show edit update destroy]
   allow_unauthenticated_access only: %i[index show]
+  before_action :ensure_index_is_not_empty, only: %i[index]
 
   # GET /posts or /posts.json
   def index
@@ -62,6 +63,12 @@ class PostsController < ApplicationController
   end
 
   private
+
+  def ensure_index_is_not_empty
+    if !authenticated? && Board.none?
+      require_authentication
+    end
+  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_post

@@ -1,0 +1,25 @@
+<div class="flex flex-wrap my-4 lg:px-4">
+  <div class="lg:w-1/4 w-full p-4">
+    <%#= render partial: "account_navbar" %>
+  </div>
+
+  <div class="lg:w-3/4 w-full p-4">
+    <div class="lg:p-10 p-4 bg-white rounded-lg border border-gray-300 dark:bg-gray-900 dark:border-gray-700">
+      <h2 class="mb-2"><%= t(".title") %></h2>
+      <p><%= t(".description") %></p>
+      <div class="my-2 flex flex-wrap gap-x-4 gap-y-2">
+        <%# Devise.omniauth_configs.each do |provider, config| %>
+          <%#= button_to t("oauth.sign_in_with", provider: t("oauth.#{provider}")), omniauth_authorize_path(:user, provider), class: "btn btn-#{provider}", data: { turbo: false, disable_with: t(".redirecting") } %>
+        <%# end %>
+        <%= button_to t("oauth.sign_in_with", provider: t("oauth.developer")), "/auth/developer", class: "btn", data: { turbo: false, disable_with: t(".redirecting") } %>
+      </div>
+      <div class="divide-y">
+        <% if @connected_accounts.empty? %>
+          <p><%= t(".no_connected_accounts") %></p>
+        <% else %>
+          <%= render @connected_accounts %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

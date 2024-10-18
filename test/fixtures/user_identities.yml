@@ -4,10 +4,8 @@ shane_google:
   user: shane
   provider_name: Google
   provider_uid: 1234567890
-  auth_info_data: MyText
 
 one_facebook:
   user: one
   provider_name: Facebook
   provider_uid: 1234567890
-  auth_info_data: MyText

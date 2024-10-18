@@ -66,6 +66,9 @@ en:
       title: Set up FeedbackBin
       username_hint: unique, no spaces, short
       username_placeholder: Enter your username
+  oauth:
+    developer: Developer
+    sign_in_with: Sign in with %{provider}
   pagy:
     aria_label:
       nav:
@@ -98,6 +101,7 @@ en:
       title: New Post
     update:
       successfully_updated: Post was successfully updated.
+  something_went_wrong: Something went wrong, please try again.
   user_mailer:
     email_verification:
       verify_your_email: Verify your email
@@ -113,6 +117,17 @@ en:
       invalid_token: That email verification link is invalid or has expired
       show:
         email_verified: Thank you for verifying your email address
+    omniauth:
+      create:
+        connected_successfully: You have connected your %{provider} account successfully.
+        signed_in_successfully: You have signed in successfully.
+      create_user:
+        finish_registration: We could not create an account for you. Please finish the registration process.
+        signed_in_successfully: You have signed in successfully.
+      handle_previously_connected_user_identity:
+        already_connected: This %{provider} account is already connected to your account.
+        connected_to_another_account: This %{provider} account is already connected to another account.
+        signed_in_successfully: You have signed in successfully.
     password_resets:
       create:
         password_reset_instructions_sent: Password reset instructions sent (if user with that email address exists).
@@ -173,6 +188,14 @@ en:
           username_warning: Changing your username will break all previous mentions and links to your profile.
         update:
           account_updated: Your account has been updated.
+      connected_accounts:
+        connected_account:
+          remove: Remove
+        index:
+          description: Connecting your social media accounts makes logging in easier.
+          no_connected_accounts: You don't have any connected accounts.
+          redirecting: Redirecting...
+          title: Connected Accounts
       emails:
         update:
           email_changed: Your email address has been changed.

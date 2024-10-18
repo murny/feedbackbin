@@ -6,7 +6,6 @@ class CreateUserIdentities < ActiveRecord::Migration[8.0]
       t.references :user, null: false, foreign_key: true
       t.string :provider_name, null: false
       t.string :provider_uid, null: false
-      t.text :auth_info_data
 
       t.timestamps
 
