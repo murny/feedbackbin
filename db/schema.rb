@@ -129,7 +129,6 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_17_034818) do
     t.integer "user_id", null: false
     t.string "provider_name", null: false
     t.string "provider_uid", null: false
-    t.text "auth_info_data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["provider_name", "provider_uid"], name: "index_user_identities_on_provider_name_and_provider_uid", unique: true

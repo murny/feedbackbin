@@ -11,6 +11,10 @@ Rails.application.routes.draw do
   get "sign_in", to: "users/sessions#new"
   get "sign_up", to: "users/registrations#new"
 
+  get "/auth/failure", to: "users/omniauth#failure"
+  get "/auth/:provider/callback", to: "users/omniauth#create"
+  post "/auth/:provider/callback", to: "users/omniauth#create"
+
   namespace :users do
     resources :password_resets, param: :token, only: [:new, :create, :edit, :update]
     resource :session, only: [:create, :destroy]
