@@ -8,10 +8,10 @@
     </div>
   </div>
 
-  <div class="mt-6 grid grid-cols-1 gap-4">
-    <% # TODO: providers list should come from global config %>
-    <% omniauth_providers = ['google', 'facebook'] %>
-    <% omniauth_providers << 'developer' unless Rails.env.production? %>
+<div class="mt-6 grid grid-cols-1 gap-4">
+  <%# TODO: providers list should come from global config %>
+  <% omniauth_providers = ["google", "facebook"] %>
+    <% omniauth_providers << "developer" unless Rails.env.production? %>
     <% omniauth_providers.each do |provider| %>
       <%= button_to "/auth/#{provider}",
             method: :post,
