@@ -14,10 +14,10 @@
         <%= button_to t("oauth.sign_in_with", provider: t("oauth.developer")), "/auth/developer", class: "btn", data: {turbo: false, disable_with: t(".redirecting")} %>
       </div>
       <div class="divide-y">
-        <% if @connected_accounts.empty? %>
+        <% if @user_connected_accounts.empty? %>
           <p><%= t(".no_connected_accounts") %></p>
         <% else %>
-          <%= render @connected_accounts %>
+          <%= render partial: "user_connected_account", collection: @user_connected_accounts %>
         <% end %>
       </div>
     </div>

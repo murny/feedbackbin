@@ -119,14 +119,10 @@ en:
         email_verified: Thank you for verifying your email address
     omniauth:
       create:
-        connected_successfully: You have connected your %{provider} account successfully.
-        signed_in_successfully: You have signed in successfully.
-      create_user:
-        finish_registration: We could not create an account for you. Please finish the registration process.
-        signed_in_successfully: You have signed in successfully.
-      handle_previously_connected_user_identity:
         already_connected: This %{provider} account is already connected to your account.
+        connected_successfully: You have connected your %{provider} account successfully.
         connected_to_another_account: This %{provider} account is already connected to another account.
+        finish_registration: We could not create an account for you. Please finish the registration process.
         signed_in_successfully: You have signed in successfully.
     password_resets:
       create:
@@ -189,13 +185,15 @@ en:
         update:
           account_updated: Your account has been updated.
       connected_accounts:
-        connected_account:
-          remove: Remove
+        destroy:
+          disconnected_successfully: Your connected account has been disconnected successfully.
         index:
           description: Connecting your social media accounts makes logging in easier.
           no_connected_accounts: You don't have any connected accounts.
           redirecting: Redirecting...
           title: Connected Accounts
+        user_connected_account:
+          remove: Remove
       emails:
         update:
           email_changed: Your email address has been changed.

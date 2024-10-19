@@ -14,3 +14,10 @@ one:
   email_address: jane.doe@feedbackbin.com
   password_digest: <%= password_digest %>
   bio: Hi I'm Jane Doe
+
+invited:
+  username: invited_user
+  name: Invited User
+  email_address: invited@feedbackbin.com
+  password_digest: <%= password_digest %>
+  bio: Hi I'm an invited user

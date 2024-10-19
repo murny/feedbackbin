@@ -125,15 +125,15 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_17_034818) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "user_identities", force: :cascade do |t|
+  create_table "user_connected_accounts", force: :cascade do |t|
     t.integer "user_id", null: false
     t.string "provider_name", null: false
     t.string "provider_uid", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["provider_name", "provider_uid"], name: "index_user_identities_on_provider_name_and_provider_uid", unique: true
-    t.index ["provider_name", "user_id"], name: "index_user_identities_on_provider_name_and_user_id", unique: true
-    t.index ["user_id"], name: "index_user_identities_on_user_id"
+    t.index ["provider_name", "provider_uid"], name: "index_user_connected_accounts_on_provider_name_and_provider_uid", unique: true
+    t.index ["provider_name", "user_id"], name: "index_user_connected_accounts_on_provider_name_and_user_id", unique: true
+    t.index ["user_id"], name: "index_user_connected_accounts_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -160,5 +160,5 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_17_034818) do
   add_foreign_key "posts", "statuses"
   add_foreign_key "posts", "users", column: "author_id"
   add_foreign_key "sessions", "users"
-  add_foreign_key "user_identities", "users"
+  add_foreign_key "user_connected_accounts", "users"
 end

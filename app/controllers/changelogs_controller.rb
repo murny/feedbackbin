@@ -2,6 +2,7 @@
 
 class ChangelogsController < ApplicationController
   before_action :mark_as_read, if: :authenticated?
+  allow_unauthenticated_access only: %i[index show]
 
   def index
     @pagy, @changelogs = pagy(Changelog.order(published_at: :desc))

@@ -4,20 +4,16 @@ module Users
   class OmniauthController < ApplicationController
     allow_unauthenticated_access only: %i[create failure]
 
-    # TODO: This action is doing double duty
-    # it's working as a callback for OAuth and as a controller action for connecting accounts when signed in
-    # Logic for connecting accounts when signed in could go to a separate controller action?
     def create
-      redirect_to root_path, alert: t("something_went_wrong") if auth.nil?
+      return redirect_to root_path, alert: t("something_went_wrong") if auth.nil?
 
-      # Find or create an identity here
-      user_identity = UserIdentity.find_by(user_identity_params)
+      user_connected_account = UserConnectedAccount.find_by(user_connected_account_params)
 
-      if user_identity.present?
-        handle_previously_connected_user_identity(user_identity)
+      if user_connected_account.present?
+        handle_previously_connected_user_account(user_connected_account)
       elsif authenticated?
         # User is signed in and hasn't connected this account before, so let's connect it
-        if Current.user.user_identities.create(user_identity_params)
+        if Current.user.user_connected_accounts.create(user_connected_account_params)
           redirect_to users_settings_connected_accounts_path, notice: t(".connected_successfully", provider: auth.provider)
         else
           # Couldn't connect the account for some reason
@@ -26,7 +22,7 @@ module Users
 
       elsif (user = User.find_by(email_address: auth.info.email))
         # User exists but hasn't connected this account before, so let's connect it
-        if user.user_identities.create(user_identity_params)
+        if user.user_connected_accounts.create(user_connected_account_params)
           start_new_session_for(user)
           redirect_to after_authentication_url, notice: t(".signed_in_successfully")
         else
@@ -44,35 +40,40 @@ module Users
 
     private
 
-    def handle_previously_connected_user_identity(user_identity)
+    def handle_previously_connected_user_account(user_connected_account)
       # Account has already been connected before
       if authenticated?
-        if user_identity.user_id != Current.user.id
+        if user_connected_account.user_id != Current.user.id
           # User is signed in, but this account is connected to another user
-          redirect_to root_path, alert: t(".connected_to_another_account", provider: auth.provider)
+          redirect_to root_path, alert: t("users.omniauth.create.connected_to_another_account", provider: auth.provider)
         else
           # User is already signed in and has connected this account before
-          redirect_to users_settings_connected_accounts_path, notice: t(".already_connected", provider: auth.provider)
+          redirect_to users_settings_connected_accounts_path, notice: t("users.omniauth.create.already_connected", provider: auth.provider)
         end
       else
         # User has connected this account before, but isn't signed in
-        start_new_session_for(user_identity.user)
-        redirect_to after_authentication_url, notice: t(".signed_in_successfully")
+        start_new_session_for(user_connected_account.user)
+        redirect_to after_authentication_url, notice: t("users.omniauth.create.signed_in_successfully")
       end
     end
 
     def create_user
       # We've never seen this user before, so let's sign them up
       user = User.new(user_params)
-      user.user_identities.build(user_identity_params)
+      user.user_connected_accounts.build(user_connected_account_params)
 
       if user.save
         start_new_session_for(user)
-        redirect_to after_authentication_url, notice: t(".signed_in_successfully")
+        redirect_to after_authentication_url, notice: t("users.omniauth.create.signed_in_successfully")
       else
+        # TODO: should we support this edge case?
         # User couldn't be saved for some reason, so let's redirect them to the registration page
         # Store the user attributes in the query string to prefill the form
-        redirect_to new_user_registration_path(user: user.attributes), alert: t(".finish_registration")
+        redirect_to sign_up_path(user: {
+          email_address: user.email_address,
+          name: user.name,
+          username: user.username
+        }), alert: t("users.omniauth.create.finish_registration")
       end
     end
 
@@ -92,7 +93,7 @@ module Users
       }
     end
 
-    def user_identity_params
+    def user_connected_account_params
       {
         provider_name: auth.provider,
         provider_uid: auth.uid
@@ -112,7 +113,7 @@ module Users
       username = "user_#{SecureRandom.hex[1..14]}" if username.blank?
 
       # sanitize, remove any non alphanumeric/underscore characters
-      username.gsub!(/[^0-9a-z_]/i, "")
+      username = username.gsub(/[^0-9a-z_]/i, "")
       # limit name to max username length
       username = username[0, User::MAX_USERNAME_LENGTH]
 
