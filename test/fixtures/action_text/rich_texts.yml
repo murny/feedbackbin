@@ -15,4 +15,9 @@ two:
 two:
   record: one (Comment)
   name: body
-  body: <p>Thanks for the suggestion!</p>
+  body: <p>Thanks for the suggestion! What if we did X instead?</p>
+
+three:
+  record: one (Reply)
+  name: body
+  body: <p>Great idea!</p>

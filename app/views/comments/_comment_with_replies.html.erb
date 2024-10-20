@@ -1,10 +1,9 @@
 <%= turbo_stream_from comment, :comments %>
 
-<div class="pl-6 pt-6 border-left" id="<%= dom_id(comment) %>_with_comments" data-controller="comment-reply">
-  <%= render comment, reply_button: true %>
+<div class="pl-6 pt-6 border-left" id="<%= dom_id(comment) %>_with_replies">
+  <%= render comment %>
 
-  <div id="<%= dom_id(comment) %>_comments">
-    <%= render partial: "comments/form", locals: {commentable: comment, comment: Comment.new, data: {comment_reply_target: "form"}, class: "hidden"} %>
-    <%= render partial: "comments/comment_with_replies", collection: comment.comments.ordered, as: :comment %>
+  <div id="<%= dom_id(comment) %>_replies">
+    <%= render partial: "replies/reply", collection: comment.replies.ordered, as: :reply %>
   </div>
 </div>

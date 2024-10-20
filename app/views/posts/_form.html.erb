@@ -2,6 +2,8 @@
   <div class="space-y-6 pt-4">
     <%= render "error_messages", resource: form.object %>
 
+    <%= form.hidden_field :board_id, value: Board.first.id %>
+
     <div>
       <%= form.label :title %>
       <%= form.text_field :title, autofocus: true, placeholder: "Add a title" %>

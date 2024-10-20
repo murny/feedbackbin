@@ -10,8 +10,8 @@ class FirstRunTest < ActiveSupport::TestCase
   end
 
   test "creating makes first user an administrator and sets up a new board and account" do
-    assert_difference -> { Board.count }, 1 do
-      assert_difference -> { User.count }, 1 do
+    assert_difference "Board.count" do
+      assert_difference "User.count" do
         user = FirstRun.create!({username: "user_example", email_address: "user@example.com", password: "secret123456"})
 
         assert_predicate user, :administrator?

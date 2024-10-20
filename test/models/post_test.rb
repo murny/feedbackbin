@@ -17,4 +17,18 @@ class PostTest < ActiveSupport::TestCase
     assert_not @post.valid?
     assert_equal "can't be blank", @post.errors[:title].first
   end
+
+  test "invalid without a author" do
+    @post.author = nil
+
+    assert_not @post.valid?
+    assert_equal "must exist", @post.errors[:author].first
+  end
+
+  test "invalid without a board" do
+    @post.board = nil
+
+    assert_not @post.valid?
+    assert_equal "must exist", @post.errors[:board].first
+  end
 end

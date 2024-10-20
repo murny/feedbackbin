@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_10_17_034818) do
+ActiveRecord::Schema[8.0].define(version: 2024_05_17_075643) do
   create_table "accounts", force: :cascade do |t|
     t.string "name", null: false
     t.string "join_code", null: false
@@ -73,14 +73,13 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_17_034818) do
 
   create_table "comments", force: :cascade do |t|
     t.bigint "creator_id", null: false
-    t.string "commentable_type", null: false
-    t.bigint "commentable_id", null: false
-    t.bigint "parent_id"
+    t.bigint "post_id", null: false
     t.integer "likes_count", default: 0
+    t.integer "replies_count", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
     t.index ["creator_id"], name: "index_comments_on_creator_id"
+    t.index ["post_id"], name: "index_comments_on_post_id"
   end
 
   create_table "likes", force: :cascade do |t|
@@ -105,6 +104,15 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_17_034818) do
     t.index ["author_id"], name: "index_posts_on_author_id"
     t.index ["board_id"], name: "index_posts_on_board_id"
     t.index ["status_id"], name: "index_posts_on_status_id"
+  end
+
+  create_table "replies", force: :cascade do |t|
+    t.bigint "comment_id", null: false
+    t.bigint "creator_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["comment_id"], name: "index_replies_on_comment_id"
+    t.index ["creator_id"], name: "index_replies_on_creator_id"
   end
 
   create_table "sessions", force: :cascade do |t|
@@ -154,11 +162,14 @@ ActiveRecord::Schema[8.0].define(version: 2024_10_17_034818) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users", column: "creator_id"
   add_foreign_key "likes", "users", column: "voter_id"
   add_foreign_key "posts", "boards"
   add_foreign_key "posts", "statuses"
   add_foreign_key "posts", "users", column: "author_id"
+  add_foreign_key "replies", "comments"
+  add_foreign_key "replies", "users", column: "creator_id"
   add_foreign_key "sessions", "users"
   add_foreign_key "user_connected_accounts", "users"
 end

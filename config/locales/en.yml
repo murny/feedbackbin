@@ -101,6 +101,11 @@ en:
       title: New Post
     update:
       successfully_updated: Post was successfully updated.
+  replies:
+    create:
+      successfully_created: Reply was successfully created.
+    destroy:
+      successfully_destroyed: Reply was successfully destroyed.
   something_went_wrong: Something went wrong, please try again.
   user_mailer:
     email_verification:

@@ -44,8 +44,10 @@ Rails.application.routes.draw do
   end
 
   resource :like, only: [:update]
+
   resources :posts
-  resources :comments
+  resources :comments, except: [:index, :new]
+  resources :replies, except: [:index, :new]
 
   resources :changelogs, only: [:index, :show]
 

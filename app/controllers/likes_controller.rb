@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class LikesController < ApplicationController
-  CLASS_APPROVELIST = ["Post", "Comment"].freeze
+  LIKEABLE_APPROVELIST = ["Post", "Comment"].freeze
 
   include ActionView::RecordIdentifier
 
@@ -20,7 +20,10 @@ class LikesController < ApplicationController
   private
 
   def set_likeable
-    return unless CLASS_APPROVELIST.include?(params[:likeable_type])
+    unless LIKEABLE_APPROVELIST.include?(params[:likeable_type])
+      return head :unprocessable_entity
+    end
+
     @likeable = params[:likeable_type].safe_constantize.find(params[:likeable_id])
   end
 end

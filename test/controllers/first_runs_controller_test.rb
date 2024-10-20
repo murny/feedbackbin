@@ -24,8 +24,8 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "create" do
-    assert_difference -> { Board.count }, 1 do
-      assert_difference -> { User.count }, 1 do
+    assert_difference "Board.count" do
+      assert_difference "User.count" do
         post first_run_url, params: {account: {name: "FeedbackBin"}, user: {username: "new_person", email_address: "new@feedbackbin.com", password: "secret123456"}}
       end
     end

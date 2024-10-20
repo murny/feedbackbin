@@ -1,12 +1,8 @@
 # frozen_string_literal: true
 
-class Comment < ApplicationRecord
-  include Likeable
-
+class Reply < ApplicationRecord
   belongs_to :creator, class_name: "User", default: -> { Current.user }
-  belongs_to :post, counter_cache: true, touch: true
-
-  has_many :replies, dependent: :destroy
+  belongs_to :comment, counter_cache: true, touch: true
 
   has_rich_text :body
 
@@ -15,7 +11,7 @@ class Comment < ApplicationRecord
   scope :ordered, -> { order(created_at: :desc) }
 
   # after_create_commit do
-  #   broadcast_prepend_to [post, :comments], target: "post_#{post.id}_comments", partial: "comments/comment_with_replies"
+  #   broadcast_prepend_to [comment, :replies], target: "comment_#{comment.id}_replies", partial: "replies/reply"
   # end
 
   # after_update_commit do
@@ -24,6 +20,5 @@ class Comment < ApplicationRecord
 
   # after_destroy_commit do
   #   broadcast_remove_to self
-  #   broadcast_action_to self, action: :remove, target: "comment_#{id}_with_comments"
   # end
 end

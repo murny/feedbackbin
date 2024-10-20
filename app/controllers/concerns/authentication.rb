@@ -11,14 +11,13 @@ module Authentication
   class_methods do
     def allow_unauthenticated_access(**options)
       skip_before_action :require_authentication, **options
-      before_action :resume_session, **options
     end
   end
 
   private
 
   def authenticated?
-    Current.session.present?
+    resume_session
   end
 
   def require_authentication

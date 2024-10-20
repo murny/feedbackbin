@@ -10,7 +10,7 @@ class Post < ApplicationRecord
   belongs_to :board
   belongs_to :status, optional: true
 
-  has_many :comments, as: :commentable, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   broadcasts_refreshes
 

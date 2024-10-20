@@ -1,19 +1,16 @@
-<%= turbo_stream_from comment %>
-<%= turbo_frame_tag comment, data: {controller: "comment-reply"} do %>
-  <%= tag.div class: "p-4 lg:p-6 mb-6 text-base bg-white border border-gray-100 dark:border-gray-700 rounded-lg dark:bg-gray-800" do %>
+<%= turbo_stream_from reply %>
+<%= turbo_frame_tag reply, data: {controller: "comment-reply"} do %>
+  <%= tag.div class: "ml-8 p-4 lg:p-6 mb-6 text-base bg-white border border-gray-100 dark:border-gray-700 rounded-lg dark:bg-gray-800" do %>
     <div class="flex">
-      <div class="mr-4">
-        <%= render partial: "likes", locals: {likeable: comment} %>
-      </div>
       <div class="w-full">
         <div class="flex justify-between items-center mb-2 w-full">
           <div class="flex items-center">
-            <%= avatar_tag comment.creator, class: "mr-2 w-6 h-6 rounded-full", alt: comment.creator.name %>
+            <%= avatar_tag reply.creator, class: "mr-2 w-6 h-6 rounded-full", alt: reply.creator.name %>
 
             <a href="#" class="flex items-center">
                 <p class="inline-flex flex-col md:flex-row items-start mr-3 text-sm text-gray-900 dark:text-white">
-                    <span class="font-semibold"><%= comment.creator.name %></span>
-                    <%= local_datetime_tag comment.created_at, style: :datetime, class: "text-sm text-gray-600 dark:text-gray-400 md:ml-2" %>
+                    <span class="font-semibold"><%= reply.creator.name %></span>
+                    <%= local_datetime_tag reply.created_at, style: :datetime, class: "text-sm text-gray-600 dark:text-gray-400 md:ml-2" %>
                 </p>
             </a>
           </div>
@@ -26,7 +23,7 @@
                 <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 3">
                     <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
                 </svg>
-                <span class="sr-only">Comment settings</span>
+                <span class="sr-only">Reply settings</span>
             </button>
             <!-- Dropdown menu -->
             <div data-dropdown-target="menu"
@@ -40,10 +37,10 @@
                 <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
                     aria-labelledby="dropdownMenuIconHorizontalButton">
                   <li>
-                    <%= link_to "Edit", edit_comment_path(comment), class: "block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
+                    <%= link_to "Edit", edit_reply_path(reply), class: "block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
                   </li>
                   <li>
-                    <%= button_to "Remove", comment_path(comment), method: :delete, data: {confirm: "Are you sure?"}, class: "block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
+                    <%= button_to "Remove", reply_path(reply), method: :delete, data: {confirm: "Are you sure?"}, class: "block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
                   </li>
                   <li>
                     <a href="#"
@@ -54,7 +51,7 @@
           </div>
         </div>
         <p class="text-gray-500 dark:text-gray-400">
-          <%= comment.body %>
+          <%= reply.body %>
         </p>
         <div class="flex items-center mt-4 space-x-4">
           <%= button_tag data: {action: "click->comment-reply#toggle"},
@@ -68,5 +65,8 @@
       </div>
     </div>
   <% end %>
-   <%= render partial: "replies/form", locals: {comment: comment, reply: Reply.new} %>
+  <%# TODO: This is broken, as we reusing rich text ids so form is sending empty body content
+            (as body is in a different form since IDs are the same). But this isn't what we want anyways
+            Basically want to "quote" the reply and create a new reply from the quote %>
+  <%#= render partial: "replies/form", locals: {comment: reply.comment, reply: Reply.new } %>
 <% end %>

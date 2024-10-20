@@ -64,14 +64,13 @@ class InitialSchema < ActiveRecord::Migration[8.0]
 
     create_table "comments", force: :cascade do |t|
       t.bigint "creator_id", null: false
-      t.string "commentable_type", null: false
-      t.bigint "commentable_id", null: false
-      t.bigint "parent_id"
+      t.bigint "post_id", null: false
       t.integer "likes_count", default: 0
+      t.integer "replies_count", default: 0, null: false
       t.datetime "created_at", null: false
       t.datetime "updated_at", null: false
-      t.index ["commentable_type", "commentable_id"], name: "index_comments_on_commentable"
       t.index ["creator_id"], name: "index_comments_on_creator_id"
+      t.index ["post_id"], name: "index_comments_on_post_id"
     end
 
     create_table "likes", force: :cascade do |t|
@@ -96,6 +95,16 @@ class InitialSchema < ActiveRecord::Migration[8.0]
       t.index ["author_id"], name: "index_posts_on_author_id"
       t.index ["board_id"], name: "index_posts_on_board_id"
       t.index ["status_id"], name: "index_posts_on_status_id"
+    end
+
+    create_table "replies", force: :cascade do |t|
+      t.bigint "comment_id", null: false
+      t.bigint "creator_id", null: false
+      t.integer "likes_count", default: 0
+      t.datetime "created_at", null: false
+      t.datetime "updated_at", null: false
+      t.index ["comment_id"], name: "index_replies_on_comment_id"
+      t.index ["creator_id"], name: "index_replies_on_creator_id"
     end
 
     create_table "sessions", force: :cascade do |t|
@@ -145,11 +154,14 @@ class InitialSchema < ActiveRecord::Migration[8.0]
 
     add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
     add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+    add_foreign_key "comments", "posts"
     add_foreign_key "comments", "users", column: "creator_id"
     add_foreign_key "likes", "users", column: "voter_id"
     add_foreign_key "posts", "boards"
     add_foreign_key "posts", "statuses"
     add_foreign_key "posts", "users", column: "author_id"
+    add_foreign_key "replies", "comments"
+    add_foreign_key "replies", "users", column: "creator_id"
     add_foreign_key "sessions", "users"
     add_foreign_key "user_connected_accounts", "users"
   end

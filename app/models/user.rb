@@ -14,6 +14,7 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy, foreign_key: :creator_id, inverse_of: :creator
   has_many :likes, dependent: :destroy, foreign_key: :voter_id, inverse_of: :voter
   has_many :user_connected_accounts, dependent: :destroy
+  has_many :replies, dependent: :destroy, foreign_key: :creator_id, inverse_of: :creator
 
   has_one_attached :avatar
 

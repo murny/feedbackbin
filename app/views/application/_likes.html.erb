@@ -1,6 +1,6 @@
 <%= turbo_frame_tag likeable, :likes do %>
   <div class="shrink-0">
-    <% if Current.user.present? %>
+    <% if authenticated? %>
       <% if likeable.liked_by?(Current.user) %>
         <%= button_to like_path(likeable_type: likeable.class.to_s, likeable_id: likeable.id),
               method: :patch,

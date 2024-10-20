@@ -1,11 +1,9 @@
 # frozen_string_literal: true
 
 class CommentsController < ApplicationController
-  include RecordHelper
-  include ActionView::RecordIdentifier
-
+  allow_unauthenticated_access only: %i[show]
   before_action :set_comment, only: %i[show edit update destroy]
-  before_action :set_commentable, only: %i[create]
+  before_action :set_post, only: %i[create]
 
   def show
   end
@@ -14,27 +12,21 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = @commentable.comments.new(comment_params)
+    @comment = @post.comments.new(comment_params)
     @comment.creator = Current.user
-    @comment.parent_id = @parent&.id
 
     respond_to do |format|
       if @comment.save
         comment = Comment.new
         format.turbo_stream {
-          if @parent
-            # A successful reply to another comment, replace and hide this form
-            render turbo_stream: turbo_stream.replace(dom_id_for_records(@parent, comment), partial: "comments/form", locals: {comment: comment, commentable: @parent, data: {comment_reply_target: :form}, class: "hidden"})
-          else
-            render turbo_stream: turbo_stream.replace(dom_id_for_records(@commentable, comment), partial: "comments/form", locals: {comment: comment, commentable: @commentable})
-          end
+          render turbo_stream: turbo_stream.replace("post_#{@post.id}_new_comment", partial: "comments/form", locals: {comment: comment, post: @post})
         }
-        format.html { redirect_to @commentable, notice: t(".successfully_created") }
+        format.html { redirect_to @post, notice: t(".successfully_created") }
       else
         format.turbo_stream {
-          render turbo_stream: turbo_stream.replace(dom_id_for_records(@parent || @commentable, @comment), partial: "comments/form", locals: {comment: @comment, commentable: @parent || @commentable})
+          render turbo_stream: turbo_stream.replace("post_#{@post.id}_new_comment", partial: "comments/form", locals: {comment: @comment, post: @post})
         }
-        format.html { redirect_to @commentable }
+        format.html { redirect_to @post }
       end
     end
   end
@@ -51,20 +43,15 @@ class CommentsController < ApplicationController
     @comment.destroy!
     respond_to do |format|
       format.turbo_stream {}
-      format.html { redirect_to @comment.commentable, status: :see_other, notice: t(".successfully_destroyed") }
+      format.html { redirect_to @comment.post, status: :see_other, notice: t(".successfully_destroyed") }
       format.json { head :no_content }
     end
   end
 
   private
 
-  def set_commentable
-    if params[:comment][:commentable_type] == "Comment"
-      @parent = Comment.find(params[:comment][:commentable_id])
-      @commentable = @parent.commentable
-    elsif params[:comment][:commentable_type] == "Post"
-      @commentable = Post.find(params[:comment][:commentable_id])
-    end
+  def set_post
+    @post = Post.find(params[:comment][:post_id])
   end
 
   def set_comment

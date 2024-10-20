@@ -31,10 +31,9 @@
                 <%= @post.body %>
               </div>
             </article>
-
-            <%= render partial: "comments/comments", locals: {post: @post} %>
           </div>
         </div>
+        <%= render partial: "comments/comments", locals: {post: @post} %>
       </div>
     </div>
     <%= render "posts/sidebar" %>
