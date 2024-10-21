@@ -6,6 +6,21 @@ en:
         image_format_not_supported: image format not supported
         max_file_size_invalid: image over %{size}
       models:
+        account:
+          attributes:
+            domain:
+              reserved: "%{value} is reserved"
+            subdomain:
+              format: must be at least 2 characters and alphanumeric
+              reserved: "%{value} is reserved"
+        account_invitation:
+          attributes:
+            email:
+              invited: has already been invited
+        account_user:
+          attributes:
+            role:
+              administrator_cannot_be_removed: administrator role cannot be removed for the account owner
         user:
           attributes:
             username:

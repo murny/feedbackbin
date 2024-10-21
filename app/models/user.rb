@@ -3,12 +3,14 @@
 class User < ApplicationRecord
   MAX_USERNAME_LENGTH = 20
 
-  include Transferable
-  include Role
   include Mentionable
 
   has_secure_password
 
+  has_many :account_invitations, dependent: :nullify, foreign_key: :invited_by_id, inverse_of: :invited_by
+  has_many :account_users, dependent: :destroy
+  has_many :accounts, through: :account_users
+  has_many :owned_accounts, class_name: "Account", foreign_key: :owner_id, inverse_of: :owner, dependent: :destroy
   has_many :posts, dependent: :destroy, foreign_key: :author_id, inverse_of: :author
   has_many :sessions, dependent: :destroy
   has_many :comments, dependent: :destroy, foreign_key: :creator_id, inverse_of: :creator

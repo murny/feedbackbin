@@ -1,0 +1,17 @@
+feedback_admin:
+  account: feedbackbin
+  user: shane
+  role: administrator
+
+company_admin:
+  account: company
+  user: one
+  role: administrator
+
+company_regular_user:
+  account: company
+  user: shane
+
+invited_user:
+  account: invited
+  user: invited

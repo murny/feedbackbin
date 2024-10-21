@@ -16,7 +16,12 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "new is not permitted when account exist" do
-    Account.create!(name: "FeedbackBin")
+    user = User.create!(
+      username: "test_user",
+      email_address: "new@feedbackbin.com",
+      password: "secret123456"
+    )
+    Account.create!(name: "FeedbackBin", owner: user)
 
     get first_run_url
 
@@ -26,7 +31,14 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
   test "create" do
     assert_difference "Board.count" do
       assert_difference "User.count" do
-        post first_run_url, params: {account: {name: "FeedbackBin"}, user: {username: "new_person", email_address: "new@feedbackbin.com", password: "secret123456"}}
+        post first_run_url, params: {
+          account: {name: "FeedbackBin"},
+          user: {
+            username: "new_person",
+            email_address: "new@feedbackbin.com",
+            password: "secret123456"
+          }
+        }
       end
     end
 

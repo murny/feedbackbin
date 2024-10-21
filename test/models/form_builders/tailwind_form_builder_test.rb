@@ -142,10 +142,10 @@ class FormBuilders::TailwindFormBuilderTest < ActionView::TestCase
 
     expected = %(<select
       class="block w-full mt-6 sm:mt-0 border rounded-md py-2 px-3 focus:outline-none dark:bg-gray-700/50 dark:border-gray-500 dark:text-gray-300 dark:placeholder-gray-400 dark:focus:ring-2 dark:focus:border-transparent border-gray-300 focus:ring-blue-600 focus:border-blue-600 dark:focus:ring-blue-400"
-      name="user[role]"
-      id="user_role"></select>)
+      name="user[active]"
+      id="user_active"></select>)
 
-    assert_dom_equal expected, form.select(:role, [])
+    assert_dom_equal expected, form.select(:active, [])
   end
 
   test "check_box returns tailwind styled check box" do

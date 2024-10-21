@@ -10,8 +10,8 @@ class FirstRunsController < ApplicationController
   end
 
   def create
-    user = FirstRun.create!(user_params)
-    start_new_session_for user
+    account = FirstRun.create!(user_params)
+    start_new_session_for account.owner
 
     redirect_to root_url
   end

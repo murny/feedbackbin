@@ -2,11 +2,37 @@
 
 class InitialSchema < ActiveRecord::Migration[8.0]
   def change
-    create_table "accounts", force: :cascade do |t|
+    create_table "account_invitations", force: :cascade do |t|
+      t.bigint "account_id", null: false
+      t.bigint "invited_by_id"
+      t.string "token", null: false
       t.string "name", null: false
-      t.string "join_code", null: false
+      t.string "email", null: false
       t.datetime "created_at", null: false
       t.datetime "updated_at", null: false
+      t.index ["account_id", "email"], name: "index_account_invitations_on_account_id_and_email", unique: true
+      t.index ["invited_by_id"], name: "index_account_invitations_on_invited_by_id"
+      t.index ["token"], name: "index_account_invitations_on_token", unique: true
+    end
+
+    create_table "account_users", force: :cascade do |t|
+      t.bigint "account_id", null: false
+      t.bigint "user_id", null: false
+      t.integer "role", default: 0, null: false
+      t.datetime "created_at", null: false
+      t.datetime "updated_at", null: false
+      t.index ["account_id", "user_id"], name: "index_account_users_on_account_id_and_user_id", unique: true
+    end
+
+    create_table "accounts", force: :cascade do |t|
+      t.string "name", null: false
+      t.bigint "owner_id", null: false
+      t.string "domain"
+      t.string "subdomain"
+      t.integer "account_users_count", default: 0, null: false
+      t.datetime "created_at", null: false
+      t.datetime "updated_at", null: false
+      t.index ["owner_id"], name: "index_accounts_on_owner_id"
     end
 
     create_table "action_text_rich_texts", force: :cascade do |t|
@@ -143,8 +169,8 @@ class InitialSchema < ActiveRecord::Migration[8.0]
       t.string "email_address", null: false
       t.boolean "email_verified", default: false, null: false
       t.string "password_digest", null: false
-      t.integer "role", default: 0, null: false
       t.boolean "active", default: true, null: false
+      t.boolean "site_admin", default: false, null: false
       t.datetime "created_at", null: false
       t.datetime "updated_at", null: false
       t.datetime "changelogs_read_at"
@@ -152,6 +178,11 @@ class InitialSchema < ActiveRecord::Migration[8.0]
       t.index ["username"], name: "index_users_on_username", unique: true
     end
 
+    add_foreign_key "account_invitations", "accounts"
+    add_foreign_key "account_invitations", "users", column: "invited_by_id"
+    add_foreign_key "account_users", "accounts"
+    add_foreign_key "account_users", "users"
+    add_foreign_key "accounts", "users", column: "owner_id"
     add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
     add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
     add_foreign_key "comments", "posts"

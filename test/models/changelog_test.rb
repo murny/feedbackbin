@@ -4,7 +4,9 @@ require "test_helper"
 
 class ChangelogTest < ActiveSupport::TestCase
   test "unread? returns false for guest when no changelogs" do
-    assert Changelog.unread?(nil)
+    Changelog.delete_all
+
+    assert_not Changelog.unread?(nil)
   end
 
   test "unread? returns true for guest" do

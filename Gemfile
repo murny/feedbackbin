@@ -54,7 +54,10 @@ group :development, :test do
   # Linters
   gem "erb_lint", require: false
   gem "erblint-github", require: false
-  gem "i18n-tasks", require: false
+
+  # TODO: Disable for now, not working with latest Rails
+  # gem "i18n-tasks", require: false
+
   gem "rubocop", require: false
   gem "rubocop-capybara", require: false
   gem "rubocop-minitest", require: false
@@ -82,3 +85,5 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
+
+gem "pundit", "~> 2.4"

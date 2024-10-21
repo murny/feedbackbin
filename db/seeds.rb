@@ -20,8 +20,8 @@ if Rails.env.development?
     admin.name = "Shane Murnaghan"
     admin.username = "Murny"
     admin.password = "password123"
+    admin.site_admin = true
     admin.email_verified = true
-    admin.role = User.roles[:administrator]
   end
 
   user = User.find_or_create_by!(email_address: "fake_user@example.com") do |user|
@@ -29,7 +29,6 @@ if Rails.env.development?
     user.username = "FakeUser"
     user.password = "password123"
     user.email_verified = true
-    user.role = User.roles[:member]
   end
 
   user_two = User.find_or_create_by!(email_address: "jane_doe@example.com") do |user|
@@ -37,24 +36,33 @@ if Rails.env.development?
     user.username = "JaneDoe"
     user.password = "password123"
     user.email_verified = true
-    user.role = User.roles[:member]
   end
 
-  Account.find_or_create_by!(name: "FeedbackBin")
+  account = Account.find_or_create_by!(name: "FeedbackBin", owner: admin)
+
+  AccountUser.find_or_create_by!(account: account, user: admin, role: :administrator)
 
   board = Board.find_or_create_by!(name: "Feature Requests")
 
-  post = board.posts.find_or_create_by!(title: "Could you please add dark mode") do |post|
+  post = Post.find_or_create_by!(board: board, author: admin, title: "Could you please add dark mode") do |post|
     post.body = "I would love to see dark mode on this site, please give support for it"
-    post.author = admin
   end
 
-  # create a few comments and replies for the post using ActionText
-  post.comments.create!(body: "I would also like to see this feature", creator: user)
-  comment = post.comments.create!(body: "I agree, dark mode would be great", creator: user_two)
+  Comment.find_or_create_by!(post: post, creator: user) do |comment|
+    comment.body = "I would also like to see this feature"
+  end
 
-  comment.replies.create!(body: "I'm glad you agree, I hope the developers see this", creator: user)
-  comment.replies.create!(body: "I'm not sure if they will, but I hope so too", creator: user_two)
+  comment = Comment.find_or_create_by!(post: post, creator: user_two) do |comment|
+    comment.body = "I agree, dark mode would be great"
+  end
+
+  Reply.find_or_create_by!(comment: comment, creator: user) do |comment|
+    comment.body = "I'm glad you agree, I hope the developers see this"
+  end
+
+  Reply.find_or_create_by!(comment: comment, creator: user_two) do |comment|
+    comment.body = "I'm not sure if they will, but I hope so too"
+  end
 
   board.posts.find_or_create_by!(title: "Multiple boards?") do |post|
     post.body = "I would like to be able to create multiple boards, is this possible?"
