@@ -3,9 +3,9 @@
 one:
   title: MyString
   author: shane
-  board: one
+  category: one
 
 two:
   title: MyString
   author: one
-  board: one
+  category: one

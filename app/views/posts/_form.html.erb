@@ -2,7 +2,7 @@
   <div class="space-y-6 pt-4">
     <%= render "error_messages", resource: form.object %>
 
-    <%= form.hidden_field :board_id, value: Board.first.id %>
+    <%= form.hidden_field :category_id, value: Category.first.id %>
 
     <div>
       <%= form.label :title %>

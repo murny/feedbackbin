@@ -6,12 +6,12 @@ class FirstRunTest < ActiveSupport::TestCase
   setup do
     Account.destroy_all
     AccountUser.destroy_all
-    Board.destroy_all
+    Category.destroy_all
     User.destroy_all
   end
 
-  test "creating makes first user an administrator and sets up a new board and account" do
-    assert_difference "Board.count" do
+  test "creating makes first user an administrator and sets up a new category and account" do
+    assert_difference "Category.count" do
       assert_difference "User.count" do
         assert_difference "Account.count" do
           assert_difference "AccountUser.count" do

@@ -25,10 +25,10 @@ class PostTest < ActiveSupport::TestCase
     assert_equal "must exist", @post.errors[:author].first
   end
 
-  test "invalid without a board" do
-    @post.board = nil
+  test "invalid without a category" do
+    @post.category = nil
 
     assert_not @post.valid?
-    assert_equal "must exist", @post.errors[:board].first
+    assert_equal "must exist", @post.errors[:category].first
   end
 end

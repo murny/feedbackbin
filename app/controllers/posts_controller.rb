@@ -7,8 +7,9 @@ class PostsController < ApplicationController
 
   # GET /posts or /posts.json
   def index
-    @board = Board.first
-    @pagy, @posts = pagy(@board.posts.sort_by_params(params[:sort], sort_direction))
+    @categories = Category.all
+    @category = Category.first
+    @pagy, @posts = pagy(@category.posts.sort_by_params(params[:sort], sort_direction))
   end
 
   # GET /posts/1 or /posts/1.json
@@ -65,7 +66,7 @@ class PostsController < ApplicationController
   private
 
   def ensure_index_is_not_empty
-    if !authenticated? && Board.none?
+    if !authenticated? && Category.none?
       require_authentication
     end
   end
@@ -77,6 +78,6 @@ class PostsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def post_params
-    params.expect(post: [:title, :body, :board_id])
+    params.expect(post: [:title, :body, :category_id])
   end
 end

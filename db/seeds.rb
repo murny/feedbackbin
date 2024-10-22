@@ -10,10 +10,10 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-Status.find_or_create_by!(name: "In Progress", color: "#FFA500", position: 1)
-Status.find_or_create_by!(name: "Planned", color: "#FF0000", position: 2)
-Status.find_or_create_by!(name: "Archived", color: "#000000", position: 3)
-Status.find_or_create_by!(name: "Complete", color: "#008000", position: 4)
+PostStatus.find_or_create_by!(name: "In Progress", color: "#FFA500", position: 1)
+PostStatus.find_or_create_by!(name: "Planned", color: "#FF0000", position: 2)
+PostStatus.find_or_create_by!(name: "Archived", color: "#000000", position: 3)
+PostStatus.find_or_create_by!(name: "Complete", color: "#008000", position: 4)
 
 if Rails.env.development?
   admin = User.find_or_create_by!(email_address: "shane.murnaghan@feedbackbin.com") do |admin|
@@ -42,9 +42,9 @@ if Rails.env.development?
 
   AccountUser.find_or_create_by!(account: account, user: admin, role: :administrator)
 
-  board = Board.find_or_create_by!(name: "Feature Requests")
+  category = Category.find_or_create_by!(name: "Feature Requests")
 
-  post = Post.find_or_create_by!(board: board, author: admin, title: "Could you please add dark mode") do |post|
+  post = Post.find_or_create_by!(category: category, author: admin, title: "Could you please add dark mode") do |post|
     post.body = "I would love to see dark mode on this site, please give support for it"
   end
 
@@ -64,8 +64,8 @@ if Rails.env.development?
     comment.body = "I'm not sure if they will, but I hope so too"
   end
 
-  board.posts.find_or_create_by!(title: "Multiple boards?") do |post|
-    post.body = "I would like to be able to create multiple boards, is this possible?"
+  category.posts.find_or_create_by!(title: "Multiple categories") do |post|
+    post.body = "I would like to be able to create multiple categories, is this possible?"
     post.author = admin
   end
 end

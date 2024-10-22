@@ -27,7 +27,7 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
     sign_in(users(:shane))
 
     assert_difference("Post.count") do
-      post posts_url, params: {post: {body: @post.body, title: @post.title, board_id: @post.board_id}}
+      post posts_url, params: {post: {body: @post.body, title: @post.title, category_id: @post.category_id}}
     end
 
     assert_redirected_to post_url(Post.last)

@@ -23,13 +23,13 @@ class LikesControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should not update likeable if likeable is not an approved likeable" do
-    board = boards(:one)
+    category = categories(:one)
     user = users(:one)
 
     sign_in user
 
     assert_no_difference -> { Like.count } do
-      patch like_url(likeable_type: "Board", likeable_id: board.id)
+      patch like_url(likeable_type: "Category", likeable_id: category.id)
 
       assert_response :unprocessable_entity
     end

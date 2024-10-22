@@ -5,7 +5,7 @@ require "test_helper"
 class FirstRunsControllerTest < ActionDispatch::IntegrationTest
   setup do
     Account.destroy_all
-    Board.destroy_all
+    Category.destroy_all
     User.destroy_all
   end
 
@@ -29,7 +29,7 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "create" do
-    assert_difference "Board.count" do
+    assert_difference "Category.count" do
       assert_difference "User.count" do
         post first_run_url, params: {
           account: {name: "FeedbackBin"},

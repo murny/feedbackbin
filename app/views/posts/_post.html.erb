@@ -28,12 +28,12 @@
           </div>
         </div>
         <dl class="flex w-full flex-none justify-between gap-x-8 sm:w-auto">
-          <% if post.status %>
+          <% if post.post_status %>
               <span class="inline-flex items-center gap-x-1.5 rounded-md px-2 py-1 text-xs font-medium text-gray-900 dark:text-white ring-1 ring-inset ring-gray-200 dark:ring-gray-800">
-              <svg class="h-1.5 w-1.5" style="fill: <%= post.status.color %>;" viewBox="0 0 6 6" aria-hidden="true">
+              <svg class="h-1.5 w-1.5" style="fill: <%= post.post_status.color %>;" viewBox="0 0 6 6" aria-hidden="true">
                 <circle cx="3" cy="3" r="3"></circle>
               </svg>
-              <%= post.status.name %>
+              <%= post.post_status.name %>
             </span>
           <% end %>
           <div class="flex w-16 gap-x-2.5">
