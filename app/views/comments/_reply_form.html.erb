@@ -6,7 +6,7 @@
             <%= avatar_tag Current.user, class: "w-9 h-9 rounded-full", alt: Current.user.name %>
         </div>
 
-        <%= form_with model: reply, url: replies_path, class: "my-4 w-full" do |form| %>
+        <%= form_with model: comment, class: "my-4 w-full" do |form| %>
           <%= render "error_messages", resource: form.object %>
 
           <%= form.hidden_field :post_id, value: parent.post.id %>
@@ -14,8 +14,8 @@
 
           <%= form.rich_text_area :body, id: "comment_#{parent.id}_new_reply_body", placeholder: "Write a reply..." %>
           <div class="mt-5 flex items-center space-x-4 justify-end">
-            <%= form.submit class: "btn btn-primary" %>
-            <%= link_to "Cancel", reply, class: "btn btn-secondary" if form.object.persisted? %>
+            <%= form.submit "Create Reply", class: "btn btn-primary" %>
+            <%= link_to "Cancel", comment, class: "btn btn-secondary" if form.object.persisted? %>
           </div>
         <% end %>
       </div>

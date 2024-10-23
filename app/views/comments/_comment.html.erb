@@ -68,10 +68,10 @@
         </div>
       </div>
     </div>
-    <%= render partial: "replies/form", locals: {parent: comment, reply: Comment.new} %>
-  </div>
+    <%= render partial: "comments/reply_form", locals: {parent: comment, comment: Comment.new} %>
 
-  <div id="<%= dom_id(comment) %>_replies">
-    <%= render partial: "replies/reply", collection: comment.replies.ordered, as: :reply %>
+    <div id="<%= dom_id(comment) %>_replies">
+      <%= render partial: "comments/reply", collection: comment.replies.ordered, as: :comment %>
+    </div>
   </div>
 <% end %>

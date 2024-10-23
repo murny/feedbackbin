@@ -13,7 +13,7 @@
     <%= render partial: "comments/form", locals: {comment: comment, post: post} %>
 
     <%= tag.div id: "post_#{@post.id}_comments", class: "divide-y divide-gray-200 dark:divide-gray-800" do %>
-      <%= render partial: "comments/comment", collection: post.top_comments.ordered %>
+      <%= render partial: "comments/comment", collection: post.comments.where(parent_id: nil).ordered %>
     <% end %>
   </div>
 </section>

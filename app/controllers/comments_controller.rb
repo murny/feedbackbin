@@ -3,7 +3,6 @@
 class CommentsController < ApplicationController
   allow_unauthenticated_access only: %i[show]
   before_action :set_comment, only: %i[show edit update destroy]
-  before_action :set_post, only: %i[create]
 
   def show
   end
@@ -12,13 +11,12 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = @post.comments.new(comment_params)
-    @comment.creator = Current.user
+    @comment = Comment.new(comment_params)
 
     respond_to do |format|
       if @comment.save
         flash.now[:notice] = t(".successfully_created")
-        format.html { redirect_to post_url(@post) }
+        format.html { redirect_to post_url(@comment.post) }
         format.json { render :show, status: :created, location: @comment }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -54,15 +52,11 @@ class CommentsController < ApplicationController
 
   private
 
-  def set_post
-    @post = Post.find(params[:comment][:post_id])
-  end
-
   def set_comment
     @comment = Comment.find(params.expect(:id))
   end
 
   def comment_params
-    params.expect(comment: [:body])
+    params.expect(comment: [:body, :parent_id, :post_id])
   end
 end

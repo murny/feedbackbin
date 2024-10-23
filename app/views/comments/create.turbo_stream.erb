@@ -2,18 +2,18 @@
   <%= turbo_stream.update "flash", partial: "flash" %>
 
   <%= turbo_stream.replace "post_comment_form" do %>
-      <%= render partial: "comments/form", locals: {post: @post, comment: Comment.new} %>
+      <%= render partial: "comments/form", locals: {post: @comment.post, comment: Comment.new} %>
   <% end %>
 
-  <%= turbo_stream.update "post_#{@post.id}_comment_count" do %>
-    Discussion (<%= @post.comments_count %>)
+  <%= turbo_stream.update "post_#{@comment.post.id}_comment_count" do %>
+    Discussion (<%= @comment.post.comments_count %>)
   <% end %>
 
-  <%= turbo_stream.append "post_#{@post.id}_comments" do %>
-    <%= render partial: "comments/comment", locals: { comment: @comment } %>
+  <%= turbo_stream.append "post_#{@comment.post.id}_comments" do %>
+    <%= render partial: "comments/comment", locals: {comment: @comment} %>
   <% end %>
 <% else %>
   <%= turbo_stream.replace "post_comment_form" do %>
-    <%= render partial: "comments/form", locals: {post: @post, comment: @comment} %>
+    <%= render partial: "comments/form", locals: {post: @comment.post, comment: @comment} %>
   <% end %>
 <% end %>

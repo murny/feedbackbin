@@ -47,7 +47,6 @@ Rails.application.routes.draw do
 
   resources :posts
   resources :comments, except: [:index, :new]
-  resources :replies, except: [:index, :new]
 
   resources :changelogs, only: [:index, :show]
 
