@@ -30,7 +30,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :redirect
-    assert_redirected_to post_url(@post)
+    assert_redirected_to post_url(@post), notice: "Comment was successfully created."
 
     assert_equal "Hello, world!", Comment.last.body.to_plain_text
     assert_equal @user, Comment.last.creator
@@ -66,6 +66,5 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :redirect
-    assert_redirected_to post_url(@comment.post)
-  end
+    assert_redirected_to post_url(@comment.post), notice: "Comment was successfully destroyed."
 end
