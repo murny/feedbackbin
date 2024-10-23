@@ -33,7 +33,7 @@
             </article>
           </div>
         </div>
-        <%= render partial: "comments/comments", locals: {post: @post} %>
+        <%= render partial: "comments/comments", locals: {comment: @comment, post: @post} %>
       </div>
     </div>
     <%= render "posts/sidebar" %>

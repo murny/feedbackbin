@@ -7,14 +7,8 @@
         </div>
 
         <%= form_with model: comment, class: "my-4 w-full" do |form| %>
+          <%= render "error_messages", resource: form.object %>
 
-          <% if form.object.errors.any? %>
-            <div class="alert alert-danger">
-              <% form.object.errors.full_messages.each do |message| %>
-                <div><%= message %></div>
-              <% end %>
-            </div>
-          <% end %>
           <%= form.hidden_field :post_id, value: post.id %>
           <%= form.rich_text_area :body, id: "post_#{post.id}_new_comment_body", placeholder: "Write a comment..." %>
           <div class="mt-5 flex items-center space-x-4 justify-end">

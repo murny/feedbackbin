@@ -7,15 +7,8 @@
         </div>
 
         <%= form_with model: reply, class: "my-4 w-full" do |form| %>
+          <%= render "error_messages", resource: form.object %>
 
-          <% if form.object.errors.any? %>
-            <div class="alert alert-danger">
-              <% form.object.errors.full_messages.each do |message| %>
-                <div><%= message %></div>
-              <% end %>
-            </div>
-          <% end %>
-          <%= "WTF #{comment.id}" %>
           <%= form.hidden_field :comment_id, value: comment.id %>
 
           <%= form.rich_text_area :body, id: "comment_#{comment.id}_new_reply_body", placeholder: "Write a reply..." %>

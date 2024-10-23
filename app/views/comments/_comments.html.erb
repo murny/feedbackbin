@@ -10,7 +10,7 @@
         Subscribe
       </button>
     </div>
-    <%= render partial: "comments/form", locals: {comment: Comment.new, post: post} %>
+    <%= render partial: "comments/form", locals: {comment: comment, post: post} %>
 
     <%= tag.div id: "#{dom_id(post)}_comments", class: "divide-y divide-gray-200 dark:divide-gray-800" do %>
       <%= render partial: "comments/comment_with_replies", collection: post.comments.ordered, as: :comment %>
