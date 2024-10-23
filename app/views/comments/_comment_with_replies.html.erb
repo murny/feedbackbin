@@ -1,9 +1,0 @@
-<%= turbo_stream_from comment, :comments %>
-
-<div class="pl-6 pt-6 border-left" id="<%= dom_id(comment) %>_with_replies">
-  <%= render comment %>
-
-  <div id="<%= dom_id(comment) %>_replies">
-    <%= render partial: "replies/reply", collection: comment.replies.ordered, as: :reply %>
-  </div>
-</div>

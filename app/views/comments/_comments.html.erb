@@ -1,10 +1,10 @@
-<%= turbo_stream_from post, :comments %>
-
 <section class="bg-white dark:bg-gray-900 antialiased">
   <div class="max-w-2xl mx-auto">
     <div class="flex justify-between items-center mb-6">
       <h2 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">
-        Discussion (<%= post.comments_count %>)
+        <%= turbo_frame_tag "post_#{@post.id}_comment_count" do %>
+          Discussion (<%= post.comments_count %>)
+        <% end %>
       </h2>
       <button type="button" class="btn btn-secondary">
         Subscribe
@@ -12,8 +12,8 @@
     </div>
     <%= render partial: "comments/form", locals: {comment: comment, post: post} %>
 
-    <%= tag.div id: "#{dom_id(post)}_comments", class: "divide-y divide-gray-200 dark:divide-gray-800" do %>
-      <%= render partial: "comments/comment_with_replies", collection: post.comments.ordered, as: :comment %>
+    <%= tag.div id: "post_#{@post.id}_comments", class: "divide-y divide-gray-200 dark:divide-gray-800" do %>
+      <%= render partial: "comments/comment", collection: post.comments.ordered %>
     <% end %>
   </div>
 </section>

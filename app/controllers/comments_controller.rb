@@ -17,33 +17,37 @@ class CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
-        comment = Comment.new
-        format.turbo_stream {
-          render turbo_stream: turbo_stream.replace("post_#{@post.id}_new_comment", partial: "comments/form", locals: {comment: comment, post: @post})
-        }
-        format.html { redirect_to @post, notice: t(".successfully_created") }
+        flash.now[:notice] = t(".successfully_created")
+        format.html { redirect_to post_url(@post) }
+        format.json { render :show, status: :created, location: @comment }
       else
-        format.turbo_stream {
-          render turbo_stream: turbo_stream.replace("post_#{@post.id}_new_comment", partial: "comments/form", locals: {comment: @comment, post: @post})
-        }
-        format.html { redirect_to @post }
+        format.html { render :new, status: :unprocessable_entity }
+        format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
+      format.turbo_stream
     end
   end
 
   def update
-    if @comment.update(comment_params)
-      redirect_to @comment
-    else
-      render :edit, status: :unprocessable_entity
+    respond_to do |format|
+      if @comment.update(comment_params)
+        flash.now[:notice] = t(".successfully_updated")
+        format.html { redirect_to @comment }
+        format.json { render :show, status: :ok, location: @comment }
+      else
+        format.html { render :edit, status: :unprocessable_entity }
+        format.json { render json: @comment.errors, status: :unprocessable_entity }
+      end
+      format.turbo_stream
     end
   end
 
   def destroy
     @comment.destroy!
     respond_to do |format|
+      flash.now[:notice] = t(".successfully_destroyed")
       format.turbo_stream {}
-      format.html { redirect_to @comment.post, status: :see_other, notice: t(".successfully_destroyed") }
+      format.html { redirect_to @comment.post, status: :see_other }
       format.json { head :no_content }
     end
   end

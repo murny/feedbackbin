@@ -1,6 +1,6 @@
 <%= tag.div class: local_assigns[:class], data: local_assigns[:data] do %>
   <% if authenticated? %>
-    <%= tag.div id: "post_#{post.id}_new_comment" do %>
+    <%= turbo_frame_tag "post_comment_form" do %>
       <div class="flex items-start">
         <div class="mr-3 my-4 shrink-0 hidden sm:block">
             <%= avatar_tag Current.user, class: "w-9 h-9 rounded-full", alt: Current.user.name %>

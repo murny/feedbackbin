@@ -1,0 +1,13 @@
+<% if @comment.errors.empty? %>
+  <%= turbo_stream.update "flash", partial: "flash" %>
+
+  <%= turbo_stream.update "comment_#{@comment.id}" do %>
+    <%= render partial: "comments/comment", locals: { comment: @comment } %>
+  <% end %>
+<% else %>
+  <%= turbo_stream.replace "comment_#{@comment.id}" do %>
+    <%= turbo_frame_tag @comment do %>
+      <%= render partial: "comments/form", locals: { post: @comment.post, comment: @comment } %>
+    <% end %>
+  <% end %>
+<% end %>

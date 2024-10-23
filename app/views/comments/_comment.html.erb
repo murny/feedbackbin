@@ -1,72 +1,77 @@
-<%= turbo_stream_from comment %>
-<%= turbo_frame_tag comment, data: {controller: "comment-reply"} do %>
-  <%= tag.div class: "p-4 lg:p-6 mb-6 text-base bg-white border border-gray-100 dark:border-gray-700 rounded-lg dark:bg-gray-800" do %>
-    <div class="flex">
-      <div class="mr-4">
-        <%= render partial: "likes/like_button", locals: {likeable: comment} %>
-      </div>
-      <div class="w-full">
-        <div class="flex justify-between items-center mb-2 w-full">
-          <div class="flex items-center">
-            <%= avatar_tag comment.creator, class: "mr-2 w-6 h-6 rounded-full", alt: comment.creator.name %>
+<%= turbo_frame_tag dom_id(comment) do %>
+  <div class="pl-6 pt-6 border-left" data-controller="comment-reply">
+    <div class="p-4 lg:p-6 mb-6 text-base bg-white border border-gray-100 dark:border-gray-700 rounded-lg dark:bg-gray-800">
+      <div class="flex">
+        <div class="mr-4">
+          <%= render partial: "likes/like_button", locals: {likeable: comment} %>
+        </div>
+        <div class="w-full">
+          <div class="flex justify-between items-center mb-2 w-full">
+            <div class="flex items-center">
+              <%= avatar_tag comment.creator, class: "mr-2 w-6 h-6 rounded-full", alt: comment.creator.name %>
 
-            <a href="#" class="flex items-center">
-                <p class="inline-flex flex-col md:flex-row items-start mr-3 text-sm text-gray-900 dark:text-white">
-                    <span class="font-semibold"><%= comment.creator.name %></span>
-                    <%= local_datetime_tag comment.created_at, style: :datetime, class: "text-sm text-gray-600 dark:text-gray-400 md:ml-2" %>
-                </p>
-            </a>
-          </div>
-          <div class="relative" data-controller="dropdown">
-            <button aria-expanded="false"
-                aria-haspopup="true"
-                data-action="click->dropdown#toggle click@window->dropdown#hide"
-                class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 dark:text-gray-400 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                type="button">
-                <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 3">
-                    <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
-                </svg>
-                <span class="sr-only">Comment settings</span>
-            </button>
-            <!-- Dropdown menu -->
-            <div data-dropdown-target="menu"
-              data-transition-enter="transition ease-out duration-200"
-              data-transition-enter-from="opacity-0 scale-95"
-              data-transition-enter-to="opacity-100 scale-100"
-              data-transition-leave="transition ease-in duration-75"
-              data-transition-leave-from="opacity-100 tscale-100"
-              data-transition-leave-to="opacity-0 scale-95"
-                class="hidden absolute right-0 z-10 mt-2 w-56 origin-top-right bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
-                    aria-labelledby="dropdownMenuIconHorizontalButton">
-                  <li>
-                    <%= link_to "Edit", edit_comment_path(comment), class: "block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
-                  </li>
-                  <li>
-                    <%= button_to "Remove", comment_path(comment), method: :delete, data: {confirm: "Are you sure?"}, class: "block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
-                  </li>
-                  <li>
-                    <a href="#"
-                       class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Report</a>
-                  </li>
-                </ul>
+              <a href="#" class="flex items-center">
+                  <p class="inline-flex flex-col md:flex-row items-start mr-3 text-sm text-gray-900 dark:text-white">
+                      <span class="font-semibold"><%= comment.creator.name %></span>
+                      <%= local_datetime_tag comment.created_at, style: :datetime, class: "text-sm text-gray-600 dark:text-gray-400 md:ml-2" %>
+                  </p>
+              </a>
+            </div>
+            <div class="relative" data-controller="dropdown">
+              <button aria-expanded="false"
+                  aria-haspopup="true"
+                  data-action="click->dropdown#toggle click@window->dropdown#hide"
+                  class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-500 dark:text-gray-400 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                  type="button">
+                  <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 3">
+                      <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
+                  </svg>
+                  <span class="sr-only">Comment settings</span>
+              </button>
+              <!-- Dropdown menu -->
+              <div data-dropdown-target="menu"
+                data-transition-enter="transition ease-out duration-200"
+                data-transition-enter-from="opacity-0 scale-95"
+                data-transition-enter-to="opacity-100 scale-100"
+                data-transition-leave="transition ease-in duration-75"
+                data-transition-leave-from="opacity-100 tscale-100"
+                data-transition-leave-to="opacity-0 scale-95"
+                  class="hidden absolute right-0 z-10 mt-2 w-56 origin-top-right bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
+                  <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
+                      aria-labelledby="dropdownMenuIconHorizontalButton">
+                    <li>
+                      <%= link_to "Edit", edit_comment_path(comment), class: "block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
+                    </li>
+                    <li>
+                      <%= button_to "Remove", comment_path(comment), method: :delete, data: {confirm: "Are you sure?"}, class: "block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
+                    </li>
+                    <li>
+                      <a href="#"
+                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Report</a>
+                    </li>
+                  </ul>
+              </div>
             </div>
           </div>
-        </div>
-        <p class="text-gray-500 dark:text-gray-400">
-          <%= comment.body %>
-        </p>
-        <div class="flex items-center mt-4 space-x-4">
-          <%= button_tag data: {action: "click->comment-reply#toggle"},
-                class: "flex items-center text-sm text-gray-500 hover:underline dark:text-gray-400 font-medium" do %>
-            <svg class="w-3.5 h-3.5 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M20 3H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h2v4a1 1 0 0 0 1.707.707L12.414 16H20a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2ZM7.5 11a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm4.5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm4.5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z" />
-            </svg>
-            Reply
-          <% end %>
+          <p class="text-gray-500 dark:text-gray-400">
+            <%= comment.body %>
+          </p>
+          <div class="flex items-center mt-4 space-x-4">
+            <%= button_tag data: {action: "click->comment-reply#toggle"},
+                  class: "flex items-center text-sm text-gray-500 hover:underline dark:text-gray-400 font-medium" do %>
+              <svg class="w-3.5 h-3.5 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M20 3H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h2v4a1 1 0 0 0 1.707.707L12.414 16H20a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2ZM7.5 11a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm4.5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm4.5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z" />
+              </svg>
+              Reply
+            <% end %>
+          </div>
         </div>
       </div>
     </div>
-  <% end %>
-   <%= render partial: "replies/form", locals: {comment: comment, reply: Reply.new} %>
+    <%= render partial: "replies/form", locals: {comment: comment, reply: Reply.new} %>
+  </div>
+
+  <div id="<%= dom_id(comment) %>_replies">
+    <%= render partial: "replies/reply", collection: comment.replies.ordered, as: :reply %>
+  </div>
 <% end %>

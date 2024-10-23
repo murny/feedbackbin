@@ -51,7 +51,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     patch comment_url(@comment), params: {comment: {body: "This is a new body"}}
 
     assert_response :redirect
-    assert_redirected_to comment_url(@comment)
+    assert_redirected_to comment_url(@comment), notice: "Comment was successfully updated."
 
     @comment.reload
 

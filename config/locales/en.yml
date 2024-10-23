@@ -60,6 +60,8 @@ en:
   comments:
     create:
       successfully_created: Comment was successfully created.
+    update:
+      successfully_updated: Comment was successfully updated.
     destroy:
       successfully_destroyed: Comment was successfully destroyed.
   delete: Delete

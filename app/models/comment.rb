@@ -14,16 +14,5 @@ class Comment < ApplicationRecord
 
   scope :ordered, -> { order(created_at: :desc) }
 
-  after_create_commit do
-    broadcast_prepend_to [post, :comments], target: "post_#{post.id}_comments", partial: "comments/comment_with_replies"
-  end
-
-  after_update_commit do
-    broadcast_replace_to self
-  end
-
-  after_destroy_commit do
-    broadcast_remove_to self
-    broadcast_action_to self, action: :remove, target: "comment_#{id}_with_comments"
-  end
+  # TODO: Add turbo stream broadcasts?
 end
