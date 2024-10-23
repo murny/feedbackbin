@@ -2,22 +2,27 @@
 #   record: name_of_fixture (ClassOfFixture)
 #   name: content
 #   body: <p>In a <i>million</i> stars!</p>
-one:
+post_body_one:
   record: one (Post)
   name: body
   body: <p>Really wished there was dark mode for this website!</p>
 
-two:
+post_body_two:
   record: two (Post)
   name: body
   body: <p>Can we upvotes?</p>
 
-two:
+comment_body_one:
   record: one (Comment)
   name: body
   body: <p>Thanks for the suggestion! What if we did X instead?</p>
 
-three:
-  record: one (Reply)
+comment_body_two:
+  record: two (Comment)
+  name: body
+  body: <p>Would be great if we added this other feature as well for this</p>
+
+reply_body_one:
+  record: reply_one (Comment)
   name: body
   body: <p>Great idea!</p>

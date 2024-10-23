@@ -56,11 +56,12 @@ if Rails.env.development?
     comment.body = "I agree, dark mode would be great"
   end
 
-  Reply.find_or_create_by!(comment: comment, creator: user) do |comment|
+  # Replies to the comment
+  Comment.find_or_create_by!(parent: comment, post: comment.post, creator: user) do |comment|
     comment.body = "I'm glad you agree, I hope the developers see this"
   end
 
-  Reply.find_or_create_by!(comment: comment, creator: user_two) do |comment|
+  Comment.find_or_create_by!(parent: comment, post: comment.post, creator: user_two) do |comment|
     comment.body = "I'm not sure if they will, but I hope so too"
   end
 

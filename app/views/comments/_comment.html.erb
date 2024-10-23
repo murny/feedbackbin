@@ -68,7 +68,7 @@
         </div>
       </div>
     </div>
-    <%= render partial: "replies/form", locals: {comment: comment, reply: Reply.new} %>
+    <%= render partial: "replies/form", locals: {parent: comment, reply: Comment.new} %>
   </div>
 
   <div id="<%= dom_id(comment) %>_replies">

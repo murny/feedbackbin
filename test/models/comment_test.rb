@@ -31,4 +31,15 @@ class CommentTest < ActiveSupport::TestCase
     assert_not @comment.valid?
     assert_equal "must exist", @comment.errors[:creator].first
   end
+
+  test "should be able to create a reply to a comment" do
+    @reply = Comment.create(body: "Hello, world!", post: @comment.post, parent: @comment, creator: users(:shane))
+
+    assert_predicate @reply, :valid?
+
+    assert_equal @comment, @reply.parent
+    assert_equal @comment.post, @reply.post
+    assert_equal 1, @comment.replies.count
+    assert_equal @reply, @comment.replies.first
+  end
 end

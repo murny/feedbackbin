@@ -6,7 +6,7 @@ class RepliesControllerTest < ActionDispatch::IntegrationTest
   setup do
     @user = users(:one)
     @comment = comments(:one)
-    @reply = replies(:one)
+    @reply = comments(:reply_one)
   end
 
   test "should show reply" do
@@ -26,20 +26,20 @@ class RepliesControllerTest < ActionDispatch::IntegrationTest
   test "should create reply if authenticated" do
     sign_in @user
 
-    assert_difference "Reply.count" do
-      post replies_url, params: {reply: {comment_id: @comment.id, body: "Hello, world!"}}
+    assert_difference "Comment.count" do
+      post replies_url, params: {reply: {parent_id: @comment.id, post_id: @comment.post.id, body: "Hello, world!"}}
     end
 
     assert_response :redirect
     assert_redirected_to comment_url(@comment)
 
-    assert_equal "Hello, world!", Reply.last.body.to_plain_text
-    assert_equal @user, Reply.last.creator
+    assert_equal "Hello, world!", Comment.last.body.to_plain_text
+    assert_equal @user, Comment.last.creator
   end
 
   test "should not create reply if not authenticated" do
-    assert_no_difference "Reply.count" do
-      post replies_url, params: {reply: {comment_id: @comment.id, body: "Hello, world!"}}
+    assert_no_difference "Comment.count" do
+      post replies_url, params: {reply: {parent_id: @comment.id, post_id: @comment.post.id, body: "Hello, world!"}}
     end
 
     assert_response :redirect
@@ -62,11 +62,11 @@ class RepliesControllerTest < ActionDispatch::IntegrationTest
   test "should destroy reply" do
     sign_in @user
 
-    assert_difference "Reply.count", -1 do
+    assert_difference "Comment.count", -1 do
       delete reply_url(@reply)
     end
 
     assert_response :redirect
-    assert_redirected_to comment_url(@reply.comment)
+    assert_redirected_to post_url(@reply.post)
   end
 end

@@ -1,3 +1,3 @@
 <%= turbo_frame_tag @reply do %>
-  <%= render "form", comment: @reply.comment, reply: @reply %>
+  <%= render "form", parent: @reply.parent, reply: @reply %>
 <% end %>

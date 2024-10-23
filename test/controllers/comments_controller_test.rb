@@ -8,6 +8,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     @post = posts(:one)
     @comment = comments(:one)
   end
+
   test "should show comment" do
     get comment_url(@comment)
 
@@ -67,4 +68,5 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :redirect
     assert_redirected_to post_url(@comment.post), notice: "Comment was successfully destroyed."
+  end
 end

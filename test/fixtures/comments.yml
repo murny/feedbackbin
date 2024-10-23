@@ -1,3 +1,12 @@
 one:
   creator: one
   post: one
+
+two:
+  creator: shane
+  post: one
+
+reply_one:
+  creator: one
+  post: one
+  parent: two

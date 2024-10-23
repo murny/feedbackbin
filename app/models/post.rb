@@ -10,6 +10,8 @@ class Post < ApplicationRecord
   belongs_to :category
   belongs_to :post_status, optional: true
 
+  has_many :top_comments, -> { where(parent_id: nil) }, class_name: "Comment"
+
   has_many :comments, dependent: :destroy
 
   broadcasts_refreshes
