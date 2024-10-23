@@ -3,7 +3,7 @@
   <%= tag.div class: "p-4 lg:p-6 mb-6 text-base bg-white border border-gray-100 dark:border-gray-700 rounded-lg dark:bg-gray-800" do %>
     <div class="flex">
       <div class="mr-4">
-        <%= render partial: "likes", locals: {likeable: comment} %>
+        <%= render partial: "likes/like_button", locals: {likeable: comment} %>
       </div>
       <div class="w-full">
         <div class="flex justify-between items-center mb-2 w-full">

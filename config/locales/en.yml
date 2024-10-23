@@ -69,6 +69,11 @@ en:
       not_saved:
         one: '1 error prohibited this %{resource} from being saved:'
         other: "%{count} errors prohibited this %{resource} from being saved:"
+  likes:
+    update:
+      successfully_liked: You liked this %{resource}
+      successfully_unliked: You unliked this %{resource}
+
   first_runs:
     show:
       create_account: Create account

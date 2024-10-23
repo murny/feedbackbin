@@ -8,13 +8,17 @@ class LikesController < ApplicationController
   before_action :set_likeable
 
   def update
-    if @likeable.liked_by?(Current.user)
-      @likeable.unlike(Current.user)
-    else
-      @likeable.like(Current.user)
+    respond_to do |format|
+      if @likeable.liked_by?(Current.user)
+        @likeable.unlike(Current.user)
+        flash.now[:notice] = t(".successfully_unliked", resource: @likeable.class.name)
+      else
+        @likeable.like(Current.user)
+        flash.now[:notice] = t(".successfully_liked", resource: @likeable.class.name)
+      end
+      format.html { redirect_to @likeable }
+      format.turbo_stream
     end
-
-    render partial: "likes", locals: {likeable: @likeable}
   end
 
   private

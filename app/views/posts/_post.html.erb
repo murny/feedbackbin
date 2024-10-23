@@ -6,7 +6,7 @@
       class="absolute inset-0 -m-px pointer-events-none -z-10 before:absolute before:inset-0 before:bg-gradient-to-t before:from-gray-700 before:to-gray-800 after:absolute after:inset-0 after:bg-gray-900 after:m-px"
       aria-hidden="true"></div>
     <div class="sm:flex items-center space-y-3 sm:space-y-0 sm:space-x-5">
-      <%= render partial: "likes", locals: {likeable: post} %>
+      <%= render partial: "likes/like_button", locals: {likeable: post} %>
       <div class="grow lg:flex items-center justify-between space-y-5 lg:space-x-6 lg:space-y-0">
         <div>
           <div class="mb-2">

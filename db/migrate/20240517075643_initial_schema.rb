@@ -105,6 +105,7 @@ class InitialSchema < ActiveRecord::Migration[8.0]
       t.bigint "likeable_id", null: false
       t.datetime "created_at", null: false
       t.datetime "updated_at", null: false
+      t.index ["likeable_type", "likeable_id", "voter_id"], name: "index_likes_on_likeable_type_and_likeable_id_and_voter_id", unique: true
       t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable"
       t.index ["voter_id"], name: "index_likes_on_voter_id"
     end

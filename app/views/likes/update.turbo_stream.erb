@@ -1,0 +1,5 @@
+<%= turbo_stream.update "flash", partial: "flash" %>
+
+<%= turbo_stream.update dom_id(@likeable, :like_button) do %>
+  <%= render "likes/like_button", likeable: @likeable %>
+<% end %>

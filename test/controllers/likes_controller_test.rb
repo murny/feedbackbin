@@ -12,13 +12,13 @@ class LikesControllerTest < ActionDispatch::IntegrationTest
     assert_difference -> { post.likes.count }, 1 do
       patch like_url(likeable_type: "Post", likeable_id: post.id)
 
-      assert_response :success
+      assert_redirected_to post, notice: "Post was successfully liked."
     end
 
     assert_difference -> { post.likes.count }, -1 do
       patch like_url(likeable_type: "Post", likeable_id: post.id)
 
-      assert_response :success
+      assert_redirected_to post, notice: "Post was successfully unliked."
     end
   end
 
