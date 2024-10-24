@@ -1,5 +1,5 @@
 <% if @comment.persisted? %>
-  <%= turbo_stream.update "flash", partial: "flash" %>
+  <%= turbo_stream.update "flash_toast", partial: "flash_toast" %>
 
   <%= turbo_stream.replace "post_comment_form" do %>
       <%= render partial: "comments/form", locals: {post: @comment.post, comment: Comment.new} %>
