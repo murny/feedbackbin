@@ -3,7 +3,7 @@
 module FormBuilders
   class TailwindFormBuilder < ActionView::Helpers::FormBuilder
     INPUT_VALID_CLASSES = "block w-full rounded-md border-0 py-1.5 shadow-sm sm:text-sm sm:leading-6 " \
-    "ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-blue-600 dark:focus:ring-blue-500 " \
+    "ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-primary-600 dark:focus:ring-primary-500 " \
     "dark:bg-white/5 text-gray-900 dark:text-white ring-gray-300 dark:ring-white/10 " \
     "placeholder:text-gray-400 dark:placeholder:text-gray-500"
 
@@ -13,7 +13,7 @@ module FormBuilders
 
     SELECT_CLASSES = "block w-full mt-6 sm:mt-0 border rounded-md py-2 px-3 focus:outline-none " \
     "dark:bg-gray-700/50 dark:border-gray-500 dark:text-gray-300 dark:placeholder-gray-400 dark:focus:ring-2 " \
-    "dark:focus:border-transparent border-gray-300 focus:ring-blue-600 focus:border-blue-600 dark:focus:ring-blue-400"
+    "dark:focus:border-transparent border-gray-300 focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-400"
     LABEL_VALID_CLASSES = "block text-sm font-medium leading-6 text-gray-900 dark:text-white"
     LABEL_INVALID_CLASSES = "block mb-2 text-sm font-medium text-red-700 dark:text-red-500"
     ERROR_MESSAGE_CLASSES = "mt-2 text-sm text-red-600 dark:text-red-500"
