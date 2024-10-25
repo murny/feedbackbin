@@ -21,6 +21,10 @@
   }
 }
 
+.turbo-progress-bar {
+  @apply bg-primary-500;
+}
+
 .pagy {
   @apply inline-flex -space-x-px text-sm;
 
