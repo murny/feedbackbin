@@ -1,7 +1,9 @@
-<%= turbo_frame_tag @comment do %>
-  <% if @comment.parent %>
-    <%= render partial: "comments/reply", locals: {comment: @comment} %>
-  <% else %>
-    <%= render @comment %>
+<div class="mt-10">
+  <%= turbo_frame_tag @comment do %>
+    <% if @comment.parent %>
+      <%= render partial: "comments/reply", locals: {comment: @comment} %>
+    <% else %>
+      <%= render @comment %>
+    <% end %>
   <% end %>
-<% end %>
+</div>

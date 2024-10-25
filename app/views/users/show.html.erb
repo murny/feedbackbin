@@ -14,23 +14,163 @@
         </div>
         <div class="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-x-4 sm:space-y-0">
           <button type="button" class="inline-flex justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-            <svg class="-ml-0.5 mr-1.5 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path d="M3 4a2 2 0 00-2 2v1.161l8.441 4.221a1.25 1.25 0 001.118 0L19 7.162V6a2 2 0 00-2-2H3z" />
-              <path d="M19 8.839l-7.77 3.885a2.75 2.75 0 01-2.46 0L1 8.839V14a2 2 0 002 2h14a2 2 0 002-2V8.839z" />
-            </svg>
-            <span>Message</span>
+            <span>Edit Profile</span>
           </button>
           <button type="button" class="inline-flex justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-            <svg class="-ml-0.5 mr-1.5 h-5 w-5 text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-              <path fill-rule="evenodd" d="M2 3.5A1.5 1.5 0 013.5 2h1.148a1.5 1.5 0 011.465 1.175l.716 3.223a1.5 1.5 0 01-1.052 1.767l-.933.267c-.41.117-.643.555-.48.95a11.542 11.542 0 006.254 6.254c.395.163.833-.07.95-.48l.267-.933a1.5 1.5 0 011.767-1.052l3.223.716A1.5 1.5 0 0118 15.352V16.5a1.5 1.5 0 01-1.5 1.5H15c-1.149 0-2.263-.15-3.326-.43A13.022 13.022 0 012.43 8.326 13.019 13.019 0 012 5V3.5z" clip-rule="evenodd" />
-            </svg>
-            <span>Call</span>
+            <span>Report User</span>
           </button>
         </div>
       </div>
     </div>
     <div class="mt-6 hidden min-w-0 flex-1 sm:block md:hidden">
       <h1 class="truncate text-2xl font-bold text-gray-900 dark:text-white"><%= @user.name %></h1>
+    </div>
+  </div>
+</div>
+
+<p class="mt-6 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-sm text-gray-500 dark:text-gray-400">
+  <%= @user.bio %>
+</p>
+
+<div data-controller="tabs"
+     data-tabs-active-tab-class="text-blue-600 hover:text-blue-600 dark:text-blue-500 dark:hover:text-blue-500 border-blue-600 dark:border-blue-500"
+     data-tabs-update-anchor-value="true"
+     class="mt-10 w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
+  <div class="sm:hidden">
+      <label for="tabs" class="sr-only">Select tab</label>
+      <select id="tabs"
+              class="bg-gray-50 border-0 border-b border-gray-200 text-gray-900 text-sm rounded-t-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+          <option>Posts</option>
+          <option>Replies</option>
+          <option>Likes</option>
+      </select>
+  </div>
+  <ul class="hidden text-sm font-medium text-center text-gray-500 divide-x divide-gray-200 rounded-lg sm:flex dark:divide-gray-600 dark:text-gray-400" role="tablist">
+    <li class="w-full">
+      <button id="posts-tab"
+              data-tabs-target="tab"
+              data-action="click->tabs#change"
+              type="button"
+              role="tab"
+              aria-controls="posts"
+              aria-selected="true"
+              class="inline-block w-full p-4 rounded-ss-lg bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600">
+        Posts
+      </button>
+    </li>
+    <li class="w-full">
+      <button id="replies-tab"
+              data-tabs-target="tab"
+              data-action="click->tabs#change"
+              type="button"
+              role="tab"
+              aria-controls="replies"
+              aria-selected="false"
+              class="inline-block w-full p-4 bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600">
+        Replies
+      </button>
+    </li>
+    <li class="w-full">
+      <button id="likes-tab"
+              data-tabs-target="tab"
+              data-action="click->tabs#change"
+              type="button"
+              role="tab"
+              aria-controls="likes"
+              aria-selected="false"
+              class="inline-block w-full p-4 rounded-se-lg bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600">
+        Likes
+      </button>
+    </li>
+  </ul>
+  <div class="border-t border-gray-200 dark:border-gray-600">
+    <div class="hidden p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800" data-tabs-target="panel" role="tabpanel" aria-labelledby="posts-tab">
+      <ul role="list" class="divide-y divide-gray-100 dark:divide-gray-900 overflow-hidden bg-white dark:bg-gray-700 shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl">
+        <% @posts.each do |post| %>
+          <li class="relative flex justify-between gap-x-6 px-4 py-5 hover:bg-gray-50 dark:hover:bg-gray-600 sm:px-6">
+            <div class="flex min-w-0 gap-x-4">
+              <div class="min-w-0 flex-auto">
+                <p class="text-sm font-semibold leading-6 text-gray-900 dark:text-white">
+                  <%= link_to post_path(post) do %>
+                    <span class="absolute inset-x-0 -top-px bottom-0"></span>
+                    <%= post.title %>
+                  <% end %>
+                </p>
+                <p class="mt-1 flex text-xs leading-5 text-gray-500 dark:text-gray-400">
+                  <%= truncate(post.body.to_plain_text, length: 100) %>
+                </p>
+              </div>
+            </div>
+            <div class="flex shrink-0 items-center gap-x-4">
+              <div class="hidden sm:flex sm:flex-col sm:items-end">
+                <p class="text-sm leading-6 text-gray-900 dark:text-white"><%= post.category.name %></p>
+                <p class="mt-1 text-xs leading-5 text-gray-500 dark:text-gray-400"><%= local_datetime_tag post.created_at, style: :datetime %></p>
+              </div>
+              <svg class="h-5 w-5 flex-none text-gray-400 dark:text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
+              </svg>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="hidden p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800" data-tabs-target="panel" role="tabpanel" aria-labelledby="replies-tab">
+      <ul role="list" class="divide-y divide-gray-100 dark:divide-gray-900 overflow-hidden bg-white dark:bg-gray-700 shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl">
+        <% @comments.each do |comment| %>
+          <li class="relative flex justify-between gap-x-6 px-4 py-5 hover:bg-gray-50 dark:hover:bg-gray-600 sm:px-6">
+            <div class="flex min-w-0 gap-x-4">
+              <div class="min-w-0 flex-auto">
+                <p class="text-sm font-semibold leading-6 text-gray-900 dark:text-white">
+                  <%= link_to comment_path(comment) do %>
+                    <span class="absolute inset-x-0 -top-px bottom-0"></span>
+                    <span class="text-sm text-gray-500 dark:text-gray-400">Commented on</span> <%= comment.post.title %>
+                  <% end %>
+                </p>
+                <p class="mt-1 flex text-xs leading-5 text-gray-500 dark:text-gray-400">
+                  <%= truncate(comment.body.to_plain_text, length: 250) %>
+                </p>
+              </div>
+            </div>
+            <div class="flex shrink-0 items-center gap-x-4">
+              <div class="hidden sm:flex sm:flex-col sm:items-end">
+                <p class="text-sm leading-6 text-gray-900 dark:text-white">
+                  <% if comment.parent %>
+                    <span class="text-sm text-gray-500 dark:text-gray-400">Replied to</span> <%= comment.parent.creator.username %>
+                  <% end %>
+                </p>
+                <p class="mt-1 text-xs leading-5 text-gray-500 dark:text-gray-400"><%= local_datetime_tag comment.created_at, style: :datetime %></p>
+              </div>
+              <svg class="h-5 w-5 flex-none text-gray-400 dark:text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
+              </svg>
+            </div>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+    <div class="hidden p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800" data-tabs-target="panel" role="tabpanel" aria-labelledby="likes-tab">
+      <ul role="list" class="divide-y divide-gray-100 dark:divide-gray-900 overflow-hidden bg-white dark:bg-gray-700 shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl">
+        <% @likes.each do |like| %>
+          <li class="relative flex justify-between gap-x-6 px-4 py-5 hover:bg-gray-50 dark:hover:bg-gray-600 sm:px-6">
+            <div class="flex min-w-0 gap-x-4">
+              <div class="min-w-0 flex-auto">
+                <p class="text-sm font-semibold leading-6 text-gray-900 dark:text-white">
+                  <% if like.likeable_type == "Post" %>
+                    <span class="text-sm text-gray-500 dark:text-gray-400">Liked the post:</span> <%= like.likeable.title %>
+                  <% else %>
+                    <span class="text-sm text-gray-500 dark:text-gray-400">Liked the comment:</span> <%= truncate(like.likeable.body.to_plain_text, length: 100) %>
+                  <% end %>
+                </p>
+              </div>
+            </div>
+            <div class="flex shrink-0 items-center gap-x-4">
+              <div class="hidden sm:flex sm:flex-col sm:items-end">
+                <p class="mt-1 text-xs leading-5 text-gray-500 dark:text-gray-400"><%= local_datetime_tag like.created_at, style: :datetime %></p>
+              </div>
+            </div>
+          </li>
+        <% end %>
+      </ul>
     </div>
   </div>
 </div>
