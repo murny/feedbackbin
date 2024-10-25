@@ -1,3 +1,5 @@
+<%# locals: (changelog:) %>
+
 <div class="p-4 lg:p-10" id="<%= dom_id(changelog) %>">
   <%= link_to changelog_path(changelog), class: "text-gray-400 text-sm font-medium capitalize" do %>
     <%= local_datetime_tag changelog.published_at, style: :datetime %>

@@ -1,25 +1,25 @@
-<%= tag.div class: local_assigns[:class], data: local_assigns[:data] do %>
-  <% if authenticated? %>
-    <%= turbo_frame_tag "post_comment_form" do %>
-      <div class="flex items-start">
-        <%= form_with model: comment, class: "my-4 w-full" do |form| %>
-          <%= render "error_messages", resource: form.object %>
+<%# locals: (comment:, post:) %>
 
-          <%= form.hidden_field :post_id, value: post.id %>
-          <%= form.rich_text_area :body, id: "post_#{post.id}_new_comment_body", placeholder: "Write a comment..." %>
-          <div class="mt-5 flex items-center space-x-4 justify-end">
-            <%= form.submit class: "btn btn-primary" %>
-            <%= link_to "Cancel", comment, class: "btn btn-secondary" if form.object.persisted? %>
-          </div>
-        <% end %>
-      </div>
-    <% end %>
-  <% else %>
-    <p class="my-3 text-base font-semibold leading-7 text-gray-900 dark:text-white">
-      <%= link_to "Sign up", sign_up_path, class: "font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300" %>
-      or
-      <%= link_to "login", sign_in_path, class: "font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300" %>
-      to comment
-    </p>
+<% if authenticated? %>
+  <%= turbo_frame_tag "post_comment_form" do %>
+    <div class="flex items-start">
+      <%= form_with model: comment, class: "my-4 w-full" do |form| %>
+        <%= render "error_messages", resource: form.object %>
+
+        <%= form.hidden_field :post_id, value: post.id %>
+        <%= form.rich_text_area :body, id: "post_#{post.id}_new_comment_body", placeholder: "Write a comment..." %>
+        <div class="mt-5 flex items-center space-x-4 justify-end">
+          <%= form.submit class: "btn btn-primary" %>
+          <%= link_to "Cancel", comment, class: "btn btn-secondary" if form.object.persisted? %>
+        </div>
+      <% end %>
+    </div>
   <% end %>
+<% else %>
+  <p class="my-3 text-base font-semibold leading-7 text-gray-900 dark:text-white">
+    <%= link_to "Sign up", sign_up_path, class: "font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300" %>
+    or
+    <%= link_to "login", sign_in_path, class: "font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300" %>
+    to comment
+  </p>
 <% end %>

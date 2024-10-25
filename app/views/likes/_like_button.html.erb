@@ -1,3 +1,5 @@
+<%# locals: (likeable:) %>
+
 <div class="shrink-0">
   <% if authenticated? %>
     <%= turbo_frame_tag likeable, :like_button do %>
