@@ -1,5 +1,5 @@
 <%= turbo_frame_tag dom_id(comment) do %>
-  <div class="pl-6 pt-6 border-left" data-controller="comment-reply">
+  <div class="pl-6 pt-6 border-left">
     <div class="p-4 lg:p-6 mb-6 text-base bg-white border border-gray-100 dark:border-gray-700 rounded-lg dark:bg-gray-800">
       <div class="flex">
         <div class="mr-4">
@@ -56,22 +56,13 @@
           <p class="text-gray-500 dark:text-gray-400">
             <%= comment.body %>
           </p>
-          <div class="flex items-center mt-4 space-x-4">
-            <%= button_tag data: {action: "click->comment-reply#toggle"},
-                  class: "flex items-center text-sm text-gray-500 hover:underline dark:text-gray-400 font-medium" do %>
-              <svg class="w-3.5 h-3.5 mr-1" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M20 3H4a2 2 0 0 0-2 2v9a2 2 0 0 0 2 2h2v4a1 1 0 0 0 1.707.707L12.414 16H20a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2ZM7.5 11a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm4.5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Zm4.5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3Z" />
-              </svg>
-              Reply
-            <% end %>
-          </div>
         </div>
       </div>
-    </div>
-    <%= render partial: "comments/reply_form", locals: {parent: comment, comment: Comment.new} %>
+      <div id="<%= dom_id(comment) %>_replies" class="mt-5">
+        <%= render partial: "comments/reply", collection: comment.replies.ordered, as: :comment %>
+      </div>
 
-    <div id="<%= dom_id(comment) %>_replies">
-      <%= render partial: "comments/reply", collection: comment.replies.ordered, as: :comment %>
+      <%= render partial: "comments/reply_form", locals: {parent: comment, comment: Comment.new} %>
     </div>
   </div>
 <% end %>

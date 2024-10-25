@@ -2,10 +2,6 @@
   <% if authenticated? %>
     <%= turbo_frame_tag "post_comment_form" do %>
       <div class="flex items-start">
-        <div class="mr-3 my-4 shrink-0 hidden sm:block">
-            <%= avatar_tag Current.user, class: "w-9 h-9 rounded-full", alt: Current.user.name %>
-        </div>
-
         <%= form_with model: comment, class: "my-4 w-full" do |form| %>
           <%= render "error_messages", resource: form.object %>
 

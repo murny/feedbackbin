@@ -1,3 +1,7 @@
 <%= turbo_frame_tag @comment do %>
-  <%= render @comment %>
+  <% if @comment.parent %>
+    <%= render partial: "comments/reply", locals: {comment: @comment} %>
+  <% else %>
+    <%= render @comment %>
+  <% end %>
 <% end %>

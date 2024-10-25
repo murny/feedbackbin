@@ -13,7 +13,7 @@ class Comment < ApplicationRecord
 
   validates :body, presence: true
 
-  scope :ordered, -> { order(created_at: :desc) }
+  scope :ordered, -> { order(created_at: :asc) }
 
   # TODO: Add turbo stream broadcasts?
 end

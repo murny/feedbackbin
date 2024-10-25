@@ -1,19 +1,35 @@
 <% if @comment.persisted? %>
   <%= turbo_stream.update "flash_toast", partial: "flash_toast" %>
 
-  <%= turbo_stream.replace "post_comment_form" do %>
-      <%= render partial: "comments/form", locals: {post: @comment.post, comment: Comment.new} %>
-  <% end %>
-
   <%= turbo_stream.update "post_#{@comment.post.id}_comment_count" do %>
     Discussion (<%= @comment.post.comments_count %>)
   <% end %>
 
-  <%= turbo_stream.append "post_#{@comment.post.id}_comments" do %>
-    <%= render partial: "comments/comment", locals: {comment: @comment} %>
+  <% if @comment.parent %>
+      <%= turbo_stream.replace "comment_#{@comment.parent.id}_new_reply" do %>
+        <%= render partial: "comments/reply_form", locals: {parent: @comment.parent, comment: Comment.new} %>
+    <% end %>
+
+    <%= turbo_stream.append "comment_#{@comment.parent.id}_replies" do %>
+      <%= render partial: "comments/reply", locals: {comment: @comment} %>
+    <% end %>
+  <% else %>
+    <%= turbo_stream.replace "post_comment_form" do %>
+        <%= render partial: "comments/form", locals: {post: @comment.post, comment: Comment.new} %>
+    <% end %>
+
+    <%= turbo_stream.append "post_#{@comment.post.id}_comments" do %>
+      <%= render partial: "comments/comment", locals: {comment: @comment} %>
+    <% end %>
   <% end %>
 <% else %>
-  <%= turbo_stream.replace "post_comment_form" do %>
-    <%= render partial: "comments/form", locals: {post: @comment.post, comment: @comment} %>
-  <% end %>
+  <% if @comment.parent %>
+    <%= turbo_stream.replace "comment_#{@comment.parent.id}_new_reply" do %>
+      <%= render partial: "comments/reply_form", locals: {parent: @comment.parent, comment: @comment, show_form: true} %>
+    <% end %>
+  <% else %>
+    <%= turbo_stream.replace "post_comment_form" do %>
+      <%= render partial: "comments/form", locals: {post: @comment.post, comment: @comment} %>
+    <% end %>
+  <% end%>
 <% end %>

@@ -1,31 +1,29 @@
-<%= tag.div class: "hidden", data: {comment_reply_target: "form"} do %>
-  <% if authenticated? %>
-    <%= tag.div id: "comment_#{parent.id}_new_reply" do %>
-      <div class="flex items-start">
-        <div class="mr-3 my-4 shrink-0 hidden sm:block">
-            <%= avatar_tag Current.user, class: "w-9 h-9 rounded-full", alt: Current.user.name %>
-        </div>
+<%# locals: (parent:, comment:, show_form: false) %>
 
+<% if authenticated? %>
+ <div data-controller="comment-reply">
+    <%= button_tag "Write a reply", class: "btn btn-secondary btn-block #{show_form ? "hidden" : ""}", data: {comment_reply_target: "button", action: "click->comment-reply#toggle"} %>
+
+    <%= tag.div id: "comment_#{parent.id}_new_reply", data: {comment_reply_target: "form"}, class: (show_form ? "" : "hidden").to_s do %>
+      <div class="flex items-start">
         <%= form_with model: comment, class: "my-4 w-full" do |form| %>
           <%= render "error_messages", resource: form.object %>
 
           <%= form.hidden_field :post_id, value: parent.post.id %>
           <%= form.hidden_field :parent_id, value: parent.id %>
 
-          <%= form.rich_text_area :body, id: "comment_#{parent.id}_new_reply_body", placeholder: "Write a reply..." %>
+          <%= form.rich_text_area :body, id: "comment_#{parent.id}_new_reply_body", row: 1, placeholder: "Write a reply..." %>
           <div class="mt-5 flex items-center space-x-4 justify-end">
-            <%= form.submit "Create Reply", class: "btn btn-primary" %>
-            <%= link_to "Cancel", comment, class: "btn btn-secondary" if form.object.persisted? %>
+            <% if form.object.persisted? %>
+              <%= form.submit "Update Reply", class: "btn btn-primary" %>
+              <%= link_to "Cancel", comment_path(parent), class: "btn btn-secondary" %>
+            <% else %>
+              <%= form.submit "Create Reply", class: "btn btn-primary" %>
+              <%= button_tag "Cancel", class: "btn btn-secondary", data: {action: "click->comment-reply#toggle"} %>
+            <% end %>
           </div>
         <% end %>
       </div>
     <% end %>
-  <% else %>
-    <p class="text-base font-semibold leading-7 text-gray-900 dark:text-white">
-      <%= link_to "Sign up", sign_up_path, class: "font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300" %>
-      or
-      <%= link_to "login", sign_in_path, class: "font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300" %>
-      to reply
-    </p>
-  <% end %>
+  </div>
 <% end %>
