@@ -1,4 +1,4 @@
-<%= render partial: "users/settings/header" %>
+<%= render partial: "user_settings/header" %>
 
 <div class="divide-y divide-white/5">
   <div class="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
@@ -17,7 +17,7 @@
       </div>
 
       <%= form_with(model: @user,
-            url: users_settings_profile_path,
+            url: user_settings_profile_path,
             method: :patch,
             data: {controller: "form", action: "keydown.enter->form#submit:prevent"}) do |form| %>
 
@@ -38,16 +38,6 @@
           <div class="col-span-full">
             <%= form.label :name %>
             <%= form.text_field :name, autocomplete: "name" %>
-          </div>
-
-          <div class="col-span-full">
-            <%= form.label :username %>
-            <%= form.text_field :username,
-                  autocomplete: "username",
-                  placeholder: "jane_doe",
-                  leading_icon: true do %>
-                      <%= inline_svg "icons/outline/at-symbol.svg", class: "h-5 w-5 text-gray-600 dark:text-gray-400", aria: true, title: "Username", desc: "@ icon" %>
-            <% end %>
           </div>
 
           <div class="col-span-full">

@@ -62,7 +62,7 @@ class Users::OmniauthControllerTest < ActionDispatch::IntegrationTest
     assert_difference "UserConnectedAccount.count" do
       get "/auth/developer/callback"
 
-      assert_redirected_to users_settings_connected_accounts_url
+      assert_redirected_to user_settings_connected_accounts_url
       assert_equal "You have connected your developer account successfully.", flash[:notice]
     end
 
@@ -117,7 +117,7 @@ class Users::OmniauthControllerTest < ActionDispatch::IntegrationTest
 
     get "/auth/google/callback"
 
-    assert_redirected_to users_settings_connected_accounts_path
+    assert_redirected_to user_settings_connected_accounts_path
     assert_equal "This google account is already connected to your account.", flash[:notice]
   end
 

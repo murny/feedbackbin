@@ -20,17 +20,16 @@ Rails.application.routes.draw do
     resource :session, only: [:create, :destroy]
     resource :email_verification, only: [:show, :create]
     resources :registrations, only: [:create]
+  end
 
-    namespace :settings do
-      resources :sessions, only: [:index, :destroy]
-      resource :profile, only: [:show, :update]
-      resource :account, only: [:show, :update]
-      resource :appearance, only: [:show, :update]
-      resource :notifications, only: [:show, :update]
-      resource :password, only: [:update]
-      resource :email, only: [:update]
-      resources :connected_accounts, only: [:index, :destroy]
-    end
+  namespace :user_settings do
+    resource :account, only: [:show, :update]
+    resources :active_sessions, only: [:index, :destroy]
+    resources :connected_accounts, only: [:index, :destroy]
+    resource :email, only: [:update]
+    resource :password, only: [:update]
+    resource :preference, only: [:show, :update]
+    resource :profile, only: [:show, :update]
   end
 
   resources :users, only: :show do

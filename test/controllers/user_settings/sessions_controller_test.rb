@@ -2,13 +2,13 @@
 
 require "test_helper"
 
-class Users::Settings::SessionsControllerTest < ActionDispatch::IntegrationTest
+class UserSettings::ActiveSessionsControllerTest < ActionDispatch::IntegrationTest
   setup do
     sign_in(users(:shane))
   end
 
   test "should be able to view sessions" do
-    get users_settings_sessions_url
+    get user_settings_active_sessions_url
 
     assert_response :success
   end
