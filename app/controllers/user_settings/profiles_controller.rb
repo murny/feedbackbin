@@ -11,7 +11,7 @@ module UserSettings
       if @user.update(user_params)
         redirect_to user_settings_profile_path, notice: update_notice
       else
-        render :edit, status: :unprocessable_entity
+        render :show, status: :unprocessable_entity
       end
     end
 
