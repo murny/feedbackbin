@@ -231,7 +231,8 @@ en:
       avatar_updated: Your avatar has been updated. It may take up to 30 minutes to update everywhere.
       profile_updated: Your profile has been updated.
       show:
-        change_avatar: Change avatar
+        upload_new_avatar: Upload new avatar
+        remove_avatar: Remove avatar
     active_sessions:
       destroy:
         session_revoked: This session was successfully revoked

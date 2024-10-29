@@ -4,7 +4,7 @@
 
 @layer components {
   .btn {
-    @apply rounded-md px-3 py-2 text-sm font-semibold shadow-sm leading-6;
+    @apply rounded-md px-3 py-2 text-sm font-semibold shadow-sm leading-6 cursor-pointer;
   }
 
   .btn-primary {
