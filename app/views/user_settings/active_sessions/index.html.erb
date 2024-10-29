@@ -2,7 +2,8 @@
 
 <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 dark:border-gray-700 sm:p-6 dark:bg-gray-800">
   <div class="flow-root">
-    <h3 class="text-xl font-semibold dark:text-white">Devices & Sessions</h3>
+    <h3 class="text-xl font-semibold dark:text-white">Active Devices & Sessions</h3>
+    <p class="font-normal text-gray-500 truncate dark:text-gray-400">This is a list of devices that have logged into your account. Revoke any sessions that you do not recognize.</p>
     <ul class="divide-y divide-gray-200 dark:divide-gray-700">
       <% @sessions.each do |session| %>
         <li class="py-4">
@@ -12,21 +13,32 @@
             </div>
             <div class="flex-1 min-w-0">
               <p class="text-base font-semibold text-gray-900 truncate dark:text-white">
-                <%= UserAgent.parse(session.user_agent).browser %> on <%= UserAgent.parse(session.user_agent).platform %>
-              </p>
-              <p class="text-sm font-normal text-gray-500 truncate dark:text-gray-400">
                 <%= session.ip_address %>
               </p>
               <p class="text-sm font-normal text-gray-500 truncate dark:text-gray-400">
-                <%= local_datetime_tag session.last_active_at, style: :datetime %>
+                <% if session.current? %>
+                  <%= t(".this_is_your_current_session") %>
+                <% else %>
+                  Last accessed on
+                  <%= local_datetime_tag session.last_active_at, style: :datetime %>
+                <% end %>
+              </p>
+              <p class="text-sm font-normal text-gray-500 truncate dark:text-gray-400">
+                <span class="text-base font-semibold  text-gray-900 truncate dark:text-white"><%= UserAgent.parse(session.user_agent).browser %></span> on
+                <span class="text-base font-semibold  text-gray-900 truncate dark:text-white"><%= UserAgent.parse(session.user_agent).platform %></span>
+              </p>
+              <p class="text-sm font-normal text-gray-500 truncate dark:text-gray-400">
+                Signed in on <%= local_datetime_tag session.created_at, style: :datetime %>
               </p>
             </div>
             <div class="inline-flex items-center">
-              <%= button_to "Revoke",
-                    user_settings_active_session_path(session),
-                    method: :delete,
-                    class: "px-3 py-2 mb-3 mr-3 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700",
-                    form: {data: {turbo_confirm: t(".are_you_sure_you_may_be_logged_out")}} %>
+              <% unless session.current? %>
+                <%= button_to "Revoke",
+                      user_settings_active_session_path(session),
+                      method: :delete,
+                      class: "px-3 py-2 mb-3 mr-3 text-sm font-medium text-center text-gray-900 bg-white border border-gray-300 rounded-lg hover:bg-gray-100 focus:ring-4 focus:ring-primary-300 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700",
+                      form: {data: {turbo_confirm: t(".are_you_sure")}} %>
+              <% end %>
             </div>
           </div>
         </li>

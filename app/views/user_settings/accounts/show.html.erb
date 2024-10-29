@@ -4,7 +4,7 @@
   <div class="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
     <div>
       <h2 class="text-base font-semibold leading-7 text-gray-900 dark:text-white">Username</h2>
-      <p class="mt-1 text-sm leading-6 text-gray-600 dark:text-gray-400"><%= t(".username_hint") %></p>
+      <p class="mt-1 text-sm leading-6 text-gray-600 dark:text-gray-400">Changing your username can have unintended side effects</p>
     </div>
 
     <%= form_with(model: @user,
@@ -63,6 +63,14 @@
 
   <div class="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
     <div>
+      <h2 class="text-base font-semibold leading-7 text-gray-900 dark:text-white">Connected Accounts</h2>
+      <p class="mt-1 text-sm leading-6 text-gray-600 dark:text-gray-400">Select a service to sign in with.</p>
+    </div>
+
+  </div>
+
+  <div class="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
+    <div>
       <h2 class="text-base font-semibold leading-7 text-gray-900 dark:text-white">Change password</h2>
       <p class="mt-1 text-sm leading-6 text-gray-600 dark:text-gray-400">Update your password associated with your account.</p>
     </div>
@@ -104,7 +112,7 @@
   <div class="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
     <div>
       <h2 class="text-base font-semibold leading-7 text-gray-900 dark:text-white">Delete account</h2>
-      <p class="mt-1 text-sm leading-6 text-gray-600 dark:text-gray-400">No longer want to use our service? You can delete your account here. This action is not reversible. All information related to this account will be deleted permanently.</p>
+      <p class="mt-1 text-sm leading-6 text-gray-600 dark:text-gray-400">No longer want to use our service? You can delete your account here. This action is not reversible. All information related to this account will be deleted permanently. Certain user content will be moved to a system wide "Deleted user" in order to maintain content for posterity.</p>
     </div>
 
     <form class="flex items-start md:col-span-2">

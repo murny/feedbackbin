@@ -236,4 +236,5 @@ en:
       destroy:
         session_revoked: This session was successfully revoked
       index:
-        are_you_sure_you_may_be_logged_out: Are you sure? You may be logged out if this is your current session.
+        this_is_your_current_session: This is your current session
+        are_you_sure: Are you sure? The device will be signed out.

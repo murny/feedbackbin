@@ -12,4 +12,8 @@ class Session < ApplicationRecord
       update! user_agent: user_agent, ip_address: ip_address, last_active_at: Time.zone.now
     end
   end
+
+  def current?
+    self == Current.session
+  end
 end
