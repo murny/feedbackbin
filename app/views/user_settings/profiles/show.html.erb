@@ -12,6 +12,7 @@
             url: user_settings_profile_path,
             method: :patch,
             data: {controller: "form", action: "keydown.enter->form#submit:prevent"}) do |form| %>
+        <%= render "error_messages", resource: form.object %>
 
         <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:max-w-xl sm:grid-cols-6">
           <p class="col-span-full text-base font-semibold leading-7 text-gray-900 dark:text-white">Public avatar</p>
@@ -31,8 +32,8 @@
               </p>
               <% if @user.avatar.attached? %>
                 <%= link_to user_avatar_path(@user),
-                            class: "btn inline-flex items-center text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900",
-                            data: { "turbo-method": :delete, turbo_confirm: "Are you sure?" } do %>
+                      class: "btn inline-flex items-center text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900",
+                      data: {"turbo-method": :delete, turbo_confirm: "Are you sure?"} do %>
                   <%= inline_svg "icons/solid/x-circle.svg", class: "h-5 w-5 mr-2" %>
                   <%= t(".remove_avatar") %>
                 <% end %>

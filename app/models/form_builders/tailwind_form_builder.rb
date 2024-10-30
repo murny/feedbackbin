@@ -74,10 +74,17 @@ module FormBuilders
       super(attribute, options.merge(default_opts), checked_value, unchecked_value)
     end
 
+    # TODO: Style select/check box?/time_zone_select with error styles
     def select(attribute, choices, options = {}, html_options = {})
       default_opts = {class: [SELECT_CLASSES, html_options[:class]].compact.join(" ")}
 
-      super(attribute, choices, options, html_options.merge(default_opts))
+      super(attribute, choices, options, html_options.merge(default_opts)) + attribute_error_message(attribute)
+    end
+
+    def time_zone_select(attribute, priority_zones = nil, options = {}, html_options = {})
+      default_opts = {class: [SELECT_CLASSES, html_options[:class]].compact.join(" ")}
+
+      super(attribute, priority_zones, options, html_options.merge(default_opts)) + attribute_error_message(attribute)
     end
 
     def submit(value = nil, options = {})

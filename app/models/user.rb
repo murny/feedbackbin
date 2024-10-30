@@ -7,6 +7,10 @@ class User < ApplicationRecord
 
   has_secure_password
 
+  scope :active, -> { where(active: true) }
+  scope :filtered_by, ->(query) { where("name like ?", "%#{query}%") }
+  scope :ordered, -> { order(:name) }
+
   has_many :account_invitations, dependent: :nullify, foreign_key: :invited_by_id, inverse_of: :invited_by
   has_many :account_users, dependent: :destroy
   has_many :accounts, through: :account_users
@@ -18,6 +22,8 @@ class User < ApplicationRecord
   has_many :user_connected_accounts, dependent: :destroy
 
   has_one_attached :avatar
+
+  enum :theme, {system: 0, light: 1, dark: 2}, default: :auto, validate: true, prefix: true
 
   validates :username, presence: true,
     length: {minimum: 3, maximum: MAX_USERNAME_LENGTH},
@@ -39,10 +45,6 @@ class User < ApplicationRecord
   normalizes :name, with: ->(name) { name.squish }
 
   before_save :anonymize_avatar_filename
-
-  scope :active, -> { where(active: true) }
-  scope :filtered_by, ->(query) { where("name like ?", "%#{query}%") }
-  scope :ordered, -> { order(:name) }
 
   generates_token_for :email_verification, expires_in: 2.days do
     email_address

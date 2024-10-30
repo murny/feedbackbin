@@ -221,6 +221,12 @@ en:
         title: Connected Accounts
       user_connected_account:
         remove: Remove
+    preferences:
+      index:
+        description: Customize your experience
+        title: Preferences
+      update:
+        updated_successfully: Your preferences have been updated.
     emails:
       update:
         email_changed: Your email address has been changed.
@@ -239,3 +245,7 @@ en:
       index:
         this_is_your_current_session: This is your current session
         are_you_sure: Are you sure? The device will be signed out.
+  themes:
+    system: "Sync with system (default)"
+    light: "Light"
+    dark: "Dark"

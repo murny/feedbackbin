@@ -28,7 +28,7 @@ Rails.application.routes.draw do
     resources :connected_accounts, only: [:index, :destroy]
     resource :email, only: [:update]
     resource :password, only: [:update]
-    resource :preference, only: [:show, :update]
+    resource :preferences, only: [:show, :update]
     resource :profile, only: [:show, :update]
   end
 

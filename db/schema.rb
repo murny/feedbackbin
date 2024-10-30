@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2024_05_17_075643) do
+ActiveRecord::Schema[8.1].define(version: 2024_10_29_213509) do
   create_table "account_invitations", force: :cascade do |t|
     t.bigint "account_id", null: false
     t.bigint "invited_by_id"
@@ -175,6 +175,9 @@ ActiveRecord::Schema[8.1].define(version: 2024_05_17_075643) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.datetime "changelogs_read_at"
+    t.string "time_zone"
+    t.string "preferred_language"
+    t.integer "theme", default: 0, null: false
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end
