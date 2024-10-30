@@ -117,7 +117,7 @@ class Users::OmniauthControllerTest < ActionDispatch::IntegrationTest
 
     get "/auth/google/callback"
 
-    assert_redirected_to user_settings_connected_accounts_path
+    assert_redirected_to user_settings_account_path
     assert_equal "This google account is already connected to your account.", flash[:notice]
   end
 

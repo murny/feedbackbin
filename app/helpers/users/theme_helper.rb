@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Users
   module ThemeHelper
     def theme_options
