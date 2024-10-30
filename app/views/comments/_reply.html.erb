@@ -41,7 +41,7 @@
                     <%= link_to "Edit", edit_comment_path(comment), class: "block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
                   </li>
                   <li>
-                    <%= button_to "Remove", comment_path(comment), method: :delete, data: {confirm: "Are you sure?"}, class: "block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
+                    <%= button_to "Remove", comment_path(comment), method: :delete, data: {turbo_confirm: "Are you sure?"}, class: "block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
                   </li>
                   <li>
                     <a href="#"

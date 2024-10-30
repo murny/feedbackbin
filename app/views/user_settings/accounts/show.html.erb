@@ -50,7 +50,7 @@
         </div>
 
         <div class="col-span-full">
-          <%= form.label :password_challenge %>
+          <%= form.label :password_challenge, "Current Password" %>
           <%= form.password_field :password_challenge, autocomplete: "current-password" %>
         </div>
       </div>
@@ -65,6 +65,35 @@
     <div>
       <h2 class="text-base font-semibold leading-7 text-gray-900 dark:text-white">Connected Accounts</h2>
       <p class="mt-1 text-sm leading-6 text-gray-600 dark:text-gray-400">Select a service to sign in with.</p>
+    </div>
+
+    <div class="col-span-2">
+        <h2 class="mb-2"><%= t(".connected_accounts") %></h2>
+        <p><%= t(".connected_accounts_description") %></p>
+        <div class="my-2 flex flex-wrap gap-x-4 gap-y-2">
+          <%= button_to t("oauth.sign_in_with", provider: t("oauth.developer")), "/auth/developer", class: "btn", data: {turbo: false, disable_with: t(".redirecting")} %>
+        </div>
+        <div class="divide-y">
+          <% if @user_connected_accounts&.empty? %>
+            <p><%= t(".no_connected_accounts") %></p>
+          <% else %>
+            <% @user_connected_accounts&.each do |user_connected_account| %>
+              <div class="flex border-top align-middle py-4">
+                <div class="flex-1">
+                  <div class="inline-block align-middle">
+                    <div class="font-semibold text-sm text-gray-700"><%= user_connected_account.provider_name %></div>
+                  </div>
+                </div>
+                <%= button_to user_settings_connected_account_path(user_connected_account), method: :delete, class: "btn btn-link text-gray-700" do %>
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4 mr-1">
+                    <path d="M5.28 4.22a.75.75 0 0 0-1.06 1.06L6.94 8l-2.72 2.72a.75.75 0 1 0 1.06 1.06L8 9.06l2.72 2.72a.75.75 0 1 0 1.06-1.06L9.06 8l2.72-2.72a.75.75 0 0 0-1.06-1.06L8 6.94 5.28 4.22Z" />
+                  </svg>
+                  <%= t("remove") %>
+                <% end %>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
     </div>
 
   </div>
@@ -82,29 +111,23 @@
            data: {controller: "form", action: "keydown.enter->form#submit:prevent"}) do |form| %>
       <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:max-w-xl sm:grid-cols-6">
         <div class="col-span-full">
-          <label for="current-password" class="block text-sm font-medium leading-6 text-white">Current password</label>
-          <div class="mt-2">
-            <input id="current-password" name="current_password" type="password" autocomplete="current-password" class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-primary-500 sm:text-sm sm:leading-6">
-          </div>
+          <%= form.label :password_challenge, "Current password" %>
+          <%= form.password_field :password_challenge, autocomplete: "current-password" %>
         </div>
 
         <div class="col-span-2">
-          <label for="new-password" class="block text-sm font-medium leading-6 text-white">New password</label>
-          <div class="mt-2">
-            <input id="new-password" name="new_password" type="password" autocomplete="new-password" class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-primary-500 sm:text-sm sm:leading-6">
-          </div>
+          <%= form.label :new_password, "New password" %>
+          <%= form.password_field :new_password, autocomplete: "new-password" %>
         </div>
 
         <div class="col-span-2">
-          <label for="confirm-password" class="block text-sm font-medium leading-6 text-white">Confirm password</label>
-          <div class="mt-2">
-            <input id="confirm-password" name="confirm_password" type="password" autocomplete="new-password" class="block w-full rounded-md border-0 bg-white/5 py-1.5 text-white shadow-sm ring-1 ring-inset ring-white/10 focus:ring-2 focus:ring-inset focus:ring-primary-500 sm:text-sm sm:leading-6">
-          </div>
+          <%= form.label :confirm_password, "Confirm password" %>
+          <%= form.password_field :confirm_password, autocomplete: "new-password" %>
         </div>
       </div>
 
       <div class="mt-8 flex">
-        <button type="submit" class="rounded-md bg-primary-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500">Save</button>
+        <%= form.submit t(".update_password") %>
       </div>
     <% end %>
   </div>
@@ -115,8 +138,10 @@
       <p class="mt-1 text-sm leading-6 text-gray-600 dark:text-gray-400">No longer want to use our service? You can delete your account here. This action is not reversible. All information related to this account will be deleted permanently. Certain user content will be moved to a system wide "Deleted user" in order to maintain content for posterity.</p>
     </div>
 
-    <form class="flex items-start md:col-span-2">
-      <button type="submit" class="rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-400">Yes, delete my account</button>
-    </form>
+    <div class="flex items-start md:col-span-2">
+      <%= button_to user_settings_account_path, method: :delete, data: {turbo_confirm: "Are you sure?"}, class: "rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-400" do %>
+        Yes, delete my account
+      <% end %>
+    </div>
   </div>
 </div>

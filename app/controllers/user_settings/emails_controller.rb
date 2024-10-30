@@ -13,7 +13,7 @@ module UserSettings
           redirect_to user_settings_account_path
         end
       else
-        render :edit, status: :unprocessable_entity
+        render "user_settings/accounts/show", status: :unprocessable_entity
       end
     end
 

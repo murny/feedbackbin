@@ -23,7 +23,7 @@ class User < ApplicationRecord
 
   has_one_attached :avatar
 
-  enum :theme, {system: 0, light: 1, dark: 2}, default: :auto, validate: true, prefix: true
+  enum :theme, {system: 0, light: 1, dark: 2}, default: :system, prefix: true, validate: true
 
   validates :username, presence: true,
     length: {minimum: 3, maximum: MAX_USERNAME_LENGTH},

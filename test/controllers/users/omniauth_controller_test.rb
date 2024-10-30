@@ -62,7 +62,7 @@ class Users::OmniauthControllerTest < ActionDispatch::IntegrationTest
     assert_difference "UserConnectedAccount.count" do
       get "/auth/developer/callback"
 
-      assert_redirected_to user_settings_connected_accounts_url
+      assert_redirected_to user_settings_account_url
       assert_equal "You have connected your developer account successfully.", flash[:notice]
     end
 

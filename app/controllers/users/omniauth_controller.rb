@@ -14,10 +14,10 @@ module Users
       elsif authenticated?
         # User is signed in and hasn't connected this account before, so let's connect it
         if Current.user.user_connected_accounts.create(user_connected_account_params)
-          redirect_to user_settings_connected_accounts_path, notice: t(".connected_successfully", provider: auth.provider)
+          redirect_to user_settings_account_path, notice: t(".connected_successfully", provider: auth.provider)
         else
           # Couldn't connect the account for some reason
-          redirect_to user_settings_connected_accounts_path, alert: t("something_went_wrong")
+          redirect_to user_settings_account_path, alert: t("something_went_wrong")
         end
 
       elsif (user = User.find_by(email_address: auth.info.email))
@@ -48,7 +48,7 @@ module Users
           redirect_to root_path, alert: t("users.omniauth.create.connected_to_another_account", provider: auth.provider)
         else
           # User is already signed in and has connected this account before
-          redirect_to user_settings_connected_accounts_path, notice: t("users.omniauth.create.already_connected", provider: auth.provider)
+          redirect_to user_settings_account_path, notice: t("users.omniauth.create.already_connected", provider: auth.provider)
         end
       else
         # User has connected this account before, but isn't signed in

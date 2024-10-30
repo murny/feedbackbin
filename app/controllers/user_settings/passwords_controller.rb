@@ -8,7 +8,7 @@ module UserSettings
       if @user.update(user_params)
         redirect_to user_settings_password_path, notice: t(".password_changed")
       else
-        render :edit, status: :unprocessable_entity
+        render "user_settings/accounts/show", status: :unprocessable_entity
       end
     end
 

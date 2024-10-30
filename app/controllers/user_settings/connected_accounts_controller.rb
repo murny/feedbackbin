@@ -4,13 +4,9 @@ module UserSettings
   class ConnectedAccountsController < ApplicationController
     before_action :set_user_connected_account, only: [:destroy]
 
-    def index
-      @user_connected_accounts = Current.user.user_connected_accounts.order(provider_name: :asc, created_at: :desc)
-    end
-
     def destroy
       @user_connected_account.destroy
-      redirect_to user_settings_connected_accounts_path, status: :see_other, notice: t(".disconnected_successfully")
+      redirect_to user_settings_account_path, status: :see_other, notice: t(".disconnected_successfully")
     end
 
     private
