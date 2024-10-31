@@ -10,7 +10,7 @@ module UserSettings
           UserMailer.email_verification(@user).deliver_later
           redirect_to user_settings_account_path, notice: t(".email_changed")
         else
-          redirect_to user_settings_account_path
+          redirect_to user_settings_account_path, notice: t(".email_has_not_changed")
         end
       else
         render "user_settings/accounts/show", status: :unprocessable_entity

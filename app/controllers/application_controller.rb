@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
 class ApplicationController < ActionController::Base
-  include Pundit::Authorization
-  include Pagy::Backend
   include Authentication
-  include Sortable
+  include Pagy::Backend
+  include Pundit::Authorization
   include SetCurrentAccount
+  include SetLocale
+  include Sortable
   include Users::TimeZone
 
   # Only allow modern browsers supporting webp images, web push, badges, import maps, CSS nesting, and CSS :has.

@@ -15,7 +15,7 @@ module UserSettings
     private
 
     def user_params
-      params.permit(:password, :password_confirmation, :password_challenge).with_defaults(password_challenge: "")
+      params.expect(user: [:password, :password_confirmation, :password_challenge])
     end
 
     def set_user

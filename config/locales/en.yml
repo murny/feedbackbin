@@ -231,6 +231,7 @@ en:
     emails:
       update:
         email_changed: Your email address has been changed.
+        email_has_not_changed: You provided the same email address, nothing has changed.
     passwords:
       update:
         password_changed: Your password has been changed.
