@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Check out the Rails guides for setting locale by domain or subdomain
 # https://guides.rubyonrails.org/i18n.html#setting-the-locale-from-the-domain-name
 
