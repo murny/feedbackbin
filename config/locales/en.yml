@@ -89,6 +89,8 @@ en:
       title: Set up FeedbackBin
       username_hint: unique, no spaces, short
       username_placeholder: Enter your username
+    create:
+      account_created: Your account has been created.
   oauth:
     developer: Developer
     sign_in_with: Sign in with %{provider}

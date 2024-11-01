@@ -23,7 +23,7 @@ module Users
 
     def destroy
       Current.user.avatar.destroy
-      redirect_to user_settings_profile_url, notice: t(".avatar_removed")
+      redirect_to user_settings_profile_path, notice: t(".avatar_removed")
     end
 
     private

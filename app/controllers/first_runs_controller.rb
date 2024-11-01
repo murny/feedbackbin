@@ -13,13 +13,13 @@ class FirstRunsController < ApplicationController
     account = FirstRun.create!(user_params)
     start_new_session_for account.owner
 
-    redirect_to root_url
+    redirect_to root_path, notice: t(".account_created")
   end
 
   private
 
   def prevent_repeats
-    redirect_to root_url if Account.any?
+    redirect_to root_path if Account.any?
   end
 
   def user_params

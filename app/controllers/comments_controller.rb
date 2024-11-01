@@ -16,7 +16,7 @@ class CommentsController < ApplicationController
     respond_to do |format|
       if @comment.save
         flash.now[:notice] = t(".successfully_created")
-        format.html { redirect_to post_url(@comment.post) }
+        format.html { redirect_to post_path(@comment.post) }
         format.json { render :show, status: :created, location: @comment }
       else
         format.html { render :new, status: :unprocessable_entity }

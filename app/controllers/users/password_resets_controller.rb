@@ -15,7 +15,7 @@ module Users
     def create
       if (user = User.find_by(email_address: params[:email_address], email_verified: true))
         UserMailer.password_reset(user).deliver_later
-        redirect_to sign_in_url, notice: t(".password_reset_instructions_sent")
+        redirect_to sign_in_path, notice: t(".password_reset_instructions_sent")
 
       else
         redirect_to new_users_password_reset_path, alert: t(".verify_email_first")
@@ -24,7 +24,7 @@ module Users
 
     def update
       if @user.update(params.permit(:password, :password_confirmation))
-        redirect_to sign_in_url, notice: t(".password_has_been_reset")
+        redirect_to sign_in_path, notice: t(".password_has_been_reset")
       else
         redirect_to edit_users_password_reset_path(params[:token]), alert: t(".passwords_did_not_match")
       end
