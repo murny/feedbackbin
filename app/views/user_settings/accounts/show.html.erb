@@ -16,6 +16,7 @@
           <div class="col-span-full">
             <%= form.label :username %>
             <%= form.text_field :username,
+                  required: true,
                   autocomplete: "username",
                   placeholder: "jane_doe",
                   leading_icon: true do %>
@@ -51,7 +52,7 @@
 
         <div class="col-span-full">
           <%= form.label :password_challenge, "Current Password" %>
-          <%= form.password_field :password_challenge, autocomplete: "current-password" %>
+          <%= form.password_field :password_challenge, autocomplete: "current-password", required: true %>
         </div>
       </div>
 
@@ -63,73 +64,39 @@
 
   <div class="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
     <div>
-      <h2 class="text-base font-semibold leading-7 text-gray-900 dark:text-white">Connected Accounts</h2>
-      <p class="mt-1 text-sm leading-6 text-gray-600 dark:text-gray-400">Select a service to sign in with.</p>
+      <h2 class="text-base font-semibold leading-7 text-gray-900 dark:text-white">
+        <%= t(".connected_accounts") %>
+      </h2>
+      <p class="mt-1 text-sm leading-6 text-gray-600 dark:text-gray-400">
+        <%= t(".connected_accounts_description") %>
+      </p>
     </div>
 
     <div class="col-span-2">
-        <h2 class="mb-2"><%= t(".connected_accounts") %></h2>
-        <p><%= t(".connected_accounts_description") %></p>
-        <div class="my-2 flex flex-wrap gap-x-4 gap-y-2">
-          <%= button_to t("oauth.sign_in_with", provider: t("oauth.developer")), "/auth/developer", class: "btn", data: {turbo: false, disable_with: t(".redirecting")} %>
-        </div>
-        <div class="divide-y">
-          <% if @user_connected_accounts&.empty? %>
-            <p><%= t(".no_connected_accounts") %></p>
+      <div class="my-2 flex flex-wrap gap-x-4 gap-y-2">
+        <%# TODO: providers list should come from global config %>
+        <% omniauth_providers = ["google", "facebook"] %>
+        <% omniauth_providers << "developer" unless Rails.env.production? %>
+        <% omniauth_providers.each do |provider| %>
+          <% if (connected_account = @user_connected_accounts.find_by(provider_name: provider)) %>
+            <%= button_to user_settings_connected_account_path(connected_account),
+                  method: :delete,
+                  class: "flex items-center justify-center btn btn-secondary btn-block" do %>
+              <%= inline_svg_tag "icons/brand/#{provider}.svg", class: "h-5 w-5 mr-2" %>
+              <span class="text-sm font-semibold leading-6"><%= t("oauth.disconnect_with", provider: OmniAuth::Utils.camelize(provider)) %></span>
+            <% end %>
           <% else %>
-            <% @user_connected_accounts&.each do |user_connected_account| %>
-              <div class="flex border-top align-middle py-4">
-                <div class="flex-1">
-                  <div class="inline-block align-middle">
-                    <div class="font-semibold text-sm text-gray-700"><%= user_connected_account.provider_name %></div>
-                  </div>
-                </div>
-                <%= button_to user_settings_connected_account_path(user_connected_account), method: :delete, class: "btn btn-link text-gray-700" do %>
-                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4 mr-1">
-                    <path d="M5.28 4.22a.75.75 0 0 0-1.06 1.06L6.94 8l-2.72 2.72a.75.75 0 1 0 1.06 1.06L8 9.06l2.72 2.72a.75.75 0 1 0 1.06-1.06L9.06 8l2.72-2.72a.75.75 0 0 0-1.06-1.06L8 6.94 5.28 4.22Z" />
-                  </svg>
-                  <%= t("remove") %>
-                <% end %>
-              </div>
+            <%= button_to "/auth/#{provider}",
+                  method: :post,
+                  data: {turbo: false, disable_with: t(".redirecting")},
+                  class: "flex items-center justify-center btn btn-secondary btn-block" do %>
+              <%= inline_svg_tag "icons/brand/#{provider}.svg", class: "h-5 w-5 mr-2" %>
+              <span class="text-sm font-semibold leading-6"><%= t("oauth.connect_with", provider: OmniAuth::Utils.camelize(provider)) %></span>
             <% end %>
           <% end %>
-        </div>
-    </div>
-
-  </div>
-
-  <div class="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
-    <div>
-      <h2 class="text-base font-semibold leading-7 text-gray-900 dark:text-white">Change password</h2>
-      <p class="mt-1 text-sm leading-6 text-gray-600 dark:text-gray-400">Update your password associated with your account.</p>
-    </div>
-
-     <%= form_with(model: @user,
-           url: user_settings_password_path,
-           method: :patch,
-           class: "md:col-span-2",
-           data: {controller: "form", action: "keydown.enter->form#submit:prevent"}) do |form| %>
-      <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:max-w-xl sm:grid-cols-6">
-        <div class="col-span-full">
-          <%= form.label :password_challenge, "Current password" %>
-          <%= form.password_field :password_challenge, autocomplete: "current-password" %>
-        </div>
-
-        <div class="col-span-2">
-          <%= form.label :password, "New password" %>
-          <%= form.password_field :password, autocomplete: "new-password" %>
-        </div>
-
-        <div class="col-span-2">
-          <%= form.label :password_confirmation, "Confirm password" %>
-          <%= form.password_field :password_confirmation, autocomplete: "new-password" %>
-        </div>
+        <% end %>
       </div>
-
-      <div class="mt-8 flex">
-        <%= form.submit t(".update_password") %>
-      </div>
-    <% end %>
+    </div>
   </div>
 
   <div class="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">

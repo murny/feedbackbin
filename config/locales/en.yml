@@ -94,6 +94,8 @@ en:
   oauth:
     developer: Developer
     sign_in_with: Sign in with %{provider}
+    connect_with: Connect with %{provider}
+    disconnect_with: Disconnect %{provider}
   pagy:
     aria_label:
       nav:
@@ -212,11 +214,9 @@ en:
         update_username: Update username
         username_hint: unique, no spaces, short
         username_warning: Changing your username will break all previous mentions and links to your profile.
-        connected_accounts_description: Connecting your social media accounts makes logging in easier.
-        no_connected_accounts: You don't have any connected accounts.
-        redirecting: Redirecting...
         connected_accounts: Connected Accounts
-        update_password: Update password
+        connected_accounts_description: Connecting your social media accounts makes logging in easier.
+        redirecting: Redirecting...
       update:
         account_updated: Your account has been updated.
       destroy:
@@ -235,6 +235,9 @@ en:
         email_changed: Your email address has been changed.
         email_has_not_changed: You provided the same email address, nothing has changed.
     passwords:
+      show:
+        save_password: Save password
+        forgot_my_password: I forgot my password
       update:
         password_changed: Your password has been changed.
     profiles:

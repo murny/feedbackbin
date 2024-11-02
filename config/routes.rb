@@ -27,7 +27,7 @@ Rails.application.routes.draw do
     resources :active_sessions, only: [:index, :destroy]
     resources :connected_accounts, only: [:destroy]
     resource :email, only: [:update]
-    resource :password, only: [:update]
+    resource :password, only: [:show, :update]
     resource :preferences, only: [:show, :update]
     resource :profile, only: [:show, :update]
   end

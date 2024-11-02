@@ -4,11 +4,14 @@ module UserSettings
   class PasswordsController < ApplicationController
     before_action :set_user
 
+    def show
+    end
+
     def update
       if @user.update(user_params)
         redirect_to user_settings_password_path, notice: t(".password_changed")
       else
-        render "user_settings/accounts/show", status: :unprocessable_entity
+        render :show, status: :unprocessable_entity
       end
     end
 
