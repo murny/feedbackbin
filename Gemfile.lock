@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/rails/rails.git
-  revision: a7c8a20825be5ac8d96566ec5dbe9daa85568bc8
+  revision: 32dcdcaef666e0043b0df844aa167201d50f8c9c
   branch: main
   specs:
     actioncable (8.1.0.alpha)
@@ -195,7 +195,7 @@ GEM
     jbuilder (2.13.0)
       actionview (>= 5.0.0)
       activesupport (>= 5.0.0)
-    json (2.7.5)
+    json (2.7.6)
     jwt (2.9.3)
       base64
     kamal (2.3.0)
@@ -329,9 +329,8 @@ GEM
       rack (>= 3.0.0)
     rack-test (2.1.0)
       rack (>= 1.3)
-    rackup (2.1.0)
+    rackup (2.2.0)
       rack (>= 3)
-      webrick (~> 1.8)
     rails-dom-testing (2.2.0)
       activesupport (>= 5.0.0)
       minitest
@@ -360,7 +359,7 @@ GEM
       rubocop-ast (>= 1.32.2, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 3.0)
-    rubocop-ast (1.33.0)
+    rubocop-ast (1.34.0)
       parser (>= 3.3.1.0)
     rubocop-capybara (2.21.0)
       rubocop (~> 1.41)
@@ -464,7 +463,6 @@ GEM
       activemodel (>= 6.0.0)
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
-    webrick (1.9.0)
     websocket (1.2.11)
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
