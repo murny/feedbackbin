@@ -6,6 +6,7 @@ shane:
   email_address: shane.murnaghan@feedbackbin.com
   email_verified: true
   password_digest: <%= password_digest %>
+  site_admin: true
 
 one:
   username: jane_doe

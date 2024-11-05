@@ -13,6 +13,7 @@ module UserSettings
           redirect_to user_settings_account_path, notice: t(".email_has_not_changed")
         end
       else
+        @user_connected_accounts = Current.user.user_connected_accounts.order(provider_name: :asc, created_at: :desc)
         render "user_settings/accounts/show", status: :unprocessable_entity
       end
     end

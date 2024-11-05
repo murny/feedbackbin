@@ -4,7 +4,13 @@ require "test_helper"
 
 class UserSettings::PasswordsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    sign_in(users(:shane))
+    sign_in(users(:one))
+  end
+
+  test "should get show" do
+    get user_settings_password_url
+
+    assert_response :success
   end
 
   test "should be able to update password" do

@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[show]
+  before_action :set_user
   allow_unauthenticated_access only: %i[show]
 
   def show
@@ -9,6 +9,11 @@ class UsersController < ApplicationController
     @posts = @user.posts.order(created_at: :desc)
     @comments = @user.comments.order(created_at: :desc)
     @likes = @user.likes.order(created_at: :desc)
+  end
+
+  def destroy
+    @user.destroy
+    redirect_to root_path, notice: t(".account_deleted")
   end
 
   private

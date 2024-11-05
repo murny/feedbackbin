@@ -140,6 +140,8 @@ en:
     password_reset:
       reset_your_password: Reset your password
   users:
+    destroy:
+      account_deleted: Your account has been deleted.
     avatars:
       destroy:
         avatar_removed: Your avatar has been removed.
@@ -219,8 +221,6 @@ en:
         redirecting: Redirecting...
       update:
         account_updated: Your account has been updated.
-      destroy:
-        account_deleted: Your account has been deleted.
     connected_accounts:
       destroy:
         disconnected_successfully: Your connected account has been disconnected successfully.

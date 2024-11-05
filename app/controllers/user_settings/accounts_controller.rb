@@ -11,15 +11,10 @@ module UserSettings
 
     def update
       if @user.update(user_params)
-        redirect_to users_setting_account_path, notice: t(".account_updated")
+        redirect_to user_settings_account_path, notice: t(".account_updated")
       else
         render :show, status: :unprocessable_entity
       end
-    end
-
-    def destroy
-      @user.destroy
-      redirect_to root_path, notice: t(".account_deleted")
     end
 
     private

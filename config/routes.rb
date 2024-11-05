@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   end
 
   namespace :user_settings do
-    resource :account, only: [:show, :update, :destroy]
+    resource :account, only: [:show, :update]
     resources :active_sessions, only: [:index, :destroy]
     resources :connected_accounts, only: [:destroy]
     resource :email, only: [:update]
@@ -32,7 +32,7 @@ Rails.application.routes.draw do
     resource :profile, only: [:show, :update]
   end
 
-  resources :users, only: :show do
+  resources :users, only: [:show, :destroy] do
     scope module: "users" do
       resource :avatar, only: %i[show destroy]
     end

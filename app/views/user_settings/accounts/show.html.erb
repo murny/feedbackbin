@@ -106,7 +106,7 @@
     </div>
 
     <div class="flex items-start md:col-span-2">
-      <%= button_to user_settings_account_path, method: :delete, data: {turbo_confirm: "Are you sure?"}, class: "rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-400" do %>
+      <%= button_to user_path(@user), method: :delete, data: {turbo_confirm: "Are you sure?"}, class: "rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-400" do %>
         Yes, delete my account
       <% end %>
     </div>
