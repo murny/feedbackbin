@@ -25,7 +25,8 @@ class Account::DomainableTest < ActiveSupport::TestCase
   end
 
   test "validates uniqueness of subdomain" do
-    account = @account.dup
+    original = Account.create!(owner: users(:one), name: "test", subdomain: "test")
+    account = original.dup
 
     assert_not account.valid?
     assert_equal "has already been taken", account.errors[:subdomain].first

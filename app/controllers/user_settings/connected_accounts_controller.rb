@@ -2,6 +2,8 @@
 
 module UserSettings
   class ConnectedAccountsController < ApplicationController
+    skip_after_action :verify_authorized
+
     before_action :set_user_connected_account, only: [:destroy]
 
     def destroy

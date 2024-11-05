@@ -3,7 +3,7 @@
 class LikesController < ApplicationController
   LIKEABLE_APPROVELIST = ["Post", "Comment"].freeze
 
-  include ActionView::RecordIdentifier
+  skip_after_action :verify_authorized
 
   before_action :set_likeable
 

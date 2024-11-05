@@ -1,12 +1,15 @@
 # frozen_string_literal: true
 
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[show edit update destroy]
   allow_unauthenticated_access only: %i[index show]
+
+  before_action :set_post, only: %i[show edit update destroy]
   before_action :ensure_index_is_not_empty, only: %i[index]
 
   # GET /posts or /posts.json
   def index
+    authorize Post
+
     @categories = Category.all
     @category = Category.first
     @pagy, @posts = pagy(@category.posts.sort_by_params(params[:sort], sort_direction))
@@ -14,20 +17,27 @@ class PostsController < ApplicationController
 
   # GET /posts/1 or /posts/1.json
   def show
+    authorize @post
+
     @comment = Comment.new
   end
 
   # GET /posts/new
   def new
+    authorize Post
+
     @post = Post.new
   end
 
   # GET /posts/1/edit
   def edit
+    authorize @post
   end
 
   # POST /posts or /posts.json
   def create
+    authorize Post
+
     @post = Post.new(post_params)
 
     respond_to do |format|
@@ -43,6 +53,8 @@ class PostsController < ApplicationController
 
   # PATCH/PUT /posts/1 or /posts/1.json
   def update
+    authorize @post
+
     respond_to do |format|
       if @post.update(post_params)
         format.html { redirect_to post_path(@post), notice: t(".successfully_updated") }
@@ -56,6 +68,8 @@ class PostsController < ApplicationController
 
   # DELETE /posts/1 or /posts/1.json
   def destroy
+    authorize @post
+
     @post.destroy!
 
     respond_to do |format|

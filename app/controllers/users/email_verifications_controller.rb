@@ -3,6 +3,7 @@
 module Users
   class EmailVerificationsController < ApplicationController
     allow_unauthenticated_access only: :show
+    skip_after_action :verify_authorized
 
     before_action :set_user, only: :show
 

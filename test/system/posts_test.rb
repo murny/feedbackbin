@@ -8,7 +8,7 @@ class PostsTest < ApplicationSystemTestCase
   end
 
   test "visiting the index" do
-    visit posts_url
+    visit root_url
 
     assert_selector "a", text: "New Post"
   end
@@ -34,7 +34,7 @@ class PostsTest < ApplicationSystemTestCase
     click_link "Edit", match: :first
 
     fill_in_rich_text_area "Body", with: @post.body
-    fill_in "Title", with: @post.title
+    fill_in "Title", with: "Updated title goes here"
     click_button "Update Post"
 
     assert_text "Post was successfully updated"

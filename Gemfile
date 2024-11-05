@@ -34,12 +34,13 @@ gem "jbuilder"
 gem "pagy", "~> 9.1"
 gem "inline_svg"
 
-# Authentication
+# Authentication & Authorization
 gem "bcrypt", "~> 3.1.7"
 gem "omniauth"
 gem "omniauth-rails_csrf_protection"
 gem "omniauth-google-oauth2"
 gem "omniauth-facebook"
+gem "pundit", "~> 2.4"
 
 gem "tzinfo-data", platforms: %i[windows jruby]
 
@@ -86,5 +87,3 @@ group :test do
   gem "capybara"
   gem "selenium-webdriver"
 end
-
-gem "pundit", "~> 2.4"

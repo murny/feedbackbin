@@ -1,5 +1,4 @@
 feedbackbin:
-  name: feedbackbin
   owner: shane
   name: "FeedbackBin"
 
@@ -7,8 +6,8 @@ company:
   owner: one
   name: "Hooli"
   domain: hooli.com
-  subdomain: feedback
 
 invited:
   owner: invited
   name: "Invited Account"
+  domain: "invited.com"

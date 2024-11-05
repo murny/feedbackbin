@@ -2,6 +2,8 @@
 
 module UserSettings
   class ActiveSessionsController < ApplicationController
+    skip_after_action :verify_authorized
+
     def index
       @sessions = Current.user.sessions.order(created_at: :desc)
     end

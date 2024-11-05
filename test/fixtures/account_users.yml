@@ -3,6 +3,14 @@ feedback_admin:
   user: shane
   role: administrator
 
+feedback_regular_user_one:
+  account: feedbackbin
+  user: one
+
+feedback_regular_user_invited:
+  account: feedbackbin
+  user: invited
+
 company_admin:
   account: company
   user: one

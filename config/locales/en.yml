@@ -25,6 +25,7 @@ en:
           attributes:
             username:
               invalid: can only contain letters, numbers, and underscores
+  unauthorized: You are not authorized to perform this action.
   admin:
     base:
       unauthorized: You are not authorized to access this page.

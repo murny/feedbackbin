@@ -1,11 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  title: MyString
+  title: Wish this had dark mode!
   author: shane
   category: one
 
 two:
-  title: MyString
+  title: Love the site, can you implement downvotes?
   author: one
   category: one

@@ -5,12 +5,15 @@ class CommentsController < ApplicationController
   before_action :set_comment, only: %i[show edit update destroy]
 
   def show
+    authorize @comment
   end
 
   def edit
+    authorize @comment
   end
 
   def create
+    authorize Comment
     @comment = Comment.new(comment_params)
 
     respond_to do |format|
@@ -27,6 +30,8 @@ class CommentsController < ApplicationController
   end
 
   def update
+    authorize @comment
+
     respond_to do |format|
       if @comment.update(comment_params)
         flash.now[:notice] = t(".successfully_updated")
@@ -41,6 +46,8 @@ class CommentsController < ApplicationController
   end
 
   def destroy
+    authorize @comment
+
     @comment.destroy!
     respond_to do |format|
       flash.now[:notice] = t(".successfully_destroyed")

@@ -2,8 +2,8 @@
 
 class ApplicationController < ActionController::Base
   include Authentication
+  include Authorization
   include Pagy::Backend
-  include Pundit::Authorization
   include SetCurrentAccount
   include SetLocale
   include Sortable

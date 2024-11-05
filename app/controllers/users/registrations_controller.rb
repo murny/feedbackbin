@@ -3,6 +3,7 @@
 module Users
   class RegistrationsController < ApplicationController
     allow_unauthenticated_access
+    skip_after_action :verify_authorized
 
     def new
       @user = User.new
