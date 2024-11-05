@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/rails/rails.git
-  revision: 32dcdcaef666e0043b0df844aa167201d50f8c9c
+  revision: a6dee8c5b1baffa0ac9e57016b90d8c88a8db1f6
   branch: main
   specs:
     actioncable (8.1.0.alpha)
@@ -304,7 +304,7 @@ GEM
     ostruct (0.6.0)
     pagy (9.1.1)
     parallel (1.26.3)
-    parser (3.3.5.1)
+    parser (3.3.6.0)
       ast (~> 2.4.1)
       racc
     propshaft (1.1.0)
