@@ -302,7 +302,7 @@ GEM
       actionpack (>= 4.2)
       omniauth (~> 2.0)
     ostruct (0.6.0)
-    pagy (9.1.1)
+    pagy (9.2.0)
     parallel (1.26.3)
     parser (3.3.6.0)
       ast (~> 2.4.1)
@@ -500,7 +500,7 @@ DEPENDENCIES
   omniauth-facebook
   omniauth-google-oauth2
   omniauth-rails_csrf_protection
-  pagy (~> 9.1)
+  pagy (~> 9.2)
   propshaft
   puma (~> 6.4)
   pundit (~> 2.4)

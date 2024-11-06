@@ -31,7 +31,7 @@ gem "tailwindcss-rails"
 gem "jbuilder"
 
 # View
-gem "pagy", "~> 9.1"
+gem "pagy", "~> 9.2"
 gem "inline_svg"
 
 # Authentication & Authorization
