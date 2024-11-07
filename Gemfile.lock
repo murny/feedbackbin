@@ -238,10 +238,14 @@ GEM
     mini_magick (4.13.2)
     mini_mime (1.1.5)
     minitest (5.25.1)
-    mission_control-jobs (0.3.3)
-      importmap-rails
+    mission_control-jobs (0.4.0)
+      actioncable (>= 7.1)
+      actionpack (>= 7.1)
+      activejob (>= 7.1)
+      activerecord (>= 7.1)
+      importmap-rails (>= 1.2.1)
       irb (~> 1.13)
-      rails (>= 7.1)
+      railties (>= 7.1)
       stimulus-rails
       turbo-rails
     msgpack (1.7.3)
