@@ -56,9 +56,7 @@ group :development, :test do
   # Linters
   gem "erb_lint", require: false
   gem "erblint-github", require: false
-
-  # TODO: Disable for now, not working with latest Rails
-  # gem "i18n-tasks", require: false
+  gem "i18n-tasks", require: false
 
   gem "rubocop", require: false
   gem "rubocop-capybara", require: false

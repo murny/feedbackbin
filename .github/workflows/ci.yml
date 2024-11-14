@@ -59,8 +59,8 @@ jobs:
       - name: Lint ERB files for consistent style
         run: bin/erb_lint --lint-all
 
-      # - name: Lint en.yml with i18n-tasks
-      #   run: bundle exec i18n-tasks health en
+      - name: Lint en.yml with i18n-tasks
+        run: bin/i18n-tasks health en
 
   test:
     runs-on: ubuntu-latest

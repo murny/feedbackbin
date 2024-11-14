@@ -25,7 +25,6 @@ en:
           attributes:
             username:
               invalid: can only contain letters, numbers, and underscores
-  unauthorized: You are not authorized to perform this action.
   admin:
     base:
       unauthorized: You are not authorized to access this page.
@@ -61,24 +60,20 @@ en:
   comments:
     create:
       successfully_created: Comment was successfully created.
-    update:
-      successfully_updated: Comment was successfully updated.
     destroy:
       successfully_destroyed: Comment was successfully destroyed.
+    update:
+      successfully_updated: Comment was successfully updated.
   delete: Delete
   edit: Edit
-  remove: Remove
   errors:
     messages:
       not_saved:
         one: '1 error prohibited this %{resource} from being saved:'
         other: "%{count} errors prohibited this %{resource} from being saved:"
-  likes:
-    update:
-      successfully_liked: You liked this %{resource}
-      successfully_unliked: You unliked this %{resource}
-
   first_runs:
+    create:
+      account_created: Your account has been created.
     show:
       create_account: Create account
       email_address_hint: Never shown to the public
@@ -90,13 +85,14 @@ en:
       title: Set up FeedbackBin
       username_hint: unique, no spaces, short
       username_placeholder: Enter your username
-    create:
-      account_created: Your account has been created.
+  likes:
+    update:
+      successfully_liked: You liked this %{resource}
+      successfully_unliked: You unliked this %{resource}
   oauth:
-    developer: Developer
-    sign_in_with: Sign in with %{provider}
     connect_with: Connect with %{provider}
     disconnect_with: Disconnect %{provider}
+    sign_in_with: Sign in with %{provider}
   pagy:
     aria_label:
       nav:
@@ -129,23 +125,68 @@ en:
       title: New Post
     update:
       successfully_updated: Post was successfully updated.
-  replies:
-    create:
-      successfully_created: Reply was successfully created.
-    destroy:
-      successfully_destroyed: Reply was successfully destroyed.
   something_went_wrong: Something went wrong, please try again.
+  themes:
+    dark: Dark
+    light: Light
+    system: Sync with system (default)
+  unauthorized: You are not authorized to perform this action.
   user_mailer:
     email_verification:
       verify_your_email: Verify your email
     password_reset:
       reset_your_password: Reset your password
+  user_settings:
+    accounts:
+      show:
+        connected_accounts: Connected Accounts
+        connected_accounts_description: Connecting your social media accounts makes logging in easier.
+        email_address_hint: Never shown to the public
+        email_address_placeholder: Enter your email address
+        redirecting: Redirecting...
+        update_email_address: Update email address
+        update_username: Update username
+        username_hint: unique, no spaces, short
+        username_warning: Changing your username will break all previous mentions and links to your profile.
+      update:
+        account_updated: Your account has been updated.
+    active_sessions:
+      destroy:
+        session_revoked: This session was successfully revoked
+      index:
+        are_you_sure: Are you sure? The device will be signed out.
+        this_is_your_current_session: This is your current session
+    connected_accounts:
+      destroy:
+        disconnected_successfully: Your connected account has been disconnected successfully.
+    emails:
+      update:
+        email_changed: Your email address has been changed.
+        email_has_not_changed: You provided the same email address, nothing has changed.
+    passwords:
+      show:
+        forgot_my_password: I forgot my password
+        save_password: Save password
+      update:
+        password_changed: Your password has been changed.
+    preferences:
+      show:
+        description: 'EXPERIMENTAL: These customizations are still a work in progress'
+        title: Preferences
+      update:
+        updated_successfully: Your preferences have been updated.
+    profiles:
+      avatar_updated: Your avatar has been updated. It may take up to 30 minutes to update everywhere.
+      profile_updated: Your profile has been updated.
+      show:
+        remove_avatar: Remove avatar
+        upload_new_avatar: Upload new avatar
   users:
-    destroy:
-      account_deleted: Your account has been deleted.
     avatars:
       destroy:
         avatar_removed: Your avatar has been removed.
+    destroy:
+      account_deleted: Your account has been deleted.
     email_verifications:
       create:
         email_verification_sent: We've sent you an email with a link to verify your email address
@@ -208,52 +249,3 @@ en:
         sign_in: Sign in
         sign_in_to_your_account: Sign in to your account
         sign_up: Sign up
-  user_settings:
-    accounts:
-      show:
-        email_address_hint: Never shown to the public
-        email_address_placeholder: Enter your email address
-        update_email_address: Update email address
-        update_username: Update username
-        username_hint: unique, no spaces, short
-        username_warning: Changing your username will break all previous mentions and links to your profile.
-        connected_accounts: Connected Accounts
-        connected_accounts_description: Connecting your social media accounts makes logging in easier.
-        redirecting: Redirecting...
-      update:
-        account_updated: Your account has been updated.
-    connected_accounts:
-      destroy:
-        disconnected_successfully: Your connected account has been disconnected successfully.
-    preferences:
-      index:
-        description: Customize your experience
-        title: Preferences
-      update:
-        updated_successfully: Your preferences have been updated.
-    emails:
-      update:
-        email_changed: Your email address has been changed.
-        email_has_not_changed: You provided the same email address, nothing has changed.
-    passwords:
-      show:
-        save_password: Save password
-        forgot_my_password: I forgot my password
-      update:
-        password_changed: Your password has been changed.
-    profiles:
-      avatar_updated: Your avatar has been updated. It may take up to 30 minutes to update everywhere.
-      profile_updated: Your profile has been updated.
-      show:
-        upload_new_avatar: Upload new avatar
-        remove_avatar: Remove avatar
-    active_sessions:
-      destroy:
-        session_revoked: This session was successfully revoked
-      index:
-        this_is_your_current_session: This is your current session
-        are_you_sure: Are you sure? The device will be signed out.
-  themes:
-    system: "Sync with system (default)"
-    light: "Light"
-    dark: "Dark"
