@@ -10,12 +10,15 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-PostStatus.find_or_create_by!(name: "In Progress", color: "#FFA500", position: 1)
-PostStatus.find_or_create_by!(name: "Planned", color: "#FF0000", position: 2)
-PostStatus.find_or_create_by!(name: "Archived", color: "#000000", position: 3)
-PostStatus.find_or_create_by!(name: "Complete", color: "#008000", position: 4)
-
 if Rails.env.development?
+
+  account = Account.find_or_create_by!(name: "FeedbackBin", owner: admin)
+
+  PostStatus.find_or_create_by!(name: "In Progress", color: "#FFA500", position: 1, account: account)
+  PostStatus.find_or_create_by!(name: "Planned", color: "#FF0000", position: 2, account: account)
+  PostStatus.find_or_create_by!(name: "Archived", color: "#000000", position: 3, account: account)
+  PostStatus.find_or_create_by!(name: "Complete", color: "#008000", position: 4, account: account)
+
   admin = User.find_or_create_by!(email_address: "shane.murnaghan@feedbackbin.com") do |admin|
     admin.name = "Shane Murnaghan"
     admin.username = "Murny"
@@ -38,34 +41,34 @@ if Rails.env.development?
     user.email_verified = true
   end
 
-  account = Account.find_or_create_by!(name: "FeedbackBin", owner: admin)
-
   AccountUser.find_or_create_by!(account: account, user: admin, role: :administrator)
+  AccountUser.find_or_create_by!(account: account, user: user, role: :member)
+  AccountUser.find_or_create_by!(account: account, user: user_two, role: :member)
 
-  category = Category.find_or_create_by!(name: "Feature Requests")
+  category = Category.find_or_create_by!(name: "Feature Requests", account: account)
 
-  post = Post.find_or_create_by!(category: category, author: admin, title: "Could you please add dark mode") do |post|
+  post = Post.find_or_create_by!(account: account, category: category, author: admin, title: "Could you please add dark mode") do |post|
     post.body = "I would love to see dark mode on this site, please give support for it"
   end
 
-  Comment.find_or_create_by!(post: post, creator: user) do |comment|
+  Comment.find_or_create_by!(account: account, post: post, creator: user) do |comment|
     comment.body = "I would also like to see this feature"
   end
 
-  comment = Comment.find_or_create_by!(post: post, creator: user_two) do |comment|
+  comment = Comment.find_or_create_by!(account: account, post: post, creator: user_two) do |comment|
     comment.body = "I agree, dark mode would be great"
   end
 
   # Replies to the comment
-  Comment.find_or_create_by!(parent: comment, post: comment.post, creator: user) do |comment|
+  Comment.find_or_create_by!(account: account, parent: comment, post: comment.post, creator: user) do |comment|
     comment.body = "I'm glad you agree, I hope the developers see this"
   end
 
-  Comment.find_or_create_by!(parent: comment, post: comment.post, creator: user_two) do |comment|
+  Comment.find_or_create_by!(account: account, parent: comment, post: comment.post, creator: user_two) do |comment|
     comment.body = "I'm not sure if they will, but I hope so too"
   end
 
-  category.posts.find_or_create_by!(title: "Multiple categories") do |post|
+  category.posts.find_or_create_by!(account: account, title: "Multiple categories") do |post|
     post.body = "I would like to be able to create multiple categories, is this possible?"
     post.author = admin
   end

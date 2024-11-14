@@ -26,9 +26,16 @@ class LikeTest < ActiveSupport::TestCase
   end
 
   test "invalid with duplicate likeable_id and likeable_type scoped to voter_id" do
-    like = Like.new(voter: @like.voter, likeable: @like.likeable)
+    like = Like.new(voter: @like.voter, likeable: @like.likeable, account: @like.account)
 
     assert_not like.valid?
     assert_equal "has already been taken", like.errors[:voter_id].first
+  end
+
+  test "invalid without an account" do
+    @like.account = nil
+
+    assert_not @like.valid?
+    assert_equal "must exist", @like.errors[:account].first
   end
 end

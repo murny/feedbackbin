@@ -4,8 +4,10 @@ in_progress:
   name: In Progress
   color: '#0000ff'
   position: 1
+  account: feedbackbin
 
 complete:
   name: Complete
   color: '#00ff00'
   position: 2
+  account: feedbackbin

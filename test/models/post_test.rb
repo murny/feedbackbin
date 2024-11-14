@@ -31,4 +31,11 @@ class PostTest < ActiveSupport::TestCase
     assert_not @post.valid?
     assert_equal "must exist", @post.errors[:category].first
   end
+
+  test "invalid without an account" do
+    @post.account = nil
+
+    assert_not @post.valid?
+    assert_equal "must exist", @post.errors[:account].first
+  end
 end

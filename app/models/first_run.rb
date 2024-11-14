@@ -8,7 +8,7 @@ class FirstRun
     user = User.create!(user_params)
     account = Account.create!(name: ACCOUNT_NAME, owner: user)
     account.account_users.create(user: user, role: :administrator)
-    Category.create!(name: FIRST_CATEGORY_NAME)
+    account.categories.create!(name: FIRST_CATEGORY_NAME)
     account
   end
 end

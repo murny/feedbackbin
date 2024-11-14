@@ -26,3 +26,13 @@ reply_body_one:
   record: reply_one (Comment)
   name: body
   body: <p>Great idea!</p>
+
+changelog_body_one:
+  record: one (Changelog)
+  name: description
+  body: <p>Added dark mode to the website!</p>
+
+changelog_body_two:
+  record: two (Changelog)
+  name: description
+  body: <p>Added upvotes to the website!</p>

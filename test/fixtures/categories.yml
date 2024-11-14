@@ -3,7 +3,9 @@
 one:
   name: MyString
   description: MyText
+  account: feedbackbin
 
 two:
   name: MyString
   description: MyText
+  account: feedbackbin

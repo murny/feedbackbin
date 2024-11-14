@@ -5,8 +5,15 @@ class Account < ApplicationRecord
   include Transferable
 
   belongs_to :owner, class_name: "User"
+
   has_many :account_invitations, dependent: :destroy
   has_many :account_users, dependent: :destroy
+  has_many :categories, dependent: :destroy
+  has_many :changelogs, dependent: :destroy
+  has_many :comments, dependent: :destroy
+  has_many :likes, dependent: :destroy
+  has_many :posts, dependent: :destroy
+  has_many :post_statuses, dependent: :destroy
   has_many :users, through: :account_users
 
   has_one_attached :logo

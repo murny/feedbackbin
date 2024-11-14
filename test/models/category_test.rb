@@ -17,4 +17,11 @@ class CategoryTest < ActiveSupport::TestCase
     assert_not @category.valid?
     assert_equal "can't be blank", @category.errors[:name].first
   end
+
+  test "invalid without an account" do
+    @category.account = nil
+
+    assert_not @category.valid?
+    assert_equal "must exist", @category.errors[:account].first
+  end
 end
