@@ -11,14 +11,6 @@
 #   end
 
 if Rails.env.development?
-
-  account = Account.find_or_create_by!(name: "FeedbackBin", owner: admin)
-
-  PostStatus.find_or_create_by!(name: "In Progress", color: "#FFA500", position: 1, account: account)
-  PostStatus.find_or_create_by!(name: "Planned", color: "#FF0000", position: 2, account: account)
-  PostStatus.find_or_create_by!(name: "Archived", color: "#000000", position: 3, account: account)
-  PostStatus.find_or_create_by!(name: "Complete", color: "#008000", position: 4, account: account)
-
   admin = User.find_or_create_by!(email_address: "shane.murnaghan@feedbackbin.com") do |admin|
     admin.name = "Shane Murnaghan"
     admin.username = "Murny"
@@ -40,6 +32,13 @@ if Rails.env.development?
     user.password = "password123"
     user.email_verified = true
   end
+
+  account = Account.find_or_create_by!(name: "FeedbackBin", owner: admin)
+
+  PostStatus.find_or_create_by!(name: "In Progress", color: "#FFA500", position: 1, account: account)
+  PostStatus.find_or_create_by!(name: "Planned", color: "#FF0000", position: 2, account: account)
+  PostStatus.find_or_create_by!(name: "Archived", color: "#000000", position: 3, account: account)
+  PostStatus.find_or_create_by!(name: "Complete", color: "#008000", position: 4, account: account)
 
   AccountUser.find_or_create_by!(account: account, user: admin, role: :administrator)
   AccountUser.find_or_create_by!(account: account, user: user, role: :member)

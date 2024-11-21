@@ -14,7 +14,7 @@ class Current < ActiveSupport::CurrentAttributes
 
   def account_user
     return unless account
-    @account_user ||= account.account_users.includes(:user).find_by(user: user)
+    @account_user ||= account.account_users.includes(:user).find_or_create_by(user: user)
   end
 
   def account_admin?

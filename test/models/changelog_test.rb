@@ -25,13 +25,6 @@ class ChangelogTest < ActiveSupport::TestCase
     assert_equal "can't be blank", @changelog.errors[:description].first
   end
 
-  test "invalid without published_at" do
-    @changelog.published_at = nil
-
-    assert_not @changelog.valid?
-    assert_equal "can't be blank", @changelog.errors[:published_at].first
-  end
-
   test "invalid without a kind" do
     @changelog.kind = nil
 

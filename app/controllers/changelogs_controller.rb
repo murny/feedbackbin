@@ -7,11 +7,11 @@ class ChangelogsController < ApplicationController
   def index
     authorize Changelog
 
-    @pagy, @changelogs = pagy(Changelog.order(published_at: :desc))
+    @pagy, @changelogs = pagy(Changelog.published.order(published_at: :desc))
   end
 
   def show
-    @changelog = Changelog.find(params[:id])
+    @changelog = Changelog.published.find(params[:id])
 
     authorize @changelog
   end
@@ -19,6 +19,6 @@ class ChangelogsController < ApplicationController
   private
 
   def mark_as_read
-    Current.user.update(changelogs_read_at: Time.zone.now)
+    Current.user.update(changelogs_read_at: Time.current)
   end
 end
