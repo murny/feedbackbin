@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/rails/rails.git
-  revision: c11312a918555aaad99b334d374a791cd6268152
+  revision: a8709e6ea26eca73a652af4fdd0a9f7db5352af4
   branch: main
   specs:
     actioncable (8.1.0.alpha)
@@ -338,7 +338,7 @@ GEM
     raabro (1.4.0)
     racc (1.8.1)
     rack (3.1.8)
-    rack-protection (4.1.0)
+    rack-protection (4.1.1)
       base64 (>= 0.1.0)
       logger (>= 1.6.0)
       rack (>= 3.0.0, < 4)
@@ -426,12 +426,12 @@ GEM
       fugit (~> 1.11.0)
       railties (>= 7.1)
       thor (~> 1.3.1)
-    sqlite3 (2.2.0-aarch64-linux-gnu)
-    sqlite3 (2.2.0-arm-linux-gnu)
-    sqlite3 (2.2.0-arm64-darwin)
-    sqlite3 (2.2.0-x86-linux-gnu)
-    sqlite3 (2.2.0-x86_64-darwin)
-    sqlite3 (2.2.0-x86_64-linux-gnu)
+    sqlite3 (2.3.0-aarch64-linux-gnu)
+    sqlite3 (2.3.0-arm-linux-gnu)
+    sqlite3 (2.3.0-arm64-darwin)
+    sqlite3 (2.3.0-x86-linux-gnu)
+    sqlite3 (2.3.0-x86_64-darwin)
+    sqlite3 (2.3.0-x86_64-linux-gnu)
     sshkit (1.23.2)
       base64
       net-scp (>= 1.1.2)
@@ -547,4 +547,4 @@ DEPENDENCIES
   web-console
 
 BUNDLED WITH
-   2.5.20
+   2.5.23
