@@ -4,7 +4,7 @@ require "test_helper"
 
 class FirstRunsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    Account.destroy_all
+    Organization.destroy_all
     Category.destroy_all
     User.destroy_all
   end
@@ -15,13 +15,13 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "new is not permitted when account exist" do
+  test "new is not permitted when organization exist" do
     user = User.create!(
       username: "test_user",
       email_address: "new@feedbackbin.com",
       password: "secret123456"
     )
-    Account.create!(name: "FeedbackBin", owner: user)
+    Organization.create!(name: "FeedbackBin", owner: user)
 
     get first_run_url
 
@@ -32,7 +32,7 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
     assert_difference "Category.count" do
       assert_difference "User.count" do
         post first_run_url, params: {
-          account: {name: "FeedbackBin"},
+          organization: {name: "FeedbackBin"},
           user: {
             username: "new_person",
             email_address: "new@feedbackbin.com",

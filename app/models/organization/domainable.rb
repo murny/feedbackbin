@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Account::Domainable
+module Organization::Domainable
   extend ActiveSupport::Concern
 
   included do

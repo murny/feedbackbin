@@ -2,26 +2,28 @@
 
 class Current < ActiveSupport::CurrentAttributes
   attribute :session
-  attribute :account
+  attribute :organization
 
   delegate :user, to: :session, allow_nil: true
 
-  def account=(value)
+  def organization=(value)
     super
-    @account_user = nil
-    @other_accounts = nil
+    @membership = nil
+    @other_organizations = nil
   end
 
-  def account_user
-    return unless account
-    @account_user ||= account.account_users.includes(:user).find_or_create_by(user: user)
+  def membership
+    return unless organization
+
+    # find_or_create_by is used because organizations are typically public and users can join them without an invitation
+    @membership ||= organization.memberships.includes(:user).find_or_create_by(user: user)
   end
 
-  def account_admin?
-    !!account_user&.administrator?
+  def organization_admin?
+    !!membership&.administrator?
   end
 
-  def other_accounts
-    @other_accounts ||= user.accounts.order(name: :asc).where.not(id: account.id)
+  def other_organizations
+    @other_organizations ||= user.organizations.order(name: :asc).where.not(id: organization.id)
   end
 end

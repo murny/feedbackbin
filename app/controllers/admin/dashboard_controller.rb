@@ -3,7 +3,7 @@
 module Admin
   class DashboardController < Admin::BaseController
     def show
-      # TODO list metrics of users/accounts/subscriptions/etc
+      # TODO list metrics of users/organizations/subscriptions/etc
     end
   end
 end

@@ -9,5 +9,5 @@ company:
 
 invited:
   owner: invited
-  name: "Invited Account"
+  name: "Invited Organization"
   domain: "invited.com"

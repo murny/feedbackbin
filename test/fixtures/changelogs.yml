@@ -2,10 +2,10 @@ one:
   kind: new
   title: We launched this cool feature!
   published_at: <%= 2.hours.ago %>
-  account: feedbackbin
+  organization: feedbackbin
 
 two:
   kind: fix
   title: Fixed a bug that was causing issues
   published_at: <%= 3.hours.ago %>
-  account: feedbackbin
+  organization: feedbackbin

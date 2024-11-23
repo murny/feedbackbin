@@ -1,25 +1,25 @@
 feedback_admin:
-  account: feedbackbin
+  organization: feedbackbin
   user: shane
   role: administrator
 
 feedback_regular_user_one:
-  account: feedbackbin
+  organization: feedbackbin
   user: one
 
 feedback_regular_user_invited:
-  account: feedbackbin
+  organization: feedbackbin
   user: invited
 
 company_admin:
-  account: company
+  organization: company
   user: one
   role: administrator
 
 company_regular_user:
-  account: company
+  organization: company
   user: shane
 
 invited_user:
-  account: invited
+  organization: invited
   user: invited

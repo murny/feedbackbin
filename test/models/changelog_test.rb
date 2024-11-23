@@ -39,11 +39,11 @@ class ChangelogTest < ActiveSupport::TestCase
     assert_equal "is not included in the list", @changelog.errors[:kind].first
   end
 
-  test "invalid without an account" do
-    @changelog.account = nil
+  test "invalid without an organization" do
+    @changelog.organization = nil
 
     assert_not @changelog.valid?
-    assert_equal "must exist", @changelog.errors[:account].first
+    assert_equal "must exist", @changelog.errors[:organization].first
   end
 
   test "unread? returns false for guest when no changelogs" do

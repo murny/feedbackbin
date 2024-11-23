@@ -2,7 +2,7 @@
 
 class Category < ApplicationRecord
   has_many :posts, dependent: :destroy
-  belongs_to :account, default: -> { Current.account }
+  belongs_to :organization, default: -> { Current.organization }
 
   validates :name, presence: true
 end

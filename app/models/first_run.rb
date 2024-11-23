@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 class FirstRun
-  ACCOUNT_NAME = "FeedbackBin"
+  ORGANIZATION_DEFAULT_NAME = "FeedbackBin"
   FIRST_CATEGORY_NAME = "Feature Requests"
 
   def self.create!(user_params)
     user = User.create!(user_params)
-    account = Account.create!(name: ACCOUNT_NAME, owner: user)
-    account.account_users.create(user: user, role: :administrator)
-    account.categories.create!(name: FIRST_CATEGORY_NAME)
-    account
+    organization = Organization.create!(name: ORGANIZATION_DEFAULT_NAME, owner: user)
+    organization.memberships.create(user: user, role: :administrator)
+    organization.categories.create!(name: FIRST_CATEGORY_NAME)
+    organization
   end
 end

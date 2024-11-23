@@ -3,7 +3,7 @@
 class Changelog < ApplicationRecord
   TYPES = %w[new fix improvement update]
 
-  belongs_to :account, default: -> { Current.account }
+  belongs_to :organization, default: -> { Current.organization }
 
   has_rich_text :description
 

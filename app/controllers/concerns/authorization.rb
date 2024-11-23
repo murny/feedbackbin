@@ -11,9 +11,9 @@ module Authorization
     rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
   end
 
-  # Use AccountUser since it determines the roles for the current Account
+  # Use Membership since it determines the roles for the current organization
   def pundit_user
-    Current.account_user
+    Current.membership
   end
 
   private

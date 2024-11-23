@@ -2,37 +2,37 @@
 
 class InitialSchema < ActiveRecord::Migration[8.0]
   def change
-    create_table "account_invitations", force: :cascade do |t|
-      t.bigint "account_id", null: false
+    create_table "organization_invitations", force: :cascade do |t|
+      t.bigint "organization_id", null: false
       t.bigint "invited_by_id"
       t.string "token", null: false
       t.string "name", null: false
       t.string "email", null: false
       t.datetime "created_at", null: false
       t.datetime "updated_at", null: false
-      t.index ["account_id", "email"], name: "index_account_invitations_on_account_id_and_email", unique: true
-      t.index ["invited_by_id"], name: "index_account_invitations_on_invited_by_id"
-      t.index ["token"], name: "index_account_invitations_on_token", unique: true
+      t.index ["organization_id", "email"], name: "index_organization_invitations_on_organization_id_and_email", unique: true
+      t.index ["invited_by_id"], name: "index_organization_invitations_on_invited_by_id"
+      t.index ["token"], name: "index_organization_invitations_on_token", unique: true
     end
 
-    create_table "account_users", force: :cascade do |t|
-      t.bigint "account_id", null: false
+    create_table "memberships", force: :cascade do |t|
+      t.bigint "organization_id", null: false
       t.bigint "user_id", null: false
       t.integer "role", default: 0, null: false
       t.datetime "created_at", null: false
       t.datetime "updated_at", null: false
-      t.index ["account_id", "user_id"], name: "index_account_users_on_account_id_and_user_id", unique: true
+      t.index ["organization_id", "user_id"], name: "index_memberships_on_organization_id_and_user_id", unique: true
     end
 
-    create_table "accounts", force: :cascade do |t|
+    create_table "organizations", force: :cascade do |t|
       t.string "name", null: false
       t.bigint "owner_id", null: false
       t.string "domain"
       t.string "subdomain"
-      t.integer "account_users_count", default: 0, null: false
+      t.integer "memberships_count", default: 0, null: false
       t.datetime "created_at", null: false
       t.datetime "updated_at", null: false
-      t.index ["owner_id"], name: "index_accounts_on_owner_id"
+      t.index ["owner_id"], name: "index_organizations_on_owner_id"
     end
 
     create_table "action_text_rich_texts", force: :cascade do |t|
@@ -74,63 +74,63 @@ class InitialSchema < ActiveRecord::Migration[8.0]
     end
 
     create_table "categories", force: :cascade do |t|
-      t.bigint "account_id", null: false
+      t.bigint "organization_id", null: false
       t.string "name", null: false
       t.text "description"
       t.datetime "created_at", null: false
       t.datetime "updated_at", null: false
-      t.index ["account_id"], name: "index_categories_on_account_id"
+      t.index ["organization_id"], name: "index_categories_on_organization_id"
     end
 
     create_table "changelogs", force: :cascade do |t|
-      t.bigint "account_id", null: false
+      t.bigint "organization_id", null: false
       t.string "title", null: false
       t.string "kind", null: false
       t.datetime "published_at"
       t.datetime "created_at", null: false
       t.datetime "updated_at", null: false
-      t.index ["account_id"], name: "index_changelogs_on_account_id"
+      t.index ["organization_id"], name: "index_changelogs_on_organization_id"
     end
 
     create_table "comments", force: :cascade do |t|
-      t.bigint "account_id", null: false
+      t.bigint "organization_id", null: false
       t.bigint "creator_id", null: false
       t.bigint "parent_id"
       t.bigint "post_id", null: false
       t.integer "likes_count", default: 0
       t.datetime "created_at", null: false
       t.datetime "updated_at", null: false
-      t.index ["account_id"], name: "index_comments_on_account_id"
+      t.index ["organization_id"], name: "index_comments_on_organization_id"
       t.index ["creator_id"], name: "index_comments_on_creator_id"
       t.index ["parent_id"], name: "index_comments_on_parent_id"
       t.index ["post_id"], name: "index_comments_on_post_id"
     end
 
     create_table "likes", force: :cascade do |t|
-      t.bigint "account_id", null: false
+      t.bigint "organization_id", null: false
       t.bigint "voter_id", null: false
       t.string "likeable_type", null: false
       t.bigint "likeable_id", null: false
       t.datetime "created_at", null: false
       t.datetime "updated_at", null: false
-      t.index ["account_id"], name: "index_likes_on_account_id"
+      t.index ["organization_id"], name: "index_likes_on_organization_id"
       t.index ["likeable_type", "likeable_id", "voter_id"], name: "index_likes_on_likeable_type_and_likeable_id_and_voter_id", unique: true
       t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable"
       t.index ["voter_id"], name: "index_likes_on_voter_id"
     end
 
     create_table "post_statuses", force: :cascade do |t|
-      t.bigint "account_id", null: false
+      t.bigint "organization_id", null: false
       t.string "name", null: false
       t.string "color", null: false
       t.integer "position", null: false
       t.datetime "created_at", null: false
       t.datetime "updated_at", null: false
-      t.index ["account_id"], name: "index_post_statuses_on_account_id"
+      t.index ["organization_id"], name: "index_post_statuses_on_organization_id"
     end
 
     create_table "posts", force: :cascade do |t|
-      t.bigint "account_id", null: false
+      t.bigint "organization_id", null: false
       t.string "title", null: false
       t.bigint "author_id", null: false
       t.integer "comments_count", default: 0, null: false
@@ -139,7 +139,7 @@ class InitialSchema < ActiveRecord::Migration[8.0]
       t.datetime "updated_at", null: false
       t.integer "category_id", null: false
       t.integer "post_status_id"
-      t.index ["account_id"], name: "index_posts_on_account_id"
+      t.index ["organization_id"], name: "index_posts_on_organization_id"
       t.index ["author_id"], name: "index_posts_on_author_id"
       t.index ["category_id"], name: "index_posts_on_category_id"
       t.index ["post_status_id"], name: "index_posts_on_post_status_id"
@@ -185,23 +185,23 @@ class InitialSchema < ActiveRecord::Migration[8.0]
       t.index ["username"], name: "index_users_on_username", unique: true
     end
 
-    add_foreign_key "account_invitations", "accounts"
-    add_foreign_key "account_invitations", "users", column: "invited_by_id"
-    add_foreign_key "account_users", "accounts"
-    add_foreign_key "account_users", "users"
-    add_foreign_key "accounts", "users", column: "owner_id"
+    add_foreign_key "organization_invitations", "organizations"
+    add_foreign_key "organization_invitations", "users", column: "invited_by_id"
+    add_foreign_key "memberships", "organizations"
+    add_foreign_key "memberships", "users"
+    add_foreign_key "organizations", "users", column: "owner_id"
     add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
     add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-    add_foreign_key "categories", "accounts"
-    add_foreign_key "changelogs", "accounts"
-    add_foreign_key "comments", "accounts"
+    add_foreign_key "categories", "organizations"
+    add_foreign_key "changelogs", "organizations"
+    add_foreign_key "comments", "organizations"
     add_foreign_key "comments", "comments", column: "parent_id"
     add_foreign_key "comments", "posts"
     add_foreign_key "comments", "users", column: "creator_id"
-    add_foreign_key "likes", "accounts"
+    add_foreign_key "likes", "organizations"
     add_foreign_key "likes", "users", column: "voter_id"
-    add_foreign_key "post_statuses", "accounts"
-    add_foreign_key "posts", "accounts"
+    add_foreign_key "post_statuses", "organizations"
+    add_foreign_key "posts", "organizations"
     add_foreign_key "posts", "categories"
     add_foreign_key "posts", "post_statuses"
     add_foreign_key "posts", "users", column: "author_id"

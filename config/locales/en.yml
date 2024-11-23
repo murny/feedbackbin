@@ -6,21 +6,21 @@ en:
         image_format_not_supported: image format not supported
         max_file_size_invalid: image over %{size}
       models:
-        account:
+        membership:
+          attributes:
+            role:
+              administrator_cannot_be_removed: administrator role cannot be removed for the organization owner
+        organization:
           attributes:
             domain:
               reserved: "%{value} is reserved"
             subdomain:
               format: must be at least 2 characters and alphanumeric
               reserved: "%{value} is reserved"
-        account_invitation:
+        organization_invitation:
           attributes:
             email:
               invited: has already been invited
-        account_user:
-          attributes:
-            role:
-              administrator_cannot_be_removed: administrator role cannot be removed for the account owner
         user:
           attributes:
             username:
@@ -73,7 +73,7 @@ en:
         other: "%{count} errors prohibited this %{resource} from being saved:"
   first_runs:
     create:
-      account_created: Your account has been created.
+      organization_created: Your organization has been created.
     show:
       create_account: Create account
       email_address_hint: Never shown to the public

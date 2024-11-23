@@ -11,10 +11,10 @@ class User < ApplicationRecord
   scope :filtered_by, ->(query) { where("name like ?", "%#{query}%") }
   scope :ordered, -> { order(:name) }
 
-  has_many :account_invitations, dependent: :nullify, foreign_key: :invited_by_id, inverse_of: :invited_by
-  has_many :account_users, dependent: :destroy
-  has_many :accounts, through: :account_users
-  has_many :owned_accounts, class_name: "Account", foreign_key: :owner_id, inverse_of: :owner, dependent: :destroy
+  has_many :organization_invitations, dependent: :nullify, foreign_key: :invited_by_id, inverse_of: :invited_by
+  has_many :memberships, dependent: :destroy
+  has_many :organizations, through: :memberships
+  has_many :owned_organizations, class_name: "Organization", foreign_key: :owner_id, inverse_of: :owner, dependent: :destroy
   has_many :posts, dependent: :destroy, foreign_key: :author_id, inverse_of: :author
   has_many :sessions, dependent: :destroy
   has_many :comments, dependent: :destroy, foreign_key: :creator_id, inverse_of: :creator

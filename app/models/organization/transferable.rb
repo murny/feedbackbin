@@ -1,38 +1,38 @@
 # frozen_string_literal: true
 
-module Account::Transferable
+module Organization::Transferable
   extend ActiveSupport::Concern
 
-  # An account can be transferred by the owner if it:
+  # An organization can be transferred by the owner if it:
   # * Has more than one user in it
   def can_transfer?(user)
     owner?(user) && users.size >= 2
   end
 
-  # Transfers ownership of the account to a user
-  # The new owner is automatically granted admin access to allow editing of the account
+  # Transfers ownership of the organization to a user
+  # The new owner is automatically granted admin access to allow editing of the organization
   # Previous owner roles are unchanged
   def transfer_ownership(user_id)
     # previous_owner = owner
-    account_user = account_users.find_by!(user_id: user_id)
-    user = account_user.user
+    membership = memberships.find_by!(user_id: user_id)
+    user = membership.user
 
     ApplicationRecord.transaction do
-      account_user.update!(role: :administrator)
+      membership.update!(role: :administrator)
       update!(owner: user)
 
       # Add any additional logic for updating records here
     end
 
     # Notify the new owner of the change
-    # Account::OwnershipNotifier.with(account: self, record: previous_owner).deliver(user)
+    # Organization::OwnershipNotifier.with(organization: self, record: previous_owner).deliver(user)
   rescue
     false
   end
 end
 
-# frozen_string_literal: true
-
+# TODO: Remove when the following code is implemented
+#
 # module User::Transferable
 #   extend ActiveSupport::Concern
 

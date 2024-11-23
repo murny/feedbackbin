@@ -4,10 +4,10 @@ require "test_helper"
 
 class UserPolicyTest < ActiveSupport::TestCase
   setup do
-    @user_account = account_users(:feedback_regular_user_one)
-    @user = @user_account.user
-    @admin_account = account_users(:feedback_admin)
-    @another_user_account = account_users(:feedback_regular_user_invited)
+    @user_membership = memberships(:feedback_regular_user_one)
+    @user = @user_membership.user
+    @admin_membership = memberships(:feedback_admin)
+    @another_user_membership = memberships(:feedback_regular_user_invited)
   end
 
   test "user show viewable by all" do
@@ -19,14 +19,14 @@ class UserPolicyTest < ActiveSupport::TestCase
   end
 
   test "user destroy not avaiable by other users" do
-    assert_not_predicate UserPolicy.new(@another_user_account, @user), :destroy?
+    assert_not_predicate UserPolicy.new(@another_user_membership, @user), :destroy?
   end
 
   test "user destroy available by user owner" do
-    assert_predicate UserPolicy.new(@user_account, @user), :destroy?
+    assert_predicate UserPolicy.new(@user_membership, @user), :destroy?
   end
 
   test "user destroy available by admin" do
-    assert_predicate UserPolicy.new(@admin_account, @user), :destroy?
+    assert_predicate UserPolicy.new(@admin_membership, @user), :destroy?
   end
 end

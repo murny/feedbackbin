@@ -4,10 +4,10 @@ one:
   title: Wish this had dark mode!
   author: shane
   category: one
-  account: feedbackbin
+  organization: feedbackbin
 
 two:
   title: Love the site, can you implement downvotes?
   author: one
   category: one
-  account: feedbackbin
+  organization: feedbackbin
