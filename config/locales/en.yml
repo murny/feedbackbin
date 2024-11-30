@@ -48,6 +48,18 @@ en:
       sign_up: Sign up
   are_you_sure: Are you sure?
   cancel: Cancel
+  organizations:
+    index:
+      title: Organizations
+      new_organization: New organization
+    new:
+      title: New organization
+    edit:
+      title: Edit organization
+    memberships:
+      index:
+        title: Memberships
+        new_membership: New membership
   changelogs:
     index:
       description: New updates and improvements to %{name}

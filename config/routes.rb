@@ -48,9 +48,8 @@ Rails.application.routes.draw do
   resources :comments, except: [:index, :new]
   resources :changelogs, only: [:index, :show]
 
-  resources :organizations do
-    resources :memberships, module: :organizations, except: %i[show]
-  end
+  resources :organizations
+  resources :memberships, module: :organizations, except: %i[show]
 
   scope controller: :static do
     get :about

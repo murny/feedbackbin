@@ -1,0 +1,35 @@
+<section class="space-y-8 mx-auto max-w-md w-full">
+  <div class="flex justify-between items-center">
+    <h1 class="font-bold text-4xl">
+      <%= "Invite user" %>
+    </h1>
+  </div>
+  <div class="space-y-4 border rounded-lg p-4 shadow">
+    <%= form_with model: @form, url: organization_memberships_path(@organization), class: "contents space-y-4" do |form| %>
+      <%= render "shared/errors", object: form.object %>
+
+      <div class="">
+        <%= form.label :email %>
+        <%= form.email_field :email, placeholder: "hello@superails.com", class: "form-input", autofocus: true %>
+      </div>
+
+      <div class="">
+        <%= form.label :role %>
+        <div>
+          <% Membership.roles.each do |role, _value| %>
+            <div class="flex items-center gap-2">
+              <%= form.radio_button :role, role %>
+              <%= form.label :role, role.humanize, value: role %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="inline">
+        <%= form.submit "Invite", class: "btn btn-primary" %>
+      </div>
+    <% end %>
+
+    <%= link_to "Cancel", organization_memberships_path(@organization), class: "btn btn-secondary" %>
+  </div>
+</section>

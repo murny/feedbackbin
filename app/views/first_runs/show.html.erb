@@ -11,14 +11,14 @@
     <%= form_with model: @user, url: first_run_path, class: "space-y-6" do |form| %>
       <%= render "error_messages", resource: @user %>
 
-      <label class="align-center center avatar__form gap" data-controller="upload-preview">
-        <div class="btn input--file">
+      <label class="align-center center gap" data-controller="upload-preview">
+        <div class="btn>
           <%= form.file_field :avatar, class: "input", accept: "image/*",
                 data: {upload_preview_target: "input", action: "upload-preview#previewImage"} %>
           <span class="sr-only">Add your avatar</span>
         </div>
 
-        <div class="btn avatar input--file txt-xx-large">
+        <div class="btn avatar txt-xx-large">
           <%= image_tag "default-avatar.svg", role: "presentation", data: {upload_preview_target: "image"}, alt: "Add your avatar" %>
           <span class="sr-only">Avatar</span>
         </div>
