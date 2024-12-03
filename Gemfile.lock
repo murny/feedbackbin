@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/rails/rails.git
-  revision: a4681cd91957cca4495513668c75be626902f9a8
+  revision: 035485ed19bed3348a5d207dacb251d649189d08
   branch: main
   specs:
     actioncable (8.1.0.alpha)
@@ -200,7 +200,7 @@ GEM
     inline_svg (1.10.0)
       activesupport (>= 3.0)
       nokogiri (>= 1.6)
-    io-console (0.7.2)
+    io-console (0.8.0)
     irb (1.14.1)
       rdoc (>= 4.0.0)
       reline (>= 0.4.2)
@@ -280,17 +280,17 @@ GEM
       net-protocol
     net-ssh (7.3.0)
     nio4r (2.7.4)
-    nokogiri (1.16.7-aarch64-linux)
+    nokogiri (1.16.8-aarch64-linux)
       racc (~> 1.4)
-    nokogiri (1.16.7-arm-linux)
+    nokogiri (1.16.8-arm-linux)
       racc (~> 1.4)
-    nokogiri (1.16.7-arm64-darwin)
+    nokogiri (1.16.8-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.16.7-x86-linux)
+    nokogiri (1.16.8-x86-linux)
       racc (~> 1.4)
-    nokogiri (1.16.7-x86_64-darwin)
+    nokogiri (1.16.8-x86_64-darwin)
       racc (~> 1.4)
-    nokogiri (1.16.7-x86_64-linux)
+    nokogiri (1.16.8-x86_64-linux)
       racc (~> 1.4)
     oauth2 (2.0.9)
       faraday (>= 0.17.3, < 3.0)
@@ -353,9 +353,9 @@ GEM
       activesupport (>= 5.0.0)
       minitest
       nokogiri (>= 1.6)
-    rails-html-sanitizer (1.6.0)
+    rails-html-sanitizer (1.6.1)
       loofah (~> 2.21)
-      nokogiri (~> 1.14)
+      nokogiri (>= 1.15.7, != 1.16.7, != 1.16.6, != 1.16.5, != 1.16.4, != 1.16.3, != 1.16.2, != 1.16.1, != 1.16.0.rc1, != 1.16.0)
     rails-i18n (8.0.1)
       i18n (>= 0.7, < 2)
       railties (>= 8.0.0, < 9)
