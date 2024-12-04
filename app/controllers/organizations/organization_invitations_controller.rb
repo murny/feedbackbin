@@ -16,7 +16,7 @@ module Organizations
       @organization_invitation = OrganizationInvitation.new(organization: @organization, invited_by: Current.user, **organization_invitation_params)
 
       if @organization_invitation.save
-        redirect_to organization_memberships_path(@organization), notice: "#{@form.email} invited!"
+        redirect_to organization_memberships_path(@organization), notice: t(".successfully_created")
       else
         render :new, status: :unprocessable_entity
       end

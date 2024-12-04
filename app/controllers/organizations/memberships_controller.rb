@@ -19,7 +19,7 @@ module Organizations
       authorize @membership
 
       if @membership.update(membership_params)
-        redirect_to organization_memberships_path(@organization), notice: "User updated"
+        redirect_to organization_memberships_path(@organization), notice: t(".successfully_updated")
       else
         render :edit, status: :unprocessable_entity
       end
@@ -28,14 +28,12 @@ module Organizations
     def destroy
       authorize @membership
 
-      if @membership.try_destroy
-        if @membership.user == Current.user
-          redirect_to organizations_path, notice: "You have left that organization"
-        else
-          redirect_to organization_memberships_path(@organization), notice: "User removed from organization"
-        end
+      @membership.destroy!
+
+      if @membership.user == Current.user
+        redirect_to organizations_path, notice: t(".successfully_left")
       else
-        redirect_to organization_memberships_path(@organization), alert: "Failed to remove user from organization"
+        redirect_to organization_memberships_path(@organization), notice: t(".successfully_destroyed")
       end
     end
 

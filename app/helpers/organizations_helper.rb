@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module OrganizationsHelper
   def organization_logo(organization)
     if organization.logo.attached?

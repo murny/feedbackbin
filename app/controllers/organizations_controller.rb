@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class OrganizationsController < ApplicationController
   before_action :set_organization, only: %i[show edit update destroy]
 
@@ -33,7 +35,7 @@ class OrganizationsController < ApplicationController
     @organization.memberships.build(user: Current.user, role: Membership.roles[:admin])
 
     if @organization.save
-      redirect_to organization_url(@organization), notice: "Organization was successfully created."
+      redirect_to organization_url(@organization), notice: t(".successfully_created")
     else
       render :new, status: :unprocessable_entity
     end
@@ -44,7 +46,7 @@ class OrganizationsController < ApplicationController
     authorize @organization
 
     if @organization.update(organization_params)
-      redirect_to organization_url(@organization), notice: "Organization was successfully updated."
+      redirect_to organization_url(@organization), notice: t(".successfully_updated")
     else
       render :edit, status: :unprocessable_entity
     end
@@ -56,7 +58,7 @@ class OrganizationsController < ApplicationController
 
     @organization.destroy!
 
-    redirect_to organizations_url, notice: "Organization was successfully destroyed."
+    redirect_to organizations_url, notice: t(".successfully_destroyed")
   end
 
   private
