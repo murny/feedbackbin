@@ -49,6 +49,7 @@ Rails.application.routes.draw do
   resources :changelogs, only: [:index, :show]
 
   resources :organizations do
+    resources :organization_invitations, module: :organizations, only: %i[new create]
     resources :memberships, module: :organizations, except: %i[show]
   end
 

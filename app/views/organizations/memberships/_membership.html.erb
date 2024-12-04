@@ -1,0 +1,27 @@
+<li id="<%= dom_id membership %>" class="p-4 flex justify-between items-center">
+  <div class="">
+    <div class="text-gray-900 dark:text-white">
+      <%= membership.user.email_address %>
+    </div>
+    <div class="text-gray-700 dark:text-gray-400">
+      <%= membership.role %>
+    </div>
+  </div>
+
+  <div>
+    <% if policy(membership).edit? %>
+      <%= link_to "Edit",
+            edit_organization_membership_path(membership.organization, membership),
+            class: "btn btn-secondary" %>
+    <% end %>
+    <% if policy(membership).destroy? %>
+      <div class="inline-block">
+        <%= button_to "Remove",
+              organization_membership_path(membership.organization, membership),
+              method: :delete,
+              data: {turbo_confirm: "Are you sure?"},
+              class: "btn btn-danger" %>
+      </div>
+    <% end %>
+  </div>
+</li>

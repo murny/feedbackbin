@@ -1,0 +1,23 @@
+<% content_for :title, t(".title") %>
+
+<div class="py-10">
+  <header>
+    <div class="flex justify-between items-center mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h1 class="text-3xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white">
+        <%= t(".title") %>
+      </h1>
+      <div class="whitespace-nowrap">
+        <%= link_to t(".new_membership"), new_organization_organization_invitation_path(@organization), class: "btn btn-primary" if policy(@organization.memberships.new).new? %>
+      </div>
+    </div>
+  </header>
+  <main>
+    <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 py-4">
+      <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+        <% @memberships.each do |membership| %>
+          <%= render membership %>
+        <% end %>
+      </ul>
+    </div>
+  </main>
+</div>

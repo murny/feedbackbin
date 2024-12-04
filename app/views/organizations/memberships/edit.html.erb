@@ -1,0 +1,33 @@
+<div class="py-10">
+  <header>
+    <div class="flex justify-between items-center mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h1 class="text-3xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white">
+        <%= "Edit #{@membership.user.email_address} roles" %>
+      </h1>
+    </div>
+  </header>
+  <main>
+    <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 py-4">
+      <%= form_with(model: [@organization, @membership]) do |form| %>
+        <%= render "error_messages", resource: form.object %>
+
+        <div class="">
+          <%= form.label :role %>
+          <div>
+            <% Membership.roles.each do |role, _value| %>
+              <div class="flex items-center gap-2">
+                <%= form.radio_button :role, role %>
+                <%= form.label :role, role.humanize, value: role %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <div class="mt-5 flex items-center space-x-4 justify-end">
+          <%= link_to "Cancel", organization_memberships_path(@organization), class: "btn btn-secondary" %>
+          <%= form.submit "Update membership", class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    </div>
+  </main>
+</div>

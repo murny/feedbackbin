@@ -6,7 +6,8 @@ class OrganizationInvitation < ApplicationRecord
 
   has_secure_token
 
-  validates :name, :email, presence: true
+  validates :email, presence: true
+  validates :name, presence: true
 
   # TODO: Add email format validation and should this be scoped to organization_id?
   validates :email, uniqueness: {scope: :organization_id, message: :invited}

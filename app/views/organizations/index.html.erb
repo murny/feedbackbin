@@ -1,0 +1,23 @@
+<% content_for :title, t(".title") %>
+
+<div class="py-10">
+  <header>
+    <div class="flex justify-between items-center mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <h1 class="text-3xl font-bold leading-tight tracking-tight text-gray-900 dark:text-white">
+        <%= t(".title") %>
+      </h1>
+      <div class="whitespace-nowrap">
+        <%= link_to t(".new_organization"), new_organization_path, class: "btn btn-primary" %>
+      </div>
+    </div>
+  </header>
+  <main>
+    <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 py-4">
+      <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
+        <% @organizations.each do |organization| %>
+          <%= render organization %>
+        <% end %>
+      </ul>
+    </div>
+  </main>
+</div>

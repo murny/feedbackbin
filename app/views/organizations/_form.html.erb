@@ -1,0 +1,37 @@
+<%= form_with(model: organization, class: "contents space-y-4") do |form| %>
+  <%= render "error_messages", resource: form.object %>
+
+  <%= form.label :name %>
+  <%= form.text_field :name, autofocus: true %>
+
+  <%= tag.div data: {controller: "upload-preview"} do %>
+    <% if organization.logo.attached? %>
+      <%= image_tag organization.logo,
+            role: "presentation",
+            class: "h-24 w-24 flex-none rounded-lg bg-gray-800 object-cover",
+            data: {"upload-preview-target": "image"} %>
+    <% else %>
+      <%= image_tag "default-logo.svg",
+            role: "presentation",
+            class: "h-24 w-24 flex-none rounded-lg bg-gray-800 object-cover",
+            data: {"upload-preview-target": "image"} %>
+    <% end %>
+    <div>
+      <%= form.file_field :logo, accept: "image/*", data: {upload_preview_target: "input", action: "upload-preview#previewImage"}, class: "hidden" %>
+      <%= form.label :logo, class: "inline-flex items-center btn btn-secondary" do %>
+        <%= inline_svg "icons/outline/camera.svg", class: "h-5 w-5 mr-2" %>
+        <%= t(".upload_new_logo") %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <div class="mt-5 flex items-center space-x-4 justify-end">
+    <% if form.object.new_record? %>
+      <%= link_to t("cancel"), organizations_path, class: "btn btn-secondary" %>
+    <% else %>
+      <%= link_to t("cancel"), organization, class: "btn btn-secondary" %>
+    <% end %>
+
+    <%= form.submit class: "btn btn-primary" %>
+  </div>
+<% end %>
