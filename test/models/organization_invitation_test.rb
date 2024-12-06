@@ -8,6 +8,38 @@ class OrganizationInvitationTest < ActiveSupport::TestCase
     @organization = @organization_invitation.organization
   end
 
+  test "valid organization invitation" do
+    assert_predicate @organization_invitation, :valid?
+  end
+
+  test "invalid without email" do
+    @organization_invitation.email = nil
+
+    assert_not @organization_invitation.valid?
+    assert_equal "can't be blank", @organization_invitation.errors[:email].first
+  end
+
+  test "invalid without name" do
+    @organization_invitation.name = nil
+
+    assert_not @organization_invitation.valid?
+    assert_equal "can't be blank", @organization_invitation.errors[:name].first
+  end
+
+  test "invalid without organization" do
+    @organization_invitation.organization = nil
+
+    assert_not @organization_invitation.valid?
+    assert_equal "must exist", @organization_invitation.errors[:organization].first
+  end
+
+  test "invalid without invited_by" do
+    @organization_invitation.invited_by = nil
+
+    assert_not @organization_invitation.valid?
+    assert_equal "must exist", @organization_invitation.errors[:invited_by].first
+  end
+
   test "cannot invite same email twice" do
     invitation = @organization.organization_invitations.create(name: "whatever", email: @organization_invitation.email)
 

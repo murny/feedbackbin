@@ -6,9 +6,9 @@ class PostPolicyTest < ActiveSupport::TestCase
   setup do
     # post two is owned by user one (whos not an admin)
     @post = posts(:two)
-    @user_membership = memberships(:feedback_regular_user_one)
-    @admin_membership = memberships(:feedback_admin)
-    @another_user_membership = memberships(:feedback_regular_user_invited)
+    @user_membership = memberships(:feedbackbin_regular_user_one)
+    @admin_membership = memberships(:feedbackbin_admin)
+    @another_user_membership = memberships(:feedbackbin_regular_user_two)
   end
 
   test "post index viewable by all" do

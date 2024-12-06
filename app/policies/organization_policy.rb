@@ -10,11 +10,13 @@ class OrganizationPolicy < ApplicationPolicy
   end
 
   def new?
-    true # TODO: Anyone can create an organization for now, later on this would be gate kept by stripe or something?
+    # TODO: Anyone can create an organization for now if they are logged in
+    # later on this would be gate kept by stripe or something?
+    membership.present?
   end
 
   def create?
-    admin?
+    new?
   end
 
   def edit?

@@ -4,10 +4,10 @@ require "test_helper"
 
 class UserPolicyTest < ActiveSupport::TestCase
   setup do
-    @user_membership = memberships(:feedback_regular_user_one)
+    @user_membership = memberships(:feedbackbin_regular_user_one)
     @user = @user_membership.user
-    @admin_membership = memberships(:feedback_admin)
-    @another_user_membership = memberships(:feedback_regular_user_invited)
+    @admin_membership = memberships(:feedbackbin_admin)
+    @another_user_membership = memberships(:feedbackbin_regular_user_two)
   end
 
   test "user show viewable by all" do

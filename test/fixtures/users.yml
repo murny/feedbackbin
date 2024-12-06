@@ -15,6 +15,13 @@ one:
   password_digest: <%= password_digest %>
   bio: Hi I'm Jane Doe
 
+two:
+  username: john_smith
+  name: John Smith
+  email_address: john.smith@feedbackbin.com
+  password_digest: <%= password_digest %>
+  bio: Hi I'm John Smith
+
 invited:
   username: invited_user
   name: Invited User

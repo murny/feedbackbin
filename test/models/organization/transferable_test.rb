@@ -24,7 +24,7 @@ class Organization::TransferableTest < ActiveSupport::TestCase
   end
 
   test "transfer ownership to a new owner" do
-    new_owner = users(:shane)
+    new_owner = users(:two)
 
     assert @organization.transfer_ownership(new_owner.id)
     assert_equal new_owner, @organization.reload.owner

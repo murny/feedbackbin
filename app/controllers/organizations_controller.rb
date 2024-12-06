@@ -31,8 +31,8 @@ class OrganizationsController < ApplicationController
   def create
     authorize Organization
 
-    @organization = Organization.new(organization_params)
-    @organization.memberships.build(user: Current.user, role: Membership.roles[:admin])
+    @organization = Organization.new(organization_params.merge(owner: Current.user))
+    @organization.memberships.build(user: Current.user, role: Membership.roles[:administrator])
 
     if @organization.save
       redirect_to organization_url(@organization), notice: t(".successfully_created")

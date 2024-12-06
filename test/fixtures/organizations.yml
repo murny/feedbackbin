@@ -5,9 +5,9 @@ feedbackbin:
 company:
   owner: one
   name: "Hooli"
-  domain: hooli.com
+  domain: "hooli.com"
 
-invited:
+other_organization:
   owner: invited
-  name: "Invited Organization"
-  domain: "invited.com"
+  name: "Other Organization"
+  domain: "other.com"

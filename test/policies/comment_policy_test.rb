@@ -6,9 +6,9 @@ class CommentPolicyTest < ActiveSupport::TestCase
   setup do
     # comment one is owned by user one (whos not an admin)
     @comment = comments(:one)
-    @user_membership = memberships(:feedback_regular_user_one)
-    @admin_membership = memberships(:feedback_admin)
-    @another_user_membership = memberships(:feedback_regular_user_invited)
+    @user_membership = memberships(:feedbackbin_regular_user_one)
+    @admin_membership = memberships(:feedbackbin_admin)
+    @another_user_membership = memberships(:feedbackbin_regular_user_two)
   end
 
   test "comment show viewable by all" do

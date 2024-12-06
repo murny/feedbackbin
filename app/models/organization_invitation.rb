@@ -2,15 +2,15 @@
 
 class OrganizationInvitation < ApplicationRecord
   belongs_to :organization
-  belongs_to :invited_by, class_name: "User", optional: true
+  belongs_to :invited_by, class_name: "User" # TODO: Should this be optional?
 
   has_secure_token
 
   validates :email, presence: true
-  validates :name, presence: true
+  validates :name, presence: true # TODO: Is name useful?
 
-  # TODO: Add email format validation and should this be scoped to organization_id?
-  validates :email, uniqueness: {scope: :organization_id, message: :invited}
+  # TODO: Should this be scoped to organization_id?
+  validates :email, uniqueness: {scope: :organization_id, message: :invited}, format: {with: URI::MailTo::EMAIL_REGEXP}
 
   def save_and_send_invite
     save && send_invite
