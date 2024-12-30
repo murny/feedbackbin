@@ -128,7 +128,7 @@ class Users::OmniauthControllerTest < ActionDispatch::IntegrationTest
       get "/auth/developer/callback"
     end
 
-    assert_redirected_to sign_up_path(user: {email_address: "", name: "No email given", username: "Noemailgiven"})
+    assert_redirected_to sign_up_path(user: {email_address: nil, name: "No email given", username: "Noemailgiven"})
     assert_equal "We could not create an account for you. Please finish the registration process.", flash[:alert]
   end
 
