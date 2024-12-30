@@ -20,7 +20,7 @@ TODO: Add description/screenshots/What is FeedbackBin? etc in this section
 ## Technology Stack
 
 * Ruby on Rails 8.X
-* Ruby 3.3.x
+* Ruby 3.4.x
 * Hotwire
 * Import maps
 * Solid Cable
