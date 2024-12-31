@@ -29,7 +29,7 @@ class FormBuilders::TailwindFormBuilderTest < ActionView::TestCase
     form = FormBuilders::TailwindFormBuilder.new(:user, @form_object, self, {})
 
     expected = %(<div class="mt-2 relative rounded-md shadow-sm">
-      <div>{:class=&gt;&quot;pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3&quot;}</div>
+      <div>{class: &quot;pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3&quot;}</div>
       <input leading_icon="true"
              class="block w-full rounded-md border-0 py-1.5 shadow-sm sm:text-sm sm:leading-6 ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-primary-600 dark:focus:ring-primary-500 dark:bg-white/5 text-gray-900 dark:text-white ring-gray-300 dark:ring-white/10 placeholder:text-gray-400 dark:placeholder:text-gray-500 pl-10"
              type="text"
