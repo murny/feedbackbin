@@ -79,6 +79,7 @@ group :development do
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
 
+  gem "hotwire-spark"
   gem "ruby-lsp-rails", require: false
 end
 

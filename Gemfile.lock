@@ -171,6 +171,10 @@ GEM
     hashie (5.0.0)
     highline (3.1.1)
       reline
+    hotwire-spark (0.1.12)
+      listen
+      rails (>= 7.0.0)
+      zeitwerk
     i18n (1.14.6)
       concurrent-ruby (~> 1.0)
     i18n-tasks (1.0.14)
@@ -518,6 +522,7 @@ DEPENDENCIES
   debug
   erb_lint
   erblint-github
+  hotwire-spark
   i18n-tasks
   image_processing (>= 1.2)
   importmap-rails
