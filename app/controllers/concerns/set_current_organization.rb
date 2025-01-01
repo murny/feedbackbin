@@ -14,7 +14,7 @@ module SetCurrentOrganization
   end
 
   def organization_from_domain
-    Organization.includes(:users).find_by(domain: request.domain)
+    Organization.includes(:users).find_by(domain: request.host)
   end
 
   def organization_from_subdomain
