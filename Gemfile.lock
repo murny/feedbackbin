@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/rails/rails.git
-  revision: be9aa73dd72f1097be5d45a58d7912447a266bd1
+  revision: da32425a0864f6da7bdd2a8d3a43027fbfb2a504
   branch: main
   specs:
     actioncable (8.1.0.alpha)
@@ -136,7 +136,7 @@ GEM
     childprocess (5.1.0)
       logger (~> 1.5)
     concurrent-ruby (1.3.4)
-    connection_pool (2.4.1)
+    connection_pool (2.5.0)
     crass (1.0.6)
     date (3.4.1)
     debug (1.10.0)
@@ -145,7 +145,7 @@ GEM
     dotenv (3.1.7)
     drb (2.2.1)
     ed25519 (1.3.0)
-    erb_lint (0.7.0)
+    erb_lint (0.8.0)
       activesupport
       better_html (>= 2.0.1)
       parser (>= 2.7.1.4)
@@ -174,7 +174,7 @@ GEM
     globalid (1.2.1)
       activesupport (>= 6.1)
     hashie (5.0.0)
-    highline (3.1.1)
+    highline (3.1.2)
       reline
     hotwire-spark (0.1.12)
       listen
@@ -268,7 +268,7 @@ GEM
       bigdecimal (~> 3.1)
     net-http (0.6.0)
       uri
-    net-imap (0.5.4)
+    net-imap (0.5.5)
       date
       net-protocol
     net-pop (0.1.2)
@@ -280,7 +280,6 @@ GEM
     net-sftp (4.0.0)
       net-ssh (>= 5.0.0, < 8.0.0)
     net-smtp (0.5.0)
-      net-protocol
     net-ssh (7.3.0)
     nio4r (2.7.4)
     nokogiri (1.18.1)
@@ -348,7 +347,8 @@ GEM
       base64 (>= 0.1.0)
       logger (>= 1.6.0)
       rack (>= 3.0.0, < 4)
-    rack-session (2.0.0)
+    rack-session (2.1.0)
+      base64 (>= 0.1.0)
       rack (>= 3.0.0)
     rack-test (2.2.0)
       rack (>= 1.3)
@@ -394,7 +394,7 @@ GEM
     rubocop-minitest (0.36.0)
       rubocop (>= 1.61, < 2.0)
       rubocop-ast (>= 1.31.1, < 2.0)
-    rubocop-performance (1.23.0)
+    rubocop-performance (1.23.1)
       rubocop (>= 1.48.1, < 2.0)
       rubocop-ast (>= 1.31.1, < 2.0)
     rubocop-rails (2.28.0)
@@ -402,18 +402,18 @@ GEM
       rack (>= 1.1)
       rubocop (>= 1.52.0, < 2.0)
       rubocop-ast (>= 1.31.1, < 2.0)
-    ruby-lsp (0.22.1)
+    ruby-lsp (0.23.2)
       language_server-protocol (~> 3.17.0)
       prism (>= 1.2, < 2.0)
       rbs (>= 3, < 4)
       sorbet-runtime (>= 0.5.10782)
-    ruby-lsp-rails (0.3.27)
-      ruby-lsp (>= 0.22.0, < 0.23.0)
+    ruby-lsp-rails (0.3.28)
+      ruby-lsp (>= 0.23.0, < 0.24.0)
     ruby-progressbar (1.13.0)
     ruby-vips (2.2.2)
       ffi (~> 1.12)
       logger
-    rubyzip (2.3.2)
+    rubyzip (2.4.1)
     securerandom (0.4.1)
     selenium-webdriver (4.27.0)
       base64 (~> 0.2)
@@ -441,7 +441,7 @@ GEM
       fugit (~> 1.11.0)
       railties (>= 7.1)
       thor (~> 1.3.1)
-    sorbet-runtime (0.5.11708)
+    sorbet-runtime (0.5.11734)
     sqlite3 (2.5.0-aarch64-linux-gnu)
     sqlite3 (2.5.0-arm-linux-gnu)
     sqlite3 (2.5.0-arm64-darwin)
@@ -481,11 +481,11 @@ GEM
     terminal-table (3.0.2)
       unicode-display_width (>= 1.1.1, < 3)
     thor (1.3.2)
-    thruster (0.1.9)
-    thruster (0.1.9-aarch64-linux)
-    thruster (0.1.9-arm64-darwin)
-    thruster (0.1.9-x86_64-darwin)
-    thruster (0.1.9-x86_64-linux)
+    thruster (0.1.10)
+    thruster (0.1.10-aarch64-linux)
+    thruster (0.1.10-arm64-darwin)
+    thruster (0.1.10-x86_64-darwin)
+    thruster (0.1.10-x86_64-linux)
     timeout (0.4.3)
     turbo-rails (2.0.11)
       actionpack (>= 6.0.0)
@@ -502,7 +502,8 @@ GEM
       bindex (>= 0.4.0)
       railties (>= 6.0.0)
     websocket (1.2.11)
-    websocket-driver (0.7.6)
+    websocket-driver (0.7.7)
+      base64
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
     xpath (3.2.0)
@@ -566,4 +567,4 @@ DEPENDENCIES
   web-console
 
 BUNDLED WITH
-   2.5.23
+   2.6.2
