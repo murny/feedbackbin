@@ -23,7 +23,7 @@ module SetCurrentOrganization
   end
 
   def organization_from_param
-    return unless (organization_id = params[:organization_id].presence)
+    return unless authenticated? && (organization_id = params[:organization_id].presence)
     Current.user.organizations.includes(:users).find_by(id: organization_id)
   end
 
