@@ -35,7 +35,7 @@ MAX_ATTEMPTS = 72
 ATTEMPTS_GAP = 10
 
 def exit_with_error(message)
-  $stderr.puts message
+  warn message
   exit 1
 end
 
@@ -63,7 +63,7 @@ class GithubStatusChecks
   end
 
   def complete_count
-    combined_status[:statuses].count { |status| status[:state] != "pending"}
+    combined_status[:statuses].count { |status| status[:state] != "pending" }
   end
 
   def total_count
@@ -78,7 +78,6 @@ class GithubStatusChecks
     end
   end
 end
-
 
 $stdout.sync = true
 
