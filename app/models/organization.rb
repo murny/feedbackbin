@@ -24,6 +24,6 @@ class Organization < ApplicationRecord
   scope :sorted, -> { order(name: :asc) }
 
   def owner?(user)
-    owner_id == user.id
+    owner_id == user&.id
   end
 end

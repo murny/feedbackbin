@@ -7,7 +7,6 @@ module.exports = {
     './app/helpers/**/*.rb',
     './app/javascript/**/*.js',
     './app/views/**/*.{erb,haml,html,slim}',
-    './app/models/form_builders/tailwind_form_builder.rb',
   ],
   theme: {
     extend: {
