@@ -418,12 +418,12 @@ GEM
       rubocop-minitest
       rubocop-performance
       rubocop-rails
-    ruby-lsp (0.23.5)
+    ruby-lsp (0.23.6)
       language_server-protocol (~> 3.17.0)
       prism (>= 1.2, < 2.0)
       rbs (>= 3, < 4)
       sorbet-runtime (>= 0.5.10782)
-    ruby-lsp-rails (0.3.29)
+    ruby-lsp-rails (0.3.30)
       ruby-lsp (>= 0.23.0, < 0.24.0)
     ruby-progressbar (1.13.0)
     ruby-vips (2.2.2)
@@ -457,7 +457,7 @@ GEM
       fugit (~> 1.11.0)
       railties (>= 7.1)
       thor (~> 1.3.1)
-    sorbet-runtime (0.5.11758)
+    sorbet-runtime (0.5.11763)
     sqlite3 (2.5.0)
       mini_portile2 (~> 2.8.0)
     sqlite3 (2.5.0-aarch64-linux-gnu)
@@ -731,8 +731,8 @@ CHECKSUMS
   rubocop-performance (1.23.1) sha256=f22f86a795f5e6a6180aac2c6fc172534b173a068d6ed3396d6460523e051b82
   rubocop-rails (2.28.0) sha256=4967bed9ea13e6dcab566fea4265a6dd0381db739b305e48930aba1282da2715
   rubocop-rails-omakase (1.0.0) sha256=26635821283d6a03dc8b68172123716a62db96123eb035f736ebb91283f96418
-  ruby-lsp (0.23.5) sha256=17c912936dc0a77d780163ae9489b3eca561d8903517b5c46f45e8234096c8e2
-  ruby-lsp-rails (0.3.29) sha256=634c703ebcde71adb3b16d807762c31bcf87e3d5afabec6c727c565971b27659
+  ruby-lsp (0.23.6) sha256=1ac55a42614e03ca5b4a0314fc399dd3aaa3464c84fb08528fa7bd41d324e7a6
+  ruby-lsp-rails (0.3.30) sha256=530161124458dd17cc86b09c7adc87076d8a03de3d4a6557136c85e999109de2
   ruby-progressbar (1.13.0) sha256=80fc9c47a9b640d6834e0dc7b3c94c9df37f08cb072b7761e4a71e22cff29b33
   ruby-vips (2.2.2) sha256=af5be8e9f2857a98424d7606ecfc2c21c5e107d0802915190dcc093f56e4dd5b
   rubyzip (2.4.1) sha256=8577c88edc1fde8935eb91064c5cb1aef9ad5494b940cf19c775ee833e075615
@@ -743,7 +743,7 @@ CHECKSUMS
   solid_cable (3.0.5) sha256=258ac22d103275b40affdf86421047899aab22376e78719cfe806c5561403459
   solid_cache (1.0.6) sha256=fe1acf73fbe4a6a53620425317949082d3b99e0cfd35416106b56220fa66c311
   solid_queue (1.1.2) sha256=178c9396d1cf0dac595c7508da90ddb397d25848ca007b5c5ed48e6ac6fc360c
-  sorbet-runtime (0.5.11758) sha256=241c5b3ddd35f8ee6391caa31a44f021a485db0c56f5933363945da606318513
+  sorbet-runtime (0.5.11763) sha256=c1d64148091de0973002413606aa4f14b82e13dfa79cbc8b01b0f5638bc934b8
   sqlite3 (2.5.0) sha256=87fa0036e6369c3f3cfeca749865c2b2b63649d3b17b223d1939a8eed4841a6b
   sqlite3 (2.5.0-aarch64-linux-gnu) sha256=302085c3b932c027bc8de9f45fb5d0a3dc502357908dcc8f9bc8a92e4e9c7ab1
   sqlite3 (2.5.0-aarch64-linux-musl) sha256=f6c8d25a6c7175bed154da82bc4c1ea3ef48580aeca17400b2e730c026821857
