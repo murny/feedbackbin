@@ -23,6 +23,7 @@ module Users
 
     def destroy
       terminate_session
+      clear_site_data
       redirect_back(fallback_location: sign_in_path, notice: t(".signed_out_successfully"))
     end
 
