@@ -10,7 +10,7 @@ class OrganizationInvitation < ApplicationRecord
   validates :name, presence: true # TODO: Is name useful?
 
   # TODO: Should this be scoped to organization_id?
-  validates :email, uniqueness: {scope: :organization_id, message: :invited}, format: {with: URI::MailTo::EMAIL_REGEXP}
+  validates :email, uniqueness: { scope: :organization_id, message: :invited }, format: { with: URI::MailTo::EMAIL_REGEXP }
 
   def save_and_send_invite
     save && send_invite

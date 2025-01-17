@@ -42,7 +42,7 @@ module Organizations
     end
 
     test "should update membership" do
-      patch organization_membership_url(@organization, @normal_membership), params: {membership: {role: "administrator"}}
+      patch organization_membership_url(@organization, @normal_membership), params: { membership: { role: "administrator" } }
 
       assert_redirected_to organization_memberships_url
       assert_predicate @normal_membership.reload, :administrator?
@@ -51,14 +51,14 @@ module Organizations
     test "should not update membership if not an admin" do
       sign_in @normal_membership.user
 
-      patch organization_membership_url(@organization, @normal_membership), params: {membership: {role: "administrator"}}
+      patch organization_membership_url(@organization, @normal_membership), params: { membership: { role: "administrator" } }
 
       assert_redirected_to root_url
       assert_predicate @normal_membership.reload, :member?
     end
 
     test "should not update membership if admin is an owner" do
-      patch organization_membership_url(@organization, @admin_membership), params: {membership: {role: "member"}}
+      patch organization_membership_url(@organization, @admin_membership), params: { membership: { role: "member" } }
 
       assert_response :unprocessable_entity
       assert_predicate @admin_membership.reload, :administrator?

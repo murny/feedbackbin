@@ -51,7 +51,7 @@ class CommentsController < ApplicationController
     @comment.destroy!
     respond_to do |format|
       flash.now[:notice] = t(".successfully_destroyed")
-      format.turbo_stream {}
+      format.turbo_stream { }
       format.html { redirect_to @comment.post, status: :see_other }
       format.json { head :no_content }
     end
@@ -64,6 +64,6 @@ class CommentsController < ApplicationController
   end
 
   def comment_params
-    params.expect(comment: [:body, :parent_id, :post_id])
+    params.expect(comment: [ :body, :parent_id, :post_id ])
   end
 end

@@ -23,22 +23,22 @@ class User < ApplicationRecord
 
   has_one_attached :avatar
 
-  enum :theme, {system: 0, light: 1, dark: 2}, default: :system, prefix: true, validate: true
+  enum :theme, { system: 0, light: 1, dark: 2 }, default: :system, prefix: true, validate: true
 
   validates :username, presence: true,
-    length: {minimum: 3, maximum: MAX_USERNAME_LENGTH},
-    uniqueness: {case_sensitive: false},
+    length: { minimum: 3, maximum: MAX_USERNAME_LENGTH },
+    uniqueness: { case_sensitive: false },
     format: {
       with: /\A[a-z0-9_]+\z/i
     }
 
   validates :email_address, presence: true,
-    uniqueness: {case_sensitive: false},
-    format: {with: URI::MailTo::EMAIL_REGEXP}
+    uniqueness: { case_sensitive: false },
+    format: { with: URI::MailTo::EMAIL_REGEXP }
 
-  validates :password, allow_nil: true, length: {minimum: 10}
+  validates :password, allow_nil: true, length: { minimum: 10 }
   validates :avatar, resizable_image: true, max_file_size: 2.megabytes
-  validates :bio, length: {maximum: 255}
+  validates :bio, length: { maximum: 255 }
 
   normalizes :email_address, with: ->(email) { email.strip.downcase }
   normalizes :username, with: ->(username) { username.squish }
@@ -55,7 +55,7 @@ class User < ApplicationRecord
   end
 
   def title
-    [name, bio].compact_blank.join(" – ")
+    [ name, bio ].compact_blank.join(" – ")
   end
 
   def deactivate

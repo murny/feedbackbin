@@ -20,7 +20,7 @@ class ActiveLinksHelperTest < ActionView::TestCase
       "Link with data attrs",
       "/link-with-data-attrs",
       class: "link-primary",
-      data: {test: "foo"}
+      data: { test: "foo" }
     )
 
     assert_equal '<a class="link-primary" data-test="foo" href="/link-with-data-attrs">Link with data attrs</a>', link_with_data_attrs

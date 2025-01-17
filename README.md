@@ -48,7 +48,7 @@ By default `bin/setup` will also run `bin/dev` which will start the Rails server
 
 #### Ruby
 
-We use [Standard Ruby](https://github.com/standardrb/standard) for linting and formatting.
+We use Rubocop for linting and formatting.
 - Run `bin/rubocop` to check all ruby files
 - Run `bin/rubocop -a` to auto-correct offenses
 - [How do I run RuboCop in my editor?](https://docs.rubocop.org/rubocop/1.25/integration_with_other_tools.html#editor-integration)

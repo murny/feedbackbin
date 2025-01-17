@@ -22,73 +22,73 @@ module FormBuilders
 
     def text_field(attribute, options = {}, &block)
       if options[:leading_icon]
-        default_opts = {class: "#{classes_for_input(attribute, options)} pl-10"}
+        default_opts = { class: "#{classes_for_input(attribute, options)} pl-10" }
 
         text_layout(attribute) { leading_icon(&block) + super(attribute, options.merge(default_opts)) } + attribute_error_message(attribute)
       else
-        default_opts = {class: classes_for_input(attribute, options)}
+        default_opts = { class: classes_for_input(attribute, options) }
 
         text_layout(attribute) { super(attribute, options.merge(default_opts)) } + attribute_error_message(attribute)
       end
     end
 
     def email_field(attribute, options = {})
-      default_opts = {class: classes_for_input(attribute, options)}
+      default_opts = { class: classes_for_input(attribute, options) }
 
       text_layout(attribute) { super(attribute, options.merge(default_opts)) } + attribute_error_message(attribute)
     end
 
     def date_field(attribute, options = {})
-      default_opts = {class: classes_for_input(attribute, options)}
+      default_opts = { class: classes_for_input(attribute, options) }
 
       text_layout(attribute) { super(attribute, options.merge(default_opts)) } + attribute_error_message(attribute)
     end
 
     def password_field(attribute, options = {})
-      default_opts = {class: classes_for_input(attribute, options)}
+      default_opts = { class: classes_for_input(attribute, options) }
 
       text_layout(attribute) { super(attribute, options.merge(default_opts)) } + attribute_error_message(attribute)
     end
 
     def text_area(attribute, options = {})
-      default_opts = {class: "mt-1 #{classes_for_input(attribute, options)}"}
+      default_opts = { class: "mt-1 #{classes_for_input(attribute, options)}" }
 
       text_layout(attribute) { super(attribute, options.merge(default_opts)) } + attribute_error_message(attribute)
     end
 
     def rich_text_area(attribute, options = {})
-      default_opts = {class: "mt-1 #{classes_for_input(attribute, options)}"}
+      default_opts = { class: "mt-1 #{classes_for_input(attribute, options)}" }
 
       text_layout(attribute) { super(attribute, options.merge(default_opts)) } + attribute_error_message(attribute)
     end
 
     def label(attribute, text = nil, options = {}, &)
-      default_opts = {class: classes_for_label(attribute, options)}
+      default_opts = { class: classes_for_label(attribute, options) }
 
       super(attribute, text, options.merge(default_opts), &)
     end
 
     def check_box(attribute, options = {}, checked_value = "1", unchecked_value = "0")
-      default_opts = {class: [CHECKBOX_CLASSES, options[:class]].compact.join(" ")}
+      default_opts = { class: [ CHECKBOX_CLASSES, options[:class] ].compact.join(" ") }
 
       super(attribute, options.merge(default_opts), checked_value, unchecked_value)
     end
 
     # TODO: Style select/check box?/time_zone_select with error styles
     def select(attribute, choices, options = {}, html_options = {})
-      default_opts = {class: [SELECT_CLASSES, html_options[:class]].compact.join(" ")}
+      default_opts = { class: [ SELECT_CLASSES, html_options[:class] ].compact.join(" ") }
 
       super(attribute, choices, options, html_options.merge(default_opts)) + attribute_error_message(attribute)
     end
 
     def time_zone_select(attribute, priority_zones = nil, options = {}, html_options = {})
-      default_opts = {class: [SELECT_CLASSES, html_options[:class]].compact.join(" ")}
+      default_opts = { class: [ SELECT_CLASSES, html_options[:class] ].compact.join(" ") }
 
       super(attribute, priority_zones, options, html_options.merge(default_opts)) + attribute_error_message(attribute)
     end
 
     def submit(value = nil, options = {})
-      default_opts = {class: [SUBMIT_CLASSES, options[:class]].compact.join(" ")}
+      default_opts = { class: [ SUBMIT_CLASSES, options[:class] ].compact.join(" ") }
 
       super(value, options.merge(default_opts))
     end
@@ -102,7 +102,7 @@ module FormBuilders
         INPUT_VALID_CLASSES
       end
 
-      [classes, options[:class]].compact.join(" ")
+      [ classes, options[:class] ].compact.join(" ")
     end
 
     def classes_for_label(attribute, options)
@@ -112,7 +112,7 @@ module FormBuilders
         LABEL_VALID_CLASSES
       end
 
-      [classes, options[:class]].compact.join(" ")
+      [ classes, options[:class] ].compact.join(" ")
     end
 
     def text_layout(attribute)

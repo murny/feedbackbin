@@ -15,7 +15,7 @@ module UserSettings
     end
 
     test "should be able to update profile" do
-      patch user_settings_profile_url, params: {user: {name: "Murny", bio: "I am a developer"}}
+      patch user_settings_profile_url, params: { user: { name: "Murny", bio: "I am a developer" } }
 
       assert_redirected_to user_settings_profile_url
       assert_equal "Your profile has been updated.", flash[:notice]

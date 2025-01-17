@@ -16,23 +16,23 @@ Rails.application.routes.draw do
   post "/auth/:provider/callback", to: "users/omniauth#create"
 
   namespace :users do
-    resources :password_resets, param: :token, only: [:new, :create, :edit, :update]
-    resource :session, only: [:create, :destroy]
-    resource :email_verification, only: [:show, :create]
-    resources :registrations, only: [:create]
+    resources :password_resets, param: :token, only: [ :new, :create, :edit, :update ]
+    resource :session, only: [ :create, :destroy ]
+    resource :email_verification, only: [ :show, :create ]
+    resources :registrations, only: [ :create ]
   end
 
   namespace :user_settings do
-    resource :account, only: [:show, :update]
-    resources :active_sessions, only: [:index, :destroy]
-    resources :connected_accounts, only: [:destroy]
-    resource :email, only: [:update]
-    resource :password, only: [:show, :update]
-    resource :preferences, only: [:show, :update]
-    resource :profile, only: [:show, :update]
+    resource :account, only: [ :show, :update ]
+    resources :active_sessions, only: [ :index, :destroy ]
+    resources :connected_accounts, only: [ :destroy ]
+    resource :email, only: [ :update ]
+    resource :password, only: [ :show, :update ]
+    resource :preferences, only: [ :show, :update ]
+    resource :profile, only: [ :show, :update ]
   end
 
-  resources :users, only: [:show, :destroy] do
+  resources :users, only: [ :show, :destroy ] do
     scope module: "users" do
       resource :avatar, only: %i[show destroy]
     end
@@ -42,11 +42,11 @@ Rails.application.routes.draw do
     route_for :user_avatar, user, v: user.updated_at.to_fs(:number)
   end
 
-  resource :like, only: [:update]
+  resource :like, only: [ :update ]
 
   resources :posts
-  resources :comments, except: [:index, :new]
-  resources :changelogs, only: [:index, :show]
+  resources :comments, except: [ :index, :new ]
+  resources :changelogs, only: [ :index, :show ]
 
   resources :organizations do
     resources :organization_invitations, module: :organizations, only: %i[new create]

@@ -22,14 +22,14 @@ class Users::SessionsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should sign in" do
-    post users_session_url, params: {email_address: @user.email_address, password: "secret123456"}
+    post users_session_url, params: { email_address: @user.email_address, password: "secret123456" }
 
     assert_redirected_to root_url
     assert_equal "You have signed in successfully.", flash[:notice]
   end
 
   test "should not sign in with wrong credentials" do
-    post users_session_url, params: {email_address: @user.email_address, password: "SecretWrong1*3"}
+    post users_session_url, params: { email_address: @user.email_address, password: "SecretWrong1*3" }
 
     assert_redirected_to sign_in_url
     assert_equal "Try another email address or password.", flash[:alert]

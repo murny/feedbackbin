@@ -23,7 +23,7 @@ module UserSettings
     private
 
     def user_params
-      params.expect(user: [:email_address, :password_challenge])
+      params.expect(user: [ :email_address, :password_challenge ])
     end
 
     def set_user

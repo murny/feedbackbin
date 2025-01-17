@@ -5,5 +5,5 @@ class Like < ApplicationRecord
   belongs_to :likeable, polymorphic: true, counter_cache: true, touch: true
   belongs_to :organization, default: -> { Current.organization }
 
-  validates :voter_id, uniqueness: {scope: %i[likeable_type likeable_id]}
+  validates :voter_id, uniqueness: { scope: %i[likeable_type likeable_id] }
 end

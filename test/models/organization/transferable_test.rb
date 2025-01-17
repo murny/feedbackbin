@@ -18,7 +18,7 @@ class Organization::TransferableTest < ActiveSupport::TestCase
   end
 
   test "can_transfer? false for single user" do
-    @organization.users = [@organization.owner]
+    @organization.users = [ @organization.owner ]
 
     assert_not @organization.can_transfer?(@organization.owner)
   end

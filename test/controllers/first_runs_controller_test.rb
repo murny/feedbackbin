@@ -32,7 +32,7 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
     assert_difference "Category.count" do
       assert_difference "User.count" do
         post first_run_url, params: {
-          organization: {name: "FeedbackBin"},
+          organization: { name: "FeedbackBin" },
           user: {
             username: "new_person",
             email_address: "new@feedbackbin.com",

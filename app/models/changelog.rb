@@ -7,7 +7,7 @@ class Changelog < ApplicationRecord
 
   has_rich_text :description
 
-  validates :kind, presence: true, inclusion: {in: TYPES}
+  validates :kind, presence: true, inclusion: { in: TYPES }
   validates :title, presence: true
   validates :description, presence: true
 

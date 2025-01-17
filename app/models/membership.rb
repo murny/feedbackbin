@@ -6,7 +6,7 @@ class Membership < ApplicationRecord
   belongs_to :organization, counter_cache: true
   belongs_to :user
 
-  validates :user, uniqueness: {scope: :organization_id}
+  validates :user, uniqueness: { scope: :organization_id }
   validate :owner_must_be_administrator, on: :update, if: -> { role_changed? && organization_owner? }
 
   def organization_owner?

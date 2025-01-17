@@ -11,7 +11,7 @@ class Users::OmniauthControllerTest < ActionDispatch::IntegrationTest
     user_connected_account = user_connected_accounts(:shane_google)
 
     OmniAuth.config.add_mock(:google, uid: user_connected_account.provider_uid,
-      info: {email: "shane.murnaghan@feedbackbin.com", name: "Shane Murnaghan", nickname: "murny"})
+      info: { email: "shane.murnaghan@feedbackbin.com", name: "Shane Murnaghan", nickname: "murny" })
 
     get "/auth/google/callback"
 
@@ -100,7 +100,7 @@ class Users::OmniauthControllerTest < ActionDispatch::IntegrationTest
     assert_not_equal connected_account.user, user
 
     sign_in user
-    OmniAuth.config.add_mock(:google, uid: connected_account.provider_uid, info: {email: connected_account.user.email_address})
+    OmniAuth.config.add_mock(:google, uid: connected_account.provider_uid, info: { email: connected_account.user.email_address })
     get "/auth/google/callback"
 
     assert_predicate user.user_connected_accounts, :none?
@@ -113,7 +113,7 @@ class Users::OmniauthControllerTest < ActionDispatch::IntegrationTest
 
     sign_in user
 
-    OmniAuth.config.add_mock(:google, uid: connected_account.provider_uid, info: {email: connected_account.user.email_address})
+    OmniAuth.config.add_mock(:google, uid: connected_account.provider_uid, info: { email: connected_account.user.email_address })
 
     get "/auth/google/callback"
 
@@ -122,13 +122,13 @@ class Users::OmniauthControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "when creating a new user, should send user to registration page if failure" do
-    OmniAuth.config.add_mock(:developer, uid: "test", info: {name: "No email given"})
+    OmniAuth.config.add_mock(:developer, uid: "test", info: { name: "No email given" })
 
     assert_no_difference "User.count" do
       get "/auth/developer/callback"
     end
 
-    assert_redirected_to sign_up_path(user: {email_address: nil, name: "No email given", username: "Noemailgiven"})
+    assert_redirected_to sign_up_path(user: { email_address: nil, name: "No email given", username: "Noemailgiven" })
     assert_equal "We could not create an account for you. Please finish the registration process.", flash[:alert]
   end
 

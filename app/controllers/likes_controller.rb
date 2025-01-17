@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class LikesController < ApplicationController
-  LIKEABLE_APPROVELIST = ["Post", "Comment"].freeze
+  LIKEABLE_APPROVELIST = [ "Post", "Comment" ].freeze
 
   skip_after_action :verify_authorized
 

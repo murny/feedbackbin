@@ -1,12 +1,11 @@
+
+inherit_gem: { rubocop-rails-omakase: rubocop.yml }
+
 require:
   - rubocop-capybara
   - rubocop-minitest
   - rubocop-performance
   - rubocop-rails
-  - standard
-
-inherit_gem:
-  standard: config/base.yml
 
 AllCops:
   SuggestExtensions: false
@@ -32,3 +31,11 @@ Rails/DynamicFindBy:
 Style/FrozenStringLiteralComment:
   Enabled: true
 
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+# Style/ClassAndModuleChildren:
+#   EnforcedStyle: nested
+
+# Layout/LineLength:
+#   Max: 120

@@ -3,7 +3,7 @@
 module Organizations
   class MembershipsController < ApplicationController
     before_action :set_organization
-    before_action :set_membership, only: [:edit, :update, :destroy]
+    before_action :set_membership, only: [ :edit, :update, :destroy ]
 
     def index
       authorize Membership

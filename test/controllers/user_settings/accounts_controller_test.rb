@@ -15,7 +15,7 @@ module UserSettings
     end
 
     test "should be able to update account" do
-      patch user_settings_account_url, params: {user: {username: "new_username"}}
+      patch user_settings_account_url, params: { user: { username: "new_username" } }
 
       assert_redirected_to user_settings_account_url
       assert_equal "Your account has been updated.", flash[:notice]

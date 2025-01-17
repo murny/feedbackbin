@@ -27,7 +27,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     sign_in @user
 
     assert_difference "Comment.count" do
-      post comments_url, params: {comment: {post_id: @post.id, body: "Hello, world!"}}
+      post comments_url, params: { comment: { post_id: @post.id, body: "Hello, world!" } }
     end
 
     assert_response :redirect
@@ -39,7 +39,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
 
   test "should not create comment if not authenticated" do
     assert_no_difference "Comment.count" do
-      post comments_url, params: {comment: {post_id: @post.id, body: "Hello, world!"}}
+      post comments_url, params: { comment: { post_id: @post.id, body: "Hello, world!" } }
     end
 
     assert_response :redirect
@@ -49,7 +49,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
   test "should update comment if authenticated" do
     sign_in @user
 
-    patch comment_url(@comment), params: {comment: {body: "This is a new body"}}
+    patch comment_url(@comment), params: { comment: { body: "This is a new body" } }
 
     assert_response :redirect
     assert_redirected_to comment_url(@comment), notice: "Comment was successfully updated."

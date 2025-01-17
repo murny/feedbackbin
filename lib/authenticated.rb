@@ -23,7 +23,7 @@ module Authenticated
   end
 
   class ForbiddenConstraint
-    def matches?(request) = false
+    def matches?(_request) = false
   end
 
   ROLES = {

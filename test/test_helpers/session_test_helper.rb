@@ -7,7 +7,7 @@ module SessionTestHelper
 
   def sign_in(user)
     user = users(user) unless user.is_a? User
-    post users_session_url, params: {email_address: user.email_address, password: "secret123456"}
+    post users_session_url, params: { email_address: user.email_address, password: "secret123456" }
 
     assert_predicate cookies[:session_id], :present?
   end

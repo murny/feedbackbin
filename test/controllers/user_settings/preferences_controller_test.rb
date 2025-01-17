@@ -15,7 +15,7 @@ module UserSettings
     end
 
     test "should be able to update preferences" do
-      patch user_settings_preferences_url, params: {user: {theme: "dark"}}
+      patch user_settings_preferences_url, params: { user: { theme: "dark" } }
 
       assert_redirected_to user_settings_preferences_url
       assert_equal "Your preferences have been updated.", flash[:notice]
