@@ -11,7 +11,7 @@
            url: user_settings_password_path,
            method: :patch,
            class: "md:col-span-2",
-           data: {controller: "form", action: "keydown.enter->form#submit:prevent"}) do |form| %>
+           data: { controller: "form", action: "keydown.enter->form#submit:prevent" }) do |form| %>
       <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:max-w-xl sm:grid-cols-6">
         <div class="col-span-full">
           <%= form.label :password_challenge, "Current password" %>

@@ -19,7 +19,7 @@
         <%= button_to "Remove",
               organization_membership_path(membership.organization, membership),
               method: :delete,
-              data: {turbo_confirm: "Are you sure?"},
+              data: { turbo_confirm: "Are you sure?" },
               class: "btn btn-danger" %>
       </div>
     <% end %>

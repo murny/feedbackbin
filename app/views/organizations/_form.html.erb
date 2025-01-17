@@ -4,20 +4,20 @@
   <%= form.label :name %>
   <%= form.text_field :name, autofocus: true %>
 
-  <%= tag.div data: {controller: "upload-preview"} do %>
+  <%= tag.div data: { controller: "upload-preview" } do %>
     <% if organization.logo.attached? %>
       <%= image_tag organization.logo,
             role: "presentation",
             class: "h-24 w-24 flex-none rounded-lg bg-gray-800 object-cover",
-            data: {"upload-preview-target": "image"} %>
+            data: { "upload-preview-target": "image" } %>
     <% else %>
       <%= image_tag "default-logo.svg",
             role: "presentation",
             class: "h-24 w-24 flex-none rounded-lg bg-gray-800 object-cover",
-            data: {"upload-preview-target": "image"} %>
+            data: { "upload-preview-target": "image" } %>
     <% end %>
     <div>
-      <%= form.file_field :logo, accept: "image/*", data: {upload_preview_target: "input", action: "upload-preview#previewImage"}, class: "hidden" %>
+      <%= form.file_field :logo, accept: "image/*", data: { upload_preview_target: "input", action: "upload-preview#previewImage" }, class: "hidden" %>
       <%= form.label :logo, class: "inline-flex items-center btn btn-secondary" do %>
         <%= inline_svg "icons/outline/camera.svg", class: "h-5 w-5 mr-2" %>
         <%= t(".upload_new_logo") %>

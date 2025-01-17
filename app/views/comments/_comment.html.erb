@@ -5,7 +5,7 @@
     <div class="p-4 lg:p-6 mb-6 text-base bg-white border border-gray-100 dark:border-gray-700 rounded-lg dark:bg-gray-800">
       <div class="flex">
         <div class="mr-4">
-          <%= render partial: "likes/like_button", locals: {likeable: comment} %>
+          <%= render partial: "likes/like_button", locals: { likeable: comment } %>
         </div>
         <div class="w-full">
           <div class="flex justify-between items-center mb-2 w-full">
@@ -45,7 +45,7 @@
                       <%= link_to "Edit", edit_comment_path(comment), class: "block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
                     </li>
                     <li>
-                      <%= button_to "Remove", comment_path(comment), method: :delete, data: {turbo_confirm: "Are you sure?"}, class: "block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
+                      <%= button_to "Remove", comment_path(comment), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
                     </li>
                     <li>
                       <a href="#"
@@ -64,7 +64,7 @@
         <%= render partial: "comments/reply", collection: comment.replies.ordered, as: :comment %>
       </div>
 
-      <%= render partial: "comments/reply_form", locals: {parent: comment, comment: Comment.new} %>
+      <%= render partial: "comments/reply_form", locals: { parent: comment, comment: Comment.new } %>
     </div>
   </div>
 <% end %>

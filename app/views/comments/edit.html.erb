@@ -1,7 +1,7 @@
 <%= turbo_frame_tag @comment do %>
   <% if @comment.parent %>
-    <%= render partial: "comments/reply_form", locals: {parent: @comment.parent, comment: @comment, show_form: true} %>
+    <%= render partial: "comments/reply_form", locals: { parent: @comment.parent, comment: @comment, show_form: true } %>
   <% else %>
-    <%= render partial: "comments/form", locals: {post: @comment.post, comment: @comment} %>
+    <%= render partial: "comments/form", locals: { post: @comment.post, comment: @comment } %>
   <% end %>
 <% end %>

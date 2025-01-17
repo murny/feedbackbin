@@ -1,6 +1,6 @@
 <%# locals: (comment:) %>
 
-<%= turbo_frame_tag comment, data: {controller: "comment-reply"} do %>
+<%= turbo_frame_tag comment, data: { controller: "comment-reply" } do %>
   <%= tag.div class: "ml-8 p-4 lg:p-6 mb-6 text-base bg-white border border-gray-100 dark:border-gray-700 rounded-lg dark:bg-gray-800" do %>
     <div class="flex">
       <div class="w-full">
@@ -41,7 +41,7 @@
                     <%= link_to "Edit", edit_comment_path(comment), class: "block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
                   </li>
                   <li>
-                    <%= button_to "Remove", comment_path(comment), method: :delete, data: {turbo_confirm: "Are you sure?"}, class: "block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
+                    <%= button_to "Remove", comment_path(comment), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
                   </li>
                   <li>
                     <a href="#"

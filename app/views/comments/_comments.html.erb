@@ -17,6 +17,6 @@
       <%= render partial: "comments/comment", collection: post.comments.where(parent_id: nil).ordered %>
     <% end %>
 
-    <%= render partial: "comments/form", locals: {comment: comment, post: post} %>
+    <%= render partial: "comments/form", locals: { comment: comment, post: post } %>
   </div>
 </section>

@@ -14,12 +14,12 @@
       <label class="align-center center gap" data-controller="upload-preview">
         <div class="btn>
           <%= form.file_field :avatar, class: "input", accept: "image/*",
-                data: {upload_preview_target: "input", action: "upload-preview#previewImage"} %>
+                data: { upload_preview_target: "input", action: "upload-preview#previewImage" } %>
           <span class=" sr-only ">Add your avatar</span>
         </div>
 
         <div class=" btn avatar txt-xx-large ">
-          <%= image_tag "default-avatar.svg", role: "presentation", data: {upload_preview_target: "image"}, alt: "Add your avatar" %>
+          <%= image_tag "default-avatar.svg", role: "presentation", data: { upload_preview_target: "image" }, alt: "Add your avatar" %>
           <span class=" sr-only ">Avatar</span>
         </div>
       </label>

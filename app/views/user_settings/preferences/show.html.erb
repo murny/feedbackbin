@@ -11,7 +11,7 @@
       <%= form_with(model: @user,
             url: user_settings_preferences_path,
             method: :patch,
-            data: {controller: "form", action: "keydown.enter->form#submit:prevent"}) do |form| %>
+            data: { controller: "form", action: "keydown.enter->form#submit:prevent" }) do |form| %>
         <%= render "error_messages", resource: form.object %>
 
         <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:max-w-xl sm:grid-cols-6">

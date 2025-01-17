@@ -2,9 +2,9 @@
 
 <% if authenticated? %>
  <div data-controller="comment-reply">
-    <%= button_tag "Write a reply", class: "btn btn-secondary btn-block #{show_form ? "hidden" : ""}", data: {comment_reply_target: "button", action: "click->comment-reply#toggle"} %>
+    <%= button_tag "Write a reply", class: "btn btn-secondary btn-block #{show_form ? "hidden" : ""}", data: { comment_reply_target: "button", action: "click->comment-reply#toggle" } %>
 
-    <%= tag.div id: "comment_#{parent.id}_new_reply", data: {comment_reply_target: "form"}, class: (show_form ? "" : "hidden").to_s do %>
+    <%= tag.div id: "comment_#{parent.id}_new_reply", data: { comment_reply_target: "form" }, class: (show_form ? "" : "hidden").to_s do %>
       <div class="flex items-start">
         <%= form_with model: comment, class: "my-4 w-full" do |form| %>
           <%= render "error_messages", resource: form.object %>
@@ -19,7 +19,7 @@
               <%= link_to "Cancel", comment_path(parent), class: "btn btn-secondary" %>
             <% else %>
               <%= form.submit "Create Reply", class: "btn btn-primary" %>
-              <%= button_tag "Cancel", class: "btn btn-secondary", data: {action: "click->comment-reply#toggle"} %>
+              <%= button_tag "Cancel", class: "btn btn-secondary", data: { action: "click->comment-reply#toggle" } %>
             <% end %>
           </div>
         <% end %>

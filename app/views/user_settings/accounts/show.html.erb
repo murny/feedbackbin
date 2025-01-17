@@ -11,7 +11,7 @@
           url: user_settings_account_path,
           method: :patch,
           class: "md:col-span-2",
-          data: {controller: "form", action: "keydown.enter->form#submit:prevent"}) do |form| %>
+          data: { controller: "form", action: "keydown.enter->form#submit:prevent" }) do |form| %>
       <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:max-w-xl sm:grid-cols-6">
           <div class="col-span-full">
             <%= form.label :username %>
@@ -42,7 +42,7 @@
           url: user_settings_email_path,
           method: :patch,
           class: "md:col-span-2",
-          data: {controller: "form", action: "keydown.enter->form#submit:prevent"}) do |form| %>
+          data: { controller: "form", action: "keydown.enter->form#submit:prevent" }) do |form| %>
       <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:max-w-xl sm:grid-cols-6">
         <div class="col-span-full">
           <%= form.label :email_address %>
@@ -75,7 +75,7 @@
     <div class="col-span-2">
       <div class="my-2 flex flex-wrap gap-x-4 gap-y-2">
         <%# TODO: providers list should come from global config %>
-        <% omniauth_providers = ["google", "facebook"] %>
+        <% omniauth_providers = [ "google", "facebook" ] %>
         <% omniauth_providers << "developer" unless Rails.env.production? %>
         <% omniauth_providers.each do |provider| %>
           <% if (connected_account = @user_connected_accounts.find_by(provider_name: provider)) %>
@@ -88,7 +88,7 @@
           <% else %>
             <%= button_to "/auth/#{provider}",
                   method: :post,
-                  data: {turbo: false, disable_with: t(".redirecting")},
+                  data: { turbo: false, disable_with: t(".redirecting") },
                   class: "flex items-center justify-center btn btn-secondary btn-block" do %>
               <%= inline_svg_tag "icons/brand/#{provider}.svg", class: "h-5 w-5 mr-2" %>
               <span class="text-sm font-semibold leading-6"><%= t("oauth.connect_with", provider: OmniAuth::Utils.camelize(provider)) %></span>
@@ -106,7 +106,7 @@
     </div>
 
     <div class="flex items-start md:col-span-2">
-      <%= button_to user_path(@user), method: :delete, data: {turbo_confirm: "Are you sure?"}, class: "rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-400" do %>
+      <%= button_to user_path(@user), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-400" do %>
         Yes, delete my account
       <% end %>
     </div>

@@ -12,12 +12,12 @@
 
 <div class="mt-6 grid grid-cols-1 gap-4">
   <%# TODO: providers list should come from global config %>
-  <% omniauth_providers = ["google", "facebook"] %>
+  <% omniauth_providers = [ "google", "facebook" ] %>
     <% omniauth_providers << "developer" unless Rails.env.production? %>
     <% omniauth_providers.each do |provider| %>
       <%= button_to "/auth/#{provider}",
             method: :post,
-            data: {turbo: false},
+            data: { turbo: false },
             class: "flex items-center justify-center btn btn-secondary btn-block" do %>
         <%= inline_svg_tag "icons/brand/#{provider}.svg", class: "h-5 w-5 mr-2" %>
         <span class="text-sm font-semibold leading-6"><%= t("oauth.sign_in_with", provider: OmniAuth::Utils.camelize(provider)) %></span>
