@@ -5,6 +5,8 @@ require "test_helper"
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   include SystemTestHelper
 
+  Capybara.default_max_wait_time = 5 # Set the wait time in seconds
+
   if ENV["CAPYBARA_SERVER_PORT"]
     served_by host: "rails-app", port: ENV["CAPYBARA_SERVER_PORT"]
 
