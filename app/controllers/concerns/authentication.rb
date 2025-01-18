@@ -58,6 +58,9 @@ module Authentication
   end
 
   def clear_site_data
-    response.headers["Clear-Site-Data"] = '"cache","storage"'
+    # TODO: This is extremly slow, on local it takes at least 5 seconds to clear and is failing system tests.
+    # Lets comment this out for now until we can find a better solution. Maybe cache and storage is too much?
+    # More info: https://github.com/rails/rails/pull/54230
+    # response.headers["Clear-Site-Data"] = '"cache","storage"'
   end
 end
