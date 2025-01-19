@@ -74,9 +74,9 @@ class User < ApplicationRecord
 
   private
 
-  def deactived_email_address
-    email_address.gsub(/@/, "-deactivated-#{SecureRandom.uuid}@")
-  end
+    def deactived_email_address
+      email_address.gsub(/@/, "-deactivated-#{SecureRandom.uuid}@")
+    end
 
   def close_remote_connections
     ActionCable.server.remote_connections.where(current_user: self).disconnect reconnect: false

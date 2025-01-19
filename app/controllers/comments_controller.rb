@@ -59,9 +59,9 @@ class CommentsController < ApplicationController
 
   private
 
-  def set_comment
-    @comment = Comment.find(params.expect(:id))
-  end
+    def set_comment
+      @comment = Comment.find(params.expect(:id))
+    end
 
   def comment_params
     params.expect(comment: [ :body, :parent_id, :post_id ])

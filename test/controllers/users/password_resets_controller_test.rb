@@ -2,10 +2,11 @@
 
 require "test_helper"
 
-class Users::PasswordResetsControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    @user = users(:shane)
-  end
+module Users
+  class PasswordResetsControllerTest < ActionDispatch::IntegrationTest
+    setup do
+      @user = users(:shane)
+    end
 
   test "should get new" do
     get new_users_password_reset_url
@@ -71,5 +72,6 @@ class Users::PasswordResetsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to new_users_password_reset_url
     assert_equal "Password reset link is invalid or has expired.", flash[:alert]
+  end
   end
 end

@@ -2,8 +2,9 @@
 
 require "test_helper"
 
-class Organization::TransferableTest < ActiveSupport::TestCase
-  include ActiveJob::TestHelper
+class Organization
+  class TransferableTest < ActiveSupport::TestCase
+    include ActiveJob::TestHelper
 
   setup do
     @organization = organizations(:company)
@@ -35,5 +36,6 @@ class Organization::TransferableTest < ActiveSupport::TestCase
 
     assert_not @organization.transfer_ownership(users(:invited).id)
     assert_equal owner, @organization.reload.owner
+  end
   end
 end

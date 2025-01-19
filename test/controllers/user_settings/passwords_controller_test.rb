@@ -2,10 +2,11 @@
 
 require "test_helper"
 
-class UserSettings::PasswordsControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    sign_in(users(:one))
-  end
+module UserSettings
+  class PasswordsControllerTest < ActionDispatch::IntegrationTest
+    setup do
+      sign_in(users(:one))
+    end
 
   test "should get show" do
     get user_settings_password_url
@@ -20,5 +21,6 @@ class UserSettings::PasswordsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to user_settings_password_url
     assert_equal "Your password has been changed.", flash[:notice]
+  end
   end
 end

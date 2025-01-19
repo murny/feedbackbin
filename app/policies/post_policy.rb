@@ -37,9 +37,9 @@ class PostPolicy < ApplicationPolicy
 
   private
 
-  def owned?
-    record && membership && record.author == membership.user
-  end
+    def owned?
+      record && membership && record.author == membership.user
+    end
 
   class Scope < ApplicationPolicy::Scope
     # NOTE: Be explicit about which records you allow access to!

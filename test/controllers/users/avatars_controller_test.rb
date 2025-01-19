@@ -2,10 +2,11 @@
 
 require "test_helper"
 
-class Users::AvatarsControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    @user = users(:one)
-  end
+module Users
+  class AvatarsControllerTest < ActionDispatch::IntegrationTest
+    setup do
+      @user = users(:one)
+    end
 
   test "show initials" do
     get user_avatar_url(@user)
@@ -30,5 +31,6 @@ class Users::AvatarsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to user_settings_profile_url
     assert_not_predicate @shane.reload.avatar, :attached?
+  end
   end
 end

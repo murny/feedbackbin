@@ -2,11 +2,12 @@
 
 require "test_helper"
 
-class Users::EmailVerificationsControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    @user = users(:shane)
-    @user.update!(email_verified: false)
-  end
+module Users
+  class EmailVerificationsControllerTest < ActionDispatch::IntegrationTest
+    setup do
+      @user = users(:shane)
+      @user.update!(email_verified: false)
+    end
 
   test "should send a verification email" do
     sign_in(@user)
@@ -37,5 +38,6 @@ class Users::EmailVerificationsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to root_url
     assert_equal "That email verification link is invalid or has expired", flash[:alert]
+  end
   end
 end

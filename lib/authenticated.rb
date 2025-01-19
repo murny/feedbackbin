@@ -37,7 +37,7 @@ module Authenticated
 
   private
 
-  def constraint_for(role)
-    ROLES[role.to_sym]&.new || ForbiddenConstraint.new
-  end
+    def constraint_for(role)
+      ROLES[role.to_sym]&.new || ForbiddenConstraint.new
+    end
 end

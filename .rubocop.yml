@@ -34,8 +34,11 @@ Style/FrozenStringLiteralComment:
 Style/StringLiterals:
   EnforcedStyle: double_quotes
 
-# Style/ClassAndModuleChildren:
-#   EnforcedStyle: nested
+Style/ClassAndModuleChildren:
+  EnforcedStyle: nested
+
+Layout/IndentationWidth:
+  Enabled: true
 
 # Layout/LineLength:
 #   Max: 120

@@ -2,10 +2,11 @@
 
 require "test_helper"
 
-class Users::OmniauthControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    OmniAuth.config.test_mode = true
-  end
+module Users
+  class OmniauthControllerTest < ActionDispatch::IntegrationTest
+    setup do
+      OmniAuth.config.test_mode = true
+    end
 
   test "should handle previously connected user account" do
     user_connected_account = user_connected_accounts(:shane_google)
@@ -149,5 +150,6 @@ class Users::OmniauthControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to root_path
     assert_equal "Something went wrong, please try again.", flash[:alert]
+  end
   end
 end

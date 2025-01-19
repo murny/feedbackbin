@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
-module User::Mentionable
-  include ActionText::Attachable
+class User
+  module Mentionable
+    include ActionText::Attachable
 
   def to_attachable_partial_path
     "users/mention"
@@ -13,5 +14,6 @@ module User::Mentionable
 
   def attachable_plain_text_representation(caption)
     "@#{name}"
+  end
   end
 end

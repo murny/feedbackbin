@@ -3,8 +3,9 @@
 require "test_helper"
 require "rails-dom-testing"
 
-class FormBuilders::TailwindFormBuilderTest < ActionView::TestCase
-  include ActionView::Helpers::FormHelper
+module FormBuilders
+  class TailwindFormBuilderTest < ActionView::TestCase
+    include ActionView::Helpers::FormHelper
   include InlineSvg::ActionView::Helpers
 
   setup do
@@ -172,5 +173,6 @@ class FormBuilders::TailwindFormBuilderTest < ActionView::TestCase
     expected = %(<input type="submit" name="commit" value="Create User" class="btn btn-primary" data-disable-with="Create User" />)
 
     assert_dom_equal expected, form.submit("Create User")
+  end
   end
 end

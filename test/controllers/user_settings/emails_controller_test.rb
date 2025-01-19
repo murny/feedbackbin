@@ -2,11 +2,12 @@
 
 require "test_helper"
 
-class UserSettings::EmailsControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    @user = users(:one)
-    sign_in(@user)
-  end
+module UserSettings
+  class EmailsControllerTest < ActionDispatch::IntegrationTest
+    setup do
+      @user = users(:one)
+      sign_in(@user)
+    end
 
   test "should be able to update email" do
     patch user_settings_email_url, params: { user: { email_address: "new_email@example.com", password_challenge: "secret123456" } }
@@ -26,5 +27,6 @@ class UserSettings::EmailsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to user_settings_account_url
     assert_equal "You provided the same email address, nothing has changed.", flash[:notice]
+  end
   end
 end

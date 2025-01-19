@@ -41,22 +41,22 @@ module Users
 
     private
 
-    def handle_previously_connected_user_account(user_connected_account)
-      # Account has already been connected before
-      if authenticated?
-        if user_connected_account.user_id != Current.user.id
-          # User is signed in, but this account is connected to another user
-          redirect_to root_path, alert: t("users.omniauth.create.connected_to_another_account", provider: auth.provider)
+      def handle_previously_connected_user_account(user_connected_account)
+        # Account has already been connected before
+        if authenticated?
+          if user_connected_account.user_id != Current.user.id
+            # User is signed in, but this account is connected to another user
+            redirect_to root_path, alert: t("users.omniauth.create.connected_to_another_account", provider: auth.provider)
+          else
+            # User is already signed in and has connected this account before
+            redirect_to user_settings_account_path, notice: t("users.omniauth.create.already_connected", provider: auth.provider)
+          end
         else
-          # User is already signed in and has connected this account before
-          redirect_to user_settings_account_path, notice: t("users.omniauth.create.already_connected", provider: auth.provider)
+          # User has connected this account before, but isn't signed in
+          start_new_session_for(user_connected_account.user)
+          redirect_to after_authentication_url, notice: t("users.omniauth.create.signed_in_successfully")
         end
-      else
-        # User has connected this account before, but isn't signed in
-        start_new_session_for(user_connected_account.user)
-        redirect_to after_authentication_url, notice: t("users.omniauth.create.signed_in_successfully")
       end
-    end
 
     def create_user
       # We've never seen this user before, so let's sign them up

@@ -19,7 +19,7 @@ class MembershipPolicy < ApplicationPolicy
 
   private
 
-  def owned?
-    record && membership && record.user_id == membership.user_id
-  end
+    def owned?
+      record && membership && record.user_id == membership.user_id
+    end
 end

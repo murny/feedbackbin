@@ -18,7 +18,7 @@ class ChangelogsController < ApplicationController
 
   private
 
-  def mark_as_read
-    Current.user.update(changelogs_read_at: Time.current)
-  end
+    def mark_as_read
+      Current.user.update(changelogs_read_at: Time.current)
+    end
 end

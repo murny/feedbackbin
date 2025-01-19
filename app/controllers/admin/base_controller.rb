@@ -8,8 +8,8 @@ module Admin
 
     private
 
-    def require_admin
-      redirect_to root_path, alert: t("admin.base.unauthorized") unless Current.user.site_admin?
-    end
+      def require_admin
+        redirect_to root_path, alert: t("admin.base.unauthorized") unless Current.user.site_admin?
+      end
   end
 end

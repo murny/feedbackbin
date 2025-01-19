@@ -28,13 +28,13 @@ module ActiveLinksHelper
 
   private
 
-  # Figure out if we are "active" based on current request path and starts_with option
-  def active_link?(url, starts_with)
-    paths = Array.wrap(starts_with)
-    if paths.present?
-      paths.any? { |path| request.path.start_with?(path) }
-    else
-      request.path == url
+    # Figure out if we are "active" based on current request path and starts_with option
+    def active_link?(url, starts_with)
+      paths = Array.wrap(starts_with)
+      if paths.present?
+        paths.any? { |path| request.path.start_with?(path) }
+      else
+        request.path == url
+      end
     end
-  end
 end

@@ -24,9 +24,9 @@ module Organizations
 
     private
 
-    def set_organization
-      @organization = Current.user.organizations.find(params[:organization_id])
-    end
+      def set_organization
+        @organization = Current.user.organizations.find(params[:organization_id])
+      end
 
     def organization_invitation_params
       params.require(:organization_invitation).permit(:email)
