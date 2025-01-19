@@ -19,9 +19,9 @@ module UserSettings
 
     private
 
-    def user_params
-      params.require(:user).permit(:name, :avatar, :bio).compact
-    end
+      def user_params
+        params.require(:user).permit(:name, :avatar, :bio).compact
+      end
 
     def set_user
       @user = Current.user

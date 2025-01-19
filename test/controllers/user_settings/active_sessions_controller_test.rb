@@ -2,11 +2,12 @@
 
 require "test_helper"
 
-class UserSettings::ActiveSessionsControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    @user = users(:one)
-    sign_in(@user)
-  end
+module UserSettings
+  class ActiveSessionsControllerTest < ActionDispatch::IntegrationTest
+    setup do
+      @user = users(:one)
+      sign_in(@user)
+    end
 
   test "should be able to view sessions" do
     get user_settings_active_sessions_url
@@ -21,5 +22,6 @@ class UserSettings::ActiveSessionsControllerTest < ActionDispatch::IntegrationTe
 
     assert_redirected_to user_settings_active_sessions_url
     assert_equal "This session was successfully revoked", flash[:notice]
+  end
   end
 end

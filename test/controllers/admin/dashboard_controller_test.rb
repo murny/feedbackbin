@@ -2,12 +2,13 @@
 
 require "test_helper"
 
-class Admin::DashboardControllerTest < ActionDispatch::IntegrationTest
-  test "should not get show when not logged in" do
-    get admin_root_url
+module Admin
+  class DashboardControllerTest < ActionDispatch::IntegrationTest
+    test "should not get show when not logged in" do
+      get admin_root_url
 
-    assert_response :not_found
-  end
+      assert_response :not_found
+    end
 
   test "should not get show as non admin user" do
     sign_in users(:one)
@@ -23,5 +24,6 @@ class Admin::DashboardControllerTest < ActionDispatch::IntegrationTest
     get admin_root_url
 
     assert_response :success
+  end
   end
 end

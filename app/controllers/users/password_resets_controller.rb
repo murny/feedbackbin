@@ -34,10 +34,10 @@ module Users
 
     private
 
-    def set_user_by_token
-      @user = User.find_by_password_reset_token!(params[:token])
-    rescue ActiveSupport::MessageVerifier::InvalidSignature
-      redirect_to new_users_password_reset_path, alert: t("users.password_resets.password_reset_link_is_invalid")
-    end
+      def set_user_by_token
+        @user = User.find_by_password_reset_token!(params[:token])
+      rescue ActiveSupport::MessageVerifier::InvalidSignature
+        redirect_to new_users_password_reset_path, alert: t("users.password_resets.password_reset_link_is_invalid")
+      end
   end
 end

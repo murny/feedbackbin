@@ -16,9 +16,9 @@ module Authentication
 
   private
 
-  def authenticated?
-    resume_session
-  end
+    def authenticated?
+      resume_session
+    end
 
   def require_authentication
     resume_session || request_authentication

@@ -2,10 +2,11 @@
 
 require "test_helper"
 
-class Users::SessionsControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    @user = users(:shane)
-  end
+module Users
+  class SessionsControllerTest < ActionDispatch::IntegrationTest
+    setup do
+      @user = users(:shane)
+    end
 
   test "should get new" do
     get sign_in_url
@@ -42,5 +43,6 @@ class Users::SessionsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to sign_in_url
     assert_equal "You have signed out successfully.", flash[:notice]
+  end
   end
 end

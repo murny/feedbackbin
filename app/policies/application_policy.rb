@@ -48,9 +48,9 @@ class ApplicationPolicy
 
   private
 
-  def admin?
-    membership&.administrator?
-  end
+    def admin?
+      membership&.administrator?
+    end
 
   class Scope
     def initialize(membership, scope)
@@ -67,6 +67,6 @@ class ApplicationPolicy
 
     private
 
-    attr_reader :membership, :scope
+      attr_reader :membership, :scope
   end
 end

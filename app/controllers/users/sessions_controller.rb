@@ -29,8 +29,8 @@ module Users
 
     private
 
-    def ensure_user_exists
-      redirect_to first_run_path if User.none?
-    end
+      def ensure_user_exists
+        redirect_to first_run_path if User.none?
+      end
   end
 end

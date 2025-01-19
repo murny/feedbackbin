@@ -80,11 +80,11 @@ class PostsController < ApplicationController
 
   private
 
-  def ensure_index_is_not_empty
-    if !authenticated? && Category.none?
-      require_authentication
+    def ensure_index_is_not_empty
+      if !authenticated? && Category.none?
+        require_authentication
+      end
     end
-  end
 
   # Use callbacks to share common setup or constraints between actions.
   def set_post

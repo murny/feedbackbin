@@ -19,9 +19,9 @@ class FirstRunsController < ApplicationController
 
   private
 
-  def prevent_repeats
-    redirect_to root_path if Organization.any?
-  end
+    def prevent_repeats
+      redirect_to root_path if Organization.any?
+    end
 
   def user_params
     params.require(:user).permit(:username, :name, :avatar, :email_address, :password)

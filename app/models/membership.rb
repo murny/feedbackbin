@@ -15,7 +15,7 @@ class Membership < ApplicationRecord
 
   private
 
-  def owner_must_be_administrator
-    errors.add :role, :administrator_cannot_be_removed unless administrator?
-  end
+    def owner_must_be_administrator
+      errors.add :role, :administrator_cannot_be_removed unless administrator?
+    end
 end

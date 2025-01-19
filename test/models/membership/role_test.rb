@@ -2,10 +2,11 @@
 
 require "test_helper"
 
-class Membership::RoleTest < ActiveSupport::TestCase
-  setup do
-    @membership = memberships(:company_regular_user)
-  end
+class Membership
+  class RoleTest < ActiveSupport::TestCase
+    setup do
+      @membership = memberships(:company_regular_user)
+    end
 
   test "creating new users makes them members by default" do
     assert_predicate Membership.new(organization: @membership.organization, user: @membership.user), :member?
@@ -25,5 +26,6 @@ class Membership::RoleTest < ActiveSupport::TestCase
 
     assert_not @membership.valid?
     assert_equal("is not included in the list", @membership.errors[:role].first)
+  end
   end
 end

@@ -95,15 +95,15 @@ module FormBuilders
 
     private
 
-    def classes_for_input(attribute, options)
-      classes = if @object && @object.errors[attribute].present?
-        INPUT_INVALID_CLASSES
-      else
-        INPUT_VALID_CLASSES
-      end
+      def classes_for_input(attribute, options)
+        classes = if @object && @object.errors[attribute].present?
+          INPUT_INVALID_CLASSES
+        else
+          INPUT_VALID_CLASSES
+        end
 
-      [ classes, options[:class] ].compact.join(" ")
-    end
+        [ classes, options[:class] ].compact.join(" ")
+      end
 
     def classes_for_label(attribute, options)
       classes = if @object && @object.errors[attribute].present?

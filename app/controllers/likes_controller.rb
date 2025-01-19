@@ -23,11 +23,11 @@ class LikesController < ApplicationController
 
   private
 
-  def set_likeable
-    unless LIKEABLE_APPROVELIST.include?(params[:likeable_type])
-      return head :unprocessable_entity
-    end
+    def set_likeable
+      unless LIKEABLE_APPROVELIST.include?(params[:likeable_type])
+        return head :unprocessable_entity
+      end
 
-    @likeable = params[:likeable_type].safe_constantize.find(params[:likeable_id])
-  end
+      @likeable = params[:likeable_type].safe_constantize.find(params[:likeable_id])
+    end
 end

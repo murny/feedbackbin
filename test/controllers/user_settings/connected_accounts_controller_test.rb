@@ -2,11 +2,12 @@
 
 require "test_helper"
 
-class UserSettings::ConnectedAccountsControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    @user = users(:one)
-    sign_in(@user)
-  end
+module UserSettings
+  class ConnectedAccountsControllerTest < ActionDispatch::IntegrationTest
+    setup do
+      @user = users(:one)
+      sign_in(@user)
+    end
 
   test "should be able to destroy connected account" do
     user_connected_account = @user.user_connected_accounts.first
@@ -14,5 +15,6 @@ class UserSettings::ConnectedAccountsControllerTest < ActionDispatch::Integratio
 
     assert_redirected_to user_settings_account_url
     assert_equal "Your connected account has been disconnected successfully.", flash[:notice]
+  end
   end
 end

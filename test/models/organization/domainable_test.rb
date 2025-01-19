@@ -2,10 +2,11 @@
 
 require "test_helper"
 
-class Organization::DomainableTest < ActiveSupport::TestCase
-  setup do
-    @organization = organizations(:company)
-  end
+class Organization
+  class DomainableTest < ActiveSupport::TestCase
+    setup do
+      @organization = organizations(:company)
+    end
 
   test "validates uniqueness of domain" do
     organization = @organization.dup
@@ -83,5 +84,6 @@ class Organization::DomainableTest < ActiveSupport::TestCase
     @organization.subdomain = "1_b"
 
     assert_predicate @organization, :valid?
+  end
   end
 end

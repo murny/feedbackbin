@@ -2,12 +2,13 @@
 
 require "test_helper"
 
-class Users::RegistrationsControllerTest < ActionDispatch::IntegrationTest
-  test "should get new" do
-    get sign_up_url
+module Users
+  class RegistrationsControllerTest < ActionDispatch::IntegrationTest
+    test "should get new" do
+      get sign_up_url
 
-    assert_response :success
-  end
+      assert_response :success
+    end
 
   test "should sign up" do
     assert_difference("User.count") do
@@ -39,5 +40,6 @@ class Users::RegistrationsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :unprocessable_entity
+  end
   end
 end

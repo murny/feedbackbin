@@ -9,9 +9,9 @@ module SetCurrentOrganization
 
   private
 
-  def set_current_organization
-    Current.organization ||= organization_from_domain || organization_from_subdomain || organization_from_param || organization_from_session || fallback_organization
-  end
+    def set_current_organization
+      Current.organization ||= organization_from_domain || organization_from_subdomain || organization_from_param || organization_from_session || fallback_organization
+    end
 
   def organization_from_domain
     Organization.includes(:users).find_by(domain: request.host)
