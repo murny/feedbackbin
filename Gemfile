@@ -26,6 +26,7 @@ gem "turbo-rails"
 gem "stimulus-rails"
 gem "importmap-rails"
 gem "tailwindcss-rails"
+gem "tailwindcss-ruby", "~> 4.0.0.beta.9"
 
 # API
 gem "jbuilder"

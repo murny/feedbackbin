@@ -26,7 +26,7 @@
 
   @media (prefers-color-scheme: dark) {
     /* Abstractions */
-    --color-bg: black;
+    --color-bg: #111827;
     --color-text: white;
     --color-text-reversed: black;
     --color-text-subtle: var(--zinc-400);
@@ -50,27 +50,4 @@
     --color-filter-negative: invert(15%) sepia(65%) saturate(2067%) hue-rotate(339deg) brightness(102%) contrast(97%);
     --color-filter-positive: invert(23%) sepia(62%) saturate(554%) hue-rotate(91deg) brightness(93%) contrast(91%);
   }
-}
-
-* {
-  border-color: var(--color-border);
-}
-
-html {
-  scroll-behavior: smooth;
-}
-
-body {
-  background-color: var(--color-bg);
-  color: var(--color-text);
-  font-synthesis-weight: none;
-  text-rendering: optimizeLegibility;
-}
-
-.turbo-progress-bar {
-  background-color: var(--color-primary);
-}
-
-::selection {
-  background-color: var(--color-selected);
 }
