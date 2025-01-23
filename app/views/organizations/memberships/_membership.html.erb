@@ -12,7 +12,7 @@
     <% if policy(membership).edit? %>
       <%= link_to "Edit",
             edit_organization_membership_path(membership.organization, membership),
-            class: "btn btn-secondary" %>
+            class: "btn btn--secondary" %>
     <% end %>
     <% if policy(membership).destroy? %>
       <div class="inline-block">

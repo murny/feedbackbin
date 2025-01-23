@@ -78,6 +78,12 @@
   --btn-box-shadow: none;
 }
 
+.btn--block {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
 .btn--icon {
   --btn-padding: var(--size-2);
   --btn-radius: var(--rounded-full);

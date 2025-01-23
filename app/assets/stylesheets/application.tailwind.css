@@ -6,10 +6,22 @@
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
-  --color-primary: var(--bg-primary);
 }
 
 @import "./themes/default.css" layer(theme);
+
+
+@import "./csszero/animations.css" layer(components);
+@import "./csszero/borders.css" layer(components);
+@import "./csszero/colors.css" layer(components);
+@import "./csszero/effects.css" layer(components);
+@import "./csszero/filters.css" layer(components);
+@import "./csszero/sizes.css" layer(components);
+@import "./csszero/transform.css" layer(components);
+@import "./csszero/transition.css" layer(components);
+@import "./csszero/typography.css" layer(components);
+@import "./csszero/zultities.css" layer(components);
+
 
 @import "./components/actiontext.css" layer(components);
 @import "./components/alert.css" layer(components);
