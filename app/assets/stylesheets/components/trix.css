@@ -1,7 +1,7 @@
 /***************************************
   ActionText
 ****************************************/
-trix-toolbar {
+/* trix-toolbar {
   .trix-button-row .trix-button-group {
     @apply border-transparent;
 
@@ -69,7 +69,8 @@ trix-toolbar .trix-button.trix-button--dialog {
   }
 }
 
-/* pgray style content */
+// pgray style content
+
 trix-editor {
   @apply rounded-2xl border border-gray-300 focus:ring-4 focus:ring-gray-50 focus:border-gray-400 bg-white shadow-inner p-3 text-base dark:bg-gray-800 dark:text-white dark:focus:ring-gray-700/20 dark:border-gray-700 min-h-40 !important;
 }
@@ -106,4 +107,4 @@ trix-editor,
   a {
     @apply text-gray-600 dark:text-gray-400 underline font-medium;
   }
-}
+} */
