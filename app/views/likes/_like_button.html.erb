@@ -6,16 +6,16 @@
       <% if likeable.liked_by?(Current.user) %>
         <%= button_to like_path(likeable_type: likeable.class.to_s, likeable_id: likeable.id),
               method: :patch,
-              class: "flex flex-col items-center text-center px-3 py-1 rounded border border-gray-700 bg-gradient-to-tr from-gray-800/20 via-gray-800/50 to-gray-800/20 bg-primary-900" do %>
-          <%= inline_svg "icons/outline/chevron-up.svg", class: "text-primary-400 mb-1 h-5 w-5" %>
-          <span class="text-xs font-medium text-primary-500"><%= likeable.likes_count %></span>
+              class: "flex flex-col items-center text-center px-3 py-1 rounded border border-gray-700 bg-gradient-to-tr from-gray-800/20 via-gray-800/50 to-gray-800/20 bg-blue-900" do %>
+          <%= inline_svg "icons/outline/chevron-up.svg", class: "text-blue-400 mb-1 h-5 w-5" %>
+          <span class="text-xs font-medium text-blue-500"><%= likeable.likes_count %></span>
         <% end %>
       <% else %>
         <%= button_to like_path(likeable_type: likeable.class.to_s, likeable_id: likeable.id),
               method: :patch,
               class: "flex flex-col items-center text-center px-3 py-1 rounded border border-gray-700 bg-gradient-to-tr from-gray-800/20 via-gray-800/50 to-gray-800/20 hover:bg-gray-800" do %>
-          <%= inline_svg "icons/outline/chevron-up.svg", class: "text-primary-400 mb-1 h-5 w-5" %>
-          <span class="text-xs font-medium text-primary-500"><%= likeable.likes_count %></span>
+          <%= inline_svg "icons/outline/chevron-up.svg", class: "text-blue-400 mb-1 h-5 w-5" %>
+          <span class="text-xs font-medium text-blue-500"><%= likeable.likes_count %></span>
         <% end %>
       <% end %>
     <% end %>
@@ -23,8 +23,8 @@
     <%= link_to sign_in_path,
           data: { turbo_frame: :_top },
           class: "flex flex-col items-center text-center px-3 py-1 rounded border border-gray-700 bg-gradient-to-tr from-gray-800/20 via-gray-800/50 to-gray-800/20 hover:bg-gray-800" do %>
-      <%= inline_svg "icons/outline/chevron-up.svg", class: "text-primary-400 mb-1 h-5 w-5" %>
-      <span class="text-xs font-medium text-primary-500"><%= likeable.likes_count %></span>
+      <%= inline_svg "icons/outline/chevron-up.svg", class: "text-blue-400 mb-1 h-5 w-5" %>
+      <span class="text-xs font-medium text-blue-500"><%= likeable.likes_count %></span>
     <% end %>
   <% end %>
 </div>

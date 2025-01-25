@@ -25,7 +25,7 @@ gem "propshaft"
 gem "turbo-rails"
 gem "stimulus-rails"
 gem "importmap-rails"
-gem "tailwindcss-rails"
+gem "tailwindcss-rails", "4.0.0.rc1"
 
 # API
 gem "jbuilder"

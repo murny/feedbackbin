@@ -2,7 +2,7 @@
 
 module ChangelogsHelper
   CHANGELOG_COLORS = {
-    "new" => "bg-primary-100 text-primary-600",
+    "new" => "bg-blue-100 text-blue-600",
     "update" => " bg-green-100 text-green-600",
     "improvement" => "bg-purple-100 text-purple-600",
     "fix" => "bg-red-100 text-red-600"

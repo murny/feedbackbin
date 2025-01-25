@@ -17,7 +17,7 @@ module FormBuilders
 
     expected = %(<div class="mt-2 relative rounded-md shadow-sm">
       <input
-        class="block w-full rounded-md border-0 py-1.5 shadow-sm sm:text-sm sm:leading-6 ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-primary-600 dark:focus:ring-primary-500 dark:bg-white/5 text-gray-900 dark:text-white ring-gray-300 dark:ring-white/10 placeholder:text-gray-400 dark:placeholder:text-gray-500"
+        class="block w-full rounded-md border-0 py-1.5 shadow-sm sm:text-sm sm:leading-6 ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-blue-600 dark:focus:ring-blue-500 dark:bg-white/5 text-gray-900 dark:text-white ring-gray-300 dark:ring-white/10 placeholder:text-gray-400 dark:placeholder:text-gray-500"
         type="text"
         name="user[name]"
         id="user_name" />
@@ -32,7 +32,7 @@ module FormBuilders
     expected = %(<div class="mt-2 relative rounded-md shadow-sm">
       <div>{class: &quot;pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3&quot;}</div>
       <input leading_icon="true"
-             class="block w-full rounded-md border-0 py-1.5 shadow-sm sm:text-sm sm:leading-6 ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-primary-600 dark:focus:ring-primary-500 dark:bg-white/5 text-gray-900 dark:text-white ring-gray-300 dark:ring-white/10 placeholder:text-gray-400 dark:placeholder:text-gray-500 pl-10"
+             class="block w-full rounded-md border-0 py-1.5 shadow-sm sm:text-sm sm:leading-6 ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-blue-600 dark:focus:ring-blue-500 dark:bg-white/5 text-gray-900 dark:text-white ring-gray-300 dark:ring-white/10 placeholder:text-gray-400 dark:placeholder:text-gray-500 pl-10"
              type="text"
              name="user[username]"
              id="user_username" />
@@ -46,7 +46,7 @@ module FormBuilders
 
     expected = %(<div class="mt-2 relative rounded-md shadow-sm">
       <input
-        class="block w-full rounded-md border-0 py-1.5 shadow-sm sm:text-sm sm:leading-6 ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-primary-600 dark:focus:ring-primary-500 dark:bg-white/5 text-gray-900 dark:text-white ring-gray-300 dark:ring-white/10 placeholder:text-gray-400 dark:placeholder:text-gray-500 test-class"
+        class="block w-full rounded-md border-0 py-1.5 shadow-sm sm:text-sm sm:leading-6 ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-blue-600 dark:focus:ring-blue-500 dark:bg-white/5 text-gray-900 dark:text-white ring-gray-300 dark:ring-white/10 placeholder:text-gray-400 dark:placeholder:text-gray-500 test-class"
         type="text"
         name="user[username]"
         id="user_username" />
@@ -74,7 +74,7 @@ module FormBuilders
 
     expected = %(<div class="mt-2 relative rounded-md shadow-sm">
       <input
-        class="block w-full rounded-md border-0 py-1.5 shadow-sm sm:text-sm sm:leading-6 ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-primary-600 dark:focus:ring-primary-500 dark:bg-white/5 text-gray-900 dark:text-white ring-gray-300 dark:ring-white/10 placeholder:text-gray-400 dark:placeholder:text-gray-500"
+        class="block w-full rounded-md border-0 py-1.5 shadow-sm sm:text-sm sm:leading-6 ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-blue-600 dark:focus:ring-blue-500 dark:bg-white/5 text-gray-900 dark:text-white ring-gray-300 dark:ring-white/10 placeholder:text-gray-400 dark:placeholder:text-gray-500"
         type="text"
         name="user[name]"
         id="user_name" />
@@ -88,7 +88,7 @@ module FormBuilders
 
     expected = %(<div class="mt-2 relative rounded-md shadow-sm">
       <input
-        class="block w-full rounded-md border-0 py-1.5 shadow-sm sm:text-sm sm:leading-6 ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-primary-600 dark:focus:ring-primary-500 dark:bg-white/5 text-gray-900 dark:text-white ring-gray-300 dark:ring-white/10 placeholder:text-gray-400 dark:placeholder:text-gray-500"
+        class="block w-full rounded-md border-0 py-1.5 shadow-sm sm:text-sm sm:leading-6 ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-blue-600 dark:focus:ring-blue-500 dark:bg-white/5 text-gray-900 dark:text-white ring-gray-300 dark:ring-white/10 placeholder:text-gray-400 dark:placeholder:text-gray-500"
         type="email"
         name="user[email_address]"
         id="user_email_address" />
@@ -102,7 +102,7 @@ module FormBuilders
 
     expected = %(<div class="mt-2 relative rounded-md shadow-sm">
       <input
-        class="block w-full rounded-md border-0 py-1.5 shadow-sm sm:text-sm sm:leading-6 ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-primary-600 dark:focus:ring-primary-500 dark:bg-white/5 text-gray-900 dark:text-white ring-gray-300 dark:ring-white/10 placeholder:text-gray-400 dark:placeholder:text-gray-500"
+        class="block w-full rounded-md border-0 py-1.5 shadow-sm sm:text-sm sm:leading-6 ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-blue-600 dark:focus:ring-blue-500 dark:bg-white/5 text-gray-900 dark:text-white ring-gray-300 dark:ring-white/10 placeholder:text-gray-400 dark:placeholder:text-gray-500"
         type="date"
         name="user[created_at]"
         id="user_created_at" />
@@ -116,7 +116,7 @@ module FormBuilders
 
     expected = %(<div class="mt-2 relative rounded-md shadow-sm">
       <input
-        class="block w-full rounded-md border-0 py-1.5 shadow-sm sm:text-sm sm:leading-6 ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-primary-600 dark:focus:ring-primary-500 dark:bg-white/5 text-gray-900 dark:text-white ring-gray-300 dark:ring-white/10 placeholder:text-gray-400 dark:placeholder:text-gray-500"
+        class="block w-full rounded-md border-0 py-1.5 shadow-sm sm:text-sm sm:leading-6 ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-blue-600 dark:focus:ring-blue-500 dark:bg-white/5 text-gray-900 dark:text-white ring-gray-300 dark:ring-white/10 placeholder:text-gray-400 dark:placeholder:text-gray-500"
         type="password"
         name="user[password]"
         id="user_password" />
@@ -130,7 +130,7 @@ module FormBuilders
 
     expected = %(
     <div class="mt-2 relative rounded-md shadow-sm">
-      <textarea class="mt-1 block w-full rounded-md border-0 py-1.5 shadow-sm sm:text-sm sm:leading-6 ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-primary-600 dark:focus:ring-primary-500 dark:bg-white/5 text-gray-900 dark:text-white ring-gray-300 dark:ring-white/10 placeholder:text-gray-400 dark:placeholder:text-gray-500"
+      <textarea class="mt-1 block w-full rounded-md border-0 py-1.5 shadow-sm sm:text-sm sm:leading-6 ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-blue-600 dark:focus:ring-blue-500 dark:bg-white/5 text-gray-900 dark:text-white ring-gray-300 dark:ring-white/10 placeholder:text-gray-400 dark:placeholder:text-gray-500"
       name="user[bio]"
       id="user_bio"></textarea>
     </div>)
@@ -142,7 +142,7 @@ module FormBuilders
     form = FormBuilders::TailwindFormBuilder.new(:user, @form_object, self, {})
 
     expected = %(<select
-      class="block w-full mt-6 sm:mt-0 border rounded-md py-2 px-3 focus:outline-none dark:bg-gray-700/50 dark:border-gray-500 dark:text-gray-300 dark:placeholder-gray-400 dark:focus:ring-2 dark:focus:border-transparent border-gray-300 focus:ring-primary-600 focus:border-primary-600 dark:focus:ring-primary-400"
+      class="block w-full mt-6 sm:mt-0 border rounded-md py-2 px-3 focus:outline-none dark:bg-gray-700/50 dark:border-gray-500 dark:text-gray-300 dark:placeholder-gray-400 dark:focus:ring-2 dark:focus:border-transparent border-gray-300 focus:ring-blue-600 focus:border-blue-600 dark:focus:ring-blue-400"
       name="user[active]"
       id="user_active"></select>)
 
