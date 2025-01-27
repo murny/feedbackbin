@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/rails/rails.git
-  revision: 2ca006fb7fe881c225c000d9ab11e2a3554b70fa
+  revision: 4fe41259bdc32063d9f0335250848fea3b11a7f0
   branch: main
   specs:
     actioncable (8.1.0.alpha)
@@ -286,6 +286,7 @@ GEM
     net-sftp (4.0.0)
       net-ssh (>= 5.0.0, < 8.0.0)
     net-smtp (0.5.0)
+      net-protocol
     net-ssh (7.3.0)
     nio4r (2.7.4)
     nokogiri (1.18.2)
