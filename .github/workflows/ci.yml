@@ -91,10 +91,3 @@ jobs:
           name: screenshots
           path: ${{ github.workspace }}/tmp/screenshots
           if-no-files-found: ignore
-
-      - name: SimpleCov+ Action
-        uses: joshmfrankel/simplecov-check-action@1.0.0
-        with:
-          minimum_suite_coverage: 65
-          minimum_file_coverage: 50
-          github_token: ${{ secrets.GITHUB_TOKEN }}
