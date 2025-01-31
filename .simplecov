@@ -8,5 +8,7 @@ SimpleCov.start :rails do
     SimpleCov::Formatter::JSONFormatter
   ])
 
+  enable_coverage :branch
+
   add_group "Policies", "app/policies"
 end

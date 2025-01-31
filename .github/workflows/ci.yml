@@ -80,6 +80,7 @@ jobs:
       - name: Run tests
         env:
           RAILS_ENV: test
+          COVERAGE: true
           # RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         run: bin/rails db:test:prepare test test:system
 
@@ -90,3 +91,10 @@ jobs:
           name: screenshots
           path: ${{ github.workspace }}/tmp/screenshots
           if-no-files-found: ignore
+
+      - name: Perform test coverage analysis
+        uses: joshmfrankel/simplecov-check-action@main
+        with:
+          minimum_suite_coverage: 65
+          minimum_file_coverage: 50
+          github_token: ${{ secrets.GITHUB_TOKEN }}

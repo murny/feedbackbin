@@ -14,8 +14,13 @@ module ActiveSupport
     parallelize(workers: :number_of_processors)
 
     if ENV["COVERAGE"]
-      parallelize_setup { |worker| SimpleCov.command_name "#{SimpleCov.command_name}-#{worker}" }
-      parallelize_teardown { |_| SimpleCov.result }
+      parallelize_setup do |worker|
+        SimpleCov.command_name "#{SimpleCov.command_name}-#{worker}"
+      end
+
+      parallelize_teardown do
+        SimpleCov.result
+      end
     end
 
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
