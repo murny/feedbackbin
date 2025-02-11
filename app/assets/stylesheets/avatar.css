@@ -1,0 +1,42 @@
+.avatar {
+  --radius: var(--rounded-full);
+  --size: var(--avatar-size, var(--size-10));
+
+  block-size: var(--size);
+  border-radius: var(--radius);
+  display: flex;
+  flex-shrink: 0;
+  inline-size: var(--size);
+  overflow: hidden;
+
+  &:is(.btn) {
+    --btn-block-size: auto;
+    --btn-icon-color: none;
+    --btn-padding: 0;
+    --btn-radius: var(--radius);
+  }
+
+  &:is(.btn):hover {
+    filter: var(--brightness-90);
+  }
+
+  img {
+    align-content: center;
+    aspect-ratio: var(--aspect-square);
+    block-size: var(--size-full);
+    inline-size: var(--size-full);
+    object-fit: cover;
+  }
+
+  span[role=img] {
+    align-items: center;
+    background-color: var(--color-border-light);
+    block-size: var(--size-full);
+    border-radius: var(--radius);
+    display: flex;
+    font-size: calc(var(--size) * .4);
+    inline-size: var(--size-full);
+    justify-content: center;
+    user-select: none;
+  }
+}
