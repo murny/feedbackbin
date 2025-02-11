@@ -1,0 +1,30 @@
+.tabs {
+  display: flex;
+  flex-direction: column;
+  gap: var(--size-2);
+}
+
+.tabs__list {
+  background-color: var(--color-border-light);
+  block-size: var(--size-9);
+  border-radius: var(--rounded-md);
+  color: var(--color-text-subtle);
+  display: inline-flex;
+  gap: var(--size-2);
+  padding: var(--size-1);
+}
+
+.btn--tab {
+  --btn-background: transparent;
+  --btn-block-size: auto;
+  --btn-border-color: transparent;
+  --btn-box-shadow: none;
+  --btn-hover-color: transparent;
+  --btn-inline-size: var(--size-full);
+
+  &[aria-selected=true] {
+    --btn-background: var(--color-bg);
+    --btn-box-shadow: var(--shadow-sm);
+    --btn-hover-color: var(--color-bg);
+  }
+}

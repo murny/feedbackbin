@@ -27,7 +27,6 @@ TODO: Add description/screenshots/What is FeedbackBin? etc in this section
 * Solid Cache
 * Solid Queue
 * SQLite3
-* Tailwind CSS
 
 ## Installation
 1. Clone the repository: `git clone https://github.com/murny/feedbackbin.git`
