@@ -1,0 +1,12 @@
+<div class="hide@md" data-controller="dialog">
+  <button type="button" class="btn btn--icon" data-action="dialog#showModal">
+    <%= image_tag "menu.svg", size: 20, aria: { hidden: true } %>
+    <span class="sr-only">Open menu</span>
+  </button>
+
+  <dialog class="sheet sheet--left" style="--sheet-size: 288px;" data-dialog-target="menu" data-action="click->dialog#closeOnClickOutside">
+    <div class="sheet__content p-2">
+      <%= render "sidebar_menu" %>
+    </div>
+  </dialog>
+</div>

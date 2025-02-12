@@ -1,6 +1,10 @@
 <%# locals: () %>
 
-<nav class="sticky top-0 z-40 bg-white shadow dark:bg-gray-800" data-controller="toggle">
+<header class="justify-between" id="header" data-controller="toggle">
+    <%= render "mobile_menu" %>
+    <%= render "header_menu" %>
+
+
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <div class="flex h-16 justify-between">
       <div class="flex">
@@ -211,4 +215,4 @@
       <% end %>
     </div>
   </div>
-</nav>
+</header>
