@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="h-full bg-white dark:bg-gray-900">
+<html>
   <head>
     <title><%= content_for(:title) || "FeedbackBin" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -26,14 +26,16 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="h-full flex flex-col" data-controller="local-time lightbox">
-    <div class="flex flex-col flex-1">
-      <%= render "navbar" %>
+  <body class="header-layout" data-controller="local-time lightbox">
+    <%= render "navbar" %>
+    <main id="main">
       <%= render "flash" %>
-      <main class="container mx-auto px-4 sm:px-6 lg:px-8">
+
+      <div class="container">
         <%= yield %>
-      </main>
-    </div>
-    <%= render partial: "footer" %>
+      </div>
+
+      <%= render partial: "footer" %>
+    </main>
   </body>
 </html>
