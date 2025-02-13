@@ -18,7 +18,7 @@ module FormBuilders
     LABEL_INVALID_CLASSES = "block mb-2 text-sm font-medium text-red-700 dark:text-red-500"
     ERROR_MESSAGE_CLASSES = "mt-2 text-sm text-red-600 dark:text-red-500"
     CHECKBOX_CLASSES = "h-4 w-4 border-gray-300 rounded"
-    SUBMIT_CLASSES = "btn btn-primary"
+    SUBMIT_CLASSES = "btn btn--primary"
 
     def text_field(attribute, options = {}, &block)
       if options[:leading_icon]
