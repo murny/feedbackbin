@@ -1,18 +1,18 @@
 <% content_for :title, "Buttons" %>
 
 <% types = {
-  "Primary" => "btn-primary",
-  "Secondary" => "btn-secondary",
-  "Success" => "btn-success",
-  "Danger" => "btn-danger",
+  "Primary" => "btn--primary",
+  "Secondary" => "btn--secondary",
+  "Success" => "btn--success",
+  "Danger" => "btn--danger",
   "Light" => "btn-light",
   "Dark" => "btn-dark",
-  "Link" => "btn-link"
+  "Link" => "btn--link"
 } %>
 
 <%= header_with_anchor(title: "Button Styles") %>
 
-<p>Buttons come with a variety of different styles out of the box. For example: <code>btn btn-primary</code></p>
+<p>Buttons come with a variety of different styles out of the box. For example: <code>btn btn--primary</code></p>
 
 <%= render "snippet" do %>
   <div class="space-y-4 space-x-2">
@@ -94,14 +94,14 @@
 
 <%= render "snippet" do %>
 <div class="flex items-center space-x-2">
-  <%= tag.button class: "btn btn-primary" do %>
+  <%= tag.button class: "btn btn--primary" do %>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
       <path fill-rule="evenodd" d="M14.615 1.595a.75.75 0 0 1 .359.852L12.982 9.75h7.268a.75.75 0 0 1 .548 1.262l-10.5 11.25a.75.75 0 0 1-1.272-.71l1.992-7.302H3.75a.75.75 0 0 1-.548-1.262l10.5-11.25a.75.75 0 0 1 .913-.143Z" clip-rule="evenodd" />
     </svg>
     Primary
   <% end %>
 
-  <%= tag.button class: "btn btn-primary" do %>
+  <%= tag.button class: "btn btn--primary" do %>
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
       <path fill-rule="evenodd" d="M14.615 1.595a.75.75 0 0 1 .359.852L12.982 9.75h7.268a.75.75 0 0 1 .548 1.262l-10.5 11.25a.75.75 0 0 1-1.272-.71l1.992-7.302H3.75a.75.75 0 0 1-.548-1.262l10.5-11.25a.75.75 0 0 1 .913-.143Z" clip-rule="evenodd" />
     </svg>
@@ -111,7 +111,7 @@
     </svg>
     <% end %>
 
-    <%= tag.button class: "btn btn-primary" do %>
+    <%= tag.button class: "btn btn--primary" do %>
       Primary
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
         <path fill-rule="evenodd" d="M12.97 3.97a.75.75 0 0 1 1.06 0l7.5 7.5a.75.75 0 0 1 0 1.06l-7.5 7.5a.75.75 0 1 1-1.06-1.06l6.22-6.22H3a.75.75 0 0 1 0-1.5h16.19l-6.22-6.22a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd" />

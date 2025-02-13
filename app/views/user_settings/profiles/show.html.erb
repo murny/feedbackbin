@@ -23,7 +23,7 @@
                   data: { "upload-preview-target": "image" } %>
             <div>
               <%= form.file_field :avatar, accept: "image/*", data: { upload_preview_target: "input", action: "upload-preview#previewImage" }, class: "hidden" %>
-              <%= form.label :avatar, class: "inline-flex items-center btn btn-secondary" do %>
+              <%= form.label :avatar, class: "inline-flex items-center btn btn--secondary" do %>
                 <%= inline_svg "icons/outline/camera.svg", class: "h-5 w-5 mr-2" %>
                 <%= t(".upload_new_avatar") %>
               <% end %>
@@ -57,7 +57,7 @@
 
         <div class="mt-8 flex">
           <%= form.submit "Update profile" %>
-          <%= link_to "Back to profile", user_path(@user), class: "ml-2 btn btn-secondary" %>
+          <%= link_to "Back to profile", user_path(@user), class: "ml-2 btn btn--secondary" %>
         </div>
       <% end %>
     </div>

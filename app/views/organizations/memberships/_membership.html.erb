@@ -12,7 +12,7 @@
     <% if policy(membership).edit? %>
       <%= link_to "Edit",
             edit_organization_membership_path(membership.organization, membership),
-            class: "btn btn-secondary" %>
+            class: "btn btn--secondary" %>
     <% end %>
     <% if policy(membership).destroy? %>
       <div class="inline-block">
@@ -20,7 +20,7 @@
               organization_membership_path(membership.organization, membership),
               method: :delete,
               data: { turbo_confirm: "Are you sure?" },
-              class: "btn btn-danger" %>
+              class: "btn btn--danger" %>
       </div>
     <% end %>
   </div>

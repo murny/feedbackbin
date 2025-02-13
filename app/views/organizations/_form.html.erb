@@ -18,7 +18,7 @@
     <% end %>
     <div>
       <%= form.file_field :logo, accept: "image/*", data: { upload_preview_target: "input", action: "upload-preview#previewImage" }, class: "hidden" %>
-      <%= form.label :logo, class: "inline-flex items-center btn btn-secondary" do %>
+      <%= form.label :logo, class: "inline-flex items-center btn btn--secondary" do %>
         <%= inline_svg "icons/outline/camera.svg", class: "h-5 w-5 mr-2" %>
         <%= t(".upload_new_logo") %>
       <% end %>
@@ -27,11 +27,11 @@
 
   <div class="mt-5 flex items-center space-x-4 justify-end">
     <% if form.object.new_record? %>
-      <%= link_to t("cancel"), organizations_path, class: "btn btn-secondary" %>
+      <%= link_to t("cancel"), organizations_path, class: "btn btn--secondary" %>
     <% else %>
-      <%= link_to t("cancel"), organization, class: "btn btn-secondary" %>
+      <%= link_to t("cancel"), organization, class: "btn btn--secondary" %>
     <% end %>
 
-    <%= form.submit class: "btn btn-primary" %>
+    <%= form.submit class: "btn btn--primary" %>
   </div>
 <% end %>
