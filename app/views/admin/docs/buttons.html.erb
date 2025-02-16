@@ -10,6 +10,32 @@
   "Link" => "btn--link"
 } %>
 
+
+<%# Primary button (default) %>
+<%= render_button "Submit" %>
+
+<%# Secondary button %>
+<%= render_button "Cancel", variant: :secondary %>
+
+<%# Danger button %>
+<%= render_button "Delete", variant: :danger %>
+
+<%# Outline button %>
+<%= render_button "Edit", variant: :outline %>
+
+<%# Link styled as button %>
+<%= render_button "View details", as: :link, href: "#" %>
+
+<%# Different sizes %>
+<%= render_button "Small", size: :small %>
+<%= render_button "Large", size: :large %>
+
+<%# With block %>
+<%= render_button do %>
+  <i class="icon"></i> With Icon
+<% end %>
+
+
 <%= header_with_anchor(title: "Button Styles") %>
 
 <p>Buttons come with a variety of different styles out of the box. For example: <code>btn btn--primary</code></p>
