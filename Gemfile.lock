@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/rails/rails.git
-  revision: 50efa73e0a96bb0a84b89a5b9de53319452df87e
+  revision: 00cc4ff0259c0185fe08baadaa40e63ea2534f6e
   branch: main
   specs:
     actioncable (8.1.0.alpha)
@@ -245,7 +245,7 @@ GEM
     listen (3.9.0)
       rb-fsevent (~> 0.10, >= 0.10.3)
       rb-inotify (~> 0.9, >= 0.9.10)
-    logger (1.6.5)
+    logger (1.6.6)
     loofah (2.24.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.12.0)
@@ -359,7 +359,7 @@ GEM
       activesupport (>= 3.0.0)
     raabro (1.4.0)
     racc (1.8.1)
-    rack (3.1.9)
+    rack (3.1.10)
     rack-protection (4.1.1)
       base64 (>= 0.1.0)
       logger (>= 1.6.0)
@@ -490,7 +490,7 @@ GEM
       ostruct
     stimulus-rails (1.3.4)
       railties (>= 6.0.0)
-    stringio (3.1.2)
+    stringio (3.1.3)
     tailwindcss-rails (4.0.0)
       railties (>= 7.0.0)
       tailwindcss-ruby (~> 4.0)
@@ -674,7 +674,7 @@ CHECKSUMS
   letter_opener (1.10.0) sha256=2ff33f2e3b5c3c26d1959be54b395c086ca6d44826e8bf41a14ff96fdf1bdbb2
   letter_opener_web (3.0.0) sha256=3f391efe0e8b9b24becfab5537dfb17a5cf5eb532038f947daab58cb4b749860
   listen (3.9.0) sha256=db9e4424e0e5834480385197c139cb6b0ae0ef28cc13310cfd1ca78377d59c67
-  logger (1.6.5) sha256=c3cfe56d01656490ddd103d38b8993d73d86296adebc5f58cefc9ec03741e56b
+  logger (1.6.6) sha256=dd618d24e637715472732e7eed02e33cfbdf56deaad225edd0f1f89d38024017
   loofah (2.24.0) sha256=61e6a710883abb8210887f3dc868cf3ed66594c509d9ff6987621efa6651ee1e
   mail (2.8.1) sha256=ec3b9fadcf2b3755c78785cb17bc9a0ca9ee9857108a64b6f5cfc9c0b5bfc9ad
   marcel (1.0.4) sha256=0d5649feb64b8f19f3d3468b96c680bae9746335d02194270287868a661516a4
@@ -724,7 +724,7 @@ CHECKSUMS
   pundit (2.4.0) sha256=43e6d27a9df082c04f0020999ce4dcf6742ecc5775d102ef2bfe9df041417572
   raabro (1.4.0) sha256=d4fa9ff5172391edb92b242eed8be802d1934b1464061ae5e70d80962c5da882
   racc (1.8.1) sha256=4a7f6929691dbec8b5209a0b373bc2614882b55fc5d2e447a21aaa691303d62f
-  rack (3.1.9) sha256=3d0a390444dcc753ced32978159463f92ac920ae28d7058b6fd633abb9dd349d
+  rack (3.1.10) sha256=5e873127d04704c8121528b1ce04c551b5493a78291cace896b059a2a44bcb12
   rack-protection (4.1.1) sha256=51a254a5d574a7f0ca4f0672025ce2a5ef7c8c3bd09c431349d683e825d7d16a
   rack-session (2.1.0) sha256=437c3916535b58ef71c816ce4a2dee0a01c8a52ae6077dc2b6cd19085760a290
   rack-test (2.2.0) sha256=005a36692c306ac0b4a9350355ee080fd09ddef1148a5f8b2ac636c720f5c463
@@ -779,7 +779,7 @@ CHECKSUMS
   sqlite3 (2.5.0-x86_64-linux-musl) sha256=09fd262943eeb89465f6633e748b702b046de24cdab14b197302d0f4a0e250cb
   sshkit (1.23.2) sha256=76d7088fddeaf3ac37bad20e7121f7352367cae6bb0cdbc7d7354efc714d213b
   stimulus-rails (1.3.4) sha256=765676ffa1f33af64ce026d26b48e8ffb2e0b94e0f50e9119e11d6107d67cb06
-  stringio (3.1.2) sha256=204f1828f85cdb39d57cac4abc6dc44b04505a223f131587f2e20ae3729ba131
+  stringio (3.1.3) sha256=1eedb8369ee99a9a0edfdacea95c72d647feb8ce844427c150bd641e1797abc8
   tailwindcss-rails (4.0.0) sha256=19c871a71eaf24477a480e07fb4481e4293fe33290096305a96f2f0d3ced053a
   tailwindcss-ruby (4.0.4) sha256=c21037fdd710e20ce9473a39f3f20640eea9d1d4909760d881a5f42526b8bde2
   tailwindcss-ruby (4.0.4-aarch64-linux-gnu) sha256=e3c9c652dae7e65a245022d494782f0e11516e4ee2a63fdc5c8c1dcc9e33e2f2
