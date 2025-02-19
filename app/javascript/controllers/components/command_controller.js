@@ -11,7 +11,7 @@ export default class extends Controller {
   }
 
   connect() {
-    this.combobox = new Combobox(this.inputTarget, this.listTarget)
+    this.combobox = new Combobox(this.inputTarget, this.listTarget, { firstOptionSelectionMode: "selected" })
   }
 
   disconnect() {
@@ -38,22 +38,24 @@ export default class extends Controller {
   }
 
   #reset() {
-    this.listTarget.querySelectorAll(`.${this.selectedClass}`).forEach(element => {
-      element.classList.remove(this.selectedClass)
+    this.listTarget.querySelectorAll(`.${this.selectedClass}`).forEach(it => {
+      it.classList.remove(this.selectedClass)
     })
   }
 
   #selectMatches(value) {
-    this.listTarget.querySelectorAll(`[data-value*="${value.toLowerCase()}"]`).forEach(element => {
-      element.classList.add(this.selectedClass)
+    this.listTarget.querySelectorAll(`[data-value*="${value.toLowerCase()}"]`).forEach(it => {
+      it.classList.add(this.selectedClass)
     })
   }
 
   #activate() {
     this.listTarget.classList.add(this.activeClass)
+    this.combobox.resetSelection()
   }
 
   #deactivate() {
     this.listTarget.classList.remove(this.activeClass)
+    this.combobox.resetSelection()
   }
 }

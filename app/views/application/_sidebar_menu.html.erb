@@ -1,13 +1,13 @@
 <div class="sidebar-menu">
   <%= link_to "#", class: "btn sidebar-menu__button" do %>
     <div class="flex shrink-0 overflow-hidden rounded-lg bg-black">
-      <%= image_tag "sidebar-logo.svg", class: "colorize-white m-2", size: 16, alt: "ZI" %>
+      <%= image_tag "icons/sidebar-logo.svg", class: "colorize-white m-2", size: 16, alt: "ZI" %>
     </div>
     <div class="flex flex-col text-start leading-tight overflow-hidden">
       <span class="overflow-ellipsis font-semibold">Zero Inc</span>
       <span class="overflow-ellipsis text-xs">Enterprise</span>
     </div>
-    <%= image_tag "chevrons-up-down.svg", class: "mis-auto", size: 16, aria: { hidden: true } %>
+    <%= image_tag "icons/chevrons-up-down.svg", class: "mis-auto", size: 16, aria: { hidden: true } %>
   <% end %>
   <div class="sidebar-menu__content">
     <div class="sidebar-menu__group">
@@ -15,7 +15,7 @@
       <div class="sidebar-menu__items">
         <details>
           <summary class="btn sidebar-menu__button">
-            <%= image_tag "square-terminal.svg", size: 16, aria: { hidden: true } %>
+            <%= image_tag "icons/square-terminal.svg", size: 16, aria: { hidden: true } %>
             <span class="overflow-ellipsis">Playground</span>
           </summary>
           <div class="sidebar-menu__sub">
@@ -26,7 +26,7 @@
         </details>
         <details>
           <summary class="btn sidebar-menu__button">
-            <%= image_tag "bot.svg", size: 16, aria: { hidden: true } %>
+            <%= image_tag "icons/bot.svg", size: 16, aria: { hidden: true } %>
             <span class="overflow-ellipsis">Models</span>
           </summary>
           <div class="sidebar-menu__sub">
@@ -37,9 +37,9 @@
         </details>
         <details>
           <summary class="btn sidebar-menu__button">
-            <%= image_tag "book-open.svg", size: 16, aria: { hidden: true } %>
+            <%= image_tag "icons/book-open.svg", size: 16, aria: { hidden: true } %>
             <span class="overflow-ellipsis">Documentation</span>
-            <%- image_tag "chevron-right.svg", class: "mis-auto", size: 16, aria: { hidden: true } -%>
+            <%- image_tag "icons/chevron-right.svg", class: "mis-auto", size: 16, aria: { hidden: true } -%>
           </summary>
           <div class="sidebar-menu__sub">
             <%= link_to "Documentation", "#", class: "btn sidebar-menu__button" %>
@@ -50,7 +50,7 @@
         </details>
         <details>
           <summary class="btn sidebar-menu__button">
-            <%= image_tag "settings-2.svg", size: 16, aria: { hidden: true } %>
+            <%= image_tag "icons/settings-2.svg", size: 16, aria: { hidden: true } %>
             <span class="overflow-ellipsis">Settings</span>
           </summary>
           <div class="sidebar-menu__sub">
@@ -66,19 +66,19 @@
       <div class="sidebar-menu__group-label">Projects</div>
       <div class="sidebar-menu__items">
         <%= link_to "#", class: "btn sidebar-menu__button" do %>
-          <%= image_tag "frame.svg", size: 16, aria: { hidden: true } %>
+          <%= image_tag "icons/frame.svg", size: 16, aria: { hidden: true } %>
           <span class="overflow-ellipsis">Design Engineering</span>
         <% end %>
         <%= link_to "#", class: "btn sidebar-menu__button" do %>
-          <%= image_tag "chart-pie.svg", size: 16, aria: { hidden: true } %>
+          <%= image_tag "icons/chart-pie.svg", size: 16, aria: { hidden: true } %>
           <span class="overflow-ellipsis">Sales & Marketing</span>
         <% end %>
         <%= link_to "#", class: "btn sidebar-menu__button" do %>
-          <%= image_tag "map.svg", size: 16, aria: { hidden: true } %>
+          <%= image_tag "icons/map.svg", size: 16, aria: { hidden: true } %>
           <span class="overflow-ellipsis">Travel</span>
         <% end %>
         <%= tag.a class: "btn sidebar-menu__button", aria: { disabled: true } do %>
-          <%= image_tag "ellipsis.svg", size: 16, aria: { hidden: true } %>
+          <%= image_tag "icons/ellipsis.svg", size: 16, aria: { hidden: true } %>
           <span class="overflow-ellipsis">More</span>
         <% end %>
       </div>
@@ -92,6 +92,6 @@
       <span class="overflow-ellipsis max-i-full font-semibold"><%= Current.user.name %></span>
       <span class="overflow-ellipsis max-i-full text-xs"><%= Current.user.username %></span>
     </div>
-    <%= image_tag "chevrons-up-down.svg", class: "mis-auto", size: 16, aria: { hidden: true } %>
+    <%= image_tag "icons/chevrons-up-down.svg", class: "mis-auto", size: 16, aria: { hidden: true } %>
   <% end %>
 </div>
