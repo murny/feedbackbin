@@ -10,8 +10,8 @@
   overflow: hidden;
 
   &:is(.btn) {
-    --btn-block-size: auto;
     --btn-icon-color: none;
+    --btn-inline-size: var(--size);
     --btn-padding: 0;
     --btn-radius: var(--radius);
   }
@@ -38,5 +38,14 @@
     inline-size: var(--size-full);
     justify-content: center;
     user-select: none;
+  }
+}
+
+.avatar-group {
+  align-items: center;
+  display: flex;
+
+  > :not(:last-child) {
+    margin-inline-end: calc(var(--size-2) * -1);
   }
 }

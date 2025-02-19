@@ -14,18 +14,13 @@
     &[open]::details-content {
       block-size: auto;
     }
-
-    &[open] summary::after {
-      transform: var(--rotate-180);
-    }
   }
 
   summary {
     align-items: center;
-    cursor: pointer;
+    cursor: default;
     display: flex;
     font-weight: var(--font-medium);
-    justify-content: space-between;
     padding-block: var(--size-4);
 
     &:hover {
@@ -47,8 +42,12 @@
       content: "";
       filter: var(--color-filter-text);
       inline-size: var(--size-4);
-      transition-duration: var(--time-200);
-      transition-property: transform;
+      margin-inline-start: auto;
+      transition: transform var(--time-200);
+    }
+
+    details[open] > &::after {
+      transform: var(--rotate-180);
     }
   }
 }
