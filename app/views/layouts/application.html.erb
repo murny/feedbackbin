@@ -23,8 +23,16 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="header-layout" data-controller="local-time lightbox">
-    <%= render "navbar" %>
+  <body class="sidebar-layout" data-controller="local-time lightbox">
+    <header class="justify-between" id="header">
+      <%= render "mobile_menu" %>
+      <%= render "header_menu" %>
+    </header>
+
+    <aside id="sidebar">
+      <%= render "sidebar_menu" %>
+    </aside>
+
     <main id="main">
       <%= render "flash" %>
 

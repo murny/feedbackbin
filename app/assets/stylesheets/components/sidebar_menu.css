@@ -23,7 +23,7 @@
 
   &:is(summary) {
     &::after {
-      background-image: url("chevron-right.svg");
+      background-image: url("../icons/chevron-right.svg");
       background-size: cover;
       block-size: var(--size-4);
       content: "";
