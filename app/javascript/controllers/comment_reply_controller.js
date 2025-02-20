@@ -1,3 +1,5 @@
+// TODO: Can we use collapsible controller or something instead?
+
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
