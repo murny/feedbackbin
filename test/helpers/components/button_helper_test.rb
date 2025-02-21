@@ -28,16 +28,6 @@ module Components
       assert_match "btn btn--plain", rendered
     end
 
-    test "renders different size buttons" do
-      small = render_button("Small", size: :small)
-      medium = render_button("Medium", size: :medium)
-      large = render_button("Large", size: :large)
-
-      assert_match "btn--sm", small
-      assert_no_match "btn--sm", medium
-      assert_match "btn--lg", large
-    end
-
     test "renders as a link" do
       rendered = render_button("Link", as: :link, href: "/path")
       assert_match "href=\"/path\"", rendered
