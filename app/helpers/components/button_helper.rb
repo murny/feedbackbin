@@ -8,12 +8,12 @@ module Components
         "btn--primary"
       when :secondary
         "btn--secondary"
-      when :outline
-        "btn--outline"
       when :danger, :destructive
         "btn--danger"
-      when :plain
-        "btn--plain"
+      when :outline
+        "btn--outline"
+      when :ghost
+        "btn--ghost"
       end
 
       button_classes = [ button_classes, variant_classes, options[:class] ].reject(&:blank?).join(" ")

@@ -3,9 +3,11 @@
 namespace :admin do
   resources :changelogs
 
-  resource :docs do
+  namespace :documentation do
     # Showcase of Components
-    get :buttons
+    resource :components do
+      get :buttons
+    end
   end
 
   root to: "dashboard#show"
