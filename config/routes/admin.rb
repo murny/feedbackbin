@@ -4,10 +4,7 @@ namespace :admin do
   resources :changelogs
 
   namespace :documentation do
-    # Showcase of Components
-    resource :components do
-      get :buttons
-    end
+    resources :components, only: [ :show ]
   end
 
   root to: "dashboard#show"
