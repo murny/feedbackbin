@@ -1,0 +1,11 @@
+<%# locals: (title:, description:) %>
+
+<div class="space-y-2">
+  <h1 class="scroll-m-20  flex justify-between">
+    <span class="text-4xl font-bold tracking-tight"><%= title %></span>
+    <%= render_button "Edit", variant: :ghost, class: "text-sm", as: :link, href: "https://github.com/murny/feedbackbin/blob/main/app/views/admin/components/.html.erb" %>
+  </h1>
+  <p class="text-lg text-muted-foreground">
+    <span style="display: inline-block; vertical-align: top; text-decoration: inherit"><%= description %></span>
+  </p>
+</div>
