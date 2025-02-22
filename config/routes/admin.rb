@@ -3,7 +3,7 @@
 namespace :admin do
   resources :changelogs
 
-  namespace :documentation do
+  resources :documentation, only: [ :index ] do
     resources :components, only: [ :show ]
   end
 

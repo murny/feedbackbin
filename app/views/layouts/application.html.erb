@@ -23,24 +23,26 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="sidebar-layout" data-controller="local-time lightbox">
-    <header class="justify-between" id="header">
-      <%= render "mobile_menu" %>
-      <%= render "header_menu" %>
-    </header>
+  <body data-controller="local-time fullscreen lightbox">
+    <div class="sidebar-layout">
+      <header class="justify-between" id="header">
+        <%= render "mobile_menu" %>
+        <%= render "header_menu" %>
+      </header>
 
-    <aside id="sidebar">
-      <%= render "sidebar_menu" %>
-    </aside>
+      <aside id="sidebar">
+        <%= render "sidebar_menu" %>
+      </aside>
 
-    <main id="main">
-      <%= render "flash" %>
+      <main id="main">
+        <section class="mbe-auto flex flex-col gap">
+          <%= render "flash" %>
 
-      <div class="container">
-        <%= yield %>
-      </div>
+          <%= yield %>
+        </section>
 
-      <%= render partial: "footer" %>
-    </main>
+        <%= render partial: "footer" %>
+      </main>
+    </div>
   </body>
 </html>

@@ -1,5 +1,6 @@
 <% content_for :title, "Buttons" %>
 
+<div class="p-4">
 <%= render "component_header",
   title: "Button",
   description: "Displays a button or a component that looks like a button." %>
@@ -17,3 +18,4 @@
 <%= render_button text: "Ghost", variant: :ghost %>
 <%= render_button "Link", as: :link, href: "/" %>
 <%= render_button text: "Ghost Link", variant: :ghost, as: :link %>
+</div>
