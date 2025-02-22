@@ -2,10 +2,10 @@
 
 <div class="flex flex-col mbe-8">
   <h1 class="flex justify-between">
-    <span class="text-2xl font-bold"><%= title %></span>
+    <span class="text-3xl font-bold mbe-2"><%= title %></span>
     <%= render_button "Edit", variant: :ghost, class: "text-sm", as: :link, href: "https://github.com/murny/feedbackbin/blob/main/app/views/admin/documentation/components/#{@component}.html.erb" %>
   </h1>
-  <p class="text-subtle">
+  <p class="text-base text-subtle">
     <%= description %>
   </p>
 </div>
