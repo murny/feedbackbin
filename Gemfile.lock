@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/rails/rails.git
-  revision: 972a52d127ae90915fe68a6802c3213e28d80d45
+  revision: 04775277406fe6bb26e7c8052d2459c568a780d8
   branch: main
   specs:
     actioncable (8.1.0.alpha)
@@ -498,7 +498,7 @@ GEM
       ostruct
     stimulus-rails (1.3.4)
       railties (>= 6.0.0)
-    stringio (3.1.3)
+    stringio (3.1.5)
     tailwindcss-rails (4.0.0)
       railties (>= 7.0.0)
       tailwindcss-ruby (~> 4.0)
@@ -788,7 +788,7 @@ CHECKSUMS
   sqlite3 (2.5.0-x86_64-linux-musl) sha256=09fd262943eeb89465f6633e748b702b046de24cdab14b197302d0f4a0e250cb
   sshkit (1.24.0) sha256=9597c1f984778ae9742f2dc839778d57a6a2efb868107046575c52ac7c628e6c
   stimulus-rails (1.3.4) sha256=765676ffa1f33af64ce026d26b48e8ffb2e0b94e0f50e9119e11d6107d67cb06
-  stringio (3.1.3) sha256=1eedb8369ee99a9a0edfdacea95c72d647feb8ce844427c150bd641e1797abc8
+  stringio (3.1.5) sha256=bca92461515a131535743bc81d5559fa1de7d80cff9a654d6c0af6f9f27e35c8
   tailwindcss-rails (4.0.0) sha256=19c871a71eaf24477a480e07fb4481e4293fe33290096305a96f2f0d3ced053a
   tailwindcss-ruby (4.0.7) sha256=ecbaa0a8beb9783362b2af41e405665ed91e28e541d7ab8d8c3891875b8bc210
   tailwindcss-ruby (4.0.7-aarch64-linux-gnu) sha256=79aa77afb183036cf002dac28bcecac6f0fdf51b358e7a3d22e41e1c2d42198f
