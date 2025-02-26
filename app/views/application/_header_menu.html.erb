@@ -15,7 +15,43 @@
 </div>
 
 <div class="flex items-center gap">
-  <button type="button" class="btn avatar">
-    <%= image_tag fresh_user_avatar_path(Current.user), size: 48, role: "presentation", class: "h-10 w-10 rounded-full", alt: "" %>
-  </button>
+ <div data-controller="popover" data-popover-placement-value="bottom-end">
+    <button type="button" id="user_menu_button" class="btn avatar" data-popover-target="button" data-action="popover#toggle" aria-haspopup="true" aria-controls="user_menu">
+      <%= image_tag fresh_user_avatar_path(Current.user), size: 48, role: "presentation", class: "h-10 w-10 rounded-full", alt: "" %>
+    </button>
+    <div popover class="popover" data-popover-target="menu">
+      <div id="user_menu" class="menu" data-controller="menu" data-action="keydown.up->menu#prev keydown.down->menu#next" role="menu" aria-labelledby="user_menu_button">
+        <div class="menu__header">
+          <p class="font-medium"><%= Current.user.name %></p>
+          <p class="text-xs text-subtle"><%= Current.user.username %></p>
+        </div>
+        <hr class="menu__separator" role="separator"/>
+        <div class="menu__group" role="group">
+          <%= link_to "#", class: "btn menu__item", data: { menu_target: "item" }, role: "menuitem" do %>
+            <%= image_tag "icons/user.svg", size: 14, aria: { hidden: true } %>
+            <span>Profile</span>
+            <span class="menu__item-key">⌘P</span>
+          <% end %>
+          <%= link_to "#", class: "btn menu__item", data: { menu_target: "item" }, role: "menuitem" do %>
+            <%= image_tag "icons/credit-card.svg", size: 14, aria: { hidden: true } %>
+            <span>Billing</span>
+            <span class="menu__item-key">⌘B</span>
+          <% end %>
+          <%= link_to "#", class: "btn menu__item", data: { menu_target: "item" }, role: "menuitem" do %>
+            <%= image_tag "icons/settings.svg", size: 14, aria: { hidden: true } %>
+            <span>Settings</span>
+            <span class="menu__item-key">⌘S</span>
+          <% end %>
+        </div>
+        <hr class="menu__separator" role="separator"/>
+        <div class="menu__group" role="group">
+          <%= link_to "#", class: "btn menu__item", data: { menu_target: "item" }, role: "menuitem" do %>
+            <%= image_tag "icons/log-out.svg", size: 14, aria: { hidden: true } %>
+            <span>Log out</span>
+            <span class="menu__item-key">⇧⌘Q</span>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
