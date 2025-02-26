@@ -270,6 +270,7 @@ en:
       destroy:
         signed_out_successfully: You have signed out successfully.
       new:
+        or_continue_with: Or continue with
         email_address_placeholder: Enter your email address
         forgot_your_password: Forgot your password?
         need_an_account: Need an account?
