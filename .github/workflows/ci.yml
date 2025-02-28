@@ -23,7 +23,7 @@ jobs:
         run: bin/brakeman --no-pager
 
       - name: Bundler Audit Check
-        run: bundle exec bundle-audit check --update
+        run: bin/bundle-audit check --update
 
   scan_js:
     runs-on: ubuntu-latest

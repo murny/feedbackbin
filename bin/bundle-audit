@@ -4,4 +4,4 @@
 require "rubygems"
 require "bundler/setup"
 
-load Gem.bin_path("erb_lint", "erb_lint")
+load Gem.bin_path("bundle-audit", "bundle-audit")
