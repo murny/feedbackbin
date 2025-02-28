@@ -1,7 +1,7 @@
 <div class="sidebar-menu">
   <% if authenticated? %>
     <div data-controller="popover" data-popover-placement-value="bottom-start">
-      <button type="button" id="team_menu_button" class="btn sidebar-menu__button" data-popover-target="button" data-action="popover#toggle" aria-haspopup="true" aria-controls="team_menu">
+      <button type="button" class="btn sidebar-menu__button" data-popover-target="button" data-action="popover#toggle">
         <div class="flex shrink-0 overflow-hidden rounded-lg bg-black">
           <%= image_tag "icons/sidebar-logo.svg", class: "colorize-white m-2", size: 16, alt: "ZI" %>
         </div>
@@ -9,10 +9,10 @@
           <span class="overflow-ellipsis font-semibold">Zero Inc</span>
           <span class="overflow-ellipsis text-xs">Enterprise</span>
         </div>
-        <%= image_tag "icons/chevrons-up-down.svg", class: "mis-auto", size: 16, aria: { hidden: true } %>
+        <%= image_tag "icons/chevrons-up-down.svg", class: "mis-auto colorize-black", size: 16, aria: { hidden: true } %>
       </button>
       <div popover class="popover" style="--popover-size: 14rem;" data-popover-target="menu">
-        <div id="team_menu" class="menu" data-controller="menu" data-action="keydown.up->menu#prev keydown.down->menu#next" role="menu" aria-labelledby="team_menu_button">
+        <div class="menu">
           <div class="menu__header text-xs text-subtle font-semibold">Teams</div>
           <div class="menu__group" role="group">
             <%= link_to "#", class: "btn menu__item", data: { menu_target: "item" }, role: "menuitem" do %>
@@ -125,8 +125,8 @@
         </div>
       </div>
     </div>
-    <div data-controller="popover" data-popover-placement-value="top-end" class="sidebar-menu__button mbs-auto">
-      <button type="button" id="sidebar_user_menu_button" class="btn" data-popover-target="button" data-action="popover#toggle" aria-haspopup="true" aria-controls="sidebar_user_menu">
+    <div data-controller="popover" data-popover-placement-value="top-start" class="mbs-auto">
+      <button type="button" class="btn sidebar-menu__button" popovertarget="popover" data-popover-target="button" data-action="popover#toggle">
         <div class="flex shrink-0 overflow-hidden rounded-lg">
           <%= image_tag fresh_user_avatar_path(Current.user), size: 32, class: "colorize-none", alt: "" %>
         </div>
@@ -134,10 +134,10 @@
           <span class="overflow-ellipsis max-i-full font-semibold"><%= Current.user.name %></span>
           <span class="overflow-ellipsis max-i-full text-xs text-subtle"><%= Current.user.username %></span>
         </div>
-        <%= image_tag "icons/chevrons-up-down.svg", class: "mis-auto", size: 16, aria: { hidden: true } %>
+        <%= image_tag "icons/chevrons-up-down.svg", class: "mis-auto colorize-black", size: 16, aria: { hidden: true } %>
       </button>
-      <div popover class="popover" style="--popover-size: 14rem;" data-popover-target="menu">
-        <div id="sidebar_user_menu" class="menu" data-controller="menu" data-action="keydown.up->menu#prev keydown.down->menu#next" role="menu" aria-labelledby="sidebar_user_menu_button">
+      <div popover class="popover" data-popover-target="menu">
+        <div class="menu">
           <div class="text-sm p-0 font-normal">
             <div class="flex items-center gap pi-1 pb-2 text-start text-sm">
               <span class="relative flex shrink-0 overflow-hidden rounded-lg">
