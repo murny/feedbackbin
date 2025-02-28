@@ -1,6 +1,6 @@
 <div class="flex items-center gap">
-  <%= link_to "#", class: "flex items-center gap mie-2" do %>
-    <%= image_tag "icons/circle-slash.svg", size: 24, aria: { hidden: true } %>
+  <%= link_to root_path, class: "flex items-center gap mie-2" do %>
+    <%= image_tag "icons/circle-slash.svg", size: 24, aria: { hidden: true }, class: "colorize-black" %>
     <span class="font-bold">FeedbackBin</span>
   <% end %>
 
@@ -15,6 +15,13 @@
 </div>
 
 <div class="flex items-center gap">
+  <div class="show@md mie-2">
+    <div class="input input--actor flex items-center gap text-sm">
+      <input type="search" placeholder="Search...">
+      <span class="menu__item-key mis-1">⌘K</span>
+    </div>
+  </div>
+
   <% if authenticated? %>
     <div data-controller="popover" data-popover-placement-value="bottom-end">
       <button type="button" id="user_menu_button" class="btn avatar" data-popover-target="button" data-action="popover#toggle" aria-haspopup="true" aria-controls="user_menu">
