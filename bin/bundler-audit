@@ -4,4 +4,4 @@
 require "rubygems"
 require "bundler/setup"
 
-load Gem.bin_path("bundle-audit", "bundle-audit")
+load Gem.bin_path("bundler-audit", "bundler-audit")

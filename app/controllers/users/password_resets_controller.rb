@@ -5,8 +5,9 @@ module Users
     allow_unauthenticated_access
     skip_after_action :verify_authorized
 
-    before_action :set_user_by_token, only: %i[edit update]
     rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to new_users_password_reset_path, alert: t("users.password_resets.create.rate_limited") }
+
+    before_action :set_user_by_token, only: %i[edit update]
 
     def new
     end

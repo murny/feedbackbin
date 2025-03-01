@@ -247,6 +247,7 @@ en:
         passwords_did_not_match: Passwords did not match.
     registrations:
       create:
+        rate_limited: Please try again later.
         signed_up_successfully: Welcome! You have signed up successfully.
       new:
         already_have_an_account: Already have an account?

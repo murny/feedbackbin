@@ -8,7 +8,7 @@ STEPS = [
   "bin/erb_lint --lint-all",
   "bin/i18n-tasks health en",
   "bin/brakeman --quiet --no-pager",
-  "bin/bundle-audit check"
+  "bin/bundler-audit check --update"
 ]
 
 COLOR_TITLE = "\033[1;35m"
@@ -36,3 +36,4 @@ STEPS.each do |step|
 end
 
 message "\n\nEverything passed", color: COLOR_SUCCESS
+run "gh signoff"
