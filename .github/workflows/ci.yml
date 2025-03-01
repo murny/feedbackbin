@@ -81,7 +81,6 @@ jobs:
         env:
           RAILS_ENV: test
           COVERAGE: true
-          # RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
         run: bin/rails db:test:prepare test test:system
 
       - name: Keep screenshots from failed system tests

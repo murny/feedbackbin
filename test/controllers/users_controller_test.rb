@@ -10,7 +10,7 @@ class UsersControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should be able to delete user" do
-    sign_in(users(:one))
+    sign_in_as(users(:one))
 
     assert_difference("User.count", -1) do
       delete user_url(users(:one))

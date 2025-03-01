@@ -3,7 +3,7 @@
 
 STEPS = [
   "bin/rails test",
-  # "bin/rails test:system",
+  "bin/rails test:system",
   "bin/rubocop",
   "bin/erb_lint --lint-all",
   "bin/i18n-tasks health en",

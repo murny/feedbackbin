@@ -16,7 +16,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should edit comment" do
-    sign_in @user
+    sign_in_as @user
 
     get edit_comment_url(@comment)
 
@@ -24,7 +24,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should create comment if authenticated" do
-    sign_in @user
+    sign_in_as @user
 
     assert_difference "Comment.count" do
       post comments_url, params: { comment: { post_id: @post.id, body: "Hello, world!" } }
@@ -47,7 +47,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should update comment if authenticated" do
-    sign_in @user
+    sign_in_as @user
 
     patch comment_url(@comment), params: { comment: { body: "This is a new body" } }
 
@@ -60,7 +60,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should destroy comment" do
-    sign_in @user
+    sign_in_as @user
 
     assert_difference "Comment.count", -1 do
       delete comment_url(@comment)

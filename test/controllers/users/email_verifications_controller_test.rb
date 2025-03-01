@@ -10,7 +10,7 @@ module Users
     end
 
   test "should send a verification email" do
-    sign_in(@user)
+    sign_in_as(@user)
 
     assert_enqueued_email_with UserMailer, :email_verification, args: [ @user ] do
       post users_email_verification_url

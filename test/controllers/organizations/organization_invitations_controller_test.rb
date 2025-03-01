@@ -8,7 +8,7 @@ module Organizations
       @admin = users(:shane)
       @normal_user = users(:one)
       @organization = organizations(:feedbackbin)
-      sign_in @admin
+      sign_in_as @admin
     end
 
     test "should get new" do
@@ -18,7 +18,7 @@ module Organizations
     end
 
     test "should not get new if not an admin" do
-      sign_in @normal_user
+      sign_in_as @normal_user
       get new_organization_membership_url(@organization)
 
       assert_response :not_found

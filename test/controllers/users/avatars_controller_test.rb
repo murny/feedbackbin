@@ -23,7 +23,7 @@ module Users
 
   test "destroy" do
     @shane = users(:shane)
-    sign_in @shane
+    sign_in_as @shane
 
     @shane.update! avatar: fixture_file_upload("random.jpeg", "image/jpeg")
 

@@ -22,7 +22,7 @@ class ChangelogsControllerTest < ActionDispatch::IntegrationTest
     freeze_time
 
     user = users(:one)
-    sign_in user
+    sign_in_as(user)
 
     get changelogs_url
 

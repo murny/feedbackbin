@@ -37,7 +37,7 @@ module Users
   end
 
   test "should sign out" do
-    sign_in(@user)
+    sign_in_as(@user)
 
     delete users_session_url(@user.sessions.last)
 

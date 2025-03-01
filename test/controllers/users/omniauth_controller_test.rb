@@ -50,7 +50,7 @@ module Users
   test "can connect to a social account when signed in" do
     user = users(:shane)
 
-    sign_in user
+    sign_in_as user
 
     OmniAuth.config.mock_auth[:developer] = OmniAuth::AuthHash.new(
       provider: "developer",
@@ -100,7 +100,7 @@ module Users
     # Ensure these are separate users
     assert_not_equal connected_account.user, user
 
-    sign_in user
+    sign_in_as user
     OmniAuth.config.add_mock(:google, uid: connected_account.provider_uid, info: { email: connected_account.user.email_address })
     get "/auth/google/callback"
 
@@ -112,7 +112,7 @@ module Users
     connected_account = user_connected_accounts(:shane_google)
     user = connected_account.user
 
-    sign_in user
+    sign_in_as user
 
     OmniAuth.config.add_mock(:google, uid: connected_account.provider_uid, info: { email: connected_account.user.email_address })
 

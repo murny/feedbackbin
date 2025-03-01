@@ -11,7 +11,7 @@ module Admin
     end
 
   test "should not get show as non admin user" do
-    sign_in users(:one)
+    sign_in_as users(:one)
 
     get admin_root_url
 
@@ -19,7 +19,7 @@ module Admin
   end
 
   test "should get show as admin" do
-    sign_in users(:shane)
+    sign_in_as users(:shane)
 
     get admin_root_url
 

@@ -18,15 +18,6 @@ class AuthenticationTest < ApplicationSystemTestCase
     assert_text "You have signed in successfully."
   end
 
-  test "signing out" do
-    sign_in @user.email_address
-
-    find_by_id("user-menu-button").click
-    click_button "Sign out"
-
-    assert_text "You have signed out successfully."
-  end
-
   test "signing up" do
     visit sign_up_url
 

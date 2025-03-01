@@ -10,7 +10,7 @@ module Organizations
       @user = @admin_membership.user
       @organization = @admin_membership.organization
 
-      sign_in @user
+      sign_in_as @user
     end
 
     test "should get index" do
@@ -34,7 +34,7 @@ module Organizations
     end
 
     test "should not get edit if not an admin" do
-      sign_in @normal_membership.user
+      sign_in_as @normal_membership.user
 
       get edit_organization_membership_url(@organization, @normal_membership)
 
@@ -49,7 +49,7 @@ module Organizations
     end
 
     test "should not update membership if not an admin" do
-      sign_in @normal_membership.user
+      sign_in_as @normal_membership.user
 
       patch organization_membership_url(@organization, @normal_membership), params: { membership: { role: "administrator" } }
 
@@ -77,7 +77,7 @@ module Organizations
     end
 
     test "should not destroy membership if not an admin" do
-      sign_in @normal_membership.user
+      sign_in_as @normal_membership.user
 
       assert_no_difference("Membership.count") do
         delete organization_membership_url(@organization, @admin_membership)
@@ -87,7 +87,7 @@ module Organizations
     end
 
     test "should be able to remove their own membership" do
-      sign_in @normal_membership.user
+      sign_in_as @normal_membership.user
 
       assert_difference("Membership.count", -1) do
         delete organization_membership_url(@organization, @normal_membership)

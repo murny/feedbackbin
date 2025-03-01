@@ -5,16 +5,17 @@ module SessionTestHelper
     ActionDispatch::Cookies::CookieJar.build(request, cookies.to_hash)
   end
 
-  def sign_in(user)
-    user = users(user) unless user.is_a? User
-    post users_session_url, params: { email_address: user.email_address, password: "secret123456" }
+  def sign_in_as(user)
+    Current.session = user.sessions.create!
 
-    assert_predicate cookies[:session_id], :present?
+    ActionDispatch::TestRequest.create.cookie_jar.tap do |cookie_jar|
+      cookie_jar.signed[:session_id] = Current.session.id
+      cookies[:session_id] = cookie_jar[:session_id]
+    end
   end
 
   def sign_out
-    delete users_session_url
-
-    assert_not cookies[:session_id].present?
+    Current.session&.destroy!
+    cookies.delete(:session_id)
   end
 end

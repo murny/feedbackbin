@@ -7,7 +7,7 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
     @organization = organizations(:feedbackbin)
 
     @user = users(:shane)
-    sign_in @user
+    sign_in_as @user
   end
 
   test "should get index" do

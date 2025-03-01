@@ -6,7 +6,7 @@ module UserSettings
   class ActiveSessionsControllerTest < ActionDispatch::IntegrationTest
     setup do
       @user = users(:one)
-      sign_in(@user)
+      sign_in_as(@user)
     end
 
   test "should be able to view sessions" do

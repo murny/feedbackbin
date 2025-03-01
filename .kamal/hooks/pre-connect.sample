@@ -44,4 +44,4 @@ end
 retries = results.sum - hosts.size
 nopes = results.count { |r| r == max }
 
-puts "Prewarmed %d DNS lookups in %.2f sec: %d retries, %d failures" % [hosts.size, elapsed, retries, nopes]
+puts "Prewarmed %d DNS lookups in %.2f sec: %d retries, %d failures" % [ hosts.size, elapsed, retries, nopes ]

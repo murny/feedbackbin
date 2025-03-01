@@ -7,7 +7,7 @@ class LikesControllerTest < ActionDispatch::IntegrationTest
     post = posts(:one)
     user = users(:one)
 
-    sign_in user
+    sign_in_as user
 
     assert_difference -> { post.likes.count }, 1 do
       patch like_url(likeable_type: "Post", likeable_id: post.id)
@@ -26,7 +26,7 @@ class LikesControllerTest < ActionDispatch::IntegrationTest
     category = categories(:one)
     user = users(:one)
 
-    sign_in user
+    sign_in_as user
 
     assert_no_difference -> { Like.count } do
       patch like_url(likeable_type: "Category", likeable_id: category.id)
