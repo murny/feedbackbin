@@ -40,7 +40,7 @@ gem "omniauth"
 gem "omniauth-rails_csrf_protection"
 gem "omniauth-google-oauth2"
 gem "omniauth-facebook"
-gem "pundit", "~> 2.4"
+gem "pundit", "~> 2.5"
 
 gem "tzinfo-data", platforms: %i[windows jruby]
 
