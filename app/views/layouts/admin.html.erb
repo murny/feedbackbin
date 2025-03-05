@@ -1,0 +1,16 @@
+<% content_for(:head) do %>
+<% end %>
+
+<% content_for(:content) do %>
+  <div class="mx-auto flex w-full max-w-7xl items-start gap-x-8 px-4 py-10 sm:px-6 lg:px-8">
+    <aside class="sticky top-8 hidden w-56 shrink-0 lg:block">
+      <%= render "admin/sidebar" %>
+    </aside>
+
+    <main class="flex-1">
+      <%= yield %>
+    </main>
+  </div>
+<% end %>
+
+<%= render template: "layouts/application" %>

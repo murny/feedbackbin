@@ -1,0 +1,54 @@
+.accordion {
+  --text-sm:   0.875rem; /* 14px */
+  --border:   1px;
+  --border-2: 2px;
+  --color-filter-text: var(--color-accent);
+  --font-medium: 500;
+  --time-200: 200ms;
+  --size-4: 1rem;
+  --rotate-180: rotate(180deg);
+
+  details {
+    border-block-end-width: var(--border);
+    font-size: var(--text-sm);
+    overflow: hidden;
+    &::details-content {
+      block-size: 0;
+      transition-behavior: allow-discrete;
+      transition-duration: var(--time-200);
+      transition-property: content-visibility block-size;
+    }
+    &[open]::details-content {
+      block-size: auto;
+    }
+  }
+  summary {
+    align-items: center;
+    cursor: default;
+    display: flex;
+    font-weight: var(--font-medium);
+    padding-block: var(--size-4);
+    &:hover {
+      text-decoration: underline;
+    }
+    &:focus-visible {
+      outline: var(--border-2) auto var(--color-selected-dark);
+    }
+    &::-webkit-details-marker {
+      display: none;
+    }
+    &::after {
+      background-image: url("chevron-down.svg");
+      background-size: cover;
+      block-size: var(--size-4);
+      content: "";
+      filter: var(--color-filter-text);
+      inline-size: var(--size-4);
+      margin-inline-start: auto;
+      transition: transform var(--time-200);
+    }
+    details[open] > &::after {
+      transform: var(--rotate-180);
+    }
+  }
+}

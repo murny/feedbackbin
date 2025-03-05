@@ -25,19 +25,6 @@
           Code
         </a>
       </div>
-
-      <div class="flex items-center gap-2">
-        <button data-controller="clipboard"
-                data-clipboard-content-value="<%= content.to_param.strip %>"
-                data-action="clipboard#copy"
-                class="inline-flex items-center justify-center rounded-md border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 shadow-sm relative z-10 h-7 w-7 text-gray-700 dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700">
-          <span class="sr-only">Copy</span>
-          <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-clipboard">
-            <rect width="8" height="4" x="8" y="2" rx="1" ry="1"></rect>
-            <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
-          </svg>
-        </button>
-      </div>
     </div>
 
     <div id="<%= id %>-preview"
@@ -56,8 +43,10 @@
           <div class="text-xs font-medium text-gray-500 dark:text-gray-400">HTML</div>
         </div>
         <div class="overflow-x-auto">
-          <pre class="language-html p-4 text-sm leading-relaxed font-mono tab-size-2 hyphens-none break-normal whitespace-pre-wrap">
-            <code class="text-gray-800 dark:text-gray-200"><%= content.to_param.strip %></code>
+          <pre class="p-4 text-sm leading-relaxed font-mono tabular-nums break-normal whitespace-pre-wrap prose dark:prose-invert">
+            <code class="text-gray-800 dark:text-gray-200">
+              <%= content.to_param.strip %>
+            </code>
           </pre>
         </div>
       </div>

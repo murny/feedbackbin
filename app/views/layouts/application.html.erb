@@ -27,7 +27,7 @@
       <%= render "navbar" %>
       <%= render "flash" %>
       <main class="container mx-auto px-4 sm:px-6 lg:px-8">
-        <%= yield %>
+        <%= content_for?(:content) ? yield(:content) : yield %>
       </main>
     </div>
     <%= render partial: "footer" %>
