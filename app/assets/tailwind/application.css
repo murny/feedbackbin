@@ -4,7 +4,15 @@
 @plugin "@tailwindcss/forms";
 @plugin "@tailwindcss/typography";
 
-@import "./theme.css" layer(theme);
+@variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --color-primary: var(--bg-primary);
+}
+
+@import "./themes/dark.css" layer(theme);
+@import "./themes/light.css" layer(theme);
 
 @import "./components/accordion.css" layer(components);
 @import "./components/actiontext.css" layer(components);
