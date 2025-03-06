@@ -1,0 +1,108 @@
+:root.dark,
+.dark {
+  /* Tells browser to use dark mode scroll bars, etc */
+  color-scheme: dark;
+
+  /*Primary*/
+  --bg-primary: var(--color-blue-700);
+  --bg-primary-hover: var(--color-blue-600);
+  --text-on-primary: var(--color-white);
+  --border-primary: var(--color-blue-500);
+  --border-primary-hover: var(--color-blue-400);
+  --text-primary: var(--color-blue-300);
+  --text-primary-hover: var(--color-blue-400);
+  --logo-primary: var(--color-gray-100);
+
+  /*Secondary*/
+  --bg-secondary: var(--color-gray-900);
+  --text-on-secondary: var(--color-gray-50);
+  --bg-secondary-hover: var(--color-gray-800);
+  --text-on-secondary-hover: var(--color-gray-50);
+  --border-secondary: var(--color-gray-700);
+
+  /*Danger*/
+  --bg-danger: var(--color-red-800);
+  --bg-danger-hover: var(--color-red-700);
+  --text-on-danger: var(--color-white);
+  --border-danger: var(--color-red-600);
+  --border-danger-focus: var(--color-red-600);
+  --text-danger: var(--color-red-400);
+  --bg-danger-secondary: var(--color-red-950);
+  --text-on-danger-secondary: var(--color-red-200);
+  --icon-on-danger-secondary: var(--color-red-400);
+
+  /*Success*/
+  --bg-success: var(--color-green-800);
+  --bg-success-hover: var(--color-green-700);
+  --text-on-success: var(--color-white);
+  --border-success: var(--color-green-400);
+  --border-success-focus: var(--color-green-700);
+  --text-success: var(--color-green-300);
+  --bg-success-secondary: var(--color-green-950);
+  --text-on-success-secondary: var(--color-green-100);
+  --icon-on-success-secondary: var(--color-green-400);
+
+  /*Info*/
+  --bg-info-secondary: var(--color-blue-950);
+  --text-on-info-secondary: var(--color-blue-100);
+  --icon-on-info-secondary: var(--color-blue-300);
+
+  /*Warning*/
+  --bg-warning-secondary: var(--color-yellow-950);
+  --text-on-warning-secondary: var(--color-yellow-100);
+  --icon-on-warning-secondary: var(--color-yellow-500);
+
+  /*Accent*/
+  --bg-accent: var(--color-orange-700);
+  --text-on-accent: var(--color-white);
+  --border-accent: var(--color-orange-500);
+  --text-accent: var(--color-orange-400);
+
+  /*Light*/
+  --bg-light: var(--color-gray-200);
+  --bg-light-hover: var(--color-gray-300);
+  --text-on-light: var(--color-gray-900);
+  --text-on-light-outline: var(--color-gray-100);
+  --border-light: var(--color-gray-300);
+
+  /*Dark*/
+  --bg-dark: var(--color-gray-950);
+  --bg-dark-secondary: var(--color-gray-400);
+  --bg-dark-hover: var(--color-gray-900);
+  --text-on-dark: var(--color-white);
+  --text-on-dark-outline: var(--color-gray-200);
+  --border-dark: var(--color-gray-700);
+  --border-dark-focus: var(--color-gray-500);
+
+  /*Disabled*/
+  --bg-disabled: var(--color-gray-600);
+  --bg-disabled-selected: var(--color-gray-700);
+  --text-on-disabled-selected: var(--color-gray-200);
+  --border-disabled: var(--color-gray-500);
+  --bg-disabled-secondary: var(--color-gray-800);
+  --icon-disabled: var(--color-gray-400);
+
+  /*Base*/
+  --base-text: var(--color-gray-100);
+  --base-text-secondary: var(--color-gray-200);
+  --base-text-tertiary: var(--color-gray-400);
+  --base-text-disabled: var(--color-gray-600);
+  --base-icon: var(--color-gray-400);
+  --base-bg-backdrop: var(--color-gray-300);
+  --base-bg-highest: var(--color-gray-500);
+  --base-bg-high: var(--color-gray-600);
+  --base-bg-base: var(--color-gray-700);
+  --base-bg-low: var(--color-gray-800);
+  --base-bg-lowest: var(--color-gray-900);
+  --base-border-primary: var(--color-gray-400);
+  --base-border-secondary: var(--color-gray-500);
+  --base-border-tertiary: var(--color-gray-600);
+  --base-border-focus: var(--color-blue-800);
+  --base-bg-selected: var(--color-blue-900);
+  --base-bg-hover: var(--color-blue-950);
+  --base-bg-tooltip: var(--color-gray-700);
+  --base-text-on-tooltip: var(--color-gray-50);
+
+  /* Background */
+  background-color: var(--base-bg-low);
+}

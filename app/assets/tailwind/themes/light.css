@@ -1,0 +1,117 @@
+:root,
+.light {
+  --color-gray-50: var(--color-neutral-50);
+  --color-gray-100: var(--color-neutral-100);
+  --color-gray-200: var(--color-neutral-200);
+  --color-gray-300: var(--color-neutral-300);
+  --color-gray-400: var(--color-neutral-400);
+  --color-gray-500: var(--color-neutral-500);
+  --color-gray-600: var(--color-neutral-600);
+  --color-gray-700: var(--color-neutral-700);
+  --color-gray-800: var(--color-neutral-800);
+  --color-gray-900: var(--color-neutral-900);
+  --color-gray-950: var(--color-neutral-950);
+
+  /*Primary*/
+  --bg-primary: var(--color-blue-700);
+  --bg-primary-hover: var(--color-blue-600);
+  --text-on-primary: var(--color-white);
+  --border-primary: var(--color-blue-600);
+  --border-primary-hover: var(--color-blue-500);
+  --text-primary: var(--color-blue-700);
+  --text-primary-hover: var(--color-blue-600);
+  --logo-primary: var(--color-gray-800);
+
+  /*Secondary*/
+  --bg-secondary: var(--color-white);
+  --text-on-secondary: var(--color-gray-800);
+  --bg-secondary-hover: var(--color-gray-100);
+  --text-on-secondary-hover: var(--color-gray-700);
+  --border-secondary: var(--color-gray-300);
+
+  /*Danger*/
+  --bg-danger: var(--color-red-700);
+  --bg-danger-hover: var(--color-red-600);
+  --text-on-danger: var(--color-white);
+  --border-danger: var(--color-red-500);
+  --border-danger-focus: var(--color-red-500);
+  --text-danger: var(--color-red-700);
+  --bg-danger-secondary: var(--color-red-50);
+  --text-on-danger-secondary: var(--color-red-700);
+  --icon-on-danger-secondary: var(--color-red-600);
+
+  /*Success*/
+  --bg-success: var(--color-green-800);
+  --bg-success-hover: var(--color-green-700);
+  --text-on-success: var(--color-white);
+  --border-success: var(--color-green-600);
+  --border-success-focus: var(--color-green-500);
+  --text-success: var(--color-green-800);
+  --bg-success-secondary: var(--color-green-50);
+  --text-on-success-secondary: var(--color-green-700);
+  --icon-on-success-secondary: var(--color-green-600);
+
+  /*Info*/
+  --bg-info-secondary: var(--color-blue-50);
+  --text-on-info-secondary: var(--color-blue-700);
+  --icon-on-info-secondary: var(--color-blue-500);
+
+  /*Warning*/
+  --bg-warning-secondary: var(--color-yellow-50);
+  --text-on-warning-secondary: var(--color-yellow-700);
+  --icon-on-warning-secondary: var(--color-yellow-700);
+
+  /*Accent*/
+  --bg-accent: var(--color-orange-700);
+  --text-on-accent: var(--color-white);
+  --border-accent: var(--color-orange-500);
+  --text-accent: var(--color-orange-700);
+
+  /*Light*/
+  --bg-light: var(--color-white);
+  --bg-light-hover: var(--color-gray-50);
+  --text-on-light: var(--color-gray-800);
+  --text-on-light-outline: var(--color-gray-800);
+  --border-light: var(--color-gray-300);
+
+  /*Dark*/
+  --bg-dark: var(--color-gray-800);
+  --bg-dark-secondary: var(--color-gray-500);
+  --bg-dark-hover: var(--color-gray-700);
+  --text-on-dark: var(--color-white);
+  --text-on-dark-outline: var(--color-gray-800);
+  --border-dark: var(--color-gray-700);
+  --border-dark-focus: var(--color-gray-500);
+
+  /*Disabled*/
+  --bg-disabled: var(--color-gray-200);
+  --bg-disabled-selected: var(--color-gray-400);
+  --text-on-disabled-selected: var(--color-gray-200);
+  --border-disabled: var(--color-gray-300);
+  --bg-disabled-secondary: var(--color-gray-300);
+  --icon-disabled: var(--color-gray-400);
+
+  /*Base*/
+  --base-text: var(--color-gray-800);
+  --base-text-secondary: var(--color-gray-700);
+  --base-text-tertiary: var(--color-gray-500);
+  --base-text-disabled: var(--color-gray-400);
+  --base-icon: var(--color-gray-500);
+  --base-bg-backdrop: var(--color-gray-800);
+  --base-bg-highest: var(--color-gray-300);
+  --base-bg-high: var(--color-gray-100);
+  --base-bg-base: var(--color-gray-50);
+  --base-bg-low: var(--color-white);
+  --base-bg-lowest: var(--color-gray-50);
+  --base-border-primary: var(--color-gray-500);
+  --base-border-secondary: var(--color-gray-400);
+  --base-border-tertiary: var(--color-gray-300);
+  --base-border-focus: var(--color-blue-500);
+  --base-bg-selected: var(--color-blue-700);
+  --base-bg-hover: var(--color-blue-50);
+  --base-bg-tooltip: var(--color-gray-800);
+  --base-text-on-tooltip: var(--color-white);
+
+  /* Background */
+  background-color: var(--base-bg-low);
+}
