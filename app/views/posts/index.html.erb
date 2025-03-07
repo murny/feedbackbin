@@ -1,60 +1,70 @@
 <%= content_for :title, t("posts.index.title") %>
 <%= turbo_stream_from :posts %>
 
-<section class="max-w-6xl mx-auto px-4 sm:px-6">
-  <div class="md:pr-6 lg:pr-10">
-    <div class="border-b border-gray-800 p-6">
-      <h1 class="my-3 text-3xl font-bold text-gray-900 sm:text-4xl sm:leading-none sm:tracking-tight dark:text-white"><%= @category.name %></h1>
-      <p class="mb-6 text-lg font-normal text-gray-500 sm:text-xl dark:text-gray-400"><%= @category.description %></p>
+<div class="flex flex-wrap items-end justify-between gap-4">
+  <div class="max-sm:w-full sm:flex-1">
+    <h1 class="text-2xl/8 font-semibold text-zinc-950 sm:text-xl/8 dark:text-white"><%= @category.name %></h1>
+    <p class="mb-6 text-lg font-normal text-gray-500 sm:text-xl dark:text-gray-400"><%= @category.description %></p>
 
-      <div class="text-center md:text-left md:flex justify-between items-center">
-        <div class="mb-4 md:mb-0 md:order-1 md:ml-6">
-          <%= link_to t("posts.new.title"), new_post_path, class: "px-4 py-2 text-sm font-medium inline-flex items-center justify-center rounded-full leading-5 whitespace-nowrap py-1.5 text-white bg-blue-500 hover:bg-blue-600" %>
-        </div>
-
-        <ul class="grow inline-flex flex-wrap text-sm font-medium -mx-3 -my-1">
-          <li class="px-3 py-1">
-            <%= active_link_to "Popular", posts_path(sort: :comments_count, direction: :desc), class: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700", active_class: "border-indigo-500 text-indigo-600" %>
-          </li>
-          <li class="px-3 py-1">
-            <%= active_link_to "Newest", posts_path(sort: :created_at, direction: :asc), class: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700", active_class: "border-indigo-500 text-indigo-600" %>
-          </li>
-          <li class="px-3 py-1">
-            <%= active_link_to "Top", posts_path(sort: :likes_count, direction: :desc), class: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700", active_class: "border-indigo-500 text-indigo-600" %>
-          </li>
-        </ul>
+    <div class="mt-4 flex max-w-xl gap-4">
+      <div class="flex-1">
+        <span data-slot="control" class="relative isolate block has-[[data-slot=icon]:first-child]:[&_input]:pl-10 has-[[data-slot=icon]:last-child]:[&_input]:pr-10 sm:has-[[data-slot=icon]:first-child]:[&_input]:pl-8 sm:has-[[data-slot=icon]:last-child]:[&_input]:pr-8 *:data-[slot=icon]:pointer-events-none *:data-[slot=icon]:absolute *:data-[slot=icon]:top-3 *:data-[slot=icon]:z-10 *:data-[slot=icon]:size-5 sm:*:data-[slot=icon]:top-2.5 sm:*:data-[slot=icon]:size-4 [&>[data-slot=icon]:first-child]:left-3 sm:[&>[data-slot=icon]:first-child]:left-2.5 [&>[data-slot=icon]:last-child]:right-3 sm:[&>[data-slot=icon]:last-child]:right-2.5 *:data-[slot=icon]:text-zinc-500 dark:*:data-[slot=icon]:text-zinc-400">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
+            <path fill-rule="evenodd" d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z" clip-rule="evenodd"></path>
+          </svg>
+          <span data-slot="control" class="relative block w-full before:absolute before:inset-px before:rounded-[calc(var(--radius-lg)-1px)] before:bg-white before:shadow-sm dark:before:hidden after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:ring-transparent after:ring-inset sm:focus-within:after:ring-2 sm:focus-within:after:ring-blue-500 has-data-disabled:opacity-50 has-data-disabled:before:bg-zinc-950/5 has-data-disabled:before:shadow-none has-data-invalid:before:shadow-red-500/10">
+            <input placeholder="Search feedback..." class="relative block w-full appearance-none rounded-lg px-[calc(--spacing(3.5)-1px)] py-[calc(--spacing(2.5)-1px)] sm:px-[calc(--spacing(3)-1px)] sm:py-[calc(--spacing(1.5)-1px)] text-base/6 text-zinc-950 placeholder:text-zinc-500 sm:text-sm/6 dark:text-white border border-zinc-950/10 data-hover:border-zinc-950/20 dark:border-white/10 dark:data-hover:border-white/20 bg-transparent dark:bg-white/5 focus:outline-hidden data-invalid:border-red-500 data-invalid:data-hover:border-red-500 dark:data-invalid:border-red-500 dark:data-invalid:data-hover:border-red-500 data-disabled:border-zinc-950/20 dark:data-disabled:border-white/15 dark:data-disabled:bg-white/[2.5%] dark:data-hover:data-disabled:border-white/15 dark:[color-scheme:dark]" id="headlessui-input-:rf4:" data-headlessui-state="" name="search">
+          </span>
+        </span>
+      </div>
+      <div>
+        <span data-slot="control" class="group relative block w-full before:absolute before:inset-px before:rounded-[calc(var(--radius-lg)-1px)] before:bg-white before:shadow-sm dark:before:hidden after:pointer-events-none after:absolute after:inset-0 after:rounded-lg after:ring-transparent after:ring-inset has-data-focus:after:ring-2 has-data-focus:after:ring-blue-500 has-data-disabled:opacity-50 has-data-disabled:before:bg-zinc-950/5 has-data-disabled:before:shadow-none">
+          <select name="sort_by" class="relative block w-full appearance-none rounded-lg py-[calc(--spacing(2.5)-1px)] sm:py-[calc(--spacing(1.5)-1px)] pr-[calc(--spacing(10)-1px)] pl-[calc(--spacing(3.5)-1px)] sm:pr-[calc(--spacing(9)-1px)] sm:pl-[calc(--spacing(3)-1px)] [&_optgroup]:font-semibold text-base/6 text-zinc-950 placeholder:text-zinc-500 sm:text-sm/6 dark:text-white dark:*:text-white border border-zinc-950/10 data-hover:border-zinc-950/20 dark:border-white/10 dark:data-hover:border-white/20 bg-transparent dark:bg-white/5 dark:*:bg-zinc-800 focus:outline-hidden data-invalid:border-red-500 data-invalid:data-hover:border-red-500 dark:data-invalid:border-red-600 dark:data-invalid:data-hover:border-red-600 data-disabled:border-zinc-950/20 data-disabled:opacity-100 dark:data-disabled:border-white/15 dark:data-disabled:bg-white/[2.5%] dark:data-hover:data-disabled:border-white/15" id="headlessui-select-:rf5:" data-headlessui-state="">
+            <option value="name">Sort by Popular</option>
+            <option value="date">Sort by Newest</option>
+            <option value="status">Sort by Top</option>
+          </select>
+          <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-2">
+            <svg class="size-5 stroke-zinc-500 group-has-data-disabled:stroke-zinc-600 sm:size-4 dark:stroke-zinc-400 forced-colors:stroke-[CanvasText]" viewBox="0 0 16 16" aria-hidden="true" fill="none">
+              <path d="M5.75 10.75L8 13L10.25 10.75" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+              <path d="M10.25 5.25L8 3L5.75 5.25" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path>
+            </svg>
+          </span>
+        </span>
       </div>
     </div>
-
-    <%= tag.div id: ("posts" if first_page?(@pagy.page)), class: "mb-12" do %>
-      <% if @posts.empty? %>
-        <div class="text-center my-3">
-          <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-            <path vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
-          </svg>
-          <h3 class="mt-2 text-sm font-semibold text-gray-900 dark:text-white">No feedback yet</h3>
-          <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Get started by creating a new suggestion.</p>
-          <div class="mt-6">
-            <%= link_to new_post_path, class: "inline-flex items-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600" do %>
-              <svg class="-ml-0.5 mr-1.5 h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
-              </svg>
-            <%= t("posts.new.title") %>
-            <% end %>
-          </div>
-        </div>
-      <% else %>
-        <ul role="list" class="flex flex-col space-y-3 mb-8">
-          <%= render partial: "posts/post", collection: @posts, as: :post %>
-        </ul>
-      <% end %>
-    <% end %>
-
-    <% if @pagy.pages > 1 %>
-      <div class="flex items-center justify-between px-4 py-3 sm:px-6">
-        <%== pagy_info(@pagy) %>
-        <%== pagy_nav(@pagy) %>
-      </div>
-    <% end %>
   </div>
-</section>
+  <%= link_to t("posts.new.title"), new_post_path, class: "btn btn-secondary" %>
+</div>
+
+
+<%= tag.div id: ("posts" if first_page?(@pagy.page)), class: "mt-10" do %>
+  <% if @posts.empty? %>
+    <div class="text-center my-3">
+      <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+        <path vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+      </svg>
+      <h3 class="mt-2 text-sm font-semibold text-gray-900 dark:text-white">No feedback yet</h3>
+      <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Get started by creating a new suggestion.</p>
+      <div class="mt-6">
+        <%= link_to new_post_path, class: "inline-flex items-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600" do %>
+          <svg class="-ml-0.5 mr-1.5 h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+            <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
+          </svg>
+        <%= t("posts.new.title") %>
+        <% end %>
+      </div>
+    </div>
+  <% else %>
+    <ul role="list" class="flex flex-col space-y-3 mb-8">
+      <%= render partial: "posts/post", collection: @posts, as: :post %>
+    </ul>
+  <% end %>
+<% end %>
+
+<% if @pagy.pages > 1 %>
+  <div class="flex items-center justify-between px-4 py-3 sm:px-6">
+    <%== pagy_info(@pagy) %>
+    <%== pagy_nav(@pagy) %>
+  </div>
+<% end %>
