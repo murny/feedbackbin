@@ -34,6 +34,8 @@ gem "jbuilder"
 gem "pagy", "~> 9.2"
 gem "inline_svg"
 
+gem "rouge"
+
 # Authentication & Authorization
 gem "bcrypt", "~> 3.1.7"
 gem "omniauth"

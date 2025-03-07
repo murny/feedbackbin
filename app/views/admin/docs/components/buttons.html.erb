@@ -1,0 +1,56 @@
+<h1 class="text-3xl font-bold mb-6 text-gray-800 dark:text-gray-100">Button Component Documentation</h1>
+
+<p class="docs-intro text-gray-700 dark:text-gray-300 mb-8 text-lg">
+  The <code class="bg-gray-100 dark:bg-gray-800 px-1 py-0.5 rounded text-pink-600 dark:text-pink-400 font-mono text-sm">render_button</code> helper provides a consistent way to render buttons across the application.
+  Here are the various ways to use it.
+</p>
+
+<div class="examples-container space-y-8 bg-white dark:bg-gray-900 p-6 rounded-lg shadow-md dark:shadow-gray-800">
+  <%= render "shared/code_example", title: "Basic Button",
+             description: "The simplest button implementation with just text",
+             id: "basic-button" do %>
+<%%= render_button("Click me") %>
+  <% end %>
+
+  <%= render "shared/code_example", title: "Using Text Parameter",
+             description: "Alternative approach using named parameters" do %>
+<%%= render_button(text: "Submit") %>
+  <% end %>
+
+  <%= render "shared/code_example", title: "Button with Icon",
+             description: "Combining text with an icon" do %>
+<%%= render_button("Download", icon: :download) %>
+  <% end %>
+
+  <%= render "shared/code_example", title: "Icon-only Button",
+             description: "Button with just an icon (will be squared automatically)" do %>
+<%%= render_button(icon: :heart) %>
+  <% end %>
+
+  <%= render "shared/code_example", title: "Right-aligned Icon",
+             description: "Place the icon on the right side of the text" do %>
+<%%= render_button("Continue", icon_right: :arrow_right) %>
+  <% end %>
+
+  <%= render "shared/code_example", title: "Custom Content",
+             description: "Using a block to provide custom content" do %>
+<%%= render_button variant: :secondary do %>
+  <svg class="h-4 w-4 mr-2" viewBox="0 0 20 20" fill="currentColor">
+    <!-- SVG path data -->
+  </svg>
+  With Custom SVG
+<%% end %>
+  <% end %>
+
+  <%= render "shared/code_example", title: "Link Button",
+             description: "Button that acts as a link" do %>
+<%%= render_button("Visit site", href: "https://example.com") %>
+  <% end %>
+
+  <%= render "shared/code_example", title: "Button Variants",
+             description: "Different visual styles for buttons" do %>
+<%%= render_button("Primary", variant: :primary) %>
+<%%= render_button("Outline", variant: :outline) %>
+<%%= render_button("Ghost", variant: :ghost, icon: :star) %>
+  <% end %>
+</div>

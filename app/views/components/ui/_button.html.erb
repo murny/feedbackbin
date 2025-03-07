@@ -1,0 +1,10 @@
+<% case as %>
+<% when :link %>
+  <%= link_to href, class: button_classes, data: data, **options do %>
+    <%= content %>
+  <% end %>
+<% when :button %>
+  <%= button_tag class: button_classes, data: data, **options do %>
+    <%= content %>
+  <% end %>
+<% end %>
