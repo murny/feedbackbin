@@ -6,9 +6,17 @@ namespace :admin do
   resources :posts
   resources :organizations
 
-  resources :docs, only: [ :index ]
-  namespace :docs do
-    resources :components, only: [ :show ]
+  resource :docs do
+    # Get Started
+    get :introduction
+    get :installation
+    get :configuration
+    get :deploying
+
+    # Components
+    get :breadcrumb
+    get :button
+    get :toast
   end
 
   root to: "dashboard#show"
