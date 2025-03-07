@@ -1,0 +1,55 @@
+<%# locals: (id: String) %>
+
+<div class="not-prose group relative my-4 flex flex-col space-y-2">
+  <% content = capture do %>
+    <%= yield %>
+  <% end %>
+
+  <div class="relative w-full"
+       data-controller="tabs"
+       data-tabs-active-tab-class="border-b-blue-600 text-gray-900 dark:text-white"
+       data-tabs-inactive-tab-class="border-b-transparent text-gray-500 dark:text-gray-400">
+
+    <div class="flex items-center justify-between pb-3 border-b border-gray-200 dark:border-gray-700">
+      <div class="inline-flex h-9 items-center w-full justify-start">
+        <a href="#<%= id %>-preview"
+           data-tabs-target="tab"
+           data-action="click->tabs#change:prevent"
+           class="inline-flex items-center justify-center whitespace-nowrap py-1 text-sm h-9 rounded-none px-4 pb-3 pt-2 font-semibold border-b-2 border-b-transparent text-gray-500 dark:text-gray-400">
+          Preview
+        </a>
+        <a href="#<%= id %>-code"
+           data-tabs-target="tab"
+           data-action="click->tabs#change:prevent"
+           class="inline-flex items-center justify-center whitespace-nowrap py-1 text-sm h-9 rounded-none px-4 pb-3 pt-2 font-semibold border-b-2 border-b-transparent text-gray-500 dark:text-gray-400">
+          Code
+        </a>
+      </div>
+    </div>
+
+    <div id="<%= id %>-preview"
+         data-tabs-target="panel"
+         class="transition-opacity duration-200 mt-2 relative rounded-md border border-gray-200 dark:border-gray-700">
+      <div class="flex min-h-[200px] w-full p-10 items-center justify-center bg-white dark:bg-gray-800">
+        <%= content %>
+      </div>
+    </div>
+
+    <div id="<%= id %>-code"
+         data-tabs-target="panel"
+         class="transition-opacity duration-200 hidden mt-2 relative rounded-md border border-gray-200 dark:border-gray-700">
+      <div class="bg-gray-50 dark:bg-gray-900 rounded-md">
+        <div class="flex items-center justify-between px-4 py-2 border-b border-gray-200 dark:border-gray-700">
+          <div class="text-xs font-medium text-gray-500 dark:text-gray-400">HTML</div>
+        </div>
+        <div class="overflow-x-auto">
+          <pre class="p-4 text-sm prose dark:prose-invert">
+            <code class="text-gray-800 dark:text-gray-200">
+              <%= content.to_param.strip %>
+            </code>
+          </pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

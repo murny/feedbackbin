@@ -1,0 +1,20 @@
+<%= render "admin/docs/shared/breadcrumb",
+  items: [
+    { text: "Docs", path: admin_docs_path },
+    { text: "Toast", path: nil }
+  ] %>
+
+<%= render "admin/docs/shared/page_header",
+  title: "Toast",
+  description: "Displays a callout for user attention." %>
+
+<%= render "admin/docs/shared/preview_code_tabs", id: "alert-example" do %>
+  <div role="alert" class="relative w-full rounded-lg border border-gray-200 dark:border-gray-700 px-4 py-3 text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100">
+    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="absolute left-4 top-4 h-4 w-4 text-gray-900 dark:text-gray-100">
+      <polyline points="4 17 10 11 4 5"></polyline>
+      <line x1="12" x2="20" y1="19" y2="19"></line>
+    </svg>
+    <h5 class="mb-1 pl-7 font-medium leading-none tracking-tight">Heads up!</h5>
+    <div class="pl-7 text-sm">You can add components to your app using the cli.</div>
+  </div>
+<% end %>

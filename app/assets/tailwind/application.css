@@ -4,22 +4,15 @@
 @plugin "@tailwindcss/forms";
 @plugin "@tailwindcss/typography";
 
-:root {
-  --bg-primary: var(--color-blue-700);
-  --bg-primary-hover: var(--color-blue-600);
-  --text-on-primary: var(--color-white);
-  --border-primary: var(--color-blue-600);
-  --border-primary-hover: var(--color-blue-500);
-  --text-primary: var(--color-blue-700);
-  --text-primary-hover: var(--color-blue-600);
-  --logo-primary: var(--color-gray-800);
-}
+@variant dark (&:where(.dark, .dark *));
 
 @theme {
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   --color-primary: var(--bg-primary);
 }
 
+@import "./themes/dark.css" layer(theme);
+@import "./themes/light.css" layer(theme);
 
 @import "./components/actiontext.css" layer(components);
 @import "./components/base.css" layer(components);
