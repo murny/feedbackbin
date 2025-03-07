@@ -1,7 +1,8 @@
 #!/usr/bin/env ruby
 # frozen_string_literal: true
 
-require "rubygems"
-require "bundler/setup"
+require_relative "../config/boot"
+require "bundler/audit/cli"
 
-load Gem.bin_path("bundler-audit", "bundler-audit")
+ARGV.concat %w[ --config config/bundler-audit.yml ] if ARGV.empty? || ARGV.include?("check")
+Bundler::Audit::CLI.start

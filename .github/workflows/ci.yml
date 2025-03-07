@@ -22,8 +22,8 @@ jobs:
       - name: Scan for common Rails security vulnerabilities using static analysis
         run: bin/brakeman --no-pager
 
-      - name: Bundler Audit Check
-        run: bin/bundler-audit check --update
+      - name: Scan for known security vulnerabilities in gems used
+        run: bin/bundler-audit
 
   scan_js:
     runs-on: ubuntu-latest

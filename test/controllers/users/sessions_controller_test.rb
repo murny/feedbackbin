@@ -27,6 +27,7 @@ module Users
 
     assert_redirected_to root_url
     assert_equal "You have signed in successfully.", flash[:notice]
+    assert cookies[:session_id]
   end
 
   test "should not sign in with wrong credentials" do
@@ -34,6 +35,7 @@ module Users
 
     assert_redirected_to sign_in_url
     assert_equal "Try another email address or password.", flash[:alert]
+    assert_nil cookies[:session_id]
   end
 
   test "should sign out" do
@@ -43,6 +45,7 @@ module Users
 
     assert_redirected_to sign_in_url
     assert_equal "You have signed out successfully.", flash[:notice]
+    assert_empty cookies[:session_id]
   end
   end
 end
