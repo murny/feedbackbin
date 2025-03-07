@@ -14,7 +14,6 @@
 @import "./themes/dark.css" layer(theme);
 @import "./themes/light.css" layer(theme);
 
-@import "./components/accordion.css" layer(components);
 @import "./components/actiontext.css" layer(components);
 @import "./components/base.css" layer(components);
 @import "./components/buttons.css" layer(components);
