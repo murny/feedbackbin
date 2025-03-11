@@ -1,102 +1,272 @@
-<div class="fixed inset-y-0 left-0 w-64 max-lg:hidden">
+<div class="fixed inset-y-0 left-0 w-64 max-lg:hidden bg-white dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-800 shadow-sm">
   <nav class="flex h-full min-h-0 flex-col">
-    <div class="flex flex-col border-b border-zinc-950/5 p-4 dark:border-white/5 [&>[data-slot=section]+[data-slot=section]]:mt-2.5">
-      <span class="relative">
-        <button id="headlessui-menu-button-:R79ja:" type="button" aria-haspopup="menu" aria-expanded="false" data-headlessui-state="" class="cursor-default flex w-full items-center gap-3 rounded-lg px-2 py-2.5 text-left text-base/6 font-medium text-zinc-950 sm:py-2 sm:text-sm/5 *:data-[slot=icon]:size-6 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:fill-zinc-500 sm:*:data-[slot=icon]:size-5 *:last:data-[slot=icon]:ml-auto *:last:data-[slot=icon]:size-5 sm:*:last:data-[slot=icon]:size-4 *:data-[slot=avatar]:-m-0.5 *:data-[slot=avatar]:size-7 *:data-[slot=avatar]:[--ring-opacity:10%] sm:*:data-[slot=avatar]:size-6 data-hover:bg-zinc-950/5 data-hover:*:data-[slot=icon]:fill-zinc-950 data-active:bg-zinc-950/5 data-active:*:data-[slot=icon]:fill-zinc-950 data-current:*:data-[slot=icon]:fill-zinc-950 dark:text-white dark:*:data-[slot=icon]:fill-zinc-400 dark:data-hover:bg-white/5 dark:data-hover:*:data-[slot=icon]:fill-white dark:data-active:bg-white/5 dark:data-active:*:data-[slot=icon]:fill-white dark:data-current:*:data-[slot=icon]:fill-white">
-          <span class="absolute top-1/2 left-1/2 size-[max(100%,2.75rem)] -translate-x-1/2 -translate-y-1/2 [@media(pointer:fine)]:hidden" aria-hidden="true"></span>
-          <span data-slot="avatar" class="inline-grid shrink-0 align-middle [--avatar-radius:20%] [--ring-opacity:20%] *:col-start-1 *:row-start-1 outline -outline-offset-1 outline-black/(--ring-opacity) dark:outline-white/(--ring-opacity) rounded-full *:rounded-full">
-            <img class="size-full" src="/teams/catalyst.svg" alt="" />
-          </span>
-          <span class="truncate">Catalyst</span>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
-            <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd"></path>
-          </svg>
+    <!-- Organization Selector -->
+    <div class="flex flex-col border-b border-zinc-200 dark:border-zinc-800 p-4">
+      <span class="relative" data-controller="dropdown">
+        <button type="button"
+                aria-haspopup="menu"
+                aria-expanded="false"
+                data-action="click->dropdown#toggle click@window->dropdown#hide"
+                class="flex w-full items-center gap-3 rounded-lg px-3 py-2.5 text-left text-sm font-medium text-zinc-800 dark:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
+          <% if Current.user %>
+            <span data-slot="avatar" class="inline-grid shrink-0 align-middle rounded-md overflow-hidden h-7 w-7">
+              <%= organization_logo_tag(Current.organization) %>
+            </span>
+            <span class="truncate font-semibold"><%= Current.organization.name %></span>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" class="h-4 w-4 ml-auto text-zinc-500">
+              <path fill-rule="evenodd" d="M4.22 6.22a.75.75 0 0 1 1.06 0L8 8.94l2.72-2.72a.75.75 0 1 1 1.06 1.06l-3.25 3.25a.75.75 0 0 1-1.06 0L4.22 7.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd"></path>
+            </svg>
+          <% else %>
+            <span class="truncate font-semibold">FeedbackBin</span>
+          <% end %>
         </button>
+
+        <% if Current.user %>
+          <!-- Organization Dropdown Menu -->
+          <div class="hidden absolute left-0 top-12 z-10 w-64 origin-top-left rounded-lg bg-white dark:bg-zinc-900 shadow-lg ring-1 ring-black/5 dark:ring-white/10 focus:outline-none overflow-hidden"
+               role="menu"
+               aria-orientation="vertical"
+               tabindex="-1"
+               data-dropdown-target="menu"
+               data-transition-enter="transition ease-out duration-200"
+               data-transition-enter-from="opacity-0 scale-95"
+               data-transition-enter-to="opacity-100 scale-100"
+               data-transition-leave="transition ease-in duration-75"
+               data-transition-leave-from="opacity-100 scale-100"
+               data-transition-leave-to="opacity-0 scale-95">
+
+            <!-- Settings Link - Only display if user is an organization admin -->
+            <% if Current.organization_admin? %>
+              <div class="py-1" role="none">
+                <%= link_to "#organization_settings_path",
+                      class: "group flex w-full items-center gap-3 px-4 py-2 text-sm text-zinc-700 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-800",
+                      role: "menuitem" do %>
+                  <%= inline_svg "icons/settings.svg", class: "h-5 w-5 text-zinc-500 dark:text-zinc-400" %>
+                  <span>Settings</span>
+                <% end %>
+              </div>
+
+              <!-- Divider -->
+              <div class="border-t border-zinc-200 dark:border-zinc-700 my-1"></div>
+            <% end %>
+
+            <!-- Organizations List -->
+            <div class="py-1" role="none">
+              <!-- Current Organization -->
+              <%= link_to "#",
+                    class: "flex w-full items-center gap-3 px-4 py-2 text-sm text-zinc-700 bg-zinc-50 dark:text-zinc-300 dark:bg-zinc-800/50",
+                    role: "menuitem" do %>
+                <span data-slot="avatar" class="inline-grid shrink-0 align-middle rounded-md overflow-hidden h-6 w-6">
+                  <%= organization_logo_tag(Current.organization, initial_classes: "text-xs font-medium uppercase") %>
+                </span>
+                <span class="truncate font-medium"><%= Current.organization.name %></span>
+              <% end %>
+
+              <!-- Other organizations the user belongs to -->
+              <% if Current.other_organizations.present? %>
+                <% Current.other_organizations.each do |org| %>
+                  <%= link_to "#org_path",
+                        class: "flex w-full items-center gap-3 px-4 py-2 text-sm text-zinc-700 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-800",
+                        role: "menuitem" do %>
+                    <span data-slot="avatar" class="inline-grid shrink-0 align-middle <%= org.logo.present? ? 'rounded-md' : 'rounded-full' %> overflow-hidden h-6 w-6">
+                      <%= organization_logo_tag(org, initial_classes: "text-xs font-medium uppercase") %>
+                    </span>
+                    <span class="truncate"><%= org.name %></span>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </div>
+
+            <!-- Divider -->
+            <div class="border-t border-zinc-200 dark:border-zinc-700 my-1"></div>
+
+            <!-- New Team Link -->
+            <div class="py-1" role="none">
+              <%= link_to "#new_organization_path",
+                    class: "flex w-full items-center gap-3 px-4 py-2 text-sm text-zinc-700 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-800",
+                    role: "menuitem" do %>
+                <%= inline_svg "icons/plus.svg", class: "h-5 w-5 text-zinc-500 dark:text-zinc-400" %>
+                <span>New team…</span>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
       </span>
     </div>
-    <div class="flex flex-1 flex-col overflow-y-auto p-4 [&>[data-slot=section]+[data-slot=section]]:mt-8">
-      <div data-slot="section" class="flex flex-col gap-0.5">
-        <span class="relative">
-          <span class="absolute inset-y-2 -left-4 w-0.5 rounded-full bg-zinc-950 dark:bg-white"></span>
-          <a class="flex w-full items-center gap-3 rounded-lg px-2 py-2.5 text-left text-base/6 font-medium text-zinc-950 sm:py-2 sm:text-sm/5 *:data-[slot=icon]:size-6 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:fill-zinc-500 sm:*:data-[slot=icon]:size-5 *:last:data-[slot=icon]:ml-auto *:last:data-[slot=icon]:size-5 sm:*:last:data-[slot=icon]:size-4 *:data-[slot=avatar]:-m-0.5 *:data-[slot=avatar]:size-7 *:data-[slot=avatar]:[--ring-opacity:10%] sm:*:data-[slot=avatar]:size-6 data-hover:bg-zinc-950/5 data-hover:*:data-[slot=icon]:fill-zinc-950 data-active:bg-zinc-950/5 data-active:*:data-[slot=icon]:fill-zinc-950 data-current:*:data-[slot=icon]:fill-zinc-950 dark:text-white dark:*:data-[slot=icon]:fill-zinc-400 dark:data-hover:bg-white/5 dark:data-hover:*:data-[slot=icon]:fill-white dark:data-active:bg-white/5 dark:data-active:*:data-[slot=icon]:fill-white dark:data-current:*:data-[slot=icon]:fill-white" data-current="true" type="button" data-headlessui-state="" href="/">
-            <span class="absolute top-1/2 left-1/2 size-[max(100%,2.75rem)] -translate-x-1/2 -translate-y-1/2 [@media(pointer:fine)]:hidden" aria-hidden="true"></span>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-              <path fill-rule="evenodd" d="M9.293 2.293a1 1 0 0 1 1.414 0l7 7A1 1 0 0 1 17 11h-1v6a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3a1 1 0 0 0-1-1H9a1 1 0 0 0-1 1v3a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-6H3a1 1 0 0 1-.707-1.707l7-7Z" clip-rule="evenodd"></path>
-            </svg>
-            <span class="truncate">Home</span>
-          </a>
-        </span>
-        <span class="relative">
-          <a class="flex w-full items-center gap-3 rounded-lg px-2 py-2.5 text-left text-base/6 font-medium text-zinc-950 sm:py-2 sm:text-sm/5 *:data-[slot=icon]:size-6 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:fill-zinc-500 sm:*:data-[slot=icon]:size-5 *:last:data-[slot=icon]:ml-auto *:last:data-[slot=icon]:size-5 sm:*:last:data-[slot=icon]:size-4 *:data-[slot=avatar]:-m-0.5 *:data-[slot=avatar]:size-7 *:data-[slot=avatar]:[--ring-opacity:10%] sm:*:data-[slot=avatar]:size-6 data-hover:bg-zinc-950/5 data-hover:*:data-[slot=icon]:fill-zinc-950 data-active:bg-zinc-950/5 data-active:*:data-[slot=icon]:fill-zinc-950 data-current:*:data-[slot=icon]:fill-zinc-950 dark:text-white dark:*:data-[slot=icon]:fill-zinc-400 dark:data-hover:bg-white/5 dark:data-hover:*:data-[slot=icon]:fill-white dark:data-active:bg-white/5 dark:data-active:*:data-[slot=icon]:fill-white dark:data-current:*:data-[slot=icon]:fill-white" type="button" data-headlessui-state="" href="/events">
-            <span class="absolute top-1/2 left-1/2 size-[max(100%,2.75rem)] -translate-x-1/2 -translate-y-1/2 [@media(pointer:fine)]:hidden" aria-hidden="true"></span>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-              <path d="M2 4.25A2.25 2.25 0 0 1 4.25 2h6.5A2.25 2.25 0 0 1 13 4.25V5.5H9.25A3.75 3.75 0 0 0 5.5 9.25V13H4.25A2.25 2.25 0 0 1 2 10.75v-6.5Z"></path>
-              <path d="M9.25 7A2.25 2.25 0 0 0 7 9.25v6.5A2.25 2.25 0 0 0 9.25 18h6.5A2.25 2.25 0 0 0 18 15.75v-6.5A2.25 2.25 0 0 0 15.75 7h-6.5Z"></path>
-            </svg>
-            <span class="truncate">Events</span>
-          </a>
-        </span>
-        <span class="relative">
-          <a class="flex w-full items-center gap-3 rounded-lg px-2 py-2.5 text-left text-base/6 font-medium text-zinc-950 sm:py-2 sm:text-sm/5 *:data-[slot=icon]:size-6 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:fill-zinc-500 sm:*:data-[slot=icon]:size-5 *:last:data-[slot=icon]:ml-auto *:last:data-[slot=icon]:size-5 sm:*:last:data-[slot=icon]:size-4 *:data-[slot=avatar]:-m-0.5 *:data-[slot=avatar]:size-7 *:data-[slot=avatar]:[--ring-opacity:10%] sm:*:data-[slot=avatar]:size-6 data-hover:bg-zinc-950/5 data-hover:*:data-[slot=icon]:fill-zinc-950 data-active:bg-zinc-950/5 data-active:*:data-[slot=icon]:fill-zinc-950 data-current:*:data-[slot=icon]:fill-zinc-950 dark:text-white dark:*:data-[slot=icon]:fill-zinc-400 dark:data-hover:bg-white/5 dark:data-hover:*:data-[slot=icon]:fill-white dark:data-active:bg-white/5 dark:data-active:*:data-[slot=icon]:fill-white dark:data-current:*:data-[slot=icon]:fill-white" type="button" data-headlessui-state="" href="/orders">
-            <span class="absolute top-1/2 left-1/2 size-[max(100%,2.75rem)] -translate-x-1/2 -translate-y-1/2 [@media(pointer:fine)]:hidden" aria-hidden="true"></span>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-              <path fill-rule="evenodd" d="M15.75 3A2.25 2.25 0 0 1 18 5.25v1.214c0 .423-.277.788-.633 1.019A2.997 2.997 0 0 0 16 10c0 1.055.544 1.982 1.367 2.517.356.231.633.596.633 1.02v1.213A2.25 2.25 0 0 1 15.75 17H4.25A2.25 2.25 0 0 1 2 14.75v-1.213c0-.424.277-.789.633-1.02A2.998 2.998 0 0 0 4 10a2.997 2.997 0 0 0-1.367-2.517C2.277 7.252 2 6.887 2 6.463V5.25A2.25 2.25 0 0 1 4.25 3h11.5ZM13.5 7.396a.75.75 0 0 0-1.5 0v1.042a.75.75 0 0 0 1.5 0V7.396Zm0 4.167a.75.75 0 0 0-1.5 0v1.041a.75.75 0 0 0 1.5 0v-1.041Z" clip-rule="evenodd"></path>
-            </svg>
-            <span class="truncate">Orders</span>
-          </a>
-        </span>
-        <span class="relative">
-          <a class="flex w-full items-center gap-3 rounded-lg px-2 py-2.5 text-left text-base/6 font-medium text-zinc-950 sm:py-2 sm:text-sm/5 *:data-[slot=icon]:size-6 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:fill-zinc-500 sm:*:data-[slot=icon]:size-5 *:last:data-[slot=icon]:ml-auto *:last:data-[slot=icon]:size-5 sm:*:last:data-[slot=icon]:size-4 *:data-[slot=avatar]:-m-0.5 *:data-[slot=avatar]:size-7 *:data-[slot=avatar]:[--ring-opacity:10%] sm:*:data-[slot=avatar]:size-6 data-hover:bg-zinc-950/5 data-hover:*:data-[slot=icon]:fill-zinc-950 data-active:bg-zinc-950/5 data-active:*:data-[slot=icon]:fill-zinc-950 data-current:*:data-[slot=icon]:fill-zinc-950 dark:text-white dark:*:data-[slot=icon]:fill-zinc-400 dark:data-hover:bg-white/5 dark:data-hover:*:data-[slot=icon]:fill-white dark:data-active:bg-white/5 dark:data-active:*:data-[slot=icon]:fill-white dark:data-current:*:data-[slot=icon]:fill-white" type="button" data-headlessui-state="" href="/settings">
-            <span class="absolute top-1/2 left-1/2 size-[max(100%,2.75rem)] -translate-x-1/2 -translate-y-1/2 [@media(pointer:fine)]:hidden" aria-hidden="true"></span>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-              <path fill-rule="evenodd" d="M7.84 1.804A1 1 0 0 1 8.82 1h2.36a1 1 0 0 1 .98.804l.331 1.652a6.993 6.993 0 0 1 1.929 1.115l1.598-.54a1 1 0 0 1 1.186.447l1.18 2.044a1 1 0 0 1-.205 1.251l-1.267 1.113a7.047 7.047 0 0 1 0 2.228l1.267 1.113a1 1 0 0 1 .206 1.25l-1.18 2.045a1 1 0 0 1-1.187.447l-1.598-.54a6.993 6.993 0 0 1-1.929 1.115l-.33 1.652a1 1 0 0 1-.98.804H8.82a1 1 0 0 1-.98-.804l-.331-1.652a6.993 6.993 0 0 1-1.929-1.115l-1.598.54a1 1 0 0 1-1.186-.447l-1.18-2.044a1 1 0 0 1 .205-1.251l1.267-1.114a7.05 7.05 0 0 1 0-2.227L1.821 7.773a1 1 0 0 1-.206-1.25l1.18-2.045a1 1 0 0 1 1.187-.447l1.598.54A6.992 6.992 0 0 1 7.51 3.456l.33-1.652ZM10 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z" clip-rule="evenodd"></path>
-            </svg>
-            <span class="truncate">Settings</span>
-          </a>
-        </span>
+
+    <!-- Main Navigation -->
+    <div class="flex flex-1 flex-col overflow-y-auto pt-2 pb-4">
+      <div class="px-3 mb-6">
+        <div class="flex flex-col space-y-1">
+          <span class="relative">
+            <%= active_link_to root_path,
+                class: "flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium",
+                active_class: "text-zinc-900 dark:text-white bg-zinc-100 dark:bg-zinc-800",
+                inactive_class: "text-zinc-700 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" do %>
+              <%= inline_svg "icons/home.svg", class: "h-5 w-5 text-primary" %>
+              <span class="truncate">Home</span>
+            <% end %>
+          </span>
+          <span class="relative">
+            <%= active_link_to "#roadmap_path",
+                class: "flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium",
+                active_class: "text-zinc-900 dark:text-white bg-zinc-100 dark:bg-zinc-800",
+                inactive_class: "text-zinc-700 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" do %>
+              <%= inline_svg "icons/layers.svg", class: "h-5 w-5 text-zinc-500 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white" %>
+              <span class="truncate">Roadmap</span>
+            <% end %>
+          </span>
+          <span class="relative">
+            <%= active_link_to posts_path,
+                class: "flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium",
+                active_class: "text-zinc-900 dark:text-white bg-zinc-100 dark:bg-zinc-800",
+                inactive_class: "text-zinc-700 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" do %>
+              <%= inline_svg "icons/message-square.svg", class: "h-5 w-5 text-zinc-500 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white" %>
+              <span class="truncate">Feedback</span>
+            <% end %>
+          </span>
+          <span class="relative">
+            <%= active_link_to changelogs_path,
+                class: "flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium",
+                active_class: "text-zinc-900 dark:text-white bg-zinc-100 dark:bg-zinc-800",
+                inactive_class: "text-zinc-700 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" do %>
+              <%= inline_svg "icons/sparkles.svg", class: "h-5 w-5 text-zinc-500 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white" %>
+              <span class="truncate">What's New?</span>
+            <% end %>
+          </span>
+        </div>
       </div>
 
-      <%= render "admin_sidebar_links" %>
+      <!-- Admin Links Section -->
+      <div class="px-3 mb-6">
+        <h3 class="px-3 text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
+          Admin
+        </h3>
+        <div class="mt-2 flex flex-col space-y-1">
+          <%= render "admin_sidebar_links" %>
+        </div>
+      </div>
 
-      <div aria-hidden="true" class="mt-8 flex-1"></div>
-      <div data-slot="section" class="flex flex-col gap-0.5">
-        <span class="relative">
-          <a class="flex w-full items-center gap-3 rounded-lg px-2 py-2.5 text-left text-base/6 font-medium text-zinc-950 sm:py-2 sm:text-sm/5 *:data-[slot=icon]:size-6 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:fill-zinc-500 sm:*:data-[slot=icon]:size-5 *:last:data-[slot=icon]:ml-auto *:last:data-[slot=icon]:size-5 sm:*:last:data-[slot=icon]:size-4 *:data-[slot=avatar]:-m-0.5 *:data-[slot=avatar]:size-7 *:data-[slot=avatar]:[--ring-opacity:10%] sm:*:data-[slot=avatar]:size-6 data-hover:bg-zinc-950/5 data-hover:*:data-[slot=icon]:fill-zinc-950 data-active:bg-zinc-950/5 data-active:*:data-[slot=icon]:fill-zinc-950 data-current:*:data-[slot=icon]:fill-zinc-950 dark:text-white dark:*:data-[slot=icon]:fill-zinc-400 dark:data-hover:bg-white/5 dark:data-hover:*:data-[slot=icon]:fill-white dark:data-active:bg-white/5 dark:data-active:*:data-[slot=icon]:fill-white dark:data-current:*:data-[slot=icon]:fill-white" type="button" data-headlessui-state="" href="#">
-            <span class="absolute top-1/2 left-1/2 size-[max(100%,2.75rem)] -translate-x-1/2 -translate-y-1/2 [@media(pointer:fine)]:hidden" aria-hidden="true"></span>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-              <path fill-rule="evenodd" d="M18 10a8 8 0 1 1-16 0 8 8 0 0 1 16 0ZM8.94 6.94a.75.75 0 1 1-1.061-1.061 3 3 0 1 1 2.871 5.026v.345a.75.75 0 0 1-1.5 0v-.5c0-.72.57-1.172 1.081-1.287A1.5 1.5 0 1 0 8.94 6.94ZM10 15a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z" clip-rule="evenodd"></path>
-            </svg>
-            <span class="truncate">Support</span>
-          </a>
-        </span>
-        <span class="relative">
-          <a class="flex w-full items-center gap-3 rounded-lg px-2 py-2.5 text-left text-base/6 font-medium text-zinc-950 sm:py-2 sm:text-sm/5 *:data-[slot=icon]:size-6 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:fill-zinc-500 sm:*:data-[slot=icon]:size-5 *:last:data-[slot=icon]:ml-auto *:last:data-[slot=icon]:size-5 sm:*:last:data-[slot=icon]:size-4 *:data-[slot=avatar]:-m-0.5 *:data-[slot=avatar]:size-7 *:data-[slot=avatar]:[--ring-opacity:10%] sm:*:data-[slot=avatar]:size-6 data-hover:bg-zinc-950/5 data-hover:*:data-[slot=icon]:fill-zinc-950 data-active:bg-zinc-950/5 data-active:*:data-[slot=icon]:fill-zinc-950 data-current:*:data-[slot=icon]:fill-zinc-950 dark:text-white dark:*:data-[slot=icon]:fill-zinc-400 dark:data-hover:bg-white/5 dark:data-hover:*:data-[slot=icon]:fill-white dark:data-active:bg-white/5 dark:data-active:*:data-[slot=icon]:fill-white dark:data-current:*:data-[slot=icon]:fill-white" type="button" data-headlessui-state="" href="#">
-            <span class="absolute top-1/2 left-1/2 size-[max(100%,2.75rem)] -translate-x-1/2 -translate-y-1/2 [@media(pointer:fine)]:hidden" aria-hidden="true"></span>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-              <path d="M15.98 1.804a1 1 0 0 0-1.96 0l-.24 1.192a1 1 0 0 1-.784.785l-1.192.238a1 1 0 0 0 0 1.962l1.192.238a1 1 0 0 1 .785.785l.238 1.192a1 1 0 0 0 1.962 0l.238-1.192a1 1 0 0 1 .785-.785l1.192-.238a1 1 0 0 0 0-1.962l-1.192-.238a1 1 0 0 1-.785-.785l-.238-1.192ZM6.949 5.684a1 1 0 0 0-1.898 0l-.683 2.051a1 1 0 0 1-.633.633l-2.051.683a1 1 0 0 0 0 1.898l2.051.684a1 1 0 0 1 .633.632l.683 2.051a1 1 0 0 0 1.898 0l.683-2.051a1 1 0 0 1 .633-.633l2.051-.683a1 1 0 0 0 0-1.898l-2.051-.683a1 1 0 0 1-.633-.633L6.95 5.684ZM13.949 13.684a1 1 0 0 0-1.898 0l-.184.551a1 1 0 0 1-.632.633l-.551.183a1 1 0 0 0 0 1.898l.551.183a1 1 0 0 1 .633.633l.183.551a1 1 0 0 0 1.898 0l.184-.551a1 1 0 0 1 .632-.633l.551-.183a1 1 0 0 0 0-1.898l-.551-.184a1 1 0 0 1-.633-.632l-.183-.551Z"></path>
-            </svg>
-            <span class="truncate">Changelog</span>
-          </a>
-        </span>
+      <div class="flex-1"></div>
+
+      <!-- Support Links -->
+      <div class="px-3">
+        <h3 class="px-3 text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
+          Help & Resources
+        </h3>
+        <div class="mt-2 flex flex-col space-y-1">
+          <span class="relative">
+            <%= active_link_to "#",
+                class: "flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium",
+                active_class: "text-zinc-900 dark:text-white bg-zinc-100 dark:bg-zinc-800",
+                inactive_class: "text-zinc-700 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" do %>
+              <%= inline_svg "icons/help-circle.svg", class: "h-5 w-5 text-zinc-500 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white" %>
+              <span class="truncate">Support</span>
+            <% end %>
+          </span>
+          <span class="relative">
+            <%= active_link_to "#",
+                class: "flex w-full items-center gap-3 rounded-lg px-3 py-2 text-sm font-medium",
+                active_class: "text-zinc-900 dark:text-white bg-zinc-100 dark:bg-zinc-800",
+                inactive_class: "text-zinc-700 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors" do %>
+              <%= inline_svg "icons/sparkles.svg", class: "h-5 w-5 text-zinc-500 dark:text-zinc-400 group-hover:text-zinc-900 dark:group-hover:text-white" %>
+              <span class="truncate">Changelog</span>
+            <% end %>
+          </span>
+        </div>
       </div>
     </div>
-    <div class="max-lg:hidden flex flex-col border-t border-zinc-950/5 p-4 dark:border-white/5 [&>[data-slot=section]+[data-slot=section]]:mt-2.5">
-      <span class="relative">
-        <button id="headlessui-menu-button-:R7pja:" type="button" aria-haspopup="menu" aria-expanded="false" data-headlessui-state="" class="cursor-default flex w-full items-center gap-3 rounded-lg px-2 py-2.5 text-left text-base/6 font-medium text-zinc-950 sm:py-2 sm:text-sm/5 *:data-[slot=icon]:size-6 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:fill-zinc-500 sm:*:data-[slot=icon]:size-5 *:last:data-[slot=icon]:ml-auto *:last:data-[slot=icon]:size-5 sm:*:last:data-[slot=icon]:size-4 *:data-[slot=avatar]:-m-0.5 *:data-[slot=avatar]:size-7 *:data-[slot=avatar]:[--ring-opacity:10%] sm:*:data-[slot=avatar]:size-6 data-hover:bg-zinc-950/5 data-hover:*:data-[slot=icon]:fill-zinc-950 data-active:bg-zinc-950/5 data-active:*:data-[slot=icon]:fill-zinc-950 data-current:*:data-[slot=icon]:fill-zinc-950 dark:text-white dark:*:data-[slot=icon]:fill-zinc-400 dark:data-hover:bg-white/5 dark:data-hover:*:data-[slot=icon]:fill-white dark:data-active:bg-white/5 dark:data-active:*:data-[slot=icon]:fill-white dark:data-current:*:data-[slot=icon]:fill-white">
-          <span class="absolute top-1/2 left-1/2 size-[max(100%,2.75rem)] -translate-x-1/2 -translate-y-1/2 [@media(pointer:fine)]:hidden" aria-hidden="true"></span>
+
+    <!-- User Profile Section -->
+    <div class="border-t border-zinc-200 dark:border-zinc-800 p-4">
+      <span class="relative" data-controller="dropdown">
+        <button type="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+                data-action="click->dropdown#toggle click@window->dropdown#hide"
+                class="flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-sm font-medium text-zinc-700 hover:text-zinc-900 dark:text-zinc-300 dark:hover:text-white hover:bg-zinc-100 dark:hover:bg-zinc-800 transition-colors">
           <span class="flex min-w-0 items-center gap-3">
-            <span data-slot="avatar" class="size-10 inline-grid shrink-0 align-middle [--avatar-radius:20%] [--ring-opacity:20%] *:col-start-1 *:row-start-1 outline -outline-offset-1 outline-black/(--ring-opacity) dark:outline-white/(--ring-opacity) rounded-(--avatar-radius) *:rounded-(--avatar-radius)">
-              <img class="size-full" src="/users/erica.jpg" alt="" />
+            <span class="h-9 w-9 rounded-full overflow-hidden flex-shrink-0 bg-zinc-200 dark:bg-zinc-700">
+              <%= image_tag fresh_user_avatar_path(Current.user), role: "presentation", class: "h-full w-full object-cover", alt: Current.user.name %>
             </span>
             <span class="min-w-0">
-              <span class="block truncate text-sm/5 font-medium text-zinc-950 dark:text-white">Erica</span>
-              <span class="block truncate text-xs/5 font-normal text-zinc-500 dark:text-zinc-400">erica@example.com</span>
+              <span class="block truncate text-sm font-medium text-zinc-900 dark:text-white"><%= Current.user.name %></span>
+              <span class="block truncate text-xs text-zinc-500 dark:text-zinc-400"><%= Current.user.username %></span>
             </span>
           </span>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" data-slot="icon">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="h-4 w-4 ml-auto text-zinc-500">
             <path fill-rule="evenodd" d="M11.78 9.78a.75.75 0 0 1-1.06 0L8 7.06 5.28 9.78a.75.75 0 0 1-1.06-1.06l3.25-3.25a.75.75 0 0 1 1.06 0l3.25 3.25a.75.75 0 0 1 0 1.06Z" clip-rule="evenodd"></path>
           </svg>
         </button>
+
+        <!-- User Dropdown Menu -->
+        <div class="hidden absolute right-0 bottom-12 z-10 w-56 origin-bottom-right rounded-lg bg-white dark:bg-zinc-900 shadow-lg ring-1 ring-black/5 dark:ring-white/10 focus:outline-none overflow-hidden"
+             role="menu"
+             aria-orientation="vertical"
+             tabindex="-1"
+             data-dropdown-target="menu"
+             data-transition-enter="transition ease-out duration-200"
+             data-transition-enter-from="opacity-0 scale-95"
+             data-transition-enter-to="opacity-100 scale-100"
+             data-transition-leave="transition ease-in duration-75"
+             data-transition-leave-from="opacity-100 scale-100"
+             data-transition-leave-to="opacity-0 scale-95">
+          <!-- User Info -->
+          <div class="px-4 py-3 border-b border-zinc-200 dark:border-zinc-700" role="none">
+            <p class="text-sm text-zinc-500 dark:text-zinc-400" role="none">Signed in as</p>
+            <p class="truncate text-sm font-medium text-zinc-900 dark:text-white" role="none"><%= Current.user.username %></p>
+          </div>
+
+          <!-- User Links -->
+          <div class="py-1" role="none">
+            <%= link_to t(".links.your_profile"),
+                  user_path(Current.user),
+                  class: "block px-4 py-2 text-sm text-zinc-700 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-800",
+                  role: "menuitem" %>
+            <%= link_to t(".links.settings"),
+                  user_settings_profile_path,
+                  class: "block px-4 py-2 text-sm text-zinc-700 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-800",
+                  role: "menuitem" %>
+          </div>
+
+          <!-- Development Tools -->
+          <% if Rails.env.development? %>
+            <div class="py-1 border-t border-zinc-200 dark:border-zinc-700" role="none">
+              <h3 class="px-4 py-1 text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
+                Development
+              </h3>
+              <%= link_to t(".links.letter_opener"),
+                    letter_opener_web_path,
+                    class: "block px-4 py-2 text-sm text-zinc-700 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-800",
+                    role: "menuitem" %>
+              <%= link_to t(".links.mission_control_jobs"),
+                    mission_control_jobs_path,
+                    class: "block px-4 py-2 text-sm text-zinc-700 hover:bg-zinc-100 dark:text-zinc-300 dark:hover:bg-zinc-800",
+                    role: "menuitem" %>
+            </div>
+          <% end %>
+
+          <!-- Sign Out Button -->
+          <div class="py-1 border-t border-zinc-200 dark:border-zinc-700" role="none">
+            <%= button_to t(".sign_out"),
+                  users_session_path,
+                  method: :delete,
+                  class: "w-full text-left block px-4 py-2 text-sm text-rose-600 hover:bg-zinc-100 dark:hover:bg-zinc-800" %>
+          </div>
+
+          <!-- Admin Links -->
+          <% if Current.user.site_admin? %>
+            <div class="py-1 border-t border-zinc-200 dark:border-zinc-700" role="none">
+              <h3 class="px-4 py-1 text-xs font-semibold text-zinc-500 dark:text-zinc-400 uppercase tracking-wider">
+                Administration
+              </h3>
+              <%= link_to t(".links.admin"),
+                    admin_root_path,
+                    class: "block px-4 py-2 text-sm font-medium text-primary hover:bg-zinc-100 dark:hover:bg-zinc-800",
+                    role: "menuitem" %>
+            </div>
+          <% end %>
+        </div>
       </span>
     </div>
   </nav>
