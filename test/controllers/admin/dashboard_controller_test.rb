@@ -10,20 +10,20 @@ module Admin
       assert_response :not_found
     end
 
-  test "should not get show as non admin user" do
-    sign_in_as users(:one)
+    test "should not get show as non admin user" do
+      sign_in_as users(:one)
 
-    get admin_root_url
+      get admin_root_url
 
-    assert_response :not_found
-  end
+      assert_response :not_found
+    end
 
-  test "should get show as admin" do
-    sign_in_as users(:shane)
+    test "should get show as admin" do
+      sign_in_as users(:shane)
 
-    get admin_root_url
+      get admin_root_url
 
-    assert_response :success
-  end
+      assert_response :success
+    end
   end
 end
