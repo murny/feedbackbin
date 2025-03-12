@@ -6,17 +6,20 @@ namespace :admin do
   resources :posts
   resources :organizations
 
-  resource :docs do
+  resource :docs, only: [ :show ]
+
+  namespace :docs do
     # Get Started
     get :introduction
     get :installation
     get :configuration
     get :deploying
 
-    # Components
-    get :breadcrumb
-    get :button
-    get :toast
+    namespace :components do
+      get :breadcrumb
+      get :button
+      get :toast
+    end
   end
 
   root to: "dashboard#show"

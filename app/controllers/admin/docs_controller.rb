@@ -2,5 +2,19 @@
 
 module Admin
   class DocsController < Admin::BaseController
+    def show
+    end
+
+    def introduction
+    end
+
+    def installation
+    end
+
+    def configuration
+    end
+
+    def deploying
+    end
   end
 end
