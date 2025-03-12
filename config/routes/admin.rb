@@ -15,6 +15,8 @@ namespace :admin do
     get :configuration
     get :deploying
 
+    get :components
+
     namespace :components do
       get :breadcrumb
       get :button

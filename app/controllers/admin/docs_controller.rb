@@ -5,6 +5,9 @@ module Admin
     def show
     end
 
+    def components
+    end
+
     def introduction
     end
 

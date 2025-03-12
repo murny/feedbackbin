@@ -1,17 +1,17 @@
-<%# locals: (items: Array[Hash]) %>
+<%# locals: (items: []) %>
 
-<nav class="flex items-center space-x-1 text-sm text-muted-foreground dark:text-slate-400 mb-4">
-  <% items.each_with_index do |item, index| %>
-    <% if item[:path].present? %>
-      <a href="<%= item[:path] %>" class="truncate hover:text-foreground dark:hover:text-slate-200 transition-colors"><%= item[:text] %></a>
-    <% else %>
-      <span class="text-foreground dark:text-slate-200"><%= item[:text] %></span>
-    <% end %>
+<div class="text-neutral-500 dark:text-neutral-400 text-sm md:mb-2">
+  <div class="flex items-center gap-1.5">
+    <% items.each_with_index do |item, index| %>
+      <% if item[:path].present? %>
+        <a href="<%= item[:path] %>" class="text-neutral-500 dark:text-neutral-400 relative text-sm"><%= item[:text] %></a>
+      <% else %>
+        <span class="text-neutral-900 dark:text-white font-medium"><%= item[:text] %></span>
+      <% end %>
 
-    <% if index < items.size - 1 %>
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="h-4 w-4">
-        <path d="m9 18 6-6-6-6"></path>
-      </svg>
+      <% if index < items.size - 1 %>
+        <%= inline_svg_tag "icons/chevron-right.svg", class: "size-3 text-neutral-500" %>
+      <% end %>
     <% end %>
-  <% end %>
-</nav>
+  </div>
+</div>

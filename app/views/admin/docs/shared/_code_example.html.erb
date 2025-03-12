@@ -1,0 +1,31 @@
+<%# locals: (heading:) -%>
+
+<div data-controller="admin--snippet" class="py-8">
+  <div class="flex justify-between items-end mt-4 mb-6">
+    <div class="flex-1">
+      <%= content_tag :h2, heading, class: "text-neutral-900 text-xl font-semibold dark:text-white scroll-mt-20 tracking-tight relative" %>
+    </div>
+
+    <div class="flex gap-1 justify-center items-center px-1 py-1 rounded-lg bg-neutral-100 dark:bg-neutral-950">
+      <button data-admin--snippet-target="previewBtn" data-action="click->admin--snippet#togglePreview" class="bg-white px-3 py-1.5 rounded-md shadow-sm flex items-center justify-center gap-2 text-[13px] font-semibold focus:ring-4 focus:ring-blue-600 group dark:bg-neutral-800/90 dark:text-neutral-100">
+        <%= inline_svg_tag "icons/eye.svg", class:  "size-4 text-neutral-500 group-hover:text-neutral-800 dark:text-neutral-300 group-focus:text-neutral-800 pointer-events-none dark:group-hover:text-neutral-200 dark:group-focus:text-neutral-200" %>
+        <span>Preview</span>
+      </button>
+      <button data-admin--snippet-target="codeBtn" data-action="click->admin--snippet#toggleCode"
+        class="bg-transparent px-3 py-1.5 rounded-md shadow-none flex items-center justify-center gap-2 text-[13px] font-semibold dark:text-neutral-300">
+        <%= inline_svg_tag "icons/code.svg", class:  "size-4 text-neutral-500 dark:text-neutral-300 group-hover:text-neutral-800 group-focus:text-neutral-800 pointer-events-none dark:group-hover:text-neutral-200 dark:group-focus:text-neutral-200" %>
+        <span>Code</span>
+      </button>
+    </div>
+  </div>
+
+  <div>
+    <div data-admin--snippet-target="preview">
+      <%= yield %>
+    </div>
+
+    <div data-admin--snippet-target="code" class="hidden">
+      <%= yield :example %>
+    </div>
+  </div>
+</div>
