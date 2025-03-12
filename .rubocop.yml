@@ -1,10 +1,8 @@
 
 inherit_gem: { rubocop-rails-omakase: rubocop.yml }
 
-require:
-  - rubocop-capybara
-
 plugins:
+  - rubocop-capybara
   - rubocop-minitest
   - rubocop-performance
   - rubocop-rails

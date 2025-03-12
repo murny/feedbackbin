@@ -116,7 +116,7 @@
           type="button">
           <%= inline_svg_tag "icons/clipboard.svg", class: "stroke-current text-white select-none size-5" %>
         </button>
-        <pre data-controller="admin--highlight"><code data-admin--clipboard-target="content" class="language-erb scrollbar"><%=  yield(:erb).to_param.strip %></code></pre>
+        <pre data-controller="admin--highlight"><code data-admin--clipboard-target="content" class="language-erb scrollbar"><%= yield(:erb).to_param.strip %></code></pre>
       </div>
     <% end %>
 
@@ -131,7 +131,7 @@
           type="button">
           <%= inline_svg_tag "icons/clipboard.svg", class: "stroke-current text-white select-none size-5" %>
         </button>
-        <pre data-controller="admin--highlight"><code data-admin--clipboard-target="content" class="language-bash scrollbar"><%=  yield(:bash).to_param.strip %></code></pre>
+        <pre data-controller="admin--highlight"><code data-admin--clipboard-target="content" class="language-bash scrollbar"><%= yield(:bash).to_param.strip %></code></pre>
       </div>
     <% end %>
 
@@ -176,7 +176,7 @@
           type="button">
           <%= inline_svg_tag "icons/clipboard.svg", class: "stroke-current text-white select-none size-5" %>
         </button>
-        <pre data-controller="admin--highlight"><code data-admin--clipboard-target="content" class="language-css scrollbar"><%=  yield(:css).to_param.strip %></code></pre>
+        <pre data-controller="admin--highlight"><code data-admin--clipboard-target="content" class="language-css scrollbar"><%= yield(:css).to_param.strip %></code></pre>
       </div>
     <% end %>
   </div>
