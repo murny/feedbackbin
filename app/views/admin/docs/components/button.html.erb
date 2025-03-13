@@ -8,15 +8,41 @@
   description: "Displays a button or a component that looks like a button." %>
 
 <%= render "admin/docs/components/button/base" %>
-<%#= render "admin/docs/components/button/sizes" %>
-<%#= render "admin/docs/components/button/expanded" %>
+<%= render "admin/docs/components/button/sizes" %>
+<%= render "admin/docs/components/button/expanded" %>
 
-<%#= system_pagination(prev_path: systems_components_breadcrumb_path, prev_text: "Breadcrumb", next_path: systems_components_card_path, next_text: "Card") %>
+<%= render partial: "admin/docs/shared/pagination", locals: {
+  prev_path: admin_docs_components_breadcrumb_path,
+  prev_text: "Breadcrumb",
+  next_path: admin_docs_components_card_path,
+  next_text: "Card"
+} %>
 
-<%#= content_for :component_nav do %>
-  <%#= render layout: "admin/docs/shared/component_nav", locals: { title: "On this page" } do %>
-    <%#= component_link "Base", "#button-base" %>
-    <%# = component_link "Sizes", "#button-sizes" %>
-    <%#= component_link "Expanded display", "#button-expanded" %>
-  <%# end %>
-<%# end %>
+<%= content_for :component_nav do %>
+  <%= render layout: "admin/docs/shared/component_nav", locals: { title: "On this page" } do %>
+    <li>
+      <%= link_to "Base", "#button-base",
+                  class: "block py-0.5 text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white truncate",
+                  data: {
+                    action: "click->admin--smooth#scroll",
+                    admin_scroll_spy_target: "link"
+                  } %>
+    </li>
+    <li>
+      <%= link_to "Sizes", "#button-sizes",
+                  class: "block py-0.5 text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white truncate",
+                  data: {
+                    action: "click->admin--smooth#scroll",
+                    admin_scroll_spy_target: "link"
+                  } %>
+                </li>
+    <li>
+      <%= link_to "Expanded display", "#button-expanded",
+                  class: "block py-0.5 text-neutral-500 hover:text-neutral-900 dark:text-neutral-400 dark:hover:text-white truncate",
+                  data: {
+                    action: "click->admin--smooth#scroll",
+                    admin_scroll_spy_target: "link"
+                  } %>
+    </li>
+  <% end %>
+<% end %>

@@ -9,6 +9,9 @@ module Admin
       def button
       end
 
+      def card
+      end
+
       def toast
       end
     end

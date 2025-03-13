@@ -20,6 +20,7 @@ namespace :admin do
     namespace :components do
       get :breadcrumb
       get :button
+      get :card
       get :toast
     end
   end
