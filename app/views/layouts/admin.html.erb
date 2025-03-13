@@ -2,14 +2,27 @@
 <% end %>
 
 <% content_for(:content) do %>
-  <div class="mx-auto flex w-full max-w-7xl items-start gap-x-8 px-4 py-10 sm:px-6 lg:px-8">
-    <aside class="sticky top-8 hidden w-56 shrink-0 lg:block">
-      <%= render "admin/sidebar" %>
-    </aside>
+  <div class="flex md:flex-row flex-col items-start justify-between md:h-[calc(100vh-2px)] overflow-x-clip relative">
+    <%= render "admin/sidebar" %>
 
-    <main class="flex-1">
-      <%= yield %>
-    </main>
+    <div class="relative z-30 w-full h-full md:flex-1 md:pt-2 md:w-auto scrollbar" data-admin--scroll-spy-target="scrollContainer">
+      <div class="flex flex-col p-4 mx-auto max-w-7xl h-full md:px-10 md:pt-10 md:pb-0">
+        <div class="flex-1">
+          <div class="grid-cols-12 gap-4 items-start md:grid">
+            <div class="pb-10 <%= content_for?(:component_nav).present? ? "col-span-9" : "col-span-12" %>">
+              <%= yield %>
+            </div>
+            <% if content_for?(:component_nav).present? %>
+              <div class="sticky top-2 col-span-3">
+                <%= yield :component_nav %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+
+        <%#= render "admin/shared/scroll_to_top" unless content_for?(:noscroll).present? %>
+      </div>
+    </div>
   </div>
 <% end %>
 
