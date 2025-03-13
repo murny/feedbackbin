@@ -2,36 +2,34 @@
   <%= render layout: "admin/docs/shared/code_example", locals: { heading: "Base" } do %>
     <div class="dark:bg-gradient-to-br bg-white dark:from-slate-900 dark:to-slate-800 p-4 md:p-8 border border-neutral-200 rounded-xl dark:border-slate-700 min-h-[240px]">
       <div class="flex items-center gap-3 flex-wrap">
+        <button type="button" class="btn">Default</button>
         <button type="button" class="btn btn-primary">Primary</button>
         <button type="button" class="btn btn-secondary">Secondary</button>
-        <button type="button" class="btn btn-dark">Dark</button>
-        <button type="button" class="btn btn-light">Light</button>
-        <button type="button" class="btn btn-white">White</button>
-        <button type="button" class="btn btn-transparent">Transparent</button>
-        <button type="button" class="btn btn-danger">Danger</button>
+        <button type="button" class="btn btn-destructive">Destructive</button>
+        <button type="button" class="btn btn-outline">Outline</button>
+        <button type="button" class="btn btn-ghost">Ghost</button>
         <button type="button" class="btn btn-link">Link</button>
       </div>
     </div>
 
     <% content_for :example, flush: true do %>
       <% content_for :html, flush: true do %>
+<button type="button" class="btn">Default</button>
 <button type="button" class="btn btn-primary">Primary</button>
 <button type="button" class="btn btn-secondary">Secondary</button>
-<button type="button" class="btn btn-dark">Dark</button>
-<button type="button" class="btn btn-light">Light</button>
-<button type="button" class="btn btn-white">White</button>
-<button type="button" class="btn btn-transparent">Transparent</button>
-<button type="button" class="btn btn-danger">Danger</button>
+<button type="button" class="btn btn-destructive">Destructive</button>
+<button type="button" class="btn btn-outline">Outline</button>
+<button type="button" class="btn btn-ghost">Ghost</button>
 <button type="button" class="btn btn-link">Link</button>
       <% end %>
 
       <% content_for :erb, flush: true do %>
+<%%= button_tag "Default", type: "button", class: "btn" %>
 <%%= button_tag "Primary", type: "button", class: "btn btn-primary" %>
 <%%= button_tag "Secondary", type: "button", class: "btn btn-secondary" %>
-<%%= button_tag "Dark", type: "button", class: "btn btn-dark" %>
-<%%= button_tag "Light", type: "button", class: "btn btn-light" %>
-<%%= button_tag "Light", type: "button", class: "btn btn-white" %>
-<%%= button_tag "Danger", type: "button", class: "btn btn-danger" %>
+<%%= button_tag "Destructive", type: "button", class: "btn btn-destructive" %>
+<%%= button_tag "Outline", type: "button", class: "btn btn-outline" %>
+<%%= button_tag "Ghost", type: "button", class: "btn btn-ghost" %>
 <%%= button_tag "Link", type: "button", class: "btn btn-link" %>
       <% end %>
 
