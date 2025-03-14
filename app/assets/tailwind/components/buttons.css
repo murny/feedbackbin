@@ -1,5 +1,5 @@
 @utility btn {
-  @apply py-2 px-3 text-sm rounded-md font-medium text-center inline-flex items-center justify-center transition-colors duration-300 no-underline focus:ring-4 whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none;
+  @apply inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive;
 }
 
 @utility btn-lg {
@@ -12,26 +12,27 @@
 
 @layer components {
   .btn-primary {
-    @apply bg-primary-500 text-white focus:ring-primary-100/70 hover:bg-primary-600 dark:ring-secondary-500/30;
+    @apply bg-primary text-primary-foreground hover:bg-primary/90;
   }
 
   .btn-secondary {
-    @apply bg-secondary-500 text-white focus:ring-secondary-100/70 hover:bg-secondary-600 dark:ring-secondary-500/30;
-  }
-
-  .btn-outline {
-    @apply bg-white text-gray-800 border border-gray-300/90 shadow-xs shadow-gray-300/20 focus:ring-slate-100/70 hover:bg-gray-50/50 hover:border-gray-400/80 dark:border-gray-600 dark:bg-gray-800 dark:text-gray-100 dark:focus:ring-gray-600/30 dark:hover:border-gray-500 dark:hover:bg-gray-700 dark:hover:text-white;
-  }
-
-  .btn-ghost {
-    @apply bg-transparent text-gray-700 border-transparent shadow-none focus:shadow-gray-300/20 hover:bg-gray-100/90 hover:text-gray-800 hover:border-gray-300 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-gray-100 dark:hover:border-gray-700 dark:focus:ring-gray-800/20 focus:ring-slate-200/70;
+    @apply bg-secondary text-secondary-foreground hover:bg-secondary/80;
   }
 
   .btn-destructive {
-    @apply bg-rose-500 text-white dark:focus:ring-rose-500/30 hover:bg-rose-600 focus:ring-rose-100/70;
+    @apply bg-destructive text-destructive-foreground hover:bg-destructive/90;
   }
 
+  .btn-outline {
+    @apply border border-input bg-background hover:bg-accent hover:text-accent-foreground;
+  }
+
+  .btn-ghost {
+    @apply hover:bg-accent hover:text-accent-foreground;
+  }
+
+
   .btn-link {
-    @apply text-primary-600 font-medium focus:shadow-none hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-500 focus:ring-transparent;
+    @apply bg-primary text-primary-foreground hover:bg-primary/90;
   }
 }
