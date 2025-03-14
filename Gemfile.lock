@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/rails/rails.git
-  revision: f575fca24a72cf0631c59ed797c575392fbbc527
+  revision: 951ea8f75d9bf6d2999df2f0497347976dce9476
   branch: main
   specs:
     actioncable (8.1.0.alpha)
@@ -294,24 +294,24 @@ GEM
       net-protocol
     net-ssh (7.3.0)
     nio4r (2.7.4)
-    nokogiri (1.18.3)
+    nokogiri (1.18.4)
       mini_portile2 (~> 2.8.2)
       racc (~> 1.4)
-    nokogiri (1.18.3-aarch64-linux-gnu)
+    nokogiri (1.18.4-aarch64-linux-gnu)
       racc (~> 1.4)
-    nokogiri (1.18.3-aarch64-linux-musl)
+    nokogiri (1.18.4-aarch64-linux-musl)
       racc (~> 1.4)
-    nokogiri (1.18.3-arm-linux-gnu)
+    nokogiri (1.18.4-arm-linux-gnu)
       racc (~> 1.4)
-    nokogiri (1.18.3-arm-linux-musl)
+    nokogiri (1.18.4-arm-linux-musl)
       racc (~> 1.4)
-    nokogiri (1.18.3-arm64-darwin)
+    nokogiri (1.18.4-arm64-darwin)
       racc (~> 1.4)
-    nokogiri (1.18.3-x86_64-darwin)
+    nokogiri (1.18.4-x86_64-darwin)
       racc (~> 1.4)
-    nokogiri (1.18.3-x86_64-linux-gnu)
+    nokogiri (1.18.4-x86_64-linux-gnu)
       racc (~> 1.4)
-    nokogiri (1.18.3-x86_64-linux-musl)
+    nokogiri (1.18.4-x86_64-linux-musl)
       racc (~> 1.4)
     oauth2 (2.0.9)
       faraday (>= 0.17.3, < 3.0)
@@ -398,7 +398,7 @@ GEM
     reline (0.6.0)
       io-console (~> 0.5)
     rexml (3.4.1)
-    rubocop (1.73.2)
+    rubocop (1.74.0)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
@@ -477,7 +477,7 @@ GEM
       fugit (~> 1.11.0)
       railties (>= 7.1)
       thor (~> 1.3.1)
-    sorbet-runtime (0.5.11919)
+    sorbet-runtime (0.5.11933)
     sqlite3 (2.6.0)
       mini_portile2 (~> 2.8.0)
     sqlite3 (2.6.0-aarch64-linux-gnu)
@@ -503,13 +503,13 @@ GEM
     tailwindcss-rails (4.2.0)
       railties (>= 7.0.0)
       tailwindcss-ruby (~> 4.0)
-    tailwindcss-ruby (4.0.12)
-    tailwindcss-ruby (4.0.12-aarch64-linux-gnu)
-    tailwindcss-ruby (4.0.12-aarch64-linux-musl)
-    tailwindcss-ruby (4.0.12-arm64-darwin)
-    tailwindcss-ruby (4.0.12-x86_64-darwin)
-    tailwindcss-ruby (4.0.12-x86_64-linux-gnu)
-    tailwindcss-ruby (4.0.12-x86_64-linux-musl)
+    tailwindcss-ruby (4.0.14)
+    tailwindcss-ruby (4.0.14-aarch64-linux-gnu)
+    tailwindcss-ruby (4.0.14-aarch64-linux-musl)
+    tailwindcss-ruby (4.0.14-arm64-darwin)
+    tailwindcss-ruby (4.0.14-x86_64-darwin)
+    tailwindcss-ruby (4.0.14-x86_64-linux-gnu)
+    tailwindcss-ruby (4.0.14-x86_64-linux-musl)
     terminal-table (4.0.0)
       unicode-display_width (>= 1.1.1, < 4)
     thor (1.3.2)
@@ -705,15 +705,15 @@ CHECKSUMS
   net-smtp (0.5.1) sha256=ed96a0af63c524fceb4b29b0d352195c30d82dd916a42f03c62a3a70e5b70736
   net-ssh (7.3.0) sha256=172076c4b30ce56fb25a03961b0c4da14e1246426401b0f89cba1a3b54bf3ef0
   nio4r (2.7.4) sha256=d95dee68e0bb251b8ff90ac3423a511e3b784124e5db7ff5f4813a220ae73ca9
-  nokogiri (1.18.3) sha256=6b9fc3b14fd0cedd21f6cad8cf565123ba7401e56b5d0aec180c23cdca28fd5a
-  nokogiri (1.18.3-aarch64-linux-gnu) sha256=cab20305133078a8f6b60cf96311b48319175038cc7772e5ec586ff624cb7838
-  nokogiri (1.18.3-aarch64-linux-musl) sha256=acb256bb3213a180b1ed84a49c06d5d4c6c1da26f33bc9681f1fece4dab09a79
-  nokogiri (1.18.3-arm-linux-gnu) sha256=37b73a55e0d1e8a058a24abb16868903e81cb4773049739c532b864f87236b1b
-  nokogiri (1.18.3-arm-linux-musl) sha256=09407970cd13736cf87e975fae69c13e1178bab0313d07b35580ee4dd3650793
-  nokogiri (1.18.3-arm64-darwin) sha256=ce088965cd424b8e752d82087dcf017069d55791f157098ed1f671d966857610
-  nokogiri (1.18.3-x86_64-darwin) sha256=d729406bb5a7b1bbe7ed3c0922336dd2c46085ed444d6de2a0a4c33950a4edea
-  nokogiri (1.18.3-x86_64-linux-gnu) sha256=3c7ad5cee39855ed9c746065f39b584b9fd2aaff61df02d0f85ba8d671bbe497
-  nokogiri (1.18.3-x86_64-linux-musl) sha256=8aaecc22c0e5f12dac613e15f9a04059c3ec859d6f98f493cc831bd88fe8e731
+  nokogiri (1.18.4) sha256=bb7820521c1bbae1d3e0092ff03b27a8e700912b37d80f962b7e4567947a64ac
+  nokogiri (1.18.4-aarch64-linux-gnu) sha256=8f2263cef9953ce09bd5293d76c9bbd3013d2f94d1cca67783dfe6635c529deb
+  nokogiri (1.18.4-aarch64-linux-musl) sha256=4e231f8ba3128cfc2ef0cc0bdc807d7ce71fc62cb6a78216e817be8631fe6a96
+  nokogiri (1.18.4-arm-linux-gnu) sha256=cc2945e2c19560a61a97737e6bd3b329edb1f82ca204d46a18e5e98ad0a550a6
+  nokogiri (1.18.4-arm-linux-musl) sha256=4fb7f44de0cd85abfa869e4cfb619410da174ebf9fbe26ae0caa65462b818bcb
+  nokogiri (1.18.4-arm64-darwin) sha256=73902663b23b1123282b9c0b6d9654b1fb286dfee8d65cb1f6029087b7f0d037
+  nokogiri (1.18.4-x86_64-darwin) sha256=e4776f58eea9b94d05caf8bf351e3c6aa1cce01edcc2ed530f3c302c13178965
+  nokogiri (1.18.4-x86_64-linux-gnu) sha256=b1c6407b346b88704e97a342a80acd4755175324e624da34d0c5cfdc8d34191e
+  nokogiri (1.18.4-x86_64-linux-musl) sha256=ea7c0356a70f3d2d0d76315b533877013d20368d5c9f437c38e0bd462c4844dc
   oauth2 (2.0.9) sha256=b21f9defcf52dc1610e0dfab4c868342173dcd707fd15c777d9f4f04e153f7fb
   omniauth (2.1.3) sha256=8d24e2e55c41926c96e4a93fd566bc026dfd6f2c850408748e89945a565956c2
   omniauth-facebook (10.0.0) sha256=dfdc6cbada5387572d554784861546cf6382f9fa16c4731cbe5813e570fcb9e1
@@ -753,7 +753,7 @@ CHECKSUMS
   regexp_parser (2.10.0) sha256=cb6f0ddde88772cd64bff1dbbf68df66d376043fe2e66a9ef77fcb1b0c548c61
   reline (0.6.0) sha256=57620375dcbe56ec09bac7192bfb7460c716bbf0054dc94345ecaa5438e539d2
   rexml (3.4.1) sha256=c74527a9a0a04b4ec31dbe0dc4ed6004b960af943d8db42e539edde3a871abca
-  rubocop (1.73.2) sha256=35cd1b1365ba97234323fe771abcecd09c9b77098464cd726c76aa7d9bc12b5d
+  rubocop (1.74.0) sha256=06138a35d7d11c963d5abc0148b355e3999007cb0225a619940db0e75521379b
   rubocop-ast (1.38.1) sha256=80ecbe2ac9bb26693cab9405bf72b41b85a1f909f20f021b983c32c2e7d857fe
   rubocop-capybara (2.22.1) sha256=ced88caef23efea53f46e098ff352f8fc1068c649606ca75cb74650970f51c0c
   rubocop-minitest (0.37.1) sha256=dcdcc2c835a859193e50bc67296daaf95ac99f6410838119374df31490460d36
@@ -775,7 +775,7 @@ CHECKSUMS
   solid_cable (3.0.7) sha256=f2bce91e17e2c6e04c3c5e9905cc31b1078ff991702278c8bb1ac2e09f441a21
   solid_cache (1.0.7) sha256=58e690ccee057be7351f21b1940d5f9cf6bb132074316e70478e554a79e6a490
   solid_queue (1.1.3) sha256=c7b4a84819eca6a61250aa8d7e48b8ded6882026e78ee21d3701d372ca741aa2
-  sorbet-runtime (0.5.11919) sha256=af5a8da87b92310001988ee3849afcbad347072cbeeb1281feaa7935aa094512
+  sorbet-runtime (0.5.11933) sha256=721226587dd3b842b9637b909af239908d1ecb5a50873b3ec4d9c52f22889e23
   sqlite3 (2.6.0) sha256=a1c625f11948e6726eb082700283a8a3f4cf20b0548c0051c6104c56fedbe314
   sqlite3 (2.6.0-aarch64-linux-gnu) sha256=febc29bd7037695779d6b482fac7f7add9af7b420a1c5120ccff79213415975e
   sqlite3 (2.6.0-aarch64-linux-musl) sha256=d235cf89ba96067462562bc71adf5309363a9fee09a1864667f45799f26825ca
@@ -791,13 +791,13 @@ CHECKSUMS
   stimulus-rails (1.3.4) sha256=765676ffa1f33af64ce026d26b48e8ffb2e0b94e0f50e9119e11d6107d67cb06
   stringio (3.1.5) sha256=bca92461515a131535743bc81d5559fa1de7d80cff9a654d6c0af6f9f27e35c8
   tailwindcss-rails (4.2.0) sha256=f0c4b5da8ca11304c883a2c8a3d4cc7cbb6ef797717fc77a1295911753eaa2d1
-  tailwindcss-ruby (4.0.12) sha256=1ab62c9526b5bd8d5625ca6f2303ce5d31e8b3251adb691eb6fbb4cde0c535df
-  tailwindcss-ruby (4.0.12-aarch64-linux-gnu) sha256=352b1bcacaf6934da64b133148d2b6401d997fd73c572524afd7a45e59770648
-  tailwindcss-ruby (4.0.12-aarch64-linux-musl) sha256=b1f00c42a45af256c7fc11edf84912f1ad671f0035670ce842899e27916961c6
-  tailwindcss-ruby (4.0.12-arm64-darwin) sha256=9881d26c189840d3e838cff4d055cc3e4d59298dc1a868d39da98e04f333f947
-  tailwindcss-ruby (4.0.12-x86_64-darwin) sha256=10725aef593fad495fc0a408c86570892738a80b0642154c9eecbf78be7bf4c8
-  tailwindcss-ruby (4.0.12-x86_64-linux-gnu) sha256=0412b7de7b45aec331302bcae7c67f49eda76cade3dbeff48db0eb2498c4bebb
-  tailwindcss-ruby (4.0.12-x86_64-linux-musl) sha256=e850aa1b8cda932e78521bbb6f31480a7f39dc52c3bfcad602182ec340077ffd
+  tailwindcss-ruby (4.0.14) sha256=6e4036cdccf3da956c168d83069b17939a567735c7e345daaf072b1e58a2608d
+  tailwindcss-ruby (4.0.14-aarch64-linux-gnu) sha256=6934258873a5fc8cb5c9bfe16e98aee3290e88791796f19befbdbe8894a86df7
+  tailwindcss-ruby (4.0.14-aarch64-linux-musl) sha256=e3e856307e7acb92823d23ac0fde30e040459f2851977ceb9c3b4215477787ac
+  tailwindcss-ruby (4.0.14-arm64-darwin) sha256=de8d1bc1d3ba3a918ff05499e74ed367480721667e5c8a51866dcabba3bcf589
+  tailwindcss-ruby (4.0.14-x86_64-darwin) sha256=09355b40fcc48021698ba11fffbd7274269f92007f0a9547e26ae1548127e3a7
+  tailwindcss-ruby (4.0.14-x86_64-linux-gnu) sha256=a95841b35bcd5ca0992c5d453eb617d00730a2d1e80fffae44158831f67c9019
+  tailwindcss-ruby (4.0.14-x86_64-linux-musl) sha256=e85dee0d300a6ac22d7d1787f17562b1e4555e49b1653048f37a4444cb2e2263
   terminal-table (4.0.0) sha256=f504793203f8251b2ea7c7068333053f0beeea26093ec9962e62ea79f94301d2
   thor (1.3.2) sha256=eef0293b9e24158ccad7ab383ae83534b7ad4ed99c09f96f1a6b036550abbeda
   thruster (0.1.12) sha256=a6271224fbb4bbcfb9fe6231591656724d73d0a0c774bc6f35b0a3bc88413bb2
