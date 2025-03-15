@@ -21,11 +21,31 @@
 
   <div>
     <div data-admin--snippet-target="preview">
-      <%= yield %>
+      <div class="dark:bg-gradient-to-br bg-white dark:from-slate-900 dark:to-slate-800 p-4 md:p-8 border border-neutral-200 rounded-xl dark:border-slate-700 min-h-[240px]">
+        <div class="flex items-center gap-3 flex-wrap">
+          <%= yield(:preview_example) %>
+        </div>
+      </div>
     </div>
 
-    <div data-admin--snippet-target="code" class="hidden">
-      <%= yield :example %>
+    <div data-admin--snippet-target="code" class="hidden mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+      <div class="flex flex-col space-y-4">
+        <div class="w-full rounded-md [&_pre]:my-0 [&_pre]:max-h-[350px] [&_pre]:overflow-auto">
+          <div
+            data-controller="admin--clipboard">
+            <button data-action="click->admin--clipboard#copy"
+              class="bg-white/10 backdrop-blur-sm p-1 rounded-lg absolute right-2 top-2 hover:bg-gradient-to-br hover:to-rose-600 hover:from-rose-400 transition ease-in-out w-duration-200"
+              type="button">
+              <%= inline_svg_tag "icons/clipboard.svg", class: "stroke-current text-white select-none size-5" %>
+            </button>
+            <pre data-controller="admin--highlight" class="mb-4 mt-6 max-h-[650px] overflow-x-auto rounded-xl bg-zinc-950 py-4 dark:bg-zinc-900">
+              <code data-admin--clipboard-target="content" class="language-erb scrollbar relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm">
+                <%= yield(:code_example).to_param.strip %>
+              </code>
+            </pre>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
