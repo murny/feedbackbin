@@ -1,0 +1,31 @@
+<div id="card-with-image">
+  <% content_for :preview_example, flush: true do %>
+    <%= render_card(
+      title: "Card with Image",
+      description: "This card contains an image in its content area.",
+      body: image_tag("https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80",
+                    class: "aspect-video w-full object-cover",
+                    alt: "Sample image"),
+      footer: tag.div(class: "flex justify-between w-full") do
+        concat tag.span("Photo by Drew Beamer")
+        concat tag.span("Unsplash")
+      end
+    ) %>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_card(
+  title: "Card with Image",
+  description: "This card contains an image in its content area.",
+  body: image_tag("https://images.unsplash.com/photo-1588345921523-c2dcdb7f1dcd?w=800&dpr=2&q=80",
+                class: "aspect-video w-full object-cover",
+                alt: "Sample image"),
+  footer: tag.div(class: "flex justify-between w-full") do
+    concat tag.span("Photo by Drew Beamer")
+    concat tag.span("Unsplash")
+  end
+) %>
+  <% end %>
+
+  <%= render partial: "admin/docs/shared/code_example", locals: { heading: "Card with Image" } %>
+</div>

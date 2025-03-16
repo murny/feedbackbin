@@ -1,0 +1,59 @@
+<div id="card-advanced">
+  <% content_for :preview_example, flush: true do %>
+    <%= render_card(
+      title: "Meeting Notes",
+      description: "Transcript from the meeting with the client."
+    ) do %>
+      <div class="px-6 text-sm">
+        <p>Client requested dashboard redesign with focus on mobile responsiveness.</p>
+        <ol class="mt-4 flex list-decimal flex-col gap-2 pl-6">
+          <li>New analytics widgets for daily/weekly metrics</li>
+          <li>Simplified navigation menu</li>
+          <li>Dark mode support</li>
+          <li>Timeline: 6 weeks</li>
+          <li>Follow-up meeting scheduled for next Tuesday</li>
+        </ol>
+      </div>
+      <div class="px-6 py-6 border-t mt-6 flex items-center justify-between w-full">
+        <div class="flex -space-x-2">
+          <% ["shadcn", "leerob", "evilrabbit"].each do |user| %>
+            <span class="relative flex size-8 shrink-0 overflow-hidden rounded-full ring-2 ring-background">
+              <%= image_tag("https://github.com/#{user}.png", class: "aspect-square size-full", alt: "@#{user}") %>
+            </span>
+          <% end %>
+        </div>
+        <div class="text-muted-foreground text-sm">February 26, 2024</div>
+      </div>
+    <% end %>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_card(
+  title: "Meeting Notes",
+  description: "Transcript from the meeting with the client."
+) do %>
+  <div class="px-6 text-sm">
+    <p>Client requested dashboard redesign with focus on mobile responsiveness.</p>
+    <ol class="mt-4 flex list-decimal flex-col gap-2 pl-6">
+      <li>New analytics widgets for daily/weekly metrics</li>
+      <li>Simplified navigation menu</li>
+      <li>Dark mode support</li>
+      <li>Timeline: 6 weeks</li>
+      <li>Follow-up meeting scheduled for next Tuesday</li>
+    </ol>
+  </div>
+  <div class="px-6 py-6 border-t mt-6 flex items-center justify-between w-full">
+    <div class="flex -space-x-2">
+      <%% ["shadcn", "leerob", "evilrabbit"].each do |user| %>
+        <span class="relative flex size-8 shrink-0 overflow-hidden rounded-full ring-2 ring-background">
+          <%%= image_tag("https://github.com/#{user}.png", class: "aspect-square size-full", alt: "@#{user}") %>
+        </span>
+      <%% end %>
+    </div>
+    <div class="text-muted-foreground text-sm">February 26, 2024</div>
+  </div>
+<%% end %>
+  <% end %>
+
+  <%= render partial: "admin/docs/shared/code_example", locals: { heading: "Advanced Card" } %>
+</div>
