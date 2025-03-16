@@ -1,30 +1,18 @@
 <div id="button-sizes">
-  <%= render layout: "admin/docs/shared/code_example", locals: { heading: "Sizes" } do %>
-
-    <div class="prose prose-neutral dark:prose-invert mb-6"><p>Choose from two additional buttons sizes outside of the default <code>.btn</code> class (<code>.btn-lg</code>, <code>.btn-sm</code>) or customize size with additional Tailwind CSS classes.</p></div>
-
-    <div class="dark:bg-gradient-to-br bg-white dark:from-slate-900 dark:to-slate-800 p-4 md:p-8 border border-neutral-200 rounded-xl dark:border-slate-700 min-h-[240px]">
-      <div class="flex items-center gap-2">
-        <button type="button" class="btn btn-primary btn-lg">Large button</button>
-        <button type="button" class="btn btn-primary">Base button</button>
-        <button type="button" class="btn btn-primary btn-sm">Small button</button>
-      </div>
-    </div>
-
-    <% content_for :example, flush: true do %>
-      <% content_for :html, flush: true do %>
-<button type="button" class="btn btn-primary btn-lg">Large button</button>
-<button type="button" class="btn btn-primary">Base button</button>
-<button type="button" class="btn btn-primary btn-sm">Small button</button>
-      <% end %>
-
-      <% content_for :erb, flush: true do %>
-<%%= button_tag "Large button", type: "button", class: "btn btn-primary btn-lg" %>
-<%%= button_tag "Base Button", type: "button", class: "btn btn-primary" %>
-<%%= button_tag "Small button", type: "button", class: "btn btn-primary btn-sm" %>
-      <% end %>
-
-      <%= render partial: "admin/docs/shared/snippet" %>
-    <% end %>
+  <% content_for :preview_example, flush: true do %>
+    <%= render_button(text: "Large button", size: :lg) %>
+    <%= render_button(text: "Base button") %>
+    <%= render_button(text: "Small button", size: :sm) %>
   <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_button(text: "Large button", size: :lg) %>
+<%%= render_button(text: "Base button") %>
+<%%= render_button(text: "Small button", size: :sm) %>
+  <% end %>
+
+  <%= render partial: "admin/docs/shared/code_example", locals: {
+    heading: "Sizes",
+    description: "Choose from two additional buttons sizes outside of the default <code>.btn</code> class (<code>.btn-lg</code>, <code>.btn-sm</code>) or customize size with additional Tailwind CSS classes."
+  } %>
 </div>

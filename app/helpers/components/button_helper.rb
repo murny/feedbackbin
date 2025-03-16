@@ -2,13 +2,18 @@
 
 module Components
   module ButtonHelper
-    def render_button(text: nil, variant: :default, size: :default, href: nil, data: {}, **options, &block)
+    def render_button(text: nil, variant: :default, size: :default, href: nil, type: :button, loading: false, data: {}, **options, &block)
       button_classes = [
         base_class,
         variant_class(variant),
         size_class(size),
         options[:class]
       ].flatten.compact.join(" ")
+
+      # Update options with the combined button_classes
+      options[:class] = button_classes
+      options[:type] = type unless href.present?
+      options[:disabled] = true if loading
 
       if block_given?
         text = capture(&block)
@@ -17,7 +22,7 @@ module Components
       render "components/ui/button", {
         text: text,
         href: href,
-        button_classes: button_classes,
+        loading: loading,
         data: data,
         options: options
       }
@@ -41,6 +46,11 @@ module Components
 
     def variant_class(variant)
       case variant
+      when :default
+        [
+          "bg-primary text-primary-foreground shadow-xs",
+          "hover:bg-primary/90"
+        ]
       when :destructive
         [
           "bg-destructive text-white shadow-xs",
@@ -69,16 +79,14 @@ module Components
           "hover:underline"
         ]
       else
-        # Default
-        [
-          "bg-primary text-primary-foreground shadow-xs",
-          "hover:bg-primary/90"
-        ]
+        raise ArgumentError, "Unknown button variant: #{variant}"
       end
     end
 
     def size_class(size)
       case size
+      when :default
+        "h-9 px-4 py-2 has-[>svg]:px-3"
       when :sm
         "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5"
       when :lg
@@ -86,8 +94,7 @@ module Components
       when :icon
         "size-9"
       else
-        # Default
-        "h-9 px-4 py-2 has-[>svg]:px-3"
+        raise ArgumentError, "Unknown button size: #{size}"
       end
     end
   end

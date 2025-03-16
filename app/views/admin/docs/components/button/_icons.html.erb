@@ -1,32 +1,29 @@
 <div id="button-icons">
-  <%= render layout: "admin/docs/shared/code_example", locals: { heading: "Icons" } do %>
-    <div class="prose prose-neutral dark:prose-invert mb-6">
-      <p>Icons may be place at the start or end of a button</p>
-    </div>
-
-    <div class="dark:bg-gradient-to-br bg-white dark:from-slate-900 dark:to-slate-800 p-4 md:p-8 border border-neutral-200 rounded-xl dark:border-slate-700 min-h-[240px]">
-      <button class="btn btn-primary" type="button">
-        <%= inline_svg_tag "icons/plus.svg", class: "w-4 h-4" %>
-        <span>Add Item</span>
-      </button>
-    </div>
-
-    <% content_for :example, flush: true do %>
-      <% content_for :html, flush: true do %>
-<button class="btn btn-primary" type="button">
-  <%%= inline_svg_tag "icons/plus.svg", class: "w-4 h-4" %>
-  <span>Add Item</span>
-</button>
-      <% end %>
-
-      <% content_for :erb, flush: true do %>
-<%%= button_tag type: "button", class: "btn btn-primary" do %>
-  <%%= inline_svg_tag "icons/plus.svg", class: "w-4 h-4" %>
-  <span>Add Item</span>
-<%% end %>
-      <% end %>
-
-      <%= render partial: "admin/docs/shared/snippet" %>
+  <% content_for :preview_example, flush: true do %>
+    <%= render_button(variant: :outline,size: :icon) do %>
+      <%= inline_svg_tag "icons/chevron-right.svg" %>
     <% end %>
+
+      <%= render_button do %>
+        <%= inline_svg_tag "icons/plus.svg" %>
+        Add Item
+      <% end %>
   <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_button(variant: :outline,size: :icon) do %>
+  <%%= inline_svg_tag "icons/chevron-right.svg" %>
+<%% end %>
+
+
+<%%= render_button do %>
+  <%%= inline_svg_tag "icons/plus.svg" %>
+  Add Item
+<%% end %>
+  <% end %>
+
+  <%= render partial: "admin/docs/shared/code_example", locals: {
+    heading: "Icons",
+    description: "Icons may be place at the start or end of a button"
+  } %>
 </div>

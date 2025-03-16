@@ -1,9 +1,19 @@
 <% if href.present? %>
-   <%= link_to href, class: button_classes, data: data, **options do %>
-     <%= text %>
-   <% end %>
- <% else %>
-   <%= button_tag class: button_classes, data: data, **options do %>
-     <%= text %>
-   <% end %>
- <% end %>
+  <%= link_to href, data: data, **options do %>
+    <% if loading %>
+      <div class="animate-spin mr-2">
+        <%= inline_svg "icons/spinner.svg", class: "size-4" %>
+      </div>
+    <% end %>
+    <%= text %>
+  <% end %>
+<% else %>
+  <%= button_tag data: data, **options do %>
+    <% if loading %>
+      <div class="animate-spin mr-2">
+        <%= inline_svg "icons/spinner.svg", class: "size-4" %>
+      </div>
+    <% end %>
+    <%= text %>
+  <% end %>
+<% end %>
