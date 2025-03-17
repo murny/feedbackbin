@@ -4,7 +4,7 @@ require "test_helper"
 require "rails-dom-testing"
 
 module FormBuilders
-  class TailwindFormBuilderTest < ActionView::TestCase
+  class CustomFormBuilderTest < ActionView::TestCase
     include ActionView::Helpers::FormHelper
   include InlineSvg::ActionView::Helpers
 
@@ -13,7 +13,7 @@ module FormBuilders
   end
 
   test "text_field returns tailwind styled text field" do
-    form = FormBuilders::TailwindFormBuilder.new(:user, @form_object, self, {})
+    form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
     expected = %(<div class="mt-2 relative rounded-md shadow-sm">
       <input
@@ -27,7 +27,7 @@ module FormBuilders
   end
 
   test "text_field with leading icon returns tailwind styled text field" do
-    form = FormBuilders::TailwindFormBuilder.new(:user, @form_object, self, {})
+    form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
     expected = %(<div class="mt-2 relative rounded-md shadow-sm">
       <div>{class: &quot;pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3&quot;}</div>
@@ -42,7 +42,7 @@ module FormBuilders
   end
 
   test "text_field with classes returns tailwind styled text field with additional classes" do
-    form = FormBuilders::TailwindFormBuilder.new(:user, @form_object, self, {})
+    form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
     expected = %(<div class="mt-2 relative rounded-md shadow-sm">
       <input
@@ -60,7 +60,7 @@ module FormBuilders
     @form_object.errors.add(:username, "must be unique")
     @form_object.errors.add(:username, "must be at least three characters")
 
-    form = FormBuilders::TailwindFormBuilder.new(:user, @form_object, self, {})
+    form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
     field_html = form.text_field(:username)
 
     assert_match(/Must be present, must be unique, and must be at least three characters/, field_html)
@@ -70,7 +70,7 @@ module FormBuilders
   end
 
   test "text_field with no object returns tailwind styled text field" do
-    form = FormBuilders::TailwindFormBuilder.new(:user, nil, self, {})
+    form = FormBuilders::CustomFormBuilder.new(:user, nil, self, {})
 
     expected = %(<div class="mt-2 relative rounded-md shadow-sm">
       <input
@@ -84,7 +84,7 @@ module FormBuilders
   end
 
   test "email_field returns tailwind styled email field" do
-    form = FormBuilders::TailwindFormBuilder.new(:user, @form_object, self, {})
+    form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
     expected = %(<div class="mt-2 relative rounded-md shadow-sm">
       <input
@@ -98,7 +98,7 @@ module FormBuilders
   end
 
   test "date_field returns tailwind styled date field" do
-    form = FormBuilders::TailwindFormBuilder.new(:user, @form_object, self, {})
+    form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
     expected = %(<div class="mt-2 relative rounded-md shadow-sm">
       <input
@@ -112,7 +112,7 @@ module FormBuilders
   end
 
   test "password_field returns tailwind styled password field" do
-    form = FormBuilders::TailwindFormBuilder.new(:user, @form_object, self, {})
+    form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
     expected = %(<div class="mt-2 relative rounded-md shadow-sm">
       <input
@@ -126,7 +126,7 @@ module FormBuilders
   end
 
   test "text_area returns tailwind styled text area" do
-    form = FormBuilders::TailwindFormBuilder.new(:user, @form_object, self, {})
+    form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
     expected = %(
     <div class="mt-2 relative rounded-md shadow-sm">
@@ -139,7 +139,7 @@ module FormBuilders
   end
 
   test "select returns tailwind styled select" do
-    form = FormBuilders::TailwindFormBuilder.new(:user, @form_object, self, {})
+    form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
     expected = %(<select
       class="block w-full mt-6 sm:mt-0 border rounded-md py-2 px-3 focus:outline-none dark:bg-gray-700/50 dark:border-gray-500 dark:text-gray-300 dark:placeholder-gray-400 dark:focus:ring-2 dark:focus:border-transparent border-gray-300 focus:ring-blue-600 focus:border-blue-600 dark:focus:ring-blue-400"
@@ -150,7 +150,7 @@ module FormBuilders
   end
 
   test "check_box returns tailwind styled check box" do
-    form = FormBuilders::TailwindFormBuilder.new(:user, @form_object, self, {})
+    form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
     expected = %(<input name="user[active]" type="hidden" value="0" autocomplete="off" />
     <input class="h-4 w-4 border-gray-300 rounded"
@@ -160,7 +160,7 @@ module FormBuilders
   end
 
   test "label returns tailwind styled label" do
-    form = FormBuilders::TailwindFormBuilder.new(:user, @form_object, self, {})
+    form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
     expected = %(<label class="block text-sm font-medium leading-6 text-gray-900 dark:text-white" for="user_name">Name</label>)
 
@@ -168,7 +168,7 @@ module FormBuilders
   end
 
   test "submit" do
-    form = FormBuilders::TailwindFormBuilder.new(:user, @form_object, self, {})
+    form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
     expected = %(<input type="submit" name="commit" value="Create User" class="btn btn-primary" data-disable-with="Create User" />)
 
