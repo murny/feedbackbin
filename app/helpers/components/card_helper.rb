@@ -4,7 +4,7 @@ module Components
   module CardHelper
     def render_card(title: nil, description: nil, body: nil, footer: nil, header_action: nil, **options, &block)
       card_classes = [
-        card_ui_base_class,
+        components_card_base_class,
         options[:class]
       ].flatten.compact.join(" ")
 

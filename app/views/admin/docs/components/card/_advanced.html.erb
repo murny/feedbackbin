@@ -2,7 +2,14 @@
   <% content_for :preview_example, flush: true do %>
     <%= render_card(
       title: "Meeting Notes",
-      description: "Transcript from the meeting with the client."
+      description: "Transcript from the meeting with the client.",
+      footer: tag.div(class: "*:data-[slot=avatar]:ring-background flex -space-x-2 *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:grayscale") do
+        [ "shadcn", "leerob", "evilrabbit" ].each do |user|
+          concat(tag.span(class: "relative flex size-8 shrink-0 overflow-hidden rounded-full ring-2 ring-background") do
+            concat(image_tag("https://github.com/#{user}.png", class: "aspect-square size-full", alt: "@#{user}"))
+          end)
+        end
+      end
     ) do %>
       <div class="px-6 text-sm">
         <p>Client requested dashboard redesign with focus on mobile responsiveness.</p>
@@ -14,16 +21,6 @@
           <li>Follow-up meeting scheduled for next Tuesday</li>
         </ol>
       </div>
-      <div class="px-6 py-6 border-t mt-6 flex items-center justify-between w-full">
-        <div class="flex -space-x-2">
-          <% [ "shadcn", "leerob", "evilrabbit" ].each do |user| %>
-            <span class="relative flex size-8 shrink-0 overflow-hidden rounded-full ring-2 ring-background">
-              <%= image_tag("https://github.com/#{user}.png", class: "aspect-square size-full", alt: "@#{user}") %>
-            </span>
-          <% end %>
-        </div>
-        <div class="text-muted-foreground text-sm">February 26, 2024</div>
-      </div>
     <% end %>
   <% end %>
 
@@ -31,6 +28,13 @@
 <%%= render_card(
   title: "Meeting Notes",
   description: "Transcript from the meeting with the client."
+  footer: tag.div(class: "*:data-[slot=avatar]:ring-background flex -space-x-2 *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:grayscale") do
+    [ "shadcn", "leerob", "evilrabbit" ].each do |user|
+      concat(tag.span(class: "relative flex size-8 shrink-0 overflow-hidden rounded-full ring-2 ring-background") do
+        concat(image_tag("https://github.com/#{user}.png", class: "aspect-square size-full", alt: "@#{user}"))
+      end)
+    end
+  end
 ) do %>
   <div class="px-6 text-sm">
     <p>Client requested dashboard redesign with focus on mobile responsiveness.</p>
@@ -41,16 +45,6 @@
       <li>Timeline: 6 weeks</li>
       <li>Follow-up meeting scheduled for next Tuesday</li>
     </ol>
-  </div>
-  <div class="px-6 py-6 border-t mt-6 flex items-center justify-between w-full">
-    <div class="flex -space-x-2">
-      <%% [ "shadcn", "leerob", "evilrabbit" ].each do |user| %>
-        <span class="relative flex size-8 shrink-0 overflow-hidden rounded-full ring-2 ring-background">
-          <%%= image_tag("https://github.com/#{user}.png", class: "aspect-square size-full", alt: "@#{user}") %>
-        </span>
-      <%% end %>
-    </div>
-    <div class="text-muted-foreground text-sm">February 26, 2024</div>
   </div>
 <%% end %>
   <% end %>
