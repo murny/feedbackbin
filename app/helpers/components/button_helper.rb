@@ -4,9 +4,9 @@ module Components
   module ButtonHelper
     def render_button(text: nil, variant: :default, size: :default, href: nil, type: :button, loading: false, data: {}, **options, &block)
       button_classes = [
-        base_class,
-        variant_class(variant),
-        size_class(size),
+        components_button_base_class,
+        components_button_variant_class(variant),
+        components_button_size_class(size),
         options[:class]
       ].flatten.compact.join(" ")
 
@@ -30,7 +30,7 @@ module Components
 
     private
 
-      def base_class
+      def components_button_base_class
         [
           "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all shrink-0 outline-none",
           # Aria
@@ -44,7 +44,7 @@ module Components
         ]
       end
 
-    def variant_class(variant)
+    def components_button_variant_class(variant)
       case variant
       when :default
         [
@@ -83,7 +83,7 @@ module Components
       end
     end
 
-    def size_class(size)
+    def components_button_size_class(size)
       case size
       when :default
         "h-9 px-4 py-2 has-[>svg]:px-3"
