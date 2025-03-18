@@ -159,4 +159,7 @@ Remember:
 - Most interactions can be handled with Turbo
 - Keep business logic on the server
 - Use progressive enhancement
+
+
+Always follow the [official Ruby on Rails guides](https://edgeguides.rubyonrails.org) for best practices in routing, controllers, models, views, and other Rails components.
       
