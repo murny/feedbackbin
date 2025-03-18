@@ -1,0 +1,166 @@
+---
+description: Rails-First Development for FeedbackBin
+globs: 
+alwaysApply: true
+---
+---
+description: Base rules for interacing with the app
+globs: *
+---
+# FeedbackBin - Customer Feedback Management Platform
+
+FeedbackBin is a free, open-source, self-hosted platform to discuss, collect, organize, and prioritize feedback that drives better products.
+
+## Project Overview
+
+FeedbackBin helps companies centralize customer feedback to uncover insights and make informed product decisions. It provides tools for gathering feedback from multiple sources, analyzing user needs, prioritizing feature requests, and communicating progress back to customers.
+
+### Core Features
+- Feedback Collection: Capture customer feedback through direct submissions and integrations
+- Feedback Organization: Categorize, tag, and organize feedback to know what features to add next
+- Analysis Tools: Identify patterns and prioritize features based on customer impact
+- Roadmapping: Create public or private roadmaps to communicate your product direction
+- Change Management: Share updates and release notes with interested customers
+
+### Technical Stack
+- Backend: Ruby on Rails 8, SQLite
+- Frontend: Tailwind CSS, Hotwire/Turbo, Stimulus.js
+- UI Components: Custom components inspired by Shadcn UI
+- Icons: Lucide icon library
+
+### Project Philosophy
+- Open Source: Community-driven development with transparency
+- Self-Hosted: Full control over your data and infrastructure
+- User-Centric: Designed to create meaningful connections with customers
+- Product-Led: Tools that help teams build what customers actually want
+
+### Value Proposition
+FeedbackBin helps product teams close the feedback loop by creating a complete system for collecting user input, making data-driven decisions, and communicating progress back to stakeholders.
+
+# Rules
+
+You are an expert in Ruby, Ruby on Rails, Stimulus.js, Hotwire, Shadcn UI, and Tailwind. 
+
+## Code Style and Structure
+
+- Write concise, technical, idiomatic Ruby code with accurate examples.
+- Follow Rails conventions and best practices.
+- Use object-oriented and functional programming patterns as appropriate.
+- Prefer iteration and modularization over code duplication.
+- Use descriptive variable and method names (e.g., user_signed_in?, calculate_total).
+- Structure files according to Rails conventions (models, views, controllers, concerns, helpers, etc.).
+
+## Naming Conventions
+
+- Use snake_case for file names, method names, and variables.
+- Use CamelCase for class and module names.
+- Follow Rails naming conventions for models, controllers, and views.
+
+
+## Ruby and Ruby on Rails Usage
+
+- Use Ruby 3.x features when appropriate (e.g., pattern matching, endless methods).
+- Leverage Rails' built-in helpers and methods.
+- Use ActiveRecord effectively for database operations.
+- Use Hotwire and Stimulus.js when creating frontend code
+
+## Syntax and Formatting
+
+- Follow the Ruby Style Guide (https://rubystyle.guide/)
+- Use Ruby's expressive syntax (e.g., unless, ||=, &.)
+- Prefer single quotes for strings unless interpolation is needed.
+
+## UI and Styling
+
+- Use Hotwire (Turbo and Stimulus) for dynamic, SPA-like interactions.
+- Implement responsive design which work on mobile/tablet and desktop screen sizes with Tailwind CSS. Use a mobile-first approach.
+- Ensure styles look good in both dark and light mode using Tailwind CSS
+- Use Rails view helpers and partials to keep views DRY.
+- We are using a custom UI components inspired by Shadcn UI in this repo. Please refer to these and use these (e.g for a button use `render_button`)
+- Use the builtin Tailwind CSS variable based colors, like `bg-primary` or `text-primary-foreground`
+- We use lucide icons with the `inline_svg_tag` Rails helper (e.g `inline_svg_tag "icons/cheveron-right.svg` )
+- Do not come up with your own svg icon names. Always reference the same names from https://lucide.dev/ 
+
+## Accessibility and SEO
+
+- Use semantic HTML elements when appropriate, like `main` and `header`
+- Make sure to use the correct ARIA roles and attributes.
+- Remember to use the "sr-only" Tailwind class for screen reader only text.
+- Add alt text for all images, unless they are decorative or it would be repetitive for screen readers.
+  
+## Performance Optimization
+
+- Use database indexing effectively.
+- Implement caching strategies (fragment caching, Russian Doll caching).
+- Use eager loading to avoid N+1 queries.
+- Optimize database queries using includes, joins, or select.
+
+## Key Conventions
+
+- Follow RESTful routing conventions.
+- Use concerns for shared behavior across models or controllers.
+- Use background jobs (e.g., ActiveJob) for time-consuming tasks.
+
+## Testing
+- Write comprehensive tests using Rail's Testing best pratices (https://guides.rubyonrails.org/testing.html).
+- Ensure we have good test coverage. Every controller, model, etc should have corresponding tests. (E.g: The user model at `app/models/user.rb` has corresponding tests at `test/models/user_test.rb` which is testing the main functionality) 
+- Use fixtures (https://api.rubyonrails.org/v8.0.2/classes/ActiveRecord/FixtureSet.html) for test data generation.
+
+## Security
+
+- Implement proper authentication and authorization (e.g., Pundit Policies).
+- Use strong parameters in controllers.
+- Protect against common web vulnerabilities (XSS, CSRF, SQL injection).
+
+## Follow the Rails way using Turbo and server-side rendering
+
+1. Use Turbo Streams instead of JavaScript:
+  ```ruby
+  # Bad - Using JavaScript:
+  document.getElementById("messages").innerHTML += messageHtml
+
+  # Good - Using Turbo Streams in controller:
+  def create
+    @message = Message.create!(message_params)
+    respond_to do |format|
+      format.turbo_stream
+    end
+  end
+
+  # Good - In messages/create.turbo_stream.erb:
+  <%= turbo_stream.append "messages" do %>
+    <%= render @message %>
+  <% end %>
+  ```
+
+2. Use Turbo Frames for partial page updates:
+  ```erb
+  <%= turbo_frame_tag "messages" do %>
+    <%= render @messages %>
+  <% end %>
+  ```
+
+3. Use Turbo Drive for navigation:
+- Links and forms work automatically
+- No need for JavaScript routing
+
+4. For real-time updates, use Turbo Streams over WebSocket:
+  ```ruby
+  # In your model:
+  broadcasts_to ->(message) { "messages" }
+
+  # In your view:
+  <%= turbo_stream_from "messages" %>
+  ```
+
+5. For complex interactions, use server-side state:
+- Store state in the session or database
+- Update via regular form submissions
+- Render new state via Turbo Streams
+
+Remember:
+- JavaScript should be a last resort
+- Most interactions can be handled with Turbo
+- Keep business logic on the server
+- Use progressive enhancement
+      
