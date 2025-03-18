@@ -1,11 +1,7 @@
 ---
-description: Rails-First Development for FeedbackBin
-globs: 
-alwaysApply: true
----
----
-description: Base rules for interacing with the app
+description: Base rules for interacing with FeedbackBin application
 globs: *
+alwaysApply: true
 ---
 # FeedbackBin - Customer Feedback Management Platform
 
