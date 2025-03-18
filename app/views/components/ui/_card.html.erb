@@ -1,7 +1,6 @@
 <div data-slot="card" <%= tag.attributes(**options) %>>
   <% if title || description || header_action %>
-    <%# TODO: Shadcn uses a "@container/card-header" class to set the container for the card header. We should do the same here but this is currently breaking for some reason. %>
-    <div data-slot="card-header" class="grid auto-rows-min grid-rows-[auto_auto] items-start gap-1.5 px-6 has-[data-slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6">
+    <div data-slot="card-header" class="@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-1.5 px-6 has-[data-slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6">
       <% if header_action %>
         <div>
           <% if title %>
@@ -38,7 +37,7 @@
   <% end %>
 
   <% if footer %>
-    <div data-slot="card-footer" class="px-6 [.border-t]:pt-6 flex items-center pb-6">
+    <div data-slot="card-footer" class="flex items-center px-6 [.border-t]:pt-6 text-sm">
       <%= footer %>
     </div>
   <% end %>

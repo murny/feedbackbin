@@ -1,6 +1,6 @@
 <div id="card-layouts">
   <% content_for :preview_example, flush: true do %>
-    <div class="flex flex-wrap gap-4">
+    <div class="flex w-full flex-wrap items-start gap-8 md:*:data-[slot=card]:basis-1/4">
       <%= render_card(
         body: "Content only card with no header or footer."
       ) %>
@@ -13,19 +13,29 @@
       <%= render_card(
         title: "Header & Content",
         description: "This card has a header and content.",
-        body: content_tag(:div, "This is the card content area.", class: "text-sm")
+        body: "This is the card content area."
+      ) %>
+
+      <%= render_card(
+        footer: "Footer only card"
+      ) %>
+
+      <%= render_card(
+        title: "Header + Footer Only",
+        description: "This is a card with a header and a footer.",
+        footer: "Footer"
       ) %>
 
       <%= render_card(
         body: "Card with content and footer.",
-        footer: content_tag(:div, "Footer content", class: "text-sm")
+        footer: "Footer content"
       ) %>
 
       <%= render_card(
         title: "Complete Card",
         description: "This card has header, content and footer.",
-        body: content_tag(:div, "This is the main content area.", class: "text-sm"),
-        footer: content_tag(:div, "Card footer", class: "text-sm")
+        body: "This is the main content area.",
+        footer: "Card footer"
       ) %>
     </div>
   <% end %>
@@ -43,19 +53,29 @@
 <%%= render_card(
   title: "Header & Content",
   description: "This card has a header and content.",
-  body: content_tag(:div, "This is the card content area.", class: "text-sm")
+  body: "This is the card content area."
+) %>
+
+<%%= render_card(
+  footer: "Footer only card"
+) %>
+
+<%%= render_card(
+  title: "Header + Footer Only",
+  description: "This is a card with a header and a footer.",
+  footer: "Footer"
 ) %>
 
 <%%= render_card(
   body: "Card with content and footer.",
-  footer: content_tag(:div, "Footer content", class: "text-sm")
+  footer: "Footer content"
 ) %>
 
 <%%= render_card(
   title: "Complete Card",
   description: "This card has header, content and footer.",
-  body: content_tag(:div, "This is the main content area.", class: "text-sm"),
-  footer: content_tag(:div, "Card footer", class: "text-sm")
+  body: "This is the main content area.",
+  footer: "Card footer"
 ) %>
   <% end %>
 
