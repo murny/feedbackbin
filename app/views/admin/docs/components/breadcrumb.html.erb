@@ -1,43 +1,30 @@
-<%= render "admin/docs/shared/breadcrumb",
-  items: [
-    { text: "Docs", path: admin_docs_path },
-    { text: "Breadcrumb", path: nil }
-  ] %>
-
 <%= render "admin/docs/shared/page_header",
   title: "Breadcrumb",
+  breadcrumb_items: [
+    { text: "Docs", path: admin_docs_path },
+    { text: "Components", path: admin_docs_components_path },
+    { text: "Breadcrumb", path: nil }
+  ],
   description: "Displays the path to the current resource using a hierarchy of links." %>
 
-<%= render "admin/docs/shared/preview_code_tabs", id: "breadcrumb-example" do %>
-  <div class="flex">
-    <div class="flex items-center text-sm font-medium group/breadcrumb">
-      <a class="text-foreground dark:text-foreground hover:underline decoration-foreground/20 underline-offset-4" href="#">
-        Home
-      </a>
+<%= render "admin/docs/components/breadcrumb/base" %>
+<%= render "admin/docs/components/breadcrumb/separator" %>
+<%= render "admin/docs/components/breadcrumb/collapse" %>
 
-      <svg class="shrink-0 [:where(&)]:size-5 mx-1 text-border dark:text-foreground/80 group-last/breadcrumb:hidden" data-flux-icon="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-        <path fill-rule="evenodd" d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd"></path>
-      </svg>
-    </div>
+<%= render partial: "admin/docs/shared/pagination", locals: {
+  prev_path: admin_docs_components_card_path,
+  prev_text: "Card",
+  next_path: admin_docs_components_button_path,
+  next_text: "Button"
+} %>
 
-    <div class="flex items-center text-sm font-medium group/breadcrumb">
-      <a class="text-foreground dark:text-foreground hover:underline decoration-foreground/20 underline-offset-4" href="#">
-        Blog
-      </a>
-
-      <svg class="shrink-0 [:where(&)]:size-5 mx-1 text-border dark:text-foreground/80 group-last/breadcrumb:hidden" data-flux-icon="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-        <path fill-rule="evenodd" d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd"></path>
-      </svg>
-    </div>
-
-    <div class="flex items-center text-sm font-medium group/breadcrumb">
-      <div class="text-muted-foreground dark:text-foreground/80">
-        Post
-      </div>
-
-      <svg class="shrink-0 [:where(&)]:size-5 mx-1 text-border dark:text-foreground/80 group-last/breadcrumb:hidden" data-flux-icon="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true" data-slot="icon">
-        <path fill-rule="evenodd" d="M8.22 5.22a.75.75 0 0 1 1.06 0l4.25 4.25a.75.75 0 0 1 0 1.06l-4.25 4.25a.75.75 0 0 1-1.06-1.06L11.94 10 8.22 6.28a.75.75 0 0 1 0-1.06Z" clip-rule="evenodd"></path>
-      </svg>
-    </div>
-  </div>
+<%= content_for :component_nav do %>
+  <%= render partial: "admin/docs/shared/component_nav", locals: {
+    title: "On this page",
+    items: [
+      { text: "Base", path: "#breadcrumb-base" },
+      { text: "Custom Separator", path: "#breadcrumb-separator" },
+      { text: "Collapse", path: "#breadcrumb-collapse" }
+    ]
+  } %>
 <% end %>

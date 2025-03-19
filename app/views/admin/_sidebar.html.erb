@@ -114,11 +114,8 @@
       </ul>
     </li>
     <li class="mt-6">
-      <a
-        href="#TODO"
-        class="flex w-full items-center gap-x-3 rounded-md p-2 text-left text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 dark:text-white dark:hover:bg-gray-800"
-        aria-controls="sub-menu-components"
-        aria-expanded="false">
+      <%= link_to admin_docs_components_path,
+        class: "flex w-full items-center gap-x-3 rounded-md p-2 text-left text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 dark:text-white dark:hover:bg-gray-800" do %>
         <svg
           class="h-6 w-6 shrink-0 text-gray-400 dark:text-gray-500"
           fill="none"
@@ -130,7 +127,7 @@
           <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z" />
         </svg>
         Components
-      </a>
+      <% end %>
       <ul class="mt-4 border-l border-border">
         <li>
           <%= active_link_to admin_docs_components_breadcrumb_path,

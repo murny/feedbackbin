@@ -1,8 +1,7 @@
 <%# locals: (title:, breadcrumb_items: [], description: nil) -%>
 
 <div class="mb-6">
-  <%= render "admin/docs/shared/breadcrumb",
-              items: breadcrumb_items %>
+  <%= render_breadcrumb breadcrumb_items %>
 
   <%= content_tag :h1, title, id: title, class: "md:text-4xl text-3xl text-neutral-800 font-bold dark:text-neutral-100 tracking-tight relative" %>
 

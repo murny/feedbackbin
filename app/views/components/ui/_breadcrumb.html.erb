@@ -1,0 +1,56 @@
+<nav aria-label="breadcrumb" data-slot="breadcrumb" <%= tag.attributes(**options) %>>
+  <ol data-slot="breadcrumb-list" class="<%= options[:class] %>">
+    <% items.each_with_index do |item, index| %>
+      <%
+        is_last = index == items.size - 1
+        is_collapsible = collapse && index > 0 && index < items.size - 1 && items.size > 3
+
+        # Skip middle items if collapse is enabled and we have enough items
+        next if is_collapsible && index != 1
+      %>
+
+      <% if collapse && index == 1 && items.size > 3 %>
+        <li data-slot="breadcrumb-item" class="inline-flex items-center gap-1.5">
+          <span data-slot="breadcrumb-ellipsis" role="presentation" aria-hidden="true" class="flex size-9 items-center justify-center">
+            <%= inline_svg_tag "icons/ellipsis.svg", class: "size-4" %>
+            <span class="sr-only">More</span>
+          </span>
+        </li>
+
+        <% if separator.present? %>
+          <li data-slot="breadcrumb-separator" role="presentation" aria-hidden="true" class="[&>svg]:size-3.5">
+            <%= separator %>
+          </li>
+        <% else %>
+          <li data-slot="breadcrumb-separator" role="presentation" aria-hidden="true" class="[&>svg]:size-3.5">
+            <%= inline_svg_tag "icons/chevron-right.svg" %>
+          </li>
+        <% end %>
+      <% end %>
+
+      <li data-slot="breadcrumb-item" class="inline-flex items-center gap-1.5">
+        <% if item[:path].present? && !is_last %>
+          <a data-slot="breadcrumb-link" href="<%= item[:path] %>" class="hover:text-foreground transition-colors">
+            <%= item[:text] %>
+          </a>
+        <% else %>
+          <span data-slot="breadcrumb-page" role="link" aria-disabled="true" aria-current="page" class="text-foreground font-normal">
+            <%= item[:text] %>
+          </span>
+        <% end %>
+      </li>
+
+      <% if !is_last %>
+        <% if separator.present? %>
+          <li data-slot="breadcrumb-separator" role="presentation" aria-hidden="true" class="[&>svg]:size-3.5">
+            <%= separator %>
+          </li>
+        <% else %>
+          <li data-slot="breadcrumb-separator" role="presentation" aria-hidden="true" class="[&>svg]:size-3.5">
+            <%= inline_svg_tag "icons/chevron-right.svg" %>
+          </li>
+        <% end %>
+      <% end %>
+    <% end %>
+  </ol>
+</nav>
