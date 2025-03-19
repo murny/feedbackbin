@@ -31,12 +31,12 @@
         </svg>
         Resources
       </a>
-      <ul role="list" class="mt-4 border-l border-zinc-200 dark:border-zinc-800">
+      <ul role="list" class="mt-4 border-l border-border">
         <li>
           <%= active_link_to admin_users_path,
-                class: "block rounded-md py-2 pl-9 pr-2 text-sm leading-6 text-gray-700 dark:text-gray-400",
-                active_class: "bg-gray-50 dark:bg-gray-800 dark:text-white",
-                inactive_class: "hover:bg-gray-50 dark:hover:bg-gray-800 dark:hover:text-white" do %>
+                class: "block rounded-md py-2 pl-9 pr-2 text-sm leading-6 text-foreground dark:text-muted-foreground",
+                active_class: "bg-secondary dark:bg-secondary dark:text-foreground",
+                inactive_class: "hover:bg-secondary dark:hover:bg-secondary dark:hover:text-foreground" do %>
             Users
           <% end %>
         </li>
@@ -78,7 +78,7 @@
         </svg>
         Docs
       </a>
-      <ul class="mt-4 border-l border-zinc-200 dark:border-zinc-800">
+      <ul class="mt-4 border-l border-border">
         <li>
           <%= active_link_to admin_docs_introduction_path,
                 class: "block rounded-md py-2 pl-9 pr-2 text-sm leading-6 text-gray-700 dark:text-gray-400",
@@ -131,7 +131,7 @@
         </svg>
         Components
       </a>
-      <ul class="mt-4 border-l border-zinc-200 dark:border-zinc-800">
+      <ul class="mt-4 border-l border-border">
         <li>
           <%= active_link_to admin_docs_components_breadcrumb_path,
                 class: "block rounded-md py-2 pl-9 pr-2 text-sm leading-6 text-gray-700 dark:text-gray-400",
