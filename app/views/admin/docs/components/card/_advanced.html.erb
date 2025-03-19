@@ -3,12 +3,12 @@
     <%= render_card(
       title: "Meeting Notes",
       description: "Transcript from the meeting with the client.",
-      footer: tag.div(class: "*:data-[slot=avatar]:ring-background flex -space-x-2 *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:grayscale") do
-        [ "shadcn", "leerob", "evilrabbit" ].each do |user|
-          concat(tag.span(class: "relative flex size-8 shrink-0 overflow-hidden rounded-full ring-2 ring-background") do
-            concat(image_tag("https://github.com/#{user}.png", class: "aspect-square size-full", alt: "@#{user}"))
-          end)
-        end
+      footer: tag.div(class: "flex") do
+        concat(render_avatar_group([
+          { src: "https://github.com/shadcn.png", alt: "@shadcn", fallback: "CN" },
+          { src: "https://github.com/leerob.png", alt: "@leerob", fallback: "LR" },
+          { src: "https://github.com/evilrabbit.png", alt: "@evilrabbit", fallback: "ER" }
+        ]))
       end
     ) do %>
       <div class="px-6 text-sm">
@@ -28,12 +28,12 @@
 <%%= render_card(
   title: "Meeting Notes",
   description: "Transcript from the meeting with the client."
-  footer: tag.div(class: "*:data-[slot=avatar]:ring-background flex -space-x-2 *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:grayscale") do
-    [ "shadcn", "leerob", "evilrabbit" ].each do |user|
-      concat(tag.span(class: "relative flex size-8 shrink-0 overflow-hidden rounded-full ring-2 ring-background") do
-        concat(image_tag("https://github.com/#{user}.png", class: "aspect-square size-full", alt: "@#{user}"))
-      end)
-    end
+  footer: tag.div(class: "flex") do
+    concat(render_avatar_group([
+      { src: "https://github.com/shadcn.png", alt: "@shadcn", fallback: "CN" },
+      { src: "https://github.com/leerob.png", alt: "@leerob", fallback: "LR" },
+      { src: "https://github.com/evilrabbit.png", alt: "@evilrabbit", fallback: "ER" }
+    ]))
   end
 ) do %>
   <div class="px-6 text-sm">

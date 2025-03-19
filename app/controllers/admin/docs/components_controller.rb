@@ -12,6 +12,9 @@ module Admin
       def card
       end
 
+      def avatar
+      end
+
       def toast
       end
     end

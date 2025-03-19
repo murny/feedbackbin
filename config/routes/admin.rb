@@ -21,6 +21,7 @@ namespace :admin do
       get :breadcrumb
       get :button
       get :card
+      get :avatar
       get :toast
     end
   end
