@@ -3,15 +3,13 @@
 module Components
   module AvatarHelper
     def render_avatar(src: nil, alt: nil, size: :default, fallback: nil, shape: :circle, **options, &block)
-      avatar_classes = [
-        components_avatar_base_class,
-        components_avatar_size_class(size),
-        components_avatar_shape_class(shape),
-        options[:class]
-      ].flatten.compact.join(" ")
+      base_classes = components_avatar_base_class
+      size_classes = components_avatar_size_class(size)
+      shape_classes = components_avatar_shape_class(shape)
+      custom_classes = options[:class]
 
-      # Update options with the combined avatar_classes
-      options[:class] = avatar_classes
+      # Use the tw_merge helper to intelligently merge classes
+      options[:class] = tw_merge(base_classes, size_classes, shape_classes, custom_classes)
 
       # Generate fallback initials if fallback is a name
       if fallback.is_a?(String) && fallback.strip.include?(" ")
@@ -29,19 +27,17 @@ module Components
     end
 
     def render_avatar_group(avatars, limit: nil, size: :default, hover_effect: false, ring: false, **options)
-      container_classes = [
-        "flex",
-        hover_effect ? "-space-x-2 hover:space-x-1" : "-space-x-2",
-        options[:class]
-      ].flatten.compact.join(" ")
+      container_base_classes = "flex"
+      spacing_classes = hover_effect ? "-space-x-2 hover:space-x-1" : "-space-x-2"
+      custom_classes = options[:class]
+
+      # Use the tw_merge helper to merge container classes
+      options[:class] = tw_merge(container_base_classes, spacing_classes, custom_classes)
 
       # Additional styles for avatar elements in the group
       item_classes = []
       item_classes << "ring-2 ring-background" if ring
       item_classes << "transition-all duration-300 ease-in-out" if hover_effect
-
-      # Update options with the combined container_classes
-      options[:class] = container_classes
 
       render "components/ui/avatar_group", {
         avatars: limit ? avatars.first(limit) : avatars,
@@ -62,7 +58,7 @@ module Components
           "relative flex shrink-0 overflow-hidden",
           # Focus
           "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-        ]
+        ].join(" ")
       end
 
       def components_avatar_size_class(size)

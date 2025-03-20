@@ -3,13 +3,10 @@
 module Components
   module BreadcrumbHelper
     def render_breadcrumb(items, separator: nil, collapse: false, **options)
-      breadcrumb_classes = [
-        components_breadcrumb_base_class,
-        options[:class]
-      ].flatten.compact.join(" ")
+      base_classes = components_breadcrumb_base_class
+      custom_classes = options[:class]
 
-      # Update options with the combined breadcrumb_classes
-      options[:class] = breadcrumb_classes
+      options[:class] = tw_merge(base_classes, custom_classes)
 
       render "components/ui/breadcrumb", {
         items: items,
@@ -22,9 +19,7 @@ module Components
     private
 
       def components_breadcrumb_base_class
-        [
-          "text-muted-foreground flex flex-wrap items-center gap-1.5 text-sm break-words sm:gap-2.5"
-        ]
+        "text-muted-foreground flex flex-wrap items-center gap-1.5 text-sm break-words sm:gap-2.5"
       end
   end
 end

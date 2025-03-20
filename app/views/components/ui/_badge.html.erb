@@ -1,0 +1,9 @@
+<% if href.present? %>
+  <%= link_to href, data: data, **options do %>
+    <%= text %>
+  <% end %>
+<% else %>
+  <span data-slot="badge" <%= tag.attributes(**options) %>>
+    <%= text %>
+  </span>
+<% end %>

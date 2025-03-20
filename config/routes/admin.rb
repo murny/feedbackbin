@@ -18,10 +18,11 @@ namespace :admin do
     get :components
 
     namespace :components do
+      get :avatar
+      get :badge
       get :breadcrumb
       get :button
       get :card
-      get :avatar
       get :toast
     end
   end

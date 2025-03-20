@@ -1,0 +1,50 @@
+<div id="badge-with-icons">
+  <% content_for :preview_example, flush: true do %>
+    <%= render_badge(variant: :default) do %>
+      <%= inline_svg_tag "icons/check.svg" %>
+      Success
+    <% end %>
+
+    <%= render_badge(variant: :destructive) do %>
+      <%= inline_svg_tag "icons/circle-alert.svg" %>
+      Error
+    <% end %>
+
+    <%= render_badge(variant: :secondary) do %>
+      <%= inline_svg_tag "icons/info.svg" %>
+      Info
+    <% end %>
+
+    <%= render_badge(variant: :outline) do %>
+      <%= inline_svg_tag "icons/tag.svg" %>
+      Tag
+    <% end %>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_badge(variant: :default) do %>
+  <%%= inline_svg_tag "icons/check.svg" %>
+  Success
+<%% end %>
+
+<%%= render_badge(variant: :destructive) do %>
+  <%%= inline_svg_tag "icons/circle-alert.svg" %>
+  Error
+<%% end %>
+
+<%%= render_badge(variant: :secondary) do %>
+  <%%= inline_svg_tag "icons/info.svg" %>
+  Info
+<%% end %>
+
+<%%= render_badge(variant: :outline) do %>
+  <%%= inline_svg_tag "icons/tag.svg" %>
+  Tag
+<%% end %>
+  <% end %>
+
+  <%= render partial: "admin/docs/shared/code_example", locals: {
+    heading: "With Icons",
+    description: "Badges can contain icons alongside text to provide additional visual cues."
+  } %>
+</div>

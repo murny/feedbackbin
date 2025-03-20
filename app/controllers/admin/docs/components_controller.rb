@@ -3,6 +3,12 @@
 module Admin
   module Docs
     class ComponentsController < Admin::BaseController
+      def avatar
+      end
+
+      def badge
+      end
+
       def breadcrumb
       end
 
@@ -10,9 +16,6 @@ module Admin
       end
 
       def card
-      end
-
-      def avatar
       end
 
       def toast

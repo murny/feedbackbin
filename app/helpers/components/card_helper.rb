@@ -3,13 +3,11 @@
 module Components
   module CardHelper
     def render_card(title: nil, description: nil, body: nil, footer: nil, header_action: nil, **options, &block)
-      card_classes = [
-        components_card_base_class,
-        options[:class]
-      ].flatten.compact.join(" ")
+      base_classes = components_card_base_class
+      custom_classes = options[:class]
 
-      # Update options with the combined card_classes
-      options[:class] = card_classes
+      # Use the tw_merge helper to intelligently merge classes
+      options[:class] = tw_merge(base_classes, custom_classes)
 
       render "components/ui/card", {
         title: title,
@@ -25,9 +23,7 @@ module Components
     private
 
       def components_card_base_class
-        [
-          "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm"
-        ]
+        "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm"
       end
   end
 end

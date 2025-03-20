@@ -33,6 +33,7 @@ gem "jbuilder"
 # View
 gem "pagy", "~> 9.2"
 gem "inline_svg"
+gem "tailwind_merge", "~> 1.1.0"
 
 # Authentication & Authorization
 gem "bcrypt", "~> 3.1.7"
