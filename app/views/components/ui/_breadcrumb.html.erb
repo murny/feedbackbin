@@ -1,13 +1,11 @@
 <nav aria-label="breadcrumb" data-slot="breadcrumb" <%= tag.attributes(**options) %>>
   <ol data-slot="breadcrumb-list" class="<%= options[:class] %>">
     <% items.each_with_index do |item, index| %>
-      <%
-        is_last = index == items.size - 1
-        is_collapsible = collapse && index > 0 && index < items.size - 1 && items.size > 3
+      <% is_last = index == items.size - 1 %>
+      <% is_collapsible = collapse && index > 0 && index < items.size - 1 && items.size > 3 %>
 
-        # Skip middle items if collapse is enabled and we have enough items
-        next if is_collapsible && index != 1
-      %>
+      <%# Skip middle items if collapse is enabled and we have enough items %>
+      <% next if is_collapsible && index != 1 %>
 
       <% if collapse && index == 1 && items.size > 3 %>
         <li data-slot="breadcrumb-item" class="inline-flex items-center gap-1.5">
