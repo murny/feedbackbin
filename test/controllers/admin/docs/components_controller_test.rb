@@ -45,6 +45,14 @@ module Admin
         assert_response :success
       end
 
+      test "should get tabs docs as admin" do
+        sign_in_as users(:shane)
+
+        get admin_docs_components_tabs_path
+
+        assert_response :success
+      end
+
       test "should get toast docs as admin" do
         sign_in_as users(:shane)
 

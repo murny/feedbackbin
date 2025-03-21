@@ -1,0 +1,100 @@
+<div id="tabs-base">
+  <% content_for :preview_example, flush: true do %>
+    <%= render_tabs(
+      items: [
+        {
+          value: "account",
+          label: "Account",
+          content: render_card(
+            title: "Account",
+            description: "Make changes to your account here. Click save when you're done.",
+            body: content_tag(:div, class: "grid gap-6") do
+              concat(content_tag(:div, class: "grid gap-3") do
+                concat(content_tag(:label, "Name", for: "tabs-demo-name", class: "text-sm font-medium leading-none"))
+                concat(content_tag(:input, "", id: "tabs-demo-name", value: "John Doe", class: "flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm"))
+              end)
+              concat(content_tag(:div, class: "grid gap-3") do
+                concat(content_tag(:label, "Username", for: "tabs-demo-username", class: "text-sm font-medium leading-none"))
+                concat(content_tag(:input, "", id: "tabs-demo-username", value: "@johndoe", class: "flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm"))
+              end)
+            end,
+            footer: render_button(text: "Save changes")
+          )
+        },
+        {
+          value: "password",
+          label: "Password",
+          content: render_card(
+            title: "Password",
+            description: "Change your password here. After saving, you'll be logged out.",
+            body: content_tag(:div, class: "grid gap-6") do
+              concat(content_tag(:div, class: "grid gap-3") do
+                concat(content_tag(:label, "Current password", for: "tabs-demo-current", class: "text-sm font-medium leading-none"))
+                concat(content_tag(:input, "", id: "tabs-demo-current", type: "password", class: "flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm"))
+              end)
+              concat(content_tag(:div, class: "grid gap-3") do
+                concat(content_tag(:label, "New password", for: "tabs-demo-new", class: "text-sm font-medium leading-none"))
+                concat(content_tag(:input, "", id: "tabs-demo-new", type: "password", class: "flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm"))
+              end)
+            end,
+            footer: render_button(text: "Save password")
+          )
+        }
+      ],
+      default_value: "account",
+      class: "max-w-[400px]"
+    ) %>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_tabs(
+  items: [
+    {
+      value: "account",
+      label: "Account",
+      content: render_card(
+        title: "Account",
+        description: "Make changes to your account here. Click save when you're done.",
+        body: content_tag(:div, class: "grid gap-6") do
+          concat(content_tag(:div, class: "grid gap-3") do
+            concat(content_tag(:label, "Name", for: "tabs-demo-name", class: "text-sm font-medium leading-none"))
+            concat(content_tag(:input, "", id: "tabs-demo-name", value: "John Doe", class: "flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm"))
+          end)
+          concat(content_tag(:div, class: "grid gap-3") do
+            concat(content_tag(:label, "Username", for: "tabs-demo-username", class: "text-sm font-medium leading-none"))
+            concat(content_tag(:input, "", id: "tabs-demo-username", value: "@johndoe", class: "flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm"))
+          end)
+        end,
+        footer: render_button(text: "Save changes")
+      )
+    },
+    {
+      value: "password",
+      label: "Password",
+      content: render_card(
+        title: "Password",
+        description: "Change your password here. After saving, you'll be logged out.",
+        body: content_tag(:div, class: "grid gap-6") do
+          concat(content_tag(:div, class: "grid gap-3") do
+            concat(content_tag(:label, "Current password", for: "tabs-demo-current", class: "text-sm font-medium leading-none"))
+            concat(content_tag(:input, "", id: "tabs-demo-current", type: "password", class: "flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm"))
+          end)
+          concat(content_tag(:div, class: "grid gap-3") do
+            concat(content_tag(:label, "New password", for: "tabs-demo-new", class: "text-sm font-medium leading-none"))
+            concat(content_tag(:input, "", id: "tabs-demo-new", type: "password", class: "flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm shadow-sm"))
+          end)
+        end,
+        footer: render_button(text: "Save password")
+      )
+    }
+  ],
+  default_value: "account",
+  class: "max-w-[400px]"
+) %>
+  <% end %>
+
+  <%= render partial: "admin/docs/shared/code_example", locals: {
+    heading: "Base",
+    description: "The default tabs component with two tabs and content panels."
+  } %>
+</div>

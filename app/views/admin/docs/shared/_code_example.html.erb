@@ -1,9 +1,6 @@
 <%# locals: (heading:, description: nil) -%>
 
-<div class="py-8" data-controller="tabs"
-     data-tabs-active-tab-class="bg-white rounded-md shadow flex items-center justify-center gap-2 text-[13px] font-semibold focus:ring-4 focus:ring-blue-600 group dark:bg-neutral-800/90 dark:text-neutral-100 dark:focus:ring-blue-600/50"
-     data-tabs-inactive-tab-class="bg-transparent rounded-md shadow-none flex items-center justify-center gap-2 text-[13px] font-semibold dark:text-neutral-300">
-
+<div class="py-8">
   <div class="mt-4 mb-3">
     <%= content_tag :h2, heading, class: "text-foreground text-xl font-semibold dark:text-foreground scroll-mt-20 tracking-tight relative" %>
   </div>
@@ -14,54 +11,47 @@
     </div>
   <% end %>
 
-  <div class="flex justify-end mb-4">
-    <div class="inline-flex h-9 items-center text-muted-foreground rounded-lg bg-secondary dark:bg-accent">
-      <button
-        type="button"
-        data-tabs-target="tab"
-        data-action="click->tabs#change"
-        aria-selected="true"
-        class="px-3 py-1.5 inline-flex items-center justify-center whitespace-nowrap text-sm font-semibold rounded-md">
-        <%= inline_svg_tag "icons/eye.svg", class: "size-4 text-neutral-500 dark:text-neutral-300 mr-2" %>
-        <span>Preview</span>
-      </button>
-      <button
-        type="button"
-        data-tabs-target="tab"
-        data-action="click->tabs#change"
-        aria-selected="false"
-        class="px-3 py-1.5 inline-flex items-center justify-center whitespace-nowrap text-sm font-semibold rounded-md">
-        <%= inline_svg_tag "icons/code.svg", class: "size-4 text-neutral-500 dark:text-neutral-300 mr-2" %>
-        <span>Code</span>
-      </button>
-    </div>
-  </div>
-
-  <div>
-    <!-- Preview Panel -->
-    <div data-tabs-target="panel" role="tabpanel" class="mt-2">
-      <%= render_card(class: "p-4 md:p-8") do %>
-        <div class="flex justify-center w-full">
-          <div class="w-full max-w-3xl">
-            <%= yield(:preview_example) %>
-          </div>
-        </div>
-      <% end %>
-    </div>
-
-    <!-- Code Panel -->
-    <div data-tabs-target="panel" role="tabpanel" class="hidden mt-2">
-      <%= render_card(class: "relative p-4 md:p-8") do %>
-        <div data-controller="admin--clipboard">
-          <button data-action="click->admin--clipboard#copy"
-            class="absolute right-4 top-4 p-1.5 rounded-lg bg-white/10 backdrop-blur-sm hover:bg-gradient-to-br hover:from-rose-400 hover:to-rose-600 transition duration-200 ease-in-out"
-            type="button">
-            <%= inline_svg_tag "icons/clipboard.svg", class: "size-5 text-white stroke-current" %>
-          </button>
-
-          <pre data-controller="admin--highlight" class="max-h-[650px] overflow-x-auto rounded-xl bg-popover py-4 dark:bg-popover"><code data-admin--clipboard-target="content" class="language-erb scrollbar relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm"><%= yield(:code_example).to_param.strip %></code></pre>
-        </div>
-      <% end %>
-    </div>
-  </div>
+  <%= render_tabs(
+    items: [
+      {
+        value: "preview",
+        label: "Preview",
+        icon: "icons/eye.svg",
+        content: render_card(class: "p-4 md:p-8") do
+          content_tag(:div, class: "flex justify-center w-full") do
+            content_tag(:div, class: "w-full max-w-3xl") do
+              yield(:preview_example)
+            end
+          end
+        end
+      },
+      {
+        value: "code",
+        label: "Code",
+        icon: "icons/code.svg",
+        content: render_card(class: "relative p-4 md:p-8") do
+          content_tag(:div, data: { controller: "admin--clipboard" }) do
+            concat(
+              content_tag(:button,
+                inline_svg_tag("icons/clipboard.svg", class: "size-5 text-white stroke-current"),
+                data: { action: "click->admin--clipboard#copy" },
+                class: "absolute right-4 top-4 p-1.5 rounded-lg bg-white/10 backdrop-blur-sm hover:bg-gradient-to-br hover:from-rose-400 hover:to-rose-600 transition duration-200 ease-in-out",
+                type: "button"
+              )
+            )
+            concat(
+              content_tag(:pre, data: { controller: "admin--highlight" }, class: "max-h-[650px] overflow-x-auto rounded-xl bg-popover py-4 dark:bg-popover") do
+                content_tag(:code, yield(:code_example).to_param.strip,
+                  data: { "admin--clipboard-target": "content" },
+                  class: "language-erb scrollbar relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm"
+                )
+              end
+            )
+          end
+        end
+      }
+    ],
+    default_value: "preview",
+    class: "w-full"
+  ) %>
 </div>

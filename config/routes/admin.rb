@@ -23,6 +23,7 @@ namespace :admin do
       get :breadcrumb
       get :button
       get :card
+      get :tabs
       get :toast
     end
   end
