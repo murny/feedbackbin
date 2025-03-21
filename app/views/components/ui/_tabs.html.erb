@@ -1,11 +1,4 @@
-<%= tag.div(
-  data: {
-    controller: "tabs",
-    tabs_index_value: items.find_index { |item| item[:value] == default_value } || 0,
-    tabs_active_tab_class: "bg-background text-foreground shadow-sm dark:border-input dark:bg-input/30",
-    tabs_inactive_tab_class: "text-muted-foreground hover:text-foreground hover:bg-muted/50"
-  }.merge(options[:data] || {})
-) do %>
+<%= tag.div(**options) do %>
   <%= tag.div(
     class: list_classes,
     role: "tablist"
@@ -17,15 +10,10 @@
         disabled: item[:disabled],
         data: {
           tabs_target: "tab",
-          action: "click->tabs#change",
-          index: index
+          action: "click->tabs#change:prevent"
         },
         class: trigger_classes,
-        role: "tab",
-        aria: {
-          selected: index == (items.find_index { |item| item[:value] == default_value } || 0) ? "true" : "false",
-          controls: "panel-#{item[:value]}"
-        }
+        role: "tab"
       ) do %>
         <% if item[:icon].present? %>
           <%= inline_svg_tag item[:icon], class: "size-4" %>

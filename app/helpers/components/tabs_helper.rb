@@ -2,7 +2,7 @@
 
 module Components
   module TabsHelper
-    def render_tabs(items: [], default_value: nil, **options, &block)
+    def render_tabs(items: [], index_value: 0, **options, &block)
       base_classes = components_tabs_base_class
       list_classes = components_tabs_list_class
       trigger_classes = components_tabs_trigger_class
@@ -12,12 +12,20 @@ module Components
       # Use the tw_merge helper to intelligently merge classes
       options[:class] = tw_merge(base_classes, custom_classes)
 
-      # Default to first tab if not specified
-      default_value ||= items.first&.dig(:value)
+      # Prepare the data attributes with defaults and merge with custom data
+      default_data = {
+        controller: "tabs",
+        tabs_index_value: index_value,
+        tabs_active_tab_class: "bg-background text-foreground shadow-sm dark:border-input dark:bg-input/30",
+        tabs_inactive_tab_class: "text-muted-foreground hover:text-foreground hover:bg-muted/50"
+      }
+
+      # Merge any custom data attributes provided
+      options[:data] = default_data.merge(options[:data] || {})
 
       render "components/ui/tabs", {
         items: items,
-        default_value: default_value,
+        index_value: index_value,
         options: options,
         list_classes: list_classes,
         trigger_classes: trigger_classes,

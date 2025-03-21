@@ -1,4 +1,4 @@
-<div <%= tag.attributes(**options) %>>
+<%= tag.div(**options) do %>
   <% avatars.each do |avatar| %>
     <%= render_avatar(
       src: avatar[:src],
@@ -16,4 +16,4 @@
       class: "bg-muted text-muted-foreground ring-2 ring-background"
     ) %>
   <% end %>
-</div>
+<% end %>

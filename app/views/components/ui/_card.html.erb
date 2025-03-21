@@ -1,6 +1,7 @@
-<div data-slot="card" <%= tag.attributes(**options) %>>
+<%= tag.div(data: { slot: "card" }, **options) do %>
   <% if title || description || header_action %>
-    <div data-slot="card-header" class="@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-1.5 px-6 has-[data-slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6">
+    <div data-slot="card-header"
+         class="@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-1.5 px-6 has-[data-slot=card-action]:grid-cols-[1fr_auto] [.border-b]:pb-6">
       <% if header_action %>
         <div>
           <% if title %>
@@ -27,9 +28,7 @@
   <% end %>
 
   <% if body %>
-    <% if !block && !title && !description %>
-      <div data-slot="card-content" class="px-6 text-sm"><%= body %></div>
-    <% elsif !block %>
+    <% if !block %>
       <div data-slot="card-content" class="px-6 text-sm"><%= body %></div>
     <% else %>
       <%= body %>
@@ -41,4 +40,4 @@
       <%= footer %>
     </div>
   <% end %>
-</div>
+<% end %>

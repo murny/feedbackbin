@@ -3,7 +3,7 @@
     <%= text %>
   <% end %>
 <% else %>
-  <span data-slot="badge" <%= tag.attributes(**options) %>>
+  <%= tag.span(data: { slot: "badge" }, **options) do %>
     <%= text %>
-  </span>
+  <% end %>
 <% end %>

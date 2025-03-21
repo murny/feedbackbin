@@ -40,10 +40,30 @@
             footer: render_button(text: "Save password")
           )
         }
-      ],
-      default_value: "account",
-      class: "max-w-[400px]"
+      ]
     ) %>
+
+    <div class="mt-8">
+      <%= render_tabs(
+        items: [
+          {
+            value: "personal",
+            label: "Personal Info",
+            content: content_tag(:div, "Personal information content", class: "p-4 text-sm")
+          },
+          {
+            value: "billing",
+            label: "Billing",
+            content: content_tag(:div, "Billing information content", class: "p-4 text-sm")
+          },
+          {
+            value: "notifications",
+            label: "Notifications",
+            content: content_tag(:div, "Notification preferences content", class: "p-4 text-sm")
+          }
+        ]
+      ) %>
+    </div>
   <% end %>
 
   <% content_for :code_example, flush: true do %>
@@ -87,9 +107,28 @@
         footer: render_button(text: "Save password")
       )
     }
-  ],
-  default_value: "account",
-  class: "max-w-[400px]"
+  ]
+) %>
+
+
+<%%= render_tabs(
+  items: [
+    {
+      value: "personal",
+      label: "Personal Info",
+      content: content_tag(:div, "Personal information content", class: "p-4 text-sm")
+    },
+    {
+      value: "billing",
+      label: "Billing",
+      content: content_tag(:div, "Billing information content", class: "p-4 text-sm")
+    },
+    {
+      value: "notifications",
+      label: "Notifications",
+      content: content_tag(:div, "Notification preferences content", class: "p-4 text-sm")
+    }
+  ]
 ) %>
   <% end %>
 
