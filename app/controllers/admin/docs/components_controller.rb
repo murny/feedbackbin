@@ -3,6 +3,9 @@
 module Admin
   module Docs
     class ComponentsController < Admin::BaseController
+      def alert
+      end
+
       def avatar
       end
 

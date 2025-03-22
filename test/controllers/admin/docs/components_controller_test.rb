@@ -5,6 +5,14 @@ require "test_helper"
 module Admin
   module Docs
     class ComponentsControllerTest < ActionDispatch::IntegrationTest
+      test "should get alert docs as admin" do
+        sign_in_as users(:shane)
+
+        get admin_docs_components_alert_path
+
+        assert_response :success
+      end
+
       test "should get avatar docs as admin" do
         sign_in_as users(:shane)
 

@@ -1,0 +1,17 @@
+<%= tag.div(data: { slot: "alert" }, role: "alert", **options) do %>
+  <% if icon.present? %>
+    <%= inline_svg_tag icon %>
+  <% end %>
+
+  <% if title.present? %>
+    <div data-slot="alert-title" class="col-start-2 line-clamp-1 min-h-4 font-medium tracking-tight">
+      <%= title %>
+    </div>
+  <% end %>
+
+  <% if description.present? %>
+    <div data-slot="alert-description" class="text-muted-foreground col-start-2 grid justify-items-start gap-1 text-sm [&_p]:leading-relaxed">
+      <%= description %>
+    </div>
+  <% end %>
+<% end %>

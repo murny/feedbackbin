@@ -98,6 +98,14 @@
       <% end %>
       <ul class="mt-4 border-l border-border">
         <li>
+          <%= active_link_to admin_docs_components_alert_path,
+                class: "block rounded-md py-2 pl-9 pr-2 text-sm leading-6 text-foreground",
+                active_class: "bg-secondary",
+                inactive_class: "hover:bg-secondary" do %>
+            Alert
+          <% end %>
+        </li>
+        <li>
           <%= active_link_to admin_docs_components_avatar_path,
                 class: "block rounded-md py-2 pl-9 pr-2 text-sm leading-6 text-foreground",
                 active_class: "bg-secondary",

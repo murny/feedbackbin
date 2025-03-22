@@ -18,6 +18,7 @@ namespace :admin do
     get :components
 
     namespace :components do
+      get :alert
       get :avatar
       get :badge
       get :breadcrumb
