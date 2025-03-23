@@ -21,6 +21,9 @@ module Admin
       def card
       end
 
+      def dropdown_menu
+      end
+
       def popover
       end
 
