@@ -21,6 +21,9 @@ module Admin
       def card
       end
 
+      def popover
+      end
+
       def tabs
       end
 
