@@ -1,0 +1,14 @@
+<%= tag.div(**options) do %>
+  <% items.each do |item| %>
+    <details class="<%= item_classes %>">
+      <summary class="<%= trigger_classes %>">
+        <%= item[:trigger] %>
+        <%= inline_svg_tag "icons/plus.svg", class: "size-5 flex-none ml-4 mt-0.5 text-muted-foreground group-open:text-primary group-open:hidden block" %>
+        <%= inline_svg_tag "icons/minus.svg", class: "size-5 flex-none ml-4 mt-0.5 text-muted-foreground group-open:text-primary group-open:block hidden" %>
+      </summary>
+      <div class="<%= content_classes %>">
+        <%= item[:content] %>
+      </div>
+    </details>
+  <% end %>
+<% end %>
