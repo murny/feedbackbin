@@ -1,0 +1,47 @@
+<div id="toast-with-action">
+  <% content_for :preview_example, flush: true do %>
+    <div class="flex flex-col gap-4">
+      <div class="flex flex-row gap-4 justify-center">
+        <%= render_button(
+          text: "Toast with Action",
+          variant: :default,
+          data: { controller: "ui--toast", target: "#toast-with-action-example" }
+        ) %>
+      </div>
+
+      <%= render_toast_container(id: "toast-with-action-example") do %>
+        <%= render_toast(
+          title: "New message received",
+          description: "You've received a new message from John Doe.",
+          variant: :info,
+          action: { label: "View Message" }
+        ) %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_toast_container(id: "toast-with-action-example") do %>
+  <%%= render_toast(
+    title: "New message received",
+    description: "You've received a new message from John Doe.",
+    variant: :info,
+    action: { label: "View Message" }
+  ) %>
+<%% end %>
+
+<%# Button to trigger the toast %>
+<%%= render_button(
+  text: "Toast with Action",
+  data: {
+    controller: "ui--toast",
+    target: "#toast-with-action-example"
+  }
+) %>
+  <% end %>
+
+  <%= render partial: "admin/docs/shared/code_example", locals: {
+    heading: "Toast with Action Button",
+    description: "Toasts can include action buttons that allow users to respond to the notification."
+  } %>
+</div>

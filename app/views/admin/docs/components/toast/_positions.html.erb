@@ -1,0 +1,123 @@
+<div id="toast-positions">
+  <% content_for :preview_example, flush: true do %>
+    <div class="flex flex-col gap-4">
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <%= render_button(text: "Bottom Right", variant: :default, id: "toast-bottom-right", data: { controller: "ui--toast", target: "#toast-pos-bottom-right" }) %>
+        <%= render_button(text: "Bottom Left", variant: :default, id: "toast-bottom-left", data: { controller: "ui--toast", target: "#toast-pos-bottom-left" }) %>
+        <%= render_button(text: "Top Right", variant: :default, id: "toast-top-right", data: { controller: "ui--toast", target: "#toast-pos-top-right" }) %>
+        <%= render_button(text: "Top Left", variant: :default, id: "toast-top-left", data: { controller: "ui--toast", target: "#toast-pos-top-left" }) %>
+        <%= render_button(text: "Top Center", variant: :default, id: "toast-top-center", data: { controller: "ui--toast", target: "#toast-pos-top-center" }) %>
+        <%= render_button(text: "Bottom Center", variant: :default, id: "toast-bottom-center", data: { controller: "ui--toast", target: "#toast-pos-bottom-center" }) %>
+      </div>
+
+      <%= render_toast_container(id: "toast-pos-bottom-right", position: :bottom_right) do %>
+        <%= render_toast(
+          title: "Bottom Right Toast",
+          description: "This toast appears at the bottom right corner.",
+          position: :bottom_right
+        ) %>
+      <% end %>
+
+      <%= render_toast_container(id: "toast-pos-bottom-left", position: :bottom_left) do %>
+        <%= render_toast(
+          title: "Bottom Left Toast",
+          description: "This toast appears at the bottom left corner.",
+          position: :bottom_left
+        ) %>
+      <% end %>
+
+      <%= render_toast_container(id: "toast-pos-top-right", position: :top_right) do %>
+        <%= render_toast(
+          title: "Top Right Toast",
+          description: "This toast appears at the top right corner.",
+          position: :top_right
+        ) %>
+      <% end %>
+
+      <%= render_toast_container(id: "toast-pos-top-left", position: :top_left) do %>
+        <%= render_toast(
+          title: "Top Left Toast",
+          description: "This toast appears at the top left corner.",
+          position: :top_left
+        ) %>
+      <% end %>
+
+      <%= render_toast_container(id: "toast-pos-top-center", position: :top_center) do %>
+        <%= render_toast(
+          title: "Top Center Toast",
+          description: "This toast appears at the top center of the screen.",
+          position: :top_center
+        ) %>
+      <% end %>
+
+      <%= render_toast_container(id: "toast-pos-bottom-center", position: :bottom_center) do %>
+        <%= render_toast(
+          title: "Bottom Center Toast",
+          description: "This toast appears at the bottom center of the screen.",
+          position: :bottom_center
+        ) %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%# Bottom Right (default) %>
+<%%= render_toast_container(position: :bottom_right) do %>
+  <%%= render_toast(
+    title: "Bottom Right Toast",
+    description: "This toast appears at the bottom right corner.",
+    position: :bottom_right
+  ) %>
+<%% end %>
+
+<%# Bottom Left %>
+<%%= render_toast_container(position: :bottom_left) do %>
+  <%%= render_toast(
+    title: "Bottom Left Toast",
+    description: "This toast appears at the bottom left corner.",
+    position: :bottom_left
+  ) %>
+<%% end %>
+
+<%# Top Right %>
+<%%= render_toast_container(position: :top_right) do %>
+  <%%= render_toast(
+    title: "Top Right Toast",
+    description: "This toast appears at the top right corner.",
+    position: :top_right
+  ) %>
+<%% end %>
+
+<%# Top Left %>
+<%%= render_toast_container(position: :top_left) do %>
+  <%%= render_toast(
+    title: "Top Left Toast",
+    description: "This toast appears at the top left corner.",
+    position: :top_left
+  ) %>
+<%% end %>
+
+<%# Top Center %>
+<%%= render_toast_container(position: :top_center) do %>
+  <%%= render_toast(
+    title: "Top Center Toast",
+    description: "This toast appears at the top center of the screen.",
+    position: :top_center
+  ) %>
+<%% end %>
+
+<%# Bottom Center %>
+<%%= render_toast_container(position: :bottom_center) do %>
+  <%%= render_toast(
+    title: "Bottom Center Toast",
+    description: "This toast appears at the bottom center of the screen.",
+    position: :bottom_center
+  ) %>
+<%% end %>
+  <% end %>
+
+  <%= render partial: "admin/docs/shared/code_example", locals: {
+    heading: "Toast Positions",
+    description: "Toasts can be displayed in different positions on the screen: bottom right (default), bottom left, top right, top left, top center, and bottom center."
+  } %>
+</div>

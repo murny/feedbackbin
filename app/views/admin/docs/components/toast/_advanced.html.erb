@@ -1,0 +1,56 @@
+<div id="toast-advanced">
+  <% content_for :preview_example, flush: true do %>
+    <div class="flex flex-col gap-4">
+      <div class="flex flex-row gap-4 justify-center">
+        <%= render_button(
+          text: "Add Toast (Limited to 3)",
+          variant: :default,
+          data: { controller: "ui--toast", target: "#toast-limit-example" }
+        ) %>
+      </div>
+
+      <%= render_toast_container(id: "toast-limit-example", limit: 3) do %>
+        <%= render_toast(
+          title: "Limited Toast Notification",
+          description: "This container will only show up to 3 toasts at a time. Try adding more!",
+          variant: :info,
+          duration: 10000,
+          action: {
+            label: "Visit Dashboard",
+            url: "/admin"
+          }
+        ) %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%# Container with limit and advanced action %>
+<%%= render_toast_container(id: "toast-limit-example", limit: 3) do %>
+  <%%= render_toast(
+    title: "Limited Toast Notification",
+    description: "This container will only show up to 3 toasts at a time.",
+    variant: :info,
+    duration: 10000,
+    action: {
+      label: "Visit Dashboard",
+      url: "/admin"
+    }
+  ) %>
+<%% end %>
+
+<%# Button to trigger the toast %>
+<%%= render_button(
+  text: "Add Toast (Limited to 3)",
+  data: {
+    controller: "ui--toast",
+    target: "#toast-limit-example"
+  }
+) %>
+  <% end %>
+
+  <%= render partial: "admin/docs/shared/code_example", locals: {
+    heading: "Advanced Toast Features",
+    description: "Toast containers can limit the number of visible toasts, and toast actions can include URLs to navigate to when clicked."
+  } %>
+</div>
