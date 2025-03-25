@@ -1,0 +1,44 @@
+<%= tag.div(**options) do %>
+  <div class="p-4">
+    <div class="flex items-start">
+      <% if icon.present? %>
+        <div class="flex-shrink-0">
+          <%= inline_svg_tag icon, class: "size-5 text-current" %>
+        </div>
+      <% end %>
+
+      <div class="<%= icon.present? ? 'ml-3' : '' %> w-0 flex-1 pt-0.5">
+        <% if title.present? %>
+          <p class="text-sm font-medium text-foreground"><%= title %></p>
+        <% end %>
+
+        <% if description.present? %>
+          <p class="mt-1 text-sm text-muted-foreground"><%= description %></p>
+        <% end %>
+      </div>
+
+      <div class="ml-4 flex flex-shrink-0">
+        <button
+          type="button"
+          class="inline-flex rounded-sm bg-transparent text-muted-foreground hover:text-foreground focus:outline-none focus:ring-2 focus:ring-primary"
+          data-action="click->ui--toast#close">
+          <span class="sr-only">Close</span>
+          <%= inline_svg_tag "icons/x.svg", class: "size-5 stroke-current" %>
+        </button>
+      </div>
+    </div>
+
+    <% if action.present? %>
+      <div class="mt-4 flex space-x-3">
+        <%= render_button(
+          text: action[:label],
+          variant: :outline,
+          data: {
+            action: action[:action] || "click->ui--toast#close",
+            url: action[:url]
+          }
+        ) %>
+      </div>
+    <% end %>
+  </div>
+<% end %>

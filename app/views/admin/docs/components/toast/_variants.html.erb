@@ -1,0 +1,114 @@
+<div id="toast-variants">
+  <% content_for :preview_example, flush: true do %>
+    <div class="flex flex-col gap-4">
+      <div class="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <%= render_button(text: "Default Toast", variant: :default, id: "show-default", data: { controller: "ui--toast", target: "#default-toast" }) %>
+        <%= render_button(text: "Success Toast", variant: :default, id: "show-success", data: { controller: "ui--toast", target: "#success-toast" }) %>
+        <%= render_button(text: "Info Toast", variant: :default, id: "show-info", data: { controller: "ui--toast", target: "#info-toast" }) %>
+        <%= render_button(text: "Warning Toast", variant: :default, id: "show-warning", data: { controller: "ui--toast", target: "#warning-toast" }) %>
+        <%= render_button(text: "Error Toast", variant: :default, id: "show-error", data: { controller: "ui--toast", target: "#error-toast" }) %>
+      </div>
+
+      <%= render_toast_container(id: "default-toast") do %>
+        <%= render_toast(
+          title: "Default Toast",
+          description: "This is a default toast notification.",
+          variant: :default
+        ) %>
+      <% end %>
+
+      <%= render_toast_container(id: "success-toast") do %>
+        <%= render_toast(
+          title: "Success Toast",
+          description: "Your action was completed successfully.",
+          variant: :success
+        ) %>
+      <% end %>
+
+      <%= render_toast_container(id: "info-toast") do %>
+        <%= render_toast(
+          title: "Info Toast",
+          description: "Here's some information you might find useful.",
+          variant: :info
+        ) %>
+      <% end %>
+
+      <%= render_toast_container(id: "warning-toast") do %>
+        <%= render_toast(
+          title: "Warning Toast",
+          description: "Please be careful with this action.",
+          variant: :warning
+        ) %>
+      <% end %>
+
+      <%= render_toast_container(id: "error-toast") do %>
+        <%= render_toast(
+          title: "Error Toast",
+          description: "There was a problem completing your action.",
+          variant: :error
+        ) %>
+      <% end %>
+    </div>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%# Default variant %>
+<%%= render_toast_container(id: "default-toast") do %>
+  <%%= render_toast(
+    title: "Default Toast",
+    description: "This is a default toast notification.",
+    variant: :default
+  ) %>
+<%% end %>
+
+<%# Success variant %>
+<%%= render_toast_container(id: "success-toast") do %>
+  <%%= render_toast(
+    title: "Success Toast",
+    description: "Your action was completed successfully.",
+    variant: :success
+  ) %>
+<%% end %>
+
+<%# Info variant %>
+<%%= render_toast_container(id: "info-toast") do %>
+  <%%= render_toast(
+    title: "Info Toast",
+    description: "Here's some information you might find useful.",
+    variant: :info
+  ) %>
+<%% end %>
+
+<%# Warning variant %>
+<%%= render_toast_container(id: "warning-toast") do %>
+  <%%= render_toast(
+    title: "Warning Toast",
+    description: "Please be careful with this action.",
+    variant: :warning
+  ) %>
+<%% end %>
+
+<%# Error variant %>
+<%%= render_toast_container(id: "error-toast") do %>
+  <%%= render_toast(
+    title: "Error Toast",
+    description: "There was a problem completing your action.",
+    variant: :error
+  ) %>
+<%% end %>
+
+<%# Trigger buttons %>
+<%%= render_button(
+  text: "Show Toast",
+  data: {
+    controller: "ui--toast",
+    target: "#your-toast-id"
+  }
+) %>
+  <% end %>
+
+  <%= render partial: "admin/docs/shared/code_example", locals: {
+    heading: "Toast Variants",
+    description: "Toasts come in different variants to communicate different types of messages: default, success, info, warning, and error."
+  } %>
+</div>
