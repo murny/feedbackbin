@@ -7,11 +7,8 @@
   ],
   description: "A toast is a non-disruptive message that appears temporarily and provides brief feedback to the user." %>
 
-<%= render "admin/docs/components/toast/base" %>
+<%= render "admin/docs/components/toast/basic" %>
 <%= render "admin/docs/components/toast/variants" %>
-<%= render "admin/docs/components/toast/positions" %>
-<%= render "admin/docs/components/toast/with_action" %>
-<%= render "admin/docs/components/toast/without_icon" %>
 <%= render "admin/docs/components/toast/advanced" %>
 
 <%= render partial: "admin/docs/shared/pagination", locals: {
@@ -25,11 +22,8 @@
   <%= render partial: "admin/docs/shared/component_nav", locals: {
     title: "On this page",
     items: [
-      { text: "Base", path: "#toast-base" },
+      { text: "Basic", path: "#toast-basic" },
       { text: "Variants", path: "#toast-variants" },
-      { text: "Positions", path: "#toast-positions" },
-      { text: "With Action", path: "#toast-with-action" },
-      { text: "Without Icon", path: "#toast-without-icon" },
       { text: "Advanced", path: "#toast-advanced" }
     ]
   } %>
