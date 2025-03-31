@@ -66,7 +66,7 @@ module Components
     end
 
     def components_toast_animation_class
-      "animate-in fade-in slide-in-from-right-full"
+      "animate-in fade-in slide-in-from-right"
     end
 
     def default_icon_for_variant(variant)
