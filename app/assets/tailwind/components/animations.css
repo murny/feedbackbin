@@ -5,6 +5,8 @@
  * @license MIT
  */
 
+ /* TODO: Shadcn uses this but not sure how much we need it, if at all. */
+
  @theme inline {
   /* Predefined values */
 
@@ -82,7 +84,7 @@
     }
   }
 
-  @keyframes accordion-down {
+  /* @keyframes accordion-down {
     from {
       height: 0;
     }
@@ -98,7 +100,7 @@
     to {
       height: 0;
     }
-  }
+  } */
 
   @keyframes caret-blink {
     0%,
