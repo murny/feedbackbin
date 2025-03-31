@@ -234,22 +234,6 @@
   --tw-enter-translate-x: --value(--translate- *, [percentage], [length]);
 }
 
-@utility slide-in-from-right-full {
-  --tw-enter-translate-x: 100%;
-}
-
-@utility slide-in-from-left-full {
-  --tw-enter-translate-x: -100%;
-}
-
-@utility slide-in-from-top-full {
-  --tw-enter-translate-y: -100%;
-}
-
-@utility slide-in-from-bottom-full {
-  --tw-enter-translate-y: 100%;
-}
-
 @utility slide-out-to-top {
   --tw-exit-translate-y: -100%;
 }
@@ -285,20 +269,4 @@
   --tw-exit-translate-x: calc(--value(--percentage- *) * 100%);
   --tw-exit-translate-x: calc(--value(ratio) * 100%);
   --tw-exit-translate-x: --value(--translate- *, [percentage], [length]);
-}
-
-@utility slide-out-to-right-full {
-  --tw-exit-translate-x: 100%;
-}
-
-@utility slide-out-to-left-full {
-  --tw-exit-translate-x: -100%;
-}
-
-@utility slide-out-to-top-full {
-  --tw-exit-translate-y: -100%;
-}
-
-@utility slide-out-to-bottom-full {
-  --tw-exit-translate-y: 100%;
 }
