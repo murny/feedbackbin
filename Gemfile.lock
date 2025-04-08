@@ -502,7 +502,7 @@ GEM
     stimulus-rails (1.3.4)
       railties (>= 6.0.0)
     stringio (3.1.6)
-    tailwind_merge (1.1.0)
+    tailwind_merge (1.2.0)
       sin_lru_redux (~> 2.5)
     tailwindcss-rails (4.2.2)
       railties (>= 7.0.0)
@@ -607,7 +607,7 @@ DEPENDENCIES
   solid_queue
   sqlite3 (>= 2.1)
   stimulus-rails
-  tailwind_merge (~> 1.1.0)
+  tailwind_merge (~> 1.2.0)
   tailwindcss-rails (= 4.2.2)
   thruster
   turbo-rails
@@ -796,7 +796,7 @@ CHECKSUMS
   sshkit (1.24.0) sha256=9597c1f984778ae9742f2dc839778d57a6a2efb868107046575c52ac7c628e6c
   stimulus-rails (1.3.4) sha256=765676ffa1f33af64ce026d26b48e8ffb2e0b94e0f50e9119e11d6107d67cb06
   stringio (3.1.6) sha256=292c495d1657adfcdf0a32eecf12a60e6691317a500c3112ad3b2e31068274f5
-  tailwind_merge (1.1.0) sha256=bcb76b68770d54ca8de5b26aae7d1ffb9257ccbfbd12e92a75a3d6d5d03e6bd0
+  tailwind_merge (1.2.0) sha256=9b3fe676c92ed3a070738f4654bb9ace1791e7ce2e81dcc552f7c8408720714f
   tailwindcss-rails (4.2.2) sha256=38e33cd50f3770f33250678ad33f08d249530a0920b956448a92610a61e6bd10
   tailwindcss-ruby (4.1.3) sha256=ea68b1b7ac9f38c77998c7087c50e3e652061cce9dfe003296707e92ca19a470
   tailwindcss-ruby (4.1.3-aarch64-linux-gnu) sha256=4e939f418f11848e1da53eb67292ee2f4fee1266552830008198109afea5bc30
