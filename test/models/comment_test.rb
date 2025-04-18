@@ -49,4 +49,80 @@ class CommentTest < ActiveSupport::TestCase
     assert_not @comment.valid?
     assert_equal "must exist", @comment.errors[:organization].first
   end
+
+  # Tests for Likeable concern
+  test "liked_by? returns true when user has liked the comment" do
+    user = users(:shane)
+    organization = organizations(:feedbackbin)
+    
+    # Set Current.organization for the test
+    Current.organization = organization
+    
+    @comment.like(user)
+    assert @comment.liked_by?(user)
+  end
+
+  test "liked_by? returns false when user has not liked the comment" do
+    user = users(:shane)
+    assert_not @comment.liked_by?(user)
+  end
+
+  test "like creates a new like for the user" do
+    user = users(:shane)
+    organization = organizations(:feedbackbin)
+    
+    # Set Current.organization for the test
+    Current.organization = organization
+    
+    assert_difference -> { @comment.likes.count }, 1 do
+      @comment.like(user)
+    end
+    
+    assert @comment.liked_by?(user)
+  end
+
+  test "like does not create duplicate likes for the same user" do
+    user = users(:shane)
+    organization = organizations(:feedbackbin)
+    
+    # Set Current.organization for the test
+    Current.organization = organization
+    
+    @comment.like(user)
+    
+    assert_no_difference -> { @comment.likes.count } do
+      @comment.like(user)
+    end
+    
+    assert_equal 1, @comment.likes.where(voter: user).count
+  end
+
+  test "unlike removes all likes for the user" do
+    user = users(:shane)
+    organization = organizations(:feedbackbin)
+    
+    # Set Current.organization for the test
+    Current.organization = organization
+    
+    @comment.like(user)
+    
+    assert_difference -> { @comment.likes.count }, -1 do
+      @comment.unlike(user)
+    end
+    
+    assert_not @comment.liked_by?(user)
+  end
+
+  test "unlike does nothing if user has not liked the comment" do
+    user = users(:shane)
+    
+    assert_no_difference -> { @comment.likes.count } do
+      @comment.unlike(user)
+    end
+  end
+  
+  teardown do
+    # Reset Current attributes
+    Current.reset
+  end
 end
