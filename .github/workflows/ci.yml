@@ -110,7 +110,7 @@ jobs:
         env:
           RAILS_ENV: test
           # RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
-        run: bin/rails db:test:prepare test test:system
+        run: bin/rails db:test:prepare test:system
 
       - name: Keep screenshots from failed system tests
         uses: actions/upload-artifact@v4
