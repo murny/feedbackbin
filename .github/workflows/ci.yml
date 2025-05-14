@@ -78,6 +78,9 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
+      - name: Install packages
+        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y libvips
+
       - name: Checkout code
         uses: actions/checkout@v4
 
@@ -97,6 +100,9 @@ jobs:
   system-test:
     runs-on: ubuntu-latest
     steps:
+      - name: Install packages
+        run: sudo apt-get update && sudo apt-get install --no-install-recommends -y libvips
+
       - name: Checkout code
         uses: actions/checkout@v4
 
