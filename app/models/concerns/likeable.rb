@@ -5,7 +5,7 @@ module Likeable
 
   included do
     has_many :likes, as: :likeable, dependent: :destroy
-    # has_many :voters, through: :likes, source: :voter
+    has_many :voters, through: :likes, source: :voter
   end
 
   def liked_by?(voter)

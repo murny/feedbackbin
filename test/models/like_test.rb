@@ -32,7 +32,16 @@ class LikeTest < ActiveSupport::TestCase
     assert_equal "has already been taken", like.errors[:voter_id].first
   end
 
+  test "if organization is nil, it uses the likeable's organization" do
+    @like.organization = nil
+
+    assert_predicate @like, :valid?
+
+    assert_equal @like.organization, @like.likeable.organization
+  end
+
   test "invalid without an organization" do
+    @like.likeable.organization = nil
     @like.organization = nil
 
     assert_not @like.valid?
