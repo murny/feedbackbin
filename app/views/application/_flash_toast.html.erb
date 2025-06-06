@@ -2,24 +2,20 @@
 
 <div id="flash_toast" class="pointer-events-none fixed inset-0 z-50 flex flex-col items-end gap-2 p-4 sm:p-6" data-turbo-temporary>
   <% if alert = flash[:alert] %>
-    <% unless alert.is_a?(Hash) %>
-      <%= render_toast(
-        title: "Error",
-        description: alert,
-        variant: :error,
-        dismiss_after: 5000
-      ) %>
-    <% end %>
+    <%= render_toast(
+      title: "Error",
+      description: alert,
+      variant: :error,
+      dismiss_after: 5000
+    ) %>
   <% end %>
 
   <% if notice = flash[:notice] %>
-    <% unless notice.is_a?(Hash) %>
-      <%= render_toast(
-        title: "Success",
-        description: notice,
-        variant: :success,
-        dismiss_after: 5000
-      ) %>
-    <% end %>
+    <%= render_toast(
+      title: "Success",
+      description: notice,
+      variant: :success,
+      dismiss_after: 5000
+    ) %>
   <% end %>
 </div>
