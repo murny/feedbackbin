@@ -32,13 +32,6 @@
 # Simple flash messages automatically become toasts
 flash[:notice] = "Changes saved successfully"
 flash[:alert] = "Something went wrong"
-
-# Or with more options as a hash
-flash[:toast] = {
-  title: "Custom Toast",
-  description: "This is a custom toast notification.",
-  variant: :default
-}
   <% end %>
 
   <%= render partial: "admin/docs/shared/code_example", locals: {

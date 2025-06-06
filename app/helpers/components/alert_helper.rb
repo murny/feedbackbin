@@ -12,7 +12,7 @@ module Components
 
       # Set default icon based on variant if not specified and icons are enabled
       if show_icon && icon.nil?
-        icon = default_icon_for_variant(variant)
+        icon = components_alert_default_icon_for_variant(variant)
       elsif !show_icon
         icon = nil
       end
@@ -52,7 +52,7 @@ module Components
       end
     end
 
-    def default_icon_for_variant(variant)
+    def components_alert_default_icon_for_variant(variant)
       case variant
       when :default
         "icons/info.svg"

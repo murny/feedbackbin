@@ -59,7 +59,6 @@
 <%# With flash messages %>
 flash[:notice] = "Success message" # Uses success variant
 flash[:alert] = "Error message" # Uses error variant
-flash[:toast] = { title: "Custom", variant: :info } # Specify any variant
   <% end %>
 
   <%= render partial: "admin/docs/shared/code_example", locals: {

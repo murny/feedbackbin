@@ -13,7 +13,7 @@ module Components
 
       # Set default icon based on variant if not specified and icons are enabled
       if show_icon && icon.nil?
-        icon = default_icon_for_variant(variant)
+        icon = components_toast_default_icon_for_variant(variant)
       elsif !show_icon
         icon = nil
       end
@@ -69,7 +69,7 @@ module Components
       "animate-in fade-in slide-in-from-right"
     end
 
-    def default_icon_for_variant(variant)
+    def components_toast_default_icon_for_variant(variant)
       case variant
       when :default
         "icons/info.svg"

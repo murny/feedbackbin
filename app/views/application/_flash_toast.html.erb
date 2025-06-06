@@ -22,8 +22,4 @@
       ) %>
     <% end %>
   <% end %>
-
-  <% toasts.each do |_, toast| %>
-    <%= render_toast(**toast.symbolize_keys) %>
-  <% end %>
 </div>

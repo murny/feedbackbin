@@ -13,7 +13,7 @@ module Components
 
       # Generate fallback initials if fallback is a name
       if fallback.is_a?(String) && fallback.strip.include?(" ")
-        initials = generate_initials_from_name(fallback)
+        initials = components_avatar_generate_initials_from_name(fallback)
       else
         initials = fallback
       end
@@ -87,7 +87,7 @@ module Components
         end
       end
 
-      def generate_initials_from_name(name)
+      def components_avatar_generate_initials_from_name(name)
         return "" if name.blank?
 
         name.strip.split.map(&:first).join("").upcase[0, 2]

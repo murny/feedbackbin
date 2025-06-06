@@ -80,20 +80,6 @@
   description: "No manual dismiss button.",
   dismissable: false
 ) %>
-
-<%# Combining multiple options %>
-flash[:toast] = {
-  title: "Advanced Example",
-  description: "Toast with multiple options.",
-  variant: :success,
-  show_icon: true,
-  dismissable: true,
-  dismiss_after: 8000,
-  action: {
-    label: "Take Action",
-    url: action_path
-  }
-}
   <% end %>
 
   <%= render partial: "admin/docs/shared/code_example", locals: {
