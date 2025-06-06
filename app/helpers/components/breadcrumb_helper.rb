@@ -9,7 +9,7 @@ module Components
       options[:class] = tw_merge(base_classes, custom_classes)
 
       # Process the items to handle collapse logic
-      processed_items = process_breadcrumb_items(items, collapse)
+      processed_items = components_breadcrumb_process_items(items, collapse)
 
       render "components/ui/breadcrumb", {
         items: processed_items,
@@ -30,7 +30,7 @@ module Components
         "text-muted-foreground flex flex-wrap items-center gap-1.5 text-sm break-words sm:gap-2.5"
       end
 
-      def process_breadcrumb_items(items, collapse)
+      def components_breadcrumb_process_items(items, collapse)
         return items unless collapse && items.size > 3
 
         # Keep first, last, and a placeholder for ellipsis
