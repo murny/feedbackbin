@@ -27,6 +27,9 @@ module Admin
       def dropdown_menu
       end
 
+      def forms
+      end
+
       def popover
       end
 
