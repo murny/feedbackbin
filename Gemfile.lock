@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/rails/rails.git
-  revision: 4b7fb1d14b954d2348d2065ff955466479509656
+  revision: a3652114fa1b78bcff55e8e1b4a815bade3cb7cd
   branch: main
   specs:
     actioncable (8.1.0.alpha)
@@ -404,7 +404,7 @@ GEM
     reline (0.6.1)
       io-console (~> 0.5)
     rexml (3.4.1)
-    rubocop (1.76.0)
+    rubocop (1.76.1)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
       lint_roller (~> 1.1.0)
@@ -415,7 +415,7 @@ GEM
       rubocop-ast (>= 1.45.0, < 2.0)
       ruby-progressbar (~> 1.7)
       unicode-display_width (>= 2.4.0, < 4.0)
-    rubocop-ast (1.45.0)
+    rubocop-ast (1.45.1)
       parser (>= 3.3.7.2)
       prism (~> 1.4)
     rubocop-capybara (2.22.1)
@@ -485,19 +485,19 @@ GEM
       fugit (~> 1.11.0)
       railties (>= 7.1)
       thor (~> 1.3.1)
-    sorbet-runtime (0.5.12157)
-    sqlite3 (2.6.0)
+    sorbet-runtime (0.5.12164)
+    sqlite3 (2.7.0)
       mini_portile2 (~> 2.8.0)
-    sqlite3 (2.6.0-aarch64-linux-gnu)
-    sqlite3 (2.6.0-aarch64-linux-musl)
-    sqlite3 (2.6.0-arm-linux-gnu)
-    sqlite3 (2.6.0-arm-linux-musl)
-    sqlite3 (2.6.0-arm64-darwin)
-    sqlite3 (2.6.0-x86-linux-gnu)
-    sqlite3 (2.6.0-x86-linux-musl)
-    sqlite3 (2.6.0-x86_64-darwin)
-    sqlite3 (2.6.0-x86_64-linux-gnu)
-    sqlite3 (2.6.0-x86_64-linux-musl)
+    sqlite3 (2.7.0-aarch64-linux-gnu)
+    sqlite3 (2.7.0-aarch64-linux-musl)
+    sqlite3 (2.7.0-arm-linux-gnu)
+    sqlite3 (2.7.0-arm-linux-musl)
+    sqlite3 (2.7.0-arm64-darwin)
+    sqlite3 (2.7.0-x86-linux-gnu)
+    sqlite3 (2.7.0-x86-linux-musl)
+    sqlite3 (2.7.0-x86_64-darwin)
+    sqlite3 (2.7.0-x86_64-linux-gnu)
+    sqlite3 (2.7.0-x86_64-linux-musl)
     sshkit (1.24.0)
       base64
       logger
@@ -766,8 +766,8 @@ CHECKSUMS
   regexp_parser (2.10.0) sha256=cb6f0ddde88772cd64bff1dbbf68df66d376043fe2e66a9ef77fcb1b0c548c61
   reline (0.6.1) sha256=1afcc9d7cb1029cdbe780d72f2f09251ce46d3780050f3ec39c3ccc6b60675fb
   rexml (3.4.1) sha256=c74527a9a0a04b4ec31dbe0dc4ed6004b960af943d8db42e539edde3a871abca
-  rubocop (1.76.0) sha256=b7515398e1280b3cb7e3e0c429933ca3597ea43b7d0f03cb3c2d97719851c411
-  rubocop-ast (1.45.0) sha256=0b4ade77d15f25b9e07214fb42fa98164f5316accea525e14e44bbb8f06f78d7
+  rubocop (1.76.1) sha256=e15a2d750794cf2157d2de8b1b403dfa71b8dc3957a22ae6043b1bdf21e7e0e7
+  rubocop-ast (1.45.1) sha256=94042e49adc17f187ba037b33f941ba7398fede77cdf4bffafba95190a473a3e
   rubocop-capybara (2.22.1) sha256=ced88caef23efea53f46e098ff352f8fc1068c649606ca75cb74650970f51c0c
   rubocop-minitest (0.38.1) sha256=f997aa8043d45b1556b818f5dec872ad03c1ab97cd3fb721b0c2aef02dbf7a81
   rubocop-performance (1.25.0) sha256=6f7d03568a770054117a78d0a8e191cefeffb703b382871ca7743831b1a52ec1
@@ -789,18 +789,18 @@ CHECKSUMS
   solid_cable (3.0.8) sha256=71fcc85587c8899d4c145f25ac15e092ed0ecc14477e67c9220f82ae3cdd8c3a
   solid_cache (1.0.7) sha256=58e690ccee057be7351f21b1940d5f9cf6bb132074316e70478e554a79e6a490
   solid_queue (1.1.5) sha256=bae0c9d76310f4953ebc57466f2e8c78703a0fbf4b89d25756c23c88f9b6df9b
-  sorbet-runtime (0.5.12157) sha256=dd9f784e95b433b2869ff0e1ede1a692c44f4cabd93813cd4b6707311ec79224
-  sqlite3 (2.6.0) sha256=a1c625f11948e6726eb082700283a8a3f4cf20b0548c0051c6104c56fedbe314
-  sqlite3 (2.6.0-aarch64-linux-gnu) sha256=febc29bd7037695779d6b482fac7f7add9af7b420a1c5120ccff79213415975e
-  sqlite3 (2.6.0-aarch64-linux-musl) sha256=d235cf89ba96067462562bc71adf5309363a9fee09a1864667f45799f26825ca
-  sqlite3 (2.6.0-arm-linux-gnu) sha256=5f7e1160ad6bf6bfc0d42d1a7de95554b00a5dc7375953070d9633fedadc93bd
-  sqlite3 (2.6.0-arm-linux-musl) sha256=a1a884d4eab3e7899badaa01f6894bb18b6ffda07fbdc4bc27c676b704f33630
-  sqlite3 (2.6.0-arm64-darwin) sha256=88a793bf0010339e85657e460ab3ad2c7e9ee5d0e468b9dea383ff1039380056
-  sqlite3 (2.6.0-x86-linux-gnu) sha256=0418d9b5e9e4cd3dcee1990c4f40055d4337136e4e66d9deb7b8d95f0192be09
-  sqlite3 (2.6.0-x86-linux-musl) sha256=8afa15a5191f3cd42b720477867770749f136778818b518d91a0a467d1074071
-  sqlite3 (2.6.0-x86_64-darwin) sha256=97bbd4ae83ca7ad49b2c79a07f07071a9ed97070dd33e44f7224acf4bd30f622
-  sqlite3 (2.6.0-x86_64-linux-gnu) sha256=415a950be612b865152dd4529b16fdce2c8962ff9fa3f6b95adbfa7b8f54f2d0
-  sqlite3 (2.6.0-x86_64-linux-musl) sha256=6f7c9346430c4aacc9280dee6bd4d23a6f1f31013d4f9c0a720fb14ef6a801c2
+  sorbet-runtime (0.5.12164) sha256=687ebb88cf07b7f4a40c9f00fd16e16627be0473b598e2345918fa9fa292aa58
+  sqlite3 (2.7.0) sha256=dab87a41172e2397909847a9d6251c6251ac1e9942a026569af17e77d645ebf0
+  sqlite3 (2.7.0-aarch64-linux-gnu) sha256=8e4ca6fee1e635092fc56c951274b732e5d3186526b3db43286ed3cacf9d2c70
+  sqlite3 (2.7.0-aarch64-linux-musl) sha256=ffa253517b62bc241b91016402e5b44087390bf7e89ba4820eb7f3c28cf76ce6
+  sqlite3 (2.7.0-arm-linux-gnu) sha256=720abe303b75c55f98ce5d0e9ab32cb45570d3ec99490953fa807c45d0fd3f6c
+  sqlite3 (2.7.0-arm-linux-musl) sha256=c2b437c54df1debf41e523b02df4f0324e2891f34e12deb4d97db168d6c717ed
+  sqlite3 (2.7.0-arm64-darwin) sha256=b79d76bd496688f45bd43069f3475285f3303d00a2a9c61cd4fc915350aa20ac
+  sqlite3 (2.7.0-x86-linux-gnu) sha256=74524de4ada6c97d6526055fd04c194c42d8b89f426a8b24737b61ba2dfb9e95
+  sqlite3 (2.7.0-x86-linux-musl) sha256=53f098cc7a0abcb9852faae7ca79920244dffbb7257f3c1508c277516af1d558
+  sqlite3 (2.7.0-x86_64-darwin) sha256=5a625bb886d2b594b9c90f11852128777b8949aa8a78c3da95a7e122e206a056
+  sqlite3 (2.7.0-x86_64-linux-gnu) sha256=6d7a41bbfc2319bc7e43e944a97a8b15de91c71098bc1d8f4c91c8b719b1c940
+  sqlite3 (2.7.0-x86_64-linux-musl) sha256=b6ff52adad59521918854adf5784dc57bc8853fdcd904b66fd53af7b683b4042
   sshkit (1.24.0) sha256=9597c1f984778ae9742f2dc839778d57a6a2efb868107046575c52ac7c628e6c
   stimulus-rails (1.3.4) sha256=765676ffa1f33af64ce026d26b48e8ffb2e0b94e0f50e9119e11d6107d67cb06
   stringio (3.1.7) sha256=5b78b7cb242a315fb4fca61a8255d62ec438f58da2b90be66048546ade4507fa
