@@ -12,12 +12,12 @@ module FormBuilders
     @form_object = User.new
   end
 
-  test "text_field returns tailwind styled text field" do
+  test "text_field returns shadcn styled text field" do
     form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
-    expected = %(<div class="mt-2 relative rounded-md shadow-sm">
+    expected = %(<div class="grid gap-2" data-slot="form-item">
       <input
-        class="block w-full rounded-md border-0 py-1.5 shadow-sm sm:text-sm sm:leading-6 ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-blue-600 dark:focus:ring-blue-500 dark:bg-white/5 text-gray-900 dark:text-white ring-gray-300 dark:ring-white/10 placeholder:text-gray-400 dark:placeholder:text-gray-500"
+        class="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm"
         type="text"
         name="user[name]"
         id="user_name" />
@@ -26,13 +26,13 @@ module FormBuilders
     assert_dom_equal expected, form.text_field(:name)
   end
 
-  test "text_field with leading icon returns tailwind styled text field" do
+  test "text_field with leading icon returns shadcn styled text field" do
     form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
-    expected = %(<div class="mt-2 relative rounded-md shadow-sm">
+    expected = %(<div class="grid gap-2" data-slot="form-item">
       <div>{class: &quot;pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3&quot;}</div>
       <input leading_icon="true"
-             class="block w-full rounded-md border-0 py-1.5 shadow-sm sm:text-sm sm:leading-6 ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-blue-600 dark:focus:ring-blue-500 dark:bg-white/5 text-gray-900 dark:text-white ring-gray-300 dark:ring-white/10 placeholder:text-gray-400 dark:placeholder:text-gray-500 pl-10"
+             class="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm pl-10"
              type="text"
              name="user[username]"
              id="user_username" />
@@ -41,12 +41,12 @@ module FormBuilders
     assert_dom_equal expected, form.text_field(:username, leading_icon: true)
   end
 
-  test "text_field with classes returns tailwind styled text field with additional classes" do
+  test "text_field with classes returns shadcn styled text field with additional classes" do
     form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
-    expected = %(<div class="mt-2 relative rounded-md shadow-sm">
+    expected = %(<div class="grid gap-2" data-slot="form-item">
       <input
-        class="block w-full rounded-md border-0 py-1.5 shadow-sm sm:text-sm sm:leading-6 ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-blue-600 dark:focus:ring-blue-500 dark:bg-white/5 text-gray-900 dark:text-white ring-gray-300 dark:ring-white/10 placeholder:text-gray-400 dark:placeholder:text-gray-500 test-class"
+        class="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm test-class"
         type="text"
         name="user[username]"
         id="user_username" />
@@ -55,7 +55,7 @@ module FormBuilders
     assert_dom_equal expected, form.text_field(:username, class: "test-class")
   end
 
-  test "text_field with errors returns tailwind styled text field" do
+  test "text_field with errors returns shadcn styled text field with error classes" do
     @form_object.errors.add(:username, "must be present")
     @form_object.errors.add(:username, "must be unique")
     @form_object.errors.add(:username, "must be at least three characters")
@@ -64,17 +64,17 @@ module FormBuilders
     field_html = form.text_field(:username)
 
     assert_match(/Must be present, must be unique, and must be at least three characters/, field_html)
-    assert_match(/border-red-500/, field_html)
-    assert_match(/bg-red-50/, field_html)
-    assert_match(/text-red-900/, field_html)
+    assert_match(/aria-invalid:ring-destructive\/20/, field_html)
+    assert_match(/aria-invalid:border-destructive/, field_html)
+    assert_match(/text-destructive/, field_html)
   end
 
-  test "text_field with no object returns tailwind styled text field" do
+  test "text_field with no object returns shadcn styled text field" do
     form = FormBuilders::CustomFormBuilder.new(:user, nil, self, {})
 
-    expected = %(<div class="mt-2 relative rounded-md shadow-sm">
+    expected = %(<div class="grid gap-2" data-slot="form-item">
       <input
-        class="block w-full rounded-md border-0 py-1.5 shadow-sm sm:text-sm sm:leading-6 ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-blue-600 dark:focus:ring-blue-500 dark:bg-white/5 text-gray-900 dark:text-white ring-gray-300 dark:ring-white/10 placeholder:text-gray-400 dark:placeholder:text-gray-500"
+        class="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm"
         type="text"
         name="user[name]"
         id="user_name" />
@@ -83,12 +83,12 @@ module FormBuilders
     assert_dom_equal expected, form.text_field(:name)
   end
 
-  test "email_field returns tailwind styled email field" do
+  test "email_field returns shadcn styled email field" do
     form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
-    expected = %(<div class="mt-2 relative rounded-md shadow-sm">
+    expected = %(<div class="grid gap-2" data-slot="form-item">
       <input
-        class="block w-full rounded-md border-0 py-1.5 shadow-sm sm:text-sm sm:leading-6 ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-blue-600 dark:focus:ring-blue-500 dark:bg-white/5 text-gray-900 dark:text-white ring-gray-300 dark:ring-white/10 placeholder:text-gray-400 dark:placeholder:text-gray-500"
+        class="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm"
         type="email"
         name="user[email_address]"
         id="user_email_address" />
@@ -97,12 +97,12 @@ module FormBuilders
     assert_dom_equal expected, form.email_field(:email_address)
   end
 
-  test "date_field returns tailwind styled date field" do
+  test "date_field returns shadcn styled date field" do
     form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
-    expected = %(<div class="mt-2 relative rounded-md shadow-sm">
+    expected = %(<div class="grid gap-2" data-slot="form-item">
       <input
-        class="block w-full rounded-md border-0 py-1.5 shadow-sm sm:text-sm sm:leading-6 ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-blue-600 dark:focus:ring-blue-500 dark:bg-white/5 text-gray-900 dark:text-white ring-gray-300 dark:ring-white/10 placeholder:text-gray-400 dark:placeholder:text-gray-500"
+        class="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm"
         type="date"
         name="user[created_at]"
         id="user_created_at" />
@@ -111,12 +111,12 @@ module FormBuilders
     assert_dom_equal expected, form.date_field(:created_at)
   end
 
-  test "password_field returns tailwind styled password field" do
+  test "password_field returns shadcn styled password field" do
     form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
-    expected = %(<div class="mt-2 relative rounded-md shadow-sm">
+    expected = %(<div class="grid gap-2" data-slot="form-item">
       <input
-        class="block w-full rounded-md border-0 py-1.5 shadow-sm sm:text-sm sm:leading-6 ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-blue-600 dark:focus:ring-blue-500 dark:bg-white/5 text-gray-900 dark:text-white ring-gray-300 dark:ring-white/10 placeholder:text-gray-400 dark:placeholder:text-gray-500"
+        class="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm"
         type="password"
         name="user[password]"
         id="user_password" />
@@ -125,12 +125,12 @@ module FormBuilders
     assert_dom_equal expected, form.password_field(:password)
   end
 
-  test "text_area returns tailwind styled text area" do
+  test "text_area returns shadcn styled text area" do
     form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
     expected = %(
-    <div class="mt-2 relative rounded-md shadow-sm">
-      <textarea class="mt-1 block w-full rounded-md border-0 py-1.5 shadow-sm sm:text-sm sm:leading-6 ring-1 ring-inset focus:ring-2 focus:ring-inset focus:ring-blue-600 dark:focus:ring-blue-500 dark:bg-white/5 text-gray-900 dark:text-white ring-gray-300 dark:ring-white/10 placeholder:text-gray-400 dark:placeholder:text-gray-500"
+    <div class="grid gap-2" data-slot="form-item">
+      <textarea class="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex field-sizing-content min-h-16 w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm resize-none"
       name="user[bio]"
       id="user_bio"></textarea>
     </div>)
@@ -138,39 +138,39 @@ module FormBuilders
     assert_dom_equal expected, form.text_area(:bio)
   end
 
-  test "select returns tailwind styled select" do
+  test "select returns shadcn styled select" do
     form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
     expected = %(<select
-      class="block w-full mt-6 sm:mt-0 border rounded-md py-2 px-3 focus:outline-none dark:bg-gray-700/50 dark:border-gray-500 dark:text-gray-300 dark:placeholder-gray-400 dark:focus:ring-2 dark:focus:border-transparent border-gray-300 focus:ring-blue-600 focus:border-blue-600 dark:focus:ring-blue-400"
+      class="border-input data-[placeholder]:text-muted-foreground [&_svg:not([class*='text-'])]:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex w-full items-center justify-between gap-2 rounded-md border bg-transparent px-3 py-2 text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 dark:hover:bg-input/50 h-9"
       name="user[active]"
       id="user_active"></select>)
 
     assert_dom_equal expected, form.select(:active, [])
   end
 
-  test "check_box returns tailwind styled check box" do
+  test "check_box returns shadcn styled check box" do
     form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
     expected = %(<input name="user[active]" type="hidden" value="0" autocomplete="off" />
-    <input class="h-4 w-4 border-gray-300 rounded"
+    <input class="h-4 w-4 rounded border-input bg-background text-primary focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
            type="checkbox" value="1" checked="checked" name="user[active]" id="user_active" />)
 
     assert_dom_equal expected, form.check_box(:active)
   end
 
-  test "label returns tailwind styled label" do
+  test "label returns shadcn styled label" do
     form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
-    expected = %(<label class="block text-sm font-medium leading-6 text-gray-900 dark:text-white" for="user_name">Name</label>)
+    expected = %(<label class="flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50" for="user_name">Name</label>)
 
     assert_dom_equal expected, form.label(:name, "Name")
   end
 
-  test "submit" do
+  test "submit returns shadcn styled submit button" do
     form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
-    expected = %(<input type="submit" name="commit" value="Create User" class="btn btn-primary" data-disable-with="Create User" />)
+    expected = %(<input type="submit" name="commit" value="Create User" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-primary text-primary-foreground shadow-xs hover:bg-primary/90 h-9 px-4 py-2 has-[>svg]:px-3" data-disable-with="Create User" />)
 
     assert_dom_equal expected, form.submit("Create User")
   end

@@ -88,7 +88,7 @@ module FormBuilders
         "dark:bg-input/30 md:text-sm resize-none"
       end
 
-      default_opts = { class: [classes, options[:class]].compact.join(" ") }
+      default_opts = { class: [ classes, options[:class] ].compact.join(" ") }
 
       text_layout(attribute) { super(attribute, options.merge(default_opts)) } + attribute_error_message(attribute)
     end
