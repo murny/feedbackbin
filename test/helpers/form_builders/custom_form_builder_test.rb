@@ -15,7 +15,7 @@ module FormBuilders
   test "text_field returns shadcn styled text field" do
     form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
-    expected = %(<div class="grid gap-2" data-slot="form-item">
+    expected = %(<div class="relative grid gap-2" data-slot="form-item">
       <input
         class="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm"
         type="text"
@@ -29,7 +29,7 @@ module FormBuilders
   test "text_field with leading icon returns shadcn styled text field" do
     form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
-    expected = %(<div class="grid gap-2" data-slot="form-item">
+    expected = %(<div class="relative grid gap-2" data-slot="form-item">
       <div>{class: &quot;pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3&quot;}</div>
       <input leading_icon="true"
              class="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm pl-10"
@@ -44,7 +44,7 @@ module FormBuilders
   test "text_field with classes returns shadcn styled text field with additional classes" do
     form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
-    expected = %(<div class="grid gap-2" data-slot="form-item">
+    expected = %(<div class="relative grid gap-2" data-slot="form-item">
       <input
         class="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm test-class"
         type="text"
@@ -67,12 +67,14 @@ module FormBuilders
     assert_match(/aria-invalid:ring-destructive\/20/, field_html)
     assert_match(/aria-invalid:border-destructive/, field_html)
     assert_match(/text-destructive/, field_html)
+    assert_match(/relative grid gap-2/, field_html)
+    assert_match(/<svg.*?class=".*?h-5 w-5 text-red-500.*?".*?>/, field_html)
   end
 
   test "text_field with no object returns shadcn styled text field" do
     form = FormBuilders::CustomFormBuilder.new(:user, nil, self, {})
 
-    expected = %(<div class="grid gap-2" data-slot="form-item">
+    expected = %(<div class="relative grid gap-2" data-slot="form-item">
       <input
         class="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm"
         type="text"
@@ -86,7 +88,7 @@ module FormBuilders
   test "email_field returns shadcn styled email field" do
     form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
-    expected = %(<div class="grid gap-2" data-slot="form-item">
+    expected = %(<div class="relative grid gap-2" data-slot="form-item">
       <input
         class="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm"
         type="email"
@@ -100,7 +102,7 @@ module FormBuilders
   test "date_field returns shadcn styled date field" do
     form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
-    expected = %(<div class="grid gap-2" data-slot="form-item">
+    expected = %(<div class="relative grid gap-2" data-slot="form-item">
       <input
         class="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm"
         type="date"
@@ -114,7 +116,7 @@ module FormBuilders
   test "password_field returns shadcn styled password field" do
     form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
-    expected = %(<div class="grid gap-2" data-slot="form-item">
+    expected = %(<div class="relative grid gap-2" data-slot="form-item">
       <input
         class="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm"
         type="password"
@@ -129,8 +131,8 @@ module FormBuilders
     form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
     expected = %(
-    <div class="grid gap-2" data-slot="form-item">
-      <textarea class="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex field-sizing-content min-h-16 w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm resize-none"
+    <div class="relative grid gap-2" data-slot="form-item">
+      <textarea class="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm field-sizing-content min-h-16 resize-none"
       name="user[bio]"
       id="user_bio"></textarea>
     </div>)
@@ -170,7 +172,7 @@ module FormBuilders
   test "submit returns shadcn styled submit button" do
     form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
-    expected = %(<input type="submit" name="commit" value="Create User" class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive bg-primary text-primary-foreground shadow-xs hover:bg-primary/90 h-9 px-4 py-2 has-[>svg]:px-3" data-disable-with="Create User" />)
+    expected = %(<input type="submit" name="commit" value="Create User" class="btn btn-primary" data-disable-with="Create User" />)
 
     assert_dom_equal expected, form.submit("Create User")
   end
