@@ -2,25 +2,21 @@
 
 module FormBuilders
   class CustomFormBuilder < ActionView::Helpers::FormBuilder
-    # Shadcn-inspired input classes for valid state
     INPUT_VALID_CLASSES = "border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 " \
     "flex w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] " \
     "outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm"
 
-    # Shadcn-inspired input classes for error state
     INPUT_INVALID_CLASSES = "border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 " \
     "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive " \
     "flex w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] " \
     "outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm"
 
-    # Shadcn-inspired select classes
     SELECT_CLASSES = "border-input data-[placeholder]:text-muted-foreground [&_svg:not([class*='text-'])]:text-muted-foreground " \
     "focus-visible:border-ring focus-visible:ring-ring/50 flex w-full items-center justify-between gap-2 " \
     "rounded-md border bg-transparent px-3 py-2 text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow] " \
     "outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 " \
     "dark:bg-input/30 dark:hover:bg-input/50 h-9"
 
-    # Shadcn-inspired label classes
     LABEL_VALID_CLASSES = "flex items-center gap-2 text-sm leading-none font-medium select-none " \
     "group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 " \
     "peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
@@ -28,14 +24,11 @@ module FormBuilders
     "group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 " \
     "peer-disabled:cursor-not-allowed peer-disabled:opacity-50 text-destructive"
 
-    # Shadcn-inspired error message classes
     ERROR_MESSAGE_CLASSES = "text-destructive text-sm"
 
-    # Shadcn-inspired checkbox classes
     CHECKBOX_CLASSES = "h-4 w-4 rounded border-input bg-background text-primary focus-visible:ring-2 " \
     "focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
 
-    # Use existing button styles
     SUBMIT_CLASSES = "btn btn-primary"
 
     def text_field(attribute, options = {}, &block)

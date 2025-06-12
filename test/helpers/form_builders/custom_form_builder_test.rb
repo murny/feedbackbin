@@ -12,7 +12,7 @@ module FormBuilders
     @form_object = User.new
   end
 
-  test "text_field returns shadcn styled text field" do
+  test "text_field returns custom styled text field" do
     form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
     expected = %(<div class="relative grid gap-2" data-slot="form-item">
@@ -26,7 +26,7 @@ module FormBuilders
     assert_dom_equal expected, form.text_field(:name)
   end
 
-  test "text_field with leading icon returns shadcn styled text field" do
+  test "text_field with leading icon returns custom styled text field" do
     form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
     expected = %(<div class="relative grid gap-2" data-slot="form-item">
@@ -41,7 +41,7 @@ module FormBuilders
     assert_dom_equal expected, form.text_field(:username, leading_icon: true)
   end
 
-  test "text_field with classes returns shadcn styled text field with additional classes" do
+  test "text_field with classes returns custom styled text field with additional classes" do
     form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
     expected = %(<div class="relative grid gap-2" data-slot="form-item">
@@ -55,7 +55,7 @@ module FormBuilders
     assert_dom_equal expected, form.text_field(:username, class: "test-class")
   end
 
-  test "text_field with errors returns shadcn styled text field with error classes" do
+  test "text_field with errors returns custom styled text field with error classes" do
     @form_object.errors.add(:username, "must be present")
     @form_object.errors.add(:username, "must be unique")
     @form_object.errors.add(:username, "must be at least three characters")
@@ -71,7 +71,7 @@ module FormBuilders
     assert_match(/<svg.*?class=".*?h-5 w-5 text-red-500.*?".*?>/, field_html)
   end
 
-  test "text_field with no object returns shadcn styled text field" do
+  test "text_field with no object returns custom styled text field" do
     form = FormBuilders::CustomFormBuilder.new(:user, nil, self, {})
 
     expected = %(<div class="relative grid gap-2" data-slot="form-item">
@@ -85,7 +85,7 @@ module FormBuilders
     assert_dom_equal expected, form.text_field(:name)
   end
 
-  test "email_field returns shadcn styled email field" do
+  test "email_field returns custom styled email field" do
     form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
     expected = %(<div class="relative grid gap-2" data-slot="form-item">
@@ -99,7 +99,7 @@ module FormBuilders
     assert_dom_equal expected, form.email_field(:email_address)
   end
 
-  test "date_field returns shadcn styled date field" do
+  test "date_field returns custom styled date field" do
     form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
     expected = %(<div class="relative grid gap-2" data-slot="form-item">
@@ -113,7 +113,7 @@ module FormBuilders
     assert_dom_equal expected, form.date_field(:created_at)
   end
 
-  test "password_field returns shadcn styled password field" do
+  test "password_field returns custom styled password field" do
     form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
     expected = %(<div class="relative grid gap-2" data-slot="form-item">
@@ -127,7 +127,7 @@ module FormBuilders
     assert_dom_equal expected, form.password_field(:password)
   end
 
-  test "text_area returns shadcn styled text area" do
+  test "text_area returns custom styled text area" do
     form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
     expected = %(
@@ -140,7 +140,7 @@ module FormBuilders
     assert_dom_equal expected, form.text_area(:bio)
   end
 
-  test "select returns shadcn styled select" do
+  test "select returns custom styled select" do
     form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
     expected = %(<select
@@ -151,7 +151,7 @@ module FormBuilders
     assert_dom_equal expected, form.select(:active, [])
   end
 
-  test "check_box returns shadcn styled check box" do
+  test "check_box returns custom styled check box" do
     form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
     expected = %(<input name="user[active]" type="hidden" value="0" autocomplete="off" />
@@ -161,7 +161,7 @@ module FormBuilders
     assert_dom_equal expected, form.check_box(:active)
   end
 
-  test "label returns shadcn styled label" do
+  test "label returns custom styled label" do
     form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
     expected = %(<label class="flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50" for="user_name">Name</label>)
@@ -169,7 +169,7 @@ module FormBuilders
     assert_dom_equal expected, form.label(:name, "Name")
   end
 
-  test "submit returns shadcn styled submit button" do
+  test "submit returns custom styled submit button" do
     form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
     expected = %(<input type="submit" name="commit" value="Create User" class="btn btn-primary" data-disable-with="Create User" />)
