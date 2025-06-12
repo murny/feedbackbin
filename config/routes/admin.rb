@@ -26,6 +26,7 @@ namespace :admin do
       get :button
       get :card
       get :dropdown_menu
+      get :forms
       get :popover
       get :tabs
       get :toast

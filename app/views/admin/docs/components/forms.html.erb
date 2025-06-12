@@ -1,0 +1,36 @@
+<%= render "admin/docs/shared/page_header",
+  title: "Forms",
+  breadcrumb_items: [
+    { text: "Docs", path: admin_docs_path },
+    { text: "Components", path: admin_docs_components_path },
+    { text: "Forms", path: nil }
+  ],
+  description: "Build forms with custom styling." %>
+
+<%= render "admin/docs/components/forms/basic" %>
+<%= render "admin/docs/components/forms/inputs" %>
+<%= render "admin/docs/components/forms/textareas" %>
+<%= render "admin/docs/components/forms/selects" %>
+<%= render "admin/docs/components/forms/checkboxes" %>
+<%= render "admin/docs/components/forms/error_states" %>
+
+<%= render partial: "admin/docs/shared/pagination", locals: {
+  prev_path: admin_docs_components_dropdown_menu_path,
+  prev_text: "Dropdown Menu",
+  next_path: admin_docs_components_popover_path,
+  next_text: "Popover"
+} %>
+
+<%= content_for :component_nav do %>
+  <%= render partial: "admin/docs/shared/component_nav", locals: {
+    title: "On this page",
+    items: [
+      { text: "Basic Form", path: "#forms-basic" },
+      { text: "Input Fields", path: "#forms-inputs" },
+      { text: "Text Areas", path: "#forms-textareas" },
+      { text: "Select Dropdowns", path: "#forms-selects" },
+      { text: "Checkboxes", path: "#forms-checkboxes" },
+      { text: "Error States", path: "#forms-error-states" }
+    ]
+  } %>
+<% end %>
