@@ -23,6 +23,10 @@ class Organization < ApplicationRecord
 
   scope :sorted, -> { order(name: :asc) }
 
+  before_create do
+    memberships.new(user: owner, role: Membership.roles[:administrator])
+  end
+
   def owner?(user)
     owner_id == user&.id
   end
