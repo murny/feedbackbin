@@ -2,9 +2,9 @@
 
   <% content_for :preview_example, flush: true do %>
 
-   <% # Create a User instance with validation errors for demonstration
-      user_with_errors = User.new(email_address: "", password: "", username: "")
-      user_with_errors.valid? %>
+   <%# Create a User instance with validation errors for demonstration %>
+   <% user_with_errors = User.new(email_address: "", password: "", username: "") %>
+   <% user_with_errors.valid? %>
 
     <%= render_form_for(user_with_errors, url: "#", class: "w-2/3") do |form| %>
       <%= form.label :email_address %>
