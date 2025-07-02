@@ -3,26 +3,43 @@
 
 <section class="max-w-6xl mx-auto px-4 sm:px-6">
   <div class="md:pr-6 lg:pr-10">
-    <div class="border-b border-gray-800 p-6">
-      <h1 class="my-3 text-3xl font-bold text-gray-900 sm:text-4xl sm:leading-none sm:tracking-tight dark:text-white"><%= @category.name %></h1>
-      <p class="mb-6 text-lg font-normal text-gray-500 sm:text-xl dark:text-gray-400"><%= @category.description %></p>
+    <!-- Header Section -->
+    <div class="border-b border-border p-6">
+      <div class="flex items-center justify-between mb-6">
+        <div>
+          <h1 class="text-2xl sm:text-3xl font-bold text-foreground tracking-tight">Forum Discussions</h1>
+          <p class="text-muted-foreground mt-1"><%= pluralize(@posts.count, 'active discussion') %> in the community</p>
+        </div>
+        <%= render_button(text: t("posts.new.title"), variant: :default, href: new_post_path, class: "shrink-0") do %>
+          <%= inline_svg_tag "icons/plus.svg", class: "mr-2" %>
+          New Thread
+        <% end %>
+      </div>
 
-      <div class="text-center md:text-left md:flex justify-between items-center">
-        <div class="mb-4 md:mb-0 md:order-1 md:ml-6">
-          <%= link_to t("posts.new.title"), new_post_path, class: "px-4 py-2 text-sm font-medium inline-flex items-center justify-center rounded-full leading-5 whitespace-nowrap py-1.5 text-white bg-blue-500 hover:bg-blue-600" %>
+      <!-- Categories and Filters -->
+      <div class="flex flex-col sm:flex-row gap-4 items-start sm:items-center justify-between">
+        <!-- Category Tabs -->
+        <div class="flex flex-wrap gap-2">
+          <% @categories.each do |category| %>
+            <%= link_to category.name,
+                  posts_path(category_id: category.id),
+                  class: "inline-flex items-center gap-2 px-3 py-1.5 text-sm font-medium rounded-md transition-colors #{'bg-primary text-primary-foreground' if @category == category} #{'hover:bg-muted text-muted-foreground' unless @category == category}" %>
+          <% end %>
         </div>
 
-        <ul class="grow inline-flex flex-wrap text-sm font-medium -mx-3 -my-1">
-          <li class="px-3 py-1">
-            <%= active_link_to "Popular", posts_path(sort: :comments_count, direction: :desc), class: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700", active_class: "border-indigo-500 text-indigo-600" %>
-          </li>
-          <li class="px-3 py-1">
-            <%= active_link_to "Newest", posts_path(sort: :created_at, direction: :asc), class: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700", active_class: "border-indigo-500 text-indigo-600" %>
-          </li>
-          <li class="px-3 py-1">
-            <%= active_link_to "Top", posts_path(sort: :likes_count, direction: :desc), class: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700", active_class: "border-indigo-500 text-indigo-600" %>
-          </li>
-        </ul>
+        <!-- Sort Options -->
+        <div class="flex items-center gap-2">
+          <span class="text-sm text-muted-foreground mr-2">Sort by:</span>
+          <%= active_link_to "Latest", posts_path(sort: :created_at, direction: :desc, category_id: @category.id), 
+                class: "px-3 py-1 text-sm font-medium rounded-md hover:bg-muted transition-colors",
+                active_class: "bg-primary text-primary-foreground" %>
+          <%= active_link_to "Popular", posts_path(sort: :comments_count, direction: :desc, category_id: @category.id), 
+                class: "px-3 py-1 text-sm font-medium rounded-md hover:bg-muted transition-colors",
+                active_class: "bg-primary text-primary-foreground" %>
+          <%= active_link_to "Top", posts_path(sort: :likes_count, direction: :desc, category_id: @category.id), 
+                class: "px-3 py-1 text-sm font-medium rounded-md hover:bg-muted transition-colors", 
+                active_class: "bg-primary text-primary-foreground" %>
+        </div>
       </div>
     </div>
 
@@ -44,9 +61,9 @@
           </div>
         </div>
       <% else %>
-        <ul role="list" class="flex flex-col space-y-3 mb-8">
-          <%= render partial: "posts/post", collection: @posts, as: :post %>
-        </ul>
+        <div class="space-y-4 mb-8">
+          <%= render partial: "posts/modern_post_card", collection: @posts, as: :post %>
+        </div>
       <% end %>
     <% end %>
 

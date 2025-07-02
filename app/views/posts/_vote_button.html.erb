@@ -1,0 +1,27 @@
+<%# locals: (post:) %>
+
+<% if authenticated? %>
+  <%= turbo_frame_tag post, :like_button do %>
+    <% if post.liked_by?(Current.user) %>
+      <%= button_to like_path(likeable_type: post.class.to_s, likeable_id: post.id),
+            method: :patch,
+            class: "ring-offset-background focus-visible:outline-hidden focus-visible:ring-ring inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 rounded-md h-8 w-8 p-0 hover:bg-green-50 hover:text-green-600 dark:hover:bg-green-950 dark:hover:text-green-400 hover:scale-110 transition-all" do %>
+        <%= inline_svg_tag "icons/chevron-up.svg", class: "h-4 w-4" %>
+      <% end %>
+    <% else %>
+      <%= button_to like_path(likeable_type: post.class.to_s, likeable_id: post.id),
+            method: :patch,
+            class: "ring-offset-background focus-visible:outline-hidden focus-visible:ring-ring inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 rounded-md h-8 w-8 p-0 hover:bg-green-50 hover:text-green-600 dark:hover:bg-green-950 dark:hover:text-green-400 hover:scale-110 transition-all" do %>
+        <%= inline_svg_tag "icons/chevron-up.svg", class: "h-4 w-4" %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% else %>
+  <%= link_to sign_in_path,
+        data: { turbo_frame: :_top },
+        class: "ring-offset-background focus-visible:outline-hidden focus-visible:ring-ring inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 rounded-md h-8 w-8 p-0 hover:bg-green-50 hover:text-green-600 dark:hover:bg-green-950 dark:hover:text-green-400 hover:scale-110 transition-all" do %>
+    <%= inline_svg_tag "icons/chevron-up.svg", class: "h-4 w-4" %>
+  <% end %>
+<% end %>
+
+<span class="text-lg font-bold text-center min-w-[2ch] text-foreground"><%= post.likes_count %></span>

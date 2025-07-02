@@ -1,0 +1,110 @@
+<%# locals: (post:) %>
+
+<div class="<%= post.pinned? ? 'bg-accent/10' : 'bg-card' %> text-card-foreground shadow-2xs group hover:shadow-xl transition-all duration-300 hover:bg-accent/30 border hover:border-primary/20 relative overflow-hidden rounded-lg">
+  <!-- Status indicators -->
+  <div class="absolute top-2 right-2 flex gap-1">
+    <% if post.pinned? %>
+      <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+    <% end %>
+    <% if post.status_indicator_color %>
+      <div class="w-2 h-2 rounded-full" style="background-color: <%= post.status_indicator_color %>"></div>
+    <% end %>
+  </div>
+
+  <div class="p-4 sm:p-6">
+    <div class="flex gap-3 sm:gap-4">
+      <!-- Vote section (desktop only) -->
+      <div class="hidden sm:flex flex-col items-center gap-2 min-w-[60px]">
+        <%= render "posts/vote_button", post: post %>
+      </div>
+
+      <!-- Main content -->
+      <div class="flex-1 space-y-3">
+        <div class="space-y-2">
+          <!-- Title and category -->
+          <div class="flex items-start justify-between gap-4">
+            <h2 class="text-lg sm:text-xl font-semibold leading-tight hover:text-primary cursor-pointer transition-colors line-clamp-2 group-hover:text-primary/90">
+              <%= link_to post_path(post), class: "flex items-center" do %>
+                <% if post.pinned? %>
+                  <%= inline_svg_tag "icons/pin.svg", class: "inline size-4 text-blue-500 mr-2" %>
+                <% end %>
+                <%= post.title %>
+              <% end %>
+            </h2>
+            <%= render_badge(text: post.category.name, variant: :default, class: "shrink-0 text-xs bg-primary/10 border-primary/20 text-primary font-medium") %>
+          </div>
+
+          <!-- Tags -->
+          <% if post.tags.any? %>
+            <div class="flex items-center gap-2 flex-wrap">
+              <% post.tags.limit(3).each do |tag| %>
+                <%= render_badge(variant: :secondary, href: posts_path(tag: tag.name), class: "text-xs hover:bg-secondary/80 transition-colors cursor-pointer") do %>
+                  <%= inline_svg_tag "icons/hash.svg", class: "size-3 mr-1" %>
+                  <%= tag.name %>
+                <% end %>
+              <% end %>
+              <% if post.tags.count > 3 %>
+                <%= render_badge(text: "+#{post.tags.count - 3} more", variant: :outline, class: "text-xs bg-muted") %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+
+        <!-- Content preview -->
+        <div class="text-muted-foreground leading-relaxed cursor-pointer text-sm sm:text-base hover:text-foreground/80 transition-colors">
+          <%= link_to post_path(post) do %>
+            <p class="line-clamp-3 sm:line-clamp-4 font-light">
+              <%= truncate(strip_tags(post.body.to_s), length: 300) %>
+            </p>
+          <% end %>
+        </div>
+
+        <!-- Author and metadata -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pt-2">
+          <!-- Author info -->
+          <div class="flex items-center gap-3">
+            <%= avatar_tag post.author, class: "size-8 sm:size-10 ring-2 ring-background shadow-sm" %>
+            <div class="space-y-1">
+              <div class="flex items-center gap-2">
+                <span class="font-medium text-sm">
+                  <%= link_to post.author.name, user_path(post.author), class: "hover:underline" %>
+                </span>
+                <% if post.author.admin? %>
+                  <%= render_badge(text: "Administrator", class: "text-foreground text-xs hidden sm:inline-flex") %>
+                <% end %>
+              </div>
+              <div class="flex items-center gap-1 text-xs text-muted-foreground">
+                <%= inline_svg_tag "icons/clock.svg", class: "size-3" %>
+                <span><%= local_datetime_tag post.created_at, style: :datetime %></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stats and actions -->
+          <div class="flex items-center justify-between sm:justify-end gap-4">
+            <!-- Mobile vote button -->
+            <div class="flex sm:hidden items-center gap-2">
+              <%= render "posts/vote_button_mobile", post: post %>
+            </div>
+
+            <!-- Replies and views -->
+            <div class="flex items-center gap-3 sm:gap-4 text-sm text-muted-foreground">
+              <%= link_to post_path(post), class: "flex items-center gap-1 hover:text-primary transition-colors hover:bg-accent/50 rounded px-2 py-1" do %>
+                <%= inline_svg_tag "icons/message-circle.svg", class: "size-4" %>
+                <span class="font-medium"><%= post.comments_count %></span>
+                <span class="hidden sm:inline text-xs">replies</span>
+              <% end %>
+              
+              <div class="flex items-center gap-1 px-2 py-1">
+                <%= inline_svg_tag "icons/eye.svg", class: "size-4" %>
+                <span class="hidden sm:inline font-medium"><%= number_with_delimiter(post.views_count) %></span>
+                <span class="sm:hidden font-medium"><%= post.views_count > 999 ? "#{(post.views_count / 1000.0).round(1)}k" : post.views_count %></span>
+                <span class="hidden sm:inline text-xs">views</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
