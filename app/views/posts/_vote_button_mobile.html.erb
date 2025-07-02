@@ -1,27 +1,7 @@
-<%# locals: (post:) %>
+<%# locals: (post:, mock_vote_count:) %>
 
-<% if authenticated? %>
-  <%= turbo_frame_tag post, :like_button_mobile do %>
-    <% if post.liked_by?(Current.user) %>
-      <%= button_to like_path(likeable_type: post.class.to_s, likeable_id: post.id),
-            method: :patch,
-            class: "ring-offset-background focus-visible:outline-hidden focus-visible:ring-ring inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground rounded-md h-7 w-7 p-0" do %>
-        <%= inline_svg_tag "icons/chevron-up.svg", class: "h-3 w-3" %>
-      <% end %>
-    <% else %>
-      <%= button_to like_path(likeable_type: post.class.to_s, likeable_id: post.id),
-            method: :patch,
-            class: "ring-offset-background focus-visible:outline-hidden focus-visible:ring-ring inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground rounded-md h-7 w-7 p-0" do %>
-        <%= inline_svg_tag "icons/chevron-up.svg", class: "h-3 w-3" %>
-      <% end %>
-    <% end %>
-  <% end %>
-<% else %>
-  <%= link_to sign_in_path,
-        data: { turbo_frame: :_top },
-        class: "ring-offset-background focus-visible:outline-hidden focus-visible:ring-ring inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground rounded-md h-7 w-7 p-0" do %>
-    <%= inline_svg_tag "icons/chevron-up.svg", class: "h-3 w-3" %>
-  <% end %>
-<% end %>
+<button class="ring-offset-background focus-visible:outline-hidden focus-visible:ring-ring inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground rounded-md h-7 w-7 p-0">
+  <%= inline_svg_tag "icons/chevron-up.svg", class: "h-3 w-3" %>
+</button>
 
-<span class="text-sm font-medium"><%= post.likes_count %></span>
+<span class="text-sm font-medium"><%= mock_vote_count.to_i %></span>

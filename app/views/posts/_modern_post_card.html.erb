@@ -1,13 +1,29 @@
 <%# locals: (post:) %>
 
-<div class="<%= post.pinned? ? 'bg-accent/10' : 'bg-card' %> text-card-foreground shadow-2xs group hover:shadow-xl transition-all duration-300 hover:bg-accent/30 border hover:border-primary/20 relative overflow-hidden rounded-lg">
+<%
+  # Mock data for UI design - these would be real in a full implementation
+  is_pinned = [true, false, false, false].sample  # 25% chance of being pinned
+  is_announcement = post.title.downcase.include?('welcome') || post.title.downcase.include?('announcement')
+  has_recent_activity = [true, false].sample
+  mock_views = rand(100..5000)
+  mock_tags = [
+    ['announcement', 'welcome'],
+    ['react', 'server-components', 'performance'],
+    ['nextjs', 'database', 'optimization'],
+    ['showcase', 'projects', 'community'],
+    ['jobs', 'remote', 'career'],
+    ['accessibility', 'a11y', 'web-development']
+  ].sample
+%>
+
+<div class="<%= is_announcement ? 'bg-accent/10' : 'bg-card' %> text-card-foreground shadow-2xs group hover:shadow-xl transition-all duration-300 hover:bg-accent/30 border hover:border-primary/20 relative overflow-hidden rounded-lg">
   <!-- Status indicators -->
   <div class="absolute top-2 right-2 flex gap-1">
-    <% if post.pinned? %>
+    <% if is_pinned %>
       <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
     <% end %>
-    <% if post.status_indicator_color %>
-      <div class="w-2 h-2 rounded-full" style="background-color: <%= post.status_indicator_color %>"></div>
+    <% if has_recent_activity %>
+      <div class="w-2 h-2 bg-green-500 rounded-full"></div>
     <% end %>
   </div>
 
@@ -15,7 +31,7 @@
     <div class="flex gap-3 sm:gap-4">
       <!-- Vote section (desktop only) -->
       <div class="hidden sm:flex flex-col items-center gap-2 min-w-[60px]">
-        <%= render "posts/vote_button", post: post %>
+        <%= render "posts/vote_button", post: post, mock_vote_count: mock_views / 10 %>
       </div>
 
       <!-- Main content -->
@@ -25,29 +41,32 @@
           <div class="flex items-start justify-between gap-4">
             <h2 class="text-lg sm:text-xl font-semibold leading-tight hover:text-primary cursor-pointer transition-colors line-clamp-2 group-hover:text-primary/90">
               <%= link_to post_path(post), class: "flex items-center" do %>
-                <% if post.pinned? %>
+                <% if is_pinned %>
                   <%= inline_svg_tag "icons/pin.svg", class: "inline size-4 text-blue-500 mr-2" %>
                 <% end %>
                 <%= post.title %>
               <% end %>
             </h2>
-            <%= render_badge(text: post.category.name, variant: :default, class: "shrink-0 text-xs bg-primary/10 border-primary/20 text-primary font-medium") %>
+            <% if is_announcement %>
+              <%= render_badge(text: "Announcements", variant: :default, class: "shrink-0 text-xs bg-primary/10 border-primary/20 text-primary font-medium") %>
+            <% else %>
+              <%= render_badge(text: post.category.name, variant: :default, class: "shrink-0 text-xs bg-primary/10 border-primary/20 text-primary font-medium") %>
+            <% end %>
           </div>
 
           <!-- Tags -->
-          <% if post.tags.any? %>
-            <div class="flex items-center gap-2 flex-wrap">
-              <% post.tags.limit(3).each do |tag| %>
-                <%= render_badge(variant: :secondary, href: posts_path(tag: tag.name), class: "text-xs hover:bg-secondary/80 transition-colors cursor-pointer") do %>
-                  <%= inline_svg_tag "icons/hash.svg", class: "size-3 mr-1" %>
-                  <%= tag.name %>
-                <% end %>
+          <div class="flex items-center gap-2 flex-wrap">
+            <% mock_tags.each_with_index do |tag, index| %>
+              <% break if index >= 3 %>
+              <%= render_badge(variant: :secondary, href: "#", class: "text-xs hover:bg-secondary/80 transition-colors cursor-pointer") do %>
+                <%= inline_svg_tag "icons/hash.svg", class: "size-3 mr-1" %>
+                <%= tag %>
               <% end %>
-              <% if post.tags.count > 3 %>
-                <%= render_badge(text: "+#{post.tags.count - 3} more", variant: :outline, class: "text-xs bg-muted") %>
-              <% end %>
-            </div>
-          <% end %>
+            <% end %>
+            <% if mock_tags.count > 3 %>
+              <%= render_badge(text: "+#{mock_tags.count - 3} more", variant: :outline, class: "text-xs bg-muted") %>
+            <% end %>
+          </div>
         </div>
 
         <!-- Content preview -->
@@ -69,9 +88,12 @@
                 <span class="font-medium text-sm">
                   <%= link_to post.author.name, user_path(post.author), class: "hover:underline" %>
                 </span>
-                <% if post.author.admin? %>
-                  <%= render_badge(text: "Administrator", class: "text-foreground text-xs hidden sm:inline-flex") %>
-                <% end %>
+                <% 
+                  # Mock user roles for UI demo
+                  mock_roles = ['Administrator', 'Senior Developer', 'Database Expert', 'Community Moderator', 'Remote Work Advocate', 'Accessibility Expert']
+                  user_role = mock_roles.sample
+                %>
+                <%= render_badge(text: user_role, class: "text-foreground text-xs hidden sm:inline-flex") %>
               </div>
               <div class="flex items-center gap-1 text-xs text-muted-foreground">
                 <%= inline_svg_tag "icons/clock.svg", class: "size-3" %>
@@ -84,7 +106,7 @@
           <div class="flex items-center justify-between sm:justify-end gap-4">
             <!-- Mobile vote button -->
             <div class="flex sm:hidden items-center gap-2">
-              <%= render "posts/vote_button_mobile", post: post %>
+              <%= render "posts/vote_button_mobile", post: post, mock_vote_count: mock_views / 10 %>
             </div>
 
             <!-- Replies and views -->
@@ -97,8 +119,8 @@
               
               <div class="flex items-center gap-1 px-2 py-1">
                 <%= inline_svg_tag "icons/eye.svg", class: "size-4" %>
-                <span class="hidden sm:inline font-medium"><%= number_with_delimiter(post.views_count) %></span>
-                <span class="sm:hidden font-medium"><%= post.views_count > 999 ? "#{(post.views_count / 1000.0).round(1)}k" : post.views_count %></span>
+                <span class="hidden sm:inline font-medium"><%= number_with_delimiter(mock_views) %></span>
+                <span class="sm:hidden font-medium"><%= mock_views > 999 ? "#{(mock_views / 1000.0).round(1)}k" : mock_views %></span>
                 <span class="hidden sm:inline text-xs">views</span>
               </div>
             </div>

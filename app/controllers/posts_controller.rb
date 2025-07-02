@@ -11,27 +11,13 @@ class PostsController < ApplicationController
     authorize Post
 
     @categories = Category.all
-    @category = params[:category_id].present? ? Category.find(params[:category_id]) : Category.first
-    @tags = Tag.popular.limit(20)
-    
-    posts_scope = @category.posts.includes(:author, :tags, :post_status, :category)
-    posts_scope = posts_scope.with_tag(params[:tag]) if params[:tag].present?
-    
-    # Handle sorting with pinned posts always first
-    sorted_posts = posts_scope.sort_by_params(params[:sort], sort_direction)
-    @pagy, @posts = pagy(sorted_posts.order(pinned: :desc))
+    @category = Category.first
+    @pagy, @posts = pagy(@category.posts.sort_by_params(params[:sort], sort_direction))
   end
 
   # GET /posts/1 or /posts/1.json
   def show
     authorize @post
-
-    # Track page views (avoid tracking author's own views)
-    if authenticated? && @post.author != Current.user
-      @post.increment_view_count!
-    elsif !authenticated?
-      @post.increment_view_count!
-    end
 
     @comment = Comment.new
   end
@@ -107,13 +93,6 @@ class PostsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def post_params
-    permitted_params = params.expect(post: [ :title, :body, :category_id, :pinned, :status_color, tag_names: [] ])
-    
-    # Convert tag_names to proper format if present
-    if permitted_params[:tag_names].present?
-      permitted_params[:tag_names] = permitted_params[:tag_names].reject(&:blank?)
-    end
-    
-    permitted_params
+    params.expect(post: [ :title, :body, :category_id ])
   end
 end
