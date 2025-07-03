@@ -1,55 +1,40 @@
 <%= content_for :title, t("posts.index.title") %>
 <%= turbo_stream_from :posts %>
 
-<section class="max-w-6xl mx-auto px-4 sm:px-6">
+<section class="max-w-4xl mx-auto px-4 py-12 sm:px-6">
   <div class="md:pr-6 lg:pr-10">
-    <div class="border-b border-gray-800 p-6">
-      <h1 class="my-3 text-3xl font-bold text-gray-900 sm:text-4xl sm:leading-none sm:tracking-tight dark:text-white"><%= @category.name %></h1>
-      <p class="mb-6 text-lg font-normal text-gray-500 sm:text-xl dark:text-gray-400"><%= @category.description %></p>
-
-      <div class="text-center md:text-left md:flex justify-between items-center">
-        <div class="mb-4 md:mb-0 md:order-1 md:ml-6">
-          <%= link_to t("posts.new.title"), new_post_path, class: "px-4 py-2 text-sm font-medium inline-flex items-center justify-center rounded-full leading-5 whitespace-nowrap py-1.5 text-white bg-blue-500 hover:bg-blue-600" %>
-        </div>
-
-        <ul class="grow inline-flex flex-wrap text-sm font-medium -mx-3 -my-1">
-          <li class="px-3 py-1">
-            <%= active_link_to "Popular", posts_path(sort: :comments_count, direction: :desc), class: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700", active_class: "border-indigo-500 text-indigo-600" %>
-          </li>
-          <li class="px-3 py-1">
-            <%= active_link_to "Newest", posts_path(sort: :created_at, direction: :asc), class: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700", active_class: "border-indigo-500 text-indigo-600" %>
-          </li>
-          <li class="px-3 py-1">
-            <%= active_link_to "Top", posts_path(sort: :likes_count, direction: :desc), class: "border-transparent text-gray-500 hover:border-gray-300 hover:text-gray-700", active_class: "border-indigo-500 text-indigo-600" %>
-          </li>
-        </ul>
-      </div>
+    <div class="flex flex-col sm:flex-row sm:items-center justify-between border-b border-border pb-6 mb-6 gap-4">
+      <h1 class="text-3xl font-bold text-foreground sm:text-4xl sm:leading-none sm:tracking-tight"><%= @category&.name || t("posts.index.title") %></h1>
+      <%= link_to t("posts.new.title"), new_post_path, class: "px-4 py-2 text-sm font-medium inline-flex items-center justify-center rounded-full leading-5 whitespace-nowrap py-1.5 text-white bg-primary hover:bg-primary/90 transition" %>
     </div>
-
-    <%= tag.div id: ("posts" if first_page?(@pagy.page)), class: "mb-12" do %>
+    <div class="flex flex-wrap gap-2 mb-6">
+      <%= active_link_to "Popular", posts_path(sort: :comments_count, direction: :desc), class: "px-3 py-1 rounded text-muted-foreground hover:text-primary transition", active_class: "text-primary font-semibold bg-accent" %>
+      <%= active_link_to "Newest", posts_path(sort: :created_at, direction: :asc), class: "px-3 py-1 rounded text-muted-foreground hover:text-primary transition", active_class: "text-primary font-semibold bg-accent" %>
+      <%= active_link_to "Top", posts_path(sort: :likes_count, direction: :desc), class: "px-3 py-1 rounded text-muted-foreground hover:text-primary transition", active_class: "text-primary font-semibold bg-accent" %>
+    </div>
+    <div class="space-y-4">
       <% if @posts.empty? %>
         <div class="text-center my-3">
           <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
             <path vector-effect="non-scaling-stroke" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
           </svg>
-          <h3 class="mt-2 text-sm font-semibold text-gray-900 dark:text-white">No feedback yet</h3>
-          <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Get started by creating a new suggestion.</p>
+          <h3 class="mt-2 text-sm font-semibold text-foreground">No feedback yet</h3>
+          <p class="mt-1 text-sm text-muted-foreground">Get started by creating a new suggestion.</p>
           <div class="mt-6">
-            <%= link_to new_post_path, class: "inline-flex items-center rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-blue-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600" do %>
+            <%= link_to new_post_path, class: "inline-flex items-center rounded-md bg-primary px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-primary/90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary" do %>
               <svg class="-ml-0.5 mr-1.5 h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                 <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z" />
               </svg>
-            <%= t("posts.new.title") %>
+              <%= t("posts.new.title") %>
             <% end %>
           </div>
         </div>
       <% else %>
-        <ul role="list" class="flex flex-col space-y-3 mb-8">
-          <%= render partial: "posts/post", collection: @posts, as: :post %>
-        </ul>
+        <% @posts.each do |post| %>
+          <%= render partial: "posts/post", locals: { post: post } %>
+        <% end %>
       <% end %>
-    <% end %>
-
+    </div>
     <% if @pagy.pages > 1 %>
       <div class="flex items-center justify-between px-4 py-3 sm:px-6">
         <%== pagy_info(@pagy) %>

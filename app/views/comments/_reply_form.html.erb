@@ -1,9 +1,13 @@
 <%# locals: (parent:, comment:, show_form: false) %>
 
 <% if authenticated? %>
- <div data-controller="comment-reply">
-    <%= button_tag "Write a reply", class: "btn btn-secondary btn-block #{show_form ? "hidden" : ""}", data: { comment_reply_target: "button", action: "click->comment-reply#toggle" } %>
-
+  <div data-controller="comment-reply">
+    <button type="button"
+      class="ring-offset-background focus-visible:outline-hidden focus-visible:ring-ring inline-flex items-center justify-center gap-2 whitespace-nowrap font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground rounded-md px-3 h-7 text-xs <%= show_form ? 'hidden' : '' %>"
+      data-action="click->comment-reply#toggle"
+      data-comment-reply-target="button">
+      <%= inline_svg_tag 'icons/reply.svg', class: 'h-3 w-3 mr-1' %>Reply
+    </button>
     <%= tag.div id: "comment_#{parent.id}_new_reply", data: { comment_reply_target: "form" }, class: (show_form ? "" : "hidden").to_s do %>
       <div class="flex items-start">
         <%= form_with model: comment, class: "my-4 w-full" do |form| %>

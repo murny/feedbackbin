@@ -1,41 +1,87 @@
 <%= content_for :title, "Posts ##{@post.id}" %>
 <%= turbo_stream_from @post %>
 
-<section class="max-w-6xl mt-10 mx-auto px-4 sm:px-6">
-  <div class="md:flex md:justify-between md:divide-x md:divide-gray-800">
-    <div class="md:grow pt-6 pb-12 md:pb-20">
-      <div class="md:pr-6 lg:pr-20">
-        <div class="flex items-center justify-end">
-          <%= link_to t("edit"), edit_post_path(@post), class: "btn btn-secondary" %>
-        </div>
-        <div class="flex flex-col lg:flex-row space-y-6 lg:space-y-0 lg:space-x-6">
-          <%= render partial: "likes/like_button", locals: { likeable: @post } %>
-          <div>
-            <article class="mb-20">
-              <header class="mb-6">
-                <h1 class="h2 text-gray-200 mb-4"><%= @post.title %></h1>
-                <div class="flex items-center">
-                  <%= avatar_tag @post.author, class: "rounded-full w-10 h-10 mr-2", alt: "" %>
-                  <div class="text-sm text-gray-600">
-                    <a class="font-medium text-blue-500 hover:text-blue-400" href="#0">
-                      <%= @post.author.name %>
-                    </a>
-                    <span class="ml-2 text-gray-500">
-                      <%= local_datetime_tag @post.created_at, style: :datetime, class: "text-gray-700 dark:text-gray-300" %>
-                    </span>
-                  </div>
-                </div>
-              </header>
+<div class="min-h-screen bg-background">
+  <div class="container max-w-4xl mx-auto p-3 sm:p-4 lg:p-6">
+    <div class="flex items-center justify-between gap-4 mb-6">
+      <%= link_to posts_path, class: "ring-offset-background focus-visible:outline-hidden focus-visible:ring-ring inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 hover:bg-accent hover:text-accent-foreground h-9 rounded-md px-3" do %>
+        <%= inline_svg_tag "icons/arrow-left.svg", class: "h-4 w-4 mr-2" %>
+        <span class="hidden sm:inline">Back to Forum</span>
+        <span class="sm:hidden">Back</span>
+      <% end %>
+    </div>
 
-              <div class="text-gray-400 space-y-6">
-                <%= @post.body %>
+    <div class="rounded-lg border bg-card text-card-foreground mb-6 shadow-lg" data-v0-t="card">
+      <div class="flex flex-col space-y-1.5 p-6">
+        <div class="flex flex-col sm:flex-row items-start gap-4">
+          <div class="hidden sm:flex flex-col items-center gap-1 order-2 sm:order-1">
+            <%= render partial: "likes/like_button", locals: { likeable: @post } %>
+            <span class="text-lg font-bold"><%= @post.likes_count %></span>
+          </div>
+          <div class="flex-1 order-1 sm:order-2">
+            <div class="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4 mb-3">
+              <div class="flex items-center gap-2">
+                <%# Category badge %>
+                <div class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors text-foreground" data-v0-t="badge">
+                  <%= @post.category&.name || 'General' %>
+                </div>
+                <div class="inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80" data-v0-t="badge">Pinned</div>
               </div>
-            </article>
+              <div class="flex items-center gap-2 sm:gap-4 text-sm text-muted-foreground sm:ml-auto">
+                <div class="flex items-center gap-1">
+                  <%= inline_svg_tag "icons/eye.svg", class: "h-4 w-4" %>
+                  <span>1234 views</span>
+                </div>
+                <div class="flex items-center gap-1">
+                  <%= inline_svg_tag "icons/message-circle.svg", class: "h-4 w-4" %>
+                  <span><%= @post.comments_count %> replies</span>
+                </div>
+              </div>
+            </div>
+            <h1 class="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 leading-tight"><%= @post.title %></h1>
+            <div class="flex items-center gap-3 mb-4">
+              <span class="relative flex shrink-0 overflow-hidden rounded-full size-10 sm:size-12 ring-2 ring-background shadow-sm">
+                <%= avatar_tag @post.author, class: "flex h-full w-full items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-purple-600 text-white", alt: @post.author.name %>
+              </span>
+              <div>
+                <div class="flex flex-col sm:flex-row sm:items-center gap-1 sm:gap-2">
+                  <span class="font-medium"><%= @post.author.name %></span>
+                    <div class="inline-flex items-center rounded-full border px-2.5 py-0.5 font-semibold text-foreground text-xs w-fit" data-v0-t="badge">Member</div>
+                </div>
+                <div class="flex items-center gap-1 text-sm text-muted-foreground">
+                  <%= inline_svg_tag "icons/clock.svg", class: "h-3 w-3" %>
+                  <span><%= l(@post.created_at, format: :long) %></span>
+                </div>
+              </div>
+            </div>
+            <div class="flex items-center gap-2 mb-4 flex-wrap">
+              <% 3.times.each do |tag| %>
+                <div class="inline-flex items-center rounded-full border px-2.5 py-0.5 font-semibold border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80 text-xs" data-v0-t="badge">
+                  <%= inline_svg_tag "icons/hash.svg", class: "h-3 w-3 mr-1" %><%= tag %>
+                </div>
+              <% end %>
+            </div>
           </div>
         </div>
-        <%= render partial: "comments/comments", locals: { comment: @comment, post: @post } %>
+        <div class="p-6 pt-0">
+          <div class="prose max-w-none dark:prose-invert prose-sm sm:prose-base">
+            <%= @post.body %>
+          </div>
+          <div data-orientation="horizontal" role="none" class="shrink-0 bg-border h-px w-full my-6"></div>
+          <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
+            <div class="flex items-center gap-2">
+              <button class="ring-offset-background focus-visible:outline-hidden focus-visible:ring-ring inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0 border-input bg-background hover:bg-accent hover:text-accent-foreground border h-9 rounded-md px-3">
+                <%= inline_svg_tag "icons/sparkles.svg", class: "h-4 w-4 mr-2" %>React
+              </button>
+              <button class="ring-offset-background focus-visible:outline-hidden focus-visible:ring-ring inline-flex items-center justify-center gap-2 whitespace-nowrap text-sm font-medium transition-colors focus-visible:ring-2 focus-visible:ring-offset-2 border-input bg-background hover:bg-accent hover:text-accent-foreground border h-9 rounded-md px-3">
+                <%= inline_svg_tag "icons/share.svg", class: "h-4 w-4 mr-2" %>Share
+              </button>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <%= render "posts/sidebar" %>
+
+    <%= render partial: "comments/comments", locals: { comment: @comment, post: @post } %>
   </div>
-</section>
+</div>

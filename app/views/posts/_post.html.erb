@@ -1,52 +1,96 @@
 <%# locals: (post:) %>
 
- <li id="<%= dom_id post %>" class="bg-gradient-to-tr from-gray-800/20 via-gray-800/50 to-gray-800/20">
-  <div class="relative p-5">
-    <div
-      class="absolute inset-0 -m-px pointer-events-none -z-10 before:absolute before:inset-0 before:bg-gradient-to-t before:from-gray-700 before:to-gray-800 after:absolute after:inset-0 after:bg-gray-900 after:m-px"
-      aria-hidden="true"></div>
-    <div class="sm:flex items-center space-y-3 sm:space-y-0 sm:space-x-5">
-      <%= render partial: "likes/like_button", locals: { likeable: post } %>
-      <div class="grow lg:flex items-center justify-between space-y-5 lg:space-x-6 lg:space-y-0">
-        <div>
-          <div class="mb-2">
-            <h2>
-              <%= link_to post.title, post, class: "text-gray-200 font-semibold hover:text-white" %>
-            </h2>
-            <p class="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-300">
-              <%= truncate(strip_tags(post.body.to_s), length: 100) %>
-            </p>
+<div id="<%= dom_id post %>" class="rounded-lg text-card-foreground shadow-2xs group hover:shadow-xl transition-all duration-300 hover:bg-accent/30 border hover:border-primary/20 relative overflow-hidden bg-accent/10" data-v0-t="card">
+  <div class="absolute top-2 right-2 flex gap-1 z-10">
+    <div class="w-2 h-2 bg-blue-500 rounded-full"></div>
+    <div class="w-2 h-2 bg-green-500 rounded-full"></div>
+  </div>
+  <div class="p-4 sm:p-6">
+    <div class="flex gap-3 sm:gap-4 items-start">
+      <!-- Upvote button and count (top-aligned left column, hidden on mobile) -->
+      <div class="hidden sm:flex flex-col items-center gap-2 min-w-[60px] pt-1">
+        <%= render partial: "likes/like_button", locals: { likeable: post } %>
+        <span class="text-lg font-bold text-center min-w-[2ch] text-foreground"><%= post.likes_count || 0 %></span>
+      </div>
+      <div class="flex-1 flex flex-col gap-2 min-w-0">
+        <div class="space-y-3">
+          <div class="space-y-2">
+            <div class="flex items-start justify-between gap-4 min-w-0">
+              <h2 class="text-lg sm:text-xl font-semibold leading-tight hover:text-primary cursor-pointer transition-colors line-clamp-2 group-hover:text-primary/90 min-w-0 truncate">
+                <% if post.respond_to?(:pinned?) && post.pinned? %>
+                  <%= inline_svg_tag "icons/pin.svg", class: "inline size-4 text-blue-500 mr-2 align-text-bottom" %>
+                <% end %>
+                <%= link_to post.title, post %>
+              </h2>
+              <!-- Category badge (right, always visible, placeholder if missing, never overflows) -->
+              <div class="inline-flex items-center rounded-full border px-2.5 py-0.5 transition-colors focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-2 flex-shrink-0 text-xs bg-primary/10 border-primary/20 text-primary font-medium whitespace-nowrap ml-2 max-w-[40vw] truncate" data-v0-t="badge">
+                <%= post.category&.name.presence || 'General' %>
+              </div>
+            </div>
+            <!-- Tags as badges (horizontal, compact, always show at least one placeholder) -->
+            <div class="flex items-center gap-2 flex-wrap mt-1">
+              <% if post.respond_to?(:tags) && post.tags.any? %>
+                <% post.tags.each do |tag| %>
+                  <span class="inline-flex items-center rounded-full border px-2.5 py-0.5 font-semibold focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent bg-secondary text-secondary-foreground text-xs hover:bg-secondary/80 transition-colors cursor-pointer" data-v0-t="badge">
+                    <%= inline_svg_tag "icons/hash.svg", class: "size-3 mr-1" %><%= tag.name %>
+                  </span>
+                <% end %>
+              <% else %>
+                <% 3.times do %>
+                  <span class="inline-flex items-center rounded-full border px-2.5 py-0.5 font-semibold bg-muted text-muted-foreground text-xs animate-pulse" data-v0-t="badge">
+                    <%= inline_svg_tag "icons/hash.svg", class: "size-3 mr-1" %>tag
+                  </span>
+                <% end %>
+              <% end %>
+            </div>
           </div>
-          <div class="mt-1 flex items-center gap-x-2 text-xs leading-5">
-            <%= avatar_tag post.author, class: "w-8 h-8 rounded-full" %>
-            <p>
-              <%= link_to post.author.name, post.author, class: "hover:underline text-gray-700 dark:text-gray-300" %>
-            </p>
-            <p>
-              <%= local_datetime_tag post.created_at, style: :datetime, class: "text-gray-700 dark:text-gray-300" %>
+          <!-- Post excerpt/description -->
+          <div class="text-muted-foreground leading-relaxed cursor-pointer text-sm sm:text-base hover:text-foreground/80 transition-colors mt-1">
+            <p class="line-clamp-3 sm:line-clamp-4 font-light">
+              <%= truncate(strip_tags(post.body.to_s), length: 180) %>
             </p>
           </div>
         </div>
-        <dl class="flex w-full flex-none justify-between gap-x-8 sm:w-auto">
-          <% if post.post_status %>
-              <span class="inline-flex items-center gap-x-1.5 rounded-md px-2 py-1 text-xs font-medium text-gray-900 dark:text-white ring-1 ring-inset ring-gray-200 dark:ring-gray-800">
-              <svg class="h-1.5 w-1.5" style="fill: <%= post.post_status.color %>;" viewBox="0 0 6 6" aria-hidden="true">
-                <circle cx="3" cy="3" r="3"></circle>
-              </svg>
-              <%= post.post_status.name %>
+        <!-- Post meta row: author, role, date, replies, views -->
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mt-3 flex-wrap overflow-x-auto">
+          <div class="flex gap-3 min-w-0 flex-wrap items-start">
+            <span class="relative flex shrink-0 overflow-hidden rounded-full size-8 sm:size-9 ring-2 ring-background shadow-sm">
+              <% if post.author.respond_to?(:avatar_url) && post.author.avatar_url.present? %>
+                <img class="aspect-square h-full w-full" alt="<%= post.author.name %>" src="<%= post.author.avatar_url %>">
+              <% else %>
+                <span class="flex h-full w-full items-center justify-center rounded-full bg-gradient-to-br from-blue-500 to-purple-600 text-white text-xs sm:text-sm font-semibold"><%= post.author.name.to_s.first(2).upcase %></span>
+              <% end %>
             </span>
-          <% end %>
-          <div class="flex w-16 gap-x-2.5">
-            <dt>
-              <span class="sr-only">Total comments</span>
-              <svg class="h-6 w-6 text-gray-700 dark:text-gray-300" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.76c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.076-4.076a1.526 1.526 0 011.037-.443 48.282 48.282 0 005.68-.494c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
-              </svg>
-            </dt>
-            <dd class="text-sm leading-6 text-gray-900 dark:text-white"><%= post.comments_count %></dd>
+            <div class="flex flex-col space-y-1 min-w-0">
+              <div class="flex items-center gap-2 min-w-0">
+                <span class="font-medium text-sm text-foreground truncate"><%= post.author.name %></span>
+                <% if post.author.respond_to?(:role) && post.author.role.present? %>
+                  <span class="items-center rounded-full border px-2.5 py-0.5 font-semibold transition-colors focus:outline-hidden focus:ring-2 focus:ring-ring focus:ring-offset-2 text-foreground text-xs hidden sm:inline-flex truncate" data-v0-t="badge">
+                    <%= post.author.role %>
+                  </span>
+                <% end %>
+              </div>
+              <div class="flex items-center gap-1 text-xs text-muted-foreground min-w-0">
+                <%= inline_svg_tag "icons/clock.svg", class: "size-3" %>
+                <span><%= l(post.created_at, format: :short) %></span>
+              </div>
+            </div>
           </div>
-        </dl>
+          <div class="flex items-center gap-4 text-sm text-muted-foreground flex-shrink-0">
+            <span class="flex items-center gap-1">
+              <%= inline_svg_tag "icons/message-circle.svg", class: "size-4" %>
+              <span class="font-medium"><%= post.comments_count.nil? ? '0' : post.comments_count %></span>
+              <span class="hidden sm:inline text-xs">replies</span>
+            </span>
+            <span class="flex items-center gap-1">
+              <%= inline_svg_tag "icons/eye.svg", class: "size-4" %>
+              <span class="hidden sm:inline font-medium"><%= post.respond_to?(:views_count) && post.views_count.present? ? number_with_delimiter(post.views_count) : '0' %></span>
+              <span class="sm:hidden font-medium"><%= post.respond_to?(:views_count) && post.views_count.present? ? (post.views_count > 999 ? (post.views_count / 1000).to_s + 'k' : post.views_count) : '0' %></span>
+              <span class="hidden sm:inline text-xs">views</span>
+            </span>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-</li>
+</div>
