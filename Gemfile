@@ -31,7 +31,7 @@ gem "tailwindcss-rails", "4.2.3"
 gem "jbuilder"
 
 # View
-gem "pagy", "~> 9.2"
+gem "pagy", "~> 9.3"
 gem "inline_svg"
 gem "tailwind_merge", "~> 1.3.1"
 
