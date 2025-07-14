@@ -172,7 +172,7 @@ module FormBuilders
   test "submit returns custom styled submit button" do
     form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
-    expected = %(<input type="submit" name="commit" value="Create User" class="btn btn-primary" data-disable-with="Create User" />)
+    expected = %(<input type="submit" name="commit" value="Create User" class="btn-primary" data-disable-with="Create User" />)
 
     assert_dom_equal expected, form.submit("Create User")
   end
