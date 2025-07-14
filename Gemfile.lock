@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/rails/rails.git
-  revision: 0bd254ebf835e880d485897d23de667007caa47b
+  revision: 7533bcbcb3a0bc011844dabf1efd3288cc54e5e0
   branch: main
   specs:
     actioncable (8.1.0.alpha)
@@ -96,6 +96,7 @@ GIT
       rackup (>= 1.0.0)
       rake (>= 12.2)
       thor (~> 1.0, >= 1.2.2)
+      tsort (>= 0.2)
       zeitwerk (~> 2.6)
 
 GEM
@@ -529,6 +530,7 @@ GEM
     thruster (0.1.14-x86_64-darwin)
     thruster (0.1.14-x86_64-linux)
     timeout (0.4.3)
+    tsort (0.2.0)
     turbo-rails (2.0.16)
       actionpack (>= 7.1.0)
       railties (>= 7.1.0)
@@ -821,6 +823,7 @@ CHECKSUMS
   thruster (0.1.14-x86_64-darwin) sha256=c8e90a0c617a9ee19439e7e6466ea723fddf1d1fb4593b58c4e34f6e32bbbab1
   thruster (0.1.14-x86_64-linux) sha256=05927cf84431fe898031b6eb6abc63e65ffacfce6740b40e9107916cb90e1aa6
   timeout (0.4.3) sha256=9509f079b2b55fe4236d79633bd75e34c1c1e7e3fb4b56cb5fda61f80a0fe30e
+  tsort (0.2.0) sha256=9650a793f6859a43b6641671278f79cfead60ac714148aabe4e3f0060480089f
   turbo-rails (2.0.16) sha256=d24e1b60f0c575b3549ecda967e5391027143f8220d837ed792c8d48ea0ea38d
   tzinfo (2.0.6) sha256=8daf828cc77bcf7d63b0e3bdb6caa47e2272dcfaf4fbfe46f8c3a9df087a829b
   unicode-display_width (3.1.4) sha256=8caf2af1c0f2f07ec89ef9e18c7d88c2790e217c482bfc78aaa65eadd5415ac1
