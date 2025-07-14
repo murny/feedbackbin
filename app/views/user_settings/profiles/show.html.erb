@@ -24,7 +24,7 @@
             <div>
               <%= form.file_field :avatar, accept: "image/*", data: { upload_preview_target: "input", action: "upload-preview#previewImage" }, class: "hidden" %>
               <%= form.label :avatar, class: "inline-flex items-center btn btn-secondary" do %>
-                <%= inline_svg "icons/outline/camera.svg", class: "h-5 w-5 mr-2" %>
+                <%= inline_svg "icons/camera.svg", class: "h-5 w-5 mr-2" %>
                 <%= t(".upload_new_avatar") %>
               <% end %>
               <p class="my-3 text-xs leading-5 text-gray-600 dark:text-gray-400">
@@ -34,7 +34,7 @@
                 <%= link_to user_avatar_path(@user),
                       class: "btn inline-flex items-center text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900",
                       data: { "turbo-method": :delete, turbo_confirm: "Are you sure?" } do %>
-                  <%= inline_svg "icons/solid/x-circle.svg", class: "h-5 w-5 mr-2" %>
+                  <%= inline_svg "icons/circle-x.svg", class: "h-5 w-5 mr-2" %>
                   <%= t(".remove_avatar") %>
                 <% end %>
               <% end %>

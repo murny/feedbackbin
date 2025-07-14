@@ -44,7 +44,7 @@
       <div class="flex items-center">
         <div class="flex-shrink-0">
           <%= link_to changelogs_path, class: [ "relative inline-flex items-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-semibold text-gray-900 hover:bg-gray-50 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-gray-700 dark:hover:text-white", unread_changelogs_class(Current.user) ] do %>
-          <%= inline_svg "icons/outline/megaphone.svg", class: "h-6 w-6" %>
+          <%= inline_svg "icons/megaphone.svg", class: "h-6 w-6" %>
           <span class="hidden md:block"><%= t(".links.whats_new") %></span>
           <% end %>
         </div>

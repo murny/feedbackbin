@@ -19,9 +19,9 @@
 
   <div class="mt-5 flex items-center space-x-4 justify-end">
     <% if form.object.new_record? %>
-      <%= link_to t("cancel"), posts_path, class: "btn btn-secondary" %>
+      <%= link_to t("cancel"), posts_path, class: "btn-secondary" %>
     <% else %>
-      <%= link_to t("cancel"), post_path(@post), class: "btn btn-secondary" %>
+      <%= link_to t("cancel"), post_path(@post), class: "btn-secondary" %>
     <% end %>
 
     <%= form.submit %>

@@ -29,7 +29,7 @@ module FormBuilders
     CHECKBOX_CLASSES = "h-4 w-4 rounded border-input bg-background text-primary focus-visible:ring-2 " \
     "focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
 
-    SUBMIT_CLASSES = "btn btn-primary"
+    SUBMIT_CLASSES = "btn-primary"
 
     def text_field(attribute, options = {}, &block)
       if options[:leading_icon]
@@ -145,7 +145,7 @@ module FormBuilders
 
       @template.content_tag :div, class: "pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 " do
         @template.inline_svg_tag(
-          "icons/outline/exclaimation-circle.svg",
+          "icons/circle-alert.svg",
           class: "h-5 w-5 text-red-500",
           aria: true,
           title: "Error",

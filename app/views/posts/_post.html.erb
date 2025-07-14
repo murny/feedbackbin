@@ -1,51 +1,47 @@
 <%# locals: (post:) %>
 
- <li id="<%= dom_id post %>" class="bg-gradient-to-tr from-gray-800/20 via-gray-800/50 to-gray-800/20">
-  <div class="relative p-5">
-    <div
-      class="absolute inset-0 -m-px pointer-events-none -z-10 before:absolute before:inset-0 before:bg-gradient-to-t before:from-gray-700 before:to-gray-800 after:absolute after:inset-0 after:bg-gray-900 after:m-px"
-      aria-hidden="true"></div>
-    <div class="sm:flex items-center space-y-3 sm:space-y-0 sm:space-x-5">
+ <li id="<%= dom_id post %>" class="card hover:shadow-xl hover:border-primary/20">
+  <div class="px-4 md:px-6">
+    <div class="flex gap-3 md:gap-4">
       <%= render partial: "likes/like_button", locals: { likeable: post } %>
       <div class="grow lg:flex items-center justify-between space-y-5 lg:space-x-6 lg:space-y-0">
         <div>
           <div class="mb-2">
             <h2>
-              <%= link_to post.title, post, class: "text-gray-200 font-semibold hover:text-white" %>
+              <%= link_to post.title, post, class: "scroll-m-20 text-2xl font-semibold tracking-tight hover:underline cursor-pointer line-clamp-2" %>
             </h2>
-            <p class="mt-1 text-sm leading-6 text-gray-700 dark:text-gray-300">
+            <div class="mt-1 flex items-center gap-x-2 text-xs leading-5">
+              <p>
+                <%= link_to post.author.name, post.author, class: "hover:underline" %>
+              </p>
+              <svg viewBox="0 0 2 2" class="h-0.5 w-0.5 fill-current">
+                <circle cx="1" cy="1" r="1" />
+              </svg>
+              <p>
+                <%= local_datetime_tag post.created_at, style: :datetime %>
+              </p>
+            </div>
+            <p class="mt-2 text-muted-foreground text-sm">
               <%= truncate(strip_tags(post.body.to_s), length: 100) %>
             </p>
           </div>
-          <div class="mt-1 flex items-center gap-x-2 text-xs leading-5">
-            <%= avatar_tag post.author, class: "w-8 h-8 rounded-full" %>
-            <p>
-              <%= link_to post.author.name, post.author, class: "hover:underline text-gray-700 dark:text-gray-300" %>
-            </p>
-            <p>
-              <%= local_datetime_tag post.created_at, style: :datetime, class: "text-gray-700 dark:text-gray-300" %>
-            </p>
-          </div>
         </div>
-        <dl class="flex w-full flex-none justify-between gap-x-8 sm:w-auto">
-          <% if post.post_status %>
-              <span class="inline-flex items-center gap-x-1.5 rounded-md px-2 py-1 text-xs font-medium text-gray-900 dark:text-white ring-1 ring-inset ring-gray-200 dark:ring-gray-800">
-              <svg class="h-1.5 w-1.5" style="fill: <%= post.post_status.color %>;" viewBox="0 0 6 6" aria-hidden="true">
-                <circle cx="3" cy="3" r="3"></circle>
-              </svg>
-              <%= post.post_status.name %>
-            </span>
-          <% end %>
+        <div class="flex w-full flex-none justify-between gap-x-8 sm:w-auto">
+          <%= render_avatar_group([
+              { src: "https://github.com/murny.png", alt: "@murny", fallback: "SM" },
+              { src: "https://github.com/rails.png", alt: "@rails", fallback: "RR" },
+              { src: "https://github.com/ruby.png", alt: "@ruby", fallback: "RB" }
+            ], hover_effect: true) %>
           <div class="flex w-16 gap-x-2.5">
-            <dt>
+            <div>
               <span class="sr-only">Total comments</span>
               <svg class="h-6 w-6 text-gray-700 dark:text-gray-300" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.76c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.076-4.076a1.526 1.526 0 011.037-.443 48.282 48.282 0 005.68-.494c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
               </svg>
-            </dt>
-            <dd class="text-sm leading-6 text-gray-900 dark:text-white"><%= post.comments_count %></dd>
+            </div>
+            <div class="text-sm leading-6 text-gray-900 dark:text-white"><%= post.comments_count %></div>
           </div>
-        </dl>
+        </div>
       </div>
     </div>
   </div>
