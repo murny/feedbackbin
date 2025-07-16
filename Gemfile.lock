@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/rails/rails.git
-  revision: 7533bcbcb3a0bc011844dabf1efd3288cc54e5e0
+  revision: 60252302c77fb2a4885996a31b347b0db6aee6e1
   branch: main
   specs:
     actioncable (8.1.0.alpha)
@@ -150,7 +150,7 @@ GEM
     dotenv (3.1.8)
     drb (2.2.3)
     ed25519 (1.4.0)
-    erb (5.0.1)
+    erb (5.0.2)
     erb_lint (0.9.0)
       activesupport
       better_html (>= 2.0.1)
@@ -214,7 +214,7 @@ GEM
     inline_svg (1.10.0)
       activesupport (>= 3.0)
       nokogiri (>= 1.6)
-    io-console (0.8.0)
+    io-console (0.8.1)
     irb (1.15.2)
       pp (>= 0.6.0)
       rdoc (>= 4.0.0)
@@ -658,7 +658,7 @@ CHECKSUMS
   dotenv (3.1.8) sha256=9e1176060ced581f8e6ce4384e91361817763a76e3c625c8bddc18b35bd392c3
   drb (2.2.3) sha256=0b00d6fdb50995fe4a45dea13663493c841112e4068656854646f418fda13373
   ed25519 (1.4.0) sha256=16e97f5198689a154247169f3453ef4cfd3f7a47481fde0ae33206cdfdcac506
-  erb (5.0.1) sha256=760439803b36cc93eca8a266aab614614e588024a89bc30a62e78d98ff452c23
+  erb (5.0.2) sha256=d30f258143d4300fb4ecf430042ac12970c9bb4b33c974a545b8f58c1ec26c0f
   erb_lint (0.9.0) sha256=dfb5e40ad839e8d1f0d56ca85ec9a7ac4c9cd966ec281138282f35b323ca7c31
   erblint-github (1.0.1) sha256=9f28f7dc381a0dc68a0093ef7af3424ed9d2bb2b3e39bdc8e8cba86a0d31f2d0
   erubi (1.13.1) sha256=a082103b0885dbc5ecf1172fede897f9ebdb745a4b97a5e8dc63953db1ee4ad9
@@ -686,7 +686,7 @@ CHECKSUMS
   image_processing (1.14.0) sha256=754cc169c9c262980889bec6bfd325ed1dafad34f85242b5a07b60af004742fb
   importmap-rails (2.1.0) sha256=9f10c67d60651a547579f448100d033df311c5d5db578301374aeb774faae741
   inline_svg (1.10.0) sha256=5b652934236fd9f8adc61f3fd6e208b7ca3282698b19f28659971da84bf9a10f
-  io-console (0.8.0) sha256=cd6a9facbc69871d69b2cb8b926fc6ea7ef06f06e505e81a64f14a470fddefa2
+  io-console (0.8.1) sha256=1e15440a6b2f67b6ea496df7c474ed62c860ad11237f29b3bd187f054b925fcb
   irb (1.15.2) sha256=222f32952e278da34b58ffe45e8634bf4afc2dc7aa9da23fed67e581aa50fdba
   jbuilder (2.13.0) sha256=7200a38a1c0081aa81b7a9757e7a299db75bc58cf1fd45ca7919a91627d227d6
   json (2.12.2) sha256=ba94a48ad265605c8fa9a50a5892f3ba6a02661aa010f638211f3cb36f44abf4
