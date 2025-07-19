@@ -13,7 +13,7 @@
           <div>
             <article class="mb-20">
               <header class="mb-6">
-                <h1 class="h2 text-gray-200 mb-4"><%= @post.title %></h1>
+                <h1 class="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 leading-tight"><%= @post.title %></h1>
                 <div class="flex items-center">
                   <%= avatar_tag @post.author, class: "rounded-full w-10 h-10 mr-2", alt: "" %>
                   <div class="text-sm text-gray-600">
@@ -27,7 +27,7 @@
                 </div>
               </header>
 
-              <div class="text-gray-400 space-y-6">
+              <div class="prose max-w-none prose-sm sm:prose-base">
                 <%= @post.body %>
               </div>
             </article>
@@ -36,6 +36,5 @@
         <%= render partial: "comments/comments", locals: { comment: @comment, post: @post } %>
       </div>
     </div>
-    <%= render "posts/sidebar" %>
   </div>
 </section>

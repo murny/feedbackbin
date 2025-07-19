@@ -3,7 +3,7 @@
 <section class="bg-white dark:bg-gray-900 antialiased">
   <div class="max-w-2xl mx-auto">
     <div class="flex justify-between items-center mb-6">
-      <h2 class="text-lg lg:text-2xl font-bold text-gray-900 dark:text-white">
+      <h2 class="text-lg lg:text-2xl font-bold text-foreground">
         <%= turbo_frame_tag "post_#{@post.id}_comment_count" do %>
           Discussion (<%= post.comments_count %>)
         <% end %>

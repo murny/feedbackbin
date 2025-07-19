@@ -10,7 +10,7 @@
       </div>
       <div class="mt-6 sm:flex sm:min-w-0 sm:flex-1 sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
         <div class="mt-6 min-w-0 flex-1 sm:hidden md:block">
-          <h1 class="truncate text-2xl font-bold text-gray-900 dark:text-white"><%= @user.name %></h1>
+          <h1 class="truncate text-2xl font-bold text-foreground"><%= @user.name %></h1>
         </div>
         <div class="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-x-4 sm:space-y-0">
           <%= link_to "Edit profile", user_settings_profile_path, class: "inline-flex justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" %>
@@ -21,12 +21,12 @@
       </div>
     </div>
     <div class="mt-6 hidden min-w-0 flex-1 sm:block md:hidden">
-      <h1 class="truncate text-2xl font-bold text-gray-900 dark:text-white"><%= @user.name %></h1>
+      <h1 class="truncate text-2xl font-bold text-foreground"><%= @user.name %></h1>
     </div>
   </div>
 </div>
 
-<p class="mt-6 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-sm text-gray-500 dark:text-gray-400">
+<p class="mt-6 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-sm text-muted-foreground">
   <%= @user.bio %>
 </p>
 
@@ -88,21 +88,21 @@
           <li class="relative flex justify-between gap-x-6 px-4 py-5 hover:bg-gray-50 dark:hover:bg-gray-600 sm:px-6">
             <div class="flex min-w-0 gap-x-4">
               <div class="min-w-0 flex-auto">
-                <p class="text-sm font-semibold leading-6 text-gray-900 dark:text-white">
+                <p class="text-sm font-semibold leading-6 text-foreground">
                   <%= link_to post_path(post) do %>
                     <span class="absolute inset-x-0 -top-px bottom-0"></span>
                     <%= post.title %>
                   <% end %>
                 </p>
-                <p class="mt-1 flex text-xs leading-5 text-gray-500 dark:text-gray-400">
+                <p class="mt-1 flex text-xs leading-5 text-muted-foreground">
                   <%= truncate(post.body.to_plain_text, length: 100) %>
                 </p>
               </div>
             </div>
             <div class="flex shrink-0 items-center gap-x-4">
               <div class="hidden sm:flex sm:flex-col sm:items-end">
-                <p class="text-sm leading-6 text-gray-900 dark:text-white"><%= post.category.name %></p>
-                <p class="mt-1 text-xs leading-5 text-gray-500 dark:text-gray-400"><%= local_datetime_tag post.created_at, style: :datetime %></p>
+                <p class="text-sm leading-6 text-foreground"><%= post.category.name %></p>
+                <p class="mt-1 text-xs leading-5 text-muted-foreground"><%= local_datetime_tag post.created_at, style: :datetime %></p>
               </div>
               <svg class="h-5 w-5 flex-none text-gray-400 dark:text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                 <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
@@ -118,25 +118,25 @@
           <li class="relative flex justify-between gap-x-6 px-4 py-5 hover:bg-gray-50 dark:hover:bg-gray-600 sm:px-6">
             <div class="flex min-w-0 gap-x-4">
               <div class="min-w-0 flex-auto">
-                <p class="text-sm font-semibold leading-6 text-gray-900 dark:text-white">
+                <p class="text-sm font-semibold leading-6 text-foreground">
                   <%= link_to comment_path(comment) do %>
                     <span class="absolute inset-x-0 -top-px bottom-0"></span>
-                    <span class="text-sm text-gray-500 dark:text-gray-400">Commented on</span> <%= comment.post.title %>
+                    <span class="text-sm text-muted-foreground">Commented on</span> <%= comment.post.title %>
                   <% end %>
                 </p>
-                <p class="mt-1 flex text-xs leading-5 text-gray-500 dark:text-gray-400">
+                <p class="mt-1 flex text-xs leading-5 text-muted-foreground">
                   <%= truncate(comment.body.to_plain_text, length: 250) %>
                 </p>
               </div>
             </div>
             <div class="flex shrink-0 items-center gap-x-4">
               <div class="hidden sm:flex sm:flex-col sm:items-end">
-                <p class="text-sm leading-6 text-gray-900 dark:text-white">
+                <p class="text-sm leading-6 text-foreground">
                   <% if comment.parent %>
-                    <span class="text-sm text-gray-500 dark:text-gray-400">Replied to</span> <%= comment.parent.creator.username %>
+                    <span class="text-sm text-muted-foreground">Replied to</span> <%= comment.parent.creator.username %>
                   <% end %>
                 </p>
-                <p class="mt-1 text-xs leading-5 text-gray-500 dark:text-gray-400"><%= local_datetime_tag comment.created_at, style: :datetime %></p>
+                <p class="mt-1 text-xs leading-5 text-muted-foreground"><%= local_datetime_tag comment.created_at, style: :datetime %></p>
               </div>
               <svg class="h-5 w-5 flex-none text-gray-400 dark:text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
                 <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
@@ -152,18 +152,18 @@
           <li class="relative flex justify-between gap-x-6 px-4 py-5 hover:bg-gray-50 dark:hover:bg-gray-600 sm:px-6">
             <div class="flex min-w-0 gap-x-4">
               <div class="min-w-0 flex-auto">
-                <p class="text-sm font-semibold leading-6 text-gray-900 dark:text-white">
+                <p class="text-sm font-semibold leading-6 text-foreground">
                   <% if like.likeable_type == "Post" %>
-                    <span class="text-sm text-gray-500 dark:text-gray-400">Liked the post:</span> <%= like.likeable.title %>
+                    <span class="text-sm text-muted-foreground">Liked the post:</span> <%= like.likeable.title %>
                   <% else %>
-                    <span class="text-sm text-gray-500 dark:text-gray-400">Liked the comment:</span> <%= truncate(like.likeable.body.to_plain_text, length: 100) %>
+                    <span class="text-sm text-muted-foreground">Liked the comment:</span> <%= truncate(like.likeable.body.to_plain_text, length: 100) %>
                   <% end %>
                 </p>
               </div>
             </div>
             <div class="flex shrink-0 items-center gap-x-4">
               <div class="hidden sm:flex sm:flex-col sm:items-end">
-                <p class="mt-1 text-xs leading-5 text-gray-500 dark:text-gray-400"><%= local_datetime_tag like.created_at, style: :datetime %></p>
+                <p class="mt-1 text-xs leading-5 text-muted-foreground"><%= local_datetime_tag like.created_at, style: :datetime %></p>
               </div>
             </div>
           </li>

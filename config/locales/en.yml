@@ -58,6 +58,8 @@ en:
       description: New updates and improvements to %{name}
       title: What's New
   comments:
+    reply_form:
+      write_a_reply: Write a reply
     create:
       successfully_created: Comment was successfully created.
     destroy:

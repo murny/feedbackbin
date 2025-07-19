@@ -3,7 +3,7 @@
 <section class="bg-white dark:bg-gray-900">
   <div class="py-8 px-4 mx-auto max-w-2xl lg:py-16">
     <div class="flex items-center justify-between mb-4">
-      <h1 class="text-xl font-bold text-gray-900 dark:text-white"><%= t("posts.edit.title") %></h1>
+      <h1 class="text-xl font-bold text-foreground"><%= t("posts.edit.title") %></h1>
       <%= button_to t("delete"), @post, method: :delete, class: "btn btn-secondary", form: { data: { turbo_confirm: t("are_you_sure") } } %>
     </div>
     <%= render "form", post: @post %>
