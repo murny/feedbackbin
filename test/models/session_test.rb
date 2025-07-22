@@ -18,15 +18,6 @@ class SessionTest < ActiveSupport::TestCase
     assert_equal "must exist", @session.errors[:user].first
   end
 
-  test "dependent destroy on user" do
-    user = users(:one)
-    user.sessions.create!(user_agent: "Mozilla/5.0", ip_address: "127.0.0.1")
-
-    assert_difference("Session.count", -1) do
-      user.destroy
-    end
-  end
-
   test "before create sets last active at" do
     user = users(:one)
     session = user.sessions.create!(user_agent: "Mozilla/5.0", ip_address: "127.0.0.1")

@@ -86,10 +86,17 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "invalid if using very long password" do
-    @user.update(password: "secret" * 15)
+    @user.password = "secret" * 15
 
     assert_not @user.valid?
     assert_equal "is too long", @user.errors[:password].first
+  end
+
+  test "invalid if password is too short" do
+    @user.password = "short"
+
+    assert_not @user.valid?
+    assert_equal("is too short (minimum is 10 characters)", @user.errors[:password].first)
   end
 
   test "invalid when bio is too large" do
@@ -125,5 +132,11 @@ class UserTest < ActiveSupport::TestCase
 
     # it anonymizes the filename of the avatar
     assert_equal("avatar.jpeg", @user.avatar.filename.to_s)
+  end
+
+  test "sessions are destroyed when user is destroyed" do
+    assert_difference("Session.count", -1) do
+      @user.destroy
+    end
   end
 end
