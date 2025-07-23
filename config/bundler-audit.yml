@@ -1,5 +1,5 @@
 # Audit all gems listed in the Gemfile for known security problems by running bin/bundler-audit.
 # CVEs that are not relevant to the application can be enumerated on the ignore list below.
 
-ignore:
-  - CVE-2025-54314 # remove this after we update Kamal gem as we need to update Thor which is a dependency of Kamal
+# ignore:
+#  - CVE-EXAMPLE-123
