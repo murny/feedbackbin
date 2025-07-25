@@ -157,29 +157,12 @@ bin/jobs
 
 ## ⚙️ Configuration
 
-### Environment Variables
-Create a `.env` file in the root directory:
-
-```env
-# Database Configuration (SQLite paths)
-DATABASE_URL=sqlite3:storage/production.sqlite3
-
-# OAuth Configuration (optional)
-GOOGLE_CLIENT_ID=your_google_client_id
-GOOGLE_CLIENT_SECRET=your_google_client_secret
-FACEBOOK_APP_ID=your_facebook_app_id
-FACEBOOK_APP_SECRET=your_facebook_app_secret
-
-# Application Settings
-RAILS_MASTER_KEY=your_master_key
-```
-
 ### Credentials
 Use Rails encrypted credentials for sensitive configuration:
 
 ```bash
 # Edit credentials
-EDITOR=nano bin/rails credentials:edit
+bin/rails credentials:edit
 
 # Example credentials structure:
 # oauth:
