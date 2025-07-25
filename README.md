@@ -1,113 +1,447 @@
-# FeedbackBin
+<div align="center">
 
-> **Warning**
-> This is a work-in-progress.
->
-> FeedbackBin is in heavy active development towards a minimal viable product (MVP).
->
-> Stay tune for updates.
+# 📋 FeedbackBin
 
-TODO: Add description/screenshots/What is FeedbackBin? etc in this section
+**A modern, self-hosted customer feedback management platform**
 
-## Table of Contents
+> **⚠️ MVP Development Notice**
+> 
+> FeedbackBin is currently in active development towards its minimal viable product (MVP). 
+> While functional, the software is not yet production-ready. We're working hard to deliver 
+> a stable release soon. Stay tuned for updates!
 
-## Community
+[![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
+[![Ruby](https://img.shields.io/badge/Ruby-3.4.x-red.svg)](https://www.ruby-lang.org/)
+[![Rails](https://img.shields.io/badge/Rails-8.x-red.svg)](https://rubyonrails.org/)
 
-## Contributing
+[Features](#-features) • [Quick Start](#-quick-start) • [Documentation](#-documentation) • [Contributing](#-contributing) • [License](#-license)
 
-## Getting Started
+</div>
 
-## Technology Stack
+---
 
-* Ruby on Rails 8.X
-* Ruby 3.4.x
-* Hotwire
-* Import maps
-* Solid Cable
-* Solid Cache
-* Solid Queue
-* SQLite3
-* Tailwind CSS
+## 🚀 Introduction
 
-## Installation
-1. Clone the repository: `git clone https://github.com/murny/feedbackbin.git`
-2. Navigate to the project directory: `cd feedbackbin`
-3. Install dependencies: `bundle install`
+FeedbackBin is a powerful, self-hosted customer feedback management platform built with Ruby on Rails 8. It provides organizations with a comprehensive solution to collect, organize, and act on customer feedback through an intuitive, modern interface.
 
-## Configuration
+### Why FeedbackBin?
 
-TODO: Add section about credentials and other configuration setup?
+- **Self-hosted**: Complete control over your data and infrastructure
+- **Modern Architecture**: Built with Rails 8, Hotwire, and Tailwind CSS
+- **Real-time Updates**: Live feedback updates using Turbo Streams
+- **Multi-tenant**: Support for multiple organizations with role-based access
+- **Privacy-focused**: Your feedback data stays on your servers
 
-## Running the application
+## 📋 Table of Contents
 
-1. Run `bin/setup`
+- [Features](#-features)
+- [Technology Stack](#-technology-stack)
+- [Requirements](#-requirements)
+- [Quick Start](#-quick-start)
+- [Installation](#-installation)
+- [Configuration](#%EF%B8%8F-configuration)
+- [Development](#-development)
+- [Testing](#-testing)
+- [Code Quality](#-code-quality)
+- [Security](#-security)
+- [Deployment](#-deployment)
+- [Contributing](#-contributing)
+- [Community](#-community)
+- [License](#-license)
 
-By default `bin/setup` will also run `bin/dev` which will start the Rails server. To opt out of this use `bin/setup --skip-server` instead.
+## ✨ Features
 
-## Linting & Formatting
+### Core Functionality
+- **Feedback Management**: Create, organize, and track customer feedback posts
+- **Threaded Comments**: Rich discussion system with nested comments
+- **Category Organization**: Logical grouping of feedback items
+- **Status Tracking**: Monitor feedback lifecycle with custom statuses
+- **User Management**: Role-based access control and user profiles
 
-#### Ruby
+### Technical Features
+- **Real-time Updates**: Live updates using Turbo Streams over WebSocket
+- **Rich Text Support**: ActionText integration for formatted content
+- **File Uploads**: ActiveStorage support for avatars and attachments
+- **OAuth Integration**: Google and Facebook authentication
+- **Mobile Responsive**: Mobile-first design with dark/light theme support
+- **Background Jobs**: Solid Queue for async processing
 
-We use Rubocop for linting and formatting.
-- Run `bin/rubocop` to check all ruby files
-- Run `bin/rubocop -a` to auto-correct offenses
-- [How do I run RuboCop in my editor?](https://docs.rubocop.org/rubocop/1.25/integration_with_other_tools.html#editor-integration)
+### Enterprise Ready
+- **Multi-tenancy**: Organization-scoped data access
+- **Security**: Comprehensive authorization with Pundit policies
+- **Scalable**: SQLite-based architecture optimized for performance
+- **Self-hosted**: Complete data ownership and privacy control
 
-#### ERB
+## 🛠 Technology Stack
 
-We use [ERB Lint](https://github.com/Shopify/erb-lint) to lint our ERB files.
-- Run `bundle exec erblint --lint-all` to check all ERB files
-- Run `bundle exec erblint --lint-all -a` to auto-correct offenses. WARNING: This command isn't safe and can break your code.
+### Backend
+- **Ruby 3.4.x** - Modern Ruby with performance improvements
+- **Ruby on Rails 8.x** - Latest Rails with new features
+- **SQLite3** - Lightweight, serverless database
+- **Solid Queue** - Background job processing
+- **Solid Cache** - Application caching
+- **Solid Cable** - WebSocket connections
 
-#### I18n
+### Frontend
+- **Hotwire/Turbo** - SPA-like experience without JavaScript complexity
+- **Stimulus.js** - Minimal JavaScript controllers
+- **Tailwind CSS** - Utility-first CSS framework
+- **Import Maps** - Modern JavaScript without bundling
+- **Lucide Icons** - Beautiful, customizable icons
 
-We use [I18n Task](https://github.com/glebm/i18n-tasks) for linting and formatting our I18n files.
-- Run `bundle exec i18n-tasks health` to check the health of your I18n files.
-- Run `bundle exec i18n-tasks normalize` to normalize your I18n files.
+### Authentication & Authorization
+- **Custom Authentication** - Built with `has_secure_password`
+- **OAuth Support** - Google and Facebook integration via Omniauth
+- **Pundit** - Policy-based authorization system
 
-## Testing
+### Development & Deployment
+- **Kamal** - Container-based deployment
+- **Docker** - Containerized application
+- **Foreman** - Process management for development
 
-Run tests by using `bin/rails test`.
+## 📋 Requirements
 
-#### System tests
+- **Ruby**: 3.4.x or higher
+- **Node.js**: 18.x or higher (for asset pipeline)
+- **SQLite**: 3.x (included with most systems)
+- **Git**: For version control
 
-Run tests by using `bin/rails test:system`.
+## 🚀 Quick Start
 
-## Deployment
-TODO: Need to add more info here, but essentially we use [Kamal](https://github.com/basecamp/kamal)
+Get FeedbackBin running locally in just a few commands:
 
-### Server Provisioning
+```bash
+# Clone the repository
+git clone https://github.com/murny/feedbackbin.git
+cd feedbackbin
 
-You will need to acquire a VPS (a cheap Digital Ocean droplet or hetzner vps should be more than fine depending on your needs)
+# Setup and start the application (includes dependency installation)
+bin/setup
 
-Server hardening:
- - add your ssh key to the vps
- - force ssh only via ssh key (e.g set `PasswordAuthentication no` in `/etc/ssh/sshd_config` then `systemctl restart ssh`)
- - setup a basic firewall for your server which allows outgoing traffic but denys all traffic except for port 22/80/443.
- - update/upgrade/remove/clean up packages on the system
- - many more things...fail2ban? etc? need to improve these docs
+# The application will be available at http://localhost:3000
+```
 
-Domain/DNS:
-- Create a CNAME and A DNS record for your VPS
+That's it! The `bin/setup` script handles dependency installation and starts the development server automatically.
 
-Kamal
-- update deploy.yml to your server information
-- Set env var for KAMAL_REGISTRY_PASSWORD and your master key file
-- run `kamal setup` to deploy application
+## 💾 Installation
 
-Will need to add docs here for setting up a VPS/Provisioning and kamal configuration/commands required.
+### 1. Clone the Repository
+```bash
+git clone https://github.com/murny/feedbackbin.git
+cd feedbackbin
+```
 
-## Contributing
-TODO: Need to add more info here
+### 2. Install Dependencies
+```bash
+# Install Ruby dependencies
+bundle install
 
-We welcome contributions! Please see our [contributing guidelines](CONTRIBUTING.md) for more information.
+# Setup the database and seed data
+bin/rails db:setup
+```
 
+### 3. Start the Application
+```bash
+# Start with auto-reload (recommended for development)
+bin/dev
 
-## Contact
-TODO: Add more info here
+# Or start Rails server directly
+bin/rails server
+```
 
-Soon will have a discord server setup
+### 4. Start Background Jobs (Optional)
+```bash
+# In a separate terminal for background job processing
+bin/jobs
+```
 
-## License
+## ⚙️ Configuration
 
-Inspired by [Plausible](https://plausible.io/blog/open-source-licenses), FeedbackBin is open-source under the GNU Affero General Public License Version 3 (AGPLv3) or any later version. You can [find it here](https://github.com/murny/feedbackbin/blob/main/LICENSE.md).
+### Environment Variables
+Create a `.env` file in the root directory:
+
+```env
+# Database Configuration (SQLite paths)
+DATABASE_URL=sqlite3:storage/production.sqlite3
+
+# OAuth Configuration (optional)
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+FACEBOOK_APP_ID=your_facebook_app_id
+FACEBOOK_APP_SECRET=your_facebook_app_secret
+
+# Application Settings
+RAILS_MASTER_KEY=your_master_key
+```
+
+### Credentials
+Use Rails encrypted credentials for sensitive configuration:
+
+```bash
+# Edit credentials
+EDITOR=nano bin/rails credentials:edit
+
+# Example credentials structure:
+# oauth:
+#   google:
+#     client_id: your_google_client_id
+#     client_secret: your_google_client_secret
+#   facebook:
+#     app_id: your_facebook_app_id
+#     app_secret: your_facebook_app_secret
+```
+
+## 👩‍💻 Development
+
+### Development Commands
+```bash
+# Setup project (run once)
+bin/setup --skip-server  # Setup without starting server
+
+# Development server with auto-reload
+bin/dev                   # Starts server on port 3000
+
+# Background job worker
+bin/jobs                  # Process background jobs
+
+# Run full CI pipeline locally
+bin/ci                    # Lint, security checks, and tests
+```
+
+### Database Operations
+```bash
+# Create and migrate database
+bin/rails db:create db:migrate
+
+# Seed with sample data
+bin/rails db:seed
+
+# Reset database (development only)
+bin/rails db:reset
+
+# Test database setup
+env RAILS_ENV=test bin/rails db:seed:replant
+```
+
+## 🧪 Testing
+
+FeedbackBin uses Rails' built-in testing framework with comprehensive coverage:
+
+```bash
+# Run all tests
+bin/rails test
+
+# Run specific test types
+bin/rails test:models     # Model tests
+bin/rails test:controllers # Controller tests
+bin/rails test:system     # End-to-end browser tests
+
+# Run tests with coverage
+COVERAGE=true bin/rails test
+```
+
+### Test Structure
+- **Unit Tests**: `test/models/` - Model and business logic tests
+- **Integration Tests**: `test/controllers/` - Controller and request tests
+- **System Tests**: `test/system/` - Full browser automation tests
+- **Fixtures**: `test/fixtures/` - Test data setup
+
+## 🔍 Code Quality
+
+### Linting and Formatting
+
+#### Ruby Code
+```bash
+# Check Ruby code style
+bin/rubocop
+
+# Auto-fix Ruby style issues
+bin/rubocop -a
+
+# Check specific files
+bin/rubocop app/models/user.rb
+```
+
+#### ERB Templates
+```bash
+# Check ERB templates
+bin/erb_lint --lint-all
+
+# Auto-fix ERB issues (use with caution)
+bin/erb_lint --lint-all -a
+```
+
+#### Internationalization
+```bash
+# Check I18n file health
+bin/i18n-tasks health
+
+# Normalize I18n files
+bin/i18n-tasks normalize
+```
+
+### Code Quality Tools
+- **RuboCop**: Ruby style guide enforcement
+- **ERB Lint**: ERB template linting
+- **I18n Tasks**: Translation file management
+- **SimpleCov**: Test coverage reporting
+
+## 🔒 Security
+
+FeedbackBin takes security seriously with multiple layers of protection:
+
+### Security Audits
+```bash
+# Static security analysis
+bin/brakeman
+
+# Check for vulnerable gems
+bin/bundler-audit
+
+# JavaScript vulnerability check
+bin/importmap audit
+```
+
+### Security Features
+- **CSRF Protection**: Built-in Rails CSRF protection
+- **SQL Injection Prevention**: ActiveRecord parameterized queries
+- **XSS Protection**: Automatic HTML escaping
+- **Authentication**: Secure password hashing with bcrypt
+- **Authorization**: Pundit policy-based access control
+- **Session Security**: Secure session management
+
+### Best Practices
+- Regular security audits with automated tools
+- Dependency vulnerability monitoring
+- Secure configuration management with Rails credentials
+- Input validation and sanitization
+- Regular security updates
+
+## 🚀 Deployment
+
+FeedbackBin uses Kamal for modern, container-based deployment:
+
+### Server Requirements
+- **VPS**: Any cloud provider (DigitalOcean, Hetzner, AWS, etc.)
+- **OS**: Ubuntu 20.04+ or similar Linux distribution
+- **RAM**: 1GB minimum (2GB+ recommended)
+- **Storage**: 20GB+ SSD recommended
+- **Bandwidth**: Standard web hosting bandwidth
+
+### Server Setup
+```bash
+# Basic server hardening
+# 1. Add SSH key authentication
+# 2. Disable password authentication
+# 3. Configure firewall (ports 22, 80, 443)
+# 4. Update system packages
+sudo apt update && sudo apt upgrade -y
+```
+
+### Deployment with Kamal
+```bash
+# Configure deployment settings
+cp config/deploy.example.yml config/deploy.yml
+# Edit config/deploy.yml with your server details
+
+# Set required environment variables
+export KAMAL_REGISTRY_PASSWORD=your_registry_password
+export RAILS_MASTER_KEY=your_master_key
+
+# Deploy application
+kamal setup      # First-time deployment
+kamal deploy     # Subsequent deployments
+```
+
+### DNS Configuration
+1. Create an A record pointing to your server's IP
+2. Optionally create a CNAME for www subdomain
+3. Configure SSL certificates (handled automatically by Kamal)
+
+## 🤝 Contributing
+
+We welcome contributions from the community! Here's how to get started:
+
+### Quick Contribution Guide
+1. **Fork** the repository
+2. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
+3. **Make** your changes following our coding standards
+4. **Test** your changes (`bin/ci`)
+5. **Commit** your changes (`git commit -m 'Add amazing feature'`)
+6. **Push** to your branch (`git push origin feature/amazing-feature`)
+7. **Open** a Pull Request
+
+### Development Setup for Contributors
+```bash
+# Fork and clone your fork
+git clone https://github.com/yourusername/feedbackbin.git
+cd feedbackbin
+
+# Add upstream remote
+git remote add upstream https://github.com/murny/feedbackbin.git
+
+# Setup development environment
+bin/setup
+
+# Run full test suite
+bin/ci
+```
+
+### Contribution Guidelines
+- Follow Ruby and Rails conventions
+- Write comprehensive tests for new features
+- Update documentation for user-facing changes
+- Use clear, descriptive commit messages
+- Ensure all CI checks pass before submitting PR
+
+### Areas We Need Help
+- 📖 Documentation improvements
+- 🐛 Bug fixes and testing
+- 🌐 Internationalization (i18n)
+- 🎨 UI/UX enhancements
+- 🔒 Security audits and improvements
+- 📱 Mobile responsiveness
+- ⚡ Performance optimizations
+
+For major changes, please open an issue first to discuss your proposal.
+
+## 🌟 Community
+
+### Get Involved
+- **GitHub Discussions**: Ask questions and share ideas
+- **Issues**: Report bugs and request features
+- **Discord**: *Coming soon* - Join our community chat
+
+### Code of Conduct
+We are committed to providing a welcoming and inclusive experience for everyone. Please read our Code of Conduct before participating.
+
+### Support
+- 📖 **Documentation**: Comprehensive guides and API reference
+- 🐛 **Issue Tracker**: Bug reports and feature requests
+- 💬 **Community**: Discussion forums and chat
+
+## 📜 License
+
+FeedbackBin is open-source software licensed under the **GNU Affero General Public License v3.0 (AGPL-3.0)**.
+
+This means you can:
+- ✅ Use the software for any purpose
+- ✅ Study and modify the source code
+- ✅ Distribute copies of the software
+- ✅ Distribute modified versions
+
+**Important**: If you run FeedbackBin as a web service, you must make the source code (including any modifications) available to your users under the same license.
+
+Inspired by [Plausible's approach to open source licensing](https://plausible.io/blog/open-source-licenses), this license ensures that FeedbackBin remains free and open for everyone while encouraging contributions back to the community.
+
+See the [LICENSE.md](LICENSE.md) file for the complete license text.
+
+---
+
+<div align="center">
+
+**Built with ❤️ by the FeedbackBin community**
+
+[⭐ Star us on GitHub](https://github.com/murny/feedbackbin) • [🐛 Report an Issue](https://github.com/murny/feedbackbin/issues) • [💬 Join the Discussion](https://github.com/murny/feedbackbin/discussions)
+
+</div>
