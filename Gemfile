@@ -81,7 +81,9 @@ group :development do
   # gem "rack-mini-profiler"
 
   gem "hotwire-spark"
+
   gem "ruby-lsp-rails", require: false
+  gem "claude-on-rails"
 end
 
 group :test do
