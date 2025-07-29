@@ -5,15 +5,33 @@
   <div class="md:flex md:justify-between md:divide-x md:divide-gray-800">
     <div class="md:grow pt-6 pb-12 md:pb-20">
       <div class="md:pr-6 lg:pr-20">
-        <div class="flex items-center justify-end">
-          <%= link_to t("edit"), edit_post_path(@post), class: "btn btn-secondary" %>
+        <div class="flex items-center justify-end gap-2">
+          <% if policy(@post).pin? %>
+            <%= turbo_frame_tag "post-pin-button" do %>
+              <% if @post.pinned? %>
+                <%= button_to "Unpin", post_pin_path(@post), method: :delete, class: "btn-secondary", title: "Unpin this post" %>
+              <% else %>
+                <%= button_to "Pin", post_pin_path(@post), method: :post, class: "btn-secondary", title: "Pin this post" %>
+              <% end %>
+            <% end %>
+          <% end %>
+          <% if policy(@post).edit? %>
+            <%= link_to t("edit"), edit_post_path(@post), class: "btn-secondary" %>
+          <% end %>
         </div>
         <div class="flex flex-col lg:flex-row space-y-6 lg:space-y-0 lg:space-x-6">
           <%= render partial: "likes/like_button", locals: { likeable: @post } %>
           <div>
             <article class="mb-20">
               <header class="mb-6">
-                <h1 class="text-xl sm:text-2xl lg:text-3xl font-bold mb-4 leading-tight"><%= @post.title %></h1>
+                <div class="flex items-start gap-3 mb-4" id="post-header">
+                  <h1 class="text-xl sm:text-2xl lg:text-3xl font-bold leading-tight flex-1"><%= @post.title %></h1>
+                  <% if @post.pinned? %>
+                    <div class="flex items-center gap-1 px-3 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 rounded-md text-sm font-medium">
+                      📌 Pinned
+                    </div>
+                  <% end %>
+                </div>
                 <div class="flex items-center">
                   <%= avatar_tag @post.author, class: "rounded-full w-10 h-10 mr-2", alt: "" %>
                   <div class="text-sm text-gray-600">

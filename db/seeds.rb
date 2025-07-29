@@ -44,7 +44,7 @@ if Rails.env.development?
   Membership.find_or_create_by!(organization: organization, user: user, role: :member)
   Membership.find_or_create_by!(organization: organization, user: user_two, role: :member)
 
-  category = Category.find_or_create_by!(name: "Feature Requests", organization: organization)
+  category = Category.find_or_create_by!(name: "Customer Feedback", description: "Share your ideas and help us improve our product", organization: organization)
 
   post = Post.find_or_create_by!(organization: organization, category: category, author: admin, title: "Could you please add dark mode") do |post|
     post.body = "I would love to see dark mode on this site, please give support for it"

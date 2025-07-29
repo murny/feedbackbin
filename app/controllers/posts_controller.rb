@@ -12,7 +12,15 @@ class PostsController < ApplicationController
 
     @categories = Category.all
     @category = Category.first
-    @pagy, @posts = pagy(@category.posts.sort_by_params(params[:sort], sort_direction))
+    posts = @category.posts.sort_by_params(params[:sort], sort_direction)
+
+    # Apply status filtering if provided
+    posts = posts.where(post_status_id: params[:post_status_id]) if params[:post_status_id].present?
+
+    # Order with pinned posts first
+    posts = posts.ordered_with_pinned
+
+    @pagy, @posts = pagy(posts)
   end
 
   # GET /posts/1 or /posts/1.json

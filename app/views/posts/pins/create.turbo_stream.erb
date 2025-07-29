@@ -1,0 +1,12 @@
+<%= turbo_stream.update "post-pin-button" do %>
+  <%= button_to "Unpin", post_pin_path(@post), method: :delete, class: "btn-secondary", title: "Unpin this post" %>
+<% end %>
+
+<%= turbo_stream.update "post-header" do %>
+  <div class="flex items-start gap-3 mb-4">
+    <h1 class="text-xl sm:text-2xl lg:text-3xl font-bold leading-tight flex-1"><%= @post.title %></h1>
+    <div class="flex items-center gap-1 px-3 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 rounded-md text-sm font-medium">
+      📌 Pinned
+    </div>
+  </div>
+<% end %>

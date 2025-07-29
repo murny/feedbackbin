@@ -16,4 +16,6 @@ class Post < ApplicationRecord
   broadcasts_refreshes
 
   validates :title, presence: true
+
+  scope :ordered_with_pinned, -> { order(pinned: :desc, created_at: :desc) }
 end

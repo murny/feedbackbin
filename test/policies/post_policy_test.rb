@@ -49,4 +49,18 @@ class PostPolicyTest < ActiveSupport::TestCase
     assert_predicate PostPolicy.new(@user_membership, @post), :destroy?
     assert_predicate PostPolicy.new(@admin_membership, @post), :destroy?
   end
+
+  test "post pin only available to admin" do
+    assert_not_predicate PostPolicy.new(nil, @post), :pin?
+    assert_not_predicate PostPolicy.new(@user_membership, @post), :pin?
+    assert_not_predicate PostPolicy.new(@another_user_membership, @post), :pin?
+    assert_predicate PostPolicy.new(@admin_membership, @post), :pin?
+  end
+
+  test "post unpin only available to admin" do
+    assert_not_predicate PostPolicy.new(nil, @post), :unpin?
+    assert_not_predicate PostPolicy.new(@user_membership, @post), :unpin?
+    assert_not_predicate PostPolicy.new(@another_user_membership, @post), :unpin?
+    assert_predicate PostPolicy.new(@admin_membership, @post), :unpin?
+  end
 end

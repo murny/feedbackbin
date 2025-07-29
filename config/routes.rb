@@ -44,7 +44,11 @@ Rails.application.routes.draw do
 
   resource :like, only: [ :update ]
 
-  resources :posts
+  resources :posts do
+    scope module: :posts do
+      resource :pin, only: [ :create, :destroy ]
+    end
+  end
   resources :comments, except: [ :index, :new ]
   resources :changelogs, only: [ :index, :show ]
 

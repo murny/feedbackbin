@@ -35,6 +35,14 @@ class PostPolicy < ApplicationPolicy
     owned? || admin?
   end
 
+  def pin?
+    admin?
+  end
+
+  def unpin?
+    admin?
+  end
+
   private
 
     def owned?

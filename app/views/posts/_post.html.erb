@@ -7,9 +7,16 @@
       <div class="grow lg:flex items-center justify-between space-y-5 lg:space-x-6 lg:space-y-0">
         <div>
           <div class="mb-2">
-            <h2>
-              <%= link_to post.title, post, class: "scroll-m-20 text-2xl font-semibold tracking-tight hover:underline cursor-pointer line-clamp-2" %>
-            </h2>
+            <div class="flex items-center gap-2 mb-1">
+              <h2 class="flex-1">
+                <%= link_to post.title, post, class: "scroll-m-20 text-2xl font-semibold tracking-tight hover:underline cursor-pointer line-clamp-2" %>
+              </h2>
+              <% if post.pinned? %>
+                <div class="flex items-center gap-1 px-2 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 rounded-md text-xs font-medium">
+                  📌 Pinned
+                </div>
+              <% end %>
+            </div>
             <div class="mt-1 flex items-center gap-x-2 text-xs leading-5">
               <p>
                 <%= link_to post.author.name, post.author, class: "hover:underline" %>
