@@ -1,28 +1,14 @@
 <%# locals: () %>
 
-<div>
-  <div class="relative mt-10">
-    <div class="absolute inset-0 flex items-center" aria-hidden="true">
-      <div class="w-full border-t border-gray-200 dark:border-gray-700"></div>
-    </div>
-    <div class="relative flex justify-center text-sm font-medium leading-6">
-      <span class="bg-white dark:bg-gray-900 px-6 text-muted-foreground">Or continue with</span>
-    </div>
-  </div>
-
-<div class="mt-6 grid grid-cols-1 gap-4">
-  <%# TODO: providers list should come from global config %>
-  <% omniauth_providers = [ "google", "facebook" ] %>
-    <% omniauth_providers << "developer" unless Rails.env.production? %>
-    <% omniauth_providers.each do |provider| %>
-      <%= button_to "/auth/#{provider}",
-            method: :post,
-            data: { turbo: false },
-            class: "flex items-center justify-center btn btn-secondary btn-block" do %>
-        <%= inline_svg_tag "icons/brand/#{provider}.svg", class: "h-5 w-5 mr-2" %>
-        <span class="text-sm font-semibold leading-6"><%= t("oauth.sign_in_with", provider: OmniAuth::Utils.camelize(provider)) %></span>
-      <% end %>
-    <% end %>
-
-  </div>
-</div>
+<%# TODO: providers list should come from global config %>
+<% omniauth_providers = [ "google", "facebook" ] %>
+<% omniauth_providers << "developer" unless Rails.env.production? %>
+<% omniauth_providers.each do |provider| %>
+  <%= button_to "/auth/#{provider}",
+        method: :post,
+        data: { turbo: false },
+        class: "btn-outline w-full gap-2" do %>
+    <%= inline_svg_tag "icons/brand/#{provider}.svg", class: "h-4 w-4" %>
+    <span><%= t("oauth.sign_in_with", provider: OmniAuth::Utils.camelize(provider)) %></span>
+  <% end %>
+<% end %>

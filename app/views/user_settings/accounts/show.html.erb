@@ -81,7 +81,7 @@
           <% if (connected_account = @user_connected_accounts.find_by(provider_name: provider)) %>
             <%= button_to user_settings_connected_account_path(connected_account),
                   method: :delete,
-                  class: "flex items-center justify-center btn btn-secondary btn-block" do %>
+                  class: "flex items-center justify-center btn-secondary w-full" do %>
               <%= inline_svg_tag "icons/brand/#{provider}.svg", class: "h-5 w-5 mr-2" %>
               <span class="text-sm font-semibold leading-6"><%= t("oauth.disconnect_with", provider: OmniAuth::Utils.camelize(provider)) %></span>
             <% end %>
@@ -89,7 +89,7 @@
             <%= button_to "/auth/#{provider}",
                   method: :post,
                   data: { turbo: false, disable_with: t(".redirecting") },
-                  class: "flex items-center justify-center btn btn-secondary btn-block" do %>
+                  class: "flex items-center justify-center btn-secondary w-full" do %>
               <%= inline_svg_tag "icons/brand/#{provider}.svg", class: "h-5 w-5 mr-2" %>
               <span class="text-sm font-semibold leading-6"><%= t("oauth.connect_with", provider: OmniAuth::Utils.camelize(provider)) %></span>
             <% end %>

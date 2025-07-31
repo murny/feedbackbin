@@ -236,13 +236,22 @@ en:
         rate_limited: Please try again later.
         verify_email_first: You can't reset your password until you verify your email
       edit:
+        confirm_new_password: Confirm new password
         confirm_new_password_placeholder: Repeat new password
+        description: Enter your new password below
+        new_password: New password
         new_password_placeholder: Enter new password
+        remember_password: Remember your password?
+        update_password: Update password
         update_your_password: Update your password
       new:
+        description: Enter your email address and we'll send you a reset link
+        email: Email
         email_address_placeholder: Enter your email address
         email_reset_instructions: Email reset instructions
         forgot_your_password: Forgot your password?
+        remember_password: Remember your password?
+        send_reset_instructions: Send reset instructions
       password_reset_link_is_invalid: Password reset link is invalid or has expired.
       update:
         password_has_been_reset: Password has been reset.
@@ -254,15 +263,22 @@ en:
       new:
         already_have_an_account: Already have an account?
         create_account: Create account
+        create_your_account: Create your account
         create_your_account_html: Welcome!<br>Let's create your new account
+        email: Email
         email_address_hint: Never shown to the public
         email_address_placeholder: Enter your email address
         login: Log in
+        name: Name
         name_hint: Your full name (Optional)
         name_placeholder: Enter your name
+        password: Password
         password_hint: "(at least 10 characters)"
         password_placeholder: Enter your password
+        signup_with_social: Sign up with your Google or Facebook account
+        terms_agreement_html: By clicking continue, you agree to our %{terms_link} and %{privacy_link}.
         title: Sign up
+        username: Username
         username_hint: unique, no spaces, short
         username_placeholder: Enter your username
     sessions:
@@ -273,10 +289,16 @@ en:
       destroy:
         signed_out_successfully: You have signed out successfully.
       new:
+        email: Email
         email_address_placeholder: Enter your email address
         forgot_your_password: Forgot your password?
+        login_with_social: Login with your Google or Facebook account
         need_an_account: Need an account?
+        password: Password
         password_placeholder: Enter your password
+        remember_password: Remember your password?
         sign_in: Sign in
         sign_in_to_your_account: Sign in to your account
         sign_up: Sign up
+        terms_agreement_html: By clicking continue, you agree to our %{terms_link} and %{privacy_link}.
+        welcome_back: Welcome back
