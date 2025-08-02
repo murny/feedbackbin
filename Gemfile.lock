@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/rails/rails.git
-  revision: 589fe8a233cdbe4ed8613145773d613e9ef86da5
+  revision: dd395062014c331cbfcf151464593d79a9a76c64
   branch: main
   specs:
     actioncable (8.1.0.alpha)
@@ -145,13 +145,13 @@ GEM
       xpath (~> 3.2)
     childprocess (5.1.0)
       logger (~> 1.5)
-    claude-code-sdk-ruby (0.1.4)
+    claude-code-sdk-ruby (0.1.6)
       async (~> 2)
       logger (~> 1)
     claude-on-rails (0.2.0)
       claude_swarm (~> 0.1)
       rails (>= 6.0)
-    claude_swarm (0.3.6)
+    claude_swarm (0.3.8)
       claude-code-sdk-ruby (~> 0.1)
       faraday-retry (~> 2.0)
       fast-mcp-annotations (~> 1.5)
@@ -278,7 +278,7 @@ GEM
     image_processing (1.14.0)
       mini_magick (>= 4.9.5, < 6)
       ruby-vips (>= 2.0.17, < 3)
-    importmap-rails (2.2.1)
+    importmap-rails (2.2.2)
       actionpack (>= 6.0.0)
       activesupport (>= 6.0.0)
       railties (>= 6.0.0)
@@ -339,7 +339,7 @@ GEM
     mime-types (3.7.0)
       logger
       mime-types-data (~> 3.2025, >= 3.2025.0507)
-    mime-types-data (3.2025.0722)
+    mime-types-data (3.2025.0729)
     mini_magick (5.3.0)
       logger
     mini_mime (1.1.5)
@@ -439,7 +439,7 @@ GEM
       date
       stringio
     public_suffix (6.0.2)
-    puma (6.6.0)
+    puma (6.6.1)
       nio4r (~> 2.0)
     pundit (2.5.0)
       activesupport (>= 3.0.0)
@@ -735,9 +735,9 @@ CHECKSUMS
   bundler-audit (0.9.2) sha256=73051daa09865c436450a35c4d87ceef15f3f9777f4aad4fd015cc6f1f2b1048
   capybara (3.40.0) sha256=42dba720578ea1ca65fd7a41d163dd368502c191804558f6e0f71b391054aeef
   childprocess (5.1.0) sha256=9a8d484be2fd4096a0e90a0cd3e449a05bc3aa33f8ac9e4d6dcef6ac1455b6ec
-  claude-code-sdk-ruby (0.1.4) sha256=908e21937cff2a6efe1dba963e26f0cb7733ece91928be3bde8402bbb150f1df
+  claude-code-sdk-ruby (0.1.6) sha256=c68e20f06a7d29d6db27135336b09e74baf125160ffc9d01d7eb9d46ecaa0003
   claude-on-rails (0.2.0) sha256=00c64ba94249e5fdc7cc444e2a9bf769c841f0a7dd477e6dd67c3211421b7465
-  claude_swarm (0.3.6) sha256=689fb984930e9e1b20c2434be3711dfcf471c979ffcb84d47ffcdb6809e538a7
+  claude_swarm (0.3.8) sha256=453551197f216029ab2610989b18271218f09dfe4f3bd932654e06aafd1775b1
   concurrent-ruby (1.3.5) sha256=813b3e37aca6df2a21a3b9f1d497f8cbab24a2b94cab325bffe65ee0f6cbebc6
   connection_pool (2.5.3) sha256=cfd74a82b9b094d1ce30c4f1a346da23ee19dc8a062a16a85f58eab1ced4305b
   console (1.33.0) sha256=a1cc1910e3b24169b4925e42d72da414d53e5bd6773aee9a811e57dfe0399384
@@ -789,7 +789,7 @@ CHECKSUMS
   i18n (1.14.7) sha256=ceba573f8138ff2c0915427f1fc5bdf4aa3ab8ae88c8ce255eb3ecf0a11a5d0f
   i18n-tasks (1.0.15) sha256=74f3e9e0e2db5d757c58e659f4269ee698c7a7532ed29066a2aaffc9efbdfb56
   image_processing (1.14.0) sha256=754cc169c9c262980889bec6bfd325ed1dafad34f85242b5a07b60af004742fb
-  importmap-rails (2.2.1) sha256=0d4e660966d7728a3574b303f5f0f073c5b5580131c87684098fbabec04d7b03
+  importmap-rails (2.2.2) sha256=729f5b1092f832780829ade1d0b46c7e53d91c556f06da7254da2977e93fe614
   inline_svg (1.10.0) sha256=5b652934236fd9f8adc61f3fd6e208b7ca3282698b19f28659971da84bf9a10f
   io-console (0.8.1) sha256=1e15440a6b2f67b6ea496df7c474ed62c860ad11237f29b3bd187f054b925fcb
   io-event (1.12.1) sha256=3bca6df9ec535835a97733c1d93d28a194b2266c40b501d870f314d7a6cbc3cf
@@ -811,7 +811,7 @@ CHECKSUMS
   matrix (0.4.3) sha256=a0d5ab7ddcc1973ff690ab361b67f359acbb16958d1dc072b8b956a286564c5b
   metrics (0.12.2) sha256=75caab08235dc2b3bb7440e00f64e8426b23b9caa94755d81cf9371fffa1e12a
   mime-types (3.7.0) sha256=dcebf61c246f08e15a4de34e386ebe8233791e868564a470c3fe77c00eed5e56
-  mime-types-data (3.2025.0722) sha256=f9d1fd57ecc5688a66d9811d45981ee58e2dca012e352a1eaa7299e8c0f482f4
+  mime-types-data (3.2025.0729) sha256=8d7e1ab1ab756ebba91354ff4e35bcf23c39ed86dc5abba6cf32ce66ee9e5aad
   mini_magick (5.3.0) sha256=6f13309c90f9ebe204b4c3f04d0a5a9265c5f734950894e83fa2480d4aa79ba4
   mini_mime (1.1.5) sha256=8681b7e2e4215f2a159f9400b5816d85e9d8c6c6b491e96a12797e798f8bccef
   mini_portile2 (2.8.9) sha256=0cd7c7f824e010c072e33f68bc02d85a00aeb6fce05bb4819c03dfd3c140c289
@@ -854,7 +854,7 @@ CHECKSUMS
   propshaft (1.2.1) sha256=e9b91daf52f21152f851a59f8621af53ffb4dc4401f9b5f8fe16065190b98654
   psych (5.2.6) sha256=814328aa5dcb6d604d32126a20bc1cbcf05521a5b49dbb1a8b30a07e580f316e
   public_suffix (6.0.2) sha256=bfa7cd5108066f8c9602e0d6d4114999a5df5839a63149d3e8b0f9c1d3558394
-  puma (6.6.0) sha256=f25c06873eb3d5de5f0a4ebc783acc81a4ccfe580c760cfe323497798018ad87
+  puma (6.6.1) sha256=b9b56e4a4ea75d1bfa6d9e1972ee2c9f43d0883f011826d914e8e37b3694ea1e
   pundit (2.5.0) sha256=4fb6b8ad3fbfe6c34e4be172a1eac03dfcb36c29d6a1214574517af5a605beda
   raabro (1.4.0) sha256=d4fa9ff5172391edb92b242eed8be802d1934b1464061ae5e70d80962c5da882
   racc (1.8.1) sha256=4a7f6929691dbec8b5209a0b373bc2614882b55fc5d2e447a21aaa691303d62f
