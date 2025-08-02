@@ -4,7 +4,7 @@
   <%= render partial: "user_settings/header" %>
 
   <div class="mt-8 space-y-6">
-        <!-- Username Section -->
+        <%# Username Section %>
         <div class="card p-6">
           <div class="space-y-6">
             <div>
@@ -35,7 +35,7 @@
           </div>
         </div>
 
-        <!-- Email Address Section -->
+        <%# Email Address Section %>
         <div class="card p-6">
           <div class="space-y-6">
             <div>
@@ -81,7 +81,7 @@
         </div>
 
         <% unless @user.email_verified? %>
-          <!-- Email Verification Warning -->
+          <%# Email Verification Warning %>
           <div class="card p-6 border-yellow-200 bg-yellow-50 dark:bg-yellow-900/20 dark:border-yellow-800">
             <div class="flex">
               <div class="flex-shrink-0">
@@ -104,7 +104,7 @@
           </div>
         <% end %>
 
-        <!-- Connected Accounts Section -->
+        <%# Connected Accounts Section %>
         <div class="card p-6">
           <div class="space-y-6">
             <div>
@@ -148,7 +148,7 @@
           </div>
         </div>
 
-        <!-- Delete Account Section -->
+        <%# Delete Account Section %>
         <div class="card p-6 border-red-200 bg-red-50 dark:bg-red-900/20 dark:border-red-800">
           <div class="space-y-4">
             <div>
