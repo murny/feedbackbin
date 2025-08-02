@@ -1,40 +1,52 @@
-<%= render partial: "user_settings/header" %>
+<% content_for(:title) { t("user_settings.settings_title") } %>
 
-<div class="divide-y divide-white/5">
-  <div class="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
-    <div>
-      <h2 class="text-base font-semibold leading-7 text-foreground"><%= t(".title") %></h2>
-      <p class="mt-1 text-sm leading-6 text-muted-foreground"><%= t(".description") %></p>
-    </div>
+<div class="container mx-auto max-w-4xl">
+  <div class="mb-8">
+    <h1 class="text-2xl font-semibold tracking-tight"><%= t("user_settings.settings_title") %></h1>
+    <p class="text-muted-foreground"><%= t("user_settings.settings_description") %></p>
+  </div>
 
-    <div class="md:col-span-2">
-      <%= form_with(model: @user,
-            url: user_settings_preferences_path,
-            method: :patch,
-            data: { controller: "form", action: "keydown.enter->form#submit:prevent" }) do |form| %>
-        <%= render "error_messages", resource: form.object %>
+  <%= render partial: "user_settings/header" %>
 
-        <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:max-w-xl sm:grid-cols-6">
-          <div class="col-span-full">
-            <%= form.label :theme %>
-             <%= form.select :theme, theme_options, {} %>
-          </div>
-
-          <div class="col-span-full">
-            <%= form.label :time_zone %>
-            <%= form.time_zone_select :time_zone, nil %>
-          </div>
-
-          <div class="col-span-full">
-            <%= form.label :preferred_language %>
-             <%= form.select :preferred_language, language_options, {} %>
-          </div>
+  <div class="mt-8">
+    <div class="card p-6">
+      <div class="space-y-6">
+        <div>
+          <h2 class="text-lg font-medium"><%= t(".title") %></h2>
+          <p class="text-sm text-muted-foreground"><%= t(".description") %></p>
         </div>
 
-        <div class="mt-8 flex">
-          <%= form.submit "Update preferences" %>
-        </div>
-      <% end %>
+        <%= form_with(model: @user,
+              url: user_settings_preferences_path,
+              method: :patch,
+              data: { controller: "form", action: "keydown.enter->form#submit:prevent" }) do |form| %>
+          <%= render "error_messages", resource: form.object %>
+
+          <div class="grid gap-6">
+            <div class="grid gap-2">
+              <%= form.label :theme, class: "text-sm font-medium" %>
+              <%= form.select :theme, theme_options, {}, { class: "w-full" } %>
+              <p class="text-xs text-muted-foreground"><%= t(".theme_hint") %></p>
+            </div>
+
+            <div class="grid gap-2">
+              <%= form.label :time_zone, class: "text-sm font-medium" %>
+              <%= form.time_zone_select :time_zone, nil, {}, { class: "w-full" } %>
+              <p class="text-xs text-muted-foreground"><%= t(".time_zone_hint") %></p>
+            </div>
+
+            <div class="grid gap-2">
+              <%= form.label :preferred_language, class: "text-sm font-medium" %>
+              <%= form.select :preferred_language, language_options, {}, { class: "w-full" } %>
+              <p class="text-xs text-muted-foreground"><%= t(".language_hint") %></p>
+            </div>
+          </div>
+
+          <div class="flex gap-3 pt-6">
+            <%= form.submit t(".update_preferences"), class: "btn" %>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

@@ -29,9 +29,11 @@
       <% if content_for?(:content) %>
         <%= yield(:content) %>
       <% else %>
-        <main class="bg-muted container mx-auto px-4 sm:px-6 lg:px-8 py-8">
-          <%= yield %>
-        </main>
+        <div class="bg-muted flex-1">
+          <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+            <%= yield %>
+          </main>
+        </div>
       <% end %>
     </div>
     <%= render partial: "footer" %>
