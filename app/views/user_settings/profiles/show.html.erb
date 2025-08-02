@@ -1,11 +1,6 @@
-<% content_for(:title) { t("user_settings.settings_title") } %>
+<% content_for(:title) { t("user_settings.page_titles.profile") } %>
 
 <div class="container mx-auto max-w-4xl">
-  <div class="mb-8">
-    <h1 class="text-2xl font-semibold tracking-tight"><%= t("user_settings.settings_title") %></h1>
-    <p class="text-muted-foreground"><%= t("user_settings.settings_description") %></p>
-  </div>
-
   <%= render partial: "user_settings/header" %>
 
   <div class="mt-8">
@@ -25,28 +20,34 @@
           <div class="space-y-6">
             <div>
               <h3 class="text-base font-medium mb-4"><%= t(".public_avatar") %></h3>
-              <%= tag.div class: "flex items-start gap-x-6", data: { controller: "upload-preview" } do %>
+              <%= tag.div class: "flex items-start gap-x-4", data: { controller: "upload-preview" } do %>
                 <%= image_tag fresh_user_avatar_path(@user),
                       role: "presentation",
                       class: "h-20 w-20 flex-none rounded-lg bg-muted object-cover",
                       data: { "upload-preview-target": "image" } %>
-                <div class="space-y-3">
+
+                <div class="space-y-3 flex-1">
                   <%= form.file_field :avatar, accept: "image/*", data: { upload_preview_target: "input", action: "upload-preview#previewImage" }, class: "hidden" %>
-                  <%= form.label :avatar, class: "inline-flex items-center btn btn-secondary" do %>
-                    <%= inline_svg "icons/camera.svg", class: "h-4 w-4 mr-2" %>
-                    <%= t(".upload_new_avatar") %>
-                  <% end %>
+
+                  <div class="flex flex-wrap items-center gap-2">
+                    <%= form.label :avatar, class: "inline-flex items-center btn" do %>
+                      <%= inline_svg "icons/camera.svg", class: "h-4 w-4 mr-2" %>
+                      <%= t(".upload_new_avatar") %>
+                    <% end %>
+
+                    <% if @user.avatar.attached? %>
+                      <%= link_to user_avatar_path(@user),
+                            class: "inline-flex items-center btn btn-outline btn-sm text-muted-foreground hover:text-destructive hover:border-destructive",
+                            data: { "turbo-method": :delete, turbo_confirm: t(".remove_avatar_confirm") } do %>
+                        <%= inline_svg "icons/trash-2.svg", class: "h-4 w-4 mr-2" %>
+                        <%= t(".remove_avatar") %>
+                      <% end %>
+                    <% end %>
+                  </div>
+
                   <p class="text-xs text-muted-foreground">
                     <%= t(".avatar_size_hint") %>
                   </p>
-                  <% if @user.avatar.attached? %>
-                    <%= link_to user_avatar_path(@user),
-                          class: "btn btn-destructive btn-sm",
-                          data: { "turbo-method": :delete, turbo_confirm: t(".remove_avatar_confirm") } do %>
-                      <%= inline_svg "icons/circle-x.svg", class: "h-4 w-4 mr-2" %>
-                      <%= t(".remove_avatar") %>
-                    <% end %>
-                  <% end %>
                 </div>
               <% end %>
             </div>

@@ -223,6 +223,12 @@ en:
       password: Password
       preferences: Preferences
       public_profile: Public Profile
+    page_titles:
+      account: Account Settings
+      active_sessions: Active Sessions
+      password: Password Settings
+      preferences: Preferences
+      profile: Profile Settings
     passwords:
       show:
         change_password: Change password
