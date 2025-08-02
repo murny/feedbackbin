@@ -1,65 +1,79 @@
-<%= render partial: "user_settings/header" %>
+<% content_for(:title) { t("user_settings.page_titles.profile") } %>
 
-<div class="divide-y divide-white/5">
-  <div class="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
-    <div>
-      <h2 class="text-base font-semibold leading-7 text-foreground">Profile</h2>
-      <p class="mt-1 text-sm leading-6 text-muted-foreground">This information will be displayed publicly so be careful what you share.</p>
-    </div>
+<div class="container mx-auto max-w-4xl">
+  <%= render partial: "user_settings/header" %>
 
-    <div class="md:col-span-2">
-      <%= form_with(model: @user,
-            url: user_settings_profile_path,
-            method: :patch,
-            data: { controller: "form", action: "keydown.enter->form#submit:prevent" }) do |form| %>
-        <%= render "error_messages", resource: form.object %>
+  <div class="mt-8">
+    <div class="card p-6">
+      <div class="space-y-6">
+        <div>
+          <h2 class="text-lg font-medium"><%= t(".profile") %></h2>
+          <p class="text-sm text-muted-foreground"><%= t(".profile_description") %></p>
+        </div>
 
-        <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:max-w-xl sm:grid-cols-6">
-          <p class="col-span-full text-base font-semibold leading-7 text-foreground">Public avatar</p>
-          <%= tag.div class: "col-span-full flex items-start gap-x-8", data: { controller: "upload-preview" } do %>
-            <%= image_tag fresh_user_avatar_path(@user),
-                  role: "presentation",
-                  class: "h-24 w-24 flex-none rounded-lg bg-gray-800 object-cover",
-                  data: { "upload-preview-target": "image" } %>
+        <%= form_with(model: @user,
+              url: user_settings_profile_path,
+              method: :patch,
+              data: { controller: "form", action: "keydown.enter->form#submit:prevent" }) do |form| %>
+          <%= render "error_messages", resource: form.object %>
+
+          <div class="space-y-6">
             <div>
-              <%= form.file_field :avatar, accept: "image/*", data: { upload_preview_target: "input", action: "upload-preview#previewImage" }, class: "hidden" %>
-              <%= form.label :avatar, class: "inline-flex items-center btn btn-secondary" do %>
-                <%= inline_svg "icons/camera.svg", class: "h-5 w-5 mr-2" %>
-                <%= t(".upload_new_avatar") %>
-              <% end %>
-              <p class="my-3 text-xs leading-5 text-muted-foreground">
-                The ideal image size is 192 x 192 pixels. The maximum file size allowed is 1 MB.
-              </p>
-              <% if @user.avatar.attached? %>
-                <%= link_to user_avatar_path(@user),
-                      class: "btn inline-flex items-center text-red-700 hover:text-white border border-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:border-red-500 dark:text-red-500 dark:hover:text-white dark:hover:bg-red-600 dark:focus:ring-red-900",
-                      data: { "turbo-method": :delete, turbo_confirm: "Are you sure?" } do %>
-                  <%= inline_svg "icons/circle-x.svg", class: "h-5 w-5 mr-2" %>
-                  <%= t(".remove_avatar") %>
-                <% end %>
+              <h3 class="text-base font-medium mb-4"><%= t(".public_avatar") %></h3>
+              <%= tag.div class: "flex items-start gap-x-4", data: { controller: "upload-preview" } do %>
+                <%= image_tag fresh_user_avatar_path(@user),
+                      role: "presentation",
+                      class: "h-20 w-20 flex-none rounded-lg bg-muted object-cover",
+                      data: { "upload-preview-target": "image" } %>
+
+                <div class="space-y-3 flex-1">
+                  <%= form.file_field :avatar, accept: "image/*", data: { upload_preview_target: "input", action: "upload-preview#previewImage" }, class: "hidden" %>
+
+                  <div class="flex flex-wrap items-center gap-2">
+                    <%= form.label :avatar, class: "inline-flex items-center btn" do %>
+                      <%= inline_svg "icons/camera.svg", class: "h-4 w-4 mr-2" %>
+                      <%= t(".upload_new_avatar") %>
+                    <% end %>
+
+                    <% if @user.avatar.attached? %>
+                      <%= link_to user_avatar_path(@user),
+                            class: "inline-flex items-center btn btn-outline btn-sm text-muted-foreground hover:text-destructive hover:border-destructive",
+                            data: { "turbo-method": :delete, turbo_confirm: t(".remove_avatar_confirm") } do %>
+                        <%= inline_svg "icons/trash-2.svg", class: "h-4 w-4 mr-2" %>
+                        <%= t(".remove_avatar") %>
+                      <% end %>
+                    <% end %>
+                  </div>
+
+                  <p class="text-xs text-muted-foreground">
+                    <%= t(".avatar_size_hint") %>
+                  </p>
+                </div>
               <% end %>
             </div>
-          <% end %>
 
-          <div class="col-span-full">
-            <%= form.label :name %>
-            <%= form.text_field :name, autocomplete: "name" %>
+            <div class="grid gap-4">
+              <div class="grid gap-2">
+                <%= form.label :name, class: "text-sm font-medium" %>
+                <%= form.text_field :name, autocomplete: "name", class: "w-full" %>
+              </div>
+
+              <div class="grid gap-2">
+                <%= form.label :bio, class: "text-sm font-medium" %>
+                <%= form.text_area :bio, rows: 4, class: "w-full" %>
+                <p class="text-xs text-muted-foreground">
+                  <%= t(".bio_hint") %>
+                </p>
+              </div>
+            </div>
           </div>
 
-          <div class="col-span-full">
-            <%= form.label :bio %>
-            <%= form.text_area :bio, row: 4 %>
-            <p class="mt-3 text-sm leading-6 text-muted-foreground">
-              Tell us about yourself in fewer than 255 characters.
-            </p>
+          <div class="flex gap-3 pt-6">
+            <%= form.submit t(".update_profile"), class: "btn" %>
+            <%= link_to t(".back_to_profile"), user_path(@user), class: "btn btn-secondary" %>
           </div>
-        </div>
-
-        <div class="mt-8 flex">
-          <%= form.submit "Update profile" %>
-          <%= link_to "Back to profile", user_path(@user), class: "ml-2 btn btn-secondary" %>
-        </div>
-      <% end %>
+        <% end %>
+      </div>
     </div>
   </div>
 </div>

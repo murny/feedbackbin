@@ -1,114 +1,168 @@
-<%= render partial: "user_settings/header" %>
+<% content_for(:title) { t("user_settings.page_titles.account") } %>
 
-<div class="divide-y divide-white/5">
-  <div class="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
-    <div>
-      <h2 class="text-base font-semibold leading-7 text-foreground">Username</h2>
-      <p class="mt-1 text-sm leading-6 text-muted-foreground"><%= t(".username_warning") %></p>
-    </div>
+<div class="container mx-auto max-w-4xl">
+  <%= render partial: "user_settings/header" %>
 
-    <%= form_with(model: @user,
-          url: user_settings_account_path,
-          method: :patch,
-          class: "md:col-span-2",
-          data: { controller: "form", action: "keydown.enter->form#submit:prevent" }) do |form| %>
-      <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:max-w-xl sm:grid-cols-6">
-          <div class="col-span-full">
-            <%= form.label :username %>
-            <%= form.text_field :username,
-                  required: true,
-                  autocomplete: "username",
-                  placeholder: "jane_doe",
-                  leading_icon: true do %>
-              <%= inline_svg "icons/at-symbol.svg", class: "h-5 w-5 text-muted-foreground", aria: true, title: "Username", desc: "@ icon" %>
+  <div class="mt-8 space-y-6">
+        <%# Username Section %>
+        <div class="card p-6">
+          <div class="space-y-6">
+            <div>
+              <h2 class="text-lg font-medium"><%= t(".username") %></h2>
+              <p class="text-sm text-muted-foreground"><%= t(".username_warning") %></p>
+            </div>
+
+            <%= form_with(model: @user,
+                  url: user_settings_account_path,
+                  method: :patch,
+                  data: { controller: "form", action: "keydown.enter->form#submit:prevent" }) do |form| %>
+              <div class="grid gap-4">
+                <div class="grid gap-2">
+                  <%= form.label :username, class: "text-sm font-medium" %>
+                  <%= form.text_field :username,
+                        required: true,
+                        autocomplete: "username",
+                        placeholder: "jane_doe",
+                        class: "w-full" %>
+                  <p class="text-xs text-muted-foreground"><%= t(".username_hint") %></p>
+                </div>
+              </div>
+
+              <div class="flex gap-3 pt-6">
+                <%= form.submit t(".update_username"), class: "btn" %>
+              </div>
             <% end %>
-            <p class="mt-3 text-sm leading-6 text-muted-foreground"><%= t(".username_hint") %></p>
           </div>
-      </div>
-
-      <div class="mt-8 flex">
-        <%= form.submit t(".update_username") %>
-      </div>
-    <% end %>
-  </div>
-
-  <div class="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
-    <div>
-      <h2 class="text-base font-semibold leading-7 text-foreground">Email Address</h2>
-      <p class="mt-1 text-sm leading-6 text-muted-foreground"><%= t(".email_address_hint") %></p>
-    </div>
-
-    <%= form_with(model: @user,
-          url: user_settings_email_path,
-          method: :patch,
-          class: "md:col-span-2",
-          data: { controller: "form", action: "keydown.enter->form#submit:prevent" }) do |form| %>
-      <div class="grid grid-cols-1 gap-x-6 gap-y-8 sm:max-w-xl sm:grid-cols-6">
-        <div class="col-span-full">
-          <%= form.label :email_address %>
-          <%= form.email_field :email_address, required: true, autocomplete: "email", placeholder: t(".email_address_placeholder") %>
-          <p class="mt-3 text-sm leading-6 text-muted-foreground"><%= t(".email_address_hint") %></p>
         </div>
 
-        <div class="col-span-full">
-          <%= form.label :password_challenge, "Current Password" %>
-          <%= form.password_field :password_challenge, autocomplete: "current-password", required: true %>
+        <%# Email Address Section %>
+        <div class="card p-6">
+          <div class="space-y-6">
+            <div>
+              <h2 class="text-lg font-medium"><%= t(".email_address") %></h2>
+              <p class="text-sm text-muted-foreground"><%= t(".email_address_hint") %></p>
+            </div>
+
+            <%= form_with(model: @user,
+                  url: user_settings_email_path,
+                  method: :patch,
+                  data: { controller: "form", action: "keydown.enter->form#submit:prevent" }) do |form| %>
+              <div class="grid gap-4">
+                <div class="grid gap-2">
+                  <%= form.label :email_address, class: "text-sm font-medium" %>
+                  <%= form.email_field :email_address, required: true, autocomplete: "email", placeholder: t(".email_address_placeholder"), class: "w-full" %>
+                  <div class="flex items-center justify-between">
+                    <p class="text-xs text-muted-foreground"><%= t(".email_address_hint") %></p>
+                    <% if @user.email_verified? %>
+                      <div class="flex items-center gap-1 text-green-600">
+                        <%= inline_svg "icons/circle-check.svg", class: "h-4 w-4" %>
+                        <span class="text-xs font-medium"><%= t(".verified") %></span>
+                      </div>
+                    <% else %>
+                      <div class="flex items-center gap-1 text-yellow-600">
+                        <%= inline_svg "icons/circle-alert.svg", class: "h-4 w-4" %>
+                        <span class="text-xs font-medium"><%= t(".unverified") %></span>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+
+                <div class="grid gap-2">
+                  <%= form.label :password_challenge, t(".current_password"), class: "text-sm font-medium" %>
+                  <%= form.password_field :password_challenge, autocomplete: "current-password", required: true, class: "w-full" %>
+                </div>
+              </div>
+
+              <div class="flex gap-3 pt-6">
+                <%= form.submit t(".update_email_address"), class: "btn" %>
+              </div>
+            <% end %>
+          </div>
         </div>
-      </div>
 
-      <div class="mt-8 flex">
-        <%= form.submit t(".update_email_address") %>
-      </div>
-    <% end %>
-  </div>
-
-  <div class="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
-    <div>
-      <h2 class="text-base font-semibold leading-7 text-foreground">
-        <%= t(".connected_accounts") %>
-      </h2>
-      <p class="mt-1 text-sm leading-6 text-muted-foreground">
-        <%= t(".connected_accounts_description") %>
-      </p>
-    </div>
-
-    <div class="col-span-2">
-      <div class="my-2 flex flex-wrap gap-x-4 gap-y-2">
-        <%# TODO: providers list should come from global config %>
-        <% omniauth_providers = [ "google", "facebook" ] %>
-        <% omniauth_providers << "developer" unless Rails.env.production? %>
-        <% omniauth_providers.each do |provider| %>
-          <% if (connected_account = @user_connected_accounts.find_by(provider_name: provider)) %>
-            <%= button_to user_settings_connected_account_path(connected_account),
-                  method: :delete,
-                  class: "flex items-center justify-center btn-secondary w-full" do %>
-              <%= inline_svg_tag "icons/brand/#{provider}.svg", class: "h-5 w-5 mr-2" %>
-              <span class="text-sm font-semibold leading-6"><%= t("oauth.disconnect_with", provider: OmniAuth::Utils.camelize(provider)) %></span>
-            <% end %>
-          <% else %>
-            <%= button_to "/auth/#{provider}",
-                  method: :post,
-                  data: { turbo: false, disable_with: t(".redirecting") },
-                  class: "flex items-center justify-center btn-secondary w-full" do %>
-              <%= inline_svg_tag "icons/brand/#{provider}.svg", class: "h-5 w-5 mr-2" %>
-              <span class="text-sm font-semibold leading-6"><%= t("oauth.connect_with", provider: OmniAuth::Utils.camelize(provider)) %></span>
-            <% end %>
-          <% end %>
+        <% unless @user.email_verified? %>
+          <%# Email Verification Warning %>
+          <div class="card p-6 border-yellow-200 bg-yellow-50 dark:bg-yellow-900/20 dark:border-yellow-800">
+            <div class="flex">
+              <div class="flex-shrink-0">
+                <%= inline_svg "icons/triangle-alert.svg", class: "h-5 w-5 text-yellow-400" %>
+              </div>
+              <div class="ml-3">
+                <h3 class="text-sm font-medium text-yellow-800 dark:text-yellow-200">
+                  <%= t(".email_not_verified") %>
+                </h3>
+                <div class="mt-2 text-sm text-yellow-700 dark:text-yellow-300">
+                  <p><%= t(".email_verification_description") %></p>
+                </div>
+                <div class="mt-4">
+                  <%= button_to t(".resend_verification_email"), users_email_verification_path,
+                        method: :post,
+                        class: "btn btn-sm bg-yellow-100 text-yellow-800 hover:bg-yellow-200 dark:bg-yellow-800 dark:text-yellow-100 dark:hover:bg-yellow-700" %>
+                </div>
+              </div>
+            </div>
+          </div>
         <% end %>
+
+        <%# Connected Accounts Section %>
+        <div class="card p-6">
+          <div class="space-y-6">
+            <div>
+              <h2 class="text-lg font-medium"><%= t(".connected_accounts") %></h2>
+              <p class="text-sm text-muted-foreground"><%= t(".connected_accounts_description") %></p>
+            </div>
+
+            <div class="grid gap-3">
+              <%# TODO: providers list should come from global config %>
+              <% omniauth_providers = [ "google", "facebook" ] %>
+              <% omniauth_providers << "developer" unless Rails.env.production? %>
+              <% omniauth_providers.each do |provider| %>
+                <div class="flex items-center justify-between p-4 border rounded-lg">
+                  <div class="flex items-center gap-3">
+                    <%= inline_svg_tag "icons/brand/#{provider}.svg", class: "h-5 w-5" %>
+                    <div>
+                      <span class="text-sm font-medium"><%= OmniAuth::Utils.camelize(provider) %></span>
+                      <% if (connected_account = @user_connected_accounts.find_by(provider_name: provider)) %>
+                        <p class="text-xs text-muted-foreground"><%= t(".connected_account_label") %></p>
+                      <% else %>
+                        <p class="text-xs text-muted-foreground"><%= t(".not_connected") %></p>
+                      <% end %>
+                    </div>
+                  </div>
+                  <div class="flex-shrink-0">
+                    <% if (connected_account = @user_connected_accounts.find_by(provider_name: provider)) %>
+                      <%= button_to t(".disconnect"), user_settings_connected_account_path(connected_account),
+                            method: :delete,
+                            class: "btn btn-destructive btn-sm",
+                            form: { data: { turbo_confirm: t(".disconnect_confirm") } } %>
+                    <% else %>
+                      <%= button_to t(".connect"), "/auth/#{provider}",
+                            method: :post,
+                            data: { turbo: false, disable_with: t(".redirecting") },
+                            class: "btn btn-sm" %>
+                    <% end %>
+                  </div>
+                </div>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <%# Delete Account Section %>
+        <div class="card p-6 border-red-200 bg-red-50 dark:bg-red-900/20 dark:border-red-800">
+          <div class="space-y-4">
+            <div>
+              <h2 class="text-lg font-medium text-red-900 dark:text-red-100"><%= t(".delete_account") %></h2>
+              <p class="text-sm text-red-700 dark:text-red-300"><%= t(".delete_account_description") %></p>
+            </div>
+
+            <div class="pt-4">
+              <%= button_to user_path(@user), method: :delete, data: { turbo_confirm: t(".delete_account_confirm") }, class: "btn btn-destructive" do %>
+                <%= t(".delete_my_account") %>
+              <% end %>
+            </div>
+        </div>
       </div>
-    </div>
-  </div>
-
-  <div class="grid max-w-7xl grid-cols-1 gap-x-8 gap-y-10 px-4 py-16 sm:px-6 md:grid-cols-3 lg:px-8">
-    <div>
-      <h2 class="text-base font-semibold leading-7 text-foreground">Delete account</h2>
-      <p class="mt-1 text-sm leading-6 text-muted-foreground">No longer want to use our service? You can delete your account here. This action is not reversible. All information related to this account will be deleted permanently. Certain user content will be moved to a system wide "Deleted user" in order to maintain content for posterity.</p>
-    </div>
-
-    <div class="flex items-start md:col-span-2">
-      <%= button_to user_path(@user), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "rounded-md bg-red-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-400" do %>
-        Yes, delete my account
-      <% end %>
     </div>
   </div>
 </div>

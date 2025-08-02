@@ -92,8 +92,6 @@ en:
       successfully_liked: You liked this %{resource}
       successfully_unliked: You unliked this %{resource}
   oauth:
-    connect_with: Connect with %{provider}
-    disconnect_with: Disconnect %{provider}
     sign_in_with: Sign in with %{provider}
   organizations:
     create:
@@ -169,22 +167,48 @@ en:
   user_settings:
     accounts:
       show:
+        connect: Connect
+        connected_account_label: Connected
         connected_accounts: Connected Accounts
         connected_accounts_description: Connecting your social media accounts makes logging in easier.
+        current_password: Current Password
+        delete_account: Delete account
+        delete_account_confirm: Are you sure?
+        delete_account_description: No longer want to use our service? You can delete your account here. This action is not reversible. All information related to this account will be deleted permanently.
+        delete_my_account: Yes, delete my account
+        disconnect: Disconnect
+        disconnect_confirm: Are you sure you want to disconnect this account?
+        email_address: Email Address
         email_address_hint: Never shown to the public
         email_address_placeholder: Enter your email address
+        email_not_verified: Email address not verified
+        email_verification_description: Please verify your email address to secure your account and receive important notifications.
+        not_connected: Not connected
         redirecting: Redirecting...
+        resend_verification_email: Resend verification email
+        unverified: Unverified
         update_email_address: Update email address
         update_username: Update username
+        username: Username
         username_hint: unique, no spaces, short
         username_warning: Changing your username will break all previous mentions and links to your profile.
+        verified: Verified
       update:
         account_updated: Your account has been updated.
     active_sessions:
       destroy:
         session_revoked: This session was successfully revoked
       index:
+        active_devices_sessions: Active Devices & Sessions
+        active_sessions_description: This is a list of devices that have logged into your account. Revoke any sessions that you do not recognize.
         are_you_sure: Are you sure? The device will be signed out.
+        browser_platform_separator: 'on'
+        current_session: Current session
+        last_accessed: Last accessed
+        no_active_sessions: No active sessions
+        no_active_sessions_description: You don't have any active sessions at the moment.
+        revoke: Revoke
+        signed_in: Signed in
         this_is_your_current_session: This is your current session
     connected_accounts:
       destroy:
@@ -193,24 +217,56 @@ en:
       update:
         email_changed: Your email address has been changed.
         email_has_not_changed: You provided the same email address, nothing has changed.
+    header:
+      account: Account
+      active_sessions: Active Sessions
+      password: Password
+      preferences: Preferences
+      public_profile: Public Profile
+    page_titles:
+      account: Account Settings
+      active_sessions: Active Sessions
+      password: Password Settings
+      preferences: Preferences
+      profile: Profile Settings
     passwords:
       show:
+        change_password: Change password
+        change_password_description: Change your password or recover your current one.
+        confirm_password: Confirm password
+        current_password: Current password
+        current_password_hint: You must provide your current password in order to change it.
         forgot_my_password: I forgot my password
+        new_password: New password
         save_password: Save password
       update:
         password_changed: Your password has been changed.
     preferences:
       show:
         description: 'EXPERIMENTAL: These customizations are still a work in progress'
+        language_hint: Choose your preferred language for the interface.
+        theme_hint: Choose your preferred theme appearance.
+        time_zone_hint: Select your local time zone for accurate timestamps.
         title: Preferences
+        update_preferences: Update preferences
       update:
         updated_successfully: Your preferences have been updated.
     profiles:
       avatar_updated: Your avatar has been updated. It may take up to 30 minutes to update everywhere.
       profile_updated: Your profile has been updated.
       show:
+        avatar_size_hint: The ideal image size is 192 x 192 pixels. The maximum file size allowed is 1 MB.
+        back_to_profile: Back to profile
+        bio_hint: Tell us about yourself in fewer than 255 characters.
+        profile: Profile
+        profile_description: This information will be displayed publicly so be careful what you share.
+        public_avatar: Public avatar
         remove_avatar: Remove avatar
+        remove_avatar_confirm: Are you sure?
+        update_profile: Update profile
         upload_new_avatar: Upload new avatar
+    settings_description: Manage your account settings and set preferences.
+    settings_title: Settings
   users:
     avatars:
       destroy:
