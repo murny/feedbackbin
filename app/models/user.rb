@@ -2,6 +2,7 @@
 
 class User < ApplicationRecord
   MAX_USERNAME_LENGTH = 20
+  MIN_PASSWORD_LENGTH_ALLOWED = 10
 
   include Mentionable
 
@@ -36,7 +37,7 @@ class User < ApplicationRecord
     uniqueness: { case_sensitive: false },
     format: { with: URI::MailTo::EMAIL_REGEXP }
 
-  validates :password, allow_nil: true, length: { minimum: 10 }
+  validates :password, allow_nil: true, length: { minimum: MIN_PASSWORD_LENGTH_ALLOWED }
   validates :avatar, resizable_image: true, max_file_size: 2.megabytes
   validates :bio, length: { maximum: 255 }
 

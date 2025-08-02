@@ -1,7 +1,7 @@
 <div id="forms-basic">
 
   <% content_for :preview_example, flush: true do %>
-    <%= render_form_with(local: true, url: "#", class: "w-2/3") do |form| %>
+    <%= render_form_with(url: "#", class: "w-2/3") do |form| %>
       <%= form.label :email %>
       <%= form.email_field :email, placeholder: "Enter your email" %>
 
@@ -10,7 +10,7 @@
   <% end %>
 
   <% content_for :code_example, flush: true do %>
-<%%= render_form_with(local: true, url: "#", class: "w-2/3") do |form| %>
+<%%= render_form_with(url: "#", class: "w-2/3") do |form| %>
   <%%= form.label :email %>
   <%%= form.email_field :email, placeholder: "Enter your email" %>
 

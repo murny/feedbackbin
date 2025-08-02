@@ -23,7 +23,7 @@ class AuthenticationTest < ApplicationSystemTestCase
 
     fill_in "Name", with: "Shane"
     fill_in "Username", with: "shane_m"
-    fill_in "Email address", with: "shane@email.com"
+    fill_in "Email", with: "shane@email.com"
     fill_in "Password", with: "SecretPassword"
 
     click_button "Create account"
