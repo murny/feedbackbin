@@ -1,0 +1,55 @@
+<% if likes.any? %>
+  <div class="space-y-4">
+    <% likes.each do |like| %>
+      <div class="border rounded-lg p-4 hover:shadow-sm transition-shadow">
+        <div class="flex items-start justify-between">
+          <div class="flex-1 min-w-0 space-y-2">
+            <div class="flex items-center gap-2">
+              <% if like.likeable.respond_to?(:category) && like.likeable.category %>
+                <%= render_badge(text: like.likeable.category.name, variant: :outline) %>
+              <% elsif like.likeable.respond_to?(:post) && like.likeable.post.category %>
+                <%= render_badge(text: like.likeable.post.category.name, variant: :outline) %>
+              <% end %>
+              <span class="text-xs text-muted-foreground">
+                <%= like.likeable_type == "Post" ? "Post" : "Comment" %>
+              </span>
+            </div>
+            <h3 class="font-medium text-foreground">
+              <% if like.likeable_type == "Post" %>
+                <%= link_to like.likeable.title, post_path(like.likeable),
+                    class: "hover:text-primary transition-colors" %>
+              <% else %>
+                <%= link_to comment_path(like.likeable),
+                    class: "hover:text-primary transition-colors" do %>
+                  <span class="text-muted-foreground text-sm">Comment on</span> <%= like.likeable.post.title %>
+                <% end %>
+              <% end %>
+            </h3>
+            <p class="text-sm text-muted-foreground line-clamp-2">
+              <% if like.likeable_type == "Post" %>
+                <%= truncate(like.likeable.body.to_plain_text, length: 120) %>
+              <% else %>
+                <%= truncate(like.likeable.body.to_plain_text, length: 120) %>
+              <% end %>
+            </p>
+            <div class="flex items-center gap-4 text-xs text-muted-foreground">
+              <span>Liked <%= local_datetime_tag like.created_at, style: :relative %></span>
+            </div>
+          </div>
+          <div class="text-xl">
+            ❤️
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="text-center py-12 text-muted-foreground">
+    <div class="mb-4">
+      <svg class="mx-auto h-12 w-12 text-muted-foreground/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+      </svg>
+    </div>
+    <p class="text-sm">No likes yet.</p>
+  </div>
+<% end %>

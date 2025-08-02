@@ -1,0 +1,49 @@
+<% if posts.any? %>
+  <div class="space-y-4">
+    <% posts.each do |post| %>
+      <div class="border rounded-lg p-4 hover:shadow-sm transition-shadow">
+        <div class="flex items-start justify-between">
+          <div class="flex-1 min-w-0 space-y-2">
+            <div class="flex items-center gap-2">
+              <% if post.category %>
+                <%= render_badge(text: post.category.name, variant: :outline) %>
+              <% end %>
+              <% if post.post_status %>
+                <span class="text-xs text-muted-foreground"><%= post.post_status.name %></span>
+              <% end %>
+            </div>
+            <h3 class="font-medium text-foreground">
+              <%= link_to post.title, post_path(post),
+                  class: "hover:text-primary transition-colors" %>
+            </h3>
+            <p class="text-sm text-muted-foreground line-clamp-2">
+              <%= truncate(post.body.to_plain_text, length: 120) %>
+            </p>
+            <div class="flex items-center gap-4 text-xs text-muted-foreground">
+              <span><%= local_datetime_tag post.created_at, style: :relative %></span>
+            </div>
+          </div>
+          <div class="flex items-center gap-4 text-sm text-muted-foreground">
+            <div class="flex items-center gap-1">
+              <span>👍</span>
+              <span><%= post.likes_count || 0 %></span>
+            </div>
+            <div class="flex items-center gap-1">
+              <span>💬</span>
+              <span><%= post.comments_count || 0 %></span>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <div class="text-center py-12 text-muted-foreground">
+    <div class="mb-4">
+      <svg class="mx-auto h-12 w-12 text-muted-foreground/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+      </svg>
+    </div>
+    <p class="text-sm">No posts yet.</p>
+  </div>
+<% end %>
