@@ -20,7 +20,7 @@
           <span class="bg-card text-muted-foreground relative z-10 px-2">Or continue with</span>
         </div>
 
-        <%= form_with url: users_session_path, local: true, class: "grid gap-6" do |form| %>
+        <%= form_with url: users_session_path, class: "grid gap-6" do |form| %>
           <div class="grid gap-3">
             <%= form.label :email_address, t(".email"), class: "text-sm font-medium leading-none" %>
             <%= form.email_field :email_address,
@@ -40,7 +40,8 @@
                   required: true,
                   autocomplete: "current-password",
                   placeholder: t(".password_placeholder"),
-                  maxlength: 72 %>
+                  minlength: User::MIN_PASSWORD_LENGTH_ALLOWED,
+                  maxlength: User::MAX_PASSWORD_LENGTH_ALLOWED %>
           </div>
 
           <%= form.submit t(".sign_in"), class: "btn w-full" %>

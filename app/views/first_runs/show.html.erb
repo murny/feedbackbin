@@ -12,13 +12,13 @@
       <%= render "error_messages", resource: @user %>
 
       <label class="align-center center gap" data-controller="upload-preview">
-        <div class="btn>
+        <div class="btn">
           <%= form.file_field :avatar, class: "input", accept: "image/*",
                 data: { upload_preview_target: "input", action: "upload-preview#previewImage" } %>
           <span class=" sr-only ">Add your avatar</span>
         </div>
 
-        <div class=" btn avatar txt-xx-large ">
+        <div class="btn avatar txt-xx-large">
           <%= image_tag "default-avatar.svg", role: "presentation", data: { upload_preview_target: "image" }, alt: "Add your avatar" %>
           <span class=" sr-only ">Avatar</span>
         </div>
@@ -33,19 +33,19 @@
       <div>
         <%= form.label :username %>
         <%= form.text_field :username, required: true, autocomplete: "username", placeholder: t(".username_placeholder") %>
-        <p class=" mt-3 text-sm leading-6 text-muted-foreground "><%= t(".username_hint") %></p>
+        <p class="mt-3 text-sm leading-6 text-muted-foreground"><%= t(".username_hint") %></p>
       </div>
 
       <div>
         <%= form.label :password %>
         <%= form.password_field :password, required: true, autocomplete: "new-password", placeholder: t(".password_placeholder") %>
-        <p class=" mt-3 text-sm leading-6 text-muted-foreground "><%= t(".password_hint") %></p>
+        <p class="mt-3 text-sm leading-6 text-muted-foreground"><%= t(".password_hint") %></p>
       </div>
 
       <div>
         <%= form.label :name %>
         <%= form.text_field :name, required: false, autofocus: true, autocomplete: "name", placeholder: t(".name_placeholder") %>
-        <p class=" mt-3 text-sm leading-6 text-muted-foreground "><%= t(".name_hint") %></p>
+        <p class="mt-3 text-sm leading-6 text-muted-foreground"><%= t(".name_hint") %></p>
       </div>
 
       <div>

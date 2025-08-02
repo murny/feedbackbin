@@ -14,24 +14,30 @@
       </header>
 
       <div class="px-6 grid gap-4">
-        <%= form_with url: users_password_reset_path(params[:token]), method: :put, local: true, class: "grid gap-6" do |form| %>
+        <%= form_with url: users_password_reset_path(params[:token]), method: :put, class: "grid gap-6" do |form| %>
           <div class="grid gap-3">
             <%= form.label :password, t(".new_password"), class: "text-sm font-medium leading-none" %>
-            <%= form.password_field :password, required: true, autofocus: true, autocomplete: "new-password", placeholder: t(".new_password_placeholder"), minlength: 10, maxlength: 72 %>
+            <%= form.password_field :password,
+                                    required: true,
+                                    autofocus: true,
+                                    autocomplete: "new-password",
+                                    placeholder: t(".new_password_placeholder"),
+                                    minlength: User::MIN_PASSWORD_LENGTH_ALLOWED,
+                                    maxlength: User::MAX_PASSWORD_LENGTH_ALLOWED %>
           </div>
 
           <div class="grid gap-3">
             <%= form.label :password_confirmation, t(".confirm_new_password"), class: "text-sm font-medium leading-none" %>
-            <%= form.password_field :password_confirmation, required: true, autocomplete: "new-password", placeholder: t(".confirm_new_password_placeholder"), minlength: 10, maxlength: 72 %>
+            <%= form.password_field :password_confirmation,
+                                    required: true,
+                                    autocomplete: "new-password",
+                                    placeholder: t(".confirm_new_password_placeholder"),
+                                    minlength: User::MIN_PASSWORD_LENGTH_ALLOWED,
+                                    maxlength: User::MAX_PASSWORD_LENGTH_ALLOWED %>
           </div>
 
           <%= form.submit t(".update_password"), class: "btn w-full" %>
         <% end %>
-
-        <p class="text-center text-sm py-2 px-4">
-          <%= t(".remember_password") %>
-          <%= link_to t("users.sessions.new.sign_in"), sign_in_path, class: "underline underline-offset-4" %>
-        </p>
       </div>
     </div>
   </div>
