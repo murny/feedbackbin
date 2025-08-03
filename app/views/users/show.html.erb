@@ -167,19 +167,19 @@
         <div class="mt-8">
           <div class="grid grid-cols-2 gap-6 sm:grid-cols-4">
             <div class="text-center">
-              <div class="text-3xl font-bold text-foreground"><%= @posts.count %></div>
+              <div class="text-3xl font-bold text-foreground"><%= @stats[:posts_count] %></div>
               <div class="text-sm text-muted-foreground"><%= t(".stats_posts_created") %></div>
             </div>
             <div class="text-center">
-              <div class="text-3xl font-bold text-foreground"><%= @posts.sum { |p| p.likes_count || 0 } %></div>
+              <div class="text-3xl font-bold text-foreground"><%= @stats[:total_votes] %></div>
               <div class="text-sm text-muted-foreground"><%= t(".stats_total_votes_received") %></div>
             </div>
             <div class="text-center">
-              <div class="text-3xl font-bold text-foreground"><%= @comments.count %></div>
+              <div class="text-3xl font-bold text-foreground"><%= @stats[:comments_count] %></div>
               <div class="text-sm text-muted-foreground"><%= t(".stats_comments") %></div>
             </div>
             <div class="text-center">
-              <div class="text-3xl font-bold text-foreground"><%= @comments.sum { |c| c.likes_count || 0 } %></div>
+              <div class="text-3xl font-bold text-foreground"><%= @stats[:helpful_votes] %></div>
               <div class="text-sm text-muted-foreground"><%= t(".stats_helpful_votes_received") %></div>
             </div>
           </div>
@@ -198,17 +198,17 @@
           items: [
             {
               value: "posts",
-              label: "#{t('.tabs_posts')} (#{@posts.count})",
+              label: "#{t('.tabs_posts')} (#{@stats[:posts_count]})",
               content: render("users/posts_tab", posts: @posts)
             },
             {
               value: "comments",
-              label: "#{t('.tabs_comments')} (#{@comments.count})",
+              label: "#{t('.tabs_comments')} (#{@stats[:comments_count]})",
               content: render("users/comments_tab", comments: @comments)
             },
             {
               value: "likes",
-              label: "#{t('.tabs_likes')} (#{@likes.count})",
+              label: "#{t('.tabs_likes')} (#{@likes.size})",
               content: render("users/likes_tab", likes: @likes)
             }
           ],
