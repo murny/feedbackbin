@@ -1,0 +1,14 @@
+<% if posts.any? %>
+  <ul class="space-y-6">
+    <% posts.each do |post| %>
+      <%= render partial: "posts/post", locals: { post: post } %>
+    <% end %>
+  </ul>
+<% else %>
+  <div class="text-center py-12 text-muted-foreground">
+    <div class="mb-4">
+      <%= inline_svg_tag "icons/files.svg", class: "mx-auto h-12 w-12 text-muted-foreground/50" %>
+    </div>
+    <p class="text-sm"><%= t(".empty_posts") %></p>
+  </div>
+<% end %>

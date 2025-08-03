@@ -271,6 +271,10 @@ en:
     avatars:
       destroy:
         avatar_removed: Your avatar has been removed.
+    comments_tab:
+      comment_on: Comment on
+      empty_comments: No comments yet.
+      reply_to: Reply to
     destroy:
       account_deleted: Your account has been deleted.
     email_verifications:
@@ -279,6 +283,10 @@ en:
       invalid_token: That email verification link is invalid or has expired
       show:
         email_verified: Thank you for verifying your email address
+    likes_tab:
+      comment_on: Comment on
+      empty_likes: No likes yet.
+      liked: Liked
     omniauth:
       create:
         already_connected: This %{provider} account is already connected to your account.
@@ -310,6 +318,8 @@ en:
       update:
         password_has_been_reset: Password has been reset.
         passwords_did_not_match: Passwords did not match.
+    posts_tab:
+      empty_posts: No posts yet.
     registrations:
       create:
         rate_limited: Please try again later.
@@ -353,3 +363,27 @@ en:
         sign_up: Sign up
         terms_agreement_html: By clicking continue, you agree to our %{terms_link} and %{privacy_link}.
         welcome_back: Welcome back
+    show:
+      achievements: Achievements
+      achievements_early_adopter: Early Adopter
+      achievements_helpful: Helpful
+      achievements_top_contributor: Top Contributor
+      back_to_feedback: Back to feedback
+      details: Details
+      edit_profile: Edit Profile
+      github: GitHub
+      joined: Joined
+      linkedin: LinkedIn
+      location: Location
+      not_specified: Not specified
+      organization: Organization
+      report_user: Report User
+      stats_comments: Comments
+      stats_helpful_votes_received: Helpful Votes Received
+      stats_posts_created: Posts Created
+      stats_total_votes_received: Total Votes Received
+      tabs_comments: Comments
+      tabs_likes: Likes
+      tabs_posts: Posts
+      twitter: Twitter
+      website: Website

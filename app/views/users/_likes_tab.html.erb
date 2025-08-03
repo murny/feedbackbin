@@ -1,0 +1,60 @@
+<% if likes.any? %>
+  <ul class="space-y-6">
+    <% likes.each do |like| %>
+      <li class="card hover:shadow-xl hover:border-primary/20">
+        <div class="px-4 md:px-6">
+          <div class="flex gap-3 md:gap-4">
+            <%= render partial: "likes/like_button", locals: { likeable: like.likeable } %>
+            <div class="grow lg:flex items-center justify-between space-y-5 lg:space-x-6 lg:space-y-0">
+              <div>
+                <div class="mb-2">
+                  <div class="flex items-center gap-2 mb-1">
+                    <h2 class="flex-1">
+                      <% if like.likeable_type == "Post" %>
+                        <%= link_to like.likeable.title, post_path(like.likeable), class: "scroll-m-20 text-xl font-semibold tracking-tight hover:underline cursor-pointer line-clamp-2" %>
+                      <% else %>
+                        <%= link_to comment_path(like.likeable), class: "scroll-m-20 text-xl font-semibold tracking-tight hover:underline cursor-pointer line-clamp-2" do %>
+                          <span class="text-muted-foreground text-sm font-normal"><%= t(".comment_on") %></span> <%= like.likeable.post.title %>
+                        <% end %>
+                      <% end %>
+                    </h2>
+                    <% if like.likeable.respond_to?(:category) && like.likeable.category %>
+                      <%= render_badge(text: like.likeable.category.name, variant: :outline) %>
+                    <% elsif like.likeable.respond_to?(:post) && like.likeable.post.category %>
+                      <%= render_badge(text: like.likeable.post.category.name, variant: :outline) %>
+                    <% end %>
+                  </div>
+                  <div class="mt-1 flex items-center gap-x-2 text-xs leading-5">
+                    <p>
+                      <% if like.likeable_type == "Post" %>
+                        <%= link_to like.likeable.author.name, like.likeable.author, class: "hover:underline" %>
+                      <% else %>
+                        <%= link_to like.likeable.creator.name, like.likeable.creator, class: "hover:underline" %>
+                      <% end %>
+                    </p>
+                    <%= inline_svg_tag "icons/dot.svg", class: "h-0.5 w-0.5 fill-current" %>
+                    <p>
+                      <%= local_datetime_tag like.likeable.created_at, style: :datetime %>
+                    </p>
+                    <%= inline_svg_tag "icons/dot.svg", class: "h-0.5 w-0.5 fill-current" %>
+                    <p><%= t(".liked") %> <%= local_datetime_tag like.created_at, style: :relative %></p>
+                  </div>
+                  <p class="mt-2 text-muted-foreground text-sm">
+                    <%= truncate(strip_tags(like.likeable.body.to_s), length: 140) %>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <div class="text-center py-12 text-muted-foreground">
+    <div class="mb-4">
+      <%= inline_svg_tag "icons/heart.svg", class: "mx-auto h-12 w-12 text-muted-foreground/50" %>
+    </div>
+    <p class="text-sm"><%= t(".empty_likes") %></p>
+  </div>
+<% end %>

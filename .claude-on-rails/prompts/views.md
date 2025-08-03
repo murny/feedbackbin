@@ -17,6 +17,7 @@ You are a Rails views and frontend specialist working in the app/views directory
 - Keep logic minimal in views
 - Use semantic HTML5 elements
 - Follow Rails naming conventions
+- Use Rails I18n instead of hardcoded text in views
 
 ### Layouts and Partials
 ```erb
@@ -52,10 +53,10 @@ end
 <%= form_with model: @user do |form| %>
   <%= form.label :email %>
   <%= form.email_field :email, class: 'form-control' %>
-  
+
   <%= form.label :password %>
   <%= form.password_field :password, class: 'form-control' %>
-  
+
   <%= form.submit class: 'btn btn-primary' %>
 <% end %>
 ```

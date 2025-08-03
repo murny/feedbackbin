@@ -1,174 +1,220 @@
-<div class="mt-10">
-  <div>
-    <img class="h-32 w-full object-cover lg:h-48" src="https://images.unsplash.com/photo-1444628838545-ac4016a5418a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=1950&q=80" alt="">
-  </div>
-  <div class="mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
-    <div class="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
-      <div class="flex">
-        <%= image_tag fresh_user_avatar_path(@user), role: "presentation", class: "h-24 w-24 rounded-full ring-4 ring-white sm:h-32 sm:w-32", alt: "" %>
-        <span class="sr-only">Avatar</span>
-      </div>
-      <div class="mt-6 sm:flex sm:min-w-0 sm:flex-1 sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
-        <div class="mt-6 min-w-0 flex-1 sm:hidden md:block">
-          <h1 class="truncate text-2xl font-bold text-foreground"><%= @user.name %></h1>
-        </div>
-        <div class="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-x-4 sm:space-y-0">
-          <%= link_to "Edit profile", user_settings_profile_path, class: "inline-flex justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50" %>
-          <button type="button" class="inline-flex justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50">
-            <span>Report User</span>
-          </button>
-        </div>
-      </div>
-    </div>
-    <div class="mt-6 hidden min-w-0 flex-1 sm:block md:hidden">
-      <h1 class="truncate text-2xl font-bold text-foreground"><%= @user.name %></h1>
-    </div>
+<!-- Back to feedback link -->
+<div class="container mx-auto px-4 py-4">
+  <div class="max-w-4xl mx-auto">
+    <%= link_to root_path, class: "inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors" do %>
+      <%= inline_svg_tag "icons/chevron-left.svg", class: "size-4" %>
+      <%= t(".back_to_feedback") %>
+    <% end %>
   </div>
 </div>
 
-<p class="mt-6 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-sm text-muted-foreground">
-  <%= @user.bio %>
-</p>
+<!-- Main Profile Card -->
+<div class="container mx-auto px-4 pb-6">
+  <div class="max-w-4xl mx-auto">
+    <%= render_card(class: "pt-0") do %>
+      <!-- User Banner (placeholder) -->
+      <div class="h-32 w-full bg-gradient-to-r from-blue-500 to-purple-600 lg:h-48"></div>
 
-<div data-controller="tabs"
-     data-tabs-active-tab-class="text-blue-600 hover:text-blue-600 dark:text-blue-500 dark:hover:text-blue-500 border-blue-600 dark:border-blue-500"
-     data-tabs-update-anchor-value="true"
-     class="mt-10 w-full bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-  <div class="sm:hidden">
-      <label for="tabs" class="sr-only">Select tab</label>
-      <select id="tabs"
-              class="bg-gray-50 border-0 border-b border-gray-200 text-gray-900 text-sm rounded-t-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
-          <option>Posts</option>
-          <option>Replies</option>
-          <option>Likes</option>
-      </select>
+      <div data-slot="card-content" class="px-6 pb-6 pt-0">
+        <!-- Avatar and Basic Info Section -->
+        <div class="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
+          <div class="flex justify-center sm:justify-start">
+            <%= render_avatar(
+              src: fresh_user_avatar_path(@user),
+              size: :xl,
+              fallback: @user.name,
+              class: "ring-4 ring-background shadow-xl"
+            ) %>
+          </div>
+
+          <div class="mt-6 sm:flex sm:min-w-0 sm:flex-1 sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
+            <div class="mt-6 min-w-0 flex-1 text-center sm:text-left">
+              <h1 class="text-2xl font-bold text-foreground"><%= @user.name %></h1>
+            </div>
+
+            <!-- Action Buttons -->
+            <div class="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-x-4 sm:space-y-0">
+              <% if Current.user == @user %>
+                <%= render_button(
+                  variant: :outline,
+                  href: user_settings_profile_path
+                ) do %>
+                  <%= inline_svg_tag "icons/square-pen.svg", class: "size-4 mr-2" %>
+                  <%= t(".edit_profile") %>
+                <% end %>
+              <% else %>
+                <%= render_button(
+                  variant: :outline
+                ) do %>
+                  <%= inline_svg_tag "icons/triangle-alert.svg", class: "size-4 mr-2" %>
+                  <%= t(".report_user") %>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+
+        <!-- Bio Section -->
+        <% if @user.bio.present? %>
+          <div class="mt-6 text-center sm:text-left">
+            <p class="text-muted-foreground"><%= @user.bio %></p>
+          </div>
+        <% end %>
+
+        <!-- Details Section -->
+        <div class="mt-8">
+          <h3 class="text-lg font-semibold text-foreground mb-4"><%= t(".details") %></h3>
+          <dl class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+            <%# TODO: Add location field to User model and profile edit form %>
+            <div class="flex items-center gap-3">
+              <div class="p-2 bg-muted rounded-lg">
+                <%= inline_svg_tag "icons/map-pin.svg", class: "size-4 text-muted-foreground" %>
+              </div>
+              <div>
+                <dt class="text-sm font-medium text-muted-foreground"><%= t(".location") %></dt>
+                <dd class="text-sm text-muted-foreground"><%= t(".not_specified") %></dd>
+              </div>
+            </div>
+
+            <% if @user.organizations.any? %>
+              <div class="flex items-center gap-3">
+                <div class="p-2 bg-muted rounded-lg">
+                  <%= inline_svg_tag "icons/building.svg", class: "size-4 text-muted-foreground" %>
+                </div>
+                <div>
+                  <dt class="text-sm font-medium text-muted-foreground"><%= t(".organization") %></dt>
+                  <dd class="text-sm text-foreground"><%= @user.organizations.first.name %></dd>
+                </div>
+              </div>
+            <% end %>
+
+            <%# TODO: Add website field to User model and profile edit form %>
+            <div class="flex items-center gap-3">
+              <div class="p-2 bg-muted rounded-lg">
+                <%= inline_svg_tag "icons/globe.svg", class: "size-4 text-muted-foreground" %>
+              </div>
+              <div>
+                <dt class="text-sm font-medium text-muted-foreground"><%= t(".website") %></dt>
+                <dd class="text-sm text-muted-foreground"><%= t(".not_specified") %></dd>
+              </div>
+            </div>
+
+            <%# TODO: Add twitter_handle field to User model and profile edit form %>
+            <div class="flex items-center gap-3">
+              <div class="p-2 bg-muted rounded-lg">
+                <%= inline_svg_tag "icons/user.svg", class: "size-4 text-muted-foreground" %>
+              </div>
+              <div>
+                <dt class="text-sm font-medium text-muted-foreground"><%= t(".twitter") %></dt>
+                <dd class="text-sm text-muted-foreground"><%= t(".not_specified") %></dd>
+              </div>
+            </div>
+
+            <%# TODO: Add linkedin_handle field to User model and profile edit form %>
+            <div class="flex items-center gap-3">
+              <div class="p-2 bg-muted rounded-lg">
+                <%= inline_svg_tag "icons/brand/linkedin.svg", class: "size-4 text-muted-foreground" %>
+              </div>
+              <div>
+                <dt class="text-sm font-medium text-muted-foreground"><%= t(".linkedin") %></dt>
+                <dd class="text-sm text-muted-foreground"><%= t(".not_specified") %></dd>
+              </div>
+            </div>
+
+            <%# TODO: Add github_handle field to User model and profile edit form %>
+            <div class="flex items-center gap-3">
+              <div class="p-2 bg-muted rounded-lg">
+                <%= inline_svg_tag "icons/brand/github.svg", class: "size-4 text-muted-foreground" %>
+              </div>
+              <div>
+                <dt class="text-sm font-medium text-muted-foreground"><%= t(".github") %></dt>
+                <dd class="text-sm text-muted-foreground"><%= t(".not_specified") %></dd>
+              </div>
+            </div>
+
+            <div class="flex items-center gap-3">
+              <div class="p-2 bg-muted rounded-lg">
+                <%= inline_svg_tag "icons/calendar.svg", class: "size-4 text-muted-foreground" %>
+              </div>
+              <div>
+                <dt class="text-sm font-medium text-muted-foreground"><%= t(".joined") %></dt>
+                <dd class="text-sm text-foreground"><%= local_datetime_tag @user.created_at, style: :date %></dd>
+              </div>
+            </div>
+          </dl>
+        </div>
+
+        <!-- Achievements Section -->
+        <div class="mt-8">
+          <h3 class="text-lg font-semibold text-foreground mb-4"><%= t(".achievements") %></h3>
+          <div class="flex flex-wrap gap-2">
+            <%= render_badge(variant: :default) do %>
+              <%= inline_svg_tag "icons/trophy.svg" %>
+              <%= t(".achievements_top_contributor") %>
+            <% end %>
+            <%= render_badge(variant: :secondary) do %>
+              <%= inline_svg_tag "icons/thumbs-up.svg" %>
+              <%= t(".achievements_helpful") %>
+            <% end %>
+            <%= render_badge(variant: :outline) do %>
+              <%= inline_svg_tag "icons/rocket.svg" %>
+              <%= t(".achievements_early_adopter") %>
+            <% end %>
+          </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="mt-8">
+          <div class="grid grid-cols-2 gap-6 sm:grid-cols-4">
+            <div class="text-center">
+              <div class="text-3xl font-bold text-foreground"><%= @stats[:posts_count] %></div>
+              <div class="text-sm text-muted-foreground"><%= t(".stats_posts_created") %></div>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl font-bold text-foreground"><%= @stats[:total_votes] %></div>
+              <div class="text-sm text-muted-foreground"><%= t(".stats_total_votes_received") %></div>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl font-bold text-foreground"><%= @stats[:comments_count] %></div>
+              <div class="text-sm text-muted-foreground"><%= t(".stats_comments") %></div>
+            </div>
+            <div class="text-center">
+              <div class="text-3xl font-bold text-foreground"><%= @stats[:helpful_votes] %></div>
+              <div class="text-sm text-muted-foreground"><%= t(".stats_helpful_votes_received") %></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
   </div>
-  <ul class="hidden text-sm font-medium text-center text-gray-500 divide-x divide-gray-200 rounded-lg sm:flex dark:divide-gray-600 dark:text-gray-400" role="tablist">
-    <li class="w-full">
-      <button id="posts-tab"
-              data-tabs-target="tab"
-              data-action="click->tabs#change"
-              type="button"
-              role="tab"
-              aria-controls="posts"
-              aria-selected="true"
-              class="inline-block w-full p-4 rounded-ss-lg bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600">
-        Posts
-      </button>
-    </li>
-    <li class="w-full">
-      <button id="replies-tab"
-              data-tabs-target="tab"
-              data-action="click->tabs#change"
-              type="button"
-              role="tab"
-              aria-controls="replies"
-              aria-selected="false"
-              class="inline-block w-full p-4 bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600">
-        Replies
-      </button>
-    </li>
-    <li class="w-full">
-      <button id="likes-tab"
-              data-tabs-target="tab"
-              data-action="click->tabs#change"
-              type="button"
-              role="tab"
-              aria-controls="likes"
-              aria-selected="false"
-              class="inline-block w-full p-4 rounded-se-lg bg-gray-50 hover:bg-gray-100 focus:outline-none dark:bg-gray-700 dark:hover:bg-gray-600">
-        Likes
-      </button>
-    </li>
-  </ul>
-  <div class="border-t border-gray-200 dark:border-gray-600">
-    <div class="hidden p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800" data-tabs-target="panel" role="tabpanel" aria-labelledby="posts-tab">
-      <ul role="list" class="divide-y divide-gray-100 dark:divide-gray-900 overflow-hidden bg-white dark:bg-gray-700 shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl">
-        <% @posts.each do |post| %>
-          <li class="relative flex justify-between gap-x-6 px-4 py-5 hover:bg-gray-50 dark:hover:bg-gray-600 sm:px-6">
-            <div class="flex min-w-0 gap-x-4">
-              <div class="min-w-0 flex-auto">
-                <p class="text-sm font-semibold leading-6 text-foreground">
-                  <%= link_to post_path(post) do %>
-                    <span class="absolute inset-x-0 -top-px bottom-0"></span>
-                    <%= post.title %>
-                  <% end %>
-                </p>
-                <p class="mt-1 flex text-xs leading-5 text-muted-foreground">
-                  <%= truncate(post.body.to_plain_text, length: 100) %>
-                </p>
-              </div>
-            </div>
-            <div class="flex shrink-0 items-center gap-x-4">
-              <div class="hidden sm:flex sm:flex-col sm:items-end">
-                <p class="text-sm leading-6 text-foreground"><%= post.category.name %></p>
-                <p class="mt-1 text-xs leading-5 text-muted-foreground"><%= local_datetime_tag post.created_at, style: :datetime %></p>
-              </div>
-              <svg class="h-5 w-5 flex-none text-gray-400 dark:text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
-              </svg>
-            </div>
-          </li>
-        <% end %>
-      </ul>
-    </div>
-    <div class="hidden p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800" data-tabs-target="panel" role="tabpanel" aria-labelledby="replies-tab">
-      <ul role="list" class="divide-y divide-gray-100 dark:divide-gray-900 overflow-hidden bg-white dark:bg-gray-700 shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl">
-        <% @comments.each do |comment| %>
-          <li class="relative flex justify-between gap-x-6 px-4 py-5 hover:bg-gray-50 dark:hover:bg-gray-600 sm:px-6">
-            <div class="flex min-w-0 gap-x-4">
-              <div class="min-w-0 flex-auto">
-                <p class="text-sm font-semibold leading-6 text-foreground">
-                  <%= link_to comment_path(comment) do %>
-                    <span class="absolute inset-x-0 -top-px bottom-0"></span>
-                    <span class="text-sm text-muted-foreground">Commented on</span> <%= comment.post.title %>
-                  <% end %>
-                </p>
-                <p class="mt-1 flex text-xs leading-5 text-muted-foreground">
-                  <%= truncate(comment.body.to_plain_text, length: 250) %>
-                </p>
-              </div>
-            </div>
-            <div class="flex shrink-0 items-center gap-x-4">
-              <div class="hidden sm:flex sm:flex-col sm:items-end">
-                <p class="text-sm leading-6 text-foreground">
-                  <% if comment.parent %>
-                    <span class="text-sm text-muted-foreground">Replied to</span> <%= comment.parent.creator.username %>
-                  <% end %>
-                </p>
-                <p class="mt-1 text-xs leading-5 text-muted-foreground"><%= local_datetime_tag comment.created_at, style: :datetime %></p>
-              </div>
-              <svg class="h-5 w-5 flex-none text-gray-400 dark:text-gray-500" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
-              </svg>
-            </div>
-          </li>
-        <% end %>
-      </ul>
-    </div>
-    <div class="hidden p-4 bg-white rounded-lg md:p-8 dark:bg-gray-800" data-tabs-target="panel" role="tabpanel" aria-labelledby="likes-tab">
-      <ul role="list" class="divide-y divide-gray-100 dark:divide-gray-900 overflow-hidden bg-white dark:bg-gray-700 shadow-sm ring-1 ring-gray-900/5 sm:rounded-xl">
-        <% @likes.each do |like| %>
-          <li class="relative flex justify-between gap-x-6 px-4 py-5 hover:bg-gray-50 dark:hover:bg-gray-600 sm:px-6">
-            <div class="flex min-w-0 gap-x-4">
-              <div class="min-w-0 flex-auto">
-                <p class="text-sm font-semibold leading-6 text-foreground">
-                  <% if like.likeable_type == "Post" %>
-                    <span class="text-sm text-muted-foreground">Liked the post:</span> <%= like.likeable.title %>
-                  <% else %>
-                    <span class="text-sm text-muted-foreground">Liked the comment:</span> <%= truncate(like.likeable.body.to_plain_text, length: 100) %>
-                  <% end %>
-                </p>
-              </div>
-            </div>
-            <div class="flex shrink-0 items-center gap-x-4">
-              <div class="hidden sm:flex sm:flex-col sm:items-end">
-                <p class="mt-1 text-xs leading-5 text-muted-foreground"><%= local_datetime_tag like.created_at, style: :datetime %></p>
-              </div>
-            </div>
-          </li>
-        <% end %>
-      </ul>
-    </div>
+</div>
+
+<!-- Activity Tabs Section -->
+<div class="container mx-auto px-4 pb-6">
+  <div class="max-w-4xl mx-auto">
+    <%= render_card do %>
+      <div data-slot="card-content" class="p-6">
+        <%= render_tabs(
+          items: [
+            {
+              value: "posts",
+              label: "#{t('.tabs_posts')} (#{@stats[:posts_count]})",
+              content: render("users/posts_tab", posts: @posts)
+            },
+            {
+              value: "comments",
+              label: "#{t('.tabs_comments')} (#{@stats[:comments_count]})",
+              content: render("users/comments_tab", comments: @comments)
+            },
+            {
+              value: "likes",
+              label: "#{t('.tabs_likes')} (#{@likes.size})",
+              content: render("users/likes_tab", likes: @likes)
+            }
+          ],
+          index_value: 0
+        ) %>
+      </div>
+    <% end %>
   </div>
 </div>

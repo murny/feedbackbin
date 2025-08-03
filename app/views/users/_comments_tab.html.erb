@@ -1,0 +1,52 @@
+<% if comments.any? %>
+  <ul class="space-y-6">
+    <% comments.each do |comment| %>
+      <li class="card hover:shadow-xl hover:border-primary/20">
+        <div class="px-4 md:px-6">
+          <div class="flex gap-3 md:gap-4">
+            <%= render partial: "likes/like_button", locals: { likeable: comment } %>
+            <div class="grow lg:flex items-center justify-between space-y-5 lg:space-x-6 lg:space-y-0">
+              <div>
+                <div class="mb-2">
+                  <div class="flex items-center gap-2 mb-1">
+                    <h2 class="flex-1">
+                      <%= link_to comment_path(comment), class: "scroll-m-20 text-xl font-semibold tracking-tight hover:underline cursor-pointer line-clamp-2" do %>
+                        <span class="text-muted-foreground text-sm font-normal"><%= t(".comment_on") %></span> <%= comment.post.title %>
+                      <% end %>
+                    </h2>
+                    <% if comment.post.category %>
+                      <%= render_badge(text: comment.post.category.name, variant: :outline) %>
+                    <% end %>
+                  </div>
+                  <div class="mt-1 flex items-center gap-x-2 text-xs leading-5">
+                    <p>
+                      <%= link_to comment.creator.name, comment.creator, class: "hover:underline" %>
+                    </p>
+                    <%= inline_svg_tag "icons/dot.svg", class: "h-0.5 w-0.5 fill-current" %>
+                    <p>
+                      <%= local_datetime_tag comment.created_at, style: :datetime %>
+                    </p>
+                    <% if comment.parent %>
+                      <%= inline_svg_tag "icons/dot.svg", class: "h-0.5 w-0.5 fill-current" %>
+                      <p><%= t(".reply_to") %> <%= comment.parent.creator.name %></p>
+                    <% end %>
+                  </div>
+                  <p class="mt-2 text-muted-foreground text-sm">
+                    <%= truncate(strip_tags(comment.body.to_s), length: 140) %>
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <div class="text-center py-12 text-muted-foreground">
+    <div class="mb-4">
+      <%= inline_svg_tag "icons/message-circle.svg", class: "mx-auto h-12 w-12 text-muted-foreground/50" %>
+    </div>
+    <p class="text-sm"><%= t(".empty_comments") %></p>
+  </div>
+<% end %>
