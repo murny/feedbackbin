@@ -10,7 +10,7 @@ class UsersController < ApplicationController
     @posts = @user.posts.includes(:likes, :category).order(created_at: :desc)
     @comments = @user.comments.includes(:likes, :post).order(created_at: :desc)
     @likes = @user.likes.includes(:likeable).order(created_at: :desc)
-    
+
     # Pre-calculate stats for better performance
     @stats = {
       posts_count: @posts.size,
