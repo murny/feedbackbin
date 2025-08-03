@@ -3,7 +3,7 @@
   <div class="max-w-4xl mx-auto">
     <%= link_to root_path, class: "inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors" do %>
       <%= inline_svg_tag "icons/chevron-left.svg", class: "size-4" %>
-      <%= t('.back_to_feedback') %>
+      <%= t(".back_to_feedback") %>
     <% end %>
   </div>
 </div>
@@ -40,14 +40,14 @@
                   href: user_settings_profile_path
                 ) do %>
                   <%= inline_svg_tag "icons/square-pen.svg", class: "size-4 mr-2" %>
-                  <%= t('.edit_profile') %>
+                  <%= t(".edit_profile") %>
                 <% end %>
               <% else %>
                 <%= render_button(
                   variant: :outline
                 ) do %>
                   <%= inline_svg_tag "icons/triangle-alert.svg", class: "size-4 mr-2" %>
-                  <%= t('.report_user') %>
+                  <%= t(".report_user") %>
                 <% end %>
               <% end %>
             </div>
@@ -63,7 +63,7 @@
 
         <!-- Details Section -->
         <div class="mt-8">
-          <h3 class="text-lg font-semibold text-foreground mb-4"><%= t('.details') %></h3>
+          <h3 class="text-lg font-semibold text-foreground mb-4"><%= t(".details") %></h3>
           <dl class="grid grid-cols-1 gap-4 sm:grid-cols-3">
             <%# TODO: Add location field to User model and profile edit form %>
             <div class="flex items-center gap-3">
@@ -71,8 +71,8 @@
                 <%= inline_svg_tag "icons/map-pin.svg", class: "size-4 text-muted-foreground" %>
               </div>
               <div>
-                <dt class="text-sm font-medium text-muted-foreground"><%= t('.location') %></dt>
-                <dd class="text-sm text-muted-foreground"><%= t('.not_specified') %></dd>
+                <dt class="text-sm font-medium text-muted-foreground"><%= t(".location") %></dt>
+                <dd class="text-sm text-muted-foreground"><%= t(".not_specified") %></dd>
               </div>
             </div>
 
@@ -82,7 +82,7 @@
                   <%= inline_svg_tag "icons/building.svg", class: "size-4 text-muted-foreground" %>
                 </div>
                 <div>
-                  <dt class="text-sm font-medium text-muted-foreground"><%= t('.organization') %></dt>
+                  <dt class="text-sm font-medium text-muted-foreground"><%= t(".organization") %></dt>
                   <dd class="text-sm text-foreground"><%= @user.organizations.first.name %></dd>
                 </div>
               </div>
@@ -94,8 +94,8 @@
                 <%= inline_svg_tag "icons/globe.svg", class: "size-4 text-muted-foreground" %>
               </div>
               <div>
-                <dt class="text-sm font-medium text-muted-foreground"><%= t('.website') %></dt>
-                <dd class="text-sm text-muted-foreground"><%= t('.not_specified') %></dd>
+                <dt class="text-sm font-medium text-muted-foreground"><%= t(".website") %></dt>
+                <dd class="text-sm text-muted-foreground"><%= t(".not_specified") %></dd>
               </div>
             </div>
 
@@ -105,8 +105,8 @@
                 <%= inline_svg_tag "icons/user.svg", class: "size-4 text-muted-foreground" %>
               </div>
               <div>
-                <dt class="text-sm font-medium text-muted-foreground"><%= t('.twitter') %></dt>
-                <dd class="text-sm text-muted-foreground"><%= t('.not_specified') %></dd>
+                <dt class="text-sm font-medium text-muted-foreground"><%= t(".twitter") %></dt>
+                <dd class="text-sm text-muted-foreground"><%= t(".not_specified") %></dd>
               </div>
             </div>
 
@@ -116,8 +116,8 @@
                 <%= inline_svg_tag "icons/brand/linkedin.svg", class: "size-4 text-muted-foreground" %>
               </div>
               <div>
-                <dt class="text-sm font-medium text-muted-foreground"><%= t('.linkedin') %></dt>
-                <dd class="text-sm text-muted-foreground"><%= t('.not_specified') %></dd>
+                <dt class="text-sm font-medium text-muted-foreground"><%= t(".linkedin") %></dt>
+                <dd class="text-sm text-muted-foreground"><%= t(".not_specified") %></dd>
               </div>
             </div>
 
@@ -127,8 +127,8 @@
                 <%= inline_svg_tag "icons/brand/github.svg", class: "size-4 text-muted-foreground" %>
               </div>
               <div>
-                <dt class="text-sm font-medium text-muted-foreground"><%= t('.github') %></dt>
-                <dd class="text-sm text-muted-foreground"><%= t('.not_specified') %></dd>
+                <dt class="text-sm font-medium text-muted-foreground"><%= t(".github") %></dt>
+                <dd class="text-sm text-muted-foreground"><%= t(".not_specified") %></dd>
               </div>
             </div>
 
@@ -137,7 +137,7 @@
                 <%= inline_svg_tag "icons/calendar.svg", class: "size-4 text-muted-foreground" %>
               </div>
               <div>
-                <dt class="text-sm font-medium text-muted-foreground"><%= t('.joined') %></dt>
+                <dt class="text-sm font-medium text-muted-foreground"><%= t(".joined") %></dt>
                 <dd class="text-sm text-foreground"><%= local_datetime_tag @user.created_at, style: :date %></dd>
               </div>
             </div>
@@ -146,19 +146,19 @@
 
         <!-- Achievements Section -->
         <div class="mt-8">
-          <h3 class="text-lg font-semibold text-foreground mb-4"><%= t('.achievements') %></h3>
+          <h3 class="text-lg font-semibold text-foreground mb-4"><%= t(".achievements") %></h3>
           <div class="flex flex-wrap gap-2">
             <%= render_badge(variant: :default) do %>
               <%= inline_svg_tag "icons/trophy.svg" %>
-              <%= t('.achievements_top_contributor') %>
+              <%= t(".achievements_top_contributor") %>
             <% end %>
             <%= render_badge(variant: :secondary) do %>
               <%= inline_svg_tag "icons/thumbs-up.svg" %>
-              <%= t('.achievements_helpful') %>
+              <%= t(".achievements_helpful") %>
             <% end %>
             <%= render_badge(variant: :outline) do %>
               <%= inline_svg_tag "icons/rocket.svg" %>
-              <%= t('.achievements_early_adopter') %>
+              <%= t(".achievements_early_adopter") %>
             <% end %>
           </div>
         </div>
@@ -168,19 +168,19 @@
           <div class="grid grid-cols-2 gap-6 sm:grid-cols-4">
             <div class="text-center">
               <div class="text-3xl font-bold text-foreground"><%= @posts.count %></div>
-              <div class="text-sm text-muted-foreground"><%= t('.stats_posts_created') %></div>
+              <div class="text-sm text-muted-foreground"><%= t(".stats_posts_created") %></div>
             </div>
             <div class="text-center">
               <div class="text-3xl font-bold text-foreground"><%= @posts.sum { |p| p.likes_count || 0 } %></div>
-              <div class="text-sm text-muted-foreground"><%= t('.stats_total_votes_received') %></div>
+              <div class="text-sm text-muted-foreground"><%= t(".stats_total_votes_received") %></div>
             </div>
             <div class="text-center">
               <div class="text-3xl font-bold text-foreground"><%= @comments.count %></div>
-              <div class="text-sm text-muted-foreground"><%= t('.stats_comments') %></div>
+              <div class="text-sm text-muted-foreground"><%= t(".stats_comments") %></div>
             </div>
             <div class="text-center">
               <div class="text-3xl font-bold text-foreground"><%= @comments.sum { |c| c.likes_count || 0 } %></div>
-              <div class="text-sm text-muted-foreground"><%= t('.stats_helpful_votes_received') %></div>
+              <div class="text-sm text-muted-foreground"><%= t(".stats_helpful_votes_received") %></div>
             </div>
           </div>
         </div>

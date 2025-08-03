@@ -11,7 +11,7 @@
                   <div class="flex items-center gap-2 mb-1">
                     <h2 class="flex-1">
                       <%= link_to comment_path(comment), class: "scroll-m-20 text-xl font-semibold tracking-tight hover:underline cursor-pointer line-clamp-2" do %>
-                        <span class="text-muted-foreground text-sm font-normal"><%= t('.comment_on') %></span> <%= comment.post.title %>
+                        <span class="text-muted-foreground text-sm font-normal"><%= t(".comment_on") %></span> <%= comment.post.title %>
                       <% end %>
                     </h2>
                     <% if comment.post.category %>
@@ -28,7 +28,7 @@
                     </p>
                     <% if comment.parent %>
                       <%= inline_svg_tag "icons/dot.svg", class: "h-0.5 w-0.5 fill-current" %>
-                      <p><%= t('.reply_to') %> <%= comment.parent.creator.name %></p>
+                      <p><%= t(".reply_to") %> <%= comment.parent.creator.name %></p>
                     <% end %>
                   </div>
                   <p class="mt-2 text-muted-foreground text-sm">
@@ -47,6 +47,6 @@
     <div class="mb-4">
       <%= inline_svg_tag "icons/message-circle.svg", class: "mx-auto h-12 w-12 text-muted-foreground/50" %>
     </div>
-    <p class="text-sm"><%= t('.empty_comments') %></p>
+    <p class="text-sm"><%= t(".empty_comments") %></p>
   </div>
 <% end %>

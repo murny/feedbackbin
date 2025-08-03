@@ -14,7 +14,7 @@
                         <%= link_to like.likeable.title, post_path(like.likeable), class: "scroll-m-20 text-xl font-semibold tracking-tight hover:underline cursor-pointer line-clamp-2" %>
                       <% else %>
                         <%= link_to comment_path(like.likeable), class: "scroll-m-20 text-xl font-semibold tracking-tight hover:underline cursor-pointer line-clamp-2" do %>
-                          <span class="text-muted-foreground text-sm font-normal"><%= t('.comment_on') %></span> <%= like.likeable.post.title %>
+                          <span class="text-muted-foreground text-sm font-normal"><%= t(".comment_on") %></span> <%= like.likeable.post.title %>
                         <% end %>
                       <% end %>
                     </h2>
@@ -37,7 +37,7 @@
                       <%= local_datetime_tag like.likeable.created_at, style: :datetime %>
                     </p>
                     <%= inline_svg_tag "icons/dot.svg", class: "h-0.5 w-0.5 fill-current" %>
-                    <p><%= t('.liked') %> <%= local_datetime_tag like.created_at, style: :relative %></p>
+                    <p><%= t(".liked") %> <%= local_datetime_tag like.created_at, style: :relative %></p>
                   </div>
                   <p class="mt-2 text-muted-foreground text-sm">
                     <%= truncate(strip_tags(like.likeable.body.to_s), length: 140) %>
@@ -55,6 +55,6 @@
     <div class="mb-4">
       <%= inline_svg_tag "icons/heart.svg", class: "mx-auto h-12 w-12 text-muted-foreground/50" %>
     </div>
-    <p class="text-sm"><%= t('.empty_likes') %></p>
+    <p class="text-sm"><%= t(".empty_likes") %></p>
   </div>
 <% end %>
