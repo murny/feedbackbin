@@ -148,7 +148,8 @@ en:
     edit:
       title: Edit Post
     index:
-      title: Posts
+      description: Share your ideas and help us improve our product
+      title: Customer Feedback
     new:
       title: New Post
     update:

@@ -130,18 +130,20 @@ class InitialSchema < ActiveRecord::Migration[8.0]
     end
 
     create_table "posts", force: :cascade do |t|
-      t.bigint "organization_id", null: false
-      t.string "title", null: false
       t.bigint "author_id", null: false
-      t.integer "comments_count", default: 0, null: false
-      t.integer "likes_count", default: 0, null: false
-      t.datetime "created_at", null: false
-      t.datetime "updated_at", null: false
       t.integer "category_id", null: false
+      t.integer "comments_count", default: 0, null: false
+      t.datetime "created_at", null: false
+      t.integer "likes_count", default: 0, null: false
+      t.bigint "organization_id", null: false
+      t.boolean "pinned", default: false, null: false
       t.integer "post_status_id"
-      t.index [ "organization_id" ], name: "index_posts_on_organization_id"
+      t.string "title", null: false
+      t.datetime "updated_at", null: false
       t.index [ "author_id" ], name: "index_posts_on_author_id"
       t.index [ "category_id" ], name: "index_posts_on_category_id"
+      t.index [ "organization_id" ], name: "index_posts_on_organization_id"
+      t.index [ "pinned" ], name: "index_posts_on_pinned"
       t.index [ "post_status_id" ], name: "index_posts_on_post_status_id"
     end
 

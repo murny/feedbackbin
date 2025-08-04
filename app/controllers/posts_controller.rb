@@ -10,12 +10,19 @@ class PostsController < ApplicationController
   def index
     authorize Post
 
-    @categories = Category.all
-    @category = Category.first
-    posts = @category.posts.sort_by_params(params[:sort], sort_direction)
+    posts = Post.where(organization: Current.organization)
+
+    if params[:category_id].present?
+      @category = @categories.find_by(id: params[:category_id])
+      posts = posts.where(category_id: @category.id) if @category
+    end
+
+    posts = posts.sort_by_params(params[:sort], sort_direction)
 
     # Apply status filtering if provided
-    posts = posts.where(post_status_id: params[:post_status_id]) if params[:post_status_id].present?
+    if params[:post_status_id].present?
+      posts = posts.where(post_status_id: params[:post_status_id])
+    end
 
     # Order with pinned posts first
     posts = posts.ordered_with_pinned
