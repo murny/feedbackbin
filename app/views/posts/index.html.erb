@@ -5,8 +5,14 @@
   <div class="md:pr-6 lg:pr-10">
 
     <div class="mb-8">
-      <h1 class="text-3xl font-bold mb-2"><%= @category.name %></h1>
-      <p class="text-muted-foreground"><%= @category.description %></p>
+      <% if @category %>
+        <h1 class="text-3xl font-bold mb-2"><%= @category.name %></h1>
+        <p class="text-muted-foreground"><%= @category.description %></p>
+      <% else %>
+        <%# TODO: The default title/description should be configurable for the organization %>
+        <h1 class="text-3xl font-bold mb-2"><%= t(".title") %></h1>
+        <p class="text-muted-foreground"><%= t(".description") %></p>
+      <% end %>
     </div>
 
     <div class="p-6">
