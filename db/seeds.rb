@@ -10,13 +10,17 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-if Rails.env.development?
-  puts "🌱 Seeding development data..."
-
-  Dir[Rails.root.join('db', 'seeds', '*.rb')].sort.each do |file|
-    puts "Loading #{File.basename(file)}..."
-    load file
-  end
-
-  puts "✅ Seeding complete!"
+# Prevent seed data from running in production
+if Rails.env.production?
+  puts "⚠️ Skipping seed data in production environment"
+  return
 end
+
+puts "🌱 Seeding development data..."
+
+Dir[Rails.root.join('db', 'seeds', '*.rb')].sort.each do |file|
+  puts "Loading #{File.basename(file)}..."
+  load file
+end
+
+puts "✅ Seeding complete!"
