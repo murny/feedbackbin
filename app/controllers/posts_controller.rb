@@ -10,7 +10,9 @@ class PostsController < ApplicationController
   def index
     authorize Post
 
-    posts = Post.where(organization: Current.organization)
+    posts = Current.organization.posts
+    @categories = Current.organization.categories
+    @post_statuses = Current.organization.post_statuses
 
     if params[:category_id].present?
       @category = @categories.find_by(id: params[:category_id])
