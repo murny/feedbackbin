@@ -18,9 +18,15 @@ end
 
 puts "🌱 Seeding development data..."
 
+# Disable broadcasting during seeding to prevent hanging
+ENV['DISABLE_TURBO_BROADCASTING'] = 'true'
+
 Dir[Rails.root.join('db', 'seeds', '*.rb')].sort.each do |file|
   puts "Loading #{File.basename(file)}..."
   load file
 end
 
 puts "✅ Seeding complete!"
+
+# Clean up environment variable
+ENV.delete('DISABLE_TURBO_BROADCASTING')

@@ -13,7 +13,7 @@ class Post < ApplicationRecord
 
   has_many :comments, dependent: :destroy
 
-  broadcasts_refreshes
+  broadcasts_refreshes unless ENV['DISABLE_TURBO_BROADCASTING'] == 'true'
 
   validates :title, presence: true
 
