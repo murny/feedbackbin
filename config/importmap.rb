@@ -10,5 +10,6 @@ pin "trix"
 pin "@rails/actiontext", to: "actiontext.esm.js"
 pin "tailwindcss-stimulus-components" # @6.1.3
 pin "highlight.js", to: "https://ga.jspm.io/npm:highlight.js@11.11.1/es/index.js"
+pin "@tailwindplus/elements", to: "https://cdn.jsdelivr.net/npm/@tailwindplus/elements@1"
 
 pin_all_from "app/javascript/controllers", under: "controllers"
