@@ -6,6 +6,7 @@ module ModelSortable
   class_methods do
     # Orders results by column and direction
     def sort_by_params(column, direction)
+      # TODO: We currently duplicating logic here and in sortable controller concern
       sortable_column = column.presence_in(sortable_columns) || "created_at"
       order(sortable_column => direction)
     end

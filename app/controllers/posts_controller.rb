@@ -10,14 +10,16 @@ class PostsController < ApplicationController
   def index
     authorize Post
 
-    posts = Post.where(organization: Current.organization)
+    posts = Current.organization.posts
+    @categories = Current.organization.categories.order(:name)
+    @post_statuses = Current.organization.post_statuses.order(:position)
 
     if params[:category_id].present?
       @category = @categories.find_by(id: params[:category_id])
       posts = posts.where(category_id: @category.id) if @category
     end
 
-    posts = posts.sort_by_params(params[:sort], sort_direction)
+    posts = posts.sort_by_params(sort_column(Post), sort_direction)
 
     # Apply status filtering if provided
     if params[:post_status_id].present?
