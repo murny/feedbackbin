@@ -55,12 +55,12 @@
                     <p class="text-xs text-muted-foreground"><%= t(".email_address_hint") %></p>
                     <% if @user.email_verified? %>
                       <div class="flex items-center gap-1 text-green-600">
-                        <%= inline_svg "icons/circle-check.svg", class: "h-4 w-4" %>
+                        <%= inline_svg_tag "icons/circle-check.svg", class: "h-4 w-4" %>
                         <span class="text-xs font-medium"><%= t(".verified") %></span>
                       </div>
                     <% else %>
                       <div class="flex items-center gap-1 text-yellow-600">
-                        <%= inline_svg "icons/circle-alert.svg", class: "h-4 w-4" %>
+                        <%= inline_svg_tag "icons/circle-alert.svg", class: "h-4 w-4" %>
                         <span class="text-xs font-medium"><%= t(".unverified") %></span>
                       </div>
                     <% end %>
@@ -85,7 +85,7 @@
           <div class="card p-6 border-yellow-200 bg-yellow-50 dark:bg-yellow-900/20 dark:border-yellow-800">
             <div class="flex">
               <div class="flex-shrink-0">
-                <%= inline_svg "icons/triangle-alert.svg", class: "h-5 w-5 text-yellow-400" %>
+                <%= inline_svg_tag "icons/triangle-alert.svg", class: "h-5 w-5 text-yellow-400" %>
               </div>
               <div class="ml-3">
                 <h3 class="text-sm font-medium text-yellow-800 dark:text-yellow-200">

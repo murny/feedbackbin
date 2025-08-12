@@ -7,14 +7,14 @@
         <%= button_to like_path(likeable_type: likeable.class.to_s, likeable_id: likeable.id),
               method: :patch,
               class: "btn-secondary flex flex-col h-auto py-2 px-2 md:px-3 min-w-[50px] md:min-w-[60px]" do %>
-          <%= inline_svg "icons/chevron-up.svg", class: "h-3 w-3 md:h-4 md:w-4 mb-1" %>
+          <%= inline_svg_tag "icons/chevron-up.svg", class: "h-3 w-3 md:h-4 md:w-4 mb-1" %>
           <span class="text-lg font-bold text-center min-w-[2ch] text-foreground"><%= likeable.likes_count %></span>
         <% end %>
       <% else %>
         <%= button_to like_path(likeable_type: likeable.class.to_s, likeable_id: likeable.id),
               method: :patch,
               class: "btn-ghost flex flex-col h-auto py-2 px-2 md:px-3 min-w-[50px] md:min-w-[60px]" do %>
-          <%= inline_svg "icons/chevron-up.svg", class: "h-3 w-3 md:h-4 md:w-4 mb-1" %>
+          <%= inline_svg_tag "icons/chevron-up.svg", class: "h-3 w-3 md:h-4 md:w-4 mb-1" %>
           <span class="text-lg font-bold text-center min-w-[2ch] text-foreground"><%= likeable.likes_count %></span>
         <% end %>
       <% end %>
@@ -23,7 +23,7 @@
     <%= link_to sign_in_path,
           data: { turbo_frame: :_top },
           class: "btn-ghost flex flex-col h-auto py-2 px-2 md:px-3 min-w-[50px] md:min-w-[60px]" do %>
-      <%= inline_svg "icons/chevron-up.svg", class: "h-3 w-3 md:h-4 md:w-4 mb-1" %>
+      <%= inline_svg_tag "icons/chevron-up.svg", class: "h-3 w-3 md:h-4 md:w-4 mb-1" %>
       <span class="text-lg font-bold text-center min-w-[2ch] text-foreground"><%= likeable.likes_count %></span>
     <% end %>
   <% end %>
