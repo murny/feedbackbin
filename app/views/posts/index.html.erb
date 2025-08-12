@@ -57,19 +57,9 @@
       <div class="flex items-center gap-2 text-sm">
         <span class="text-muted-foreground font-medium">Sort by:</span>
         <div class="flex items-center gap-1 border border-border rounded-lg p-1 bg-background">
-          <%# TODO: Move this to helpers? %>
-          <% is_latest_active = params[:sort].blank? || (params[:sort] == "created_at" && params[:direction] == "desc") %>
-          <% is_top_active = params[:sort] == "likes_count" && params[:direction] == "desc" %>
-          <% is_comments_active = params[:sort] == "comments_count" && params[:direction] == "desc" %>
-
-          <%= link_to "Latest", posts_path(sort: :created_at, direction: :desc, category_id: params[:category_id], post_status_id: params[:post_status_id]),
-              class: "px-3 py-1.5 rounded-md transition-all duration-200 text-sm font-medium #{ is_latest_active ? 'bg-primary text-primary-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground hover:bg-muted' }" %>
-
-          <%= link_to "Top", posts_path(sort: :likes_count, direction: :desc, category_id: params[:category_id], post_status_id: params[:post_status_id]),
-              class: "px-3 py-1.5 rounded-md transition-all duration-200 text-sm font-medium #{ is_top_active ? 'bg-primary text-primary-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground hover:bg-muted' }" %>
-
-          <%= link_to "Most Commented", posts_path(sort: :comments_count, direction: :desc, category_id: params[:category_id], post_status_id: params[:post_status_id]),
-              class: "px-3 py-1.5 rounded-md transition-all duration-200 text-sm font-medium #{ is_comments_active ? 'bg-primary text-primary-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground hover:bg-muted' }" %>
+          <%= posts_sort_link "Latest", "created_at", "desc", params %>
+          <%= posts_sort_link "Top", "likes_count", "desc", params %>
+          <%= posts_sort_link "Most Commented", "comments_count", "desc", params %>
         </div>
       </div>
     </div>
@@ -86,7 +76,6 @@
           </p>
           <div class="mt-6">
             <%= render_button(
-              text: t("posts.new.title"),
               variant: :default,
               size: :default,
               href: new_post_path,
