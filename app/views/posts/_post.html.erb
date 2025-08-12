@@ -7,15 +7,33 @@
       <div class="grow lg:flex items-center justify-between space-y-5 lg:space-x-6 lg:space-y-0">
         <div>
           <div class="mb-2">
-            <div class="flex items-center gap-2 mb-1">
+            <div class="flex items-start gap-2 mb-2">
               <h2 class="flex-1">
                 <%= link_to post.title, post, class: "scroll-m-20 text-2xl font-semibold tracking-tight hover:underline cursor-pointer line-clamp-2" %>
               </h2>
-              <% if post.pinned? %>
-                <div class="flex items-center gap-1 px-2 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 rounded-md text-xs font-medium">
-                  📌 Pinned
-                </div>
-              <% end %>
+              <div class="flex items-center gap-2 flex-shrink-0">
+                <% if post.pinned? %>
+                  <div class="flex items-center gap-1 px-2 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 rounded-md text-xs font-medium">
+                    📌 Pinned
+                  </div>
+                <% end %>
+                <% if post.post_status.present? %>
+                  <%= render_badge(
+                    text: post.post_status.name,
+                    class: "text-white font-medium",
+                    style: "background-color: #{post.post_status.color};"
+                  ) %>
+                <% end %>
+              </div>
+            </div>
+
+            <!-- Category and metadata row -->
+            <div class="flex items-center gap-2 mb-1">
+              <%= render_badge(
+                text: post.category.name,
+                variant: :outline,
+                class: "text-muted-foreground bg-muted/30"
+              ) %>
             </div>
             <div class="mt-1 flex items-center gap-x-2 text-xs leading-5">
               <p>
@@ -25,7 +43,7 @@
                 <circle cx="1" cy="1" r="1" />
               </svg>
               <p>
-                <%= local_datetime_tag post.created_at, style: :datetime %>
+                <%= time_ago_with_tooltip post.created_at %>
               </p>
             </div>
             <p class="mt-2 text-muted-foreground text-sm">
