@@ -15,7 +15,7 @@ module PostsHelper
     end
   end
 
-  def posts_sort_link(text, sort_field, direction = "desc", params)
+  def posts_sort_link(text:, sort_field:, direction: "desc", params:)
     active = posts_sort_active_state(sort_field, direction, params)
     state_classes = active ? ACTIVE_SORT_CLASSES : INACTIVE_SORT_CLASSES
     css_classes = "#{BASE_SORT_CLASSES} #{state_classes}"

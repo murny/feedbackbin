@@ -29,7 +29,7 @@ class PostsHelperTest < ActionView::TestCase
       post_status_id: nil
     })
 
-    link = posts_sort_link("Latest", "created_at", "desc", test_params)
+    link = posts_sort_link(text: "Latest", sort_field: "created_at", direction: "desc", params: test_params)
 
     assert_includes link, "Latest"
     assert_includes link, "bg-primary text-primary-foreground"
@@ -43,7 +43,7 @@ class PostsHelperTest < ActionView::TestCase
       post_status_id: "3"
     })
 
-    link = posts_sort_link("Top", "likes_count", "desc", test_params)
+    link = posts_sort_link(text: "Top", sort_field: "likes_count", direction: "desc", params: test_params)
 
     assert_includes link, "category_id=5"
     assert_includes link, "post_status_id=3"
