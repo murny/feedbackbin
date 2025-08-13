@@ -6,7 +6,7 @@
     <div>
       <%= link_to posts_path, class: "inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground" do %>
         <%= inline_svg_tag "icons/chevron-left.svg", class: "h-4 w-4" %>
-        <span>Back to feedback</span>
+        <span><%= t('.back_to_feedback') %></span>
       <% end %>
     </div>
 
@@ -19,18 +19,18 @@
           <!-- Top bar: badges (left) and admin menu (right) -->
           <div class="flex items-center justify-between gap-2 mb-2">
             <div class="flex items-center flex-wrap gap-2">
-            <% if @post.category %>
-              <%= render_badge(text: @post.category.name, variant: :outline, class: "text-muted-foreground bg-muted/30") %>
-            <% end %>
-            <% if @post.post_status.present? %>
-              <%= render_badge(text: @post.post_status.name, class: "text-white font-medium", style: "background-color: #{@post.post_status.color};") %>
-            <% end %>
-            <% if @post.pinned? %>
-                <%= render_badge(variant: :secondary) do %>
-                  <%= inline_svg_tag "icons/map-pin.svg" %>
-                  Pinned
-                <% end %>
-            <% end %>
+              <% if @post.category %>
+                <%= render_badge(text: @post.category.name, variant: :outline, class: "text-muted-foreground bg-muted/30") %>
+              <% end %>
+              <% if @post.post_status.present? %>
+                <%= render_badge(text: @post.post_status.name, class: "text-white font-medium", style: "background-color: #{@post.post_status.color};") %>
+              <% end %>
+              <% if @post.pinned? %>
+                  <%= render_badge(variant: :secondary) do %>
+                    <%= inline_svg_tag "icons/map-pin.svg" %>
+                    <%= t('.pinned') %>
+                  <% end %>
+              <% end %>
             </div>
 
             <% if policy(@post).pin? || policy(@post).edit? || policy(@post).destroy? %>
@@ -46,9 +46,9 @@
                     if policy(@post).pin?
                       concat(turbo_frame_tag("post-pin-button") do
                         if @post.pinned?
-                          button_to("Unpin", post_pin_path(@post), method: :delete, class: "focus:bg-accent focus:text-accent-foreground relative flex w-full text-left cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem")
+                          button_to(t('.unpin'), post_pin_path(@post), method: :delete, class: "focus:bg-accent focus:text-accent-foreground relative flex w-full text-left cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem")
                         else
-                          button_to("Pin", post_pin_path(@post), method: :post, class: "focus:bg-accent focus:text-accent-foreground relative flex w-full text-left cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem")
+                          button_to(t('.pin'), post_pin_path(@post), method: :post, class: "focus:bg-accent focus:text-accent-foreground relative flex w-full text-left cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem")
                         end
                       end)
                     end
@@ -66,7 +66,7 @@
           <div class="flex items-center gap-2 text-sm mb-6">
             <%= avatar_tag @post.author, class: "rounded-full w-8 h-8" %>
             <%= link_to @post.author.name, @post.author, class: "font-medium hover:underline" %>
-            <span class="text-muted-foreground">•</span>
+            <span class="text-muted-foreground"><%= inline_svg_tag "icons/dot.svg" %></span>
             <%= time_ago_with_tooltip @post.created_at %>
           </div>
 
@@ -78,11 +78,11 @@
           <div class="mt-6 flex flex-wrap items-center gap-2">
             <%= render_button(variant: :outline) do %>
               <%= inline_svg_tag "icons/eye.svg" %>
-              Watch
+              <%= t('.watch') %>
             <% end %>
             <%= render_button(variant: :outline) do %>
               <%= inline_svg_tag "icons/share.svg" %>
-              Share
+              <%= t('.share') %>
             <% end %>
           </div>
         </div>

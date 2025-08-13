@@ -58,6 +58,9 @@ en:
       description: New updates and improvements to %{name}
       title: What's New
   comments:
+    comments:
+      comments: Comments
+      subscribe: Subscribe
     create:
       successfully_created: Comment was successfully created.
     destroy:
@@ -152,6 +155,15 @@ en:
       title: Customer Feedback
     new:
       title: New Post
+    post:
+      pinned: Pinned
+    show:
+      back_to_feedback: Back to feedback
+      pin: Pin
+      pinned: Pinned
+      share: Share
+      unpin: Unpin
+      watch: Watch
     update:
       successfully_updated: Post was successfully updated.
   something_went_wrong: Something went wrong, please try again.
