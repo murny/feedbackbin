@@ -6,7 +6,7 @@
     <div>
       <%= link_to posts_path, class: "inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground" do %>
         <%= inline_svg_tag "icons/chevron-left.svg", class: "h-4 w-4" %>
-        <span><%= t('.back_to_feedback') %></span>
+        <span><%= t(".back_to_feedback") %></span>
       <% end %>
     </div>
 
@@ -28,7 +28,7 @@
               <% if @post.pinned? %>
                   <%= render_badge(variant: :secondary) do %>
                     <%= inline_svg_tag "icons/map-pin.svg" %>
-                    <%= t('.pinned') %>
+                    <%= t(".pinned") %>
                   <% end %>
               <% end %>
             </div>
@@ -46,9 +46,9 @@
                     if policy(@post).pin?
                       concat(turbo_frame_tag("post-pin-button") do
                         if @post.pinned?
-                          button_to(t('.unpin'), post_pin_path(@post), method: :delete, class: "focus:bg-accent focus:text-accent-foreground relative flex w-full text-left cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem")
+                          button_to(t(".unpin"), post_pin_path(@post), method: :delete, class: "focus:bg-accent focus:text-accent-foreground relative flex w-full text-left cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem")
                         else
-                          button_to(t('.pin'), post_pin_path(@post), method: :post, class: "focus:bg-accent focus:text-accent-foreground relative flex w-full text-left cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem")
+                          button_to(t(".pin"), post_pin_path(@post), method: :post, class: "focus:bg-accent focus:text-accent-foreground relative flex w-full text-left cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem")
                         end
                       end)
                     end
@@ -78,11 +78,11 @@
           <div class="mt-6 flex flex-wrap items-center gap-2">
             <%= render_button(variant: :outline) do %>
               <%= inline_svg_tag "icons/eye.svg" %>
-              <%= t('.watch') %>
+              <%= t(".watch") %>
             <% end %>
             <%= render_button(variant: :outline) do %>
               <%= inline_svg_tag "icons/share.svg" %>
-              <%= t('.share') %>
+              <%= t(".share") %>
             <% end %>
           </div>
         </div>

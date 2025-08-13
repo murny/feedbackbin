@@ -5,12 +5,12 @@
     <div class="flex items-center justify-between gap-3 mb-4">
       <h2 class="text-xl font-semibold tracking-tight">
         <%= turbo_frame_tag "post_#{@post.id}_comment_count" do %>
-          <%= t('.comments') %> (<%= post.comments_count %>)
+          <%= t(".comments") %> (<%= post.comments_count %>)
         <% end %>
       </h2>
       <%= render_button(variant: :outline) do %>
         <%= inline_svg_tag "icons/bell.svg" %>
-        <%= t('.subscribe') %>
+        <%= t(".subscribe") %>
       <% end %>
     </div>
 
