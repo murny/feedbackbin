@@ -1,0 +1,47 @@
+<el-select value="<%= value %>" class="<%= css_class %>">
+  <button type="button" class="grid w-full cursor-default grid-cols-1 rounded-md bg-background py-1.5 pr-2 pl-3 text-left text-foreground outline-1 -outline-offset-1 outline-border focus-visible:outline-2 focus-visible:-outline-offset-2 focus-visible:outline-ring border border-input shadow-xs transition-colors hover:bg-muted/50 sm:text-sm/6">
+    <el-selectedcontent class="col-start-1 row-start-1 flex items-center gap-3 pr-6">
+      <span class="block truncate"><%= selected_text %></span>
+    </el-selectedcontent>
+    <%= inline_svg_tag "icons/chevron-down.svg",
+        class: "col-start-1 row-start-1 size-5 self-center justify-self-end text-muted-foreground sm:size-4",
+        "aria-hidden": true %>
+  </button>
+
+  <el-options anchor="bottom start" popover class="max-h-56 w-(--button-width) overflow-auto rounded-md bg-popover py-1 text-base shadow-lg outline-1 outline-black/5 ring-1 ring-border [--anchor-gap:--spacing(1)] data-leave:transition data-leave:transition-discrete data-leave:duration-100 data-leave:ease-in data-closed:data-leave:opacity-0 sm:text-sm">
+    <% options.each do |option| %>
+      <% if option[:href] %>
+        <%= link_to option[:href],
+            class: "group/option relative block cursor-default py-2 pr-9 pl-3 text-popover-foreground select-none hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground rounded-sm no-underline",
+            role: "option",
+            "data-value": option[:value] do %>
+          <div class="flex items-center">
+            <span class="block truncate font-normal <%= 'font-semibold' if option[:value].to_s == value.to_s %>">
+              <%= option[:text] %>
+            </span>
+          </div>
+          <% if option[:value].to_s == value.to_s %>
+            <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-accent">
+              <%= inline_svg_tag "icons/check.svg",
+                  class: "size-5",
+                  "aria-hidden": true %>
+            </span>
+          <% end %>
+        <% end %>
+      <% else %>
+        <el-option value="<%= option[:value] %>" class="group/option relative block cursor-default py-2 pr-9 pl-3 text-popover-foreground select-none focus:bg-accent focus:text-accent-foreground focus:outline-hidden">
+          <div class="flex items-center">
+            <span class="block truncate font-normal group-aria-selected/option:font-semibold">
+              <%= option[:text] %>
+            </span>
+          </div>
+          <span class="absolute inset-y-0 right-0 flex items-center pr-4 text-accent group-not-aria-selected/option:hidden group-focus/option:text-accent-foreground in-[el-selectedcontent]:hidden">
+            <%= inline_svg_tag "icons/check.svg",
+                class: "size-5",
+                "aria-hidden": true %>
+          </span>
+        </el-option>
+      <% end %>
+    <% end %>
+  </el-options>
+</el-select>
