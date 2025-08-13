@@ -2,7 +2,7 @@
   <%= link_to href, data: data, **options do %>
     <% if loading %>
       <div class="animate-spin mr-2">
-        <%= inline_svg "icons/spinner.svg", class: "size-4" %>
+        <%= inline_svg_tag "icons/spinner.svg", class: "size-4" %>
       </div>
     <% end %>
     <%= text %>
@@ -11,7 +11,7 @@
   <%= button_tag data: data, **options do %>
     <% if loading %>
       <div class="animate-spin mr-2">
-        <%= inline_svg "icons/spinner.svg", class: "size-4" %>
+        <%= inline_svg_tag "icons/spinner.svg", class: "size-4" %>
       </div>
     <% end %>
     <%= text %>

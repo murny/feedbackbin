@@ -5,7 +5,7 @@
     <div data-controller="alert"
         class="flex items-center p-4 mb-4 text-red-800 border-t-4 border-red-300 bg-red-50 dark:text-red-400 dark:bg-gray-800 dark:border-red-800"
         role="alert">
-      <%= inline_svg "icons/triangle-alert.svg", class: "flex-shrink-0 w-5 h-5" %>
+      <%= inline_svg_tag "icons/triangle-alert.svg", class: "flex-shrink-0 w-5 h-5" %>
       <div class="ms-3 text-sm font-medium">
         <%= alert %>
       </div>
@@ -14,7 +14,7 @@
               data-action="alert#close"
               aria-label="Close">
         <span class="sr-only">Dismiss</span>
-        <%= inline_svg "icons/x.svg", class: "w-5 h-5" %>
+        <%= inline_svg_tag "icons/x.svg", class: "w-5 h-5" %>
       </button>
     </div>
   <% end %>
@@ -32,7 +32,7 @@
               data-action="alert#close"
               aria-label="Close">
         <span class="sr-only">Dismiss</span>
-        <%= inline_svg "icons/x.svg", class: "w-5 h-5" %>
+        <%= inline_svg_tag "icons/x.svg", class: "w-5 h-5" %>
       </button>
     </div>
   <% end %>

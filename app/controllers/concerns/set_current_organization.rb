@@ -33,7 +33,16 @@ module SetCurrentOrganization
   end
 
   def fallback_organization
-    return unless authenticated?
-    Current.user.organizations.includes(:users).order(created_at: :asc).first
+    # TODO: We need to revisit this and ensure this logic is correct for multi vs single tenant mode
+    if authenticated?
+      organization = Current.user.organizations.includes(:users).order(created_at: :asc).first
+    end
+
+    if organization.nil?
+      # TODO: How to handle this for unauthenticated users? In multi tenant mode, should redirect to marketing site?
+      organization = Organization.includes(:users).order(created_at: :asc).first
+    end
+
+    organization
   end
 end
