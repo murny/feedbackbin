@@ -3,5 +3,6 @@ import "@hotwired/turbo-rails"
 
 import "@rails/actiontext"
 import "trix"
+import "@tailwindplus/elements"
 
 import "controllers"

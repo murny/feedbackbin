@@ -1,12 +1,9 @@
-<%= tag.div(**options) do %>
-  <%= render_button(**trigger_button_options) do %>
+<el-dropdown class="inline-block">
+  <%= render_button(**trigger_button_options.merge(variant: trigger_button_variant)) do %>
     <%= trigger %>
   <% end %>
-  <div
-    data-dropdown-target="menu"
-    data-dropdown-toggle-class="hidden"
-    data-dropdown-open-value="false"
-    class="<%= content_options[:class] %>">
+
+  <el-menu anchor="bottom start" popover class="<%= content_options[:class] %>">
     <%= content %>
-  </div>
-<% end %>
+  </el-menu>
+</el-dropdown>
