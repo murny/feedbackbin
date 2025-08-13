@@ -2,7 +2,7 @@
   <%= turbo_stream.update "flash_toast", partial: "flash_toast" %>
 
   <%= turbo_stream.update "post_#{@comment.post.id}_comment_count" do %>
-    <%= t('comments.comments.comments') %> (<%= @comment.post.comments_count %>)
+    <%= t('comments.comments.comments_title_with_count', comment_count: @comment.post.comments_count) %>
   <% end %>
 
   <% if @comment.parent %>

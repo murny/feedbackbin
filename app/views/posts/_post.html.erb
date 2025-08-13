@@ -41,7 +41,7 @@
               <p>
                 <%= link_to post.author.name, post.author, class: "hover:underline" %>
               </p>
-              <%= inline_svg_tag "icons/dot.svg" %>
+              <%= inline_svg_tag "icons/dot.svg", aria_hidden: true %>
               <p>
                 <%= time_ago_with_tooltip post.created_at %>
               </p>

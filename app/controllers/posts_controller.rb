@@ -36,6 +36,11 @@ class PostsController < ApplicationController
   def show
     authorize @post
 
+    @top_level_comments = @post.comments
+                               .where(parent_id: nil)
+                               .ordered
+                               .includes(:creator, :replies)
+
     @comment = Comment.new
   end
 

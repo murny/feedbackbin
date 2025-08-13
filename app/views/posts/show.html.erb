@@ -66,7 +66,7 @@
           <div class="flex items-center gap-2 text-sm mb-6">
             <%= avatar_tag @post.author, class: "rounded-full w-8 h-8" %>
             <%= link_to @post.author.name, @post.author, class: "font-medium hover:underline" %>
-            <span class="text-muted-foreground"><%= inline_svg_tag "icons/dot.svg" %></span>
+            <%= inline_svg_tag "icons/dot.svg", aria_hidden: true %>
             <%= time_ago_with_tooltip @post.created_at %>
           </div>
 
@@ -89,6 +89,10 @@
       </div>
     <% end %>
 
-    <%= render partial: "comments/comments", locals: { comment: @comment, post: @post } %>
+    <%= render partial: "comments/comments", locals: {
+      comment: @comment,
+      post: @post,
+      top_level_comments: @top_level_comments
+    } %>
   </div>
 </section>

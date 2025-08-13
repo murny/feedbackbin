@@ -59,7 +59,7 @@ en:
       title: What's New
   comments:
     comments:
-      comments: Comments
+      comments_title_with_count: Comments (%{comment_count})
       subscribe: Subscribe
     create:
       successfully_created: Comment was successfully created.
