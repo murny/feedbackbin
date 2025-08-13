@@ -31,7 +31,10 @@ class PostsTest < ApplicationSystemTestCase
     sign_in(users(:shane).email_address)
 
     visit post_url(@post)
-    click_link "Edit", match: :first
+    # Click the dropdown menu button (ellipsis icon)
+    find('[data-dropdown-target="button"]').click
+    # Now click the Edit link within the dropdown
+    click_link "Edit"
 
     fill_in_rich_text_area "Body", with: @post.body
     fill_in "Title", with: "Updated title goes here"
@@ -44,7 +47,10 @@ class PostsTest < ApplicationSystemTestCase
     sign_in(users(:shane).email_address)
 
     visit post_url(@post)
-    click_link "Edit", match: :first
+    # Click the dropdown menu button (ellipsis icon)
+    find('[data-dropdown-target="button"]').click
+    # Now click the Edit link within the dropdown
+    click_link "Edit"
 
     accept_confirm do
       click_button "Delete", match: :first

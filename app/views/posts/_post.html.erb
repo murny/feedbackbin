@@ -1,21 +1,22 @@
 <%# locals: (post:) %>
 
- <li id="<%= dom_id post %>" class="card hover:shadow-xl hover:border-primary/20">
+  <li id="<%= dom_id post %>" class="card hover:shadow-xl hover:border-primary/20">
   <div class="px-4 md:px-6">
     <div class="flex gap-3 md:gap-4">
       <%= render partial: "likes/like_button", locals: { likeable: post } %>
       <div class="grow lg:flex items-center justify-between space-y-5 lg:space-x-6 lg:space-y-0">
         <div>
           <div class="mb-2">
-            <div class="flex items-start gap-2 mb-2">
+            <div class="flex items-start justify-between w-full gap-2 mb-2">
               <h2 class="flex-1">
                 <%= link_to post.title, post, class: "scroll-m-20 text-2xl font-semibold tracking-tight hover:underline cursor-pointer line-clamp-2" %>
               </h2>
               <div class="flex items-center gap-2 flex-shrink-0">
                 <% if post.pinned? %>
-                  <div class="flex items-center gap-1 px-2 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 rounded-md text-xs font-medium">
-                    📌 Pinned
-                  </div>
+                  <%= render_badge(variant: :secondary) do %>
+                    <%= inline_svg_tag "icons/map-pin.svg" %>
+                    Pinned
+                  <% end %>
                 <% end %>
                 <% if post.post_status.present? %>
                   <%= render_badge(
@@ -36,6 +37,7 @@
               ) %>
             </div>
             <div class="mt-1 flex items-center gap-x-2 text-xs leading-5">
+              <%= avatar_tag post.author, class: "rounded-full w-5 h-5" %>
               <p>
                 <%= link_to post.author.name, post.author, class: "hover:underline" %>
               </p>
@@ -47,7 +49,7 @@
               </p>
             </div>
             <p class="mt-2 text-muted-foreground text-sm">
-              <%= truncate(strip_tags(post.body.to_s), length: 140) %>
+              <%= truncate(strip_tags(post.body.to_s), length: 250, separator: " ") %>
             </p>
           </div>
         </div>

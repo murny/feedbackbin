@@ -2,7 +2,7 @@
 
 <%= turbo_frame_tag dom_id(comment) do %>
   <div class="pl-6 pt-6 border-left">
-    <div class="p-4 lg:p-6 mb-6 text-base bg-white border border-gray-100 dark:border-gray-700 rounded-lg dark:bg-gray-800">
+    <div class="p-4 lg:p-6 mb-6 text-base bg-card border border-border rounded-lg">
       <div class="flex">
         <div class="mr-4">
           <%= render partial: "likes/like_button", locals: { likeable: comment } %>
@@ -38,18 +38,17 @@
                 data-transition-leave="transition ease-in duration-75"
                 data-transition-leave-from="opacity-100 tscale-100"
                 data-transition-leave-to="opacity-0 scale-95"
-                  class="hidden absolute right-0 z-10 mt-2 w-56 origin-top-right bg-white rounded divide-y divide-gray-100 shadow dark:bg-gray-700 dark:divide-gray-600">
-                  <ul class="py-1 text-sm text-gray-700 dark:text-gray-200"
+                   class="hidden absolute right-0 z-10 mt-2 w-56 origin-top-right bg-popover text-popover-foreground rounded border shadow">
+                  <ul class="py-1 text-sm"
                       aria-labelledby="dropdownMenuIconHorizontalButton">
                     <li>
-                      <%= link_to "Edit", edit_comment_path(comment), class: "block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
+                      <%= link_to "Edit", edit_comment_path(comment), class: "block py-2 px-4 hover:bg-accent" %>
                     </li>
                     <li>
-                      <%= button_to "Remove", comment_path(comment), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white" %>
+                      <%= button_to "Remove", comment_path(comment), method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "block w-full text-left py-2 px-4 hover:bg-accent" %>
                     </li>
                     <li>
-                      <a href="#"
-                        class="block py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Report</a>
+                      <a href="#" class="block py-2 px-4 hover:bg-accent">Report</a>
                     </li>
                   </ul>
               </div>

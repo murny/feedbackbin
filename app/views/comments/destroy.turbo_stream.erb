@@ -3,5 +3,5 @@
 <%= turbo_stream.remove "comment_#{@comment.id}" %>
 
 <%= turbo_stream.update "post_#{@comment.post.id}_comment_count" do %>
-  Discussion (<%= @comment.post.comments_count %>)
+  Comments (<%= @comment.post.comments_count %>)
 <% end %>
