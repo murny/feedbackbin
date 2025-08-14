@@ -39,7 +39,7 @@ class PostsController < ApplicationController
     @top_level_comments = @post.comments
                                .where(parent_id: nil)
                                .ordered
-                               .includes(:creator, :replies)
+                               .includes(:creator, replies: :creator)
 
     @comment = Comment.new
   end

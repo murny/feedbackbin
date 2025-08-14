@@ -16,7 +16,7 @@ module Users
       tag = avatar_tag(@user)
 
       assert_match %r{<a title="#{CGI.escapeHTML(@user.title)}" data-turbo-frame="_top" href="/users/#{@user.id}">}, tag
-      assert_match %r{<img role="presentation" alt="#{@user.name}" loading="lazy" src="/users/#{@user.id}/avatar\?v=\d+" /></a>}, tag
+      assert_match %r{<img alt="#{@user.name}" loading="lazy" src="/users/#{@user.id}/avatar\?v=\d+" /></a>}, tag
     end
   end
 end
