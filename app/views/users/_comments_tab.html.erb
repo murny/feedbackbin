@@ -22,12 +22,12 @@
                     <p>
                       <%= link_to comment.creator.name, comment.creator, class: "hover:underline" %>
                     </p>
-                    <%= inline_svg_tag "icons/dot.svg", class: "h-0.5 w-0.5 fill-current" %>
+                    <%= inline_svg_tag "icons/dot.svg", aria_hidden: true %>
                     <p>
                       <%= local_datetime_tag comment.created_at, style: :datetime %>
                     </p>
                     <% if comment.parent %>
-                      <%= inline_svg_tag "icons/dot.svg", class: "h-0.5 w-0.5 fill-current" %>
+                      <%= inline_svg_tag "icons/dot.svg", aria_hidden: true %>
                       <p><%= t(".reply_to") %> <%= comment.parent.creator.name %></p>
                     <% end %>
                   </div>

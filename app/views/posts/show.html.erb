@@ -1,58 +1,98 @@
-<%= content_for :title, "Posts ##{@post.id}" %>
+<%= content_for :title, @post.title %>
 <%= turbo_stream_from @post %>
 
-<section class="max-w-6xl mt-10 mx-auto px-4 sm:px-6">
-  <div class="md:flex md:justify-between md:divide-x md:divide-gray-800">
-    <div class="md:grow pt-6 pb-12 md:pb-20">
-      <div class="md:pr-6 lg:pr-20">
-        <div class="flex items-center justify-end gap-2">
-          <% if policy(@post).pin? %>
-            <%= turbo_frame_tag "post-pin-button" do %>
-              <% if @post.pinned? %>
-                <%= button_to "Unpin", post_pin_path(@post), method: :delete, class: "btn-secondary", title: "Unpin this post" %>
-              <% else %>
-                <%= button_to "Pin", post_pin_path(@post), method: :post, class: "btn-secondary", title: "Pin this post" %>
-              <% end %>
-            <% end %>
-          <% end %>
-          <% if policy(@post).edit? %>
-            <%= link_to t("edit"), edit_post_path(@post), class: "btn-secondary" %>
-          <% end %>
-        </div>
-        <div class="flex flex-col lg:flex-row space-y-6 lg:space-y-0 lg:space-x-6">
-          <%= render partial: "likes/like_button", locals: { likeable: @post } %>
-          <div>
-            <article class="mb-20">
-              <header class="mb-6">
-                <div class="flex items-start gap-3 mb-4" id="post-header">
-                  <h1 class="text-xl sm:text-2xl lg:text-3xl font-bold leading-tight flex-1"><%= @post.title %></h1>
-                  <% if @post.pinned? %>
-                    <div class="flex items-center gap-1 px-3 py-1 bg-yellow-100 dark:bg-yellow-900 text-yellow-800 dark:text-yellow-200 rounded-md text-sm font-medium">
-                      📌 Pinned
-                    </div>
-                  <% end %>
-                </div>
-                <div class="flex items-center">
-                  <%= avatar_tag @post.author, class: "rounded-full w-10 h-10 mr-2", alt: "" %>
-                  <div class="text-sm text-gray-600">
-                    <a class="font-medium text-blue-500 hover:text-blue-400" href="#0">
-                      <%= @post.author.name %>
-                    </a>
-                    <span class="ml-2 text-gray-500">
-                      <%= local_datetime_tag @post.created_at, style: :datetime, class: "text-gray-700 dark:text-gray-300" %>
-                    </span>
-                  </div>
-                </div>
-              </header>
+<section class="container mx-auto px-4 sm:px-6 mt-6 md:mt-10">
+  <div class="max-w-5xl mx-auto space-y-6">
+    <div>
+      <%= link_to posts_path, class: "inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground" do %>
+        <%= inline_svg_tag "icons/chevron-left.svg", class: "h-4 w-4" %>
+        <span><%= t(".back_to_feedback") %></span>
+      <% end %>
+    </div>
 
-              <div class="prose max-w-none prose-sm sm:prose-base">
-                <%= @post.body %>
-              </div>
-            </article>
+    <%= render_card(class: "p-4 md:p-6 lg:p-8") do %>
+      <div class="flex items-start gap-3 md:gap-4">
+        <div class="pt-1">
+          <%= render partial: "likes/like_button", locals: { likeable: @post } %>
+        </div>
+        <div class="grow">
+          <!-- Top bar: badges (left) and admin menu (right) -->
+          <div class="flex items-center justify-between gap-2 mb-2">
+            <div class="flex items-center flex-wrap gap-2">
+              <% if @post.category %>
+                <%= render_badge(text: @post.category.name, variant: :outline, class: "text-muted-foreground bg-muted/30") %>
+              <% end %>
+              <% if @post.post_status.present? %>
+                <%= render_badge(text: @post.post_status.name, class: "text-white font-medium", style: "background-color: #{@post.post_status.color};") %>
+              <% end %>
+              <% if @post.pinned? %>
+                  <%= render_badge(variant: :secondary) do %>
+                    <%= inline_svg_tag "icons/map-pin.svg" %>
+                    <%= t(".pinned") %>
+                  <% end %>
+              <% end %>
+            </div>
+
+            <% if policy(@post).pin? || policy(@post).edit? || policy(@post).destroy? %>
+              <%= render_dropdown_menu(
+                trigger: inline_svg_tag("icons/ellipsis.svg"),
+                trigger_button_variant: :ghost,
+                trigger_button_options: { size: :icon, class: "text-muted-foreground" },
+                content: tag.div do
+                  concat(tag.div(class: "flex flex-col gap-1") do
+                    if policy(@post).edit?
+                      concat(link_to(t("edit"), edit_post_path(@post), class: "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem"))
+                    end
+                    if policy(@post).pin?
+                      concat(turbo_frame_tag("post-pin-button") do
+                        if @post.pinned?
+                          button_to(t(".unpin"), post_pin_path(@post), method: :delete, class: "focus:bg-accent focus:text-accent-foreground relative flex w-full text-left cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem")
+                        else
+                          button_to(t(".pin"), post_pin_path(@post), method: :post, class: "focus:bg-accent focus:text-accent-foreground relative flex w-full text-left cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem")
+                        end
+                      end)
+                    end
+                    if policy(@post).destroy?
+                      concat(button_to(t("delete"), @post, method: :delete, form: { data: { turbo_confirm: t("are_you_sure") } }, class: "focus:bg-accent focus:text-accent-foreground relative flex w-full text-left cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none text-destructive", "data-dropdown-target": "menuItem"))
+                    end
+                  end)
+                end
+              ) %>
+            <% end %>
+          </div>
+
+          <h1 class="text-2xl sm:text-3xl font-bold tracking-tight mb-2"><%= @post.title %></h1>
+
+          <div class="flex items-center gap-2 text-sm mb-6">
+            <%= avatar_tag @post.author, class: "rounded-full w-8 h-8" %>
+            <%= link_to @post.author.name, @post.author, class: "font-medium hover:underline" %>
+            <%= inline_svg_tag "icons/dot.svg", aria_hidden: true %>
+            <%= time_ago_with_tooltip @post.created_at %>
+          </div>
+
+          <div class="prose max-w-none">
+            <%= @post.body %>
+          </div>
+
+          <!-- Bottom: user actions -->
+          <div class="mt-6 flex flex-wrap items-center gap-2">
+            <%= render_button(variant: :outline) do %>
+              <%= inline_svg_tag "icons/eye.svg" %>
+              <%= t(".watch") %>
+            <% end %>
+            <%= render_button(variant: :outline) do %>
+              <%= inline_svg_tag "icons/share.svg" %>
+              <%= t(".share") %>
+            <% end %>
           </div>
         </div>
-        <%= render partial: "comments/comments", locals: { comment: @comment, post: @post } %>
       </div>
-    </div>
+    <% end %>
+
+    <%= render partial: "comments/comments", locals: {
+      comment: @comment,
+      post: @post,
+      top_level_comments: @top_level_comments
+    } %>
   </div>
 </section>

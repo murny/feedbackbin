@@ -32,11 +32,11 @@
                         <%= link_to like.likeable.creator.name, like.likeable.creator, class: "hover:underline" %>
                       <% end %>
                     </p>
-                    <%= inline_svg_tag "icons/dot.svg", class: "h-0.5 w-0.5 fill-current" %>
+                    <%= inline_svg_tag "icons/dot.svg", aria_hidden: true %>
                     <p>
                       <%= local_datetime_tag like.likeable.created_at, style: :datetime %>
                     </p>
-                    <%= inline_svg_tag "icons/dot.svg", class: "h-0.5 w-0.5 fill-current" %>
+                    <%= inline_svg_tag "icons/dot.svg", aria_hidden: true %>
                     <p><%= t(".liked") %> <%= local_datetime_tag like.created_at, style: :relative %></p>
                   </div>
                   <p class="mt-2 text-muted-foreground text-sm">

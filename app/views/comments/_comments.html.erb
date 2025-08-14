@@ -1,22 +1,25 @@
-<%# locals: (comment:, post:) %>
+<%# locals: (comment:, post:, top_level_comments:) %>
 
-<section class="bg-white dark:bg-gray-900 antialiased">
-  <div class="max-w-2xl mx-auto">
-    <div class="flex justify-between items-center mb-6">
-      <h2 class="text-lg lg:text-2xl font-bold text-foreground">
-        <%= turbo_frame_tag "post_#{@post.id}_comment_count" do %>
-          Discussion (<%= post.comments_count %>)
+<section class="max-w-5xl mx-auto">
+  <%= render_card(class: "p-4 md:p-6 lg:p-8") do %>
+    <div class="flex items-center justify-between gap-3 mb-4">
+      <h2 class="text-xl font-semibold tracking-tight">
+        <%= turbo_frame_tag "post_#{post.id}_comment_count" do %>
+          <%= t(".comments_title_with_count", comment_count: post.comments_count) %>
         <% end %>
       </h2>
-      <button type="button" class="btn btn-secondary">
-        Subscribe
-      </button>
+      <%= render_button(variant: :outline) do %>
+        <%= inline_svg_tag "icons/bell.svg" %>
+        <%= t(".subscribe") %>
+      <% end %>
     </div>
 
-    <%= tag.div id: "post_#{@post.id}_comments", class: "divide-y divide-gray-200 dark:divide-gray-800" do %>
-      <%= render partial: "comments/comment", collection: post.comments.where(parent_id: nil).ordered %>
+    <%= tag.div id: "post_#{post.id}_comments", class: "divide-y divide-border" do %>
+      <%= render partial: "comments/comment", collection: top_level_comments %>
     <% end %>
 
-    <%= render partial: "comments/form", locals: { comment: comment, post: post } %>
-  </div>
+    <%= turbo_frame_tag "post_comment_form", class: "mt-6" do %>
+      <%= render partial: "comments/form", locals: { comment: comment, post: post } %>
+    <% end %>
+  <% end %>
 </section>

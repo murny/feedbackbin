@@ -14,7 +14,7 @@ module Users
 
     def avatar_tag(user, **options)
       link_to user_path(user), title: user.title, data: { turbo_frame: "_top" } do
-        image_tag fresh_user_avatar_path(user), role: "presentation", **options
+        image_tag fresh_user_avatar_path(user), alt: user.name, loading: "lazy", **options
       end
     end
   end
