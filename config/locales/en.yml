@@ -29,11 +29,17 @@ en:
     base:
       unauthorized: You are not authorized to access this page.
   application:
+    default_title: FeedbackBin
     footer:
       about: About
+      copyright: "&copy; %{year} FeedbackBin"
       privacy: Privacy
+      sr_only:
+        github: GitHub
+        twitter: X (formerly Twitter)
       terms: Terms
     navbar:
+      brand_name: FeedbackBin
       links:
         admin: Admin
         feedback: Feedback
@@ -43,9 +49,15 @@ en:
         settings: Settings
         whats_new: What's new?
         your_profile: Your profile
+      search_placeholder: Search
       sign_in: Sign in
       sign_out: Sign out
       sign_up: Sign up
+      signed_in_as: Signed in as
+      sr_only:
+        open_main_menu: Open main menu
+        open_user_menu: Open user menu
+        view_notifications: View notifications
   are_you_sure: Are you sure?
   cancel: Cancel
   changelogs:
@@ -150,13 +162,26 @@ en:
       successfully_destroyed: Post was successfully destroyed.
     edit:
       title: Edit Post
+    form:
+      body_placeholder: Add your description here...
+      title_placeholder: Add a title
     index:
+      all_boards: All Boards
+      all_posts: All Posts
+      boards_label: 'Boards:'
       description: Share your ideas and help us improve our product
+      empty_feedback_description: Get started by sharing your first suggestion or idea with the community.
+      empty_feedback_title: No feedback yet
+      sort_by_label: 'Sort by:'
+      sort_latest: Latest
+      sort_most_commented: Most Commented
+      sort_top: Top
       title: Customer Feedback
     new:
       title: New Post
     post:
       pinned: Pinned
+      total_comments: Total comments
     show:
       back_to_feedback: Back to feedback
       pin: Pin

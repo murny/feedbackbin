@@ -23,13 +23,13 @@
     <div class="mb-6">
       <!-- Boards/Categories Filter -->
       <div class="flex items-center gap-2">
-        <label class="text-sm font-medium text-muted-foreground">Boards:</label>
+        <label class="text-sm font-medium text-muted-foreground"><%= t(".boards_label") %></label>
         <%= render_dropdown_menu(
-          trigger: (@category&.name || "All Boards"),
+          trigger: (@category&.name || t(".all_boards")),
           width: "w-48",
           trigger_button_variant: :outline,
           content: capture do %>
-            <%= link_to "All Boards", posts_path(category_id: nil, sort: params[:sort], direction: params[:direction], post_status_id: params[:post_status_id]),
+            <%= link_to t(".all_boards"), posts_path(category_id: nil, sort: params[:sort], direction: params[:direction], post_status_id: params[:post_status_id]),
                 class: "block px-4 py-2 text-sm hover:bg-muted rounded-sm #{'bg-muted' unless @category}" %>
             <% @categories.each do |category| %>
               <%= link_to category.name, posts_path(category_id: category.id, sort: params[:sort], direction: params[:direction], post_status_id: params[:post_status_id]),
@@ -43,7 +43,7 @@
     <!-- Status Filter Tabs -->
     <div class="mb-6">
       <div class="bg-muted text-muted-foreground inline-flex h-9 w-fit items-center justify-center rounded-lg p-[3px]">
-        <%= link_to "All Posts", posts_path(category_id: params[:category_id], sort: params[:sort], direction: params[:direction]),
+        <%= link_to t(".all_posts"), posts_path(category_id: params[:category_id], sort: params[:sort], direction: params[:direction]),
             class: "inline-flex h-[calc(100%-1px)] items-center justify-center rounded-md border border-transparent px-3 py-1 text-sm font-medium whitespace-nowrap transition-all duration-200 #{ params[:post_status_id].blank? ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground hover:bg-muted/50' }" %>
         <% @post_statuses.each do |status| %>
           <%= link_to status.name, posts_path(post_status_id: status.id, category_id: params[:category_id], sort: params[:sort], direction: params[:direction]),
@@ -55,11 +55,11 @@
     <!-- Sort Options -->
     <div class="mb-6">
       <div class="flex items-center gap-2 text-sm">
-        <span class="text-muted-foreground font-medium">Sort by:</span>
+        <span class="text-muted-foreground font-medium"><%= t(".sort_by_label") %></span>
         <div class="flex items-center gap-1 border border-border rounded-lg p-1 bg-background">
-          <%= posts_sort_link text: "Latest", sort_field: "created_at", direction: "desc", params: params %>
-          <%= posts_sort_link text: "Top", sort_field: "likes_count", direction: "desc", params: params %>
-          <%= posts_sort_link text: "Most Commented", sort_field: "comments_count", direction: "desc", params: params %>
+          <%= posts_sort_link text: t(".sort_latest"), sort_field: "created_at", direction: "desc", params: params %>
+          <%= posts_sort_link text: t(".sort_top"), sort_field: "likes_count", direction: "desc", params: params %>
+          <%= posts_sort_link text: t(".sort_most_commented"), sort_field: "comments_count", direction: "desc", params: params %>
         </div>
       </div>
     </div>
@@ -70,9 +70,9 @@
           <div class="flex h-20 w-20 items-center justify-center rounded-full bg-muted/50">
             <%= inline_svg_tag "icons/message-circle.svg", class: "h-10 w-10 text-muted-foreground" %>
           </div>
-          <h3 class="mt-6 text-lg font-semibold text-foreground">No feedback yet</h3>
+          <h3 class="mt-6 text-lg font-semibold text-foreground"><%= t(".empty_feedback_title") %></h3>
           <p class="mt-2 text-sm text-muted-foreground max-w-sm">
-            Get started by sharing your first suggestion or idea with the community.
+            <%= t(".empty_feedback_description") %>
           </p>
           <div class="mt-6">
             <%= render_button(
