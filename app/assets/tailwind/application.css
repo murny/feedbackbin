@@ -27,3 +27,5 @@
 @import "./components/form/select.css";
 @import "./components/form/switch.css";
 @import "./components/form/textarea.css";
+
+@import "./components/actiontext.css";
