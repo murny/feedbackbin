@@ -22,7 +22,11 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="h-full flex flex-col" data-controller="local-time lightbox">
+  <%= tag.body class: "h-full flex flex-col", 
+        data: { 
+          controller: "local-time lightbox theme-application",
+          theme_application_preference_value: Current.user&.theme || 'system'
+        } do %>
     <div class="flex flex-col flex-1">
       <%= render "navbar" %>
       <%= render "flash" %>
@@ -37,5 +41,5 @@
       <% end %>
     </div>
     <%= render partial: "footer" %>
-  </body>
+  <% end %>
 </html>
