@@ -8,15 +8,23 @@ export default class extends Controller {
   }
 
   connect() {
-    // Listen for system theme changes
-    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", this.handleSystemThemeChange.bind(this));
-    
+    // Cache MediaQueryList and a single bound handler so we can remove it later
+    this.systemMediaQuery ||= window.matchMedia("(prefers-color-scheme: dark)");
+    this.boundSystemThemeChange ||= this.handleSystemThemeChange.bind(this);
+
+    this.systemMediaQuery.addEventListener("change", this.boundSystemThemeChange);
+
     // Apply initial theme
     this.applyTheme();
   }
 
   disconnect() {
-    window.matchMedia("(prefers-color-scheme: dark)").removeEventListener("change", this.handleSystemThemeChange.bind(this));
+    if (this.systemMediaQuery && this.boundSystemThemeChange) {
+      this.systemMediaQuery.removeEventListener("change", this.boundSystemThemeChange);
+    }
+
+    this.boundSystemThemeChange = null;
+    this.systemMediaQuery = null;
   }
 
   preferenceValueChanged() {
@@ -31,12 +39,14 @@ export default class extends Controller {
   }
 
   applyTheme() {
-    const isDark = this.preferenceValue === "dark" || 
+    const isDark = this.preferenceValue === "dark" ||
                    (this.preferenceValue === "system" && this.systemInDarkMode);
     document.documentElement.classList.toggle("dark", isDark);
   }
 
   get systemInDarkMode() {
-    return window.matchMedia("(prefers-color-scheme: dark)").matches;
+    const systemDarkModeMediaQueryList =
+      this.systemMediaQuery || window.matchMedia("(prefers-color-scheme: dark)");
+    return systemDarkModeMediaQueryList.matches;
   }
 }
