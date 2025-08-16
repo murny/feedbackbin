@@ -11,15 +11,9 @@ module UserSettings
 
     def update
       if @user.update(user_params)
-        respond_to do |format|
-          format.html { redirect_to user_settings_preferences_path, notice: t(".updated_successfully") }
-          format.turbo_stream { redirect_to user_settings_preferences_path, notice: t(".updated_successfully") }
-        end
+        redirect_to user_settings_preferences_path, notice: t(".updated_successfully")
       else
-        respond_to do |format|
-          format.html { render :show, status: :unprocessable_entity }
-          format.turbo_stream { render :show, status: :unprocessable_entity }
-        end
+        render :show, status: :unprocessable_entity
       end
     end
 
