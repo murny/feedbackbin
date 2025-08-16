@@ -195,7 +195,7 @@ en:
   themes:
     dark: Dark
     light: Light
-    system: Sync with system (default)
+    system: System Default
   unauthorized: You are not authorized to perform this action.
   user_mailer:
     email_verification:
