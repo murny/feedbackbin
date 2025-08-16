@@ -20,12 +20,12 @@
           <div class="grid gap-6">
             <div class="grid gap-2">
               <%= form.label :theme, class: "text-sm font-medium" %>
-              
+
               <div class="grid grid-cols-3 gap-2">
                 <% theme_options.each do |label, value, icon| %>
                   <label class="cursor-pointer">
-                    <%= form.radio_button :theme, value, 
-                          class: "sr-only peer", 
+                    <%= form.radio_button :theme, value,
+                          class: "sr-only peer",
                           data: { action: "change->form#submit" } %>
                     <div class="flex flex-col items-center justify-center gap-2 rounded-md border border-input bg-background p-3 text-xs transition-colors hover:bg-accent hover:text-accent-foreground peer-checked:border-primary peer-checked:bg-accent">
                       <%= inline_svg_tag icon, class: "h-4 w-4" %>
@@ -34,7 +34,7 @@
                   </label>
                 <% end %>
               </div>
-              
+
               <p class="text-xs text-muted-foreground"><%= t(".theme_hint") %></p>
             </div>
 

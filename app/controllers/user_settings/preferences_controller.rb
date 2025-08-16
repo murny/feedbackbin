@@ -25,9 +25,9 @@ module UserSettings
 
     private
 
-      def user_params
-        params.require(:user).permit(:preferred_language, :time_zone, :theme).compact
-      end
+    def user_params
+      params.require(:user).permit(:preferred_language, :time_zone, :theme).compact
+    end
 
     def set_user
       @user = Current.user
