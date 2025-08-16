@@ -1,29 +1,27 @@
 <%# locals: (post:) %>
 
-<%= form_with(model: post) do |form| %>
-  <div class="space-y-6 pt-4">
-    <%= render "error_messages", resource: form.object %>
+<%= form_with(model: post, class: "grid gap-6") do |form| %>
+  <%= render "error_messages", resource: form.object %>
 
-    <%= form.hidden_field :category_id, value: Category.first.id %>
+  <%= form.hidden_field :category_id, value: Category.first.id %>
 
-    <div>
-      <%= form.label :title %>
-      <%= form.text_field :title, autofocus: true, placeholder: t(".title_placeholder") %>
-    </div>
-
-    <div>
-      <%= form.label :body %>
-      <%= form.rich_text_area :body, placeholder: t(".body_placeholder") %>
-    </div>
+  <div class="grid gap-3">
+    <%= form.label :title %>
+    <%= form.text_field :title, autofocus: true, placeholder: t(".title_placeholder") %>
   </div>
 
-  <div class="mt-5 flex items-center space-x-4 justify-end">
+  <div class="grid gap-3">
+    <%= form.label :body %>
+    <%= form.rich_text_area :body, placeholder: t(".body_placeholder") %>
+  </div>
+
+  <div class="flex justify-end gap-3 pt-2">
     <% if form.object.new_record? %>
-      <%= link_to t("cancel"), posts_path, class: "btn-secondary" %>
+      <%= link_to t("cancel"), posts_path, class: "btn btn-secondary" %>
     <% else %>
-      <%= link_to t("cancel"), post_path(@post), class: "btn-secondary" %>
+      <%= link_to t("cancel"), post_path(@post), class: "btn btn-secondary" %>
     <% end %>
 
-    <%= form.submit %>
+    <%= form.submit class: "btn" %>
   </div>
 <% end %>
