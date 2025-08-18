@@ -13,7 +13,7 @@ class PostsTest < ApplicationSystemTestCase
     assert_selector "a", text: "New Post"
   end
 
-  # TODO: Fix this test, need UI around Boards
+  # TODO: Fix this test, need UI around Categories
   # test "should create post" do
   #   sign_in(users(:shane).email_address)
 

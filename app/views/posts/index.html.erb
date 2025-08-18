@@ -16,20 +16,20 @@
         <% end %>
       </div>
       <div class="flex-shrink-0">
-        <%= link_to t("posts.new.title"), new_post_path, class: "btn-primary" %>
+        <%= link_to t("posts.new.title"), new_post_path(category_id: @category&.id), class: "btn-primary" %>
       </div>
     </div>
 
     <div class="mb-6">
-      <!-- Boards/Categories Filter -->
+      <!-- Categories Filter -->
       <div class="flex items-center gap-2">
-        <label class="text-sm font-medium text-muted-foreground"><%= t(".boards_label") %></label>
+        <label class="text-sm font-medium text-muted-foreground"><%= t(".categories_label") %></label>
         <%= render_dropdown_menu(
-          trigger: (@category&.name || t(".all_boards")),
+          trigger: (@category&.name || t(".all_categories")),
           width: "w-48",
           trigger_button_variant: :outline,
           content: capture do %>
-            <%= link_to t(".all_boards"), posts_path(category_id: nil, sort: params[:sort], direction: params[:direction], post_status_id: params[:post_status_id]),
+            <%= link_to t(".all_categories"), posts_path(category_id: nil, sort: params[:sort], direction: params[:direction], post_status_id: params[:post_status_id]),
                 class: "block px-4 py-2 text-sm hover:bg-muted rounded-sm #{'bg-muted' unless @category}" %>
             <% @categories.each do |category| %>
               <%= link_to category.name, posts_path(category_id: category.id, sort: params[:sort], direction: params[:direction], post_status_id: params[:post_status_id]),
@@ -78,7 +78,7 @@
             <%= render_button(
               variant: :default,
               size: :default,
-              href: new_post_path,
+              href: new_post_path(category_id: @category&.id),
               class: "gap-2"
             ) do %>
               <%= inline_svg_tag "icons/plus.svg", class: "h-4 w-4" %>
