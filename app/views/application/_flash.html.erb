@@ -3,7 +3,7 @@
 <div id="flash_banner" data-turbo-temporary>
   <% if alert = flash[:alert] %>
     <div data-controller="alert"
-        class="flex items-center p-4 mb-4 text-red-800 border-t-4 border-red-300 bg-red-50 dark:text-red-400 dark:bg-gray-800 dark:border-red-800"
+        class="flex items-center p-4 text-red-800 border-t-4 border-red-300 bg-red-50 dark:text-red-400 dark:bg-gray-800 dark:border-red-800"
         role="alert">
       <%= inline_svg_tag "icons/triangle-alert.svg", class: "flex-shrink-0 w-5 h-5" %>
       <div class="ms-3 text-sm font-medium">
@@ -21,7 +21,7 @@
 
   <% if notice = flash[:notice] %>
     <div data-controller="alert"
-      class="flex items-center p-4 mb-4 text-green-800 border-t-4 border-green-300 bg-green-50 dark:text-green-400 dark:bg-gray-800 dark:border-green-800"
+      class="flex items-center p-4 text-green-800 border-t-4 border-green-300 bg-green-50 dark:text-green-400 dark:bg-gray-800 dark:border-green-800"
       role="alert">
       <%= inline_svg_tag "icons/circle-check.svg", class: "flex-shrink-0 w-5 h-5" %>
       <div class="ms-3 text-sm font-medium">

@@ -6,7 +6,7 @@
 /* Trix Editor */
 trix-editor {
   @apply border border-input bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] focus-visible:ring-ring/50 focus-visible:border-ring disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm;
-  @apply rounded-md min-h-[5em];
+  @apply rounded-md min-h-48;
 }
 
 /* Trix Toolbar */
@@ -231,13 +231,13 @@ trix-editor [data-trix-mutable]:not(.attachment__caption-editor) {
 }
 
 trix-editor [data-trix-mutable]::-moz-selection,
-trix-editor [data-trix-cursor-target]::-moz-selection, 
+trix-editor [data-trix-cursor-target]::-moz-selection,
 trix-editor [data-trix-mutable] ::-moz-selection {
   background: none;
 }
 
 trix-editor [data-trix-mutable]::selection,
-trix-editor [data-trix-cursor-target]::selection, 
+trix-editor [data-trix-cursor-target]::selection,
 trix-editor [data-trix-mutable] ::selection {
   background: none;
 }
@@ -396,7 +396,7 @@ trix-editor .attachment__metadata .attachment__size {
   @apply text-inherit no-underline;
 }
 
-.trix-content .attachment a:hover, 
+.trix-content .attachment a:hover,
 .trix-content .attachment a:visited:hover {
   @apply text-inherit;
 }
@@ -429,7 +429,7 @@ trix-editor .attachment__metadata .attachment__size {
   @apply flex-[1_0_33%] px-2 max-w-[33%];
 }
 
-.trix-content .attachment-gallery.attachment-gallery--2 .attachment, 
+.trix-content .attachment-gallery.attachment-gallery--2 .attachment,
 .trix-content .attachment-gallery.attachment-gallery--4 .attachment {
   @apply flex-[1_0_50%] max-w-[50%];
 }
@@ -441,7 +441,7 @@ trix-editor .attachment__metadata .attachment__size {
 }
 
 .trix-content .attachment-gallery.attachment-gallery--2 > action-text-attachment,
-.trix-content .attachment-gallery.attachment-gallery--2 > .attachment, 
+.trix-content .attachment-gallery.attachment-gallery--2 > .attachment,
 .trix-content .attachment-gallery.attachment-gallery--4 > action-text-attachment,
 .trix-content .attachment-gallery.attachment-gallery--4 > .attachment {
   @apply flex-[1_0_50%] max-w-[50%];
