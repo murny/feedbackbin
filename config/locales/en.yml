@@ -82,6 +82,12 @@ en:
       write_a_reply: Write a reply
     update:
       successfully_updated: Comment was successfully updated.
+  components:
+    organization_switcher:
+      organization_switcher:
+        create_organization: Create organization
+        manage_organizations: Manage organizations
+        switch_organization: Switch organization
   delete: Delete
   edit: Edit
   errors:
@@ -135,6 +141,10 @@ en:
     organization_invitations:
       create:
         successfully_created: Invitation was successfully created.
+    switches:
+      create:
+        successfully_switched: Switched to %{name}
+      unauthorized_switch: You are not authorized to switch to that organization
     update:
       successfully_updated: Organization was successfully updated.
   pagy:

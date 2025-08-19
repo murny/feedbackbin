@@ -53,8 +53,11 @@ Rails.application.routes.draw do
   resources :changelogs, only: [ :index, :show ]
 
   resources :organizations do
-    resources :organization_invitations, module: :organizations, only: %i[new create]
-    resources :memberships, module: :organizations, except: %i[show]
+    scope module: :organizations do
+      resource :switch, only: %i[create]
+      resources :organization_invitations, only: %i[new create]
+      resources :memberships, except: %i[show]
+    end
   end
 
   scope controller: :static do

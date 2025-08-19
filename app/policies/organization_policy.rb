@@ -30,4 +30,8 @@ class OrganizationPolicy < ApplicationPolicy
   def destroy?
     edit?
   end
+
+  def switch?
+    show?
+  end
 end

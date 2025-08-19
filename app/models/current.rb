@@ -23,7 +23,13 @@ class Current < ActiveSupport::CurrentAttributes
     !!membership&.administrator?
   end
 
+  def organizations
+    return Organization.none unless user
+    @organizations ||= user.organizations.includes(:logo_attachment, :owner).order(name: :asc)
+  end
+
   def other_organizations
-    @other_organizations ||= user.organizations.order(name: :asc).where.not(id: organization.id)
+    return Organization.none unless organization
+    @other_organizations ||= organizations.where.not(id: organization.id)
   end
 end
