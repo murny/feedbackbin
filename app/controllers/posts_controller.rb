@@ -49,9 +49,12 @@ class PostsController < ApplicationController
     authorize Post
 
     @post = Post.new
-    @post.category_id = params[:category_id] if params[:category_id].present?
 
     @categories = Current.organization.categories.order(:name)
+
+    if params[:category_id].present?
+      @post.category = @categories.find_by(id: params[:category_id])
+    end
   end
 
   # GET /posts/1/edit
