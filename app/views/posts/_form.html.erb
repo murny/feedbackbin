@@ -3,7 +3,13 @@
 <%= form_with(model: post, class: "grid gap-6") do |form| %>
   <%= render "error_messages", resource: form.object %>
 
-  <%= form.hidden_field :category_id, value: Category.first.id %>
+  <div class="grid gap-3">
+    <%= form.label :category_id, t("category") %>
+    <%= form.select :category_id,
+        options_from_collection_for_select(@categories, :id, :name, post.category_id),
+        { prompt: t("select_category") },
+        { class: "form-select" } %>
+  </div>
 
   <div class="grid gap-3">
     <%= form.label :title %>

@@ -16,16 +16,12 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get new" do
-    sign_in_as(users(:shane))
-
     get new_post_url
 
     assert_response :success
   end
 
   test "should create post" do
-    sign_in_as(users(:shane))
-
     assert_difference("Post.count") do
       post posts_url, params: { post: { body: @post.body, title: @post.title, category_id: @post.category_id } }
     end
@@ -40,24 +36,18 @@ class PostsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should get edit" do
-    sign_in_as(users(:shane))
-
     get edit_post_url(@post)
 
     assert_response :success
   end
 
   test "should update post" do
-    sign_in_as(users(:shane))
-
     patch post_url(@post), params: { post: { body: @post.body, title: @post.title } }
 
     assert_redirected_to post_url(@post)
   end
 
   test "should destroy post" do
-    sign_in_as(users(:shane))
-
     assert_difference("Post.count", -1) do
       delete post_url(@post)
     end

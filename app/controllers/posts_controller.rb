@@ -49,11 +49,19 @@ class PostsController < ApplicationController
     authorize Post
 
     @post = Post.new
+
+    @categories = Current.organization.categories.order(:name)
+
+    if params[:category_id].present?
+      @post.category = @categories.find_by(id: params[:category_id])
+    end
   end
 
   # GET /posts/1/edit
   def edit
     authorize @post
+
+    @categories = Current.organization.categories.order(:name)
   end
 
   # POST /posts or /posts.json

@@ -1,11 +1,11 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  name: MyString
-  description: MyText
+  name: Feature Requests
+  description: Feature Requests
   organization: feedbackbin
 
 two:
-  name: MyString
-  description: MyText
+  name: Bug Reports
+  description: Bug Reports
   organization: feedbackbin
