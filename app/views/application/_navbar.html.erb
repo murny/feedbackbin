@@ -108,12 +108,12 @@
                 <%= link_to t(".links.your_profile"),
                       user_path(Current.user),
                       class: "block px-4 py-2 text-sm text-popover-foreground hover:bg-accent hover:text-accent-foreground transition-colors",
-                      tab_index: "-1",
+                      tabindex: "-1",
                       role: "menuitem" %>
                 <%= link_to t(".links.settings"),
                       user_settings_profile_path,
                       class: "block px-4 py-2 text-sm text-popover-foreground hover:bg-accent hover:text-accent-foreground transition-colors",
-                      tab_index: "-1",
+                      tabindex: "-1",
                       role: "menuitem" %>
               </div>
               <% if Rails.env.development? %>
@@ -121,12 +121,12 @@
                   <%= link_to t(".links.letter_opener"),
                         letter_opener_web_path,
                         class: "block px-4 py-2 text-sm text-popover-foreground hover:bg-accent hover:text-accent-foreground transition-colors",
-                        tab_index: "-1",
+                        tabindex: "-1",
                         role: "menuitem" %>
                   <%= link_to t(".links.mission_control_jobs"),
                         mission_control_jobs_path,
                         class: "block px-4 py-2 text-sm text-popover-foreground hover:bg-accent hover:text-accent-foreground transition-colors",
-                        tab_index: "-1",
+                        tabindex: "-1",
                         role: "menuitem" %>
                 </div>
               <% end %>
@@ -141,7 +141,7 @@
                   <%= link_to t(".links.admin"),
                         admin_root_path,
                         class: "block px-4 py-2 text-sm text-popover-foreground hover:bg-accent hover:text-accent-foreground transition-colors",
-                        tab_index: "-1",
+                        tabindex: "-1",
                         role: "menuitem" %>
                 </div>
               <% end %>

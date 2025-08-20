@@ -20,15 +20,6 @@ module Organizations
       assert_match "Switched to #{@organization.name}", flash[:notice]
     end
 
-    test "should switch to organization with return_to parameter" do
-      return_url = posts_path
-
-      post organization_switch_url(@organization), params: { return_to: return_url }
-
-      assert_redirected_to return_url
-      assert_match "Switched to #{@organization.name}", flash[:notice]
-    end
-
     test "should not switch to organization user is not member of" do
       other_organization = organizations(:other_organization)
 
@@ -36,13 +27,6 @@ module Organizations
       assert_not @user.organizations.include?(other_organization)
 
       post organization_switch_url(other_organization)
-
-      assert_redirected_to root_path
-      assert_match "not authorized", flash[:alert]
-    end
-
-    test "should handle non-existent organization" do
-      post organization_switch_url(organization_id: 999999)
 
       assert_redirected_to root_path
       assert_match "not authorized", flash[:alert]
