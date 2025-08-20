@@ -60,6 +60,7 @@ en:
         view_notifications: View notifications
   are_you_sure: Are you sure?
   cancel: Cancel
+  category: Category
   changelogs:
     index:
       description: New updates and improvements to %{name}
@@ -166,9 +167,9 @@ en:
       body_placeholder: Add your description here...
       title_placeholder: Add a title
     index:
-      all_boards: All Boards
+      all_categories: All Categories
       all_posts: All Posts
-      boards_label: 'Boards:'
+      categories_label: 'Categories:'
       description: Share your ideas and help us improve our product
       empty_feedback_description: Get started by sharing your first suggestion or idea with the community.
       empty_feedback_title: No feedback yet
@@ -191,6 +192,7 @@ en:
       watch: Watch
     update:
       successfully_updated: Post was successfully updated.
+  select_category: Select a category
   something_went_wrong: Something went wrong, please try again.
   themes:
     dark: Dark
