@@ -17,7 +17,7 @@ module Organizations
       post organization_switch_url(@organization)
 
       assert_redirected_to root_path
-      assert_match "Switched to #{@organization.name}", flash[:notice]
+      assert_equal "Switched to #{@organization.name}", flash[:notice]
     end
 
     test "should not switch to organization user is not member of" do
@@ -29,7 +29,7 @@ module Organizations
       post organization_switch_url(other_organization)
 
       assert_redirected_to root_path
-      assert_match "not authorized", flash[:alert]
+      assert_equal "You are not authorized to perform this action.", flash[:alert]
     end
   end
 end
