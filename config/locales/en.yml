@@ -144,7 +144,6 @@ en:
     switches:
       create:
         successfully_switched: Switched to %{name}
-      unauthorized_switch: You are not authorized to switch to that organization
     update:
       successfully_updated: Organization was successfully updated.
   pagy:

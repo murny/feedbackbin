@@ -16,8 +16,6 @@ module Organizations
 
       def set_target_organization
         @organization = Current.organizations.find(params.expect(:organization_id))
-      rescue ActiveRecord::RecordNotFound
-        redirect_back(fallback_location: root_path, alert: t("organizations.switches.unauthorized_switch"))
       end
   end
 end
