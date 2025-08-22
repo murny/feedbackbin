@@ -58,6 +58,10 @@ en:
         open_main_menu: Open main menu
         open_user_menu: Open user menu
         view_notifications: View notifications
+    organization_switcher:
+      create_organization: Create organization
+      manage_organizations: Manage organizations
+      switch_organization: Switch organization
   are_you_sure: Are you sure?
   cancel: Cancel
   category: Category
@@ -82,12 +86,6 @@ en:
       write_a_reply: Write a reply
     update:
       successfully_updated: Comment was successfully updated.
-  components:
-    organization_switcher:
-      organization_switcher:
-        create_organization: Create organization
-        manage_organizations: Manage organizations
-        switch_organization: Switch organization
   delete: Delete
   edit: Edit
   errors:

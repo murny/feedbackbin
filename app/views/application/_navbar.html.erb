@@ -9,9 +9,11 @@
           <span class="ml-2 text-lg font-bold text-primary hidden md:block"><%= t(".brand_name") %></span>
         <% end %>
 
-        <% if authenticated? && Current.organizations.any? %>
+        <% if authenticated? && Current.other_organizations.any? %>
           <div class="hidden md:block">
-            <%= render_organization_switcher %>
+            <%= render "organization_switcher",
+                        current_organization: Current.organization,
+                        other_organizations: Current.other_organizations %>
           </div>
         <% end %>
 
@@ -164,9 +166,12 @@
         data-transition-leave="transition-all ease-linear duration-300"
         data-transition-leave-from="opacity-100"
         data-transition-leave-to="opacity-0">
-    <% if authenticated? && Current.organizations.any? %>
+    <% if authenticated? && Current.other_organizations.any? %>
       <div class="px-2 pt-2 pb-3 border-b border-border">
-        <%= render_organization_switcher(classes: "w-full") %>
+        <%= render "organization_switcher",
+                    current_organization: Current.organization,
+                    other_organizations: Current.other_organizations,
+                    classes: "w-full" %>
       </div>
     <% end %>
     <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
