@@ -58,6 +58,10 @@ en:
         open_main_menu: Open main menu
         open_user_menu: Open user menu
         view_notifications: View notifications
+    organization_switcher:
+      create_organization: Create organization
+      manage_organizations: Manage organizations
+      switch_organization: Switch organization
   are_you_sure: Are you sure?
   cancel: Cancel
   category: Category
@@ -135,6 +139,9 @@ en:
     organization_invitations:
       create:
         successfully_created: Invitation was successfully created.
+    switches:
+      create:
+        successfully_switched: Switched to %{name}
     update:
       successfully_updated: Organization was successfully updated.
   pagy:

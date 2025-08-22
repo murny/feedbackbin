@@ -1,0 +1,108 @@
+<%# locals: (current_organization:, other_organizations:, classes: "") %>
+
+<div class="relative inline-block <%= classes %>" data-controller="dropdown">
+  <button type="button"
+          class="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border border-input bg-background hover:bg-accent hover:text-accent-foreground h-10 px-4 py-2 w-[280px]"
+          id="organization-switcher-button"
+          aria-expanded="false"
+          aria-haspopup="true"
+          data-action="click->dropdown#toggle click@window->dropdown#hide">
+    <div class="flex items-center gap-3 min-w-0 flex-1">
+      <% if current_organization&.logo&.attached? %>
+        <%= image_tag current_organization.logo, class: "h-5 w-5 rounded-sm flex-shrink-0", alt: "" %>
+      <% else %>
+        <div class="h-5 w-5 rounded-sm bg-muted flex-shrink-0 flex items-center justify-center">
+          <span class="text-xs font-medium text-muted-foreground">
+            <%= current_organization.name.first.upcase %>
+          </span>
+        </div>
+      <% end %>
+      <span class="text-sm font-medium">
+        <%= current_organization.name %>
+      </span>
+    </div>
+
+    <%= inline_svg_tag "icons/chevron-down.svg", class: "h-4 w-4 text-muted-foreground opacity-50" %>
+  </button>
+
+  <div class="hidden absolute left-0 z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md w-[280px]"
+       role="menu"
+       aria-orientation="vertical"
+       aria-labelledby="organization-switcher-button"
+       tabindex="-1"
+       data-dropdown-target="menu"
+       data-dropdown-toggle-class="hidden"
+       data-dropdown-open-value="false"
+       data-transition-enter="transition ease-out duration-200"
+       data-transition-enter-from="opacity-0 scale-95"
+       data-transition-enter-to="opacity-100 scale-100"
+       data-transition-leave="transition ease-in duration-75"
+       data-transition-leave-from="opacity-100 scale-100"
+       data-transition-leave-to="opacity-0 scale-95">
+
+    <div class="px-2 py-1.5">
+      <div class="px-2 py-1.5 text-xs font-semibold text-muted-foreground">
+        <%= t(".switch_organization") %>
+      </div>
+
+      <div class="relative flex w-full cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none bg-accent text-accent-foreground gap-2" role="none">
+        <% if current_organization&.logo&.attached? %>
+          <%= image_tag current_organization.logo, class: "h-4 w-4 rounded-sm flex-shrink-0", alt: "" %>
+        <% else %>
+          <div class="h-4 w-4 rounded-sm bg-muted flex items-center justify-center flex-shrink-0">
+            <span class="text-xs font-medium text-muted-foreground">
+              <%= current_organization.name.first.upcase %>
+            </span>
+          </div>
+        <% end %>
+        <span class="text-sm font-medium">
+          <%= current_organization.name %>
+        </span>
+        <%= inline_svg_tag "icons/check.svg", class: "ml-auto h-4 w-4 flex-shrink-0" %>
+      </div>
+
+      <% other_organizations.each do |organization| %>
+        <%= button_to organization_switch_path(organization),
+              method: :post,
+              params: { return_to: request.fullpath },
+              class: "relative flex w-full cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground gap-2",
+              role: "menuitem",
+              tabindex: "-1" do %>
+          <% if organization.logo&.attached? %>
+            <%= image_tag organization.logo, class: "h-4 w-4 rounded-sm flex-shrink-0", alt: "" %>
+          <% else %>
+            <div class="h-4 w-4 rounded-sm bg-muted flex items-center justify-center flex-shrink-0">
+              <span class="text-xs font-medium text-muted-foreground">
+                <%= organization.name.first.upcase %>
+              </span>
+            </div>
+          <% end %>
+          <span class="text-sm font-medium">
+            <%= organization.name %>
+          </span>
+        <% end %>
+      <% end %>
+    </div>
+    <div class="border-t border-border"></div>
+
+    <div class="px-2 py-1.5">
+      <%= link_to new_organization_path,
+            class: "relative flex w-full cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+            role: "menuitem",
+            tabindex: "-1" do %>
+        <%= inline_svg_tag "icons/plus.svg", class: "mr-2 h-4 w-4" %>
+        <%= t(".create_organization") %>
+      <% end %>
+
+      <% if current_organization %>
+        <%= link_to organizations_path,
+              class: "relative flex w-full cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
+              role: "menuitem",
+              tabindex: "-1" do %>
+          <%= inline_svg_tag "icons/layout-grid.svg", class: "mr-2 h-4 w-4" %>
+          <%= t(".manage_organizations") %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
+</div>

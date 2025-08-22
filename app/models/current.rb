@@ -15,6 +15,7 @@ class Current < ActiveSupport::CurrentAttributes
   def membership
     return unless organization
 
+    # TODO: Need to revisit this.
     # find_or_create_by is used because organizations are typically public and users can join them without an invitation
     @membership ||= organization.memberships.includes(:user).find_or_create_by(user: user)
   end
@@ -24,6 +25,10 @@ class Current < ActiveSupport::CurrentAttributes
   end
 
   def other_organizations
-    @other_organizations ||= user.organizations.order(name: :asc).where.not(id: organization.id)
+    @other_organizations ||= if user.present?
+      user.organizations.order(name: :asc).where.not(id: organization.id)
+    else
+      Organization.none
+    end
   end
 end

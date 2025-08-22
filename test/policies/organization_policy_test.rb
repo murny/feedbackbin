@@ -62,4 +62,12 @@ class OrganizationPolicyTest < ActiveSupport::TestCase
 
     assert_predicate OrganizationPolicy.new(@admin_membership, @organization), :destroy?
   end
+
+  test "organization switch available by organization members" do
+    assert_not_predicate OrganizationPolicy.new(nil, @organization), :switch?
+    assert_not_predicate OrganizationPolicy.new(@different_organization_membership, @organization), :switch?
+
+    assert_predicate OrganizationPolicy.new(@user_membership, @organization), :switch?
+    assert_predicate OrganizationPolicy.new(@admin_membership, @organization), :switch?
+  end
 end
