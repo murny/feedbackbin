@@ -1,17 +1,319 @@
 <% content_for :title, @organization.name %>
 
-<div class="py-10">
-  <header>
-    <div class="flex justify-between items-center mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <h1 class="text-3xl font-bold leading-tight tracking-tight text-foreground">
-        <%= @organization.name %>
-      </h1>
-      <div class="whitespace-nowrap">
-        <%= link_to "Edit", edit_organization_path(@organization), class: "btn btn-secondary" if policy(@organization).edit? %>
-        <div class="inline-block">
-          <%= button_to "Destroy", @organization, method: :delete, data: { turbo_confirm: "Are you sure?" }, class: "btn btn-danger" if policy(@organization).destroy? %>
+<div class="container mx-auto px-4 py-6 space-y-6">
+  <!-- Header Section -->
+  <div class="flex flex-col space-y-4 lg:flex-row lg:items-center lg:justify-between lg:space-y-0">
+    <div class="flex items-center space-x-4">
+      <div class="flex-shrink-0">
+        <%= organization_logo(@organization, size: :xl) %>
+      </div>
+      <div class="min-w-0 flex-1">
+        <h1 class="text-2xl font-bold text-foreground sm:text-3xl">
+          <%= @organization.name %>
+        </h1>
+        <div class="mt-1 flex flex-col sm:flex-row sm:flex-wrap sm:space-x-6">
+          <div class="mt-2 flex items-center text-sm text-muted-foreground">
+            <%= inline_svg_tag "icons/users.svg", class: "mr-1.5 size-4 flex-shrink-0" %>
+            <%= pluralize(@members_count, "member") %>
+          </div>
+          <div class="mt-2 flex items-center text-sm text-muted-foreground">
+            <%= inline_svg_tag "icons/message-square.svg", class: "mr-1.5 size-4 flex-shrink-0" %>
+            <%= pluralize(@posts_count, "post") %>
+          </div>
         </div>
       </div>
     </div>
-  </header>
+    
+    <!-- Action Buttons -->
+    <div class="flex flex-col space-y-2 sm:flex-row sm:space-y-0 sm:space-x-3">
+      <%= render_button(
+        text: "View Posts",
+        href: posts_path,
+        variant: :outline,
+        class: "w-full sm:w-auto"
+      ) %>
+      
+      <% if policy(@organization).edit? %>
+        <%= render_button(
+          text: "Settings",
+          href: edit_organization_path(@organization),
+          variant: :outline,
+          class: "w-full sm:w-auto"
+        ) %>
+      <% end %>
+      
+      <% if policy(@organization.memberships.new).new? %>
+        <%= render_button(
+          text: "Invite Members",
+          href: new_organization_organization_invitation_path(@organization),
+          variant: :default,
+          class: "w-full sm:w-auto"
+        ) %>
+      <% end %>
+    </div>
+  </div>
+
+  <!-- Metrics Cards -->
+  <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4">
+    <!-- Total Posts -->
+    <%= render_card(class: "px-6") do %>
+      <div class="flex items-center">
+        <div class="flex-shrink-0">
+          <div class="flex size-8 items-center justify-center rounded-lg bg-primary/10">
+            <%= inline_svg_tag "icons/message-square.svg", class: "size-4 text-primary" %>
+          </div>
+        </div>
+        <div class="ml-4 w-0 flex-1">
+          <dl>
+            <dt class="text-sm font-medium text-muted-foreground truncate">Total Posts</dt>
+            <dd class="text-lg font-semibold text-foreground"><%= @posts_count %></dd>
+          </dl>
+        </div>
+      </div>
+    <% end %>
+
+    <!-- Total Members -->
+    <%= render_card(class: "px-6") do %>
+      <div class="flex items-center">
+        <div class="flex-shrink-0">
+          <div class="flex size-8 items-center justify-center rounded-lg bg-blue-500/10">
+            <%= inline_svg_tag "icons/users.svg", class: "size-4 text-blue-600 dark:text-blue-400" %>
+          </div>
+        </div>
+        <div class="ml-4 w-0 flex-1">
+          <dl>
+            <dt class="text-sm font-medium text-muted-foreground truncate">Members</dt>
+            <dd class="text-lg font-semibold text-foreground"><%= @members_count %></dd>
+          </dl>
+        </div>
+      </div>
+    <% end %>
+
+    <!-- Categories -->
+    <%= render_card(class: "px-6") do %>
+      <div class="flex items-center">
+        <div class="flex-shrink-0">
+          <div class="flex size-8 items-center justify-center rounded-lg bg-green-500/10">
+            <%= inline_svg_tag "icons/folder.svg", class: "size-4 text-green-600 dark:text-green-400" %>
+          </div>
+        </div>
+        <div class="ml-4 w-0 flex-1">
+          <dl>
+            <dt class="text-sm font-medium text-muted-foreground truncate">Categories</dt>
+            <dd class="text-lg font-semibold text-foreground"><%= @categories_count %></dd>
+          </dl>
+        </div>
+      </div>
+    <% end %>
+
+    <!-- Plan Badge -->
+    <%= render_card(class: "px-6") do %>
+      <div class="flex items-center">
+        <div class="flex-shrink-0">
+          <div class="flex size-8 items-center justify-center rounded-lg bg-purple-500/10">
+            <%= inline_svg_tag "icons/crown.svg", class: "size-4 text-purple-600 dark:text-purple-400" %>
+          </div>
+        </div>
+        <div class="ml-4 w-0 flex-1">
+          <dl>
+            <dt class="text-sm font-medium text-muted-foreground truncate">Plan</dt>
+            <dd class="text-lg font-semibold text-foreground">Free</dd>
+          </dl>
+        </div>
+      </div>
+    <% end %>
+  </div>
+
+  <!-- Main Content Grid -->
+  <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
+    <!-- Recent Posts -->
+    <%= render_card(
+      title: "Recent Posts",
+      header_action: link_to("View all", posts_path, class: "text-sm font-medium text-primary hover:text-primary/80"),
+      class: "px-6"
+    ) do %>
+      <% if @recent_posts.any? %>
+        <div class="space-y-4">
+          <% @recent_posts.each do |post| %>
+            <div class="flex items-start space-x-3">
+              <div class="flex-shrink-0">
+                <%= render_avatar(
+                  src: post.user.avatar.attached? ? url_for(post.user.avatar) : nil,
+                  alt: post.user.name,
+                  size: :sm,
+                  fallback: post.user.name[0, 2].upcase
+                ) %>
+              </div>
+              <div class="min-w-0 flex-1">
+                <div class="text-sm">
+                  <%= link_to post.title, post_path(post), class: "font-medium text-foreground hover:text-primary line-clamp-1" %>
+                </div>
+                <div class="mt-1 flex items-center space-x-2 text-xs text-muted-foreground">
+                  <span><%= post.user.name %></span>
+                  <span>•</span>
+                  <span><%= time_ago_in_words(post.created_at) %> ago</span>
+                  <% if post.category %>
+                    <span>•</span>
+                    <span class="inline-flex items-center rounded-full bg-secondary px-2 py-0.5 text-xs font-medium text-secondary-foreground">
+                      <%= post.category.name %>
+                    </span>
+                  <% end %>
+                </div>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="text-center py-6">
+          <div class="mx-auto size-12 bg-muted rounded-full flex items-center justify-center mb-3">
+            <%= inline_svg_tag "icons/message-square.svg", class: "size-6 text-muted-foreground" %>
+          </div>
+          <h3 class="text-sm font-medium text-foreground">No posts yet</h3>
+          <p class="mt-1 text-sm text-muted-foreground">Get started by creating your first post.</p>
+          <div class="mt-4">
+            <%= render_button(
+              text: "Create Post",
+              href: new_post_path,
+              variant: :default,
+              size: :sm
+            ) %>
+          </div>
+        </div>
+      <% end %>
+    <% end %>
+
+    <!-- Recent Members -->
+    <%= render_card(
+      title: "Recent Members",
+      header_action: link_to("View all", organization_memberships_path(@organization), class: "text-sm font-medium text-primary hover:text-primary/80"),
+      class: "px-6"
+    ) do %>
+      <% if @recent_members.any? %>
+        <div class="space-y-4">
+          <% @recent_members.each do |member| %>
+            <div class="flex items-center space-x-3">
+              <div class="flex-shrink-0">
+                <%= render_avatar(
+                  src: member.avatar.attached? ? url_for(member.avatar) : nil,
+                  alt: member.name,
+                  size: :sm,
+                  fallback: member.name[0, 2].upcase
+                ) %>
+              </div>
+              <div class="min-w-0 flex-1">
+                <div class="text-sm font-medium text-foreground truncate">
+                  <%= member.name %>
+                </div>
+                <div class="text-xs text-muted-foreground">
+                  <%= member.email %>
+                </div>
+              </div>
+              <div class="flex-shrink-0">
+                <% membership = member.memberships.find_by(organization: @organization) %>
+                <span class="inline-flex items-center rounded-full px-2 py-1 text-xs font-medium <%= membership&.administrator? ? 'bg-primary/10 text-primary' : 'bg-secondary text-secondary-foreground' %>">
+                  <%= membership&.role&.humanize || 'Member' %>
+                </span>
+              </div>
+            </div>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="text-center py-6">
+          <div class="mx-auto size-12 bg-muted rounded-full flex items-center justify-center mb-3">
+            <%= inline_svg_tag "icons/users.svg", class: "size-6 text-muted-foreground" %>
+          </div>
+          <h3 class="text-sm font-medium text-foreground">No members yet</h3>
+          <p class="mt-1 text-sm text-muted-foreground">Invite team members to get started.</p>
+          <% if policy(@organization.memberships.new).new? %>
+            <div class="mt-4">
+              <%= render_button(
+                text: "Invite Members",
+                href: new_organization_organization_invitation_path(@organization),
+                variant: :default,
+                size: :sm
+              ) %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <!-- Top Categories -->
+  <% if @top_categories.any? %>
+    <%= render_card(
+      title: "Top Categories",
+      class: "px-6"
+    ) do %>
+      <div class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+        <% @top_categories.each do |category| %>
+          <div class="flex items-center space-x-3 p-3 rounded-lg bg-muted/50">
+            <div class="flex-shrink-0">
+              <div class="size-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                <%= inline_svg_tag "icons/folder.svg", class: "size-4 text-primary" %>
+              </div>
+            </div>
+            <div class="min-w-0 flex-1">
+              <div class="text-sm font-medium text-foreground truncate">
+                <%= category.name %>
+              </div>
+              <div class="text-xs text-muted-foreground">
+                <%= pluralize(category.posts.count, "post") %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <!-- Quick Actions for Admins -->
+  <% if policy(@organization).edit? %>
+    <%= render_card(
+      title: "Quick Actions",
+      class: "px-6"
+    ) do %>
+      <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-4">
+        <%= render_button(
+          text: "Manage Members",
+          href: organization_memberships_path(@organization),
+          variant: :outline,
+          class: "w-full justify-start",
+        ) do %>
+          <%= inline_svg_tag "icons/users.svg", class: "mr-2 size-4" %>
+          Manage Members
+        <% end %>
+
+        <%= render_button(
+          text: "Organization Settings",
+          href: edit_organization_path(@organization),
+          variant: :outline,
+          class: "w-full justify-start"
+        ) do %>
+          <%= inline_svg_tag "icons/settings.svg", class: "mr-2 size-4" %>
+          Settings
+        <% end %>
+
+        <%= render_button(
+          text: "View Posts",
+          href: posts_path,
+          variant: :outline,
+          class: "w-full justify-start"
+        ) do %>
+          <%= inline_svg_tag "icons/message-square.svg", class: "mr-2 size-4" %>
+          View Posts
+        <% end %>
+
+        <%= render_button(
+          text: "Changelogs",
+          href: changelogs_path,
+          variant: :outline,
+          class: "w-full justify-start"
+        ) do %>
+          <%= inline_svg_tag "icons/file-text.svg", class: "mr-2 size-4" %>
+          Changelogs
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
 </div>
