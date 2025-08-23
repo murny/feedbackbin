@@ -20,8 +20,8 @@
     </div>
 
     <!-- Search Section -->
-    <div class="w-full max-w-md mb-8" 
-         data-controller="search" 
+    <div class="w-full max-w-md mb-8"
+         data-controller="search"
          data-search-delay-value="300"
          data-search-loading-class="opacity-75"
          data-search-filtering-class="ring-2 ring-primary">
@@ -45,7 +45,7 @@
     </div>
 
     <!-- Organizations List -->
-    <%= turbo_frame_tag "organizations_list", 
+    <%= turbo_frame_tag "organizations_list",
         data: { action: "turbo:frame-load->search#searchComplete" } do %>
       <%= render "organizations_list", organizations: @organizations %>
     <% end %>

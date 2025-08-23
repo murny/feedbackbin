@@ -145,7 +145,6 @@ en:
       create:
         successfully_created: Invitation was successfully created.
     organizations_list:
-      clear_search: Clear search
       no_match_description: No organizations match your search for "%{search_term}".
       no_match_title: No organizations found
       no_organizations_description: Get started by creating your first organization.
