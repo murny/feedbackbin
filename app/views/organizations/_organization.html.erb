@@ -1,5 +1,5 @@
 <%= render_card(class: "group cursor-pointer transition-all hover:shadow-md hover:border-ring/50") do %>
-  <%= link_to organization_path(organization), class: "block p-6" do %>
+  <%= link_to organization_path(organization), class: "block p-6", data: { turbo_frame: "_top" } do %>
     <div class="flex items-center space-x-4">
       <div class="flex-shrink-0">
         <%= organization_logo(organization) %>
@@ -10,7 +10,7 @@
         </h3>
         <div class="flex items-center space-x-4 mt-2">
           <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-secondary text-secondary-foreground">
-            Free Plan
+            <%= t(".free_plan") %>
           </span>
           <% if organization.users.any? %>
             <span class="text-sm text-muted-foreground">

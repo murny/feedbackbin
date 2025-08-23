@@ -7,12 +7,7 @@ class OrganizationsController < ApplicationController
   def index
     authorize Organization
 
-    @organizations = Current.user.organizations.includes(:users).search(params[:search])
-
-    respond_to do |format|
-      format.html
-      format.turbo_stream { render turbo_stream: turbo_stream.update("organizations_list", partial: "organizations_list", locals: { organizations: @organizations }) }
-    end
+    @organizations = Current.user.organizations.includes(:users).search(params[:search]).sorted
   end
 
   # GET /organizations/1

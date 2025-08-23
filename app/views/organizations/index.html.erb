@@ -9,7 +9,7 @@
           <%= t(".title") %>
         </h1>
         <p class="text-muted-foreground">
-          Manage and switch between your organizations
+          <%= t(".description") %>
         </p>
       </div>
       <%= render_button(
@@ -20,18 +20,16 @@
     </div>
 
     <!-- Search Section -->
-    <div class="w-full max-w-md">
-      <%= form_with url: organizations_path, method: :get, local: true,
+    <div class="w-full max-w-md mb-8" data-controller="search" data-search-delay-value="300">
+      <%= form_with url: organizations_path, method: :get,
           data: {
             turbo_frame: "organizations_list",
-            turbo_action: "advance",
-            controller: "search",
-            search_target: "form",
-            search_delay_value: 300,
-            search_min_length_value: 0
+            turbo_action: "replace",
+            search_target: "form"
           } do |form| %>
+        <%= form.label :search, t(".search_label"), class: "sr-only" %>
         <%= form.text_field :search,
-            placeholder: "Search organizations...",
+            placeholder: t(".search_placeholder"),
             value: params[:search],
             autocomplete: "off",
             class: "w-full px-4 py-2 border border-input bg-background rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring",
@@ -43,11 +41,7 @@
     </div>
 
     <!-- Organizations List -->
-    <%= turbo_frame_tag "organizations_list",
-        data: {
-          search_target: "results",
-          action: "turbo:frame-load->search#turboFrameLoad"
-        } do %>
+    <%= turbo_frame_tag "organizations_list" do %>
       <%= render "organizations_list", organizations: @organizations %>
     <% end %>
   </div>

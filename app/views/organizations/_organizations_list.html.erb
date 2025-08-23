@@ -11,14 +11,11 @@
       <%= inline_svg_tag "icons/building.svg", class: "size-8 text-muted-foreground" %>
     </div>
     <% if params[:search].present? %>
-      <h3 class="text-lg font-medium text-foreground mb-2">No organizations found</h3>
-      <p class="text-muted-foreground mb-6">No organizations match your search for "<%= params[:search] %>".</p>
-      <%= link_to "Clear search", organizations_path,
-          class: "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all shrink-0 outline-none bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80 h-9 px-4 py-2",
-          data: { turbo_action: "replace" } %>
+      <h3 class="text-lg font-medium text-foreground mb-2"><%= t(".no_match_title") %></h3>
+      <p class="text-muted-foreground"><%= t(".no_match_description", search_term: params[:search]) %></p>
     <% else %>
-      <h3 class="text-lg font-medium text-foreground mb-2">No organizations yet</h3>
-      <p class="text-muted-foreground mb-6">Get started by creating your first organization.</p>
+      <h3 class="text-lg font-medium text-foreground mb-2"><%= t(".no_organizations_title") %></h3>
+      <p class="text-muted-foreground mb-6"><%= t(".no_organizations_description") %></p>
       <%= render_button(
         text: t("organizations.index.new_organization"),
         href: new_organization_path,
