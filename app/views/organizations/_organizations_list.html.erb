@@ -1,0 +1,29 @@
+<div class="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+  <% organizations.each do |organization| %>
+    <%= render organization %>
+  <% end %>
+</div>
+
+<!-- Empty State -->
+<% if organizations.empty? %>
+  <div class="text-center py-12">
+    <div class="mx-auto size-16 bg-muted rounded-full flex items-center justify-center mb-4">
+      <%= inline_svg_tag "icons/building.svg", class: "size-8 text-muted-foreground" %>
+    </div>
+    <% if params[:search].present? %>
+      <h3 class="text-lg font-medium text-foreground mb-2">No organizations found</h3>
+      <p class="text-muted-foreground mb-6">No organizations match your search for "<%= params[:search] %>".</p>
+      <%= link_to "Clear search", organizations_path,
+          class: "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all shrink-0 outline-none bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80 h-9 px-4 py-2",
+          data: { turbo_action: "replace" } %>
+    <% else %>
+      <h3 class="text-lg font-medium text-foreground mb-2">No organizations yet</h3>
+      <p class="text-muted-foreground mb-6">Get started by creating your first organization.</p>
+      <%= render_button(
+        text: t("organizations.index.new_organization"),
+        href: new_organization_path,
+        variant: :default
+      ) %>
+    <% end %>
+  </div>
+<% end %>

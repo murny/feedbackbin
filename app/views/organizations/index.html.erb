@@ -1,23 +1,54 @@
 <% content_for :title, t(".title") %>
 
-<div class="py-10">
-  <header>
-    <div class="flex justify-between items-center mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <h1 class="text-3xl font-bold leading-tight tracking-tight text-foreground">
-        <%= t(".title") %>
-      </h1>
-      <div class="whitespace-nowrap">
-        <%= link_to t(".new_organization"), new_organization_path, class: "btn btn-primary" %>
+<div class="container mx-auto px-4 py-8">
+  <div class="flex flex-col space-y-8">
+    <!-- Header Section -->
+    <div class="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
+      <div class="space-y-1">
+        <h1 class="text-3xl font-bold tracking-tight text-foreground">
+          <%= t(".title") %>
+        </h1>
+        <p class="text-muted-foreground">
+          Manage and switch between your organizations
+        </p>
       </div>
+      <%= render_button(
+        text: t(".new_organization"),
+        href: new_organization_path,
+        variant: :default
+      ) %>
     </div>
-  </header>
-  <main>
-    <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 py-4">
-      <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
-        <% @organizations.each do |organization| %>
-          <%= render organization %>
-        <% end %>
-      </ul>
+
+    <!-- Search Section -->
+    <div class="w-full max-w-md">
+      <%= form_with url: organizations_path, method: :get, local: true,
+          data: {
+            turbo_frame: "organizations_list",
+            turbo_action: "advance",
+            controller: "search",
+            search_target: "form",
+            search_delay_value: 300,
+            search_min_length_value: 0
+          } do |form| %>
+        <%= form.text_field :search,
+            placeholder: "Search organizations...",
+            value: params[:search],
+            autocomplete: "off",
+            class: "w-full px-4 py-2 border border-input bg-background rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring",
+            data: {
+              search_target: "input",
+              action: "input->search#search"
+            } %>
+      <% end %>
     </div>
-  </main>
+
+    <!-- Organizations List -->
+    <%= turbo_frame_tag "organizations_list",
+        data: {
+          search_target: "results",
+          action: "turbo:frame-load->search#turboFrameLoad"
+        } do %>
+      <%= render "organizations_list", organizations: @organizations %>
+    <% end %>
+  </div>
 </div>
