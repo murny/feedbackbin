@@ -65,4 +65,24 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to organizations_url
   end
+
+  # Search functionality tests
+  test "should filter organizations by search parameter" do
+    get organizations_url, params: { search: "Feedback" }
+
+    assert_response :success
+    assert_match @organization.name, response.body
+
+    # Ensure orgs we are not a member of are excluded when searching
+    assert_no_match organizations(:other_organization).name, response.body
+  end
+
+  test "should return empty results for non-matching search" do
+    get organizations_url, params: { search: "NonExistentOrg" }
+
+    assert_response :success
+    # Check that the specific organization is not in the organizations list
+    assert_match "No organizations found", response.body
+    assert_match "No organizations match your search", response.body
+  end
 end

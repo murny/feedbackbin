@@ -7,7 +7,7 @@ class OrganizationsController < ApplicationController
   def index
     authorize Organization
 
-    @organizations = Current.user.organizations.includes(:users)
+    @organizations = Current.user.organizations.includes(:users).search(params[:search]).sorted
   end
 
   # GET /organizations/1

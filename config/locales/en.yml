@@ -123,7 +123,10 @@ en:
     form:
       upload_new_logo: Upload new logo
     index:
+      description: Manage and switch between your organizations
       new_organization: New organization
+      search_label: Search organizations
+      search_placeholder: Search organizations...
       title: Organizations
     memberships:
       destroy:
@@ -136,9 +139,16 @@ en:
         successfully_updated: Membership was successfully updated.
     new:
       title: New organization
+    organization:
+      free_plan: Free Plan
     organization_invitations:
       create:
         successfully_created: Invitation was successfully created.
+    organizations_list:
+      no_match_description: No organizations match your search for "%{search_term}".
+      no_match_title: No organizations found
+      no_organizations_description: Get started by creating your first organization.
+      no_organizations_title: No organizations yet
     switches:
       create:
         successfully_switched: Switched to %{name}

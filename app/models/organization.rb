@@ -2,6 +2,7 @@
 
 class Organization < ApplicationRecord
   include Domainable
+  include Searchable
   include Transferable
 
   belongs_to :owner, class_name: "User"

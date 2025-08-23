@@ -1,18 +1,27 @@
-<li class="relative flex items-center space-x-4 px-4 py-4 sm:px-6 lg:px-8">
-  <div class="min-w-0 flex-auto">
-    <div class="flex items-center gap-x-3">
-      <div class="flex-none p-1">
+<%= render_card(class: "group cursor-pointer transition-all hover:shadow-md hover:border-ring/50") do %>
+  <%= link_to organization_path(organization), class: "block p-6", data: { turbo_frame: "_top" } do %>
+    <div class="flex items-center space-x-4">
+      <div class="flex-shrink-0">
         <%= organization_logo(organization) %>
       </div>
-      <h2 class="min-w-0 text-sm font-semibold leading-6 text-white">
-        <%= link_to organization_path(organization), class: "flex gap-x-2" do %>
-          <span class="truncate"><%= organization.name %></span>
-          <span class="absolute inset-0"></span>
-        <% end %>
-      </h2>
+      <div class="flex-1 min-w-0">
+        <h3 class="text-lg font-semibold text-foreground truncate group-hover:text-primary transition-colors">
+          <%= organization.name %>
+        </h3>
+        <div class="flex items-center space-x-4 mt-2">
+          <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-secondary text-secondary-foreground">
+            <%= t(".free_plan") %>
+          </span>
+          <% if organization.users.any? %>
+            <span class="text-sm text-muted-foreground">
+              <%= pluralize(organization.users.count, "member") %>
+            </span>
+          <% end %>
+        </div>
+      </div>
+      <div class="flex-shrink-0 text-muted-foreground group-hover:text-foreground transition-colors">
+        <%= inline_svg_tag "icons/chevron-right.svg", class: "size-5" %>
+      </div>
     </div>
-  </div>
-  <svg class="h-5 w-5 flex-none text-gray-400" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-    <path fill-rule="evenodd" d="M7.21 14.77a.75.75 0 01.02-1.06L11.168 10 7.23 6.29a.75.75 0 111.04-1.08l4.5 4.25a.75.75 0 010 1.08l-4.5 4.25a.75.75 0 01-1.06-.02z" clip-rule="evenodd" />
-  </svg>
-</li>
+  <% end %>
+<% end %>
