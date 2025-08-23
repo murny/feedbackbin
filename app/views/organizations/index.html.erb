@@ -28,11 +28,10 @@
       <%= form_with url: organizations_path, method: :get,
           data: {
             turbo_frame: "organizations_list",
-            turbo_action: "replace",
             search_target: "form"
           } do |form| %>
         <%= form.label :search, t(".search_label"), class: "sr-only" %>
-        <%= form.text_field :search,
+        <%= form.search_field :search,
             placeholder: t(".search_placeholder"),
             value: params[:search],
             autocomplete: "off",
