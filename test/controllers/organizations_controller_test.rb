@@ -72,6 +72,9 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :success
     assert_match @organization.name, response.body
+
+    # Ensure orgs we are not a member of are excluded when searching
+    assert_no_match organizations(:other_organization).name, response.body
   end
 
   test "should return empty results for non-matching search" do
