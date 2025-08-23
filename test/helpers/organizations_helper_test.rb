@@ -3,75 +3,83 @@
 require "test_helper"
 
 class OrganizationsHelperTest < ActionView::TestCase
+  include Components::AvatarHelper
+  include ComponentsHelper
+
   setup do
     @organization = organizations(:feedbackbin)
     @organization_with_logo = organizations(:company)
   end
 
-  test "organization_logo with large size (default)" do
+  test "organization_logo with default size (medium)" do
     logo_html = organization_logo(@organization)
 
-    assert_includes logo_html, 'class="size-12 rounded-lg bg-primary text-primary-foreground text-sm font-medium flex items-center justify-center"'
+    # Avatar component uses size-8 class and square shape (rounded-md)
+    assert_includes logo_html, "size-8"
+    assert_includes logo_html, "rounded-md"
+    # Should contain the fallback initials
     assert_includes logo_html, "FE"
-    assert_no_match(/img/, logo_html) # Should not contain image tag
+    # Should not contain image tag when no logo attached
+    assert_no_match(/<img/, logo_html)
   end
 
-  test "organization_logo with medium size" do
-    logo_html = organization_logo(@organization, size: :medium)
+  test "organization_logo with large size" do
+    logo_html = organization_logo(@organization, size: :lg)
 
-    assert_includes logo_html, 'class="h-5 w-5 rounded-sm bg-muted text-muted-foreground text-xs font-medium flex items-center justify-center flex-shrink-0"'
+    # Large size maps to :lg avatar size (size-12)
+    assert_includes logo_html, "size-12"
+    assert_includes logo_html, "rounded-md"
     assert_includes logo_html, "FE"
   end
 
   test "organization_logo with small size" do
-    logo_html = organization_logo(@organization, size: :small)
+    logo_html = organization_logo(@organization, size: :sm)
 
-    assert_includes logo_html, 'class="h-4 w-4 rounded-sm bg-muted text-muted-foreground text-xs font-medium flex items-center justify-center flex-shrink-0"'
+    # Small size maps to :sm avatar size (size-6)
+    assert_includes logo_html, "size-6"
+    assert_includes logo_html, "rounded-md"
     assert_includes logo_html, "FE"
   end
 
   test "organization_logo with attached logo image (large)" do
     @organization.logo.attach(io: file_fixture("racecar.jpeg").open, filename: "racecar.jpeg", content_type: "image/jpeg")
 
-    logo_html = organization_logo(@organization, size: :large)
+    logo_html = organization_logo(@organization, size: :lg)
 
-    assert_match(/img/, logo_html)
-    assert_includes logo_html, 'class="rounded-lg size-12 object-cover"'
+    # Should contain image tag
+    assert_match(/<img/, logo_html)
     assert_includes logo_html, 'alt="FeedbackBin"'
     assert_includes logo_html, "racecar.jpeg"
+    assert_includes logo_html, "size-12"
+    assert_includes logo_html, "rounded-md"
   end
 
   test "organization_logo with attached logo image (medium)" do
     @organization.logo.attach(io: file_fixture("racecar.jpeg").open, filename: "racecar.jpeg", content_type: "image/jpeg")
 
-    logo_html = organization_logo(@organization, size: :medium)
+    logo_html = organization_logo(@organization, size: :default)
 
-    assert_match(/img/, logo_html)
-    assert_includes logo_html, 'class="h-5 w-5 rounded-sm object-cover flex-shrink-0"'
+    assert_match(/<img/, logo_html)
     assert_includes logo_html, 'alt="FeedbackBin"'
     assert_includes logo_html, "racecar.jpeg"
+    assert_includes logo_html, "size-8"
   end
 
   test "organization_logo with attached logo image (small)" do
     @organization.logo.attach(io: file_fixture("racecar.jpeg").open, filename: "racecar.jpeg", content_type: "image/jpeg")
 
-    logo_html = organization_logo(@organization, size: :small)
+    logo_html = organization_logo(@organization, size: :sm)
 
-    assert_match(/img/, logo_html)
-    assert_includes logo_html, 'class="h-4 w-4 rounded-sm object-cover flex-shrink-0"'
+    assert_match(/<img/, logo_html)
     assert_includes logo_html, 'alt="FeedbackBin"'
     assert_includes logo_html, "racecar.jpeg"
+    assert_includes logo_html, "size-6"
   end
 
   test "organization_logo with custom classes" do
-    logo_html = organization_logo(@organization, size: :large, class: "custom-class")
+    logo_html = organization_logo(@organization, size: :lg, class: "custom-class")
 
-    assert_includes logo_html, "size-12 rounded-lg bg-primary text-primary-foreground text-sm font-medium flex items-center justify-center custom-class"
-  end
-
-  test "organization_logo raises error for invalid size" do
-    assert_raises(ArgumentError, "Unknown logo size: invalid. Use :small, :medium, or :large") do
-      organization_logo(@organization, size: :invalid)
-    end
+    assert_includes logo_html, "custom-class"
+    assert_includes logo_html, "size-12"
   end
 end
