@@ -13,6 +13,23 @@ class OrganizationsController < ApplicationController
   # GET /organizations/1
   def show
     authorize @organization
+    
+    # Dashboard metrics
+    @posts_count = @organization.posts.count
+    @members_count = @organization.users.count
+    @categories_count = @organization.categories.count
+    @recent_posts = @organization.posts.includes(:user, :category, :post_status)
+                                     .order(created_at: :desc)
+                                     .limit(5)
+    @recent_members = @organization.users.joins(:memberships)
+                                        .where(memberships: { organization: @organization })
+                                        .order("memberships.created_at DESC")
+                                        .limit(5)
+    @top_categories = @organization.categories
+                                  .joins(:posts)
+                                  .group("categories.id")
+                                  .order("COUNT(posts.id) DESC")
+                                  .limit(3)
   end
 
   # GET /organizations/new
