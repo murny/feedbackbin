@@ -4,15 +4,20 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch: # Allow manual deployment
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment: production # Use GitHub environments for better security
+    
     env:
-      KAMAL_REGISTRY_PASSWORD: ${{secrets.KAMAL_REGISTRY_PASSWORD}}
-      RAILS_MASTER_KEY: ${{secrets.RAILS_MASTER_KEY}}
+      KAMAL_REGISTRY_PASSWORD: ${{ secrets.KAMAL_REGISTRY_PASSWORD }}
+      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+    
     steps:
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v4
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
@@ -23,10 +28,33 @@ jobs:
       - name: Setup Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - uses: webfactory/ssh-agent@v0.9.1
+      - name: Configure SSH
+        uses: webfactory/ssh-agent@v0.9.1
         with:
-          ssh-private-key: ${{secrets.SSH_PRIVATE_KEY}}
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      # Disable for now
-      # - name: Deploy to production
-      #   run: bin/kamal deploy
+      - name: Add server to known hosts
+        run: |
+          ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
+
+      - name: Install Kamal
+        run: gem install kamal
+
+      - name: Verify Kamal configuration
+        run: bin/kamal config
+
+      - name: Deploy to production
+        run: bin/kamal deploy
+        env:
+          SERVER_IP: ${{ secrets.SERVER_IP }}
+
+      - name: Health check
+        run: |
+          sleep 30
+          curl -f https://feedbackbin.com/up || exit 1
+
+      - name: Notify on failure
+        if: failure()
+        run: |
+          echo "Deployment failed! Check the logs for details."
+          # Add notification logic here (Slack, email, etc.)
