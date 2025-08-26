@@ -6,7 +6,7 @@ class OrganizationPolicy < ApplicationPolicy
   end
 
   def show?
-    record.memberships.include?(membership)
+    record.memberships.find_by(user: Current.user).present?
   end
 
   def new?
