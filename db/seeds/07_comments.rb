@@ -96,5 +96,4 @@ Comment.suppressing_turbo_broadcasts do
   end
 end
 
-total_comments = Comment.count
-puts "✅ Created #{total_comments} comments across all organizations"
+puts "✅ Created #{Comment.count} comments across all organizations"

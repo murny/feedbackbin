@@ -117,5 +117,4 @@ Like.find_or_create_by!(
   organization: innovatelabs_org
 )
 
-total_likes = Like.count
-puts "✅ Created #{total_likes} likes across all organizations"
+puts "✅ Created #{Like.count} likes across all organizations"

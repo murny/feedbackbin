@@ -8,18 +8,36 @@ techcorp_org = Organization.find_by!(name: "TechCorp")
 innovatelabs_org = Organization.find_by!(name: "InnovateLabs")
 
 # FeedbackBin categories
-Category.find_or_create_by!(name: "Customer Feedback", description: "Share your ideas and help us improve our product", organization: feedbackbin_org)
-Category.find_or_create_by!(name: "Bug Reports", description: "Report issues and bugs you've encountered", organization: feedbackbin_org)
-Category.find_or_create_by!(name: "Feature Requests", description: "Suggest new features and improvements", organization: feedbackbin_org)
-Category.find_or_create_by!(name: "UI/UX Feedback", description: "Share feedback about the user interface and experience", organization: feedbackbin_org)
+Category.find_or_create_by!(name: "Customer Feedback", organization: feedbackbin_org) do |category|
+  category.description = "Share your ideas and help us improve our product"
+end
+Category.find_or_create_by!(name: "Bug Reports", organization: feedbackbin_org) do |category|
+  category.description = "Report issues and bugs you've encountered"
+end
+Category.find_or_create_by!(name: "Feature Requests", organization: feedbackbin_org) do |category|
+  category.description = "Suggest new features and improvements"
+end
+Category.find_or_create_by!(name: "UI/UX Feedback", organization: feedbackbin_org) do |category|
+  category.description = "Share feedback about the user interface and experience"
+end
 
 # TechCorp categories
-Category.find_or_create_by!(name: "Product", description: "Product-related feedback and suggestions", organization: techcorp_org)
-Category.find_or_create_by!(name: "Engineering", description: "Technical feedback and bug reports", organization: techcorp_org)
+Category.find_or_create_by!(name: "Product", organization: techcorp_org) do |category|
+  category.description = "Product-related feedback and suggestions"
+end
+Category.find_or_create_by!(name: "Engineering", organization: techcorp_org) do |category|
+  category.description = "Technical feedback and bug reports"
+end
 
 # InnovateLabs categories
-Category.find_or_create_by!(name: "Mobile App", description: "Feedback on our mobile application experience", organization: innovatelabs_org)
-Category.find_or_create_by!(name: "Platform", description: "Core platform features and infrastructure", organization: innovatelabs_org)
-Category.find_or_create_by!(name: "Integrations", description: "Third-party integrations and API requests", organization: innovatelabs_org)
+Category.find_or_create_by!(name: "Mobile App", organization: innovatelabs_org) do |category|
+  category.description = "Feedback on our mobile application experience"
+end
+Category.find_or_create_by!(name: "Platform", organization: innovatelabs_org) do |category|
+  category.description = "Core platform features and infrastructure"
+end
+Category.find_or_create_by!(name: "Integrations", organization: innovatelabs_org) do |category|
+  category.description = "Third-party integrations and API requests"
+end
 
-puts "✅ Created categories for organizations"
+puts "✅ Created #{Category.count} categories across all organizations"

@@ -28,5 +28,4 @@ Session.find_or_create_by!(user: admin_user, ip_address: "192.168.1.102") do |se
   session.updated_at = 5.minutes.ago
 end
 
-total_sessions = Session.count
-puts "✅ Created #{total_sessions} sessions for admin user"
+puts "✅ Created #{Session.count} sessions for admin user"
