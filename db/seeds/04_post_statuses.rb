@@ -61,4 +61,4 @@ PostStatus.find_or_create_by!(name: "Rejected", organization: innovatelabs_org) 
   status.position = 5
 end
 
-puts "✅ Created #{PostStatus.count} post statuses across all organizations"
+puts "✅ Seeded post statuses"

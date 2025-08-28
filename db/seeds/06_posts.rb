@@ -275,4 +275,4 @@ Post.suppressing_turbo_broadcasts do
   end
 end
 
-puts "✅ Created #{Post.count} posts across all organizations"
+puts "✅ Seeded posts"

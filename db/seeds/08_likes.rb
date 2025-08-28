@@ -117,4 +117,4 @@ Like.find_or_create_by!(
   organization: innovatelabs_org
 )
 
-puts "✅ Created #{Like.count} likes across all organizations"
+puts "✅ Seeded likes"

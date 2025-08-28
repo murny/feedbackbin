@@ -75,4 +75,4 @@ david = User.find_or_create_by!(email_address: "david.thompson@agency.com") do |
   user.email_verified = true
 end
 
-puts "✅ Created #{User.count} users"
+puts "✅ Seeded users"

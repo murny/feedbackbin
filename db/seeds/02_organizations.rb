@@ -21,4 +21,4 @@ Organization.find_or_create_by!(name: "InnovateLabs") do |org|
   org.owner = sarah_user
 end
 
-puts "✅ Created #{Organization.count} organizations"
+puts "✅ Seeded organizations"

@@ -40,4 +40,4 @@ Category.find_or_create_by!(name: "Integrations", organization: innovatelabs_org
   category.description = "Third-party integrations and API requests"
 end
 
-puts "✅ Created #{Category.count} categories across all organizations"
+puts "✅ Seeded categories"

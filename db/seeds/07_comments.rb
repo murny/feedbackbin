@@ -96,4 +96,4 @@ Comment.suppressing_turbo_broadcasts do
   end
 end
 
-puts "✅ Created #{Comment.count} comments across all organizations"
+puts "✅ Seeded comments"

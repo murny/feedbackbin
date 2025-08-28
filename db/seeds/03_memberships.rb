@@ -83,4 +83,4 @@ Membership.find_or_create_by!(organization: innovatelabs_org, user: alex_user) d
   membership.role = :member
 end
 
-puts "✅ Created #{Membership.count} memberships across all organizations"
+puts "✅ Seeded memberships"
