@@ -1,0 +1,133 @@
+<% content_for :title, @post.title %>
+
+<div class="space-y-8">
+  <!-- Header Section -->
+  <div class="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
+    <div class="space-y-1">
+      <h1 class="text-3xl font-bold tracking-tight text-foreground">
+        <%= truncate(@post.title, length: 60) %>
+      </h1>
+      <p class="text-muted-foreground">
+        Post details and engagement
+      </p>
+    </div>
+    <%= render_button(
+      text: "Back to Posts",
+      href: admin_posts_path,
+      variant: :outline
+    ) %>
+  </div>
+
+  <!-- Post Info -->
+  <%= render_card(title: "Post Information", class: "px-6") do %>
+    <div class="space-y-6">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div class="lg:col-span-2">
+          <h3 class="text-xl font-semibold text-foreground mb-4"><%= @post.title %></h3>
+          
+          <div class="flex items-center space-x-4 mb-4">
+            <%= render_avatar(
+              src: @post.author.avatar.attached? ? url_for(@post.author.avatar) : nil,
+              alt: @post.author.name,
+              size: :sm,
+              fallback: @post.author.name[0, 2].upcase
+            ) %>
+            <div>
+              <div class="font-medium text-foreground"><%= @post.author.name %></div>
+              <div class="text-sm text-muted-foreground"><%= @post.author.email_address %></div>
+            </div>
+          </div>
+
+          <div class="flex flex-wrap gap-2 mb-4">
+            <% if @post.category %>
+              <%= render_badge(
+                text: @post.category.name,
+                variant: :secondary
+              ) %>
+            <% end %>
+            <% if @post.post_status %>
+              <%= render_badge(
+                text: @post.post_status.name,
+                variant: :outline
+              ) %>
+            <% end %>
+          </div>
+
+          <div class="prose max-w-none text-foreground">
+            <%= @post.body %>
+          </div>
+        </div>
+
+        <div class="space-y-6">
+          <!-- Organization -->
+          <div>
+            <h4 class="text-sm font-medium text-foreground mb-3">Organization</h4>
+            <div class="flex items-center space-x-3 p-3 border border-border rounded-lg">
+              <%= organization_logo(@post.organization, size: :sm) %>
+              <div>
+                <div class="font-medium text-foreground"><%= @post.organization.name %></div>
+                <div class="text-sm text-muted-foreground">
+                  <%= pluralize(@post.organization.users.count, "member") %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stats -->
+          <div>
+            <h4 class="text-sm font-medium text-foreground mb-3">Engagement</h4>
+            <div class="space-y-3">
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-muted-foreground">Likes</span>
+                <span class="font-medium text-foreground"><%= @post.likes_count %></span>
+              </div>
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-muted-foreground">Comments</span>
+                <span class="font-medium text-foreground"><%= @post.comments_count %></span>
+              </div>
+              <div class="flex items-center justify-between text-sm">
+                <span class="text-muted-foreground">Created</span>
+                <span class="font-medium text-foreground"><%= time_ago_in_words(@post.created_at) %> ago</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- Recent Comments -->
+  <% if @recent_comments.any? %>
+    <%= render_card(title: "Recent Comments", class: "px-6") do %>
+      <div class="space-y-4">
+        <% @recent_comments.each do |comment| %>
+          <div class="flex items-start space-x-3 p-4 border border-border rounded-lg">
+            <%= render_avatar(
+              src: comment.creator.avatar.attached? ? url_for(comment.creator.avatar) : nil,
+              alt: comment.creator.name,
+              size: :sm,
+              fallback: comment.creator.name[0, 2].upcase
+            ) %>
+            <div class="min-w-0 flex-1">
+              <div class="flex items-center space-x-2 mb-2">
+                <div class="font-medium text-foreground"><%= comment.creator.name %></div>
+                <div class="text-sm text-muted-foreground">
+                  <%= time_ago_in_words(comment.created_at) %> ago
+                </div>
+              </div>
+              <div class="text-sm text-foreground">
+                <%= comment.body %>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  <% else %>
+    <%= render_card(title: "Comments", class: "px-6") do %>
+      <div class="text-center py-8 text-muted-foreground">
+        No comments yet
+      </div>
+    <% end %>
+  <% end %>
+</div>

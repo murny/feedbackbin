@@ -5,6 +5,7 @@ class User < ApplicationRecord
   MIN_PASSWORD_LENGTH_ALLOWED = 10
 
   include Mentionable
+  include Searchable
 
   has_secure_password
 
