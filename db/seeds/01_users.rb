@@ -75,16 +75,4 @@ david = User.find_or_create_by!(email_address: "david.thompson@agency.com") do |
   user.email_verified = true
 end
 
-# Store users for other seed files to access
-$seed_users = {
-  admin: admin,
-  user: user,
-  user_two: user_two,
-  alex: alex,
-  maya: maya,
-  carlos: carlos,
-  sarah: sarah,
-  david: david
-}
-
-puts "✅ Created #{$seed_users.count} users"
+puts "✅ Created #{User.count} users"
