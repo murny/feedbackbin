@@ -55,6 +55,7 @@ ActiveRecord::Schema[8.1].define(version: 2024_05_17_075643) do
     t.string "name", null: false
     t.bigint "organization_id", null: false
     t.datetime "updated_at", null: false
+    t.index ["organization_id", "name"], name: "index_categories_on_organization_id_and_name", unique: true
     t.index ["organization_id"], name: "index_categories_on_organization_id"
   end
 

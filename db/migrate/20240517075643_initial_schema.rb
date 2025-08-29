@@ -80,6 +80,7 @@ class InitialSchema < ActiveRecord::Migration[8.0]
       t.datetime "created_at", null: false
       t.datetime "updated_at", null: false
       t.index [ "organization_id" ], name: "index_categories_on_organization_id"
+      t.index [ "organization_id", "name" ], name: "index_categories_on_organization_id_and_name", unique: true
     end
 
     create_table "changelogs", force: :cascade do |t|

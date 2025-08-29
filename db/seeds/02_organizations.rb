@@ -1,24 +1,24 @@
 # frozen_string_literal: true
 
-puts "Creating organizations, statuses, and memberships..."
+puts "Creating organizations..."
 
-organization = Organization.find_or_create_by!(name: "FeedbackBin", owner: $seed_users[:admin])
+# Find users by email for organization ownership
+admin_user = User.find_by!(email_address: "shane.murnaghan@feedbackbin.com")
+alex_user = User.find_by!(email_address: "alex.chen@techcorp.com")
+sarah_user = User.find_by!(email_address: "sarah.kim@startup.io")
 
-PostStatus.find_or_create_by!(name: "In Progress", color: "#FFA500", position: 1, organization: organization)
-PostStatus.find_or_create_by!(name: "Planned", color: "#FF0000", position: 2, organization: organization)
-PostStatus.find_or_create_by!(name: "Archived", color: "#000000", position: 3, organization: organization)
-PostStatus.find_or_create_by!(name: "Complete", color: "#008000", position: 4, organization: organization)
+Organization.find_or_create_by!(name: "FeedbackBin") do |org|
+  org.owner = admin_user
+end
 
-Membership.find_or_create_by!(organization: organization, user: $seed_users[:admin], role: :administrator)
-Membership.find_or_create_by!(organization: organization, user: $seed_users[:user], role: :member)
-Membership.find_or_create_by!(organization: organization, user: $seed_users[:user_two], role: :member)
-Membership.find_or_create_by!(organization: organization, user: $seed_users[:alex], role: :member)
-Membership.find_or_create_by!(organization: organization, user: $seed_users[:maya], role: :administrator)
-Membership.find_or_create_by!(organization: organization, user: $seed_users[:carlos], role: :member)
-Membership.find_or_create_by!(organization: organization, user: $seed_users[:sarah], role: :administrator)
-Membership.find_or_create_by!(organization: organization, user: $seed_users[:david], role: :member)
+# Create a second organization to test different authorization scenarios
+Organization.find_or_create_by!(name: "TechCorp") do |org|
+  org.owner = alex_user
+end
 
-# Store organization for other seed files to access
-$seed_organization = organization
+# Create a third organization where Shane is a regular member (not admin)
+Organization.find_or_create_by!(name: "InnovateLabs") do |org|
+  org.owner = sarah_user
+end
 
-puts "✅ Created organization with #{PostStatus.where(organization: organization).count} statuses and #{Membership.where(organization: organization).count} memberships"
+puts "✅ Seeded organizations"
