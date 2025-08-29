@@ -27,7 +27,7 @@
         size: :xl,
         fallback: @user.name[0, 2].upcase
       ) %>
-      
+
       <div class="flex-1 space-y-4">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
@@ -41,7 +41,7 @@
               <div><strong>Joined:</strong> <%= @user.created_at.strftime("%B %d, %Y") %></div>
             </div>
           </div>
-          
+
           <div>
             <h4 class="text-sm font-medium text-foreground mb-2">Status</h4>
             <div class="space-y-2">
