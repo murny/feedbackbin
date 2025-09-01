@@ -19,7 +19,7 @@
     <div>
       <%= form.file_field :logo, accept: "image/*", data: { upload_preview_target: "input", action: "upload-preview#previewImage" }, class: "hidden" %>
       <%= form.label :logo, class: "inline-flex items-center btn btn-secondary" do %>
-        <%= inline_svg_tag "icons/camera.svg", class: "h-5 w-5 mr-2" %>
+        <%= lucide_icon "camera", class: "h-5 w-5 mr-2" %>
         <%= t(".upload_new_logo") %>
       <% end %>
     </div>

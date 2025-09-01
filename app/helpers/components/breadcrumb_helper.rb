@@ -21,7 +21,7 @@ module Components
 
     # Helper method that can be called from the view
     def breadcrumb_separator(separator = nil)
-      separator.present? ? separator : inline_svg_tag("icons/chevron-right.svg")
+      separator.present? ? separator : lucide_icon("chevron-right")
     end
 
     private

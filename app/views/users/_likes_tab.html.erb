@@ -32,11 +32,11 @@
                         <%= link_to like.likeable.creator.name, like.likeable.creator, class: "hover:underline" %>
                       <% end %>
                     </p>
-                    <%= inline_svg_tag "icons/dot.svg", aria_hidden: true %>
+                    <%= lucide_icon "dot", aria_hidden: true %>
                     <p>
                       <%= local_datetime_tag like.likeable.created_at, style: :datetime %>
                     </p>
-                    <%= inline_svg_tag "icons/dot.svg", aria_hidden: true %>
+                    <%= lucide_icon "dot", aria_hidden: true %>
                     <p><%= t(".liked") %> <%= local_datetime_tag like.created_at, style: :relative %></p>
                   </div>
                   <p class="mt-2 text-muted-foreground text-sm">
@@ -53,7 +53,7 @@
 <% else %>
   <div class="text-center py-12 text-muted-foreground">
     <div class="mb-4">
-      <%= inline_svg_tag "icons/heart.svg", class: "mx-auto h-12 w-12 text-muted-foreground/50" %>
+      <%= lucide_icon "heart", class: "mx-auto h-12 w-12 text-muted-foreground/50" %>
     </div>
     <p class="text-sm"><%= t(".empty_likes") %></p>
   </div>

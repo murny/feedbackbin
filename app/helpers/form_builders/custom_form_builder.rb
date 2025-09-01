@@ -144,8 +144,8 @@ module FormBuilders
       return if @object.blank? || @object.errors[attribute].blank?
 
       @template.content_tag :div, class: "pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 " do
-        @template.inline_svg_tag(
-          "icons/circle-alert.svg",
+        @template.lucide_icon(
+          "circle-alert",
           class: "h-5 w-5 text-red-500",
           aria: true,
           title: "Error",

@@ -5,7 +5,7 @@
   <div class="max-w-5xl mx-auto space-y-6">
     <div>
       <%= link_to posts_path, class: "inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground" do %>
-        <%= inline_svg_tag "icons/chevron-left.svg", class: "h-4 w-4" %>
+        <%= lucide_icon "chevron-left", class: "h-4 w-4" %>
         <span><%= t(".back_to_feedback") %></span>
       <% end %>
     </div>
@@ -27,7 +27,7 @@
               <% end %>
               <% if @post.pinned? %>
                   <%= render_badge(variant: :secondary) do %>
-                    <%= inline_svg_tag "icons/map-pin.svg" %>
+                    <%= lucide_icon "map-pin" %>
                     <%= t(".pinned") %>
                   <% end %>
               <% end %>
@@ -35,7 +35,7 @@
 
             <% if policy(@post).pin? || policy(@post).edit? || policy(@post).destroy? %>
               <%= render_dropdown_menu(
-                trigger: inline_svg_tag("icons/ellipsis.svg"),
+                trigger: lucide_icon("ellipsis"),
                 trigger_button_variant: :ghost,
                 trigger_button_options: { size: :icon, class: "text-muted-foreground" },
                 content: tag.div do
@@ -66,7 +66,7 @@
           <div class="flex items-center gap-2 text-sm mb-6">
             <%= avatar_tag @post.author, class: "rounded-full w-8 h-8" %>
             <%= link_to @post.author.name, @post.author, class: "font-medium hover:underline" %>
-            <%= inline_svg_tag "icons/dot.svg", aria_hidden: true %>
+            <%= lucide_icon "dot", aria_hidden: true %>
             <%= time_ago_with_tooltip @post.created_at %>
           </div>
 
@@ -77,11 +77,11 @@
           <!-- Bottom: user actions -->
           <div class="mt-6 flex flex-wrap items-center gap-2">
             <%= render_button(variant: :outline) do %>
-              <%= inline_svg_tag "icons/eye.svg" %>
+              <%= lucide_icon "eye" %>
               <%= t(".watch") %>
             <% end %>
             <%= render_button(variant: :outline) do %>
-              <%= inline_svg_tag "icons/share.svg" %>
+              <%= lucide_icon "share" %>
               <%= t(".share") %>
             <% end %>
           </div>

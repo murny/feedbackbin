@@ -1,22 +1,22 @@
 <div id="button-icons">
   <% content_for :preview_example, flush: true do %>
     <%= render_button(variant: :outline, size: :icon) do %>
-      <%= inline_svg_tag "icons/chevron-right.svg" %>
+      <%= lucide_icon "chevron-right" %>
     <% end %>
 
       <%= render_button do %>
-        <%= inline_svg_tag "icons/plus.svg" %>
+        <%= lucide_icon "plus" %>
         Add Item
       <% end %>
   <% end %>
 
   <% content_for :code_example, flush: true do %>
 <%%= render_button(variant: :outline,size: :icon) do %>
-  <%%= inline_svg_tag "icons/chevron-right.svg" %>
+  <%%= lucide_icon "chevron-right" %>
 <%% end %>
 
 <%%= render_button do %>
-  <%%= inline_svg_tag "icons/plus.svg" %>
+  <%%= lucide_icon "plus" %>
   Add Item
 <%% end %>
   <% end %>

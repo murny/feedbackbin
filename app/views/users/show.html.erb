@@ -2,7 +2,7 @@
 <div class="container mx-auto px-4 py-4">
   <div class="max-w-4xl mx-auto">
     <%= link_to root_path, class: "inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors" do %>
-      <%= inline_svg_tag "icons/chevron-left.svg", class: "size-4" %>
+      <%= lucide_icon "chevron-left", class: "size-4" %>
       <%= t(".back_to_feedback") %>
     <% end %>
   </div>
@@ -39,14 +39,14 @@
                   variant: :outline,
                   href: user_settings_profile_path
                 ) do %>
-                  <%= inline_svg_tag "icons/square-pen.svg", class: "size-4 mr-2" %>
+                  <%= lucide_icon "square-pen", class: "size-4 mr-2" %>
                   <%= t(".edit_profile") %>
                 <% end %>
               <% else %>
                 <%= render_button(
                   variant: :outline
                 ) do %>
-                  <%= inline_svg_tag "icons/triangle-alert.svg", class: "size-4 mr-2" %>
+                  <%= lucide_icon "triangle-alert", class: "size-4 mr-2" %>
                   <%= t(".report_user") %>
                 <% end %>
               <% end %>
@@ -68,7 +68,7 @@
             <%# TODO: Add location field to User model and profile edit form %>
             <div class="flex items-center gap-3">
               <div class="p-2 bg-muted rounded-lg">
-                <%= inline_svg_tag "icons/map-pin.svg", class: "size-4 text-muted-foreground" %>
+                <%= lucide_icon "map-pin", class: "size-4 text-muted-foreground" %>
               </div>
               <div>
                 <dt class="text-sm font-medium text-muted-foreground"><%= t(".location") %></dt>
@@ -79,7 +79,7 @@
             <% if @user.organizations.any? %>
               <div class="flex items-center gap-3">
                 <div class="p-2 bg-muted rounded-lg">
-                  <%= inline_svg_tag "icons/building.svg", class: "size-4 text-muted-foreground" %>
+                  <%= lucide_icon "building", class: "size-4 text-muted-foreground" %>
                 </div>
                 <div>
                   <dt class="text-sm font-medium text-muted-foreground"><%= t(".organization") %></dt>
@@ -91,7 +91,7 @@
             <%# TODO: Add website field to User model and profile edit form %>
             <div class="flex items-center gap-3">
               <div class="p-2 bg-muted rounded-lg">
-                <%= inline_svg_tag "icons/globe.svg", class: "size-4 text-muted-foreground" %>
+                <%= lucide_icon "globe", class: "size-4 text-muted-foreground" %>
               </div>
               <div>
                 <dt class="text-sm font-medium text-muted-foreground"><%= t(".website") %></dt>
@@ -102,7 +102,7 @@
             <%# TODO: Add twitter_handle field to User model and profile edit form %>
             <div class="flex items-center gap-3">
               <div class="p-2 bg-muted rounded-lg">
-                <%= inline_svg_tag "icons/user.svg", class: "size-4 text-muted-foreground" %>
+                <%= lucide_icon "user", class: "size-4 text-muted-foreground" %>
               </div>
               <div>
                 <dt class="text-sm font-medium text-muted-foreground"><%= t(".twitter") %></dt>
@@ -134,7 +134,7 @@
 
             <div class="flex items-center gap-3">
               <div class="p-2 bg-muted rounded-lg">
-                <%= inline_svg_tag "icons/calendar.svg", class: "size-4 text-muted-foreground" %>
+                <%= lucide_icon "calendar", class: "size-4 text-muted-foreground" %>
               </div>
               <div>
                 <dt class="text-sm font-medium text-muted-foreground"><%= t(".joined") %></dt>
@@ -149,15 +149,15 @@
           <h3 class="text-lg font-semibold text-foreground mb-4"><%= t(".achievements") %></h3>
           <div class="flex flex-wrap gap-2">
             <%= render_badge(variant: :default) do %>
-              <%= inline_svg_tag "icons/trophy.svg" %>
+              <%= lucide_icon "trophy" %>
               <%= t(".achievements_top_contributor") %>
             <% end %>
             <%= render_badge(variant: :secondary) do %>
-              <%= inline_svg_tag "icons/thumbs-up.svg" %>
+              <%= lucide_icon "thumbs-up" %>
               <%= t(".achievements_helpful") %>
             <% end %>
             <%= render_badge(variant: :outline) do %>
-              <%= inline_svg_tag "icons/rocket.svg" %>
+              <%= lucide_icon "rocket" %>
               <%= t(".achievements_early_adopter") %>
             <% end %>
           </div>

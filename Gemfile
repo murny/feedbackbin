@@ -33,6 +33,7 @@ gem "jbuilder"
 # View
 gem "pagy", "~> 9.2"
 gem "inline_svg"
+gem "lucide-rails"
 gem "tailwind_merge", "~> 1.3.1"
 
 # Authentication & Authorization

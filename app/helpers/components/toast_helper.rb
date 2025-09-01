@@ -72,17 +72,17 @@ module Components
     def components_toast_default_icon_for_variant(variant)
       case variant
       when :default
-        "icons/info.svg"
+        "info"
       when :success
-        "icons/circle-check.svg"
+        "circle-check"
       when :warning
-        "icons/triangle-alert.svg"
+        "triangle-alert"
       when :error
-        "icons/circle-alert.svg"
+        "circle-alert"
       when :info
-        "icons/info.svg"
+        "info"
       else
-        "icons/info.svg"
+        "info"
       end
     end
   end
