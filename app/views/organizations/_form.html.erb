@@ -1,37 +1,98 @@
-<%= form_with(model: organization, class: "contents space-y-4") do |form| %>
-  <%= render "error_messages", resource: form.object %>
+<%= render_card do %>
+  <div class="px-6">
+    <%= render_form_with(model: organization, data: { controller: "form", action: "keydown.enter->form#submit:prevent" }) do |form| %>
+      <%= render "error_messages", resource: form.object %>
 
-  <%= form.label :name %>
-  <%= form.text_field :name, autofocus: true %>
+      <div class="space-y-8">
+        <!-- Organization Basic Info -->
+        <div class="space-y-4">
+          <div>
+            <h3 class="text-base font-medium"><%= t(".basic_information") %></h3>
+            <p class="text-sm text-muted-foreground"><%= t(".basic_information_description") %></p>
+          </div>
 
-  <%= tag.div data: { controller: "upload-preview" } do %>
-    <% if organization.logo.attached? %>
-      <%= image_tag organization.logo,
-            role: "presentation",
-            class: "h-24 w-24 flex-none rounded-lg bg-gray-800 object-cover",
-            data: { "upload-preview-target": "image" } %>
-    <% else %>
-      <%= image_tag "default-logo.svg",
-            role: "presentation",
-            class: "h-24 w-24 flex-none rounded-lg bg-gray-800 object-cover",
-            data: { "upload-preview-target": "image" } %>
+          <div class="grid gap-4">
+            <div class="grid gap-2">
+              <%= form.label :name, class: "text-sm font-medium" %>
+              <%= form.text_field :name,
+                    autofocus: true,
+                    placeholder: t(".name_placeholder") %>
+            </div>
+          </div>
+        </div>
+
+        <!-- Organization Logo -->
+        <div class="space-y-4">
+          <div>
+            <h3 class="text-base font-medium"><%= t(".organization_logo") %></h3>
+            <p class="text-sm text-muted-foreground"><%= t(".logo_description") %></p>
+          </div>
+
+          <%= tag.div class: "flex items-start gap-x-4", data: { controller: "upload-preview", upload_preview_default_image_value: asset_path("default-logo.svg") } do %>
+            <%= image_tag organization.logo.attached? ? organization.logo : "default-logo.svg",
+                  role: "presentation",
+                  class: "h-20 w-20 flex-none rounded-lg bg-muted object-cover border",
+                  data: { "upload-preview-target": "image" } %>
+
+            <div class="space-y-3 flex-1">
+              <%= form.file_field :logo,
+                    accept: "image/*",
+                    data: { upload_preview_target: "input", action: "upload-preview#previewImage" },
+                    class: "hidden" %>
+
+              <div class="flex flex-wrap items-center gap-2">
+                <%= form.label :logo, class: "inline-flex items-center btn btn-secondary" do %>
+                  <%= lucide_icon "camera", class: "h-4 w-4 mr-2" %>
+                  <%= t(".upload_new_logo") %>
+                <% end %>
+
+                <% if organization.logo.attached? %>
+                  <%= button_tag type: "button",
+                        class: "inline-flex items-center btn btn-outline btn-sm text-muted-foreground hover:text-destructive hover:border-destructive",
+                        data: { action: "click->upload-preview#clearImage" } do %>
+                    <%= lucide_icon "trash-2", class: "h-4 w-4 mr-2" %>
+                    <%= t(".remove_logo") %>
+                  <% end %>
+                <% end %>
+              </div>
+
+              <p class="text-xs text-muted-foreground">
+                <%= t(".logo_size_hint") %>
+              </p>
+            </div>
+          <% end %>
+        </div>
+
+        <!-- Default Category -->
+        <div class="space-y-4">
+          <div>
+            <h3 class="text-base font-medium"><%= t(".default_category") %></h3>
+            <p class="text-sm text-muted-foreground"><%= t(".category_description") %></p>
+          </div>
+
+          <div class="grid gap-4">
+            <%= form.fields_for :categories do |category_form| %>
+              <div class="grid gap-2">
+                <%= category_form.label :name, t(".category_name"), class: "text-sm font-medium" %>
+                <%= category_form.text_field :name,
+                      placeholder: t(".category_placeholder"),
+                      value: category_form.object.name || t(".default_category_name") %>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+
+      <!-- Form Actions -->
+      <div class="flex flex-col-reverse sm:flex-row sm:justify-end gap-3 pt-6 border-t">
+        <% if form.object.new_record? %>
+          <%= link_to t("cancel"), organizations_path, class: "btn btn-secondary" %>
+        <% else %>
+          <%= link_to t("cancel"), organization, class: "btn btn-secondary" %>
+        <% end %>
+
+        <%= form.submit t(".create_organization"), class: "btn btn-primary" %>
+      </div>
     <% end %>
-    <div>
-      <%= form.file_field :logo, accept: "image/*", data: { upload_preview_target: "input", action: "upload-preview#previewImage" }, class: "hidden" %>
-      <%= form.label :logo, class: "inline-flex items-center btn btn-secondary" do %>
-        <%= lucide_icon "camera", class: "h-5 w-5 mr-2" %>
-        <%= t(".upload_new_logo") %>
-      <% end %>
-    </div>
-  <% end %>
-
-  <div class="mt-5 flex items-center space-x-4 justify-end">
-    <% if form.object.new_record? %>
-      <%= link_to t("cancel"), organizations_path, class: "btn btn-secondary" %>
-    <% else %>
-      <%= link_to t("cancel"), organization, class: "btn btn-secondary" %>
-    <% end %>
-
-    <%= form.submit class: "btn btn-primary" %>
   </div>
 <% end %>
