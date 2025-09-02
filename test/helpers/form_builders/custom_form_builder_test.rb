@@ -6,7 +6,7 @@ require "rails-dom-testing"
 module FormBuilders
   class CustomFormBuilderTest < ActionView::TestCase
     include ActionView::Helpers::FormHelper
-  include InlineSvg::ActionView::Helpers
+    include LucideRails::RailsHelper
 
   setup do
     @form_object = User.new

@@ -31,7 +31,7 @@
 
                   <div class="flex flex-wrap items-center gap-2">
                     <%= form.label :avatar, class: "inline-flex items-center btn" do %>
-                      <%= inline_svg_tag "icons/camera.svg", class: "h-4 w-4 mr-2" %>
+                      <%= lucide_icon "camera", class: "h-4 w-4 mr-2" %>
                       <%= t(".upload_new_avatar") %>
                     <% end %>
 
@@ -39,7 +39,7 @@
                       <%= link_to user_avatar_path(@user),
                             class: "inline-flex items-center btn btn-outline btn-sm text-muted-foreground hover:text-destructive hover:border-destructive",
                             data: { "turbo-method": :delete, turbo_confirm: t(".remove_avatar_confirm") } do %>
-                        <%= inline_svg_tag "icons/trash-2.svg", class: "h-4 w-4 mr-2" %>
+                        <%= lucide_icon "trash-2", class: "h-4 w-4 mr-2" %>
                         <%= t(".remove_avatar") %>
                       <% end %>
                     <% end %>

@@ -55,11 +55,11 @@ module Components
     def components_alert_default_icon_for_variant(variant)
       case variant
       when :default
-        "icons/info.svg"
+        "info"
       when :destructive
-        "icons/circle-alert.svg"
+        "circle-alert"
       else
-        "icons/info.svg"
+        "info"
       end
     end
   end

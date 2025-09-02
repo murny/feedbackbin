@@ -5,7 +5,7 @@
             class: "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-foreground",
             active_class: "bg-secondary",
             inactive_class: "hover:bg-secondary" do %>
-        <%= inline_svg_tag "icons/house.svg", class: "h-6 w-6 shrink-0 text-muted-foreground", aria_hidden: true %>
+        <%= lucide_icon "house", class: "h-6 w-6 shrink-0 text-muted-foreground" %>
         Dashboard
       <% end %>
     </li>
@@ -14,7 +14,7 @@
             class: "flex w-full items-center gap-x-3 rounded-md p-2 text-left text-sm font-semibold leading-6 text-foreground hover:bg-secondary",
             active_class: "bg-secondary",
             inactive_class: "hover:bg-secondary" do %>
-        <%= inline_svg_tag "icons/users.svg", class: "h-6 w-6 shrink-0 text-muted-foreground", aria_hidden: true %>
+        <%= lucide_icon "users", class: "h-6 w-6 shrink-0 text-muted-foreground" %>
         Resources
       <% end %>
       <ul role="list" class="mt-4 border-l border-border">
@@ -50,7 +50,7 @@
             active_class: "bg-secondary",
             inactive_class: "hover:bg-secondary",
             aria: { controls: "sub-menu-docs", expanded: "false" } do %>
-        <%= inline_svg_tag "icons/files.svg", class: "h-6 w-6 shrink-0 text-muted-foreground", aria_hidden: true %>
+        <%= lucide_icon "files", class: "h-6 w-6 shrink-0 text-muted-foreground" %>
         Docs
       <% end %>
       <ul class="mt-4 border-l border-border">
@@ -93,7 +93,7 @@
         class: "flex w-full items-center gap-x-3 rounded-md p-2 text-left text-sm font-semibold leading-6 text-foreground hover:bg-secondary",
         active_class: "bg-secondary",
         inactive_class: "hover:bg-secondary" do %>
-        <%= inline_svg_tag "icons/chart-pie.svg", class: "h-6 w-6 shrink-0 text-muted-foreground", aria_hidden: true %>
+        <%= lucide_icon "pie-chart", class: "h-6 w-6 shrink-0 text-muted-foreground" %>
         Components
       <% end %>
       <ul class="mt-4 border-l border-border">

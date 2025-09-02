@@ -16,7 +16,7 @@
         role: "tab"
       ) do %>
         <% if item[:icon].present? %>
-          <%= inline_svg_tag item[:icon], class: "size-4" %>
+          <%= lucide_icon item[:icon], class: "size-4" %>
         <% end %>
         <%= item[:label] %>
       <% end %>
