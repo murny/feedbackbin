@@ -1,44 +1,44 @@
 <div id="badge-with-icons">
   <% content_for :preview_example, flush: true do %>
     <%= render_badge(variant: :default) do %>
-      <%= inline_svg_tag "icons/check.svg" %>
+      <%= lucide_icon "check" %>
       Success
     <% end %>
 
     <%= render_badge(variant: :destructive) do %>
-      <%= inline_svg_tag "icons/circle-alert.svg" %>
+      <%= lucide_icon "circle-alert" %>
       Error
     <% end %>
 
     <%= render_badge(variant: :secondary) do %>
-      <%= inline_svg_tag "icons/info.svg" %>
+      <%= lucide_icon "info" %>
       Info
     <% end %>
 
     <%= render_badge(variant: :outline) do %>
-      <%= inline_svg_tag "icons/tag.svg" %>
+      <%= lucide_icon "tag" %>
       Tag
     <% end %>
   <% end %>
 
   <% content_for :code_example, flush: true do %>
 <%%= render_badge(variant: :default) do %>
-  <%%= inline_svg_tag "icons/check.svg" %>
+  <%%= lucide_icon "check" %>
   Success
 <%% end %>
 
 <%%= render_badge(variant: :destructive) do %>
-  <%%= inline_svg_tag "icons/circle-alert.svg" %>
+  <%%= lucide_icon "circle-alert" %>
   Error
 <%% end %>
 
 <%%= render_badge(variant: :secondary) do %>
-  <%%= inline_svg_tag "icons/info.svg" %>
+  <%%= lucide_icon "info" %>
   Info
 <%% end %>
 
 <%%= render_badge(variant: :outline) do %>
-  <%%= inline_svg_tag "icons/tag.svg" %>
+  <%%= lucide_icon "tag" %>
   Tag
 <%% end %>
   <% end %>

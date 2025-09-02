@@ -3,7 +3,7 @@
 <% if authenticated? %>
  <div data-controller="comment-reply">
     <%= button_tag class: "btn btn-secondary w-full #{show_form ? "hidden" : ""}", data: { comment_reply_target: "button", action: "click->comment-reply#toggle" } do %>
-      <%= inline_svg_tag "icons/reply.svg", class: "h-5 w-5 text-muted-foreground", aria: true, title: "Reply", desc: "Reply icon" %>
+      <%= lucide_icon "reply", class: "h-5 w-5 text-muted-foreground" %>
       <%= t(".write_a_reply") %>
     <% end %>
 

@@ -14,7 +14,7 @@
       </span>
     </div>
 
-    <%= inline_svg_tag "icons/chevron-down.svg", class: "h-4 w-4 text-muted-foreground opacity-50" %>
+    <%= lucide_icon "chevron-down", class: "h-4 w-4 text-muted-foreground opacity-50" %>
   </button>
 
   <div class="hidden absolute left-0 z-50 min-w-[8rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md w-[280px]"
@@ -42,7 +42,7 @@
         <span class="text-sm font-medium">
           <%= current_organization.name %>
         </span>
-        <%= inline_svg_tag "icons/check.svg", class: "ml-auto h-4 w-4 flex-shrink-0" %>
+        <%= lucide_icon "check", class: "ml-auto h-4 w-4 flex-shrink-0" %>
       </div>
 
       <% other_organizations.each do |organization| %>
@@ -66,7 +66,7 @@
             class: "relative flex w-full cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
             role: "menuitem",
             tabindex: "-1" do %>
-        <%= inline_svg_tag "icons/plus.svg", class: "mr-2 h-4 w-4" %>
+        <%= lucide_icon "plus", class: "mr-2 h-4 w-4" %>
         <%= t(".create_organization") %>
       <% end %>
 
@@ -75,7 +75,7 @@
               class: "relative flex w-full cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
               role: "menuitem",
               tabindex: "-1" do %>
-          <%= inline_svg_tag "icons/layout-grid.svg", class: "mr-2 h-4 w-4" %>
+          <%= lucide_icon "layout-grid", class: "mr-2 h-4 w-4" %>
           <%= t(".manage_organizations") %>
         <% end %>
       <% end %>
