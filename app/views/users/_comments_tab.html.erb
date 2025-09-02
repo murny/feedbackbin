@@ -22,12 +22,12 @@
                     <p>
                       <%= link_to comment.creator.name, comment.creator, class: "hover:underline" %>
                     </p>
-                    <%= lucide_icon "dot", aria_hidden: true %>
+                    <%= lucide_icon "dot" %>
                     <p>
                       <%= local_datetime_tag comment.created_at, style: :datetime %>
                     </p>
                     <% if comment.parent %>
-                      <%= lucide_icon "dot", aria_hidden: true %>
+                      <%= lucide_icon "dot" %>
                       <p><%= t(".reply_to") %> <%= comment.parent.creator.name %></p>
                     <% end %>
                   </div>

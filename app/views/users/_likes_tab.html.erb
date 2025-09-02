@@ -32,11 +32,11 @@
                         <%= link_to like.likeable.creator.name, like.likeable.creator, class: "hover:underline" %>
                       <% end %>
                     </p>
-                    <%= lucide_icon "dot", aria_hidden: true %>
+                    <%= lucide_icon "dot" %>
                     <p>
                       <%= local_datetime_tag like.likeable.created_at, style: :datetime %>
                     </p>
-                    <%= lucide_icon "dot", aria_hidden: true %>
+                    <%= lucide_icon "dot" %>
                     <p><%= t(".liked") %> <%= local_datetime_tag like.created_at, style: :relative %></p>
                   </div>
                   <p class="mt-2 text-muted-foreground text-sm">
