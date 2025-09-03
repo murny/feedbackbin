@@ -21,7 +21,7 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
       email_address: "new@feedbackbin.com",
       password: "secret123456"
     )
-    Organization.create!(name: "FeedbackBin", owner: user)
+    Organization.create!(name: "FeedbackBin", owner: user, categories_attributes: [ { name: "General" } ])
 
     get first_run_url
 

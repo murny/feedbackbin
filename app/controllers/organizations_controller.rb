@@ -20,6 +20,7 @@ class OrganizationsController < ApplicationController
     authorize Organization
 
     @organization = Organization.new
+    @organization.categories.build
   end
 
   # GET /organizations/1/edit
@@ -67,6 +68,6 @@ class OrganizationsController < ApplicationController
     end
 
   def organization_params
-    params.require(:organization).permit(:name, :logo)
+    params.require(:organization).permit(:name, :logo, categories_attributes: [ :id, :name ])
   end
 end

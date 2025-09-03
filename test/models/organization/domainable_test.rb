@@ -18,15 +18,15 @@ class Organization
   test "can have multiple organizations with no domain and/or subdomain" do
     user = users(:one)
 
-    organization_one = Organization.create!(owner: user, name: "test")
-    organization_two = Organization.create!(owner: user, name: "test2")
+    organization_one = Organization.create!(owner: user, name: "test", categories_attributes: [ { name: "General" } ])
+    organization_two = Organization.create!(owner: user, name: "test2", categories_attributes: [ { name: "General" } ])
 
     assert_predicate organization_one, :valid?
     assert_predicate organization_two, :valid?
   end
 
   test "validates uniqueness of subdomain" do
-    original = Organization.create!(owner: users(:one), name: "test", subdomain: "test")
+    original = Organization.create!(owner: users(:one), name: "test", subdomain: "test", categories_attributes: [ { name: "General" } ])
     organization = original.dup
 
     assert_not organization.valid?

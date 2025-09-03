@@ -19,8 +19,11 @@ class Organization < ApplicationRecord
 
   has_one_attached :logo
 
+  accepts_nested_attributes_for :categories, reject_if: :all_blank
+
   validates :logo, resizable_image: true, max_file_size: 2.megabytes
   validates :name, presence: true
+  validate :must_have_at_least_one_category, on: :create
 
   scope :sorted, -> { order(name: :asc) }
 
@@ -31,4 +34,10 @@ class Organization < ApplicationRecord
   def owner?(user)
     owner_id == user&.id
   end
+
+  private
+
+    def must_have_at_least_one_category
+      errors.add(:categories, :must_have_at_least_one) if categories.empty?
+    end
 end
