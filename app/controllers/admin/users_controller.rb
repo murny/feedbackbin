@@ -3,7 +3,7 @@
 module Admin
   class UsersController < BaseController
     def index
-      users = User.includes(:organizations)
+      users = User.with_attached_avatar.includes(:organizations)
                   .search(params[:search])
                   .order(created_at: :desc)
 
@@ -16,9 +16,9 @@ module Admin
     end
 
     def show
-      @user = User.find(params[:id])
-      @recent_posts = @user.posts.includes(:organization).limit(5)
-      @memberships = @user.memberships.includes(:organization)
+      @user = User.with_attached_avatar.find(params[:id])
+      @recent_posts = @user.posts.includes(organization: { logo_attachment: :blob }).limit(5)
+      @memberships = @user.memberships.includes(organization: { logo_attachment: :blob })
     end
   end
 end

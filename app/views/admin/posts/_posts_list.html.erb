@@ -1,3 +1,5 @@
+<%# locals: (posts:, pagy:) %>
+
 <%= render_card(class: "p-0 overflow-hidden") do %>
   <div class="overflow-x-auto">
     <table class="w-full text-sm">
@@ -66,11 +68,11 @@
               <td class="px-6 py-4">
                 <div class="flex items-center space-x-4 text-xs text-muted-foreground">
                   <div class="flex items-center space-x-1">
-                    <%= inline_svg_tag "icons/heart.svg", class: "size-3" %>
+                    <%= lucide_icon "heart", class: "size-3" %>
                     <span><%= post.likes_count %></span>
                   </div>
                   <div class="flex items-center space-x-1">
-                    <%= inline_svg_tag "icons/message-square.svg", class: "size-3" %>
+                    <%= lucide_icon "message-square", class: "size-3" %>
                     <span><%= post.comments_count %></span>
                   </div>
                 </div>
@@ -88,7 +90,8 @@
                   text: "View",
                   href: admin_post_path(post),
                   variant: :outline,
-                  size: :sm
+                  size: :sm,
+                  data: { turbo_frame: "_top" }
                 ) %>
               </td>
             </tr>
@@ -97,7 +100,7 @@
           <tr>
             <td colspan="6" class="px-6 py-12 text-center">
               <div class="mx-auto size-12 bg-muted rounded-full flex items-center justify-center mb-4">
-                <%= inline_svg_tag "icons/message-square.svg", class: "size-6 text-muted-foreground" %>
+                <%= lucide_icon "message-square", class: "size-6 text-muted-foreground" %>
               </div>
               <h3 class="text-sm font-medium text-foreground mb-2">No posts found</h3>
               <p class="text-sm text-muted-foreground">
@@ -117,13 +120,13 @@
 
 <!-- Pagination -->
 <div class="mt-8">
-  <%= tag.div id: ("posts" if first_page?(@pagy.page)), class: "space-y-4" do %>
+  <%= tag.div id: ("posts" if first_page?(pagy.page)), class: "space-y-4" do %>
     <div class="text-center text-sm text-muted-foreground">
-      <%== pagy_info(@pagy) %>
+      <%== pagy_info(pagy) %>
     </div>
-    <% if @pagy.pages > 1 %>
+    <% if pagy.pages > 1 %>
       <div class="flex justify-center">
-        <%== pagy_nav(@pagy, link_extra: 'data-turbo-frame="posts_content"') %>
+        <%== pagy_nav(pagy, link_extra: 'data-turbo-frame="posts_content"') %>
       </div>
     <% end %>
   <% end %>

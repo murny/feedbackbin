@@ -38,6 +38,6 @@
   <!-- Organizations Content -->
   <%= turbo_frame_tag "organizations_content",
       data: { action: "turbo:frame-load->search#searchComplete" } do %>
-    <%= render "organizations_list", organizations: @organizations %>
+    <%= render "organizations_list", organizations: @organizations, pagy: @pagy %>
   <% end %>
 </div>

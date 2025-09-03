@@ -38,6 +38,6 @@
   <!-- Users Content -->
   <%= turbo_frame_tag "users_content",
       data: { action: "turbo:frame-load->search#searchComplete" } do %>
-    <%= render "users_list", users: @users %>
+    <%= render "users_list", users: @users, pagy: @pagy %>
   <% end %>
 </div>

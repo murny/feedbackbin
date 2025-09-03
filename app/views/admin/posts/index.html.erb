@@ -24,7 +24,7 @@
         } do |form| %>
       <%= form.label :search, "Search posts", class: "sr-only" %>
       <%= form.search_field :search,
-          placeholder: "Search by title, content, or author...",
+          placeholder: "Search by title or content...",
           value: params[:search],
           autocomplete: "off",
           class: "w-full px-4 py-2 border border-input bg-background rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-ring focus:border-ring transition-colors",
@@ -38,6 +38,6 @@
   <!-- Posts Content -->
   <%= turbo_frame_tag "posts_content",
       data: { action: "turbo:frame-load->search#searchComplete" } do %>
-    <%= render "posts_list", posts: @posts %>
+    <%= render "posts_list", posts: @posts, pagy: @pagy %>
   <% end %>
 </div>

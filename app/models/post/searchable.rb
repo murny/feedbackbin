@@ -8,11 +8,10 @@ class Post
       def search(query)
         return all if query.blank?
 
-        joins(:author)
+        left_joins(:rich_text_body)
         .where(
           arel_table[:title].matches("%#{sanitize_sql_like(query.to_s)}%")
-          .or(arel_table[:body].matches("%#{sanitize_sql_like(query.to_s)}%"))
-          .or(User.arel_table[:name].matches("%#{sanitize_sql_like(query.to_s)}%"))
+          .or(ActionText::RichText.arel_table[:body].matches("%#{sanitize_sql_like(query.to_s)}%"))
         )
       end
     end
