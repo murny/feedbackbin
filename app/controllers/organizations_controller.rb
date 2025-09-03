@@ -3,12 +3,6 @@
 class OrganizationsController < ApplicationController
   before_action :set_organization, only: %i[show edit update destroy]
 
-  # GET /organizations
-  def index
-    authorize Organization
-
-    @organizations = Current.user.organizations.includes(:users).search(params[:search]).sorted
-  end
 
   # GET /organizations/1
   def show
@@ -58,7 +52,7 @@ class OrganizationsController < ApplicationController
 
     @organization.destroy!
 
-    redirect_to organizations_url, notice: t(".successfully_destroyed")
+    redirect_to root_url, notice: t(".successfully_destroyed")
   end
 
   private
