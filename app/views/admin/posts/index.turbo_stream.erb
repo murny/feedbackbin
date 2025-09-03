@@ -1,0 +1,3 @@
+<%= turbo_stream.replace "posts_content" do %>
+  <%= render "posts_list", posts: @posts, pagy: @pagy %>
+<% end %>
