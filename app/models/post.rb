@@ -3,6 +3,7 @@
 class Post < ApplicationRecord
   include ModelSortable
   include Likeable
+  include Searchable
 
   has_rich_text :body
 
