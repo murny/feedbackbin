@@ -93,7 +93,7 @@ module Organizations
         delete organization_membership_url(@organization, @normal_membership)
       end
 
-      assert_redirected_to organizations_url
+      assert_redirected_to root_url
       follow_redirect!
 
       assert_response :success

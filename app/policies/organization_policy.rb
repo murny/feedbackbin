@@ -1,10 +1,6 @@
 # frozen_string_literal: true
 
 class OrganizationPolicy < ApplicationPolicy
-  def index?
-    membership.present?
-  end
-
   def show?
     record.memberships.include?(membership)
   end

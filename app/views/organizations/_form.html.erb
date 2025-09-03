@@ -86,7 +86,7 @@
       <!-- Form Actions -->
       <div class="flex flex-col-reverse sm:flex-row sm:justify-end gap-3 pt-6 border-t">
         <% if form.object.new_record? %>
-          <%= link_to t("cancel"), organizations_path, class: "btn btn-secondary" %>
+          <%= link_to t("cancel"), root_path, class: "btn btn-secondary" %>
         <% else %>
           <%= link_to t("cancel"), organization, class: "btn btn-secondary" %>
         <% end %>

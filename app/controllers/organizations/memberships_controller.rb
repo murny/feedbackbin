@@ -31,7 +31,7 @@ module Organizations
       @membership.destroy!
 
       if @membership.user == Current.user
-        redirect_to organizations_path, notice: t(".successfully_left")
+        redirect_to root_path, notice: t(".successfully_left")
       else
         redirect_to organization_memberships_path(@organization), notice: t(".successfully_destroyed")
       end

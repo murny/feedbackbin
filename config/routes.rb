@@ -52,7 +52,7 @@ Rails.application.routes.draw do
   resources :comments, except: [ :index, :new ]
   resources :changelogs, only: [ :index, :show ]
 
-  resources :organizations do
+  resources :organizations, except: [ :index ] do
     scope module: :organizations do
       resource :switch, only: %i[create]
       resources :organization_invitations, only: %i[new create]

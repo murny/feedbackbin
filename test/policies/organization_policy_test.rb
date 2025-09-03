@@ -10,10 +10,6 @@ class OrganizationPolicyTest < ActiveSupport::TestCase
     @different_organization_membership = memberships(:company_regular_user)
   end
 
-  test "organization index viewable by anyone with a membership" do
-    assert_not_predicate OrganizationPolicy.new(nil, @organization), :index?
-    assert_predicate OrganizationPolicy.new(@user_membership, @organization), :index?
-  end
 
   test "organization show viewable by members" do
     assert_not_predicate OrganizationPolicy.new(nil, @organization), :show?

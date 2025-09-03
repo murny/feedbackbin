@@ -62,7 +62,7 @@ en:
         view_notifications: View notifications
     organization_switcher:
       create_organization: Create organization
-      manage_organizations: Manage organizations
+      manage_organization: Manage Organization
       switch_organization: Switch organization
   are_you_sure: Are you sure?
   cancel: Cancel
@@ -137,12 +137,6 @@ en:
       organization_logo: Organization Logo
       remove_logo: Remove Logo
       upload_new_logo: Upload new logo
-    index:
-      description: Manage and switch between your organizations
-      new_organization: New organization
-      search_label: Search organizations
-      search_placeholder: Search organizations...
-      title: Organizations
     memberships:
       destroy:
         successfully_destroyed: Membership was successfully removed.
@@ -160,11 +154,6 @@ en:
     organization_invitations:
       create:
         successfully_created: Invitation was successfully created.
-    organizations_list:
-      no_match_description: No organizations match your search for "%{search_term}".
-      no_match_title: No organizations found
-      no_organizations_description: Get started by creating your first organization.
-      no_organizations_title: No organizations yet
     switches:
       create:
         successfully_switched: Switched to %{name}
