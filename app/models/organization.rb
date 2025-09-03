@@ -19,7 +19,7 @@ class Organization < ApplicationRecord
 
   has_one_attached :logo
 
-  accepts_nested_attributes_for :categories, allow_destroy: true, reject_if: :all_blank
+  accepts_nested_attributes_for :categories, reject_if: :all_blank
 
   validates :logo, resizable_image: true, max_file_size: 2.megabytes
   validates :name, presence: true
