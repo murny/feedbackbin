@@ -1,0 +1,112 @@
+<%# locals: (organizations:, pagy:) %>
+
+<%= render_card(class: "p-0 overflow-hidden") do %>
+  <div class="overflow-x-auto">
+    <table class="w-full text-sm">
+      <thead class="border-b border-border">
+        <tr class="bg-muted/50">
+          <th class="px-6 py-4 text-left font-semibold text-foreground">Organization</th>
+          <th class="px-6 py-4 text-left font-semibold text-foreground">Owner</th>
+          <th class="px-6 py-4 text-left font-semibold text-foreground">Members</th>
+          <th class="px-6 py-4 text-left font-semibold text-foreground">Created</th>
+          <th class="px-6 py-4 text-center font-semibold text-foreground">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-border">
+        <% if organizations.any? %>
+          <% organizations.each do |organization| %>
+            <tr class="hover:bg-muted/25 transition-colors">
+              <td class="px-6 py-4">
+                <div class="flex items-center space-x-3">
+                  <div class="flex-shrink-0">
+                    <%= organization_logo(organization, size: :sm) %>
+                  </div>
+                  <div class="min-w-0">
+                    <div class="font-medium text-foreground truncate">
+                      <%= organization.name %>
+                    </div>
+                    <% if organization.domain %>
+                      <div class="text-xs text-muted-foreground truncate">
+                        <%= organization.domain %>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4">
+                <div class="flex items-center space-x-3">
+                  <%= render_avatar(
+                    src: organization.owner.avatar.attached? ? url_for(organization.owner.avatar) : nil,
+                    alt: organization.owner.name,
+                    size: :sm,
+                    fallback: organization.owner.name[0, 2].upcase
+                  ) %>
+                  <div class="min-w-0">
+                    <div class="font-medium text-foreground truncate">
+                      <%= organization.owner.name %>
+                    </div>
+                    <div class="text-xs text-muted-foreground truncate">
+                      <%= organization.owner.email_address %>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4">
+                <span class="inline-flex items-center rounded-full bg-secondary px-2 py-1 text-xs font-medium text-secondary-foreground">
+                  <%= pluralize(organization.users.count, "member") %>
+                </span>
+              </td>
+              <td class="px-6 py-4 text-muted-foreground">
+                <div class="text-sm">
+                  <%= organization.created_at.strftime("%b %d, %Y") %>
+                </div>
+                <div class="text-xs">
+                  <%= time_ago_in_words(organization.created_at) %> ago
+                </div>
+              </td>
+              <td class="px-6 py-4 text-center">
+                <%= render_button(
+                  text: "View",
+                  href: super_admin_organization_path(organization),
+                  variant: :outline,
+                  size: :sm,
+                  data: { turbo_frame: "_top" }
+                ) %>
+              </td>
+            </tr>
+          <% end %>
+        <% else %>
+          <tr>
+            <td colspan="5" class="px-6 py-12 text-center">
+              <div class="mx-auto size-12 bg-muted rounded-full flex items-center justify-center mb-4">
+                <%= lucide_icon "building.svg", class: "size-6 text-muted-foreground" %>
+              </div>
+              <h3 class="text-sm font-medium text-foreground mb-2">No organizations found</h3>
+              <p class="text-sm text-muted-foreground">
+                <% if params[:search].present? %>
+                  Try adjusting your search criteria.
+                <% else %>
+                  No organizations have been created yet.
+                <% end %>
+              </p>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
+<!-- Pagination -->
+<div class="mt-8">
+  <%= tag.div id: ("organizations" if first_page?(pagy.page)), class: "space-y-4" do %>
+    <div class="text-center text-sm text-muted-foreground">
+      <%== pagy_info(pagy) %>
+    </div>
+    <% if pagy.pages > 1 %>
+      <div class="flex justify-center">
+        <%== pagy_nav(pagy, link_extra: 'data-turbo-frame="organizations_content"') %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

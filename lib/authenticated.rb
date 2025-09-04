@@ -2,15 +2,17 @@
 
 # This module provides a simple DSL for routing constraints based on user roles, similar to what Devise provides.
 module Authenticated
-  class AdminConstraint
+  class SuperAdminConstraint
     def matches?(request)
       if (session = Session.find_by(id: request.cookie_jar.signed[:session_id]))
-        session.user.site_admin?
+        session.user.super_admin?
       else
         false
       end
     end
   end
+
+  # TODO: Add AdminConstraint based on Current.organization_admin?
 
   class UserConstraint
     def matches?(request)
@@ -27,7 +29,7 @@ module Authenticated
   end
 
   ROLES = {
-    admin: AdminConstraint,
+    super_admin: SuperAdminConstraint,
     user: UserConstraint
   }
 

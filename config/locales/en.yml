@@ -27,9 +27,6 @@ en:
           attributes:
             username:
               invalid: can only contain letters, numbers, and underscores
-  admin:
-    base:
-      unauthorized: You are not authorized to access this page.
   application:
     default_title: FeedbackBin
     footer:
@@ -43,12 +40,12 @@ en:
     navbar:
       brand_name: FeedbackBin
       links:
-        admin: Admin
         feedback: Feedback
         letter_opener: Letter opener
         mission_control_jobs: Mission control jobs
         roadmap: Roadmap
         settings: Settings
+        super_admin: Super Admin
         whats_new: What's new?
         your_profile: Your profile
       search_placeholder: Search
@@ -216,6 +213,9 @@ en:
       successfully_updated: Post was successfully updated.
   select_category: Select a category
   something_went_wrong: Something went wrong, please try again.
+  super_admin:
+    base:
+      unauthorized: You are not authorized to access this page.
   themes:
     dark: Dark
     light: Light

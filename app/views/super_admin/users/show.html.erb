@@ -1,0 +1,123 @@
+<% content_for :title, @user.name %>
+
+<div class="space-y-8">
+  <!-- Header Section -->
+  <div class="flex flex-col space-y-4 sm:flex-row sm:items-center sm:justify-between sm:space-y-0">
+    <div class="space-y-1">
+      <h1 class="text-3xl font-bold tracking-tight text-foreground">
+        <%= @user.name %>
+      </h1>
+      <p class="text-muted-foreground">
+        User profile and activity details
+      </p>
+    </div>
+    <%= render_button(
+      text: "Back to Users",
+      href: super_admin_users_path,
+      variant: :outline
+    ) %>
+  </div>
+
+  <!-- User Info -->
+  <%= render_card(title: "User Information", class: "px-6") do %>
+    <div class="flex items-start space-x-6">
+      <%= render_avatar(
+        src: @user.avatar.attached? ? url_for(@user.avatar) : nil,
+        alt: @user.name,
+        size: :xl,
+        fallback: @user.name[0, 2].upcase
+      ) %>
+
+      <div class="flex-1 space-y-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div>
+            <h4 class="text-sm font-medium text-foreground mb-2">Basic Information</h4>
+            <div class="space-y-2 text-sm">
+              <div><strong>Name:</strong> <%= @user.name %></div>
+              <div><strong>Email:</strong> <%= @user.email_address %></div>
+              <% if @user.username.present? %>
+                <div><strong>Username:</strong> @<%= @user.username %></div>
+              <% end %>
+              <div><strong>Joined:</strong> <%= @user.created_at.strftime("%B %d, %Y") %></div>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="text-sm font-medium text-foreground mb-2">Status</h4>
+            <div class="space-y-2">
+              <%= render_badge(
+                text: @user.super_admin? ? "Super Admin" : "Regular User",
+                variant: @user.super_admin? ? :default : :secondary
+              ) %>
+              <%= render_badge(
+                text: @user.email_verified? ? "Email Verified" : "Email Unverified",
+                variant: @user.email_verified? ? :default : :destructive
+              ) %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <!-- Organizations -->
+  <%= render_card(title: "Organization Memberships", class: "px-6") do %>
+    <% if @memberships.any? %>
+      <div class="space-y-4">
+        <% @memberships.each do |membership| %>
+          <div class="flex items-center justify-between p-4 border border-border rounded-lg">
+            <div class="flex items-center space-x-4">
+              <%= organization_logo(membership.organization, size: :sm) %>
+              <div>
+                <div class="font-medium text-foreground"><%= membership.organization.name %></div>
+                <div class="text-sm text-muted-foreground">
+                  Joined <%= time_ago_in_words(membership.created_at) %> ago
+                </div>
+              </div>
+            </div>
+            <%= render_badge(
+              text: membership.role.humanize,
+              variant: membership.administrator? ? :default : :secondary
+            ) %>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="text-center py-8 text-muted-foreground">
+        Not a member of any organizations
+      </div>
+    <% end %>
+  <% end %>
+
+  <!-- Recent Posts -->
+  <%= render_card(title: "Recent Posts", class: "px-6") do %>
+    <% if @recent_posts.any? %>
+      <div class="space-y-4">
+        <% @recent_posts.each do |post| %>
+          <div class="flex items-start space-x-3 p-3 rounded-lg hover:bg-muted/50 transition-colors">
+            <%= organization_logo(post.organization, size: :sm) %>
+            <div class="min-w-0 flex-1">
+              <div class="font-medium text-foreground truncate"><%= post.title %></div>
+              <div class="text-sm text-muted-foreground">
+                in <%= post.organization.name %> • <%= time_ago_in_words(post.created_at) %> ago
+              </div>
+              <% if post.category %>
+                <%= render_badge(
+                  text: post.category.name,
+                  variant: :outline
+                ) %>
+              <% end %>
+            </div>
+            <div class="text-xs text-muted-foreground">
+              <%= pluralize(post.likes_count, "like") %> • <%= pluralize(post.comments_count, "comment") %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="text-center py-8 text-muted-foreground">
+        No posts created yet
+      </div>
+    <% end %>
+  <% end %>
+</div>
