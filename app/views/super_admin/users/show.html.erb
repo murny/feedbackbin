@@ -46,7 +46,7 @@
             <h4 class="text-sm font-medium text-foreground mb-2">Status</h4>
             <div class="space-y-2">
               <%= render_badge(
-                text: @user.super_admin? ? "Super Administrator" : "Regular User",
+                text: @user.super_admin? ? "Super Admin" : "Regular User",
                 variant: @user.super_admin? ? :default : :secondary
               ) %>
               <%= render_badge(
