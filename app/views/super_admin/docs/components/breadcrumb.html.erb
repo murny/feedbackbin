@@ -1,0 +1,30 @@
+<%= render "super_admin/docs/shared/page_header",
+  title: "Breadcrumb",
+  breadcrumb_items: [
+    { text: "Docs", path: super_admin_docs_path },
+    { text: "Components", path: super_admin_docs_components_path },
+    { text: "Breadcrumb", path: nil }
+  ],
+  description: "Displays the path to the current resource using a hierarchy of links." %>
+
+<%= render "super_admin/docs/components/breadcrumb/base" %>
+<%= render "super_admin/docs/components/breadcrumb/separator" %>
+<%= render "super_admin/docs/components/breadcrumb/collapse" %>
+
+<%= render partial: "super_admin/docs/shared/pagination", locals: {
+  prev_path: super_admin_docs_components_badge_path,
+  prev_text: "Badge",
+  next_path: super_admin_docs_components_button_path,
+  next_text: "Button"
+} %>
+
+<%= content_for :component_nav do %>
+  <%= render partial: "super_admin/docs/shared/component_nav", locals: {
+    title: "On this page",
+    items: [
+      { text: "Base", path: "#breadcrumb-base" },
+      { text: "Custom Separator", path: "#breadcrumb-separator" },
+      { text: "Collapse", path: "#breadcrumb-collapse" }
+    ]
+  } %>
+<% end %>

@@ -27,7 +27,7 @@ en:
           attributes:
             username:
               invalid: can only contain letters, numbers, and underscores
-  admin:
+  super_admin:
     base:
       unauthorized: You are not authorized to access this page.
   application:
@@ -43,7 +43,7 @@ en:
     navbar:
       brand_name: FeedbackBin
       links:
-        admin: Admin
+        super_admin: Super Admin
         feedback: Feedback
         letter_opener: Letter opener
         mission_control_jobs: Mission control jobs

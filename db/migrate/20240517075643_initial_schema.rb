@@ -177,7 +177,7 @@ class InitialSchema < ActiveRecord::Migration[8.0]
       t.boolean "email_verified", default: false, null: false
       t.string "password_digest", null: false
       t.boolean "active", default: true, null: false
-      t.boolean "site_admin", default: false, null: false
+      t.boolean "super_admin", default: false, null: false
       t.datetime "created_at", null: false
       t.datetime "updated_at", null: false
       t.datetime "changelogs_read_at"

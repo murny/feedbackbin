@@ -1,0 +1,137 @@
+<%# locals: (users:, pagy:) %>
+
+<%= render_card(class: "p-0 overflow-hidden") do %>
+  <div class="overflow-x-auto">
+    <table class="w-full text-sm">
+      <thead class="border-b border-border">
+        <tr class="bg-muted/50">
+          <th class="px-6 py-4 text-left font-semibold text-foreground">User</th>
+          <th class="px-6 py-4 text-left font-semibold text-foreground">Status</th>
+          <th class="px-6 py-4 text-left font-semibold text-foreground">Organizations</th>
+          <th class="px-6 py-4 text-left font-semibold text-foreground">Joined</th>
+          <th class="px-6 py-4 text-center font-semibold text-foreground">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-border">
+        <% if users.any? %>
+          <% users.each do |user| %>
+            <tr class="hover:bg-muted/25 transition-colors">
+              <td class="px-6 py-4">
+                <div class="flex items-center space-x-3">
+                  <%= render_avatar(
+                    src: user.avatar.attached? ? url_for(user.avatar) : nil,
+                    alt: user.name,
+                    size: :sm,
+                    fallback: user.name[0, 2].upcase
+                  ) %>
+                  <div class="min-w-0">
+                    <div class="font-medium text-foreground truncate">
+                      <%= user.name %>
+                    </div>
+                    <div class="text-sm text-muted-foreground truncate">
+                      <%= user.email_address %>
+                    </div>
+                    <% if user.username.present? %>
+                      <div class="text-xs text-muted-foreground">
+                        @<%= user.username %>
+                      </div>
+                    <% end %>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4">
+                <div class="space-y-1">
+                  <%= render_badge(
+                    text: user.super_admin? ? "Super Admin" : "User",
+                    variant: user.super_admin? ? :default : :secondary
+                  ) %>
+                  <% if user.email_verified? %>
+                    <%= render_badge(
+                      text: "Verified",
+                      variant: :default
+                    ) %>
+                  <% else %>
+                    <%= render_badge(
+                      text: "Unverified",
+                      variant: :destructive
+                    ) %>
+                  <% end %>
+                </div>
+              </td>
+              <td class="px-6 py-4">
+                <% if user.organizations.any? %>
+                  <div class="flex items-center space-x-2">
+                    <span class="inline-flex items-center rounded-full bg-secondary px-2 py-1 text-xs font-medium text-secondary-foreground">
+                      <%= pluralize(user.organizations.count, "org") %>
+                    </span>
+                    <div class="flex -space-x-1">
+                      <% user.organizations.limit(3).each do |org| %>
+                        <div class="ring-2 ring-background">
+                          <%= organization_logo(org, size: :sm) %>
+                        </div>
+                      <% end %>
+                      <% if user.organizations.count > 3 %>
+                        <div class="flex items-center justify-center size-6 rounded-md bg-muted text-xs font-medium text-muted-foreground ring-2 ring-background">
+                          +<%= user.organizations.count - 3 %>
+                        </div>
+                      <% end %>
+                    </div>
+                  </div>
+                <% else %>
+                  <span class="text-muted-foreground">No organizations</span>
+                <% end %>
+              </td>
+              <td class="px-6 py-4 text-muted-foreground">
+                <div class="text-sm">
+                  <%= user.created_at.strftime("%b %d, %Y") %>
+                </div>
+                <div class="text-xs">
+                  <%= time_ago_in_words(user.created_at) %> ago
+                </div>
+              </td>
+              <td class="px-6 py-4 text-center">
+                <%= render_button(
+                  text: "View",
+                  href: super_admin_user_path(user),
+                  variant: :outline,
+                  size: :sm,
+                  data: { turbo_frame: "_top" }
+                ) %>
+              </td>
+            </tr>
+          <% end %>
+        <% else %>
+          <tr>
+            <td colspan="5" class="px-6 py-12 text-center">
+              <div class="mx-auto size-12 bg-muted rounded-full flex items-center justify-center mb-4">
+                <%= lucide_icon "users", class: "size-6 text-muted-foreground" %>
+              </div>
+              <h3 class="text-sm font-medium text-foreground mb-2">No users found</h3>
+              <p class="text-sm text-muted-foreground">
+                <% if params[:search].present? %>
+                  Try adjusting your search criteria.
+                <% else %>
+                  No users have joined yet.
+                <% end %>
+              </p>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
+<!-- Pagination -->
+<div class="mt-8">
+  <%= tag.div id: ("users" if first_page?(pagy.page)), class: "space-y-4" do %>
+    <div class="text-center text-sm text-muted-foreground">
+      <%== pagy_info(pagy) %>
+    </div>
+    <% if pagy.pages > 1 %>
+      <div class="flex justify-center">
+        <%== pagy_nav(pagy, link_extra: 'data-turbo-frame="users_content"') %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

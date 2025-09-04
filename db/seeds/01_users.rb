@@ -2,22 +2,22 @@
 
 puts "Creating users..."
 
-admin = User.find_or_create_by!(email_address: "shane.murnaghan@feedbackbin.com") do |user|
+User.find_or_create_by!(email_address: "shane.murnaghan@feedbackbin.com") do |user|
   user.name = "Shane Murnaghan"
   user.username = "Murny"
   user.password = "password123"
-  user.site_admin = true
+  user.super_admin = true
   user.email_verified = true
 end
 
-user = User.find_or_create_by!(email_address: "fake_user@example.com") do |user|
+User.find_or_create_by!(email_address: "fake_user@example.com") do |user|
   user.name = "Fake User"
   user.username = "FakeUser"
   user.password = "password123"
   user.email_verified = true
 end
 
-user_two = User.find_or_create_by!(email_address: "jane_doe@example.com") do |user|
+User.find_or_create_by!(email_address: "jane_doe@example.com") do |user|
   user.name = "Jane Doe"
   user.username = "JaneDoe"
   user.password = "password123"
@@ -25,7 +25,7 @@ user_two = User.find_or_create_by!(email_address: "jane_doe@example.com") do |us
 end
 
 # Additional creative users with detailed profiles
-alex = User.find_or_create_by!(email_address: "alex.chen@techcorp.com") do |user|
+User.find_or_create_by!(email_address: "alex.chen@techcorp.com") do |user|
   user.name = "Alex Chen"
   user.username = "alexc"
   user.password = "password123"
@@ -35,7 +35,7 @@ alex = User.find_or_create_by!(email_address: "alex.chen@techcorp.com") do |user
   user.email_verified = true
 end
 
-maya = User.find_or_create_by!(email_address: "maya.patel@designstudio.co") do |user|
+User.find_or_create_by!(email_address: "maya.patel@designstudio.co") do |user|
   user.name = "Maya Patel"
   user.username = "mayap"
   user.password = "password123"
@@ -45,7 +45,7 @@ maya = User.find_or_create_by!(email_address: "maya.patel@designstudio.co") do |
   user.email_verified = true
 end
 
-carlos = User.find_or_create_by!(email_address: "carlos.rodriguez@freelance.dev") do |user|
+User.find_or_create_by!(email_address: "carlos.rodriguez@freelance.dev") do |user|
   user.name = "Carlos Rodriguez"
   user.username = "carlosr"
   user.password = "password123"
@@ -55,7 +55,7 @@ carlos = User.find_or_create_by!(email_address: "carlos.rodriguez@freelance.dev"
   user.email_verified = true
 end
 
-sarah = User.find_or_create_by!(email_address: "sarah.kim@startup.io") do |user|
+User.find_or_create_by!(email_address: "sarah.kim@startup.io") do |user|
   user.name = "Sarah Kim"
   user.username = "sarahk"
   user.password = "password123"
@@ -65,7 +65,7 @@ sarah = User.find_or_create_by!(email_address: "sarah.kim@startup.io") do |user|
   user.email_verified = true
 end
 
-david = User.find_or_create_by!(email_address: "david.thompson@agency.com") do |user|
+User.find_or_create_by!(email_address: "david.thompson@agency.com") do |user|
   user.name = "David Thompson"
   user.username = "dthompson"
   user.password = "password123"

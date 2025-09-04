@@ -188,7 +188,7 @@ ActiveRecord::Schema[8.1].define(version: 2024_05_17_075643) do
     t.string "name"
     t.string "password_digest", null: false
     t.string "preferred_language"
-    t.boolean "site_admin", default: false, null: false
+    t.boolean "super_admin", default: false, null: false
     t.integer "theme", default: 0, null: false
     t.string "time_zone"
     t.datetime "updated_at", null: false
