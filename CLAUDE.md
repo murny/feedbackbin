@@ -56,7 +56,7 @@ FeedbackBin is a customer feedback management platform built with Ruby on Rails 
 - **SQLite**: Primary database for all environments
 
 ### Authentication & Authorization
-- Custom authentication system using `has_secure_password`
+- Custom authentication system using `has_secure_password` via Rails
 - OAuth integration (Google, Facebook) via Omniauth
 - Session-based authentication stored in database
 - Pundit policies for authorization (`app/policies/`)
@@ -64,8 +64,9 @@ FeedbackBin is a customer feedback management platform built with Ruby on Rails 
 
 ### UI Framework
 - **Tailwind CSS**: Utility-first styling with custom components
+- **Basecoat CSS**: Gives Shadcn-inspired CSS ontop of Tailwind 
 - **Custom UI Components**: Shadcn-inspired components in `app/views/components/ui/`
-- **Lucide Icons**: Icon system via `inline_svg_tag`
+- **Lucide Icons**: Icon system via lucide-rails gem using `lucide_icon("example_icon")` view helper
 - **Mobile-first responsive design**
 - **Dark/light theme support**
 
@@ -83,7 +84,7 @@ FeedbackBin is a customer feedback management platform built with Ruby on Rails 
 - Authorization via Pundit policies
 
 ### Testing Strategy
-- Rails testing framework with fixtures
+- Rails testing framework (Rails + Minitest) with fixtures
 - System tests using Capybara and Selenium
 - Comprehensive test coverage expected for all models/controllers
 - Test data managed through `test/fixtures/`
@@ -103,6 +104,23 @@ The application uses custom UI components inspired by Shadcn UI. Use helper meth
 - Follow mobile-first responsive approach
 - Ensure components work in both light and dark themes
 - Use semantic HTML elements and proper ARIA attributes
+
+### View Guidelines
+- Always use Rails I18n; do not hardcode text in views.
+- Use scoped helpers like `t('.title')` and store strings in `config/locales/en.yml`.
+- Run `bin/i18n-tasks health` regularly to keep translations consistent.
+
+Example:
+```erb
+<h1><%= t('.title') %></h1>
+```
+
+```yml
+en:
+  posts:
+    index:
+      title: Posts
+```
 
 ### Turbo/Hotwire Usage
 - Prefer server-side rendering over client-side JavaScript

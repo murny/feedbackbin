@@ -8,7 +8,7 @@
   </header>
   <main>
     <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 py-4">
-      <%= form_with(model: [ @organization, @membership ]) do |form| %>
+      <%= form_with model: @membership, url: admin_settings_membership_path(@membership), method: :patch do |form| %>
         <%= render "error_messages", resource: form.object %>
 
         <div class="">
@@ -24,7 +24,7 @@
         </div>
 
         <div class="mt-5 flex items-center space-x-4 justify-end">
-          <%= link_to "Cancel", organization_memberships_path(@organization), class: "btn btn-secondary" %>
+          <%= link_to "Cancel", admin_settings_memberships_path, class: "btn btn-secondary" %>
           <%= form.submit "Update membership", class: "btn btn-primary" %>
         </div>
       <% end %>

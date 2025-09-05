@@ -52,11 +52,18 @@ Rails.application.routes.draw do
   resources :comments, except: [ :index, :new ]
   resources :changelogs, only: [ :index, :show ]
 
-  resources :organizations, except: [ :index ] do
+  namespace :admin do
+    root to: "dashboard#show"
+
+    namespace :settings do
+      resources :organization_invitations, only: [ :index, :new, :create, :destroy ]
+      resources :memberships, except: [ :show ]
+    end
+  end
+
+  resources :organizations, only: [ :new, :create ] do
     scope module: :organizations do
       resource :switch, only: %i[create]
-      resources :organization_invitations, only: %i[new create]
-      resources :memberships, except: %i[show]
     end
   end
 
@@ -80,7 +87,6 @@ Rails.application.routes.draw do
 
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
-    mount MissionControl::Jobs::Engine, at: "/jobs"
   end
 
   root "posts#index"

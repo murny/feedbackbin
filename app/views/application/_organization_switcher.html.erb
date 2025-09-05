@@ -63,7 +63,7 @@
 
     <div class="px-2 py-1.5">
       <% if Current.organization_admin? && current_organization %>
-        <%= link_to organization_path(current_organization),
+        <%= link_to admin_root_path,
               class: "relative flex w-full cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
               role: "menuitem",
               tabindex: "-1" do %>

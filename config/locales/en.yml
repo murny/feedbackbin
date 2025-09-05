@@ -27,6 +27,22 @@ en:
           attributes:
             username:
               invalid: can only contain letters, numbers, and underscores
+  admin:
+    base:
+      unauthorized: You are not authorized to access this page.
+    settings:
+      memberships:
+        destroy:
+          successfully_destroyed: Membership was successfully removed.
+          successfully_left: You have successfully left the organization.
+        index:
+          new_membership: New membership
+          title: Memberships
+        update:
+          successfully_updated: Membership was successfully updated.
+      organization_invitations:
+        create:
+          successfully_created: Invitation was successfully created.
   application:
     default_title: FeedbackBin
     footer:
@@ -115,10 +131,6 @@ en:
   organizations:
     create:
       successfully_created: Organization was successfully created.
-    destroy:
-      successfully_destroyed: Organization was successfully destroyed.
-    edit:
-      title: Edit organization
     form:
       basic_information: Basic Information
       basic_information_description: Set up the basic details for your organization.
@@ -134,28 +146,12 @@ en:
       organization_logo: Organization Logo
       remove_logo: Remove Logo
       upload_new_logo: Upload new logo
-    memberships:
-      destroy:
-        successfully_destroyed: Membership was successfully removed.
-        successfully_left: You have successfully left the organization.
-      index:
-        new_membership: New membership
-        title: Memberships
-      update:
-        successfully_updated: Membership was successfully updated.
     new:
       description: Create a new organization to get started with collecting feedback.
       title: New organization
-    organization:
-      free_plan: Free Plan
-    organization_invitations:
-      create:
-        successfully_created: Invitation was successfully created.
     switches:
       create:
         successfully_switched: Switched to %{name}
-    update:
-      successfully_updated: Organization was successfully updated.
   pagy:
     aria_label:
       nav:
