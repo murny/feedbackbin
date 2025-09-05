@@ -28,8 +28,6 @@ en:
             username:
               invalid: can only contain letters, numbers, and underscores
   admin:
-    base:
-      unauthorized: You are not authorized to access this page.
     settings:
       memberships:
         destroy:

@@ -19,9 +19,10 @@ module Admin
       test "should not get new if not an admin" do
         sign_in_as users(:two)
 
-        get new_admin_settings_membership_url
+        get new_admin_settings_organization_invitation_url
 
-        assert_response :not_found
+        assert_response :redirect
+        assert_equal I18n.t("unauthorized"), flash[:alert]
       end
 
       # TODO: Add tests for creating organization invitations
