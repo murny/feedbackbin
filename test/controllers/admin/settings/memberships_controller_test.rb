@@ -88,14 +88,14 @@ module Admin
         assert_redirected_to root_url
       end
 
-      # TODO: This is currently not implemented
-      # test "should not destroy membership if admin is an owner" do
-      #   assert_no_difference("Membership.count") do
-      #     delete organization_membership_url(@organization, @admin_membership)
-      #   end
+      test "should not destroy membership if admin is an owner" do
+        assert_no_difference("Membership.count") do
+          delete admin_settings_membership_url(@admin_membership)
+        end
 
-      #   assert_redirected_to organization_memberships_url
-      # end
+        assert_redirected_to admin_settings_memberships_url
+        assert_equal I18n.t("admin.settings.memberships.destroy.owner_cannot_be_removed"), flash[:alert]
+      end
     end
   end
 end

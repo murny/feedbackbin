@@ -24,7 +24,7 @@ module Admin
       private
 
         def organization_invitation_params
-          params.require(:organization_invitation).permit(:email)
+          params.require(:organization_invitation).permit(:email, :name)
         end
     end
   end

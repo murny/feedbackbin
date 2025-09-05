@@ -33,8 +33,8 @@ en:
     settings:
       memberships:
         destroy:
+          owner_cannot_be_removed: Owner cannot be removed. Please transfer ownership to another user first.
           successfully_destroyed: Membership was successfully removed.
-          successfully_left: You have successfully left the organization.
         index:
           new_membership: New membership
           title: Memberships

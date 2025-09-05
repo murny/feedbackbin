@@ -16,6 +16,8 @@ class OrganizationsController < ApplicationController
     @organization = Organization.new(organization_params.merge(owner: Current.user))
 
     if @organization.save
+      # TODO: We need to handle tenant handling better in general
+      session[:organization_id] = @organization.id
       redirect_to admin_root_path, notice: t(".successfully_created")
     else
       render :new, status: :unprocessable_entity

@@ -28,13 +28,13 @@ module Admin
       def destroy
         authorize @membership
 
+        if @membership.organization_owner?
+          return redirect_to admin_settings_memberships_path, alert: t(".owner_cannot_be_removed")
+        end
+
         @membership.destroy!
 
-        if @membership.user == Current.user
-          redirect_to root_path, notice: t(".successfully_left")
-        else
-          redirect_to admin_settings_memberships_path, notice: t(".successfully_destroyed")
-        end
+        redirect_to admin_settings_memberships_path, notice: t(".successfully_destroyed")
       end
 
       private
