@@ -16,7 +16,7 @@ gem "solid_cache"
 gem "solid_cable"
 
 # Deployment
-gem "puma", "~> 6.6"
+gem "puma", "~> 7.0"
 gem "thruster", require: false
 gem "kamal", require: false
 
