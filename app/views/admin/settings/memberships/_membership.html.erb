@@ -11,13 +11,13 @@
   <div>
     <% if policy(membership).edit? %>
       <%= link_to "Edit",
-            edit_organization_membership_path(membership.organization, membership),
+            edit_admin_settings_membership_path(membership),
             class: "btn btn-secondary" %>
     <% end %>
     <% if policy(membership).destroy? %>
       <div class="inline-block">
         <%= button_to "Remove",
-              organization_membership_path(membership.organization, membership),
+              admin_settings_membership_path(membership),
               method: :delete,
               data: { turbo_confirm: "Are you sure?" },
               class: "btn btn-danger" %>

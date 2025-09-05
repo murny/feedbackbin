@@ -7,7 +7,7 @@
         <%= t(".title") %>
       </h1>
       <div class="whitespace-nowrap">
-        <%= link_to t(".new_membership"), new_organization_organization_invitation_path(@organization), class: "btn btn-primary" if policy(@organization.memberships.new).new? %>
+        <%= link_to t(".new_membership"), new_admin_settings_organization_invitation_path, class: "btn btn-primary" if policy(Current.organization.memberships.new).new? %>
       </div>
     </div>
   </header>

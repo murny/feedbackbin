@@ -8,14 +8,14 @@
   </header>
   <main>
     <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 py-4">
-      <%= form_with model: @organization_invitation, url: organization_organization_invitations_path(@organization), class: "contents space-y-4" do |form| %>
+      <%= form_with model: @organization_invitation, url: admin_settings_organization_invitations_path, class: "contents space-y-4" do |form| %>
         <%= render "error_messages", resource: form.object %>
 
         <%= form.label :email %>
         <%= form.email_field :email, placeholder: "hello@example.com", class: "form-input", autofocus: true %>
 
         <div class="mt-5 flex items-center space-x-4 justify-end">
-          <%= link_to "Cancel", organization_memberships_path(@organization), class: "btn btn-secondary" %>
+          <%= link_to "Cancel", admin_settings_memberships_path, class: "btn btn-secondary" %>
           <%= form.submit "Invite", class: "btn btn-primary" %>
         </div>
       <% end %>
