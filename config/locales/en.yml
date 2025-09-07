@@ -28,6 +28,46 @@ en:
             username:
               invalid: can only contain letters, numbers, and underscores
   admin:
+    dashboard:
+      show:
+        description: Overview of your organization's activity and key metrics
+        heading: "%{organization_name} Admin Dashboard"
+        recent_activity:
+          added_comment: added a comment
+          ago: ago
+          created_post: created a post
+          no_activity_description: When users create posts or add comments, you'll see them here.
+          no_activity_title: No recent activity
+          title: Recent Activity
+        recent_posts:
+          ago: ago
+          by_author: by %{author}
+          in_category: in %{category}
+          no_posts_description: Get started by creating your first post.
+          no_posts_title: No posts yet
+          title: Recent Posts
+          view_all: View all posts
+        stats:
+          admins: Admins
+          this_month: This month
+          title: Overview
+          total_comments: Total Comments
+          total_posts: Total Posts
+          total_users: Total Users
+        title: "%{organization_name} Admin"
+    layouts:
+      admin:
+        navigation:
+          back_to_app: Back to App
+          dashboard: Dashboard
+          members: Members
+          posts: Posts
+          settings: Settings
+        sign_out: Sign out
+        sr_only:
+          close_sidebar: Close sidebar
+          open_sidebar: Open sidebar
+          open_user_menu: Open user menu
     settings:
       memberships:
         destroy:

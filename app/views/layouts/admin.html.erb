@@ -1,5 +1,186 @@
 <% content_for(:content) do %>
-  <%= yield %>
+  <div class="flex h-full bg-background">
+    <!-- Sidebar -->
+    <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col">
+      <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-card px-6 pb-4 border-r border-border">
+        <div class="flex h-16 shrink-0 items-center">
+          <%= link_to root_path, class: "flex items-center" do %>
+            <%= inline_svg_tag "mark.svg", class: "h-8 w-8 text-primary" %>
+            <span class="ml-2 text-lg font-bold text-primary">FeedbackBin</span>
+          <% end %>
+        </div>
+        <nav class="flex flex-1 flex-col">
+          <ul role="list" class="flex flex-1 flex-col gap-y-7">
+            <li>
+              <ul role="list" class="-mx-2 space-y-1">
+                <li>
+                  <%= active_link_to admin_root_path,
+                        class: "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold transition-colors",
+                        active_class: "bg-accent text-accent-foreground",
+                        inactive_class: "text-muted-foreground hover:text-foreground hover:bg-accent" do %>
+                    <%= lucide_icon "layout-dashboard", class: "h-6 w-6 shrink-0" %>
+                    <%= t(".navigation.dashboard") %>
+                  <% end %>
+                </li>
+                <li>
+                  <%= active_link_to admin_settings_memberships_path,
+                        class: "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold transition-colors",
+                        active_class: "bg-accent text-accent-foreground",
+                        inactive_class: "text-muted-foreground hover:text-foreground hover:bg-accent" do %>
+                    <%= lucide_icon "users", class: "h-6 w-6 shrink-0" %>
+                    <%= t(".navigation.members") %>
+                  <% end %>
+                </li>
+                <li>
+                  <div class="group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-muted-foreground cursor-not-allowed">
+                    <%= lucide_icon "message-square", class: "h-6 w-6 shrink-0" %>
+                    <%= t(".navigation.posts") %>
+                    <span class="ml-auto text-xs bg-muted text-muted-foreground px-2 py-1 rounded-full">Soon</span>
+                  </div>
+                </li>
+                <li>
+                  <div class="group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-muted-foreground cursor-not-allowed">
+                    <%= lucide_icon "settings", class: "h-6 w-6 shrink-0" %>
+                    <%= t(".navigation.settings") %>
+                    <span class="ml-auto text-xs bg-muted text-muted-foreground px-2 py-1 rounded-full">Soon</span>
+                  </div>
+                </li>
+              </ul>
+            </li>
+          </ul>
+        </nav>
+        <div class="border-t border-border pt-4">
+          <%= link_to root_path,
+                class: "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-muted-foreground hover:text-foreground hover:bg-accent transition-colors" do %>
+            <%= lucide_icon "arrow-left", class: "h-6 w-6 shrink-0" %>
+            <%= t(".navigation.back_to_app") %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main content -->
+    <div class="lg:pl-72 flex-1">
+      <div class="sticky top-0 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-border bg-background px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8">
+        <button type="button" class="-m-2.5 p-2.5 text-muted-foreground lg:hidden" data-controller="sidebar" data-action="click->sidebar#toggle">
+          <span class="sr-only"><%= t(".sr_only.open_sidebar") %></span>
+          <%= lucide_icon "menu", class: "h-6 w-6" %>
+        </button>
+
+        <!-- Separator -->
+        <div class="h-6 w-px bg-border lg:hidden" aria-hidden="true"></div>
+
+        <div class="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
+          <div class="flex flex-1"></div>
+          <div class="flex items-center gap-x-4 lg:gap-x-6">
+            <!-- Profile dropdown -->
+            <div class="relative" data-controller="dropdown">
+              <button type="button"
+                      class="flex items-center gap-x-2 rounded-md p-1.5 text-sm leading-6 text-foreground hover:bg-accent ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                      id="user-menu-button"
+                      aria-expanded="false"
+                      aria-haspopup="true"
+                      data-action="click->dropdown#toggle click@window->dropdown#hide">
+                <span class="sr-only"><%= t(".sr_only.open_user_menu") %></span>
+                <%= image_tag fresh_user_avatar_path(Current.user), role: "presentation", class: "h-8 w-8 rounded-full", alt: "" %>
+                <span class="hidden lg:flex lg:items-center">
+                  <span class="ml-2 text-sm font-semibold leading-6 text-foreground" aria-hidden="true"><%= Current.user.name %></span>
+                  <%= lucide_icon "chevron-down", class: "ml-2 h-5 w-5 text-muted-foreground" %>
+                </span>
+              </button>
+
+              <div class="hidden absolute right-0 z-10 mt-2.5 w-32 origin-top-right rounded-md bg-popover py-2 shadow-lg ring-1 ring-border focus:outline-none"
+                  role="menu"
+                  aria-orientation="vertical"
+                  aria-labelledby="user-menu-button"
+                  tabindex="-1"
+                  data-dropdown-target="menu">
+                <%= button_to t(".sign_out"), users_session_path, method: :delete,
+                      class: "block w-full text-left px-3 py-1 text-sm leading-6 text-popover-foreground hover:bg-accent transition-colors",
+                      role: "menuitem",
+                      tabindex: "-1" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Page content -->
+      <main class="py-10">
+        <%= yield %>
+      </main>
+    </div>
+
+    <!-- Mobile sidebar -->
+    <div class="relative z-50 lg:hidden" role="dialog" aria-modal="true" data-sidebar-target="overlay" style="display: none;">
+      <div class="fixed inset-0 bg-background/80 backdrop-blur-sm"></div>
+      <div class="fixed inset-0 flex">
+        <div class="relative mr-16 flex w-full max-w-xs flex-1">
+          <div class="absolute left-full top-0 flex w-16 justify-center pt-5">
+            <button type="button" class="-m-2.5 p-2.5" data-action="click->sidebar#close">
+              <span class="sr-only"><%= t(".sr_only.close_sidebar") %></span>
+              <%= lucide_icon "x", class: "h-6 w-6 text-foreground" %>
+            </button>
+          </div>
+          <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-card px-6 pb-2 border-r border-border">
+            <div class="flex h-16 shrink-0 items-center">
+              <%= link_to root_path, class: "flex items-center" do %>
+                <%= inline_svg_tag "mark.svg", class: "h-8 w-8 text-primary" %>
+                <span class="ml-2 text-lg font-bold text-primary">FeedbackBin</span>
+              <% end %>
+            </div>
+            <nav class="flex flex-1 flex-col">
+              <ul role="list" class="flex flex-1 flex-col gap-y-7">
+                <li>
+                  <ul role="list" class="-mx-2 space-y-1">
+                    <li>
+                      <%= active_link_to admin_root_path,
+                            class: "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold transition-colors",
+                            active_class: "bg-accent text-accent-foreground",
+                            inactive_class: "text-muted-foreground hover:text-foreground hover:bg-accent" do %>
+                        <%= lucide_icon "layout-dashboard", class: "h-6 w-6 shrink-0" %>
+                        <%= t(".navigation.dashboard") %>
+                      <% end %>
+                    </li>
+                    <li>
+                      <%= active_link_to admin_settings_memberships_path,
+                            class: "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold transition-colors",
+                            active_class: "bg-accent text-accent-foreground",
+                            inactive_class: "text-muted-foreground hover:text-foreground hover:bg-accent" do %>
+                        <%= lucide_icon "users", class: "h-6 w-6 shrink-0" %>
+                        <%= t(".navigation.members") %>
+                      <% end %>
+                    </li>
+                    <li>
+                      <div class="group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-muted-foreground cursor-not-allowed">
+                        <%= lucide_icon "message-square", class: "h-6 w-6 shrink-0" %>
+                        <%= t(".navigation.posts") %>
+                        <span class="ml-auto text-xs bg-muted text-muted-foreground px-2 py-1 rounded-full">Soon</span>
+                      </div>
+                    </li>
+                    <li>
+                      <div class="group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-muted-foreground cursor-not-allowed">
+                        <%= lucide_icon "settings", class: "h-6 w-6 shrink-0" %>
+                        <%= t(".navigation.settings") %>
+                        <span class="ml-auto text-xs bg-muted text-muted-foreground px-2 py-1 rounded-full">Soon</span>
+                      </div>
+                    </li>
+                  </ul>
+                </li>
+              </ul>
+            </nav>
+            <div class="border-t border-border pt-4">
+              <%= link_to root_path,
+                    class: "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-muted-foreground hover:text-foreground hover:bg-accent transition-colors" do %>
+                <%= lucide_icon "arrow-left", class: "h-6 w-6 shrink-0" %>
+                <%= t(".navigation.back_to_app") %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 <% end %>
 
 <%= render template: "layouts/application" %>
