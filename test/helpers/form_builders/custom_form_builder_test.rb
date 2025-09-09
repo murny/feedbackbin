@@ -154,7 +154,7 @@ module FormBuilders
   test "check_box returns custom styled check box" do
     form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
-    expected = %(<input name="user[active]" type="hidden" value="0" autocomplete="off" />
+    expected = %(<input name="user[active]" type="hidden" value="0" />
     <input class="h-4 w-4 rounded border-input bg-background text-primary focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
            type="checkbox" value="1" checked="checked" name="user[active]" id="user_active" />)
 
