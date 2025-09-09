@@ -148,6 +148,9 @@ en:
       username_placeholder: Enter your username
   layouts:
     admin:
+      title: Admin
+      badges:
+        soon: Soon
       navigation:
         back_to_app: Back to App
         dashboard: Dashboard

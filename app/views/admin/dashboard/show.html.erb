@@ -1,218 +1,216 @@
 <% content_for :title, t(".title", organization_name: Current.organization.name) %>
 
-<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-  <header class="pb-4 sm:pb-6">
-    <div>
-      <h1 class="text-2xl font-bold leading-tight tracking-tight text-foreground sm:text-3xl">
-        <%= t(".heading", organization_name: Current.organization.name) %>
-      </h1>
-      <p class="mt-2 text-sm text-muted-foreground">
-        <%= t(".description") %>
-      </p>
+<header class="pb-4 sm:pb-6">
+  <div>
+    <h1 class="text-2xl font-bold leading-tight tracking-tight text-foreground sm:text-3xl">
+      <%= t(".heading", organization_name: Current.organization.name) %>
+    </h1>
+    <p class="mt-2 text-sm text-muted-foreground">
+      <%= t(".description") %>
+    </p>
+  </div>
+</header>
+
+<!-- Statistics Overview -->
+<div class="mb-8">
+  <h2 class="text-lg font-semibold text-foreground mb-4"><%= t(".stats.title") %></h2>
+  <dl class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
+    <div class="bg-card overflow-hidden shadow rounded-lg border border-border">
+      <div class="p-5">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <%= lucide_icon "message-square", class: "h-8 w-8 text-primary" %>
+          </div>
+          <div class="ml-5 w-0 flex-1">
+            <dl>
+              <dt class="text-sm font-medium text-muted-foreground truncate"><%= t(".stats.total_posts") %></dt>
+              <dd class="text-lg font-semibold text-foreground">
+                <%= number_with_delimiter(@stats[:total_posts] || 0) %>
+              </dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+      <div class="bg-muted px-5 py-3">
+        <div class="text-sm">
+          <span class="text-muted-foreground"><%= t(".stats.this_month") %>:</span>
+          <span class="font-medium text-foreground">
+            <%= number_with_delimiter(@stats[:posts_this_month] || 0) %>
+          </span>
+        </div>
+      </div>
     </div>
-  </header>
 
-  <!-- Statistics Overview -->
-  <div class="mb-8">
-    <h2 class="text-lg font-semibold text-foreground mb-4"><%= t(".stats.title") %></h2>
-    <dl class="grid grid-cols-1 gap-5 sm:grid-cols-2 lg:grid-cols-3">
-      <div class="bg-card overflow-hidden shadow rounded-lg border border-border">
-        <div class="p-5">
-          <div class="flex items-center">
-            <div class="flex-shrink-0">
-              <%= lucide_icon "message-square", class: "h-8 w-8 text-primary" %>
-            </div>
-            <div class="ml-5 w-0 flex-1">
-              <dl>
-                <dt class="text-sm font-medium text-muted-foreground truncate"><%= t(".stats.total_posts") %></dt>
-                <dd class="text-lg font-semibold text-foreground">
-                  <%= number_with_delimiter(@stats[:total_posts] || 0) %>
-                </dd>
-              </dl>
-            </div>
+    <div class="bg-card overflow-hidden shadow rounded-lg border border-border">
+      <div class="p-5">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <%= lucide_icon "users", class: "h-8 w-8 text-primary" %>
           </div>
-        </div>
-        <div class="bg-muted px-5 py-3">
-          <div class="text-sm">
-            <span class="text-muted-foreground"><%= t(".stats.this_month") %>:</span>
-            <span class="font-medium text-foreground">
-              <%= number_with_delimiter(@stats[:posts_this_month] || 0) %>
-            </span>
+          <div class="ml-5 w-0 flex-1">
+            <dl>
+              <dt class="text-sm font-medium text-muted-foreground truncate"><%= t(".stats.total_users") %></dt>
+              <dd class="text-lg font-semibold text-foreground">
+                <%= number_with_delimiter(@stats[:total_users] || 0) %>
+              </dd>
+            </dl>
           </div>
         </div>
       </div>
-
-      <div class="bg-card overflow-hidden shadow rounded-lg border border-border">
-        <div class="p-5">
-          <div class="flex items-center">
-            <div class="flex-shrink-0">
-              <%= lucide_icon "users", class: "h-8 w-8 text-primary" %>
-            </div>
-            <div class="ml-5 w-0 flex-1">
-              <dl>
-                <dt class="text-sm font-medium text-muted-foreground truncate"><%= t(".stats.total_users") %></dt>
-                <dd class="text-lg font-semibold text-foreground">
-                  <%= number_with_delimiter(@stats[:total_users] || 0) %>
-                </dd>
-              </dl>
-            </div>
-          </div>
+      <div class="bg-muted px-5 py-3">
+        <div class="text-sm">
+          <span class="text-muted-foreground"><%= t(".stats.admins") %>:</span>
+          <span class="font-medium text-foreground">
+            <%= number_with_delimiter(@stats[:admin_users] || 0) %>
+          </span>
         </div>
-        <div class="bg-muted px-5 py-3">
-          <div class="text-sm">
-            <span class="text-muted-foreground"><%= t(".stats.admins") %>:</span>
-            <span class="font-medium text-foreground">
-              <%= number_with_delimiter(@stats[:admin_users] || 0) %>
-            </span>
+      </div>
+    </div>
+
+    <div class="bg-card overflow-hidden shadow rounded-lg border border-border">
+      <div class="p-5">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <%= lucide_icon "message-circle", class: "h-8 w-8 text-primary" %>
+          </div>
+          <div class="ml-5 w-0 flex-1">
+            <dl>
+              <dt class="text-sm font-medium text-muted-foreground truncate"><%= t(".stats.total_comments") %></dt>
+              <dd class="text-lg font-semibold text-foreground">
+                <%= number_with_delimiter(@stats[:total_comments] || 0) %>
+              </dd>
+            </dl>
           </div>
         </div>
       </div>
-
-      <div class="bg-card overflow-hidden shadow rounded-lg border border-border">
-        <div class="p-5">
-          <div class="flex items-center">
-            <div class="flex-shrink-0">
-              <%= lucide_icon "message-circle", class: "h-8 w-8 text-primary" %>
-            </div>
-            <div class="ml-5 w-0 flex-1">
-              <dl>
-                <dt class="text-sm font-medium text-muted-foreground truncate"><%= t(".stats.total_comments") %></dt>
-                <dd class="text-lg font-semibold text-foreground">
-                  <%= number_with_delimiter(@stats[:total_comments] || 0) %>
-                </dd>
-              </dl>
-            </div>
-          </div>
-        </div>
-        <div class="bg-muted px-5 py-3">
-          <div class="text-sm">
-            <span class="text-muted-foreground"><%= t(".stats.this_month") %>:</span>
-            <span class="font-medium text-foreground">
-              <%= number_with_delimiter(@stats[:comments_this_month] || 0) %>
-            </span>
-          </div>
+      <div class="bg-muted px-5 py-3">
+        <div class="text-sm">
+          <span class="text-muted-foreground"><%= t(".stats.this_month") %>:</span>
+          <span class="font-medium text-foreground">
+            <%= number_with_delimiter(@stats[:comments_this_month] || 0) %>
+          </span>
         </div>
       </div>
-    </dl>
+    </div>
+  </dl>
+</div>
+
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+  <!-- Recent Posts -->
+  <div class="bg-card border border-border shadow rounded-lg">
+    <div class="px-4 py-5 sm:p-6">
+      <h3 class="text-lg leading-6 font-medium text-foreground mb-4">
+        <%= t(".recent_posts.title") %>
+      </h3>
+
+      <% if @recent_posts.present? %>
+        <div class="flow-root">
+          <ul class="-mb-8">
+            <% @recent_posts.each_with_index do |post, index| %>
+              <li>
+                <div class="relative pb-8">
+                  <% unless index == @recent_posts.length - 1 %>
+                    <span class="absolute left-4 top-4 -ml-px h-full w-0.5 bg-border" aria-hidden="true"></span>
+                  <% end %>
+                  <div class="relative flex space-x-3">
+                    <div>
+                      <span class="h-8 w-8 rounded-full bg-primary flex items-center justify-center ring-8 ring-background">
+                        <%= lucide_icon "message-square", class: "h-4 w-4 text-primary-foreground" %>
+                      </span>
+                    </div>
+                    <div class="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
+                      <div>
+                        <p class="text-sm text-foreground font-medium">
+                          <%= link_to post.title, post_path(post), class: "hover:text-primary transition-colors" %>
+                        </p>
+                        <p class="text-sm text-muted-foreground">
+                          <%= t(".recent_posts.by_author", author: post.author.name) %>
+                          <% if post.category %>
+                            • <%= t(".recent_posts.in_category", category: post.category.name) %>
+                          <% end %>
+                        </p>
+                      </div>
+                      <div class="whitespace-nowrap text-right text-sm text-muted-foreground">
+                        <time datetime="<%= post.created_at.iso8601 %>">
+                          <%= time_ago_in_words(post.created_at) %> <%= t(".recent_posts.ago") %>
+                        </time>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            <% end %>
+          </ul>
+        </div>
+
+        <div class="mt-6">
+          <%= link_to posts_path,
+                class: "w-full flex justify-center items-center px-4 py-2 border border-border rounded-md shadow-sm bg-background text-sm font-medium text-foreground hover:bg-accent transition-colors" do %>
+            <%= t(".recent_posts.view_all") %>
+            <%= lucide_icon "arrow-right", class: "ml-2 h-4 w-4" %>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="text-center py-12">
+          <%= lucide_icon "message-square", class: "mx-auto h-12 w-12 text-muted-foreground" %>
+          <h3 class="mt-2 text-sm font-medium text-foreground"><%= t(".recent_posts.no_posts_title") %></h3>
+          <p class="mt-1 text-sm text-muted-foreground"><%= t(".recent_posts.no_posts_description") %></p>
+        </div>
+      <% end %>
+    </div>
   </div>
 
-  <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
-    <!-- Recent Posts -->
-    <div class="bg-card border border-border shadow rounded-lg">
-      <div class="px-4 py-5 sm:p-6">
-        <h3 class="text-lg leading-6 font-medium text-foreground mb-4">
-          <%= t(".recent_posts.title") %>
-        </h3>
+  <!-- Recent Comments -->
+  <div class="bg-card border border-border shadow rounded-lg">
+    <div class="px-4 py-5 sm:p-6">
+      <h3 class="text-lg leading-6 font-medium text-foreground mb-4">
+        <%= t(".recent_comments.title") %>
+      </h3>
 
-        <% if @recent_posts.present? %>
-          <div class="flow-root">
-            <ul role="list" class="-mb-8">
-              <% @recent_posts.each_with_index do |post, index| %>
-                <li>
-                  <div class="relative pb-8">
-                    <% unless index == @recent_posts.length - 1 %>
-                      <span class="absolute left-4 top-4 -ml-px h-full w-0.5 bg-border" aria-hidden="true"></span>
-                    <% end %>
-                    <div class="relative flex space-x-3">
+      <% if @recent_comments.present? %>
+        <div class="flow-root">
+          <ul class="-mb-8">
+            <% @recent_comments.each_with_index do |comment, index| %>
+              <li>
+                <div class="relative pb-8">
+                  <% unless index == @recent_comments.length - 1 %>
+                    <span class="absolute left-4 top-4 -ml-px h-full w-0.5 bg-border" aria-hidden="true"></span>
+                  <% end %>
+                  <div class="relative flex space-x-3">
+                    <div>
+                      <span class="h-8 w-8 rounded-full bg-secondary flex items-center justify-center ring-8 ring-background">
+                        <%= lucide_icon "message-circle", class: "h-4 w-4 text-secondary-foreground" %>
+                      </span>
+                    </div>
+                    <div class="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
                       <div>
-                        <span class="h-8 w-8 rounded-full bg-primary flex items-center justify-center ring-8 ring-background">
-                          <%= lucide_icon "message-square", class: "h-4 w-4 text-primary-foreground" %>
-                        </span>
+                        <p class="text-sm text-foreground">
+                          <span class="font-medium"><%= comment.creator.name %></span>
+                          <%= t(".recent_comments.commented") %>
+                        </p>
+                        <p class="text-sm text-muted-foreground">
+                          <%= link_to comment.post.title, post_path(comment.post), class: "hover:text-primary transition-colors" %>
+                        </p>
                       </div>
-                      <div class="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
-                        <div>
-                          <p class="text-sm text-foreground font-medium">
-                            <%= link_to post.title, post_path(post), class: "hover:text-primary transition-colors" %>
-                          </p>
-                          <p class="text-sm text-muted-foreground">
-                            <%= t(".recent_posts.by_author", author: post.author.name) %>
-                            <% if post.category %>
-                              • <%= t(".recent_posts.in_category", category: post.category.name) %>
-                            <% end %>
-                          </p>
-                        </div>
-                        <div class="whitespace-nowrap text-right text-sm text-muted-foreground">
-                          <time datetime="<%= post.created_at.iso8601 %>">
-                            <%= time_ago_in_words(post.created_at) %> <%= t(".recent_posts.ago") %>
-                          </time>
-                        </div>
+                      <div class="whitespace-nowrap text-right text-sm text-muted-foreground">
+                        <time datetime="<%= comment.created_at.iso8601 %>">
+                          <%= time_ago_in_words(comment.created_at) %> <%= t(".recent_comments.ago") %>
+                        </time>
                       </div>
                     </div>
                   </div>
-                </li>
-              <% end %>
-            </ul>
-          </div>
-
-          <div class="mt-6">
-            <%= link_to posts_path,
-                  class: "w-full flex justify-center items-center px-4 py-2 border border-border rounded-md shadow-sm bg-background text-sm font-medium text-foreground hover:bg-accent transition-colors" do %>
-              <%= t(".recent_posts.view_all") %>
-              <%= lucide_icon "arrow-right", class: "ml-2 h-4 w-4" %>
+                </div>
+              </li>
             <% end %>
-          </div>
-        <% else %>
-          <div class="text-center py-12">
-            <%= lucide_icon "message-square", class: "mx-auto h-12 w-12 text-muted-foreground" %>
-            <h3 class="mt-2 text-sm font-medium text-foreground"><%= t(".recent_posts.no_posts_title") %></h3>
-            <p class="mt-1 text-sm text-muted-foreground"><%= t(".recent_posts.no_posts_description") %></p>
-          </div>
-        <% end %>
-      </div>
-    </div>
-
-    <!-- Recent Comments -->
-    <div class="bg-card border border-border shadow rounded-lg">
-      <div class="px-4 py-5 sm:p-6">
-        <h3 class="text-lg leading-6 font-medium text-foreground mb-4">
-          <%= t(".recent_comments.title") %>
-        </h3>
-
-        <% if @recent_comments.present? %>
-          <div class="flow-root">
-            <ul role="list" class="-mb-8">
-              <% @recent_comments.each_with_index do |comment, index| %>
-                <li>
-                  <div class="relative pb-8">
-                    <% unless index == @recent_comments.length - 1 %>
-                      <span class="absolute left-4 top-4 -ml-px h-full w-0.5 bg-border" aria-hidden="true"></span>
-                    <% end %>
-                    <div class="relative flex space-x-3">
-                      <div>
-                        <span class="h-8 w-8 rounded-full bg-secondary flex items-center justify-center ring-8 ring-background">
-                          <%= lucide_icon "message-circle", class: "h-4 w-4 text-secondary-foreground" %>
-                        </span>
-                      </div>
-                      <div class="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
-                        <div>
-                          <p class="text-sm text-foreground">
-                            <span class="font-medium"><%= comment.creator.name %></span>
-                            <%= t(".recent_comments.commented") %>
-                          </p>
-                          <p class="text-sm text-muted-foreground">
-                            <%= link_to comment.post.title, post_path(comment.post), class: "hover:text-primary transition-colors" %>
-                          </p>
-                        </div>
-                        <div class="whitespace-nowrap text-right text-sm text-muted-foreground">
-                          <time datetime="<%= comment.created_at.iso8601 %>">
-                            <%= time_ago_in_words(comment.created_at) %> <%= t(".recent_comments.ago") %>
-                          </time>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </li>
-              <% end %>
-            </ul>
-          </div>
-        <% else %>
-          <div class="text-center py-12">
-            <%= lucide_icon "message-circle", class: "mx-auto h-12 w-12 text-muted-foreground" %>
-            <h3 class="mt-2 text-sm font-medium text-foreground"><%= t(".recent_comments.no_comments_title") %></h3>
-            <p class="mt-1 text-sm text-muted-foreground"><%= t(".recent_comments.no_comments_description") %></p>
-          </div>
-        <% end %>
-      </div>
+          </ul>
+        </div>
+      <% else %>
+        <div class="text-center py-12">
+          <%= lucide_icon "message-circle", class: "mx-auto h-12 w-12 text-muted-foreground" %>
+          <h3 class="mt-2 text-sm font-medium text-foreground"><%= t(".recent_comments.no_comments_title") %></h3>
+          <p class="mt-1 text-sm text-muted-foreground"><%= t(".recent_comments.no_comments_description") %></p>
+        </div>
+      <% end %>
     </div>
   </div>
 </div>

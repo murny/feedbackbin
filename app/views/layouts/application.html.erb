@@ -40,6 +40,8 @@
         </div>
       <% end %>
     </div>
-    <%= render partial: "footer" %>
+    <% unless content_for?(:content) %>
+      <%= render partial: "footer" %>
+    <% end %>
   <% end %>
 </html>

@@ -3,58 +3,7 @@
   <!-- Desktop Sidebar -->
   <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col lg:top-16">
     <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-card px-6 pb-4 border-r border-border h-full">
-      <div class="flex h-16 shrink-0 items-center">
-        <%= link_to root_path, class: "flex items-center" do %>
-          <span class="ml-2 text-lg font-bold text-primary">Admin</span>
-        <% end %>
-      </div>
-      <nav class="flex flex-1 flex-col">
-        <ul role="list" class="flex flex-1 flex-col gap-y-7">
-          <li>
-            <ul role="list" class="-mx-2 space-y-1">
-              <li>
-                <%= active_link_to admin_root_path,
-                      class: "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold transition-colors",
-                      active_class: "bg-accent text-accent-foreground",
-                      inactive_class: "text-muted-foreground hover:text-foreground hover:bg-accent" do %>
-                  <%= lucide_icon "layout-dashboard", class: "h-6 w-6 shrink-0" %>
-                  <%= t("layouts.admin.navigation.dashboard") %>
-                <% end %>
-              </li>
-              <li>
-                <%= active_link_to admin_settings_memberships_path,
-                      class: "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold transition-colors",
-                      active_class: "bg-accent text-accent-foreground",
-                      inactive_class: "text-muted-foreground hover:text-foreground hover:bg-accent" do %>
-                  <%= lucide_icon "users", class: "h-6 w-6 shrink-0" %>
-                  <%= t("layouts.admin.navigation.members") %>
-                <% end %>
-              </li>
-              <li>
-                <div class="group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-muted-foreground cursor-not-allowed">
-                  <%= lucide_icon "message-square", class: "h-6 w-6 shrink-0" %>
-                  <%= t("layouts.admin.navigation.posts") %>
-                  <span class="ml-auto text-xs bg-muted text-muted-foreground px-2 py-1 rounded-full">Soon</span>
-                </div>
-              </li>
-              <li>
-                <div class="group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-muted-foreground cursor-not-allowed">
-                  <%= lucide_icon "settings", class: "h-6 w-6 shrink-0" %>
-                  <%= t("layouts.admin.navigation.settings") %>
-                  <span class="ml-auto text-xs bg-muted text-muted-foreground px-2 py-1 rounded-full">Soon</span>
-                </div>
-              </li>
-            </ul>
-          </li>
-        </ul>
-      </nav>
-      <div class="border-t border-border pt-4">
-        <%= link_to root_path,
-              class: "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-muted-foreground hover:text-foreground hover:bg-accent transition-colors" do %>
-          <%= lucide_icon "arrow-left", class: "h-6 w-6 shrink-0" %>
-          <%= t("layouts.admin.navigation.back_to_app") %>
-        <% end %>
-      </div>
+      <%= render "admin/sidebar" %>
     </div>
   </div>
 
@@ -62,12 +11,16 @@
   <div class="lg:pl-72 flex-1">
     <!-- Mobile sidebar toggle header (only visible on mobile) -->
     <div class="sticky top-16 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8 lg:hidden">
-      <button type="button" class="-m-2.5 p-2.5 text-muted-foreground" data-action="click->toggle#toggle">
+      <button type="button"
+              class="-m-2.5 p-2.5 text-muted-foreground"
+              aria-controls="admin-mobile-sidebar"
+              aria-expanded="false"
+              data-action="click->toggle#toggle">
         <span class="sr-only"><%= t("layouts.admin.sr_only.open_sidebar") %></span>
         <%= lucide_icon "menu", class: "h-6 w-6" %>
       </button>
       <div class="flex flex-1 items-center">
-        <h1 class="text-lg font-semibold text-foreground">Admin</h1>
+        <h1 class="text-lg font-semibold text-foreground"><%= t(".title") %></h1>
       </div>
     </div>
 
@@ -78,7 +31,12 @@
   </div>
 
   <!-- Mobile sidebar overlay -->
-  <div class="relative z-50 lg:hidden hidden" role="dialog" aria-modal="true" data-toggle-target="toggleable">
+  <div id="admin-mobile-sidebar"
+       class="relative z-50 lg:hidden hidden"
+       role="dialog"
+       aria-modal="true"
+       aria-label="<%= t('layouts.admin.title') %>"
+       data-toggle-target="toggleable">
     <div class="fixed inset-0 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60"></div>
     <div class="fixed inset-0 flex">
       <div class="relative mr-16 flex w-full max-w-xs flex-1">
@@ -89,59 +47,7 @@
           </button>
         </div>
         <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-card px-6 pb-2 border-r border-border">
-          <div class="flex h-16 shrink-0 items-center">
-            <%= link_to root_path, class: "flex items-center" do %>
-              <%= inline_svg_tag "mark.svg", class: "h-8 w-8 text-primary" %>
-              <span class="ml-2 text-lg font-bold text-primary">Admin</span>
-            <% end %>
-          </div>
-          <nav class="flex flex-1 flex-col">
-            <ul role="list" class="flex flex-1 flex-col gap-y-7">
-              <li>
-                <ul role="list" class="-mx-2 space-y-1">
-                  <li>
-                    <%= active_link_to admin_root_path,
-                          class: "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold transition-colors",
-                          active_class: "bg-accent text-accent-foreground",
-                          inactive_class: "text-muted-foreground hover:text-foreground hover:bg-accent" do %>
-                      <%= lucide_icon "layout-dashboard", class: "h-6 w-6 shrink-0" %>
-                      <%= t("layouts.admin.navigation.dashboard") %>
-                    <% end %>
-                  </li>
-                  <li>
-                    <%= active_link_to admin_settings_memberships_path,
-                          class: "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold transition-colors",
-                          active_class: "bg-accent text-accent-foreground",
-                          inactive_class: "text-muted-foreground hover:text-foreground hover:bg-accent" do %>
-                      <%= lucide_icon "users", class: "h-6 w-6 shrink-0" %>
-                      <%= t("layouts.admin.navigation.members") %>
-                    <% end %>
-                  </li>
-                  <li>
-                    <div class="group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-muted-foreground cursor-not-allowed">
-                      <%= lucide_icon "message-square", class: "h-6 w-6 shrink-0" %>
-                      <%= t("layouts.admin.navigation.posts") %>
-                      <span class="ml-auto text-xs bg-muted text-muted-foreground px-2 py-1 rounded-full">Soon</span>
-                    </div>
-                  </li>
-                  <li>
-                    <div class="group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-muted-foreground cursor-not-allowed">
-                      <%= lucide_icon "settings", class: "h-6 w-6 shrink-0" %>
-                      <%= t("layouts.admin.navigation.settings") %>
-                      <span class="ml-auto text-xs bg-muted text-muted-foreground px-2 py-1 rounded-full">Soon</span>
-                    </div>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </nav>
-          <div class="border-t border-border pt-4">
-            <%= link_to root_path,
-                  class: "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-muted-foreground hover:text-foreground hover:bg-accent transition-colors" do %>
-              <%= lucide_icon "arrow-left", class: "h-6 w-6 shrink-0" %>
-              <%= t("layouts.admin.navigation.back_to_app") %>
-            <% end %>
-          </div>
+          <%= render "admin/sidebar", show_icon: true %>
         </div>
       </div>
     </div>

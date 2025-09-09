@@ -6,11 +6,11 @@ module Admin
       @stats = Rails.cache.fetch("dashboard_stats_#{Current.organization.id}", expires_in: 1.hour) do
         {
           total_posts: Current.organization.posts.count,
-          posts_this_month: Current.organization.posts.where(created_at: 1.month.ago.beginning_of_month..Time.current).count,
+          posts_this_month: Current.organization.posts.where(created_at: Time.current.beginning_of_month..Time.current).count,
           total_users: Current.organization.memberships.count,
           admin_users: Current.organization.memberships.administrator.count,
           total_comments: Current.organization.comments.count,
-          comments_this_month: Current.organization.comments.where(created_at: 1.month.ago.beginning_of_month..Time.current).count
+          comments_this_month: Current.organization.comments.where(created_at: Time.current.beginning_of_month..Time.current).count
         }
       end
 
