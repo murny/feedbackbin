@@ -161,42 +161,41 @@
       </div>
     </div>
 
-    <!-- Recent Activity -->
+    <!-- Recent Comments -->
     <div class="bg-card border border-border shadow rounded-lg">
       <div class="px-4 py-5 sm:p-6">
         <h3 class="text-lg leading-6 font-medium text-foreground mb-4">
-          <%= t(".recent_activity.title") %>
+          <%= t(".recent_comments.title") %>
         </h3>
 
-        <% if @recent_activity.present? %>
+        <% if @recent_comments.present? %>
           <div class="flow-root">
             <ul role="list" class="-mb-8">
-              <% @recent_activity.each_with_index do |activity, index| %>
+              <% @recent_comments.each_with_index do |comment, index| %>
                 <li>
                   <div class="relative pb-8">
-                    <% unless index == @recent_activity.length - 1 %>
+                    <% unless index == @recent_comments.length - 1 %>
                       <span class="absolute left-4 top-4 -ml-px h-full w-0.5 bg-border" aria-hidden="true"></span>
                     <% end %>
                     <div class="relative flex space-x-3">
                       <div>
-                        <span class="h-8 w-8 rounded-full <%= activity[:type] == "post" ? "bg-primary" : "bg-secondary" %> flex items-center justify-center ring-8 ring-background">
-                          <%= lucide_icon activity[:type] == "post" ? "message-square" : "message-circle",
-                                class: "h-4 w-4 #{activity[:type] == 'post' ? 'text-primary-foreground' : 'text-secondary-foreground'}" %>
+                        <span class="h-8 w-8 rounded-full bg-secondary flex items-center justify-center ring-8 ring-background">
+                          <%= lucide_icon "message-circle", class: "h-4 w-4 text-secondary-foreground" %>
                         </span>
                       </div>
                       <div class="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
                         <div>
                           <p class="text-sm text-foreground">
-                            <span class="font-medium"><%= activity[:author].name %></span>
-                            <%= activity[:type] == "post" ? t(".recent_activity.created_post") : t(".recent_activity.added_comment") %>
+                            <span class="font-medium"><%= comment.creator.name %></span>
+                            <%= t(".recent_comments.commented") %>
                           </p>
                           <p class="text-sm text-muted-foreground">
-                            <%= link_to activity[:title], activity[:url], class: "hover:text-primary transition-colors" %>
+                            <%= link_to comment.post.title, post_path(comment.post), class: "hover:text-primary transition-colors" %>
                           </p>
                         </div>
                         <div class="whitespace-nowrap text-right text-sm text-muted-foreground">
-                          <time datetime="<%= activity[:created_at].iso8601 %>">
-                            <%= time_ago_in_words(activity[:created_at]) %> <%= t(".recent_activity.ago") %>
+                          <time datetime="<%= comment.created_at.iso8601 %>">
+                            <%= time_ago_in_words(comment.created_at) %> <%= t(".recent_comments.ago") %>
                           </time>
                         </div>
                       </div>
@@ -208,9 +207,9 @@
           </div>
         <% else %>
           <div class="text-center py-12">
-            <%= lucide_icon "activity", class: "mx-auto h-12 w-12 text-muted-foreground" %>
-            <h3 class="mt-2 text-sm font-medium text-foreground"><%= t(".recent_activity.no_activity_title") %></h3>
-            <p class="mt-1 text-sm text-muted-foreground"><%= t(".recent_activity.no_activity_description") %></p>
+            <%= lucide_icon "message-circle", class: "mx-auto h-12 w-12 text-muted-foreground" %>
+            <h3 class="mt-2 text-sm font-medium text-foreground"><%= t(".recent_comments.no_comments_title") %></h3>
+            <p class="mt-1 text-sm text-muted-foreground"><%= t(".recent_comments.no_comments_description") %></p>
           </div>
         <% end %>
       </div>
