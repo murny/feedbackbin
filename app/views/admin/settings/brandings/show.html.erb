@@ -1,0 +1,53 @@
+<% content_for :title, t(".title") %>
+
+<div class="py-10">
+  <header>
+    <div class="mx-auto max-w-3xl sm:px-6 lg:px-8">
+      <h1 class="text-3xl font-bold leading-tight tracking-tight text-foreground">
+        <%= t(".title") %>
+      </h1>
+    </div>
+  </header>
+
+  <main>
+    <div class="mx-auto max-w-3xl sm:px-6 lg:px-8 py-6">
+      <%= render_card title: t(".title") do %>
+        <div class="px-6">
+          <%= render_form_with model: Current.organization, url: admin_settings_branding_path, method: :patch, html: { multipart: true } do |f| %>
+            <div class="grid gap-6">
+              <div class="grid gap-3">
+                <%= f.label :name, t(".name") %>
+                <%= f.text_field :name %>
+              </div>
+
+              <div class="grid gap-3">
+                <%= f.label :subdomain, t(".subdomain") %>
+                <%= f.text_field :subdomain %>
+              </div>
+
+              <div class="grid gap-3">
+                <%= f.label :domain, t(".domain") %>
+                <%= f.text_field :domain %>
+              </div>
+
+              <div class="grid gap-3">
+                <%= f.label :logo, t(".logo") %>
+                <% if Current.organization.logo.attached? %>
+                  <div class="flex items-center gap-4">
+                    <%= image_tag Current.organization.logo.variant(resize_to_limit: [ 96, 96 ]), class: "h-16 w-16 rounded-md border" %>
+                    <span class="text-sm text-muted-foreground"><%= t(".current_logo") %></span>
+                  </div>
+                <% end %>
+                <%= f.file_field :logo, class: "block w-full text-sm text-muted-foreground file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-secondary file:text-secondary-foreground hover:file:bg-secondary/80" %>
+              </div>
+            </div>
+
+            <div class="mt-8 flex items-center justify-end gap-3">
+              <%= render_button text: t(".save_changes"), type: :submit, variant: :default %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </main>
+</div>

@@ -55,6 +55,17 @@ en:
           total_users: Total Users
         title: "%{organization_name} Admin"
     settings:
+      brandings:
+        show:
+          current_logo: Current logo
+          domain: Domain
+          logo: Logo
+          name: Organization name
+          save_changes: Save changes
+          subdomain: Subdomain
+          title: Branding
+        update:
+          successfully_updated: Branding settings were successfully updated.
       memberships:
         destroy:
           owner_cannot_be_removed: Owner cannot be removed. Please transfer ownership to another user first.
