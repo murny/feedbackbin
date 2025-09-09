@@ -148,7 +148,6 @@ en:
       username_placeholder: Enter your username
   layouts:
     admin:
-      title: Admin
       badges:
         soon: Soon
       navigation:
@@ -160,6 +159,7 @@ en:
       sr_only:
         close_sidebar: Close sidebar
         open_sidebar: Open sidebar
+      title: Admin
   likes:
     update:
       successfully_liked: You liked this %{resource}
