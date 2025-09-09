@@ -62,7 +62,7 @@ en:
           success: Organization has been successfully deleted.
         show:
           acknowledge: I acknowledge that all of the organization data will be deleted and want to proceed.
-          confirmation_description: You are about to delete your organization %{name}. This will permanently delete all your data.
+          confirmation_description_html: You are about to delete your organization <strong>%{name}</strong>. This will permanently delete all your data.
           confirmation_label: Organization Deletion
           delete_button: Delete organization
           delete_description: Remove all data associated with your organization from our servers.

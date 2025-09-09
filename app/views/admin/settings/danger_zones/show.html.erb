@@ -2,63 +2,54 @@
 
 <div class="py-10">
   <header>
-    <div class="flex justify-between items-center mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <h1 class="text-3xl font-bold leading-tight tracking-tight text-foreground">
-        <%= t(".title") %>
-      </h1>
+    <div class="mx-auto max-w-3xl sm:px-6 lg:px-8">
+      <div class="flex items-center gap-3">
+        <%= lucide_icon "triangle-alert", class: "size-8 text-destructive" %>
+        <h1 class="text-3xl font-bold leading-tight tracking-tight text-foreground">
+          <%= t(".title") %>
+        </h1>
+      </div>
     </div>
   </header>
   <main>
     <div class="mx-auto max-w-3xl sm:px-6 lg:px-8 py-6">
-      <div class="rounded-lg border bg-card text-card-foreground shadow-sm">
-        <div class="p-6 space-y-6">
-          <div>
-            <h2 class="text-xl font-semibold"><%= t(".subtitle") %></h2>
-            <p class="text-muted-foreground">
-              <%= t(".description") %>
-            </p>
-          </div>
+      <%= render_alert variant: :destructive, title: t(".subtitle"), description: t(".description"), icon: "shield-alert" %>
 
-          <div class="border rounded-lg">
-            <div class="p-6 space-y-4">
-              <div>
-                <h3 class="text-base font-semibold"><%= t(".delete_title") %></h3>
-                <p class="text-muted-foreground"><%= t(".delete_description") %></p>
-              </div>
+      <div class="mt-8">
+        <%= render_card title: t(".delete_title"), description: t(".delete_description") do %>
+          <div class="px-6">
+            <%= form_with model: Current.organization, url: admin_settings_danger_zone_path, method: :delete, class: "space-y-4" do |form| %>
+            <%= render "error_messages", resource: form.object %>
 
-              <%= form_with model: Current.organization, url: admin_settings_danger_zone_path, method: :delete, class: "space-y-4" do |form| %>
-                <%= render "error_messages", resource: form.object %>
-
-                <div class="space-y-2">
-                  <label class="block text-sm font-medium text-foreground">
-                    <%= t(".confirmation_label") %>
-                  </label>
-                  <p class="text-sm text-muted-foreground">
-                    <%= t(".confirmation_description", name: Current.organization.name) %>
-                  </p>
-                </div>
-
-                <div class="space-y-2">
-                  <label class="block text-sm font-medium text-foreground" for="organization_name">
-                    <%= t(".enter_name") %>
-                  </label>
-                  <%= form.text_field :name, value: nil, placeholder: Current.organization.name, autocomplete: "off", class: "form-input w-full", required: true %>
-                </div>
-
-                <div class="flex items-start gap-3">
-                  <%= form.check_box :acknowledge, { required: true, class: "form-checkbox mt-1" }, true, false %>
-                  <label class="text-sm text-muted-foreground" for="organization_acknowledge">
-                    <%= t(".acknowledge") %>
-                  </label>
-                </div>
-
-                <div class="pt-2">
-                  <%= render_button text: t(".delete_button"), variant: :destructive, type: :submit, data: { turbo_confirm: t(".turbo_confirm") } %>
-                </div>
-              <% end %>
+            <div class="space-y-2">
+              <label class="block text-sm font-medium text-foreground">
+                <%= t(".confirmation_label") %>
+              </label>
+              <p class="text-sm text-muted-foreground">
+                <%= t(".confirmation_description_html", name: Current.organization.name) %>
+              </p>
             </div>
+
+            <div class="space-y-2">
+              <label class="block text-sm font-medium text-foreground" for="organization_name">
+                <%= t(".enter_name") %>
+              </label>
+              <%= form.text_field :name, value: nil, placeholder: Current.organization.name, autocomplete: "off", class: "form-input w-full", required: true %>
+            </div>
+
+            <div class="flex items-start gap-3">
+              <%= form.check_box :acknowledge, { required: true, class: "form-checkbox mt-1" }, true, false %>
+              <label class="text-sm text-muted-foreground" for="organization_acknowledge">
+                <%= t(".acknowledge") %>
+              </label>
+            </div>
+
+            <div class="pt-2">
+              <%= render_button text: t(".delete_button"), variant: :destructive, type: :submit, data: { turbo_confirm: t(".turbo_confirm") } %>
+            </div>
+            <% end %>
           </div>
-        </div>
+        <% end %>
       </div>
     </div>
   </main>
