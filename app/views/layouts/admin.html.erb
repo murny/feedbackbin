@@ -1,5 +1,57 @@
 <% content_for(:content) do %>
-  <%= yield %>
-<% end %>
+<div class="flex bg-muted min-h-screen" data-controller="toggle">
+  <!-- Desktop Sidebar -->
+  <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col lg:top-16">
+    <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-card px-6 pb-4 border-r border-border h-full">
+      <%= render "admin/sidebar" %>
+    </div>
+  </div>
 
+  <!-- Main content -->
+  <div class="lg:pl-72 flex-1">
+    <!-- Mobile sidebar toggle header (only visible on mobile) -->
+    <div class="sticky top-16 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8 lg:hidden">
+      <button type="button"
+              class="-m-2.5 p-2.5 text-muted-foreground"
+              aria-controls="admin-mobile-sidebar"
+              aria-expanded="false"
+              data-action="click->toggle#toggle">
+        <span class="sr-only"><%= t("layouts.admin.sr_only.open_sidebar") %></span>
+        <%= lucide_icon "menu", class: "h-6 w-6" %>
+      </button>
+      <div class="flex flex-1 items-center">
+        <h1 class="text-lg font-semibold text-foreground"><%= t(".title") %></h1>
+      </div>
+    </div>
+
+    <!-- Page content -->
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <%= yield %>
+    </main>
+  </div>
+
+  <!-- Mobile sidebar overlay -->
+  <div id="admin-mobile-sidebar"
+       class="relative z-50 lg:hidden hidden"
+       role="dialog"
+       aria-modal="true"
+       aria-label="<%= t("layouts.admin.title") %>"
+       data-toggle-target="toggleable">
+    <div class="fixed inset-0 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60"></div>
+    <div class="fixed inset-0 flex">
+      <div class="relative mr-16 flex w-full max-w-xs flex-1">
+        <div class="absolute left-full top-0 flex w-16 justify-center pt-5">
+          <button type="button" class="-m-2.5 p-2.5" data-action="click->toggle#hide">
+            <span class="sr-only"><%= t("layouts.admin.sr_only.close_sidebar") %></span>
+            <%= lucide_icon "x", class: "h-6 w-6 text-foreground" %>
+          </button>
+        </div>
+        <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-card px-6 pb-2 border-r border-border">
+          <%= render "admin/sidebar", show_icon: true %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% end %>
 <%= render template: "layouts/application" %>

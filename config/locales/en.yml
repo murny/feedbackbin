@@ -28,6 +28,32 @@ en:
             username:
               invalid: can only contain letters, numbers, and underscores
   admin:
+    dashboard:
+      show:
+        description: Overview of your organization's activity and key metrics
+        heading: "%{organization_name} Admin Dashboard"
+        recent_comments:
+          ago: ago
+          commented: commented on
+          no_comments_description: When users add comments to posts, you'll see them here.
+          no_comments_title: No recent comments
+          title: Recent Comments
+        recent_posts:
+          ago: ago
+          by_author: by %{author}
+          in_category: in %{category}
+          no_posts_description: Get started by creating your first post.
+          no_posts_title: No posts yet
+          title: Recent Posts
+          view_all: View all posts
+        stats:
+          admins: Admins
+          this_month: This month
+          title: Overview
+          total_comments: Total Comments
+          total_posts: Total Posts
+          total_users: Total Users
+        title: "%{organization_name} Admin"
     settings:
       memberships:
         destroy:
@@ -120,6 +146,20 @@ en:
       title: Set up FeedbackBin
       username_hint: unique, no spaces, short
       username_placeholder: Enter your username
+  layouts:
+    admin:
+      badges:
+        soon: Soon
+      navigation:
+        back_to_app: Back to App
+        dashboard: Dashboard
+        members: Members
+        posts: Posts
+        settings: Settings
+      sr_only:
+        close_sidebar: Close sidebar
+        open_sidebar: Open sidebar
+      title: Admin
   likes:
     update:
       successfully_liked: You liked this %{resource}
