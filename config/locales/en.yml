@@ -66,6 +66,23 @@ en:
           title: Branding
         update:
           successfully_updated: Branding settings were successfully updated.
+      danger_zones:
+        destroy:
+          acknowledgment_required: You must acknowledge this action to proceed.
+          name_confirmation_mismatch: Organization name does not match.
+          success: Organization has been successfully deleted.
+        show:
+          acknowledge: I acknowledge that all of the organization data will be deleted and want to proceed.
+          confirmation_description_html: You are about to delete your organization <strong>%{name}</strong>. This will permanently delete all your data.
+          confirmation_label: Organization Deletion
+          delete_button: Delete Organization
+          delete_description: Remove all data associated with your organization from our servers.
+          delete_title: Delete Organization
+          description: Please be careful when performing destructive actions.
+          enter_name: Enter organization name
+          subtitle: These settings are critical to your organization.
+          title: Danger Zone
+          turbo_confirm: Are you sure? This action cannot be undone.
       memberships:
         destroy:
           owner_cannot_be_removed: Owner cannot be removed. Please transfer ownership to another user first.
