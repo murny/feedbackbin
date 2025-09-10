@@ -1,0 +1,77 @@
+<% content_for :title, t(".title") %>
+
+<div class="py-10">
+  <header>
+    <div class="mx-auto max-w-3xl sm:px-6 lg:px-8">
+      <h1 class="text-3xl font-bold leading-tight tracking-tight text-foreground">
+        <%= t(".title") %>
+      </h1>
+    </div>
+  </header>
+
+  <main>
+    <div class="mx-auto max-w-3xl sm:px-6 lg:px-8 py-6">
+      <%= render_card title: t(".title") do %>
+        <div class="px-6">
+          <%= render_form_with model: Current.organization, url: admin_settings_branding_path, method: :patch, html: { multipart: true } do |f| %>
+            <div class="grid gap-6">
+              <div class="grid gap-3">
+                <%= f.label :name, t(".name") %>
+                <%= f.text_field :name %>
+              </div>
+
+              <div class="grid gap-3">
+                <%= f.label :subdomain, t(".subdomain") %>
+                <%= f.text_field :subdomain %>
+              </div>
+
+              <div class="grid gap-3">
+                <%= f.label :domain, t(".domain") %>
+                <%= f.text_field :domain %>
+              </div>
+
+              <div class="grid gap-3">
+                <%= f.label :logo, t(".logo"), class: "text-sm font-medium" %>
+                <%= tag.div class: "flex items-start gap-x-4", data: { controller: "upload-preview", upload_preview_default_image_value: asset_path("default-logo.svg") } do %>
+                  <% if Current.organization.logo.attached? %>
+                    <%= image_tag Current.organization.logo.variant(resize_to_limit: [ 96, 96 ]),
+                          role: "presentation",
+                          class: "h-20 w-20 flex-none rounded-lg bg-muted object-cover border",
+                          data: { "upload-preview-target": "image" } %>
+                  <% else %>
+                    <%= image_tag "default-logo.svg",
+                          role: "presentation",
+                          class: "h-20 w-20 flex-none rounded-lg bg-muted object-cover border",
+                          data: { "upload-preview-target": "image" } %>
+                  <% end %>
+
+                  <div class="space-y-3 flex-1">
+                    <%= f.file_field :logo,
+                          accept: "image/*",
+                          data: { upload_preview_target: "input", action: "upload-preview#previewImage" },
+                          class: "hidden" %>
+
+                    <div class="flex flex-wrap items-center gap-2">
+                      <%= f.label :logo, class: "inline-flex items-center btn btn-secondary" do %>
+                        <%= lucide_icon "camera", class: "h-4 w-4 mr-2" %>
+                        <%= t(".upload_new_logo") %>
+                      <% end %>
+                    </div>
+
+                    <p class="text-xs text-muted-foreground">
+                      <%= t(".logo_size_hint") %>
+                    </p>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+
+            <div class="mt-8 flex items-center justify-end gap-3">
+              <%= render_button text: t(".save_changes"), type: :submit, variant: :default %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </main>
+</div>
