@@ -7,10 +7,10 @@ image: murny/feedbackbin
 # Deploy to these servers.
 servers:
   web:
-    - 143.198.37.164
+    - YOUR_SERVER_IP  # Update this with your new server IP
   # job:
   #   hosts:
-  #     - 192.168.0.1
+  #     - YOUR_SERVER_IP
   #   cmd: bin/jobs
 
 # Enable SSL auto certification via Let's Encrypt and allow for multiple apps on a single web server.
@@ -20,6 +20,13 @@ servers:
 proxy:
   ssl: true
   host: feedbackbin.com
+  # Add health check endpoint
+  healthcheck:
+    path: /up
+    port: 80
+    interval: 30s
+    timeout: 10s
+    retries: 3
 
 # Credentials for your image host.
 registry:
@@ -52,6 +59,24 @@ env:
 
     # Log everything from Rails
     # RAILS_LOG_LEVEL: debug
+    
+    # Security headers
+    RAILS_FORCE_SSL: true
+    RAILS_ASSUME_SSL: true
+
+# Configure boot settings
+boot:
+  limit: 10 # Limit to 10 containers booting at once
+  wait: 2   # Wait 2 seconds between each container boot
+
+# Health check configuration
+healthcheck:
+  path: /up
+  port: 80
+  interval: 30s
+  timeout: 10s
+  retries: 3
+  start_period: 30s
 
 # Aliases are triggered with "bin/kamal <alias>". You can overwrite arguments on invocation:
 # "bin/kamal logs -r job" will tail logs from the first server in the job section.
@@ -60,7 +85,6 @@ aliases:
   shell: app exec --interactive --reuse "bash"
   logs: app logs -f
   dbc: app exec --interactive --reuse "bin/rails dbconsole --include-password"
-
 
 # Use a persistent storage volume for sqlite database files and local Active Storage files.
 # Recommended to change this to a mounted volume path that is backed up off server.
@@ -75,7 +99,13 @@ asset_path: /rails/public/assets
 # Configure the image builder.
 builder:
   arch: amd64
-
+  # Enable multi-platform builds if needed
+  # multiarch: false
+  
+  # Build context and cache configuration
+  context: .
+  dockerfile: Dockerfile
+  
   # # Build image via remote server (useful for faster amd64 builds on arm64 computers)
   # remote: ssh://docker@docker-builder-server
   #
@@ -87,14 +117,21 @@ builder:
   #   - RAILS_MASTER_KEY
 
 # Use a different ssh user than root
-# ssh:
-#   user: app
+ssh:
+  user: deploy
+
+# Logging configuration
+logging:
+  driver: json-file
+  options:
+    max-size: "10m"
+    max-file: "3"
 
 # Use accessory services (secrets come from .kamal/secrets).
 # accessories:
 #   db:
 #     image: mysql:8.0
-#     host: 192.168.0.2
+#     host: YOUR_SERVER_IP
 #     # Change to 3306 to expose port to the world instead of just local network.
 #     port: "127.0.0.1:3306:3306"
 #     env:
@@ -109,7 +146,7 @@ builder:
 #       - data:/var/lib/mysql
 #   redis:
 #     image: valkey/valkey:8
-#     host: 192.168.0.2
+#     host: YOUR_SERVER_IP
 #     port: 6379
 #     directories:
 #       - data:/data
