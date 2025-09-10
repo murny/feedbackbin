@@ -31,14 +31,38 @@
               </div>
 
               <div class="grid gap-3">
-                <%= f.label :logo, t(".logo") %>
-                <% if Current.organization.logo.attached? %>
-                  <div class="flex items-center gap-4">
-                    <%= image_tag Current.organization.logo.variant(resize_to_limit: [ 96, 96 ]), class: "h-16 w-16 rounded-md border" %>
-                    <span class="text-sm text-muted-foreground"><%= t(".current_logo") %></span>
+                <%= f.label :logo, t(".logo"), class: "text-sm font-medium" %>
+                <%= tag.div class: "flex items-start gap-x-4", data: { controller: "upload-preview", upload_preview_default_image_value: asset_path("default-logo.svg") } do %>
+                  <% if Current.organization.logo.attached? %>
+                    <%= image_tag Current.organization.logo.variant(resize_to_limit: [ 96, 96 ]),
+                          role: "presentation",
+                          class: "h-20 w-20 flex-none rounded-lg bg-muted object-cover border",
+                          data: { "upload-preview-target": "image" } %>
+                  <% else %>
+                    <%= image_tag "default-logo.svg",
+                          role: "presentation",
+                          class: "h-20 w-20 flex-none rounded-lg bg-muted object-cover border",
+                          data: { "upload-preview-target": "image" } %>
+                  <% end %>
+
+                  <div class="space-y-3 flex-1">
+                    <%= f.file_field :logo,
+                          accept: "image/*",
+                          data: { upload_preview_target: "input", action: "upload-preview#previewImage" },
+                          class: "hidden" %>
+
+                    <div class="flex flex-wrap items-center gap-2">
+                      <%= f.label :logo, class: "inline-flex items-center btn btn-secondary" do %>
+                        <%= lucide_icon "camera", class: "h-4 w-4 mr-2" %>
+                        <%= t(".upload_new_logo") %>
+                      <% end %>
+                    </div>
+
+                    <p class="text-xs text-muted-foreground">
+                      <%= t(".logo_size_hint") %>
+                    </p>
                   </div>
                 <% end %>
-                <%= f.file_field :logo, class: "block w-full text-sm text-muted-foreground file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-secondary file:text-secondary-foreground hover:file:bg-secondary/80" %>
               </div>
             </div>
 
