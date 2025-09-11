@@ -4,60 +4,58 @@
   <div class="px-4 md:px-6">
     <div class="flex gap-3 md:gap-4">
       <%= render partial: "likes/like_button", locals: { likeable: post } %>
-      <div class="grow lg:flex items-center justify-between space-y-5 lg:space-x-6 lg:space-y-0">
-        <div>
-          <div class="mb-2">
-            <div class="flex items-start justify-between w-full gap-2 mb-2">
-              <h2 class="flex-1">
-                <%= link_to post.title, post, class: "scroll-m-20 text-2xl font-semibold tracking-tight hover:underline cursor-pointer line-clamp-2" %>
-              </h2>
-              <div class="flex items-center gap-2 flex-shrink-0">
-                <% if post.pinned? %>
-                  <%= render_badge(variant: :secondary) do %>
-                    <%= lucide_icon "map-pin" %>
-                    <%= t(".pinned") %>
-                  <% end %>
-                <% end %>
-                <% if post.post_status.present? %>
-                  <%= render_badge(
-                    text: post.post_status.name,
-                    class: "text-white font-medium",
-                    style: "background-color: #{post.post_status.color};"
-                  ) %>
-                <% end %>
-              </div>
-            </div>
-
-            <!-- Category and metadata row -->
-            <div class="flex items-center gap-2 mb-1">
+      <div class="grow space-y-3">
+        <div class="flex items-start justify-between w-full gap-2 mb-2">
+          <h2 class="flex-1">
+            <%= link_to post.title, post, class: "scroll-m-20 text-2xl font-semibold tracking-tight hover:underline cursor-pointer line-clamp-2" %>
+          </h2>
+          <div class="flex items-center gap-2 flex-shrink-0">
+            <% if post.pinned? %>
+              <%= render_badge(variant: :secondary) do %>
+                <%= lucide_icon "map-pin" %>
+                <%= t(".pinned") %>
+              <% end %>
+            <% end %>
+            <% if post.post_status.present? %>
               <%= render_badge(
-                text: post.category.name,
-                variant: :outline,
-                class: "text-muted-foreground bg-muted/30"
+                text: post.post_status.name,
+                class: "text-white font-medium",
+                style: "background-color: #{post.post_status.color};"
               ) %>
-            </div>
-            <div class="mt-1 flex items-center gap-x-2 text-xs leading-5">
-              <%= avatar_tag post.author, class: "rounded-full w-8 h-8" %>
-              <p>
-                <%= link_to post.author.name, post.author, class: "hover:underline" %>
-              </p>
-              <%= lucide_icon "dot" %>
-              <p>
-                <%= time_ago_with_tooltip post.created_at %>
-              </p>
-            </div>
-            <p class="mt-2 text-muted-foreground text-sm">
-              <%= truncate(strip_tags(post.body.to_s), length: 250, separator: " ") %>
-            </p>
+            <% end %>
           </div>
         </div>
-        <div class="flex w-full flex-none justify-between gap-x-8 sm:w-auto">
+
+        <!-- Category and metadata row -->
+        <div class="flex items-center gap-2 mb-1">
+          <%= render_badge(
+            text: post.category.name,
+            variant: :outline,
+            class: "text-muted-foreground bg-muted/30"
+          ) %>
+        </div>
+        <div class="mt-1 flex items-center gap-x-2 text-xs leading-5">
+          <%= avatar_tag post.author, class: "rounded-full w-8 h-8" %>
+          <p>
+            <%= link_to post.author.name, post.author, class: "hover:underline" %>
+          </p>
+          <%= lucide_icon "dot" %>
+          <p>
+            <%= time_ago_with_tooltip post.created_at %>
+          </p>
+        </div>
+        <p class="mt-2 text-muted-foreground text-sm">
+          <%= truncate(strip_tags(post.body.to_s), length: 250, separator: " ") %>
+        </p>
+
+        <!-- Comments section moved to bottom -->
+        <div class="flex items-center justify-between pt-2 pr-2">
           <%= render_avatar_group([
               { src: "https://github.com/murny.png", alt: "@murny", fallback: "SM" },
               { src: "https://github.com/rails.png", alt: "@rails", fallback: "RR" },
               { src: "https://github.com/ruby.png", alt: "@ruby", fallback: "RB" }
             ], hover_effect: true) %>
-          <div class="flex w-16 gap-x-2.5">
+          <div class="flex items-center gap-x-2.5">
             <div>
               <span class="sr-only"><%= t(".total_comments") %></span>
               <svg class="h-6 w-6 text-gray-700 dark:text-gray-300" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
