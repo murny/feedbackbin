@@ -1,24 +1,31 @@
-<div class="py-10">
-  <header>
-    <div class="flex justify-between items-center mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-      <h1 class="text-3xl font-bold leading-tight tracking-tight text-foreground">
-        <%= "Invite user" %>
-      </h1>
-    </div>
-  </header>
-  <main>
-    <div class="mx-auto max-w-7xl sm:px-6 lg:px-8 py-4">
-      <%= form_with model: @organization_invitation, url: admin_settings_organization_invitations_path, class: "contents space-y-4" do |form| %>
-        <%= render "error_messages", resource: form.object %>
+<% content_for :title, t(".title") %>
 
-        <%= form.label :email %>
-        <%= form.email_field :email, placeholder: "hello@example.com", class: "form-input", autofocus: true %>
+<div class="container mx-auto max-w-4xl">
+  <%= render partial: "admin/settings/header" %>
 
-        <div class="mt-5 flex items-center space-x-4 justify-end">
-          <%= link_to "Cancel", admin_settings_memberships_path, class: "btn btn-secondary" %>
-          <%= form.submit "Invite", class: "btn btn-primary" %>
-        </div>
-      <% end %>
+  <div class="mt-8">
+    <div class="mb-6">
+      <h2 class="text-lg font-medium"><%= t(".title") %></h2>
+      <p class="text-sm text-muted-foreground"><%= t(".description") %></p>
     </div>
-  </main>
+
+    <%= render_card do %>
+      <div class="px-6">
+        <%= form_with model: @organization_invitation, url: admin_settings_organization_invitations_path, class: "space-y-6" do |form| %>
+          <%= render "error_messages", resource: form.object %>
+
+          <div class="grid gap-3">
+            <%= form.label :email, class: "text-sm font-medium" %>
+            <%= form.email_field :email, placeholder: t(".email_placeholder"), class: "form-input", autofocus: true %>
+            <p class="text-xs text-muted-foreground"><%= t(".email_hint") %></p>
+          </div>
+
+          <div class="flex items-center justify-end gap-3 pt-4">
+            <%= link_to t(".cancel"), admin_settings_memberships_path, class: "btn btn-secondary" %>
+            <%= form.submit t(".send_invitation"), class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 </div>

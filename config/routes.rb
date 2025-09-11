@@ -30,6 +30,8 @@ Rails.application.routes.draw do
     resource :password, only: [ :show, :update ]
     resource :preferences, only: [ :show, :update ]
     resource :profile, only: [ :show, :update ]
+
+    root to: redirect("/user_settings/profile")
   end
 
   resources :users, only: [ :show, :destroy ] do
@@ -60,6 +62,8 @@ Rails.application.routes.draw do
       resources :organization_invitations, only: [ :index, :new, :create, :destroy ]
       resources :memberships, except: [ :show ]
       resource :danger_zone, only: [ :show, :destroy ]
+
+      root to: redirect("/admin/settings/branding")
     end
   end
 
