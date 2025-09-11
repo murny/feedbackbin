@@ -1,22 +1,18 @@
 <% content_for :title, t(".title") %>
 
-<div class="py-10">
-  <header>
-    <div class="mx-auto max-w-3xl sm:px-6 lg:px-8">
-      <div class="flex items-center gap-3">
-        <%= lucide_icon "triangle-alert", class: "size-8 text-destructive" %>
-        <h1 class="text-3xl font-bold leading-tight tracking-tight text-foreground">
-          <%= t(".title") %>
-        </h1>
-      </div>
-    </div>
-  </header>
-  <main>
-    <div class="mx-auto max-w-3xl sm:px-6 lg:px-8 py-6">
-      <%= render_alert variant: :destructive, title: t(".subtitle"), description: t(".description"), icon: "shield-alert" %>
+<div class="container mx-auto max-w-4xl">
+  <%= render partial: "admin/settings/header" %>
 
-      <div class="mt-8">
-        <%= render_card title: t(".delete_title"), description: t(".delete_description") do %>
+  <div class="mt-8">
+    <div class="mb-6">
+      <h2 class="text-lg font-medium text-destructive"><%= t(".title") %></h2>
+      <p class="text-sm text-muted-foreground"><%= t(".page_description") %></p>
+    </div>
+
+    <%= render_alert variant: :destructive, title: t(".subtitle"), description: t(".description"), icon: "shield-alert" %>
+
+    <div class="mt-8">
+      <%= render_card title: t(".delete_title"), description: t(".delete_description") do %>
           <div class="px-6">
             <%= form_with model: Current.organization, url: admin_settings_danger_zone_path, method: :delete, class: "space-y-4" do |form| %>
             <%= render "error_messages", resource: form.object %>
@@ -49,8 +45,7 @@
             </div>
             <% end %>
           </div>
-        <% end %>
-      </div>
+      <% end %>
     </div>
-  </main>
+  </div>
 </div>

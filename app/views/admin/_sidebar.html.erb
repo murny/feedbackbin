@@ -21,19 +21,41 @@
           <% end %>
         </li>
         <li>
-          <%= active_link_to admin_settings_memberships_path,
-                class: "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold transition-colors",
-                active_class: "bg-accent text-accent-foreground",
-                inactive_class: "text-muted-foreground hover:text-foreground hover:bg-accent" do %>
-            <%= lucide_icon "users", class: "h-6 w-6 shrink-0" %>
-            <%= t("layouts.admin.navigation.members") %>
-          <% end %>
+          <div class="text-xs font-semibold leading-6 text-muted-foreground">
+            <%= t("layouts.admin.navigation.feedback_section") %>
+          </div>
         </li>
         <li>
           <div class="group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-muted-foreground cursor-not-allowed">
             <%= lucide_icon "message-square", class: "h-6 w-6 shrink-0" %>
             <%= t("layouts.admin.navigation.posts") %>
             <span class="ml-auto text-xs bg-muted text-muted-foreground px-2 py-1 rounded-full"><%= t("layouts.admin.badges.soon") %></span>
+          </div>
+        </li>
+        <li>
+          <div class="group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-muted-foreground cursor-not-allowed">
+            <%= lucide_icon "map", class: "h-6 w-6 shrink-0" %>
+            <%= t("layouts.admin.navigation.roadmap") %>
+            <span class="ml-auto text-xs bg-muted text-muted-foreground px-2 py-1 rounded-full"><%= t("layouts.admin.badges.soon") %></span>
+          </div>
+        </li>
+        <li>
+          <div class="group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-muted-foreground cursor-not-allowed">
+            <%= lucide_icon "users", class: "h-6 w-6 shrink-0" %>
+            <%= t("layouts.admin.navigation.users") %>
+            <span class="ml-auto text-xs bg-muted text-muted-foreground px-2 py-1 rounded-full"><%= t("layouts.admin.badges.soon") %></span>
+          </div>
+        </li>
+        <li>
+          <div class="group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-muted-foreground cursor-not-allowed">
+            <%= lucide_icon "megaphone", class: "h-6 w-6 shrink-0" %>
+            <%= t("layouts.admin.navigation.changelog") %>
+            <span class="ml-auto text-xs bg-muted text-muted-foreground px-2 py-1 rounded-full"><%= t("layouts.admin.badges.soon") %></span>
+          </div>
+        </li>
+        <li>
+          <div class="text-xs font-semibold leading-6 text-muted-foreground mt-8">
+            <%= t("layouts.admin.navigation.management_section") %>
           </div>
         </li>
         <li>

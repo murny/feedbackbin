@@ -1,17 +1,15 @@
 <% content_for :title, t(".title") %>
 
-<div class="py-10">
-  <header>
-    <div class="mx-auto max-w-3xl sm:px-6 lg:px-8">
-      <h1 class="text-3xl font-bold leading-tight tracking-tight text-foreground">
-        <%= t(".title") %>
-      </h1>
-    </div>
-  </header>
+<div class="container mx-auto max-w-4xl">
+  <%= render partial: "admin/settings/header" %>
 
-  <main>
-    <div class="mx-auto max-w-3xl sm:px-6 lg:px-8 py-6">
-      <%= render_card title: t(".title") do %>
+  <div class="mt-8">
+    <div class="mb-6">
+      <h2 class="text-lg font-medium"><%= t(".title") %></h2>
+      <p class="text-sm text-muted-foreground"><%= t(".description") %></p>
+    </div>
+
+    <%= render_card do %>
         <div class="px-6">
           <%= render_form_with model: Current.organization, url: admin_settings_branding_path, method: :patch, html: { multipart: true } do |f| %>
             <div class="grid gap-6">
@@ -71,7 +69,6 @@
             </div>
           <% end %>
         </div>
-      <% end %>
-    </div>
-  </main>
+    <% end %>
+  </div>
 </div>

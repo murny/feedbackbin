@@ -1,0 +1,39 @@
+<%# locals: () %>
+
+<div class="mb-8">
+  <div class="flex items-center gap-3 mb-2">
+    <%= link_to admin_root_path, class: "text-sm text-muted-foreground hover:text-foreground inline-flex items-center" do %>
+      <%= lucide_icon "arrow-left", class: "mr-2 h-4 w-4" %>
+      <%= t("layouts.admin.navigation.back_to_dashboard") %>
+    <% end %>
+  </div>
+  <h1 class="text-2xl font-semibold tracking-tight"><%= t(".title") %></h1>
+  <p class="text-muted-foreground"><%= t(".description") %></p>
+</div>
+
+<div class="border-b border-border">
+  <nav class="flex overflow-x-auto">
+    <ul role="list" class="flex min-w-full flex-none gap-x-8 px-0 text-sm font-medium">
+      <li>
+        <%= active_link_to t(".navigation.general"), admin_settings_branding_path,
+              class: "inline-flex items-center px-1 pt-4 pb-4 text-muted-foreground hover:text-foreground transition-colors",
+              active_class: "border-b-2 border-primary text-primary" %>
+      </li>
+      <li>
+        <%= active_link_to t(".navigation.members"), admin_settings_memberships_path,
+              class: "inline-flex items-center px-1 pt-4 pb-4 text-muted-foreground hover:text-foreground transition-colors",
+              active_class: "border-b-2 border-primary text-primary" %>
+      </li>
+      <li>
+        <%= active_link_to t(".navigation.invitations"), admin_settings_organization_invitations_path,
+              class: "inline-flex items-center px-1 pt-4 pb-4 text-muted-foreground hover:text-foreground transition-colors",
+              active_class: "border-b-2 border-primary text-primary" %>
+      </li>
+      <li>
+        <%= active_link_to t(".navigation.danger_zone"), admin_settings_danger_zone_path,
+              class: "inline-flex items-center px-1 pt-4 pb-4 text-destructive hover:text-destructive/80 transition-colors",
+              active_class: "border-b-2 border-destructive text-destructive" %>
+      </li>
+    </ul>
+  </nav>
+</div>

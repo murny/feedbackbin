@@ -57,6 +57,7 @@ en:
     settings:
       brandings:
         show:
+          description: Customize your organization's appearance and branding
           domain: Domain
           logo: Logo
           logo_size_hint: JPG, PNG up to 2MB. Recommended size 400x400px.
@@ -81,21 +82,52 @@ en:
           delete_title: Delete Organization
           description: Please be careful when performing destructive actions.
           enter_name: Enter organization name
+          page_description: Irreversible and destructive actions for your organization
           subtitle: These settings are critical to your organization.
           title: Danger Zone
           turbo_confirm: Are you sure? This action cannot be undone.
+      header:
+        description: Manage your organization settings
+        navigation:
+          danger_zone: Danger Zone
+          general: General
+          invitations: Invitations
+          members: Members
+        title: Settings
       memberships:
         destroy:
           owner_cannot_be_removed: Owner cannot be removed. Please transfer ownership to another user first.
           successfully_destroyed: Membership was successfully removed.
         index:
-          new_membership: New membership
+          description: Manage current organization members and their roles
           title: Memberships
         update:
           successfully_updated: Membership was successfully updated.
       organization_invitations:
         create:
           successfully_created: Invitation was successfully created.
+        destroy:
+          successfully_destroyed: Invitation was successfully cancelled.
+        index:
+          ago: ago
+          cancel_confirm: Are you sure you want to cancel this invitation?
+          cancel_invitation: Cancel invitation
+          description: Manage pending invitations to join your organization
+          invited_by: invited by
+          new_invitation: New Invitation
+          no_invitations_description: Send invitations to add new members to your organization.
+          no_invitations_title: No pending invitations
+          send_first_invitation: Send First Invitation
+          status:
+            pending: Pending
+          title: Invitations
+        new:
+          cancel: Cancel
+          description: Send an invitation to add a new member to your organization
+          email_hint: We'll send them an invitation to join your organization
+          email_placeholder: user@example.com
+          send_invitation: Send Invitation
+          title: Invite Member
   application:
     default_title: FeedbackBin
     footer:
@@ -181,10 +213,15 @@ en:
         soon: Soon
       navigation:
         back_to_app: Back to App
+        back_to_dashboard: Back to Dashboard
+        changelog: Changelog
         dashboard: Dashboard
-        members: Members
+        feedback_section: Feedback
+        management_section: Management
         posts: Posts
+        roadmap: Roadmap
         settings: Settings
+        users: Users
       sr_only:
         close_sidebar: Close sidebar
         open_sidebar: Open sidebar
