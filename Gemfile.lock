@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/rails/rails.git
-  revision: 1102668d58ddabe26c934ae0ea9a17ff20b269e5
+  revision: 807bf1a46e17dd37c37843a9123913f967369aae
   branch: main
   specs:
     actioncable (8.1.0.beta1)
@@ -107,7 +107,7 @@ GEM
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
     ast (2.4.3)
-    async (2.31.0)
+    async (2.32.0)
       console (~> 1.29)
       fiber-annotation
       io-event (~> 1.11)
@@ -341,11 +341,11 @@ GEM
       net-smtp
     marcel (1.0.4)
     matrix (0.4.3)
-    metrics (0.14.0)
+    metrics (0.15.0)
     mime-types (3.7.0)
       logger
       mime-types-data (~> 3.2025, >= 3.2025.0507)
-    mime-types-data (3.2025.0902)
+    mime-types-data (3.2025.0909)
     mini_magick (5.3.1)
       logger
     mini_mime (1.1.5)
@@ -488,7 +488,7 @@ GEM
     regexp_parser (2.11.2)
     reline (0.6.2)
       io-console (~> 0.5)
-    rexml (3.4.3)
+    rexml (3.4.4)
     rubocop (1.80.2)
       json (~> 2.3)
       language_server-protocol (~> 3.17.0.2)
@@ -620,7 +620,7 @@ GEM
     thruster (0.1.15-x86_64-darwin)
     thruster (0.1.15-x86_64-linux)
     timeout (0.4.3)
-    traces (0.18.1)
+    traces (0.18.2)
     tsort (0.2.0)
     turbo-rails (2.0.16)
       actionpack (>= 7.1.0)
@@ -730,7 +730,7 @@ CHECKSUMS
   activesupport (8.1.0.beta1)
   addressable (2.8.7) sha256=462986537cf3735ab5f3c0f557f14155d778f4b43ea4f485a9deb9c8f7c58232
   ast (2.4.3) sha256=954615157c1d6a382bc27d690d973195e79db7f55e9765ac7c481c60bdb4d383
-  async (2.31.0) sha256=4b4a7a5716c6011a96252b2e5baffc313177ed447b2b099c36368f5626e2c8f7
+  async (2.32.0) sha256=79ffbc8a5a99a8e7e5e65c7622ecf1e38e2193f0b920c5fec2316f09ff184787
   base64 (0.3.0) sha256=27337aeabad6ffae05c265c450490628ef3ebd4b67be58257393227588f5a97b
   bcrypt (3.1.20) sha256=8410f8c7b3ed54a3c00cd2456bf13917d695117f033218e2483b2e40b0784099
   bcrypt_pbkdf (1.1.1) sha256=2f9077dde837d1f0dd2eb0f9e5327c6871c68ebc8eba88870fb6b7956e1e2b13
@@ -820,9 +820,9 @@ CHECKSUMS
   mail (2.8.1) sha256=ec3b9fadcf2b3755c78785cb17bc9a0ca9ee9857108a64b6f5cfc9c0b5bfc9ad
   marcel (1.0.4) sha256=0d5649feb64b8f19f3d3468b96c680bae9746335d02194270287868a661516a4
   matrix (0.4.3) sha256=a0d5ab7ddcc1973ff690ab361b67f359acbb16958d1dc072b8b956a286564c5b
-  metrics (0.14.0) sha256=a8fc5064633e0a2d9d6a151b22e642809094a38171cb0df5767f5f40578febe9
+  metrics (0.15.0) sha256=61ded5bac95118e995b1bc9ed4a5f19bc9814928a312a85b200abbdac9039072
   mime-types (3.7.0) sha256=dcebf61c246f08e15a4de34e386ebe8233791e868564a470c3fe77c00eed5e56
-  mime-types-data (3.2025.0902) sha256=5d8397fb76c075b483bed1d5ec64426d80aa6cd2133f3c0dc1dbb93aa85b1e1a
+  mime-types-data (3.2025.0909) sha256=a3e4b38a8d98c05b964d40783e11cbfd96393d4fec9ba175cc25769edfbdb5ae
   mini_magick (5.3.1) sha256=29395dfd76badcabb6403ee5aff6f681e867074f8f28ce08d78661e9e4a351c4
   mini_mime (1.1.5) sha256=8681b7e2e4215f2a159f9400b5816d85e9d8c6c6b491e96a12797e798f8bccef
   mini_portile2 (2.8.9) sha256=0cd7c7f824e010c072e33f68bc02d85a00aeb6fce05bb4819c03dfd3c140c289
@@ -888,7 +888,7 @@ CHECKSUMS
   rdoc (6.14.2) sha256=9fdd44df130f856ae70cc9a264dfd659b9b40de369b16581f4ab746e42439226
   regexp_parser (2.11.2) sha256=5e5e9c1485ffd8de53ab1d2807affd81f617f72967dfc64fc75a69e2cbf0ff98
   reline (0.6.2) sha256=1dad26a6008872d59c8e05244b119347c9f2ddaf4a53dce97856cd5f30a02846
-  rexml (3.4.3) sha256=0e2a4602dd7f02979e29a0c6bc0f57a76ca99fc093eee17cf9a1cd32fa95a115
+  rexml (3.4.4) sha256=19e0a2c3425dfbf2d4fc1189747bdb2f849b6c5e74180401b15734bc97b5d142
   rubocop (1.80.2) sha256=6485f30fefcf5c199db3b91e5e253b1ef43f7e564784e2315255809a3dd9abf4
   rubocop-ast (1.46.0) sha256=0da7f6ad5b98614f89b74f11873c191059c823eae07d6ffd40a42a3338f2232b
   rubocop-capybara (2.22.1) sha256=ced88caef23efea53f46e098ff352f8fc1068c649606ca75cb74650970f51c0c
@@ -945,7 +945,7 @@ CHECKSUMS
   thruster (0.1.15-x86_64-darwin) sha256=7d933c973d39c66b3652a7bd6364dbefd22f7e335be7a66d0c64126d4624df63
   thruster (0.1.15-x86_64-linux) sha256=a979a3e493c111940723c08c3b7b3b6f95c5d44af26fe65b6edae1f96fc0deda
   timeout (0.4.3) sha256=9509f079b2b55fe4236d79633bd75e34c1c1e7e3fb4b56cb5fda61f80a0fe30e
-  traces (0.18.1) sha256=7e3498fa3fa96e4634c1bbf4d315e09f6e258a3649fd399229fcfacf93c5c44e
+  traces (0.18.2) sha256=80f1649cb4daace1d7174b81f3b3b7427af0b93047759ba349960cb8f315e214
   tsort (0.2.0) sha256=9650a793f6859a43b6641671278f79cfead60ac714148aabe4e3f0060480089f
   turbo-rails (2.0.16) sha256=d24e1b60f0c575b3549ecda967e5391027143f8220d837ed792c8d48ea0ea38d
   tzinfo (2.0.6) sha256=8daf828cc77bcf7d63b0e3bdb6caa47e2272dcfaf4fbfe46f8c3a9df087a829b
