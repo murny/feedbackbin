@@ -2,9 +2,7 @@
 
 class Comment < ApplicationRecord
   include Likeable
-  include CrossTenantAssociations
-
-  belongs_to_shared :creator, class_name: "User", required: true
+  belongs_to :creator, class_name: "User"
   belongs_to :post, counter_cache: true, touch: true
   
   # Organization is now implicit via tenant context - no direct association needed
