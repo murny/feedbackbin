@@ -218,7 +218,7 @@ class Post < ApplicationRecord
 
   has_rich_text :body
 
-  # Remove organization association - now implicit via tenant
+  # Standard Rails associations work naturally across tenant boundaries
   belongs_to :author, class_name: "User", default: -> { Current.user }
   belongs_to :category
   belongs_to :post_status, optional: true
@@ -233,32 +233,23 @@ class Post < ApplicationRecord
 end
 ```
 
-### Phase 3: Cross-Database Associations
+### Phase 3: Cross-Database Associations ✅ SIMPLIFIED
 
-#### 3.1 Handle User-Tenant Relationships
+#### 3.1 ~~Handle User-Tenant Relationships~~ ❌ NOT NEEDED
 
-**File: `app/models/concerns/cross_tenant_associations.rb`**
-```ruby
-module CrossTenantAssociations
-  extend ActiveSupport::Concern
+**ActiveRecord Tenanted handles cross-tenant associations natively!**
 
-  def user
-    @user ||= User.find(user_id) if user_id.present?
-  end
+The gem automatically handles associations between:
+- Tenanted models (Post, Comment, Like) → Shared models (User)
+- Standard `belongs_to :user` associations work across tenant boundaries
+- No custom concerns or helper methods needed
 
-  def user=(user)
-    @user = user
-    self.user_id = user&.id
-  end
-end
-```
+#### 3.2 ~~Update Models with Cross-Database References~~ ❌ NOT NEEDED
 
-#### 3.2 Update Models with Cross-Database References
-
-**Models requiring user lookups:**
-- Post (`author_id` → User)
-- Comment (`creator_id` → User)  
-- Like (`voter_id` → User)
+**Models can use standard Rails associations:**
+- Post: `belongs_to :author, class_name: "User"`
+- Comment: `belongs_to :creator, class_name: "User"`  
+- Like: `belongs_to :voter, class_name: "User"`
 
 ### Phase 4: Middleware & Routing
 
@@ -537,14 +528,14 @@ end
 ## Timeline Estimate
 
 - **Phase 1-2**: Database & Model Setup (3-4 days)
-- **Phase 3**: Cross-database associations (2-3 days) 
+- **Phase 3**: ~~Cross-database associations~~ **ELIMINATED** ✅
 - **Phase 4**: Routing & Middleware (2 days)
 - **Phase 5**: Data Migration (3-5 days depending on data volume)
 - **Phase 6**: Controller Updates (2-3 days)
 - **Phase 7**: Testing (3-4 days)
 - **Phase 8**: Deployment & Monitoring (2-3 days)
 
-**Total Estimate**: 17-24 days
+**Total Estimate**: ~~17-24~~ **15-21 days** (2-3 days saved)
 
 ## Risks & Mitigations
 
