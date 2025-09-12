@@ -2,10 +2,12 @@
 
 class Comment < ApplicationRecord
   include Likeable
+  include CrossTenantAssociations
 
-  belongs_to :creator, class_name: "User", default: -> { Current.user }
+  belongs_to_shared :creator, class_name: "User", required: true
   belongs_to :post, counter_cache: true, touch: true
-  belongs_to :organization, default: -> { Current.organization }
+  
+  # Organization is now implicit via tenant context - no direct association needed
 
   belongs_to :parent, class_name: "Comment", optional: true
   has_many :replies, class_name: "Comment", foreign_key: :parent_id, dependent: :destroy, inverse_of: :parent

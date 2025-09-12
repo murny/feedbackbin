@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Membership < ApplicationRecord
+class Membership < SharedApplicationRecord
   include Role
 
   belongs_to :organization, counter_cache: true
