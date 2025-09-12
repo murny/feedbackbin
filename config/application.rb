@@ -26,26 +26,6 @@ module FeedbackBin
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
-    # Multi-database configuration
-    config.active_record.multiple_databases = true
-
-    # Configure tenanted databases
-    config.active_record.tenanted = {
-      tenant_resolver: ->(request) {
-        # Extract subdomain-based tenant resolution
-        subdomain = request.subdomain
-        return nil if subdomain.blank? || subdomain == 'www'
-        
-        # Check if organization exists with this subdomain
-        Organization.find_by(subdomain: subdomain)&.subdomain
-      },
-      tenant_class: ApplicationRecord
-    }
-
-    # Add tenant selector middleware
-    config.middleware.insert_before ActionDispatch::Session::CookieStore, 
-      ActiveRecord::Tenanted::TenantSelector
-
     config.mission_control.jobs.base_controller_class = "SuperAdmin::BaseController"
     config.mission_control.jobs.http_basic_auth_enabled = false
   end
