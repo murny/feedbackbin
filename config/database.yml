@@ -13,6 +13,19 @@ primary: &primary
   <<: *default
   database: storage/<%= Rails.env %>.sqlite3
 
+# Shared database for users, organizations, memberships
+shared: &shared
+  <<: *default
+  database: storage/<%= Rails.env %>_shared.sqlite3
+  migrations_paths: db/shared_migrate
+
+# Tenanted databases - dynamic per organization
+tenant: &tenant
+  <<: *default
+  database: storage/<%= Rails.env %>/%{tenant}/main.sqlite3
+  migrations_paths: db/tenant_migrate
+  tenanted: true
+
 cache: &cache
   <<: *default
   database: storage/<%= Rails.env %>_cache.sqlite3
@@ -29,7 +42,8 @@ cable: &cable
   migrations_paths: db/cable_migrate
 
 development:
-  primary: *primary
+  primary: *tenant  # Primary connection becomes tenant-scoped
+  shared: *shared   # New shared connection
   cable: *cable
   cache: *cache
   queue: *queue
@@ -38,7 +52,8 @@ development:
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
-  primary: *primary
+  primary: *tenant
+  shared: *shared
   cable: *cable
   cache: *cache
   queue: *queue
@@ -46,7 +61,8 @@ test:
 # Store production database in the storage/ directory, which by default
 # is mounted as a persistent Docker volume in config/deploy.yml.
 production:
-  primary: *primary
+  primary: *tenant
+  shared: *shared
   cable: *cable
   cache: *cache
   queue: *queue

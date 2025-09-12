@@ -3,7 +3,7 @@
 class Changelog < ApplicationRecord
   TYPES = %w[new fix improvement update]
 
-  belongs_to :organization, default: -> { Current.organization }
+  # Organization is now implicit via tenant context - no direct association needed
 
   has_rich_text :description
 

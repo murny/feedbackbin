@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class Session < ApplicationRecord
+class Session < SharedApplicationRecord
   ACTIVITY_REFRESH_RATE = 1.hour
 
   belongs_to :user

@@ -2,12 +2,23 @@
 
 class Current < ActiveSupport::CurrentAttributes
   attribute :session
-  attribute :organization
-
+  
   delegate :user, to: :session, allow_nil: true
+  
+  def organization
+    return nil if ActiveRecord::Tenanted.current_tenant.blank?
+    @organization ||= Organization.find_by(subdomain: ActiveRecord::Tenanted.current_tenant)
+  end
+  
+  def organization_id
+    organization&.id
+  end
 
-  def organization=(value)
-    super
+  # Organization is now determined by tenant context, not directly settable
+  private
+  
+  def clear_cached_values
+    @organization = nil
     @membership = nil
     @other_organizations = nil
   end

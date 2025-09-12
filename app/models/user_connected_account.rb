@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class UserConnectedAccount < ApplicationRecord
+class UserConnectedAccount < SharedApplicationRecord
   belongs_to :user
 
   validates :provider_name, presence: true

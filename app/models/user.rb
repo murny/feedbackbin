@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class User < ApplicationRecord
+class User < SharedApplicationRecord
   MAX_USERNAME_LENGTH = 20
   MIN_PASSWORD_LENGTH_ALLOWED = 10
 

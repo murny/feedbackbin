@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class OrganizationInvitation < ApplicationRecord
+class OrganizationInvitation < SharedApplicationRecord
   belongs_to :organization
   belongs_to :invited_by, class_name: "User" # TODO: Should this be optional?
 

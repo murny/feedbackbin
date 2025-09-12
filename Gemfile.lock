@@ -104,6 +104,10 @@ GEM
   specs:
     action_text-trix (2.1.15)
       railties
+    activerecord-tenanted (0.3.0)
+      activerecord (>= 8.1.alpha)
+      railties (>= 8.1.alpha)
+      zeitwerk
     addressable (2.8.7)
       public_suffix (>= 2.0.2, < 7.0)
     ast (2.4.3)
@@ -665,6 +669,7 @@ PLATFORMS
   x86_64-linux-musl
 
 DEPENDENCIES
+  activerecord-tenanted (~> 0.3.0)
   bcrypt (~> 3.1.7)
   bootsnap
   brakeman
@@ -726,6 +731,7 @@ CHECKSUMS
   activejob (8.1.0.beta1)
   activemodel (8.1.0.beta1)
   activerecord (8.1.0.beta1)
+  activerecord-tenanted (0.3.0) sha256=6a4660d97ceacb3b634c0ba19fde5a90c6f423512504624b81f30efcc8b0c970
   activestorage (8.1.0.beta1)
   activesupport (8.1.0.beta1)
   addressable (2.8.7) sha256=462986537cf3735ab5f3c0f557f14155d778f4b43ea4f485a9deb9c8f7c58232
