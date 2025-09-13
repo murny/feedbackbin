@@ -28,5 +28,7 @@ module FeedbackBin
 
     config.mission_control.jobs.base_controller_class = "SuperAdmin::BaseController"
     config.mission_control.jobs.http_basic_auth_enabled = false
+
+    config.hosts << /.*\..*\.localhost/ if Rails.env.development?
   end
 end

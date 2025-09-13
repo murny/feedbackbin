@@ -8,21 +8,11 @@ class Organization
       @organization = organizations(:company)
     end
 
-  test "validates uniqueness of domain" do
-    organization = @organization.dup
+  test "requires subdomain presence" do
+    @organization.subdomain = nil
 
-    assert_not organization.valid?
-    assert_equal "has already been taken", organization.errors[:domain].first
-  end
-
-  test "can have multiple organizations with no domain and/or subdomain" do
-    user = users(:one)
-
-    organization_one = Organization.create!(owner: user, name: "test", categories_attributes: [ { name: "General" } ])
-    organization_two = Organization.create!(owner: user, name: "test2", categories_attributes: [ { name: "General" } ])
-
-    assert_predicate organization_one, :valid?
-    assert_predicate organization_two, :valid?
+    assert_not @organization.valid?
+    assert_includes @organization.errors[:subdomain], "can't be blank"
   end
 
   test "validates uniqueness of subdomain" do
@@ -33,12 +23,7 @@ class Organization
     assert_equal "has already been taken", organization.errors[:subdomain].first
   end
 
-  test "validates against reserved domains" do
-    @organization.domain = "feedbackbin.com"
 
-    assert_not @organization.valid?
-    assert_equal "feedbackbin.com is reserved", @organization.errors[:domain].first
-  end
 
   test "validates against reserved subdomains" do
     @organization.subdomain = "app"

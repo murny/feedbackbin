@@ -14,8 +14,6 @@ en:
           attributes:
             categories:
               must_have_at_least_one: must have at least one category
-            domain:
-              reserved: "%{value} is reserved"
             subdomain:
               format: must be at least 2 characters and alphanumeric
               reserved: "%{value} is reserved"
@@ -58,7 +56,6 @@ en:
       brandings:
         show:
           description: Customize your organization's appearance and branding
-          domain: Domain
           logo: Logo
           logo_size_hint: JPG, PNG up to 2MB. Recommended size 400x400px.
           name: Organization name

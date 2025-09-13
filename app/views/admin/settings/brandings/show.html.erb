@@ -24,11 +24,6 @@
               </div>
 
               <div class="grid gap-3">
-                <%= f.label :domain, t(".domain") %>
-                <%= f.text_field :domain %>
-              </div>
-
-              <div class="grid gap-3">
                 <%= f.label :logo, t(".logo"), class: "text-sm font-medium" %>
                 <%= tag.div class: "flex items-start gap-x-4", data: { controller: "upload-preview", upload_preview_default_image_value: asset_path("default-logo.svg") } do %>
                   <% if Current.organization.logo.attached? %>

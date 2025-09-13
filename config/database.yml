@@ -15,7 +15,6 @@ primary: &primary
   migrations_paths: db/tenanted_migrate
   tenanted: true
 
-# Shared database for users, organizations, memberships
 shared: &shared
   <<: *default
   database: storage/<%= Rails.env %>_shared.sqlite3

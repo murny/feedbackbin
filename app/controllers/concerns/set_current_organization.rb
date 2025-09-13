@@ -10,39 +10,11 @@ module SetCurrentOrganization
   private
 
     def set_current_organization
-      Current.organization ||= organization_from_domain || organization_from_subdomain || organization_from_param || organization_from_session || fallback_organization
+      Current.organization ||= organization_from_subdomain
     end
-
-  def organization_from_domain
-    Organization.includes(:users).find_by(domain: request.host)
-  end
 
   def organization_from_subdomain
-    return unless request.subdomains.size > 0
-    Organization.includes(:users).find_by(subdomain: request.subdomains.first)
-  end
-
-  def organization_from_param
-    return unless authenticated? && (organization_id = params[:organization_id].presence)
-    Current.user.organizations.includes(:users).find_by(id: organization_id)
-  end
-
-  def organization_from_session
-    return unless authenticated? && (organization_id = session[:organization_id])
-    Current.user.organizations.includes(:users).find_by(id: organization_id)
-  end
-
-  def fallback_organization
-    # TODO: We need to revisit this and ensure this logic is correct for multi vs single tenant mode
-    if authenticated?
-      organization = Current.user.organizations.includes(:users).order(created_at: :asc).first
-    end
-
-    if organization.nil?
-      # TODO: How to handle this for unauthenticated users? In multi tenant mode, should redirect to marketing site?
-      organization = Organization.includes(:users).order(created_at: :asc).first
-    end
-
-    organization
+    return nil if ApplicationRecord.current_tenant.blank?
+    Organization.find_by(subdomain: ApplicationRecord.current_tenant)
   end
 end
