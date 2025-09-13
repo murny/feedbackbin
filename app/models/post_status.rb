@@ -2,7 +2,6 @@
 
 class PostStatus < ApplicationRecord
   has_many :posts, dependent: :nullify
-  belongs_to :organization, default: -> { Current.organization }
 
   validates :name, presence: true
   validates :position, presence: true, numericality: { only_integer: true }
