@@ -19,8 +19,7 @@ module Admin
         patch admin_settings_branding_url, params: {
           organization: {
             name: "New Name",
-            subdomain: "newsub",
-            domain: "example.com"
+            subdomain: "newsub"
           }
         }
 

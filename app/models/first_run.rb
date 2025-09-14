@@ -9,6 +9,7 @@ class FirstRun
       user = User.create!(user_params)
       Organization.create!(
         name: ORGANIZATION_DEFAULT_NAME,
+        subdomain: "feedbackbin",
         owner: user,
         categories_attributes: [ { name: FIRST_CATEGORY_NAME } ]
       )

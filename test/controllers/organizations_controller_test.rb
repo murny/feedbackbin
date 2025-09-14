@@ -19,7 +19,7 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
 
   test "should create organization" do
     assert_difference("Organization.count") do
-      post organizations_url, params: { organization: { name: "ACME Corp", categories_attributes: [ { name: "General" } ] } }
+      post organizations_url, params: { organization: { name: "ACME Corp", subdomain: "acme", categories_attributes: [ { name: "General" } ] } }
     end
 
     assert_redirected_to admin_root_url

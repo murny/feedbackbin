@@ -1,13 +1,14 @@
 feedbackbin:
   owner: shane
   name: "FeedbackBin"
+  subdomain: "feedbackbin"
 
 company:
   owner: one
   name: "Hooli"
-  domain: "hooli.com"
+  subdomain: "hooli"
 
 other_organization:
   owner: invited
   name: "Other Organization"
-  domain: "other.com"
+  subdomain: "other"
