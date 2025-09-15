@@ -22,7 +22,7 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
       post organizations_url, params: { organization: { name: "ACME Corp", subdomain: "acme", categories_attributes: [ { name: "General" } ] } }
     end
 
-    assert_redirected_to admin_root_url
+    assert_redirected_to admin_root_url(subdomain: Organization.last.subdomain)
     assert_equal @user, Organization.last.users.first
     assert_equal "administrator", @user.memberships.last.role
     assert Organization.last.owner?(@user)

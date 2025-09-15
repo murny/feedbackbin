@@ -16,7 +16,7 @@ module Organizations
 
       post organization_switch_url(@organization)
 
-      assert_redirected_to root_path
+      assert_redirected_to root_url(subdomain: @organization.subdomain)
       assert_equal "Switched to #{@organization.name}", flash[:notice]
     end
 
