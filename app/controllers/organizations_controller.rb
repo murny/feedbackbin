@@ -16,9 +16,8 @@ class OrganizationsController < ApplicationController
     @organization = Organization.new(organization_params.merge(owner: Current.user))
 
     if @organization.save
-      # TODO: We need to handle tenant handling better in general
-      session[:organization_id] = @organization.id
-      redirect_to admin_root_path, notice: t(".successfully_created")
+      # Test that we can use flash messages here?
+      redirect_to admin_root_url(subdomain: @organization.subdomain), allow_other_host: true, notice: t(".successfully_created")
     else
       render :new, status: :unprocessable_entity
     end
@@ -27,6 +26,6 @@ class OrganizationsController < ApplicationController
   private
 
     def organization_params
-      params.require(:organization).permit(:name, :logo, categories_attributes: [ :id, :name ])
+      params.require(:organization).permit(:name, :subdomain, :logo, categories_attributes: [ :id, :name ])
     end
 end

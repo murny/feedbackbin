@@ -8,82 +8,85 @@ class Organization
       @organization = organizations(:company)
     end
 
-  test "validates uniqueness of domain" do
-    organization = @organization.dup
+    test "validates presence of subdomain" do
+      @organization.subdomain = nil
 
-    assert_not organization.valid?
-    assert_equal "has already been taken", organization.errors[:domain].first
-  end
+      assert_not @organization.valid?
+      assert_equal "can't be blank", @organization.errors[:subdomain].first
+    end
 
-  test "can have multiple organizations with no domain and/or subdomain" do
-    user = users(:one)
+    test "validates uniqueness of subdomain" do
+      original = Organization.create!(owner: users(:one), name: "test", subdomain: "test", categories_attributes: [ { name: "General" } ])
+      organization = original.dup
 
-    organization_one = Organization.create!(owner: user, name: "test", categories_attributes: [ { name: "General" } ])
-    organization_two = Organization.create!(owner: user, name: "test2", categories_attributes: [ { name: "General" } ])
+      assert_not organization.valid?
+      assert_equal "has already been taken", organization.errors[:subdomain].first
+    end
 
-    assert_predicate organization_one, :valid?
-    assert_predicate organization_two, :valid?
-  end
+    test "validates against reserved subdomains" do
+      @organization.subdomain = "app"
 
-  test "validates uniqueness of subdomain" do
-    original = Organization.create!(owner: users(:one), name: "test", subdomain: "test", categories_attributes: [ { name: "General" } ])
-    organization = original.dup
+      assert_not @organization.valid?
+      assert_equal "app is reserved", @organization.errors[:subdomain].first
+    end
 
-    assert_not organization.valid?
-    assert_equal "has already been taken", organization.errors[:subdomain].first
-  end
+    test "subdomain format must start with alphanumeric char" do
+      @organization.subdomain = "-abcd"
 
-  test "validates against reserved domains" do
-    @organization.domain = "feedbackbin.com"
+      assert_not @organization.valid?
+      assert_equal "must be at least 2 characters and alphanumeric", @organization.errors[:subdomain].first
+    end
 
-    assert_not @organization.valid?
-    assert_equal "feedbackbin.com is reserved", @organization.errors[:domain].first
-  end
+    test "subdomain format must end with alphanumeric char" do
+      @organization.subdomain = "abcd-"
 
-  test "validates against reserved subdomains" do
-    @organization.subdomain = "app"
+      assert_not @organization.valid?
+      assert_equal "must be at least 2 characters and alphanumeric", @organization.errors[:subdomain].first
+    end
 
-    assert_not @organization.valid?
-    assert_equal "app is reserved", @organization.errors[:subdomain].first
-  end
+    test "must be at least two characters" do
+      @organization.subdomain = "a"
 
-  test "subdomain format must start with alphanumeric char" do
-    @organization.subdomain = "-abcd"
+      assert_not @organization.valid?
+      assert_equal "must be at least 2 characters and alphanumeric", @organization.errors[:subdomain].first
+    end
 
-    assert_not @organization.valid?
-    assert_equal "must be at least 2 characters and alphanumeric", @organization.errors[:subdomain].first
-  end
+    test "can use a mixture of alphanumeric, hyphen, and underscore" do
+      @organization.subdomain = "abc"
 
-  test "subdomain format must end with alphanumeric char" do
-    @organization.subdomain = "abcd-"
+      assert_predicate @organization, :valid?
 
-    assert_not @organization.valid?
-    assert_equal "must be at least 2 characters and alphanumeric", @organization.errors[:subdomain].first
-  end
+      @organization.subdomain = "123"
 
-  test "must be at least two characters" do
-    @organization.subdomain = "a"
+      assert_predicate @organization, :valid?
 
-    assert_not @organization.valid?
-    assert_equal "must be at least 2 characters and alphanumeric", @organization.errors[:subdomain].first
-  end
+      @organization.subdomain = "a-9"
 
-  test "can use a mixture of alphanumeric, hyphen, and underscore" do
-    @organization.subdomain = "ab"
+      assert_predicate @organization, :valid?
 
-    assert_predicate @organization, :valid?
+      @organization.subdomain = "1_b"
 
-    @organization.subdomain = "12"
+      assert_predicate @organization, :valid?
+    end
 
-    assert_predicate @organization, :valid?
+    test "invalid if subdomain shorter than 3 characters" do
+      @organization.subdomain = "ab"
 
-    @organization.subdomain = "a-9"
+      assert_not @organization.valid?
+      assert_equal "is too short (minimum is 3 characters)", @organization.errors[:subdomain].first
+    end
 
-    assert_predicate @organization, :valid?
+    test "invalid if subdomain longer than 50 characters" do
+      @organization.subdomain = "a" * 51
 
-    @organization.subdomain = "1_b"
+      assert_not @organization.valid?
+      assert_equal "is too long (maximum is 50 characters)", @organization.errors[:subdomain].first
+    end
 
-    assert_predicate @organization, :valid?
-  end
+    test "subdomain gets downcased and stripped when saved" do
+      @organization.update!(subdomain: "  AbC-_Def  ")
+
+      assert_equal "abc-_def", @organization.subdomain
+    end
   end
 end

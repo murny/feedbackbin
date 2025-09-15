@@ -40,7 +40,7 @@ class Organization::SearchableTest < ActiveSupport::TestCase
     assert_respond_to Organization, :sanitize_sql_like
 
     # Test that we can search for organizations with special characters in names
-    special_org = Organization.create!(name: "Test[Special]Organization", owner: users(:one), categories_attributes: [ { name: "General" } ])
+    special_org = Organization.create!(name: "Test[Special]Organization", subdomain: "specialtest", owner: users(:one), categories_attributes: [ { name: "General" } ])
 
     results = Organization.search("Special")
 
