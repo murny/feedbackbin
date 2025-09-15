@@ -11,7 +11,10 @@ class Organization
       validates :subdomain, presence: true,
         exclusion: { in: self::RESERVED_SUBDOMAINS, message: :reserved },
         format: { with: self::SUBDOMAIN_REGEXP, message: :format },
+        length: { minimum: 3, maximum: 50 },
         uniqueness: true
+
+      normalizes :subdomain, with: ->(subdomain) { subdomain.downcase.squish }
     end
   end
 end

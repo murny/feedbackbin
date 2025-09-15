@@ -8,8 +8,8 @@ module Organizations
     def create
       authorize @organization, :switch?, policy_class: OrganizationPolicy
 
-      session[:organization_id] = @organization.id
-      redirect_back(fallback_location: root_path, notice: t(".successfully_switched", name: @organization.name))
+      # Test that we can use flash messages here?
+      redirect_to root_url(subdomain: @organization.subdomain), allow_other_host: true, notice: t(".successfully_switched", name: @organization.name)
     end
 
     private
