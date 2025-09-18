@@ -59,21 +59,20 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
     assert_equal user, organization.owner
   end
 
-  # TODO: This test is taking an insane amount of time to run?
-  #
-  # test "create fails with missing information" do
-  #   assert_no_difference "User.count" do
-  #     assert_no_difference "Organization.count" do
-  #       post first_run_url, params: {
-  #         first_run: {
-  #           email_address: "new@feedbackbin.com",
-  #           password: "secret123456",
-  #           organization_subdomain: "myorg"
-  #         }
-  #       }
-  #     end
-  #   end
+  test "create fails with missing information" do
+    assert_no_difference "User.count" do
+      assert_no_difference "Organization.count" do
+        post first_run_url, params: {
+          first_run: {
+            email_address: "new@feedbackbin.com",
+            password: "secret123456",
+            organization_subdomain: "myorg"
+            # Missing: username, organization_name (required fields)
+          }
+        }
+      end
+    end
 
-  #   assert_response :unprocessable_entity
-  # end
+    assert_response :unprocessable_entity
+  end
 end

@@ -77,11 +77,17 @@ class FirstRun
     end
 
     def copy_validation_errors(record)
-      attribute_mapping = record.is_a?(Organization) ? { name: :organization_name, subdomain: :organization_subdomain } : {}
-
-      record.errors.each do |error|
-        attr_name = attribute_mapping[error.attribute] || error.attribute
-        errors.add(attr_name, error.message)
+      case record
+      when User
+        record.errors.each do |error|
+          errors.add(error.attribute, error.message)
+        end
+      when Organization
+        attribute_mapping = { name: :organization_name, subdomain: :organization_subdomain }
+        record.errors.each do |error|
+          attr_name = attribute_mapping[error.attribute] || error.attribute
+          errors.add(attr_name, error.message)
+        end
       end
     end
 end
