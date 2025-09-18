@@ -7,14 +7,16 @@ class FirstRunsController < ApplicationController
   before_action :prevent_repeats
 
   def show
-    @user = User.new
+    @first_run = FirstRun.new
   end
 
   def create
-    organization = FirstRun.create!(user_params)
-    start_new_session_for organization.owner
-
+    @first_run = FirstRun.create!(first_run_params)
+    start_new_session_for @first_run.user
     redirect_to root_path, notice: t(".organization_created")
+  rescue ActiveRecord::RecordInvalid => e
+    @first_run = e.record
+    render :show, status: :unprocessable_entity
   end
 
   private
@@ -23,7 +25,11 @@ class FirstRunsController < ApplicationController
       redirect_to root_path if Organization.any?
     end
 
-  def user_params
-    params.require(:user).permit(:username, :name, :avatar, :email_address, :password)
-  end
+    def first_run_params
+      params.expect(first_run: [
+        :username, :name, :avatar, :email_address, :password,
+        :organization_name, :organization_subdomain, :organization_logo,
+        :category_name
+      ])
+    end
 end

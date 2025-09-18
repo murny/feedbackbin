@@ -192,16 +192,33 @@ en:
         other: "%{count} errors prohibited this %{resource} from being saved:"
   first_runs:
     create:
-      organization_created: Your organization has been created.
+      organization_created: Your account and organization have been created successfully.
     show:
-      create_account: Create account
+      account_setup: Account Setup
+      account_setup_description: Create your personal account to get started.
+      avatar_size_hint: JPG, PNG up to 2MB. Recommended size 400x400px.
+      category_hint: Start with one category to organize feedback.
+      category_placeholder: Enter category name
+      create_account_and_organization: Create Account & Organization
+      description: Let's get you set up with your account and organization.
       email_address_hint: Never shown to the public
       email_address_placeholder: Enter your email address
+      initial_category: Initial Category
+      logo_size_hint: JPG, PNG up to 2MB. Recommended size 400x400px.
       name_hint: Your full name (Optional)
       name_placeholder: Enter your name
+      organization_name: Organization Name
+      organization_name_placeholder: Enter organization name
+      organization_setup: Organization Setup
+      organization_setup_description: Configure your organization details and branding.
+      organization_subdomain: Subdomain
       password_hint: "(at least 10 characters)"
       password_placeholder: Enter your password
+      subdomain_hint: This will be part of your URL (e.g., yourname.feedbackbin.com)
+      subdomain_placeholder: Enter subdomain
       title: Set up FeedbackBin
+      upload_avatar: Upload Avatar
+      upload_organization_logo: Upload Logo
       username_hint: unique, no spaces, short
       username_placeholder: Enter your username
   layouts:
