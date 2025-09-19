@@ -15,14 +15,14 @@ class FirstRunTest < ActiveSupport::TestCase
       assert_difference "User.count" do
         assert_difference "Organization.count" do
           assert_difference "Membership.count" do
-            first_run = FirstRun.create!(
+            first_run = FirstRun.new(
               username: "owner_example",
               email_address: "owner@example.com",
               password: "secret123456",
               organization_name: "Test Organization",
               organization_subdomain: "testorg",
               category_name: "Test Category"
-            )
+            ).save!
             organization = first_run.organization
 
             assert_predicate organization.memberships.first, :administrator?

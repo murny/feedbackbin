@@ -27,29 +27,25 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "create with all parameters" do
-    assert_difference "Category.count" do
-      assert_difference "User.count" do
-        assert_difference "Organization.count" do
-          post first_run_url, params: {
-            first_run: {
-              username: "new_person",
-              email_address: "new@feedbackbin.com",
-              password: "secret123456",
-              name: "New Person",
-              organization_name: "Test Organization",
-              organization_subdomain: "testorg",
-              category_name: "Custom Category"
-            }
-          }
-        end
-      end
+    assert_difference [ "User.count", "Organization.count", "Category.count", "Membership.count" ] do
+      post first_run_url, params: {
+        first_run: {
+          username: "new_person",
+          email_address: "new@feedbackbin.com",
+          password: "secret123456",
+          name: "New Person",
+          organization_name: "Test Organization",
+          organization_subdomain: "testorg",
+          category_name: "Custom Category"
+        }
+      }
     end
 
     assert_redirected_to root_url
-    assert parsed_cookies.signed[:session_id]
 
     user = User.last
 
+    assert_equal user.sessions.last.id, parsed_cookies.signed[:session_id]
     assert_equal "new@feedbackbin.com", user.email_address
 
     organization = Organization.last
@@ -60,17 +56,15 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "create fails with missing information" do
-    assert_no_difference "User.count" do
-      assert_no_difference "Organization.count" do
-        post first_run_url, params: {
-          first_run: {
-            email_address: "new@feedbackbin.com",
-            password: "secret123456",
-            organization_subdomain: "myorg"
-            # Missing: username, organization_name (required fields)
-          }
+    assert_no_difference [ "User.count", "Organization.count", "Category.count", "Membership.count" ] do
+      post first_run_url, params: {
+        first_run: {
+          email_address: "new@feedbackbin.com",
+          password: "secret123456",
+          organization_subdomain: "myorg"
+          # Missing: username, organization_name (required fields)
         }
-      end
+      }
     end
 
     assert_response :unprocessable_entity

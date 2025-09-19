@@ -11,11 +11,11 @@ class FirstRunsController < ApplicationController
   end
 
   def create
-    @first_run = FirstRun.create!(first_run_params)
+    @first_run = FirstRun.new(first_run_params).save!
     start_new_session_for @first_run.user
     redirect_to root_path, notice: t(".organization_created")
-  rescue ActiveRecord::RecordInvalid => e
-    @first_run = e.record
+  rescue ActiveModel::ValidationError => e
+    @first_run = e.model
     render :show, status: :unprocessable_entity
   end
 

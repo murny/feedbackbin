@@ -29,6 +29,7 @@
                 <%= tag.div class: "flex items-start gap-x-4", data: { controller: "upload-preview", upload_preview_default_image_value: asset_path("default-avatar.svg") } do %>
                   <%= image_tag "default-avatar.svg",
                         role: "presentation",
+                        alt: "",
                         class: "h-20 w-20 flex-none rounded-lg bg-muted object-cover border",
                         data: { "upload-preview-target": "image" } %>
 
@@ -112,6 +113,8 @@
                   <%= form.label :organization_subdomain, t(".organization_subdomain"), class: "text-sm font-medium" %>
                   <%= form.text_field :organization_subdomain,
                         required: true,
+                        autocapitalize: "off",
+                        spellcheck: false,
                         placeholder: t(".subdomain_placeholder") %>
                   <p class="text-xs text-muted-foreground"><%= t(".subdomain_hint") %></p>
                 </div>
@@ -120,6 +123,7 @@
                 <%= tag.div class: "flex items-start gap-x-4", data: { controller: "upload-preview", upload_preview_default_image_value: asset_path("default-logo.svg") } do %>
                   <%= image_tag "default-logo.svg",
                         role: "presentation",
+                        alt: "",
                         class: "h-20 w-20 flex-none rounded-lg bg-muted object-cover border",
                         data: { "upload-preview-target": "image" } %>
 
