@@ -4,14 +4,15 @@ default: &default
     # max_age: <%= 60.days.to_i %>
     max_size: <%= 256.megabytes %>
     namespace: <%= Rails.env %>
+  connects_to:
+    database:
+      writing: :cache
 
 development:
-  database: cache
   <<: *default
 
 test:
   <<: *default
 
 production:
-  database: cache
   <<: *default
