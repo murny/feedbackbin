@@ -250,12 +250,7 @@ en:
     form:
       basic_information: Basic Information
       basic_information_description: Set up the basic details for your organization.
-      category_description: Every organization needs at least one category to organize feedback.
-      category_name: Category Name
-      category_placeholder: Enter category name
       create_organization: Create Organization
-      default_category: Default Category
-      default_category_name: General
       logo_description: Upload a logo to represent your organization.
       logo_size_hint: JPG, PNG up to 2MB. Recommended size 400x400px.
       name_placeholder: Enter organization name
@@ -265,9 +260,6 @@ en:
     new:
       description: Create a new organization to get started with collecting feedback.
       title: New organization
-    switches:
-      create:
-        successfully_switched: Switched to %{name}
   pagy:
     aria_label:
       nav:

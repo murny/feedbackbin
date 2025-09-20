@@ -95,7 +95,7 @@ module Users
 
   test "cannot connect with account if connected to another user" do
     connected_account = user_connected_accounts(:shane_google)
-    user = users(:invited)
+    user = users(:two)
 
     # Ensure these are separate users
     assert_not_equal connected_account.user, user

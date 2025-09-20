@@ -5,7 +5,7 @@ require "test_helper"
 class Organization
   class DomainableTest < ActiveSupport::TestCase
     setup do
-      @organization = organizations(:company)
+      @organization = organizations(:feedbackbin)
     end
 
     test "validates presence of subdomain" do
@@ -16,7 +16,7 @@ class Organization
     end
 
     test "validates uniqueness of subdomain" do
-      original = Organization.create!(owner: users(:one), name: "test", subdomain: "test", categories_attributes: [ { name: "General" } ])
+      original = Organization.create!(owner: users(:one), name: "test", subdomain: "test")
       organization = original.dup
 
       assert_not organization.valid?

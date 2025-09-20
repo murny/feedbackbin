@@ -4,7 +4,7 @@ require "test_helper"
 
 class MembershipTest < ActiveSupport::TestCase
   setup do
-    @regular_membership = memberships(:company_regular_user)
+    @regular_membership = memberships(:feedbackbin_regular_user_one)
   end
 
   test "valid membership" do
@@ -35,13 +35,13 @@ class MembershipTest < ActiveSupport::TestCase
   test "organization_owner?" do
     assert_not_predicate @regular_membership, :organization_owner?
 
-    owner = memberships(:company_admin)
+    owner = memberships(:feedbackbin_admin)
 
     assert_predicate owner, :organization_owner?
   end
 
   test "invalid if removing owner as administrator" do
-    owner = memberships(:company_admin)
+    owner = memberships(:feedbackbin_admin)
 
     owner.role = :member
 

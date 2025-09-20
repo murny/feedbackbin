@@ -62,25 +62,6 @@
             </div>
           <% end %>
         </div>
-
-        <!-- Default Category -->
-        <div class="space-y-4">
-          <div>
-            <h3 class="text-base font-medium"><%= t(".default_category") %></h3>
-            <p class="text-sm text-muted-foreground"><%= t(".category_description") %></p>
-          </div>
-
-          <div class="grid gap-4">
-            <%= form.fields_for :categories do |category_form| %>
-              <div class="grid gap-2">
-                <%= category_form.label :name, t(".category_name"), class: "text-sm font-medium" %>
-                <%= category_form.text_field :name,
-                      placeholder: t(".category_placeholder"),
-                      value: category_form.object.name || t(".default_category_name") %>
-              </div>
-            <% end %>
-          </div>
-        </div>
       </div>
 
       <!-- Form Actions -->

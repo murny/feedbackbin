@@ -19,7 +19,7 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
       email_address: "new@feedbackbin.com",
       password: "secret123456"
     )
-    Organization.create!(name: "FeedbackBin", subdomain: "testfeedbackbin", owner: user, categories_attributes: [ { name: "General" } ])
+    Organization.create!(name: "FeedbackBin", subdomain: "testfeedbackbin", owner: user)
 
     get first_run_url
 
@@ -48,11 +48,10 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
     assert_equal user.sessions.last.id, parsed_cookies.signed[:session_id]
     assert_equal "new@feedbackbin.com", user.email_address
 
-    organization = Organization.last
+    assert_equal "Test Organization", Organization.last.name
+    assert_equal "Custom Category", Category.last.name
 
-    assert_equal "Test Organization", organization.name
-    assert_equal "Custom Category", organization.categories.first.name
-    assert_equal user, organization.owner
+    assert_equal user, Organization.last.owner
   end
 
   test "create fails with missing information" do

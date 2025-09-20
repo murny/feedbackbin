@@ -53,11 +53,4 @@ class PostStatusTest < ActiveSupport::TestCase
 
     assert_nil post.reload.post_status
   end
-
-  test "invalid without an organization" do
-    @post_status.organization = nil
-
-    assert_not @post_status.valid?
-    assert_equal "must exist", @post_status.errors[:organization].first
-  end
 end

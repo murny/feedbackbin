@@ -10,16 +10,3 @@ feedbackbin_regular_user_one:
 feedbackbin_regular_user_two:
   organization: feedbackbin
   user: two
-
-company_admin:
-  organization: company
-  user: one
-  role: administrator
-
-company_regular_user:
-  organization: company
-  user: two
-
-other_organization_user:
-  organization: other_organization
-  user: invited

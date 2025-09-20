@@ -7,13 +7,11 @@ class OrganizationPolicyTest < ActiveSupport::TestCase
     @organization = organizations(:feedbackbin)
     @user_membership = memberships(:feedbackbin_regular_user_one)
     @admin_membership = memberships(:feedbackbin_admin)
-    @different_organization_membership = memberships(:company_regular_user)
   end
 
 
   test "organization show viewable by members" do
     assert_not_predicate OrganizationPolicy.new(nil, @organization), :show?
-    assert_not_predicate OrganizationPolicy.new(@different_organization_membership, @organization), :show?
 
     assert_predicate OrganizationPolicy.new(@user_membership, @organization), :show?
     assert_predicate OrganizationPolicy.new(@admin_membership, @organization), :show?
@@ -22,7 +20,6 @@ class OrganizationPolicyTest < ActiveSupport::TestCase
   test "organization create available by logged in users" do
     assert_not_predicate OrganizationPolicy.new(nil, @organization), :create?
 
-    assert_predicate OrganizationPolicy.new(@different_organization_membership, @organization), :create?
     assert_predicate OrganizationPolicy.new(@user_membership, @organization), :create?
     assert_predicate OrganizationPolicy.new(@admin_membership, @organization), :create?
   end
@@ -30,14 +27,12 @@ class OrganizationPolicyTest < ActiveSupport::TestCase
   test "organization new available by logged in users" do
     assert_not_predicate OrganizationPolicy.new(nil, @organization), :new?
 
-    assert_predicate OrganizationPolicy.new(@different_organization_membership, @organization), :new?
     assert_predicate OrganizationPolicy.new(@user_membership, @organization), :new?
     assert_predicate OrganizationPolicy.new(@admin_membership, @organization), :new?
   end
 
   test "organization edit available by organization admin" do
     assert_not_predicate OrganizationPolicy.new(nil, @organization), :edit?
-    assert_not_predicate OrganizationPolicy.new(@different_organization_membership, @organization), :edit?
     assert_not_predicate OrganizationPolicy.new(@user_membership, @organization), :edit?
 
     assert_predicate OrganizationPolicy.new(@admin_membership, @organization), :edit?
@@ -45,7 +40,6 @@ class OrganizationPolicyTest < ActiveSupport::TestCase
 
   test "organization update available by organization admin" do
     assert_not_predicate OrganizationPolicy.new(nil, @organization), :update?
-    assert_not_predicate OrganizationPolicy.new(@different_organization_membership, @organization), :update?
     assert_not_predicate OrganizationPolicy.new(@user_membership, @organization), :update?
 
     assert_predicate OrganizationPolicy.new(@admin_membership, @organization), :update?
@@ -53,17 +47,8 @@ class OrganizationPolicyTest < ActiveSupport::TestCase
 
   test "organization destroy available by organization admin" do
     assert_not_predicate OrganizationPolicy.new(nil, @organization), :destroy?
-    assert_not_predicate OrganizationPolicy.new(@different_organization_membership, @organization), :destroy?
     assert_not_predicate OrganizationPolicy.new(@user_membership, @organization), :destroy?
 
     assert_predicate OrganizationPolicy.new(@admin_membership, @organization), :destroy?
-  end
-
-  test "organization switch available by organization members" do
-    assert_not_predicate OrganizationPolicy.new(nil, @organization), :switch?
-    assert_not_predicate OrganizationPolicy.new(@different_organization_membership, @organization), :switch?
-
-    assert_predicate OrganizationPolicy.new(@user_membership, @organization), :switch?
-    assert_predicate OrganizationPolicy.new(@admin_membership, @organization), :switch?
   end
 end

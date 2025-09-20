@@ -5,7 +5,7 @@ require "test_helper"
 class Membership
   class RoleTest < ActiveSupport::TestCase
     setup do
-      @membership = memberships(:company_regular_user)
+      @membership = memberships(:feedbackbin_regular_user_one)
     end
 
   test "creating new users makes them members by default" do
