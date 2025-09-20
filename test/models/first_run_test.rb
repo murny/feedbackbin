@@ -20,7 +20,7 @@ class FirstRunTest < ActiveSupport::TestCase
 
       assert_predicate first_run.organization.memberships.first, :administrator?
       assert_equal "Test Organization", first_run.organization.name
-      assert_equal "Test Category", first_run.organization.categories.first.name
+      assert_equal "Test Category", first_run.category.name
       assert_equal "owner@example.com", first_run.user.email_address
       assert_equal first_run.user.email_address, first_run.organization.owner.email_address
     end

@@ -21,10 +21,3 @@ two:
   email_address: john.smith@feedbackbin.com
   password_digest: <%= password_digest %>
   bio: Hi I'm John Smith
-
-invited:
-  username: invited_user
-  name: Invited User
-  email_address: invited@feedbackbin.com
-  password_digest: <%= password_digest %>
-  bio: Hi I'm an invited user

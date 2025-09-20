@@ -20,24 +20,25 @@ class OrganizationInvitation < ApplicationRecord
     OrganizationInvitationsMailer.with(organization_invitation: self).invite.deliver_later
   end
 
-  def accept!(user)
-    membership = organization.memberships.new(user: user, role: :member)
-    if membership.valid?
-      ApplicationRecord.transaction do
-        membership.save!
-        destroy!
-      end
+  # def accept!(user)
+  #   TODO: This needs to be implemented, creates user too?
+  #   membership = organization.memberships.new(user: user, role: :member)
+  #   if membership.valid?
+  #     ApplicationRecord.transaction do
+  #       membership.save!
+  #       destroy!
+  #     end
 
-      # [organization.owner, invited_by].uniq.each do |recipient|
-      #   Organization::AcceptedInviteNotifier.with(organization: organization, record: user).deliver(recipient)
-      # end
+  #     # [organization.owner, invited_by].uniq.each do |recipient|
+  #     #   Organization::AcceptedInviteNotifier.with(organization: organization, record: user).deliver(recipient)
+  #     # end
 
-      membership
-    else
-      errors.add(:base, membership.errors.full_messages.first)
-      nil
-    end
-  end
+  #     membership
+  #   else
+  #     errors.add(:base, membership.errors.full_messages.first)
+  #     nil
+  #   end
+  # end
 
   def reject!
     destroy

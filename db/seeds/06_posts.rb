@@ -2,45 +2,14 @@
 
 puts "Creating posts..."
 
-# Find organizations, categories, and users by known attributes
-feedbackbin_org = Organization.find_by!(name: "FeedbackBin")
-techcorp_org = Organization.find_by!(name: "TechCorp")
-innovatelabs_org = Organization.find_by!(name: "InnovateLabs")
-
 # Find categories for each organization
-feedbackbin_customer_feedback = Category.find_by!(
-  name: "Customer Feedback", organization: feedbackbin_org
-)
-feedbackbin_bug_reports = Category.find_by!(
-  name: "Bug Reports", organization: feedbackbin_org
-)
-feedbackbin_feature_requests = Category.find_by!(
-  name: "Feature Requests", organization: feedbackbin_org
-)
-feedbackbin_ui_ux = Category.find_by!(
-  name: "UI/UX Feedback", organization: feedbackbin_org
-)
-
-techcorp_product = Category.find_by!(
-  name: "Product", organization: techcorp_org
-)
-techcorp_engineering = Category.find_by!(
-  name: "Engineering", organization: techcorp_org
-)
-
-innovatelabs_mobile = Category.find_by!(
-  name: "Mobile App", organization: innovatelabs_org
-)
-innovatelabs_platform = Category.find_by!(
-  name: "Platform", organization: innovatelabs_org
-)
-innovatelabs_integrations = Category.find_by!(
-  name: "Integrations", organization: innovatelabs_org
-)
+customer_feedback = Category.find_by!(name: "Customer Feedback")
+bug_reports = Category.find_by!(name: "Bug Reports")
+feature_requests = Category.find_by!(name: "Feature Requests")
+ui_ux = Category.find_by!(name: "UI/UX Feedback")
 
 # Find users by email
 admin_user = User.find_by!(email_address: "shane.murnaghan@feedbackbin.com")
-fake_user = User.find_by!(email_address: "fake_user@example.com")
 jane_user = User.find_by!(email_address: "jane_doe@example.com")
 alex_user = User.find_by!(email_address: "alex.chen@techcorp.com")
 maya_user = User.find_by!(email_address: "maya.patel@designstudio.co")
@@ -50,10 +19,8 @@ david_user = User.find_by!(email_address: "david.thompson@agency.com")
 
 # Disable post broadcasting to make seeding faster
 Post.suppressing_turbo_broadcasts do
-  # FeedbackBin posts
   Post.find_or_create_by!(
-    organization: feedbackbin_org,
-    category: feedbackbin_customer_feedback,
+    category: customer_feedback,
     author: admin_user,
     title: "Could you please add dark mode"
   ) do |post|
@@ -62,8 +29,7 @@ Post.suppressing_turbo_broadcasts do
   end
 
   Post.find_or_create_by!(
-    organization: feedbackbin_org,
-    category: feedbackbin_customer_feedback,
+    category: customer_feedback,
     author: admin_user,
     title: "Multiple categories"
   ) do |post|
@@ -72,8 +38,7 @@ Post.suppressing_turbo_broadcasts do
   end
 
   Post.find_or_create_by!(
-    organization: feedbackbin_org,
-    category: feedbackbin_feature_requests,
+    category: feature_requests,
     author: maya_user,
     title: "Mobile app support"
   ) do |post|
@@ -84,8 +49,7 @@ Post.suppressing_turbo_broadcasts do
   end
 
   Post.find_or_create_by!(
-    organization: feedbackbin_org,
-    category: feedbackbin_feature_requests,
+    category: feature_requests,
     author: alex_user,
     title: "Slack integration for notifications"
   ) do |post|
@@ -96,8 +60,7 @@ Post.suppressing_turbo_broadcasts do
   end
 
   Post.find_or_create_by!(
-    organization: feedbackbin_org,
-    category: feedbackbin_bug_reports,
+    category: bug_reports,
     author: carlos_user,
     title: "Search functionality not working with special characters"
   ) do |post|
@@ -108,8 +71,7 @@ Post.suppressing_turbo_broadcasts do
   end
 
   Post.find_or_create_by!(
-    organization: feedbackbin_org,
-    category: feedbackbin_ui_ux,
+    category: ui_ux,
     author: david_user,
     title: "Accessibility improvements needed"
   ) do |post|
@@ -121,8 +83,7 @@ Post.suppressing_turbo_broadcasts do
   end
 
   Post.find_or_create_by!(
-    organization: feedbackbin_org,
-    category: feedbackbin_feature_requests,
+    category: feature_requests,
     author: sarah_user,
     title: "Advanced analytics dashboard"
   ) do |post|
@@ -134,8 +95,7 @@ Post.suppressing_turbo_broadcasts do
   end
 
   Post.find_or_create_by!(
-    organization: feedbackbin_org,
-    category: feedbackbin_feature_requests,
+    category: feature_requests,
     author: jane_user,
     title: "Better collaboration features"
   ) do |post|
@@ -146,8 +106,7 @@ Post.suppressing_turbo_broadcasts do
   end
 
   Post.find_or_create_by!(
-    organization: feedbackbin_org,
-    category: feedbackbin_ui_ux,
+    category: ui_ux,
     author: maya_user,
     title: "More customization options for brands"
   ) do |post|
@@ -159,8 +118,7 @@ Post.suppressing_turbo_broadcasts do
   end
 
   Post.find_or_create_by!(
-    organization: feedbackbin_org,
-    category: feedbackbin_bug_reports,
+    category: bug_reports,
     author: carlos_user,
     title: "Page load times are slow with large datasets"
   ) do |post|
@@ -172,8 +130,7 @@ Post.suppressing_turbo_broadcasts do
   end
 
   Post.find_or_create_by!(
-    organization: feedbackbin_org,
-    category: feedbackbin_feature_requests,
+    category: feature_requests,
     author: alex_user,
     title: "Public API for integrations"
   ) do |post|
@@ -181,96 +138,6 @@ Post.suppressing_turbo_broadcasts do
                 "Monday.com. A REST API would enable us to:\n\n- Automatically sync feedback with our roadmap\n- Create "\
                 "tickets from high-priority feedback\n- Update statuses from external tools\n- Build custom dashboards\n\n"\
                 "This would make FeedbackBin the central hub for all our user feedback!"
-    post.created_at = 30.minutes.ago
-  end
-
-  # TechCorp posts
-  Post.find_or_create_by!(
-    organization: techcorp_org,
-    category: techcorp_product,
-    author: alex_user,
-    title: "Dashboard performance improvements"
-  ) do |post|
-    post.body = "Our team dashboard is loading slowly when we have many active projects. Can we optimize this for better "\
-                "performance?"
-    post.created_at = 2.days.ago
-  end
-
-  Post.find_or_create_by!(
-    organization: techcorp_org,
-    category: techcorp_engineering,
-    author: carlos_user,
-    title: "API rate limiting issues"
-  ) do |post|
-    post.body = "We're hitting rate limits on the API more frequently. Could we increase the limits or implement better "\
-                "caching?"
-    post.created_at = 5.hours.ago
-  end
-
-  Post.find_or_create_by!(
-    organization: techcorp_org,
-    category: techcorp_product,
-    author: maya_user,
-    title: "User onboarding flow feedback"
-  ) do |post|
-    post.body = "The current onboarding process has some UX issues. Users are dropping off at step 3. We need to simplify "\
-                "the flow."
-    post.created_at = 1.day.ago
-  end
-
-  # InnovateLabs posts
-  Post.find_or_create_by!(
-    organization: innovatelabs_org,
-    category: innovatelabs_mobile,
-    author: admin_user,
-    title: "Push notifications not working on Android"
-  ) do |post|
-    post.body = "I've been testing the mobile app and push notifications aren't coming through on my Android device. They "\
-                "work fine on iOS though. This is affecting my ability to stay updated on important feedback."
-    post.created_at = 1.day.ago
-  end
-
-  Post.find_or_create_by!(
-    organization: innovatelabs_org,
-    category: innovatelabs_platform,
-    author: maya_user,
-    title: "Real-time collaboration features"
-  ) do |post|
-    post.body = "Would love to see real-time collaboration features like live cursors, presence indicators, and instant "\
-                "comment updates. This would make our design review process much smoother."
-    post.created_at = 3.hours.ago
-  end
-
-  Post.find_or_create_by!(
-    organization: innovatelabs_org,
-    category: innovatelabs_integrations,
-    author: fake_user,
-    title: "Figma integration for design handoffs"
-  ) do |post|
-    post.body = "It would be amazing to have a Figma integration that automatically syncs design specs and allows "\
-                "developers to leave feedback directly on design components."
-    post.created_at = 8.hours.ago
-  end
-
-  Post.find_or_create_by!(
-    organization: innovatelabs_org,
-    category: innovatelabs_platform,
-    author: alex_user,
-    title: "Improved search with filters"
-  ) do |post|
-    post.body = "The current search is basic. We need advanced filters like date ranges, author, status, and category to "\
-                "help us find relevant feedback quickly in our growing database."
-    post.created_at = 2.days.ago
-  end
-
-  Post.find_or_create_by!(
-    organization: innovatelabs_org,
-    category: innovatelabs_mobile,
-    author: fake_user,
-    title: "Dark mode inconsistencies in mobile app"
-  ) do |post|
-    post.body = "The mobile app's dark mode has some UI inconsistencies. Some buttons are still showing light theme colors "\
-                "and the contrast isn't great in certain areas."
     post.created_at = 30.minutes.ago
   end
 end

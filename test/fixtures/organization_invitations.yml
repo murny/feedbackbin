@@ -1,13 +1,7 @@
 one:
-  organization: company
-  invited_by: one
+  organization: feedbackbin
+  invited_by: shane
   token: <%= OrganizationInvitation.generate_unique_secure_token %>
   name: Invited User
   email: invited@example.com
 
-two:
-  organization: company
-  invited_by: one
-  token: <%= OrganizationInvitation.generate_unique_secure_token %>
-  name: Second Invited User
-  email: invited2@example.com

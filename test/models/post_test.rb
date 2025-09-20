@@ -31,11 +31,4 @@ class PostTest < ActiveSupport::TestCase
     assert_not @post.valid?
     assert_equal "must exist", @post.errors[:category].first
   end
-
-  test "invalid without an organization" do
-    @post.organization = nil
-
-    assert_not @post.valid?
-    assert_equal "must exist", @post.errors[:organization].first
-  end
 end

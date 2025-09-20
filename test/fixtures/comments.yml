@@ -1,15 +1,12 @@
 one:
   creator: one
   post: one
-  organization: feedbackbin
 
 two:
   creator: shane
   post: one
-  organization: feedbackbin
 
 reply_one:
   creator: one
   post: one
   parent: two
-  organization: feedbackbin

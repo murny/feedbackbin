@@ -2,13 +2,3 @@ feedbackbin:
   owner: shane
   name: "FeedbackBin"
   subdomain: "feedbackbin"
-
-company:
-  owner: one
-  name: "Hooli"
-  subdomain: "hooli"
-
-other_organization:
-  owner: invited
-  name: "Other Organization"
-  subdomain: "other"

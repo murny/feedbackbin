@@ -6,20 +6,16 @@ class Organization::SearchableTest < ActiveSupport::TestCase
   test "can search organizations by name" do
     assert_equal organizations(:feedbackbin), Organization.search("FeedbackBin").first
     assert_equal organizations(:feedbackbin), Organization.search("feedback").first
-    assert_equal organizations(:company), Organization.search("Hooli").first
   end
 
   test "search is case insensitive" do
     assert_includes Organization.search("feedbackbin"), organizations(:feedbackbin)
     assert_includes Organization.search("FEEDBACKBIN"), organizations(:feedbackbin)
-    assert_includes Organization.search("hooli"), organizations(:company)
-    assert_includes Organization.search("HOOLI"), organizations(:company)
   end
 
   test "search with partial matches" do
     assert_includes Organization.search("Feed"), organizations(:feedbackbin)
     assert_includes Organization.search("Bin"), organizations(:feedbackbin)
-    assert_includes Organization.search("Ho"), organizations(:company)
   end
 
   test "search returns empty collection for no matches" do
@@ -40,11 +36,16 @@ class Organization::SearchableTest < ActiveSupport::TestCase
     assert_respond_to Organization, :sanitize_sql_like
 
     # Test that we can search for organizations with special characters in names
-    special_org = Organization.create!(name: "Test[Special]Organization", subdomain: "specialtest", owner: users(:one), categories_attributes: [ { name: "General" } ])
+    special_org = Organization.create!(name: "Test[Special 50%_Off]Organization", subdomain: "specialtest", owner: users(:one))
 
     results = Organization.search("Special")
 
     assert_includes results, special_org
+
+    # But we cannot search for characters that are used as wildcards
+    results = Organization.search("50%_")
+
+    assert_empty results
   end
 
   test "search is chainable with other scopes" do

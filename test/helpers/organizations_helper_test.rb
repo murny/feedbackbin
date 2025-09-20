@@ -8,7 +8,6 @@ class OrganizationsHelperTest < ActionView::TestCase
 
   setup do
     @organization = organizations(:feedbackbin)
-    @organization_with_logo = organizations(:company)
   end
 
   test "organization_logo with default size (medium)" do

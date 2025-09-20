@@ -4,7 +4,6 @@ class ApplicationController < ActionController::Base
   include Authentication
   include Authorization
   include Pagy::Backend
-  include SetCurrentOrganization
   include SetLocale
   include Sortable
 

@@ -2,9 +2,8 @@
 
 class Category < ApplicationRecord
   has_many :posts, dependent: :destroy
-  belongs_to :organization, default: -> { Current.organization }
 
-  validates :name, presence: true, uniqueness: { scope: :organization_id, case_sensitive: false }
+  validates :name, presence: true, uniqueness: { case_sensitive: false }
 
   normalizes :name, with: ->(name) { name.squish }
 end

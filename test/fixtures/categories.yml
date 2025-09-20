@@ -3,9 +3,7 @@
 one:
   name: Feature Requests
   description: Feature Requests
-  organization: feedbackbin
 
 two:
   name: Bug Reports
   description: Bug Reports
-  organization: feedbackbin

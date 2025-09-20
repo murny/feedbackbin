@@ -4,15 +4,14 @@ class PostsController < ApplicationController
   allow_unauthenticated_access only: %i[index show]
 
   before_action :set_post, only: %i[show edit update destroy]
-  before_action :ensure_index_is_not_empty, only: %i[index]
 
   # GET /posts or /posts.json
   def index
     authorize Post
 
-    posts = Current.organization.posts
-    @categories = Current.organization.categories.order(:name)
-    @post_statuses = Current.organization.post_statuses.order(:position)
+    posts = Post.includes(:author, :category, :post_status)
+    @categories = Category.all.order(:name)
+    @post_statuses = PostStatus.all.order(:position)
 
     if params[:category_id].present?
       @category = @categories.find_by(id: params[:category_id])
@@ -50,7 +49,7 @@ class PostsController < ApplicationController
 
     @post = Post.new
 
-    @categories = Current.organization.categories.order(:name)
+    @categories = Category.all.order(:name)
 
     if params[:category_id].present?
       @post.category = @categories.find_by(id: params[:category_id])
@@ -61,7 +60,7 @@ class PostsController < ApplicationController
   def edit
     authorize @post
 
-    @categories = Current.organization.categories.order(:name)
+    @categories = Category.all.order(:name)
   end
 
   # POST /posts or /posts.json
@@ -110,19 +109,13 @@ class PostsController < ApplicationController
 
   private
 
-    def ensure_index_is_not_empty
-      if !authenticated? && Category.none?
-        require_authentication
-      end
+    # Use callbacks to share common setup or constraints between actions.
+    def set_post
+      @post = Post.find(params.expect(:id))
     end
 
-  # Use callbacks to share common setup or constraints between actions.
-  def set_post
-    @post = Post.find(params.expect(:id))
-  end
-
-  # Only allow a list of trusted parameters through.
-  def post_params
-    params.expect(post: [ :title, :body, :category_id ])
-  end
+    # Only allow a list of trusted parameters through.
+    def post_params
+      params.expect(post: [ :title, :body, :category_id ])
+    end
 end

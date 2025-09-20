@@ -95,16 +95,19 @@ module Users
 
   test "cannot connect with account if connected to another user" do
     connected_account = user_connected_accounts(:shane_google)
-    user = users(:invited)
+    user = users(:two)
 
     # Ensure these are separate users
     assert_not_equal connected_account.user, user
 
     sign_in_as user
     OmniAuth.config.add_mock(:google, uid: connected_account.provider_uid, info: { email: connected_account.user.email_address })
-    get "/auth/google/callback"
 
-    assert_predicate user.user_connected_accounts, :none?
+    assert_no_difference "UserConnectedAccount.count" do
+      get "/auth/google/callback"
+    end
+
+    assert_redirected_to root_path
     assert_equal "This google account is already connected to another account.", flash[:alert]
   end
 

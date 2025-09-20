@@ -33,7 +33,7 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   test "should be able to create a reply to a comment" do
-    @reply = Comment.create(body: "Hello, world!", post: @comment.post, parent: @comment, creator: users(:shane), organization: @comment.organization)
+    @reply = Comment.create(body: "Hello, world!", post: @comment.post, parent: @comment, creator: users(:shane))
 
     assert_predicate @reply, :valid?
 
@@ -41,12 +41,5 @@ class CommentTest < ActiveSupport::TestCase
     assert_equal @comment.post, @reply.post
     assert_equal 1, @comment.replies.count
     assert_equal @reply, @comment.replies.first
-  end
-
-  test "invalid without an organization" do
-    @comment.organization = nil
-
-    assert_not @comment.valid?
-    assert_equal "must exist", @comment.errors[:organization].first
   end
 end

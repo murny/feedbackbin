@@ -4,7 +4,7 @@ require "test_helper"
 
 class OrganizationTest < ActiveSupport::TestCase
   setup do
-    @organization = organizations(:company)
+    @organization = organizations(:feedbackbin)
   end
 
   test "valid organization" do
@@ -26,8 +26,9 @@ class OrganizationTest < ActiveSupport::TestCase
   end
 
   test "owner?" do
-    assert @organization.owner?(users(:one))
-    assert_not @organization.owner?(users(:shane))
+    assert @organization.owner?(users(:shane))
+    assert_not @organization.owner?(users(:one))
+    assert_not @organization.owner?(nil)
   end
 
   test "should accept logo of valid file formats" do

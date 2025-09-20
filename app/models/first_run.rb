@@ -36,7 +36,7 @@ class FirstRun
   # Category validations
   validates :category_name, presence: true
 
-  attr_reader :organization, :user
+  attr_reader :organization, :user, :category
 
   def save!
     raise ActiveModel::ValidationError.new(self) unless valid?
@@ -44,6 +44,7 @@ class FirstRun
     ApplicationRecord.transaction do
       @user = User.create!(user_attributes)
       @organization = Organization.create!(organization_attributes(@user))
+      @category = Category.create!(category_attributes)
       self
     end
   rescue ActiveRecord::RecordInvalid => e
@@ -68,8 +69,13 @@ class FirstRun
         name: organization_name,
         subdomain: organization_subdomain,
         logo: organization_logo,
-        owner: user,
-        categories_attributes: [ { name: category_name } ]
+        owner: user
+      }
+    end
+
+    def category_attributes
+      {
+        name: category_name
       }
     end
 
@@ -84,6 +90,14 @@ class FirstRun
           name: :organization_name,
           subdomain: :organization_subdomain,
           logo: :organization_logo
+        }
+        record.errors.each do |error|
+          attr_name = attribute_mapping[error.attribute] || error.attribute
+          errors.add(attr_name, error.message)
+        end
+      when Category
+        attribute_mapping = {
+          name: :category_name
         }
         record.errors.each do |error|
           attr_name = attribute_mapping[error.attribute] || error.attribute
