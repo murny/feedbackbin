@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2025_09_14_225930) do
+ActiveRecord::Schema[8.1].define(version: 2024_05_17_075643) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -77,6 +77,18 @@ ActiveRecord::Schema[8.1].define(version: 2025_09_14_225930) do
     t.index ["post_id"], name: "index_comments_on_post_id"
   end
 
+  create_table "invitations", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "email", null: false
+    t.bigint "invited_by_id"
+    t.string "name", null: false
+    t.string "token", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_invitations_on_email", unique: true
+    t.index ["invited_by_id"], name: "index_invitations_on_invited_by_id"
+    t.index ["token"], name: "index_invitations_on_token", unique: true
+  end
+
   create_table "likes", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.bigint "likeable_id", null: false
@@ -86,6 +98,14 @@ ActiveRecord::Schema[8.1].define(version: 2025_09_14_225930) do
     t.index ["likeable_type", "likeable_id", "voter_id"], name: "index_likes_on_likeable_type_and_likeable_id_and_voter_id", unique: true
     t.index ["likeable_type", "likeable_id"], name: "index_likes_on_likeable"
     t.index ["voter_id"], name: "index_likes_on_voter_id"
+  end
+
+  create_table "memberships", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "role", default: 0, null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_memberships_on_user_id"
   end
 
   create_table "post_statuses", force: :cascade do |t|
@@ -112,10 +132,54 @@ ActiveRecord::Schema[8.1].define(version: 2025_09_14_225930) do
     t.index ["post_status_id"], name: "index_posts_on_post_status_id"
   end
 
+  create_table "sessions", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "ip_address"
+    t.datetime "last_active_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "user_agent"
+    t.bigint "user_id", null: false
+    t.index ["user_id"], name: "index_sessions_on_user_id"
+  end
+
+  create_table "user_connected_accounts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "provider_name", null: false
+    t.string "provider_uid", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["provider_name", "provider_uid"], name: "index_user_connected_accounts_on_provider_name_and_provider_uid", unique: true
+    t.index ["provider_name", "user_id"], name: "index_user_connected_accounts_on_provider_name_and_user_id", unique: true
+    t.index ["user_id"], name: "index_user_connected_accounts_on_user_id"
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.boolean "active", default: true, null: false
+    t.text "bio"
+    t.datetime "changelogs_read_at"
+    t.datetime "created_at", null: false
+    t.string "email_address", null: false
+    t.boolean "email_verified", default: false, null: false
+    t.string "name"
+    t.string "password_digest", null: false
+    t.string "preferred_language"
+    t.boolean "super_admin", default: false, null: false
+    t.integer "theme", default: 0, null: false
+    t.string "time_zone"
+    t.datetime "updated_at", null: false
+    t.string "username", null: false
+    t.index ["email_address"], name: "index_users_on_email_address", unique: true
+    t.index ["username"], name: "index_users_on_username", unique: true
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "comments", "comments", column: "parent_id"
   add_foreign_key "comments", "posts"
+  add_foreign_key "invitations", "users", column: "invited_by_id"
+  add_foreign_key "memberships", "users"
   add_foreign_key "posts", "categories"
   add_foreign_key "posts", "post_statuses"
+  add_foreign_key "sessions", "users"
+  add_foreign_key "user_connected_accounts", "users"
 end

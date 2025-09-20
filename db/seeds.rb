@@ -18,9 +18,21 @@ end
 
 puts "🌱 Seeding development data..."
 
-Dir[Rails.root.join('db', 'seeds', '*.rb')].sort.each do |file|
-  puts "Loading #{File.basename(file)}..."
-  load file
+# First, load organization data in shared database
+puts "Loading organizations into shared database..."
+load Rails.root.join('db', 'seeds', '01_organizations.rb')
+
+# Then load tenant-specific data for each organization
+organizations = %w[feedbackbin hooli initech]
+
+organizations.each do |org_subdomain|
+  puts "\n🏢 Seeding data for #{org_subdomain} tenant..."
+
+  # Load all seed files for this organization in order
+  Dir[Rails.root.join('db', 'seeds', 'organizations', org_subdomain, '*.rb')].sort.each do |file|
+    puts "  Loading #{File.basename(file)} for #{org_subdomain}..."
+    load file
+  end
 end
 
-puts "✅ Seeding complete!"
+puts "\n✅ Seeding complete!"

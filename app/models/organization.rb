@@ -3,13 +3,6 @@
 class Organization < SharedApplicationRecord
   include Domainable
   include Searchable
-  include Transferable
-
-  belongs_to :owner, class_name: "User"
-
-  has_many :organization_invitations, dependent: :destroy
-  has_many :memberships, dependent: :destroy
-  has_many :users, through: :memberships
 
   has_one_attached :logo
 
