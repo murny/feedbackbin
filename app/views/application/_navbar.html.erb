@@ -14,14 +14,6 @@
           <% end %>
         <% end %>
 
-        <% if authenticated? && Current.other_organizations.any? %>
-          <div class="hidden md:block">
-            <%= render "organization_switcher",
-                        current_organization: Current.organization,
-                        other_organizations: Current.other_organizations %>
-          </div>
-        <% end %>
-
       </div>
 
       <div class="flex flex-1 items-center justify-center px-6 md:ml-6 md:justify-end">
@@ -122,6 +114,18 @@
                       class: "block px-4 py-2 text-sm text-popover-foreground hover:bg-accent hover:text-accent-foreground transition-colors",
                       tabindex: "-1",
                       role: "menuitem" %>
+                <% if Current.organization_admin? && Current.organization %>
+                  <%= link_to t(".links.manage_organization"),
+                        admin_root_path,
+                        class: "block px-4 py-2 text-sm text-popover-foreground hover:bg-accent hover:text-accent-foreground transition-colors",
+                        tabindex: "-1",
+                        role: "menuitem" %>
+                <% end %>
+                <%= link_to t(".links.new_organization"),
+                      new_organization_path,
+                      class: "block px-4 py-2 text-sm text-popover-foreground hover:bg-accent hover:text-accent-foreground transition-colors",
+                      tabindex: "-1",
+                      role: "menuitem" %>
               </div>
               <% if Rails.env.development? %>
                 <div class="py-1" role="none">
@@ -171,14 +175,6 @@
         data-transition-leave="transition-all ease-linear duration-300"
         data-transition-leave-from="opacity-100"
         data-transition-leave-to="opacity-0">
-    <% if authenticated? && Current.other_organizations.any? %>
-      <div class="px-2 pt-2 pb-3 border-b border-border">
-        <%= render "organization_switcher",
-                    current_organization: Current.organization,
-                    other_organizations: Current.other_organizations,
-                    classes: "w-full" %>
-      </div>
-    <% end %>
     <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
       <%= active_link_to t(".links.roadmap"),
             root_path,
@@ -215,6 +211,14 @@
                 class: "block rounded-md px-3 py-2 text-base font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors" %>
           <%= link_to t(".links.settings"),
                 user_settings_profile_path,
+                class: "block rounded-md px-3 py-2 text-base font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors" %>
+          <% if Current.organization_admin? && Current.organization %>
+            <%= link_to t(".links.manage_organization"),
+                  admin_root_path,
+                  class: "block rounded-md px-3 py-2 text-base font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors" %>
+          <% end %>
+          <%= link_to t(".links.new_organization"),
+                new_organization_path,
                 class: "block rounded-md px-3 py-2 text-base font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors" %>
           <%= button_to t(".sign_out"), users_session_path, method: :delete, class: "block rounded-md px-3 py-2 text-base font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors" %>
         </div>

@@ -9,7 +9,6 @@ class Current < ActiveSupport::CurrentAttributes
   def organization=(value)
     super
     @membership = nil
-    @other_organizations = nil
   end
 
   def membership
@@ -22,13 +21,5 @@ class Current < ActiveSupport::CurrentAttributes
 
   def organization_admin?
     !!membership&.administrator?
-  end
-
-  def other_organizations
-    @other_organizations ||= if user.present?
-      user.organizations.order(name: :asc).where.not(id: organization.id)
-    else
-      Organization.none
-    end
   end
 end

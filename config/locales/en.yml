@@ -140,7 +140,9 @@ en:
       links:
         feedback: Feedback
         letter_opener: Letter opener
+        manage_organization: Manage Organization
         mission_control_jobs: Mission control jobs
+        new_organization: New Organization
         roadmap: Roadmap
         settings: Settings
         super_admin: Super Admin
@@ -155,10 +157,6 @@ en:
         open_main_menu: Open main menu
         open_user_menu: Open user menu
         view_notifications: View notifications
-    organization_switcher:
-      create_organization: Create organization
-      manage_organization: Manage Organization
-      switch_organization: Switch organization
   are_you_sure: Are you sure?
   cancel: Cancel
   category: Category
