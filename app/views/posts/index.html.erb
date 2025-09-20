@@ -1,7 +1,7 @@
 <%= content_for :title, t("posts.index.title") %>
 <%= turbo_stream_from :posts %>
 
-<% if @category.present? %>
+<% if @categories.present? %>
 <section class="max-w-6xl mx-auto px-4 sm:px-6">
   <div class="md:pr-6 lg:pr-10">
 
