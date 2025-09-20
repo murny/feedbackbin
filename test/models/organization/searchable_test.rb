@@ -37,10 +37,17 @@ class Organization::SearchableTest < ActiveSupport::TestCase
 
     # Test that we can search for organizations with special characters in names
     special_org = Organization.create!(name: "Test[Special]Organization", subdomain: "specialtest", owner: users(:one))
+    wildcard_org = Organization.create!(name: "Deals 50%_Off", subdomain: "dealstest", owner: users(:one))
 
     results = Organization.search("Special")
 
     assert_includes results, special_org
+
+    # Ensure queries containing LIKE wildcards are accepted and return sensible results
+    # This relies on sanitize_sql_like to escape % and _ in the query string
+    wildcard_results = Organization.search("50%_")
+
+    assert_includes wildcard_results, wildcard_org
   end
 
   test "search is chainable with other scopes" do

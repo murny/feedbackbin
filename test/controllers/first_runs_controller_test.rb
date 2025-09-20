@@ -7,7 +7,7 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
     Organization.destroy_all
   end
 
-  test "new is permitted when no other users exit" do
+  test "new is permitted when no organizations exist" do
     get first_run_url
 
     assert_response :success

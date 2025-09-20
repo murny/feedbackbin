@@ -1,6 +1,7 @@
 <%= content_for :title, t("posts.index.title") %>
 <%= turbo_stream_from :posts %>
 
+<% if @category.present? %>
 <section class="max-w-6xl mx-auto px-4 sm:px-6">
   <div class="md:pr-6 lg:pr-10">
 
@@ -101,3 +102,18 @@
     <% end %>
   </div>
 </section>
+<% else %>
+<section class="max-w-6xl mx-auto px-4 sm:px-6">
+  <div class="md:pr-6 lg:pr-10">
+    <div class="flex flex-col items-center justify-center text-center py-16">
+      <div class="flex h-20 w-20 items-center justify-center rounded-full bg-muted/50">
+        <%= lucide_icon "inbox", class: "h-10 w-10 text-muted-foreground" %>
+      </div>
+      <h3 class="mt-6 text-xl font-semibold text-foreground">We're not collecting feedback yet</h3>
+      <p class="mt-2 text-sm text-muted-foreground max-w-md">
+        An admin needs to finish setting up categories before feedback can be submitted.
+      </p>
+    </div>
+  </div>
+</section>
+<% end %>

@@ -28,6 +28,7 @@ class OrganizationTest < ActiveSupport::TestCase
   test "owner?" do
     assert @organization.owner?(users(:shane))
     assert_not @organization.owner?(users(:one))
+    assert_not @organization.owner?(nil)
   end
 
   test "should accept logo of valid file formats" do

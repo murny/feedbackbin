@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class InitialSchema < ActiveRecord::Migration[8.0]
+class InitialSchema < ActiveRecord::Migration[8.1]
   def change
     create_table "organization_invitations", force: :cascade do |t|
       t.bigint "organization_id", null: false

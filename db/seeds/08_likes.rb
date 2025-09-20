@@ -10,7 +10,7 @@ carlos_user = User.find_by!(email_address: "carlos.rodriguez@freelance.dev")
 david_user = User.find_by!(email_address: "david.thompson@agency.com")
 sarah_user = User.find_by!(email_address: "sarah.kim@startup.io")
 
-# Find posts by title and organization
+# Find posts by title
 dark_mode = Post.find_by!(title: "Could you please add dark mode")
 mobile = Post.find_by!(title: "Mobile app support")
 accessibility = Post.find_by!(title: "Accessibility improvements needed")

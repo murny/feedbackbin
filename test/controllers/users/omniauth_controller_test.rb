@@ -102,9 +102,12 @@ module Users
 
     sign_in_as user
     OmniAuth.config.add_mock(:google, uid: connected_account.provider_uid, info: { email: connected_account.user.email_address })
-    get "/auth/google/callback"
 
-    assert_predicate user.user_connected_accounts, :none?
+    assert_no_difference "UserConnectedAccount.count" do
+      get "/auth/google/callback"
+    end
+
+    assert_redirected_to root_path
     assert_equal "This google account is already connected to another account.", flash[:alert]
   end
 
