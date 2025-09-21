@@ -9,10 +9,10 @@ class OrganizationPolicyTest < ActiveSupport::TestCase
     @admin_user = users(:shane)
   end
 
-  test "organization show viewable by logged in users" do
+  test "organization show viewable by admins" do
     assert_not_predicate OrganizationPolicy.new(nil, @organization), :show?
+    assert_not_predicate OrganizationPolicy.new(@user, @organization), :show?
 
-    assert_predicate OrganizationPolicy.new(@user, @organization), :show?
     assert_predicate OrganizationPolicy.new(@admin_user, @organization), :show?
   end
 

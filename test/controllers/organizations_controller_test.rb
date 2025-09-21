@@ -23,7 +23,5 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to admin_root_url(subdomain: Organization.last.subdomain)
-    # In single tenancy mode, organization creation just creates the org
-    # User role is managed independently
   end
 end

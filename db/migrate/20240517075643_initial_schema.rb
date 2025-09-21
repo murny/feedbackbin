@@ -71,7 +71,7 @@ class InitialSchema < ActiveRecord::Migration[8.1]
     create_table "invitations", force: :cascade do |t|
       t.datetime "created_at", null: false
       t.string "email", null: false
-      t.bigint "invited_by_id"
+      t.bigint "invited_by_id", null: false
       t.string "name", null: false
       t.string "token", null: false
       t.datetime "updated_at", null: false

@@ -1,0 +1,5 @@
+one:
+  invited_by: shane
+  token: <%= Invitation.generate_unique_secure_token %>
+  name: Invited User
+  email: invited@example.com

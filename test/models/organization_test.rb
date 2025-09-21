@@ -18,8 +18,6 @@ class OrganizationTest < ActiveSupport::TestCase
     assert_equal "can't be blank", @organization.errors[:name].first
   end
 
-  # Owner functionality removed in single tenancy mode
-
   test "should accept logo of valid file formats" do
     @organization.logo.attach(io: file_fixture("racecar.jpeg").open, filename: "racecar.jpeg", content_type: "image/jpeg")
 

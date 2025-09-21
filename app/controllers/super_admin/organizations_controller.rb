@@ -3,8 +3,7 @@
 module SuperAdmin
   class OrganizationsController < SuperAdmin::BaseController
     def index
-      organizations = Organization
-                                  .search(params[:search])
+      organizations = Organization.search(params[:search])
                                   .order(created_at: :desc)
 
       @pagy, @organizations = pagy(organizations)
@@ -17,8 +16,6 @@ module SuperAdmin
 
     def show
       @organization = Organization.find(params[:id])
-      @recent_posts = Post.includes(:author).limit(5)
-      @users = User.limit(5)
     end
   end
 end

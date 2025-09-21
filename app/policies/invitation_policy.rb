@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class OrganizationInvitationPolicy < ApplicationPolicy
+class InvitationPolicy < ApplicationPolicy
   def new?
     admin?
   end

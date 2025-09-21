@@ -2,7 +2,7 @@
 
 class OrganizationPolicy < ApplicationPolicy
   def show?
-    user.present?
+    admin?
   end
 
   def new?

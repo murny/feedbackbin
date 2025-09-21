@@ -4,8 +4,8 @@ require "test_helper"
 
 class UserPolicyTest < ActiveSupport::TestCase
   setup do
-    @target_user = users(:one)      # admin user
-    @admin_user = users(:one)       # admin user
+    @target_user = users(:one)      # regular user
+    @admin_user = users(:shane)       # admin user
     @regular_user = users(:two)     # regular member user
   end
 

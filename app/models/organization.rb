@@ -3,7 +3,6 @@
 class Organization < ApplicationRecord
   include Domainable
   include Searchable
-  include Transferable
 
   has_one_attached :logo
 

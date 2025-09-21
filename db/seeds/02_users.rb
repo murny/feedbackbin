@@ -8,6 +8,7 @@ User.find_or_create_by!(email_address: "shane.murnaghan@feedbackbin.com") do |us
   user.password = "password123"
   user.super_admin = true
   user.email_verified = true
+  user.role = :administrator
 end
 
 User.find_or_create_by!(email_address: "fake_user@example.com") do |user|
@@ -22,6 +23,7 @@ User.find_or_create_by!(email_address: "jane_doe@example.com") do |user|
   user.username = "JaneDoe"
   user.password = "password123"
   user.email_verified = true
+  user.role = :administrator
 end
 
 # Additional creative users with detailed profiles

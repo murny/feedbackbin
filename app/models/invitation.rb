@@ -1,14 +1,15 @@
 # frozen_string_literal: true
 
 class Invitation < ApplicationRecord
-  belongs_to :invited_by, class_name: "User" # TODO: Should this be optional?
+  belongs_to :invited_by, class_name: "User"
 
   has_secure_token
 
   validates :email, presence: true
   validates :name, presence: true # TODO: Is name useful?
+  validates :invited_by, presence: true
 
-  validates :email, uniqueness: { scope: :invited_by_id, message: :invited },
+  validates :email, uniqueness: { message: :invited },
                     format: { with: URI::MailTo::EMAIL_REGEXP }
 
   def save_and_send_invite

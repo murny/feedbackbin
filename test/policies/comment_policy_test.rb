@@ -4,10 +4,10 @@ require "test_helper"
 
 class CommentPolicyTest < ActiveSupport::TestCase
   setup do
-    # comment one is owned by user one (who is an admin)
+    # comment one is owned by user one (who is not an admin)
     @comment = comments(:one)
-    @comment_owner = users(:one)   # admin user (owner of comment one)
-    @admin_user = users(:one)      # admin user
+    @comment_owner = users(:one)   # regular user (owner of comment one)
+    @admin_user = users(:shane)      # admin user
     @regular_user = users(:two)    # regular member user
   end
 

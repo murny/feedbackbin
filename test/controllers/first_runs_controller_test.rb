@@ -51,7 +51,6 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
     assert_equal "Test Organization", Organization.last.name
     assert_equal "Custom Category", Category.last.name
 
-    # Organization.last owner functionality removed in single tenancy mode
     assert_predicate User.last, :administrator?
   end
 

@@ -11,7 +11,7 @@
 
     <%= render_card do %>
       <div class="px-6">
-        <%= form_with model: @organization_invitation, url: admin_settings_organization_invitations_path, class: "space-y-6" do |form| %>
+        <%= form_with model: @invitation, url: admin_settings_invitations_path, class: "space-y-6" do |form| %>
           <%= render "error_messages", resource: form.object %>
 
           <div class="grid gap-3">
@@ -21,7 +21,7 @@
           </div>
 
           <div class="flex items-center justify-end gap-3 pt-4">
-            <%= link_to t(".cancel"), admin_settings_memberships_path, class: "btn btn-secondary" %>
+            <%= link_to t(".cancel"), admin_settings_invitations_path, class: "btn btn-secondary" %>
             <%= form.submit t(".send_invitation"), class: "btn btn-primary" %>
           </div>
         <% end %>
