@@ -7,8 +7,8 @@ module Admin
         {
           total_posts: Post.count,
           posts_this_month: Post.where(created_at: Time.current.beginning_of_month..Time.current).count,
-          total_users: Membership.count,
-          admin_users: Membership.administrator.count,
+          total_users: User.count,
+          admin_users: User.administrator.count,
           total_comments: Comment.count,
           comments_this_month: Comment.where(created_at: Time.current.beginning_of_month..Time.current).count
         }

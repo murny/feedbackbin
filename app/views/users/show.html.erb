@@ -76,17 +76,15 @@
               </div>
             </div>
 
-            <% if @user.organizations.any? %>
-              <div class="flex items-center gap-3">
-                <div class="p-2 bg-muted rounded-lg">
-                  <%= lucide_icon "building", class: "size-4 text-muted-foreground" %>
-                </div>
-                <div>
-                  <dt class="text-sm font-medium text-muted-foreground"><%= t(".organization") %></dt>
-                  <dd class="text-sm text-foreground"><%= @user.organizations.first.name %></dd>
-                </div>
+            <div class="flex items-center gap-3">
+              <div class="p-2 bg-muted rounded-lg">
+                <%= lucide_icon "shield", class: "size-4 text-muted-foreground" %>
               </div>
-            <% end %>
+              <div>
+                <dt class="text-sm font-medium text-muted-foreground"><%= t(".role") %></dt>
+                <dd class="text-sm text-foreground"><%= @user.role.humanize %></dd>
+              </div>
+            </div>
 
             <%# TODO: Add website field to User model and profile edit form %>
             <div class="flex items-center gap-3">

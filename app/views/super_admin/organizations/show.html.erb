@@ -33,18 +33,9 @@
 
       <div class="space-y-4">
         <div>
-          <h4 class="text-sm font-medium text-foreground mb-2">Owner</h4>
-          <div class="flex items-center space-x-3">
-            <%= render_avatar(
-              src: @organization.owner.avatar.attached? ? url_for(@organization.owner.avatar) : nil,
-              alt: @organization.owner.name,
-              size: :sm,
-              fallback: @organization.owner.name[0, 2].upcase
-            ) %>
-            <div>
-              <div class="font-medium text-foreground"><%= @organization.owner.name %></div>
-              <div class="text-sm text-muted-foreground"><%= @organization.owner.email_address %></div>
-            </div>
+          <h4 class="text-sm font-medium text-foreground mb-2">Details</h4>
+          <div class="text-sm text-muted-foreground">
+            Organization for managing feedback and posts
           </div>
         </div>
       </div>
@@ -55,21 +46,21 @@
   <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
     <%= render_card(class: "px-6") do %>
       <div class="text-center">
-        <div class="text-2xl font-bold text-foreground"><%= @organization.users.count %></div>
-        <div class="text-sm text-muted-foreground">Members</div>
+        <div class="text-2xl font-bold text-foreground"><%= User.count %></div>
+        <div class="text-sm text-muted-foreground">Users</div>
       </div>
     <% end %>
 
     <%= render_card(class: "px-6") do %>
       <div class="text-center">
-        <div class="text-2xl font-bold text-foreground"><%= @organization.posts.count %></div>
+        <div class="text-2xl font-bold text-foreground"><%= Post.count %></div>
         <div class="text-sm text-muted-foreground">Posts</div>
       </div>
     <% end %>
 
     <%= render_card(class: "px-6") do %>
       <div class="text-center">
-        <div class="text-2xl font-bold text-foreground"><%= @organization.categories.count %></div>
+        <div class="text-2xl font-bold text-foreground"><%= Category.count %></div>
         <div class="text-sm text-muted-foreground">Categories</div>
       </div>
     <% end %>
@@ -105,34 +96,34 @@
       <% end %>
     <% end %>
 
-    <!-- Recent Members -->
-    <%= render_card(title: "Recent Members", class: "px-6") do %>
-      <% if @recent_memberships.any? %>
+    <!-- Recent Users -->
+    <%= render_card(title: "Recent Users", class: "px-6") do %>
+      <% if @users.any? %>
         <div class="space-y-4">
-          <% @recent_memberships.each do |membership| %>
+          <% @users.each do |user| %>
             <div class="flex items-center justify-between p-3 rounded-lg hover:bg-muted/50 transition-colors">
               <div class="flex items-center space-x-3">
                 <%= render_avatar(
-                  src: membership.user.avatar.attached? ? url_for(membership.user.avatar) : nil,
-                  alt: membership.user.name,
+                  src: user.avatar.attached? ? url_for(user.avatar) : nil,
+                  alt: user.name,
                   size: :sm,
-                  fallback: membership.user.name[0, 2].upcase
+                  fallback: user.name[0, 2].upcase
                 ) %>
                 <div>
-                  <div class="font-medium text-foreground"><%= membership.user.name %></div>
-                  <div class="text-sm text-muted-foreground"><%= membership.user.email_address %></div>
+                  <div class="font-medium text-foreground"><%= user.name %></div>
+                  <div class="text-sm text-muted-foreground"><%= user.email_address %></div>
                 </div>
               </div>
               <%= render_badge(
-                text: membership.role.humanize,
-                variant: membership.administrator? ? :default : :secondary
+                text: user.role.humanize,
+                variant: user.administrator? ? :default : :secondary
               ) %>
             </div>
           <% end %>
         </div>
       <% else %>
         <div class="text-center py-8 text-muted-foreground">
-          No members yet
+          No users yet
         </div>
       <% end %>
     <% end %>

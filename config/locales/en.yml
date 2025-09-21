@@ -28,8 +28,8 @@ en:
   admin:
     dashboard:
       show:
-        description: Overview of your organization's activity and key metrics
-        heading: "%{organization_name} Admin Dashboard"
+        description: Overview of your application's activity and key metrics
+        heading: Admin Dashboard
         recent_comments:
           ago: ago
           commented: commented on
@@ -91,15 +91,6 @@ en:
           invitations: Invitations
           members: Members
         title: Settings
-      memberships:
-        destroy:
-          owner_cannot_be_removed: Owner cannot be removed. Please transfer ownership to another user first.
-          successfully_destroyed: Membership was successfully removed.
-        index:
-          description: Manage current organization members and their roles
-          title: Memberships
-        update:
-          successfully_updated: Membership was successfully updated.
       organization_invitations:
         create:
           successfully_created: Invitation was successfully created.
@@ -138,9 +129,9 @@ en:
     navbar:
       brand_name: FeedbackBin
       links:
+        admin_dashboard: Admin Dashboard
         feedback: Feedback
         letter_opener: Letter opener
-        manage_organization: Manage Organization
         mission_control_jobs: Mission control jobs
         new_organization: New Organization
         roadmap: Roadmap
@@ -542,8 +533,8 @@ en:
       linkedin: LinkedIn
       location: Location
       not_specified: Not specified
-      organization: Organization
       report_user: Report User
+      role: Role
       stats_comments: Comments
       stats_helpful_votes_received: Helpful Votes Received
       stats_posts_created: Posts Created

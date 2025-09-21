@@ -10,25 +10,16 @@ class Organization
       @organization = organizations(:feedbackbin)
     end
 
-    test "can_transfer? true for owner" do
-      assert @organization.can_transfer?(@organization.owner)
-    end
-
-    test "can_transfer? false for non-owner" do
+    test "can_transfer? false in single tenancy mode" do
+      assert_not @organization.can_transfer?(users(:shane))
       assert_not @organization.can_transfer?(users(:one))
+      assert_not @organization.can_transfer?(nil)
     end
 
-    test "can_transfer? false for single user" do
-      @organization.users = [ @organization.owner ]
-
-      assert_not @organization.can_transfer?(@organization.owner)
-    end
-
-    test "transfer ownership to a new owner" do
+    test "transfer_ownership disabled in single tenancy mode" do
       new_owner = users(:two)
 
-      assert @organization.transfer_ownership(new_owner.id)
-      assert_equal new_owner, @organization.reload.owner
+      assert_not @organization.transfer_ownership(new_owner.id)
     end
   end
 end

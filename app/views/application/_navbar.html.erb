@@ -114,8 +114,8 @@
                       class: "block px-4 py-2 text-sm text-popover-foreground hover:bg-accent hover:text-accent-foreground transition-colors",
                       tabindex: "-1",
                       role: "menuitem" %>
-                <% if Current.organization_admin? && Current.organization %>
-                  <%= link_to t(".links.manage_organization"),
+                <% if Current.admin? && Current.organization %>
+                  <%= link_to t(".links.admin_dashboard"),
                         admin_root_path,
                         class: "block px-4 py-2 text-sm text-popover-foreground hover:bg-accent hover:text-accent-foreground transition-colors",
                         tabindex: "-1",
@@ -212,8 +212,8 @@
           <%= link_to t(".links.settings"),
                 user_settings_profile_path,
                 class: "block rounded-md px-3 py-2 text-base font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors" %>
-          <% if Current.organization_admin? && Current.organization %>
-            <%= link_to t(".links.manage_organization"),
+          <% if Current.admin? && Current.organization %>
+            <%= link_to t(".links.admin_dashboard"),
                   admin_root_path,
                   class: "block rounded-md px-3 py-2 text-base font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors" %>
           <% end %>

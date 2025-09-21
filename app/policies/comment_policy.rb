@@ -6,7 +6,7 @@ class CommentPolicy < ApplicationPolicy
   end
 
   def create?
-    membership.present?
+    user.present?
   end
 
   def update?
@@ -24,7 +24,7 @@ class CommentPolicy < ApplicationPolicy
   private
 
     def owned?
-      record && membership && record.creator == membership.user
+      record && user && record.creator == user
     end
 
   class Scope < ApplicationPolicy::Scope

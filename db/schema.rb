@@ -77,6 +77,18 @@ ActiveRecord::Schema[8.1].define(version: 2024_05_17_075643) do
     t.index ["post_id"], name: "index_comments_on_post_id"
   end
 
+  create_table "invitations", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "email", null: false
+    t.bigint "invited_by_id"
+    t.string "name", null: false
+    t.string "token", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_invitations_on_email", unique: true
+    t.index ["invited_by_id"], name: "index_invitations_on_invited_by_id"
+    t.index ["token"], name: "index_invitations_on_token", unique: true
+  end
+
   create_table "likes", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.bigint "likeable_id", null: false
@@ -88,36 +100,11 @@ ActiveRecord::Schema[8.1].define(version: 2024_05_17_075643) do
     t.index ["voter_id"], name: "index_likes_on_voter_id"
   end
 
-  create_table "memberships", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.bigint "organization_id", null: false
-    t.integer "role", default: 0, null: false
-    t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
-    t.index ["organization_id", "user_id"], name: "index_memberships_on_organization_id_and_user_id", unique: true
-  end
-
-  create_table "organization_invitations", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.string "email", null: false
-    t.bigint "invited_by_id"
-    t.string "name", null: false
-    t.bigint "organization_id", null: false
-    t.string "token", null: false
-    t.datetime "updated_at", null: false
-    t.index ["invited_by_id"], name: "index_organization_invitations_on_invited_by_id"
-    t.index ["organization_id", "email"], name: "index_organization_invitations_on_organization_id_and_email", unique: true
-    t.index ["token"], name: "index_organization_invitations_on_token", unique: true
-  end
-
   create_table "organizations", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.integer "memberships_count", default: 0, null: false
     t.string "name", null: false
-    t.bigint "owner_id", null: false
     t.string "subdomain"
     t.datetime "updated_at", null: false
-    t.index ["owner_id"], name: "index_organizations_on_owner_id"
   end
 
   create_table "post_statuses", force: :cascade do |t|
@@ -175,6 +162,7 @@ ActiveRecord::Schema[8.1].define(version: 2024_05_17_075643) do
     t.string "name"
     t.string "password_digest", null: false
     t.string "preferred_language"
+    t.integer "role", default: 0, null: false
     t.boolean "super_admin", default: false, null: false
     t.integer "theme", default: 0, null: false
     t.string "time_zone"
@@ -189,12 +177,8 @@ ActiveRecord::Schema[8.1].define(version: 2024_05_17_075643) do
   add_foreign_key "comments", "comments", column: "parent_id"
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users", column: "creator_id"
+  add_foreign_key "invitations", "users", column: "invited_by_id"
   add_foreign_key "likes", "users", column: "voter_id"
-  add_foreign_key "memberships", "organizations"
-  add_foreign_key "memberships", "users"
-  add_foreign_key "organization_invitations", "organizations"
-  add_foreign_key "organization_invitations", "users", column: "invited_by_id"
-  add_foreign_key "organizations", "users", column: "owner_id"
   add_foreign_key "posts", "categories"
   add_foreign_key "posts", "post_statuses"
   add_foreign_key "posts", "users", column: "author_id"

@@ -2,13 +2,13 @@
 
 class OrganizationPolicy < ApplicationPolicy
   def show?
-    record.memberships.include?(membership)
+    user.present?
   end
 
   def new?
     # TODO: Anyone can create an organization for now if they are logged in
     # later on this would be gate kept by stripe or something?
-    membership.present?
+    user.present?
   end
 
   def create?

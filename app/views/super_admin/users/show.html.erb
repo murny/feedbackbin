@@ -46,8 +46,8 @@
             <h4 class="text-sm font-medium text-foreground mb-2">Status</h4>
             <div class="space-y-2">
               <%= render_badge(
-                text: @user.super_admin? ? "Super Admin" : "Regular User",
-                variant: @user.super_admin? ? :default : :secondary
+                text: @user.super_admin? ? "Super Admin" : @user.role.humanize,
+                variant: @user.administrator? || @user.super_admin? ? :default : :secondary
               ) %>
               <%= render_badge(
                 text: @user.email_verified? ? "Email Verified" : "Email Unverified",
@@ -60,33 +60,22 @@
     </div>
   <% end %>
 
-  <!-- Organizations -->
-  <%= render_card(title: "Organization Memberships", class: "px-6") do %>
-    <% if @memberships.any? %>
-      <div class="space-y-4">
-        <% @memberships.each do |membership| %>
-          <div class="flex items-center justify-between p-4 border border-border rounded-lg">
-            <div class="flex items-center space-x-4">
-              <%= organization_logo(membership.organization, size: :sm) %>
-              <div>
-                <div class="font-medium text-foreground"><%= membership.organization.name %></div>
-                <div class="text-sm text-muted-foreground">
-                  Joined <%= time_ago_in_words(membership.created_at) %> ago
-                </div>
-              </div>
-            </div>
-            <%= render_badge(
-              text: membership.role.humanize,
-              variant: membership.administrator? ? :default : :secondary
-            ) %>
+  <!-- Role Information -->
+  <%= render_card(title: "Role & Permissions", class: "px-6") do %>
+    <div class="p-4 border border-border rounded-lg">
+      <div class="flex items-center justify-between">
+        <div>
+          <div class="font-medium text-foreground">Current Role</div>
+          <div class="text-sm text-muted-foreground">
+            User permissions and access level
           </div>
-        <% end %>
+        </div>
+        <%= render_badge(
+          text: @user.role.humanize,
+          variant: @user.administrator? ? :default : :secondary
+        ) %>
       </div>
-    <% else %>
-      <div class="text-center py-8 text-muted-foreground">
-        Not a member of any organizations
-      </div>
-    <% end %>
+    </div>
   <% end %>
 
   <!-- Recent Posts -->
@@ -95,11 +84,10 @@
       <div class="space-y-4">
         <% @recent_posts.each do |post| %>
           <div class="flex items-start space-x-3 p-3 rounded-lg hover:bg-muted/50 transition-colors">
-            <%= organization_logo(post.organization, size: :sm) %>
             <div class="min-w-0 flex-1">
               <div class="font-medium text-foreground truncate"><%= post.title %></div>
               <div class="text-sm text-muted-foreground">
-                in <%= post.organization.name %> • <%= time_ago_in_words(post.created_at) %> ago
+                <%= time_ago_in_words(post.created_at) %> ago
               </div>
               <% if post.category %>
                 <%= render_badge(
