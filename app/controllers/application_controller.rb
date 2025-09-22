@@ -14,4 +14,16 @@ class ApplicationController < ActionController::Base
   stale_when_importmap_changes
 
   rate_limit to: 100, within: 1.minute
+
+  before_action :ensure_first_run_completed
+
+  private
+
+    def ensure_first_run_completed
+      if User.none?
+        return if controller_name == "first_runs" # Skip for first_run controller
+
+        redirect_to first_run_path
+      end
+    end
 end
