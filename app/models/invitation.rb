@@ -25,7 +25,7 @@ class Invitation < ApplicationRecord
   # end
 
   def reject!
-    destroy
+    destroy!
   end
 
   def to_param

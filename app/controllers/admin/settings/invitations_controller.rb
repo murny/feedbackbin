@@ -4,7 +4,7 @@ module Admin
   module Settings
     class InvitationsController < Admin::BaseController
       def index
-        @invitations = Current.organization.invitations.includes(:invited_by).order(created_at: :desc)
+        @invitations = Invitation.includes(:invited_by).order(created_at: :desc)
       end
 
       def new
@@ -22,7 +22,7 @@ module Admin
       end
 
       def destroy
-        @invitation = Current.organization.invitations.find(params[:id])
+        @invitation = Invitation.find(params[:id])
 
         @invitation.destroy
         redirect_to admin_settings_invitations_path, notice: t(".successfully_destroyed")

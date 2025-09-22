@@ -36,6 +36,7 @@ class InvitationTest < ActiveSupport::TestCase
     invitation = Invitation.create(name: "whatever", email: @invitation.email)
 
     assert_not invitation.valid?
+    assert_equal "has already been invited", invitation.errors[:email].first
   end
 
   # TODO: This needs to be implemented
