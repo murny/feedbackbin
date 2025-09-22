@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
   private
 
     def ensure_first_run_completed
-      if User.none?
+      if Organization.none?
         return if controller_name == "first_runs" # Skip for first_run controller
 
         redirect_to first_run_path
