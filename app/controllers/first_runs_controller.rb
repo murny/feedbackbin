@@ -2,6 +2,7 @@
 
 class FirstRunsController < ApplicationController
   allow_unauthenticated_access
+  skip_before_action :ensure_first_run_completed
   skip_after_action :verify_authorized
 
   before_action :prevent_repeats

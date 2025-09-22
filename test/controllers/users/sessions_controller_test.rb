@@ -15,7 +15,7 @@ module Users
   end
 
   test "new redirects to first run when no users exist" do
-    User.destroy_all
+    Organization.destroy_all
 
     get sign_in_url
 
