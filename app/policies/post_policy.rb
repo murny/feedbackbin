@@ -16,7 +16,7 @@ class PostPolicy < ApplicationPolicy
   end
 
   def create?
-    membership.present?
+    user.present?
   end
 
   def new?
@@ -46,7 +46,7 @@ class PostPolicy < ApplicationPolicy
   private
 
     def owned?
-      record && membership && record.author == membership.user
+      record && user && record.author == user
     end
 
   class Scope < ApplicationPolicy::Scope

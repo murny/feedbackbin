@@ -19,7 +19,7 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
       email_address: "new@feedbackbin.com",
       password: "secret123456"
     )
-    Organization.create!(name: "FeedbackBin", subdomain: "testfeedbackbin", owner: user)
+    Organization.create!(name: "FeedbackBin", subdomain: "testfeedbackbin")
 
     get first_run_url
 
@@ -27,7 +27,7 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "create with all parameters" do
-    assert_difference [ "User.count", "Organization.count", "Category.count", "Membership.count" ] do
+    assert_difference [ "User.count", "Organization.count", "Category.count" ] do
       post first_run_url, params: {
         first_run: {
           username: "new_person",
@@ -51,11 +51,11 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
     assert_equal "Test Organization", Organization.last.name
     assert_equal "Custom Category", Category.last.name
 
-    assert_equal user, Organization.last.owner
+    assert_predicate User.last, :administrator?
   end
 
   test "create fails with missing information" do
-    assert_no_difference [ "User.count", "Organization.count", "Category.count", "Membership.count" ] do
+    assert_no_difference [ "User.count", "Organization.count", "Category.count" ] do
       post first_run_url, params: {
         first_run: {
           email_address: "new@feedbackbin.com",

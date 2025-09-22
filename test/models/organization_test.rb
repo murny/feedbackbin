@@ -18,19 +18,6 @@ class OrganizationTest < ActiveSupport::TestCase
     assert_equal "can't be blank", @organization.errors[:name].first
   end
 
-  test "invalid without owner" do
-    @organization.owner = nil
-
-    assert_not_predicate @organization, :valid?
-    assert_equal "must exist", @organization.errors[:owner].first
-  end
-
-  test "owner?" do
-    assert @organization.owner?(users(:shane))
-    assert_not @organization.owner?(users(:one))
-    assert_not @organization.owner?(nil)
-  end
-
   test "should accept logo of valid file formats" do
     @organization.logo.attach(io: file_fixture("racecar.jpeg").open, filename: "racecar.jpeg", content_type: "image/jpeg")
 
