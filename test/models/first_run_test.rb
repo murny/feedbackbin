@@ -8,7 +8,7 @@ class FirstRunTest < ActiveSupport::TestCase
   end
 
   test "creating makes first user an administrator and sets up a new category and organization" do
-    assert_difference [ "Category.count", "User.count", "Organization.count", "Membership.count" ] do
+    assert_difference [ "Category.count", "User.count", "Organization.count" ] do
       first_run = FirstRun.new(
         username: "owner_example",
         email_address: "owner@example.com",
@@ -18,11 +18,10 @@ class FirstRunTest < ActiveSupport::TestCase
         category_name: "Test Category"
       ).save!
 
-      assert_predicate first_run.organization.memberships.first, :administrator?
+      assert_predicate first_run.user, :administrator?
       assert_equal "Test Organization", first_run.organization.name
       assert_equal "Test Category", first_run.category.name
       assert_equal "owner@example.com", first_run.user.email_address
-      assert_equal first_run.user.email_address, first_run.organization.owner.email_address
     end
   end
 

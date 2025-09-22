@@ -59,7 +59,7 @@ Rails.application.routes.draw do
 
     namespace :settings do
       resource :branding, only: [ :show, :update ]
-      resources :organization_invitations, only: [ :index, :new, :create, :destroy ]
+      resources :invitations, only: [ :index, :new, :create, :destroy ]
       resources :memberships, except: [ :show ]
       resource :danger_zone, only: [ :show, :destroy ]
 

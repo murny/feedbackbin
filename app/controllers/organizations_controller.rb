@@ -12,7 +12,7 @@ class OrganizationsController < ApplicationController
   def create
     authorize Organization
 
-    @organization = Organization.new(organization_params.merge(owner: Current.user))
+    @organization = Organization.new(organization_params)
 
     if @organization.save
       # Test that we can use flash messages here?

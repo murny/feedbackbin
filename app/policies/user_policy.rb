@@ -12,7 +12,7 @@ class UserPolicy < ApplicationPolicy
   private
 
     def owned?
-      record && membership && record == membership.user
+      record && user && record == user
     end
 
   class Scope < ApplicationPolicy::Scope

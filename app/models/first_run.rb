@@ -43,7 +43,7 @@ class FirstRun
 
     ApplicationRecord.transaction do
       @user = User.create!(user_attributes)
-      @organization = Organization.create!(organization_attributes(@user))
+      @organization = Organization.create!(organization_attributes)
       @category = Category.create!(category_attributes)
       self
     end
@@ -60,16 +60,16 @@ class FirstRun
         name: name,
         email_address: email_address,
         password: password,
-        avatar: avatar
+        avatar: avatar,
+        role: :administrator
       }
     end
 
-    def organization_attributes(user)
+    def organization_attributes
       {
         name: organization_name,
         subdomain: organization_subdomain,
-        logo: organization_logo,
-        owner: user
+        logo: organization_logo
       }
     end
 

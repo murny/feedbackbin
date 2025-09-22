@@ -1,20 +1,19 @@
 # frozen_string_literal: true
 
 class ApplicationPolicy
-  # We use Membership for policies because it contains roles for the current organization
-  # This allows separate roles for each user and organization.
+  # We use User for policies with role-based authorization
   #
   # Defaults:
   # - Allow admins
   # - Deny everyone else
 
-  attr_reader :membership, :record
+  attr_reader :user, :record
 
-  def initialize(membership, record)
+  def initialize(user, record)
     # Uncomment to not allow guest users
-    # raise Pundit::NotAuthorizedError, "must be logged in" unless membership
+    # raise Pundit::NotAuthorizedError, "must be logged in" unless user
 
-    @membership = membership
+    @user = user
     @record = record
   end
 
@@ -49,15 +48,15 @@ class ApplicationPolicy
   private
 
     def admin?
-      membership&.administrator?
+      user&.administrator?
     end
 
   class Scope
-    def initialize(membership, scope)
+    def initialize(user, scope)
       # Uncomment to not allow guest users
-      # raise Pundit::NotAuthorizedError, "must be logged in" unless membership
+      # raise Pundit::NotAuthorizedError, "must be logged in" unless user
 
-      @membership = membership
+      @user = user
       @scope = scope
     end
 
@@ -67,6 +66,6 @@ class ApplicationPolicy
 
     private
 
-      attr_reader :membership, :scope
+      attr_reader :user, :scope
   end
 end

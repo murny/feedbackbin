@@ -9,11 +9,7 @@ class Current < ActiveSupport::CurrentAttributes
     Organization.first
   end
 
-  def membership
-    @membership ||= organization.memberships.includes(:user).find_by(user: user)
-  end
-
-  def organization_admin?
-    !!membership&.administrator?
+  def admin?
+    !!user&.administrator?
   end
 end

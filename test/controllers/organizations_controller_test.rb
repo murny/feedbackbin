@@ -23,8 +23,5 @@ class OrganizationsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_redirected_to admin_root_url(subdomain: Organization.last.subdomain)
-    assert_equal @user, Organization.last.users.first
-    assert_equal "administrator", @user.memberships.last.role
-    assert Organization.last.owner?(@user)
   end
 end

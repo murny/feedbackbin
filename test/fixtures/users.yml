@@ -7,6 +7,7 @@ shane:
   email_verified: true
   password_digest: <%= password_digest %>
   super_admin: true
+  role: administrator
 
 one:
   username: jane_doe
@@ -14,6 +15,7 @@ one:
   email_address: jane.doe@feedbackbin.com
   password_digest: <%= password_digest %>
   bio: Hi I'm Jane Doe
+  role: member
 
 two:
   username: john_smith
@@ -21,3 +23,12 @@ two:
   email_address: john.smith@feedbackbin.com
   password_digest: <%= password_digest %>
   bio: Hi I'm John Smith
+  role: member
+
+bot:
+  username: bot
+  name: Beep Boop
+  email_address: beep.boop@feedbackbin.com
+  password_digest: <%= password_digest %>
+  bio: Hi I'm Beep Boop
+  role: bot

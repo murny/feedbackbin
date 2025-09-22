@@ -12,7 +12,15 @@ module Authenticated
     end
   end
 
-  # TODO: Add AdminConstraint based on Current.organization_admin?
+  class AdminConstraint
+    def matches?(request)
+      if (session = Session.find_by(id: request.cookie_jar.signed[:session_id]))
+        session.user.administrator?
+      else
+        false
+      end
+    end
+  end
 
   class UserConstraint
     def matches?(request)
@@ -30,6 +38,7 @@ module Authenticated
 
   ROLES = {
     super_admin: SuperAdminConstraint,
+    admin: AdminConstraint,
     user: UserConstraint
   }
 
