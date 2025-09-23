@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="{{ page.lang | default: site.lang | default: "en" }}">
+
+{%- include head.html -%}
+
+<body>
+
+  {%- include header.html -%}
+
+  <!-- Construction Notice Banner -->
+  <div class="bg-yellow-100 text-yellow-800 py-3 border-b border-yellow-200">
+    <div class="container text-center">
+      <span class="font-medium">🚧 This site is under construction - Coming Soon! 🚧</span>
+    </div>
+  </div>
+
+  <main class="page-content" aria-label="Content">
+    {{ content }}
+  </main>
+
+  {%- include footer.html -%}
+
+</body>
+
+</html>
