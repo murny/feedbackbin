@@ -1,0 +1,58 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+/* Custom styles for Jekyll 4 site */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin: 2rem 0;
+}
+
+.card {
+  border: 1px solid #e1e4e8;
+  border-radius: 8px;
+  padding: 1.5rem;
+  transition: box-shadow 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.card h3 {
+  margin-top: 0;
+  margin-bottom: 0.5rem;
+}
+
+.card h3 a {
+  text-decoration: none;
+  color: #0366d6;
+}
+
+.card h3 a:hover {
+  text-decoration: underline;
+}
+
+/* Enhanced code blocks */
+pre.highlight {
+  border-radius: 6px;
+  padding: 1rem;
+}
+
+/* Better navigation */
+.site-nav .page-link {
+  margin-left: 1rem;
+}
+
+/* Responsive improvements */
+@media (max-width: 768px) {
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+}
+
+
