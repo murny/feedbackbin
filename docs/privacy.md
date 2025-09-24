@@ -2,6 +2,7 @@
 layout: page
 title: Privacy Policy
 permalink: /privacy/
+description: "Learn how FeedbackBin collects, uses, and protects your personal information when using our feedback management platform."
 ---
 
 # Privacy Policy

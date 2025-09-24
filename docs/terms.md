@@ -2,6 +2,7 @@
 layout: page
 title: Terms of Service
 permalink: /terms/
+description: "Review the terms and conditions governing your use of FeedbackBin's feedback management platform and services."
 ---
 
 # Terms of Service
