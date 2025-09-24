@@ -66,10 +66,10 @@ Configured in `_config.yml` under `header_pages`:
 
 ## Jekyll Configuration
 
-### Current Theme
-- Using `minima` theme (can be customized or replaced)
+### Layouts & Styling
+- Using custom layouts (`_layouts/`) and includes (`_includes/`) with site-wide CSS in `assets/css/`
+- No Jekyll theme is in use; styles are token-driven with light/dark support
 - Custom styling should go in `assets/css/`
-- Override theme templates by creating files in `_layouts/`, `_includes/`, etc.
 
 ### Plugins
 - `jekyll-feed` - RSS/Atom feed generation

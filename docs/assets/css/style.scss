@@ -115,37 +115,7 @@ a:hover {
   font-size: 0.875em;
 }
 
-/* Typography */
-.text-4xl {
-  font-size: 2.25rem;
-  line-height: 2.5rem;
-}
-
-.text-3xl {
-  font-size: 1.875rem;
-  line-height: 2.25rem;
-}
-
-.text-xl {
-  font-size: 1.25rem;
-  line-height: 1.75rem;
-}
-
-.text-lg {
-  font-size: 1.125rem;
-  line-height: 1.75rem;
-}
-
-.text-sm {
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-}
-
-.font-bold { font-weight: 700; }
-.font-semibold { font-weight: 600; }
-.font-medium { font-weight: 500; }
-
-/* Layout */
+/* Custom container with specific max-width */
 .container {
   width: 100%;
   max-width: 1200px;
@@ -153,39 +123,7 @@ a:hover {
   padding: 0 1rem;
 }
 
-.grid {
-  display: grid;
-}
-
-.grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
-.grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-
-.gap-8 { gap: 2rem; }
-.gap-12 { gap: 3rem; }
-.gap-16 { gap: 4rem; }
-
-@media (min-width: 768px) {
-  .md\\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-}
-
-/* Spacing */
-.py-8 { padding-top: 2rem; padding-bottom: 2rem; }
-.py-12 { padding-top: 3rem; padding-bottom: 3rem; }
-.py-16 { padding-top: 4rem; padding-bottom: 4rem; }
-.py-24 { padding-top: 6rem; padding-bottom: 6rem; }
-.py-32 { padding-top: 8rem; padding-bottom: 8rem; }
-.px-4 { padding-left: 1rem; padding-right: 1rem; }
-.mt-8 { margin-top: 2rem; }
-.mb-4 { margin-bottom: 1rem; }
-.mb-8 { margin-bottom: 2rem; }
-.mb-20 { margin-bottom: 5rem; }
-.ml-4 { margin-left: 1rem; }
-
-/* Text Alignment */
-.text-center { text-align: center; }
-.text-left { text-align: left; }
-
-/* Colors */
+/* Custom color utilities using design tokens */
 .text-muted-foreground { color: hsl(var(--muted-foreground)); }
 .text-primary { color: hsl(var(--primary)); }
 
@@ -341,60 +279,7 @@ a:hover {
   height: auto;
 }
 
-/* Filter utilities */
-.filter { filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow); }
-.grayscale { --tw-grayscale: grayscale(100%); filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow); }
-.hover\\:grayscale-0:hover { --tw-grayscale: grayscale(0%); filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow); }
-
-/* Additional Utility Classes */
-.flex { display: flex; }
-.flex-col { flex-direction: column; }
-.flex-wrap { flex-wrap: wrap; }
-.justify-center { justify-content: center; }
-.justify-between { justify-content: space-between; }
-.items-center { align-items: center; }
-.items-start { align-items: flex-start; }
-.gap-3 { gap: 0.75rem; }
-.gap-4 { gap: 1rem; }
-.gap-6 { gap: 1.5rem; }
-.gap-8 { gap: 2rem; }
-.gap-12 { gap: 3rem; }
-.gap-x-12 { column-gap: 3rem; }
-.gap-y-8 { row-gap: 2rem; }
-.max-w-xs { max-width: 20rem; }
-.max-w-2xl { max-width: 42rem; }
-.max-w-4xl { max-width: 56rem; }
-.max-w-5xl { max-width: 64rem; }
-.max-w-6xl { max-width: 72rem; }
-.mx-auto { margin-left: auto; margin-right: auto; }
-.w-5 { width: 1.25rem; }
-.w-8 { width: 2rem; }
-.w-full { width: 100%; }
-.h-5 { height: 1.25rem; }
-.h-8 { height: 2rem; }
-.col-span-2 { grid-column: span 2 / span 2; }
-.rounded-lg { border-radius: 0.5rem; }
-.leading-relaxed { line-height: 1.625; }
-.space-y-2 > * + * { margin-top: 0.5rem; }
-.space-y-3 > * + * { margin-top: 0.75rem; }
-.space-y-4 > * + * { margin-top: 1rem; }
-.space-y-6 > * + * { margin-top: 1.5rem; }
-.opacity-60 { opacity: 0.6; }
-.opacity-90 { opacity: 0.9; }
-.border-primary { border-color: hsl(var(--primary)); }
-.border-border { border-color: hsl(var(--border)); }
-.border-t { border-top-width: 1px; }
-.transition-colors { transition: color 0.15s ease-in-out; }
-
-@media (min-width: 768px) {
-  .md\\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-  .md\\:grid-cols-5 { grid-template-columns: repeat(5, minmax(0, 1fr)); }
-  .md\\:grid-cols-6 { grid-template-columns: repeat(6, minmax(0, 1fr)); }
-  .md\\:flex-row { flex-direction: row; }
-}
-
-/* Background utilities */
-.bg-muted\/50 { background-color: hsl(var(--muted) / 0.5); }
+/* Custom background utilities using design tokens */
 .bg-primary { background-color: hsl(var(--primary)); }
 .text-primary-foreground { color: hsl(var(--primary-foreground)); }
 
@@ -440,5 +325,3 @@ a:hover {
   color: hsl(var(--primary));
   text-decoration: none;
 }
-
-
