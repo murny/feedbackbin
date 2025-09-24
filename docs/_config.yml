@@ -27,6 +27,31 @@ url: "https://feedbackbin.com" # the base hostname & protocol for your site
 twitter_username: feedbackbin
 github_repository: murny/feedbackbin
 
+# SEO settings
+logo: /assets/images/feedbackbin-logo.svg
+image: /assets/images/feedbackbin-logo.svg
+tagline: "The open-source feedback platform that puts you in control"
+author:
+  name: FeedbackBin
+  twitter: feedbackbin
+
+# Social profiles
+social:
+  name: FeedbackBin
+  links:
+    - https://twitter.com/feedbackbin
+    - https://github.com/murny/feedbackbin
+
+# Default SEO settings
+defaults:
+  - scope:
+      path: ""
+    values:
+      image: /assets/images/feedbackbin-logo.svg
+      author:
+        name: FeedbackBin
+        twitter: feedbackbin
+
 # Build settings
 plugins:
   - jekyll-feed
@@ -46,7 +71,6 @@ collections:
 header_pages:
   - docs/index.md
   - guides/index.md
-  - about.md
 
 
 # Exclude from processing.

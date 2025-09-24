@@ -1,10 +1,10 @@
 <footer class="border-t border-border mt-24">
   <div class="container py-16">
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+    <div class="grid grid-cols-2 md:grid-cols-5 gap-8">
 
       <div class="col-span-2">
         <div class="flex items-center gap-3 mb-4">
-          <img src="/assets/images/feedbackbin-logo.svg" alt="FeedbackBin" class="w-8 h-8">
+          <img src="{{ "/assets/images/feedbackbin-logo.svg" | relative_url }}" alt="FeedbackBin" class="w-16 h-16">
           <span class="font-bold text-lg">{{ site.title }}</span>
         </div>
         <p class="text-muted-foreground text-sm leading-relaxed max-w-xs">
@@ -37,7 +37,14 @@
         <h3 class="font-semibold text-sm mb-4">Contact</h3>
         <ul class="space-y-3 text-sm">
           <li><a href="mailto:hello@feedbackbin.com" class="text-muted-foreground hover:text-foreground transition-colors">Email Us</a></li>
-          <li><a href="/about" class="text-muted-foreground hover:text-foreground transition-colors">About</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h3 class="font-semibold text-sm mb-4">Legal</h3>
+        <ul class="space-y-3 text-sm">
+          <li><a href="{{ "/privacy/" | relative_url }}" class="text-muted-foreground hover:text-foreground transition-colors">Privacy Policy</a></li>
+          <li><a href="{{ "/terms/" | relative_url }}" class="text-muted-foreground hover:text-foreground transition-colors">Terms of Service</a></li>
         </ul>
       </div>
 

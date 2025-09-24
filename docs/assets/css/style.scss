@@ -201,35 +201,7 @@ a:hover {
   color: hsl(var(--muted-foreground));
 }
 
-/* Hero Section */
-.hero {
-  background: linear-gradient(to bottom right, hsl(var(--background)), hsl(var(--muted)));
-  border-bottom: 1px solid hsl(var(--border));
-}
-
-.hero-title {
-  font-size: 3rem;
-  font-weight: 800;
-  line-height: 1.1;
-  letter-spacing: -0.02em;
-  background: linear-gradient(to bottom right, hsl(var(--foreground)), hsl(var(--muted-foreground)));
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
-
-@media (min-width: 768px) {
-  .hero-title {
-    font-size: 4rem;
-  }
-}
-
-.hero-subtitle {
-  font-size: 1.25rem;
-  color: hsl(var(--muted-foreground));
-  max-width: 42rem;
-  margin: 0 auto;
-}
+/* Hero section styles now handled by Tailwind classes */
 
 /* Features Section */
 .feature-icon {
@@ -270,14 +242,7 @@ a:hover {
   opacity: 1;
 }
 
-/* Screenshot */
-.screenshot {
-  border-radius: calc(var(--radius) + 4px);
-  border: 1px solid hsl(var(--border));
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
-  max-width: 100%;
-  height: auto;
-}
+/* Screenshot styles now handled by Tailwind classes */
 
 /* Custom background utilities using design tokens */
 .bg-primary { background-color: hsl(var(--primary)); }
@@ -285,14 +250,6 @@ a:hover {
 
 /* Responsive */
 @media (max-width: 768px) {
-  .hero-title {
-    font-size: 2.25rem;
-  }
-
-  .hero-subtitle {
-    font-size: 1.125rem;
-  }
-
   .container {
     padding: 0 1rem;
   }
