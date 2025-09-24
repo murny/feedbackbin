@@ -1,0 +1,19 @@
+---
+layout: default
+---
+
+<div class="container py-16">
+  <div class="max-w-2xl mx-auto">
+    <article class="prose prose-lg">
+      <header class="mb-8">
+        <h1 class="text-4xl font-bold mb-4">{{ page.title }}</h1>
+        <div class="text-muted-foreground">
+          <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%B %d, %Y" }}</time>
+          {% if page.author %} • by {{ page.author }}{% endif %}
+        </div>
+      </header>
+
+      {{ content }}
+    </article>
+  </div>
+</div>
