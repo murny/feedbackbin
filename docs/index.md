@@ -4,12 +4,12 @@ title: "Open-source customer feedback management platform"
 description: "Collect, organize, and act on user feedback to build better products. Self-hosted and fully customizable."
 ---
 
-<div class="hero py-32">
+<div class="py-32 bg-gradient-to-br from-background to-muted border-b border-border">
   <div class="container text-center">
-    <h1 class="hero-title mb-8">
+    <h1 class="text-3xl md:text-4xl lg:text-5xl font-extrabold leading-tight tracking-tight mb-8 bg-gradient-to-br from-foreground to-muted-foreground bg-clip-text text-transparent">
       Build better products with customer feedback
     </h1>
-    <p class="hero-subtitle mb-12">
+    <p class="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-12">
       The open-source feedback platform that puts you in control. Collect feedback. Build better products.
     </p>
     <div class="flex justify-center gap-6 mb-20">
@@ -21,7 +21,7 @@ description: "Collect, organize, and act on user feedback to build better produc
       </a>
     </div>
     <div class="max-w-4xl mx-auto flex justify-center">
-      <img src="/assets/images/dashboard-screenshot.svg" alt="FeedbackBin Dashboard" class="screenshot">
+      <img src="{{ "/assets/images/dashboard-screenshot.svg" | relative_url }}" alt="FeedbackBin Dashboard" class="rounded-xl border border-border shadow-2xl max-w-full h-auto">
     </div>
   </div>
 </div>
@@ -182,7 +182,7 @@ description: "Collect, organize, and act on user feedback to build better produc
       </div>
 
       <div>
-        <img src="/assets/images/features-screenshot.svg" alt="FeedbackBin Features" class="screenshot">
+        <img src="{{ "/assets/images/features-screenshot.svg" | relative_url }}" alt="FeedbackBin Features" class="rounded-xl border border-border shadow-2xl max-w-full h-auto">
       </div>
     </div>
   </div>

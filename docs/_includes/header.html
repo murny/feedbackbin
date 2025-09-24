@@ -2,7 +2,7 @@
   <div class="container">
     <div class="flex justify-between items-center py-4">
       <a class="site-title flex items-center gap-3" rel="author" href="{{ "/" | relative_url }}">
-        <img src="/assets/images/feedbackbin-logo.svg" alt="FeedbackBin" class="w-10 h-10">
+        <img src="{{ "/assets/images/feedbackbin-logo.svg" | relative_url }}" alt="FeedbackBin" class="w-20 h-20">
         <span class="font-bold text-xl">{{ site.title | escape }}</span>
       </a>
 
@@ -14,8 +14,7 @@
               <a class="page-link text-muted-foreground hover:text-foreground transition-colors font-medium" href="{{ my_page.url | relative_url }}">{{ my_page.title | escape }}</a>
             {%- endif -%}
           {%- endfor -%}
-          <a class="page-link text-muted-foreground hover:text-foreground transition-colors font-medium" href="{{ "/about/" | relative_url }}">About</a>
-          <a class="btn btn-primary ml-4" href="https://github.com/murny/feedbackbin">Get Started</a>
+          <a class="btn btn-primary ml-4" href="https://github.com/{{ site.github_repository }}">Get Started</a>
         </div>
       </nav>
     </div>
