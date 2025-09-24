@@ -73,6 +73,8 @@ Configured in `_config.yml` under `header_pages`:
 
 ### Plugins
 - `jekyll-feed` - RSS/Atom feed generation
+- `jekyll-seo-tag` - SEO metadata and social media tags (add `{% seo %}` to head include)
+- `jekyll-sitemap` - XML sitemap generation
 - Additional plugins can be added to Gemfile under `:jekyll_plugins` group
 
 ### Collections Configuration
@@ -95,11 +97,36 @@ collections:
 
 ## SEO and Performance
 
-- Add proper meta descriptions to all pages
-- Use semantic HTML structure
-- Optimize images in `assets/` directory
-- Consider adding sitemap.xml and robots.txt
-- Implement structured data for better search visibility
+- We use `jekyll-seo-tag` (SEO), `jekyll-sitemap` (sitemap.xml), and `jekyll-feed` (RSS). Meta tags, canonical URLs, Open Graph, and Twitter Cards are generated automatically—do not add them by hand.
+- Ensure site-wide config in `_config.yml` is correct:
+  - `url`, `baseurl`, `title`, `description`, `twitter_username`
+  - Optional defaults to improve social previews:
+    - `image`: default Open Graph image (e.g., `/assets/images/og-default.png`)
+    - `logo`: site logo for structured data
+- Authoring checklist (per page/post front matter):
+  - Required: `title`, `description` (~50–160 chars)
+  - Recommended: `image` (absolute or site-relative), `tags`
+  - Example:
+    ```yaml
+    ---
+    title: Collect better product feedback
+    description: Learn how FeedbackBin helps teams centralize and prioritize feedback.
+    image: /assets/images/og/collect-feedback.png
+    tags: [docs, guides]
+    ---
+    ```
+- Sitemaps: Generated automatically at `/sitemap.xml` (no manual action needed).
+- Robots: Add a `robots.txt` if needed. Example:
+  ```
+  User-agent: *
+  Allow: /
+
+  Sitemap: https://feedbackbin.com/sitemap.xml
+  ```
+- Performance:
+  - Optimize images (compress, prefer SVG when possible); use `loading="lazy"` on `<img>`.
+  - Keep pages lean; avoid blocking scripts/styles. Reuse components and shared includes.
+  - Use descriptive headings and semantic HTML for accessibility and rich snippets.
 
 ## Content Organization Tips
 
