@@ -25,7 +25,7 @@ description: >- # this means to ignore newlines until "baseurl:"
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "https://feedbackbin.com" # the base hostname & protocol for your site
 twitter_username: feedbackbin
-github_username: murny/feedbackbin
+github_repository: murny/feedbackbin
 
 # Build settings
 plugins:
