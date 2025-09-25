@@ -4,7 +4,7 @@ layout: default
 
 <div class="docs-layout">
   <!-- Sidebar -->
-  <aside class="docs-sidebar fixed top-16 left-0 z-40 w-64 h-full transition-transform -translate-x-full lg:translate-x-0" aria-label="Sidebar">
+  <aside id="logo-sidebar" class="docs-sidebar fixed top-16 left-0 z-40 w-64 h-full transition-transform -translate-x-full lg:translate-x-0" aria-label="Sidebar">
     <div class="h-full px-3 py-4 overflow-y-auto bg-background border-r border-border">
       <nav class="space-y-2">
         <!-- Documentation Navigation -->
@@ -58,7 +58,7 @@ layout: default
           <h3 class="mb-2 px-3 text-sm font-semibold text-muted-foreground uppercase tracking-wide">Help</h3>
           <ul class="space-y-1">
             <li>
-              <a href="https://github.com/{{ site.github_repository }}/issues" target="_blank" class="flex items-center px-3 py-2 text-sm font-medium rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
+              <a href="https://github.com/{{ site.github_repository }}/issues" target="_blank" rel="noopener noreferrer" class="flex items-center px-3 py-2 text-sm font-medium rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
                 <svg class="w-4 h-4 mr-3" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.19 2.469 5.659C4.615 18.367 4.5 19.105 4.5 20.25v.75c0 .414.336.75.75.75h6zm0-9.75h.008v.008H12V10.5z" />
                 </svg>
@@ -135,7 +135,7 @@ layout: default
 
         <!-- Edit this page -->
         <div class="mt-12 pt-6 border-t border-border">
-          <a href="https://github.com/{{ site.github_repository }}/edit/main/docs{{ page.path }}" target="_blank" class="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors">
+          <a href="https://github.com/{{ site.github_repository }}/edit/main/docs/{{ page.path }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors">
             <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
               <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
             </svg>
