@@ -2,163 +2,236 @@
 layout: default
 ---
 
-<div class="docs-layout">
-  <!-- Sidebar -->
-  <aside id="logo-sidebar" class="docs-sidebar fixed top-16 left-0 z-40 w-64 h-full transition-transform -translate-x-full lg:translate-x-0" aria-label="Sidebar">
-    <div class="h-full px-3 py-4 overflow-y-auto bg-background border-r border-border">
-      <nav class="space-y-2">
-        <!-- Documentation Navigation -->
-        <div class="pb-4">
-          <h3 class="mb-2 px-3 text-sm font-semibold text-muted-foreground uppercase tracking-wide">Documentation</h3>
-          <ul class="space-y-1">
-            <li>
-              <a href="{{ "/docs/" | relative_url }}" class="flex items-center px-3 py-2 text-sm font-medium rounded-lg hover:bg-muted transition-colors {% if page.url == '/docs/' %}bg-muted text-foreground{% else %}text-muted-foreground hover:text-foreground{% endif %}">
-                <svg class="w-4 h-4 mr-3" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0118 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
-                </svg>
-                Introduction
-              </a>
-            </li>
-            <li>
-              <a href="{{ "/docs/getting-started/" | relative_url }}" class="flex items-center px-3 py-2 text-sm font-medium rounded-lg hover:bg-muted transition-colors {% if page.url contains '/docs/getting-started' %}bg-muted text-foreground{% else %}text-muted-foreground hover:text-foreground{% endif %}">
-                <svg class="w-4 h-4 mr-3" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" />
-                </svg>
-                Getting Started
-              </a>
-            </li>
-            <li>
-              <a href="{{ "/docs/guides/" | relative_url }}" class="flex items-center px-3 py-2 text-sm font-medium rounded-lg hover:bg-muted transition-colors {% if page.url contains '/docs/guides' %}bg-muted text-foreground{% else %}text-muted-foreground hover:text-foreground{% endif %}">
-                <svg class="w-4 h-4 mr-3" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
-                </svg>
-                Guides
-              </a>
-            </li>
-          </ul>
-        </div>
+<div id="sidebar-backdrop" class="fixed inset-0 z-40 bg-black/50 lg:hidden hidden" aria-hidden="true"></div>
 
-        <!-- API Reference -->
-        <div class="pb-4">
-          <h3 class="mb-2 px-3 text-sm font-semibold text-muted-foreground uppercase tracking-wide">API</h3>
-          <ul class="space-y-1">
-            <li>
-              <a href="{{ "/docs/api/" | relative_url }}" class="flex items-center px-3 py-2 text-sm font-medium rounded-lg hover:bg-muted transition-colors {% if page.url contains '/docs/api' %}bg-muted text-foreground{% else %}text-muted-foreground hover:text-foreground{% endif %}">
-                <svg class="w-4 h-4 mr-3" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
-                </svg>
-                API Reference
-              </a>
-            </li>
-          </ul>
-        </div>
+<div class="flex min-h-screen">
+  <aside id="logo-sidebar"
+         class="fixed inset-y-0 left-0 z-50 w-64 bg-background border-r border-border transform -translate-x-full transition-transform duration-200 ease-in-out lg:translate-x-0 lg:static lg:inset-0"
+         aria-label="Sidebar">
+    <div class="flex flex-col h-full">
+      <div class="flex items-center h-16 px-4 border-b border-border lg:hidden">
+        <span class="text-lg font-semibold">Documentation</span>
+        <button type="button"
+                id="sidebar-close-btn"
+                class="ml-auto p-2 rounded-md text-muted-foreground hover:bg-muted hover:text-foreground focus:outline-none focus:ring-2 focus:ring-ring">
+          <span class="sr-only">Close sidebar</span>
+          <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
 
-        <!-- Help -->
-        <div class="pb-4">
-          <h3 class="mb-2 px-3 text-sm font-semibold text-muted-foreground uppercase tracking-wide">Help</h3>
-          <ul class="space-y-1">
-            <li>
-              <a href="https://github.com/{{ site.github_repository }}/issues" target="_blank" rel="noopener noreferrer" class="flex items-center px-3 py-2 text-sm font-medium rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
-                <svg class="w-4 h-4 mr-3" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.19 2.469 5.659C4.615 18.367 4.5 19.105 4.5 20.25v.75c0 .414.336.75.75.75h6zm0-9.75h.008v.008H12V10.5z" />
-                </svg>
-                Support
-                <svg class="w-3 h-3 ml-auto" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
-                </svg>
-              </a>
-            </li>
-          </ul>
+      <nav class="flex-1 px-3 py-4 overflow-y-auto">
+        <div class="space-y-6">
+          <div>
+            <h3 class="mb-3 px-3 text-xs font-semibold text-muted-foreground uppercase tracking-wide">Documentation</h3>
+            <ul class="space-y-1">
+              <li>
+                <a href="{{ "/docs/" | relative_url }}"
+                   class="flex items-center px-3 py-2 text-sm font-medium rounded-lg hover:bg-muted transition-colors {% if page.url == '/docs/' %}bg-muted text-foreground{% else %}text-muted-foreground hover:text-foreground{% endif %}">
+                  <svg class="w-4 h-4 mr-3" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6.042A8.967 8.967 0 006 3.75c-1.052 0-2.062.18-3 .512v14.25A8.987 8.987 0 016 18c2.305 0 4.408.867 6 2.292m0-14.25a8.966 8.966 0 016-2.292c1.052 0 2.062.18 3 .512v14.25A8.987 8.987 0 0118 18a8.967 8.967 0 00-6 2.292m0-14.25v14.25" />
+                  </svg>
+                  Introduction
+                </a>
+              </li>
+              <li>
+                <a href="{{ "/docs/getting-started/" | relative_url }}"
+                   class="flex items-center px-3 py-2 text-sm font-medium rounded-lg hover:bg-muted transition-colors {% if page.url contains '/docs/getting-started' %}bg-muted text-foreground{% else %}text-muted-foreground hover:text-foreground{% endif %}">
+                  <svg class="w-4 h-4 mr-3" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" />
+                  </svg>
+                  Getting Started
+                </a>
+              </li>
+              <li>
+                <a href="{{ "/docs/guides/" | relative_url }}"
+                   class="flex items-center px-3 py-2 text-sm font-medium rounded-lg hover:bg-muted transition-colors {% if page.url contains '/docs/guides' %}bg-muted text-foreground{% else %}text-muted-foreground hover:text-foreground{% endif %}">
+                  <svg class="w-4 h-4 mr-3" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M9.879 7.519c1.171-1.025 3.071-1.025 4.242 0 1.172 1.025 1.172 2.687 0 3.712-.203.179-.43.326-.67.442-.745.361-1.45.999-1.45 1.827v.75M21 12a9 9 0 11-18 0 9 9 0 0118 0zm-9 5.25h.008v.008H12v-.008z" />
+                  </svg>
+                  Guides
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="mb-3 px-3 text-xs font-semibold text-muted-foreground uppercase tracking-wide">API</h3>
+            <ul class="space-y-1">
+              <li>
+                <a href="{{ "/docs/api/" | relative_url }}"
+                   class="flex items-center px-3 py-2 text-sm font-medium rounded-lg hover:bg-muted transition-colors {% if page.url contains '/docs/api' %}bg-muted text-foreground{% else %}text-muted-foreground hover:text-foreground{% endif %}">
+                  <svg class="w-4 h-4 mr-3" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5" />
+                  </svg>
+                  API Reference
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 class="mb-3 px-3 text-xs font-semibold text-muted-foreground uppercase tracking-wide">Help</h3>
+            <ul class="space-y-1">
+              <li>
+                <a href="https://github.com/{{ site.github_repository }}/issues"
+                   target="_blank"
+                   rel="noopener noreferrer"
+                   class="flex items-center px-3 py-2 text-sm font-medium rounded-lg text-muted-foreground hover:text-foreground hover:bg-muted transition-colors">
+                  <svg class="w-4 h-4 mr-3" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 20.25c4.97 0 9-3.694 9-8.25s-4.03-8.25-9-8.25S3 7.444 3 12c0 2.104.859 4.19 2.469 5.659C4.615 18.367 4.5 19.105 4.5 20.25v.75c0 .414.336.75.75.75h6zm0-9.75h.008v.008H12V10.5z" />
+                  </svg>
+                  Support
+                  <svg class="w-3 h-3 ml-auto" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
+                  </svg>
+                </a>
+              </li>
+            </ul>
+          </div>
         </div>
       </nav>
     </div>
   </aside>
 
-  <!-- Main Content -->
-  <main class="lg:pl-64">
-    <div class="px-4 py-6 lg:px-8">
-      <!-- Mobile sidebar toggle -->
-      <button type="button" class="inline-flex items-center p-2 text-sm text-muted-foreground rounded-lg lg:hidden hover:bg-muted focus:outline-none focus:ring-2 focus:ring-ring" aria-controls="logo-sidebar" aria-expanded="false">
+  <main class="flex-1 min-w-0">
+    <div class="lg:hidden flex items-center justify-between p-4 border-b border-border bg-background">
+      <button type="button"
+              id="sidebar-toggle"
+              class="p-2 rounded-md text-muted-foreground hover:bg-muted hover:text-foreground focus:outline-none focus:ring-2 focus:ring-ring">
         <span class="sr-only">Open sidebar</span>
-        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-          <path clip-rule="evenodd" fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"></path>
+        <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
         </svg>
       </button>
+      <span class="text-lg font-semibold">Documentation</span>
+      <div class="w-8"></div> <!-- Spacer for centering -->
+    </div>
 
-      <!-- Breadcrumbs -->
-      <nav class="flex mb-6" aria-label="Breadcrumb">
-        <ol class="inline-flex items-center space-x-1 md:space-x-3">
-          <li class="inline-flex items-center">
-            <a href="{{ "/" | relative_url }}" class="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
-              <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
+    <div class="px-4 py-6 lg:px-8">
+        <!-- Breadcrumbs -->
+        <nav class="flex mb-6" aria-label="Breadcrumb">
+          <ol class="inline-flex items-center space-x-1 md:space-x-3">
+            <li class="inline-flex items-center">
+              <a href="{{ "/" | relative_url }}"
+                 class="inline-flex items-center text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">
+                <svg class="w-4 h-4 mr-2" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z"></path>
+                </svg>
+                Home
+              </a>
+            </li>
+            {% assign url_parts = page.url | split: '/' %}
+            {% assign url_build = '' %}
+            {% for part in url_parts %}
+              {% unless part == '' %}
+                {% assign url_build = url_build | append: '/' | append: part %}
+                <li>
+                  <div class="flex items-center">
+                    <svg class="w-6 h-6 text-muted-foreground" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                      <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                    </svg>
+                    {% if forloop.last %}
+                      <span class="ml-1 text-sm font-medium text-foreground md:ml-2">{{ page.title | default: part | capitalize }}</span>
+                    {% else %}
+                      <a href="{{ url_build | relative_url }}"
+                         class="ml-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors md:ml-2">{{ part | capitalize }}</a>
+                    {% endif %}
+                  </div>
+                </li>
+              {% endunless %}
+            {% endfor %}
+          </ol>
+        </nav>
+
+        <!-- Page Content -->
+        <div class="max-w-none">
+          <!-- Page Header -->
+          <div class="mb-8">
+            <h1 class="text-3xl font-bold tracking-tight mb-4">{{ page.title }}</h1>
+            {% if page.description %}
+              <p class="text-xl text-muted-foreground max-w-3xl">{{ page.description }}</p>
+            {% endif %}
+          </div>
+
+          <!-- Content -->
+          <div class="prose prose-slate dark:prose-invert max-w-none prose-lg">
+            {{ content }}
+          </div>
+
+          <!-- Edit this page -->
+          <div class="mt-12 pt-6 border-t border-border">
+            <a href="https://github.com/{{ site.github_repository }}/edit/main/docs/{{ page.path }}"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
               </svg>
-              Home
+              Edit this page on GitHub
             </a>
-          </li>
-          {% assign url_parts = page.url | split: '/' %}
-          {% assign url_build = '' %}
-          {% for part in url_parts %}
-            {% unless part == '' %}
-              {% assign url_build = url_build | append: '/' | append: part %}
-              <li>
-                <div class="flex items-center">
-                  <svg class="w-6 h-6 text-muted-foreground" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
-                  </svg>
-                  {% if forloop.last %}
-                    <span class="ml-1 text-sm font-medium text-foreground md:ml-2">{{ page.title | default: part | capitalize }}</span>
-                  {% else %}
-                    <a href="{{ url_build | relative_url }}" class="ml-1 text-sm font-medium text-muted-foreground hover:text-foreground transition-colors md:ml-2">{{ part | capitalize }}</a>
-                  {% endif %}
-                </div>
-              </li>
-            {% endunless %}
-          {% endfor %}
-        </ol>
-      </nav>
-
-      <!-- Page Content -->
-      <div class="max-w-none">
-        <!-- Page Header -->
-        <div class="mb-8">
-          <h1 class="text-3xl font-bold tracking-tight mb-4">{{ page.title }}</h1>
-          {% if page.description %}
-            <p class="text-xl text-muted-foreground max-w-3xl">{{ page.description }}</p>
-          {% endif %}
+          </div>
         </div>
-
-        <!-- Content -->
-        <div class="prose prose-slate dark:prose-invert max-w-none prose-lg">
-          {{ content }}
-        </div>
-
-        <!-- Edit this page -->
-        <div class="mt-12 pt-6 border-t border-border">
-          <a href="https://github.com/{{ site.github_repository }}/edit/main/docs/{{ page.path }}" target="_blank" rel="noopener noreferrer" class="inline-flex items-center text-sm text-muted-foreground hover:text-foreground transition-colors">
-            <svg class="w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-            </svg>
-            Edit this page on GitHub
-          </a>
-        </div>
-      </div>
     </div>
   </main>
 </div>
 
 <script>
-// Mobile sidebar toggle
+// Mobile sidebar functionality
 document.addEventListener('DOMContentLoaded', function() {
-  const sidebarToggle = document.querySelector('[aria-controls="logo-sidebar"]');
-  const sidebar = document.querySelector('.docs-sidebar');
+  const sidebarToggle = document.getElementById('sidebar-toggle');
+  const sidebarCloseBtn = document.getElementById('sidebar-close-btn');
+  const sidebar = document.getElementById('logo-sidebar');
+  const backdrop = document.getElementById('sidebar-backdrop');
 
-  if (sidebarToggle && sidebar) {
-    sidebarToggle.addEventListener('click', function() {
-      const isExpanded = sidebarToggle.getAttribute('aria-expanded') === 'true';
-      sidebarToggle.setAttribute('aria-expanded', !isExpanded);
-      sidebar.classList.toggle('-translate-x-full');
-    });
+  function openSidebar() {
+    sidebar.classList.remove('-translate-x-full');
+    backdrop.classList.remove('hidden');
+    document.body.classList.add('overflow-hidden');
   }
+
+  function closeSidebar() {
+    sidebar.classList.add('-translate-x-full');
+    backdrop.classList.add('hidden');
+    document.body.classList.remove('overflow-hidden');
+  }
+
+  // Open sidebar when toggle is clicked
+  if (sidebarToggle) {
+    sidebarToggle.addEventListener('click', openSidebar);
+  }
+
+  // Close sidebar when close button is clicked
+  if (sidebarCloseBtn) {
+    sidebarCloseBtn.addEventListener('click', closeSidebar);
+  }
+
+  // Close sidebar when backdrop is clicked
+  if (backdrop) {
+    backdrop.addEventListener('click', closeSidebar);
+  }
+
+  // Close sidebar when escape key is pressed
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && !backdrop.classList.contains('hidden')) {
+      closeSidebar();
+    }
+  });
+
+  // Close sidebar on window resize to large screen
+  window.addEventListener('resize', function() {
+    if (window.innerWidth >= 1024) { // lg breakpoint
+      closeSidebar();
+    }
+  });
+
+  // Debug logging to help identify issues
+  console.log('Sidebar elements found:', {
+    toggle: !!sidebarToggle,
+    close: !!sidebarCloseBtn,
+    sidebar: !!sidebar,
+    backdrop: !!backdrop
+  });
 });
 </script>
