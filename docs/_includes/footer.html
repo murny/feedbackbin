@@ -27,8 +27,8 @@
       <div>
         <h3 class="font-semibold text-sm mb-4">Product</h3>
         <ul class="space-y-3 text-sm">
-          <li><a href="/docs" class="text-muted-foreground hover:text-foreground transition-colors">Documentation</a></li>
-          <li><a href="/guides" class="text-muted-foreground hover:text-foreground transition-colors">Guides</a></li>
+          <li><a href="{{ "/docs/" | relative_url }}" class="text-muted-foreground hover:text-foreground transition-colors">Documentation</a></li>
+          <li><a href="{{ "/docs/guides/" | relative_url }}" class="text-muted-foreground hover:text-foreground transition-colors">Guides</a></li>
           <li><a href="https://github.com/{{ site.github_repository }}" class="text-muted-foreground hover:text-foreground transition-colors">GitHub</a></li>
         </ul>
       </div>

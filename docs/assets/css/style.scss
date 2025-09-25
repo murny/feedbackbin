@@ -90,22 +90,40 @@ a:hover {
   max-width: none;
 }
 
-.prose h1 { font-size: 2.25rem; }
-.prose h2 { font-size: 1.875rem; }
-.prose h3 { font-size: 1.5rem; }
-.prose h4 { font-size: 1.25rem; }
+.prose h1 { font-size: 2.25rem; margin-bottom: 1.5rem; }
+.prose h2 {
+  font-size: 1.875rem;
+  margin-top: 2.5rem;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid hsl(var(--border));
+}
+.prose h3 {
+  font-size: 1.5rem;
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+}
+.prose h4 {
+  font-size: 1.25rem;
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
 
 .prose p {
-  margin-bottom: 1.25em;
+  margin-bottom: 1.5em;
+  line-height: 1.7;
+  max-width: 75ch;
 }
 
 .prose ul, .prose ol {
   padding-left: 1.625em;
-  margin-bottom: 1.25em;
+  margin-bottom: 1.5em;
+  max-width: 75ch;
 }
 
 .prose li {
   margin-bottom: 0.5em;
+  line-height: 1.6;
 }
 
 .prose code {
@@ -113,6 +131,16 @@ a:hover {
   padding: 0.125rem 0.25rem;
   border-radius: 0.25rem;
   font-size: 0.875em;
+}
+
+/* Grid layouts should use full width */
+.prose .grid {
+  max-width: none;
+}
+
+/* Cards and interactive elements use full width */
+.prose a[class*="block"] {
+  max-width: none;
 }
 
 /* Custom container with specific max-width */

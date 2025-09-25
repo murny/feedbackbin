@@ -59,18 +59,9 @@ plugins:
   - jekyll-sitemap
 
 
-collections:
-  docs:
-    output: true
-    permalink: /:collection/:name/
-  guides:
-    output: true
-    permalink: /guides/:name/
-
 # Navigation structure
 header_pages:
   - docs/index.md
-  - guides/index.md
 
 
 # Exclude from processing.
