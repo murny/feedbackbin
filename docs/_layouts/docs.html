@@ -13,6 +13,7 @@ layout: default
         <span class="text-lg font-semibold">Documentation</span>
         <button type="button"
                 id="sidebar-close-btn"
+                aria-controls="logo-sidebar"
                 class="ml-auto p-2 rounded-md text-muted-foreground hover:bg-muted hover:text-foreground focus:outline-none focus:ring-2 focus:ring-ring">
           <span class="sr-only">Close sidebar</span>
           <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -99,6 +100,8 @@ layout: default
     <div class="lg:hidden flex items-center justify-between p-4 border-b border-border bg-background">
       <button type="button"
               id="sidebar-toggle"
+              aria-controls="logo-sidebar"
+              aria-expanded="false"
               class="p-2 rounded-md text-muted-foreground hover:bg-muted hover:text-foreground focus:outline-none focus:ring-2 focus:ring-ring">
         <span class="sr-only">Open sidebar</span>
         <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
@@ -189,12 +192,22 @@ document.addEventListener('DOMContentLoaded', function() {
     sidebar.classList.remove('-translate-x-full');
     backdrop.classList.remove('hidden');
     document.body.classList.add('overflow-hidden');
+
+    // Update ARIA attributes
+    if (sidebarToggle) {
+      sidebarToggle.setAttribute('aria-expanded', 'true');
+    }
   }
 
   function closeSidebar() {
     sidebar.classList.add('-translate-x-full');
     backdrop.classList.add('hidden');
     document.body.classList.remove('overflow-hidden');
+
+    // Update ARIA attributes
+    if (sidebarToggle) {
+      sidebarToggle.setAttribute('aria-expanded', 'false');
+    }
   }
 
   // Open sidebar when toggle is clicked
@@ -226,12 +239,5 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-  // Debug logging to help identify issues
-  console.log('Sidebar elements found:', {
-    toggle: !!sidebarToggle,
-    close: !!sidebarCloseBtn,
-    sidebar: !!sidebar,
-    backdrop: !!backdrop
-  });
 });
 </script>
