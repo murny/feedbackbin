@@ -19,19 +19,19 @@ FeedbackBin is configured entirely through environment variables. Set these in y
     </thead>
     <tbody>
       <tr>
-        <td class="border border-border px-4 py-3 font-mono text-sm">`RAILS_ENV`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>RAILS_ENV</code></td>
         <td class="border border-border px-4 py-3">Rails environment</td>
-        <td class="border border-border px-4 py-3 font-mono text-sm">`production`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>production</code></td>
       </tr>
       <tr class="bg-muted/50">
-        <td class="border border-border px-4 py-3 font-mono text-sm">`RAILS_MASTER_KEY`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>RAILS_MASTER_KEY</code></td>
         <td class="border border-border px-4 py-3">Rails credentials encryption key</td>
-        <td class="border border-border px-4 py-3 font-mono text-sm">`abc123...` (64 chars)</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>abc123...</code> (64 chars)</td>
       </tr>
       <tr>
-        <td class="border border-border px-4 py-3 font-mono text-sm">`SELF_HOSTED`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>SELF_HOSTED</code></td>
         <td class="border border-border px-4 py-3">Enable self-hosted features</td>
-        <td class="border border-border px-4 py-3 font-mono text-sm">`true`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>true</code></td>
       </tr>
     </tbody>
   </table>
@@ -51,34 +51,34 @@ FeedbackBin is configured entirely through environment variables. Set these in y
     </thead>
     <tbody>
       <tr>
-        <td class="border border-border px-4 py-3 font-mono text-sm">`WEB_CONCURRENCY`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>WEB_CONCURRENCY</code></td>
         <td class="border border-border px-4 py-3">Number of Puma workers</td>
-        <td class="border border-border px-4 py-3 font-mono text-sm">`1`</td>
-        <td class="border border-border px-4 py-3">`2-4` (based on CPU cores)</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>1</code></td>
+        <td class="border border-border px-4 py-3"><code>2-4</code> (based on CPU cores)</td>
       </tr>
       <tr class="bg-muted/50">
-        <td class="border border-border px-4 py-3 font-mono text-sm">`RAILS_MAX_THREADS`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>RAILS_MAX_THREADS</code></td>
         <td class="border border-border px-4 py-3">Max threads per worker</td>
-        <td class="border border-border px-4 py-3 font-mono text-sm">`5`</td>
-        <td class="border border-border px-4 py-3">`5-10`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>5</code></td>
+        <td class="border border-border px-4 py-3"><code>5-10</code></td>
       </tr>
       <tr>
-        <td class="border border-border px-4 py-3 font-mono text-sm">`DB_POOL`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>DB_POOL</code></td>
         <td class="border border-border px-4 py-3">Database connection pool size</td>
-        <td class="border border-border px-4 py-3 font-mono text-sm">`5`</td>
-        <td class="border border-border px-4 py-3">Same as `RAILS_MAX_THREADS`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>5</code></td>
+        <td class="border border-border px-4 py-3">Same as <code>RAILS_MAX_THREADS</code></td>
       </tr>
       <tr class="bg-muted/50">
-        <td class="border border-border px-4 py-3 font-mono text-sm">`SOLID_QUEUE_IN_PUMA`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>SOLID_QUEUE_IN_PUMA</code></td>
         <td class="border border-border px-4 py-3">Run background jobs in web process</td>
-        <td class="border border-border px-4 py-3 font-mono text-sm">`true`</td>
-        <td class="border border-border px-4 py-3">`true` (single server), `false` (multi-server)</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>true</code></td>
+        <td class="border border-border px-4 py-3"><code>true</code> (single server), <code>false</code> (multi-server)</td>
       </tr>
       <tr>
-        <td class="border border-border px-4 py-3 font-mono text-sm">`JOB_CONCURRENCY`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>JOB_CONCURRENCY</code></td>
         <td class="border border-border px-4 py-3">Background job worker count</td>
-        <td class="border border-border px-4 py-3 font-mono text-sm">`1`</td>
-        <td class="border border-border px-4 py-3">`2-5`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>1</code></td>
+        <td class="border border-border px-4 py-3"><code>2-5</code></td>
       </tr>
     </tbody>
   </table>
@@ -98,22 +98,22 @@ FeedbackBin is configured entirely through environment variables. Set these in y
     </thead>
     <tbody>
       <tr>
-        <td class="border border-border px-4 py-3 font-mono text-sm">`FORCE_SSL`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>FORCE_SSL</code></td>
         <td class="border border-border px-4 py-3">Force HTTPS redirects</td>
-        <td class="border border-border px-4 py-3 font-mono text-sm">`true`</td>
-        <td class="border border-border px-4 py-3">Set to `false` for development only</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>true</code></td>
+        <td class="border border-border px-4 py-3">Set to <code>false</code> for development only</td>
       </tr>
       <tr class="bg-muted/50">
-        <td class="border border-border px-4 py-3 font-mono text-sm">`ASSUME_SSL`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>ASSUME_SSL</code></td>
         <td class="border border-border px-4 py-3">Assume SSL termination at proxy</td>
-        <td class="border border-border px-4 py-3 font-mono text-sm">`true`</td>
-        <td class="border border-border px-4 py-3">Keep `true` for reverse proxy setups</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>true</code></td>
+        <td class="border border-border px-4 py-3">Keep <code>true</code> for reverse proxy setups</td>
       </tr>
       <tr>
-        <td class="border border-border px-4 py-3 font-mono text-sm">`SECRET_KEY_BASE`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>SECRET_KEY_BASE</code></td>
         <td class="border border-border px-4 py-3">Session encryption key</td>
         <td class="border border-border px-4 py-3">Generated</td>
-        <td class="border border-border px-4 py-3">Auto-generated from `RAILS_MASTER_KEY`</td>
+        <td class="border border-border px-4 py-3">Auto-generated from <code>RAILS_MASTER_KEY</code></td>
       </tr>
     </tbody>
   </table>
@@ -133,28 +133,28 @@ FeedbackBin is configured entirely through environment variables. Set these in y
     </thead>
     <tbody>
       <tr>
-        <td class="border border-border px-4 py-3 font-mono text-sm">`APP_NAME`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>APP_NAME</code></td>
         <td class="border border-border px-4 py-3">Application name in UI</td>
-        <td class="border border-border px-4 py-3 font-mono text-sm">`FeedbackBin`</td>
-        <td class="border border-border px-4 py-3">`Acme Feedback`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>FeedbackBin</code></td>
+        <td class="border border-border px-4 py-3"><code>Acme Feedback</code></td>
       </tr>
       <tr class="bg-muted/50">
-        <td class="border border-border px-4 py-3 font-mono text-sm">`APP_TAGLINE`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>APP_TAGLINE</code></td>
         <td class="border border-border px-4 py-3">Subtitle/description</td>
-        <td class="border border-border px-4 py-3 font-mono text-sm">`Feedback Management`</td>
-        <td class="border border-border px-4 py-3">`Customer Insights Hub`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>Feedback Management</code></td>
+        <td class="border border-border px-4 py-3"><code>Customer Insights Hub</code></td>
       </tr>
       <tr>
-        <td class="border border-border px-4 py-3 font-mono text-sm">`SUPPORT_EMAIL`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>SUPPORT_EMAIL</code></td>
         <td class="border border-border px-4 py-3">Contact email for support</td>
-        <td class="border border-border px-4 py-3 font-mono text-sm">`support@feedbackbin.com`</td>
-        <td class="border border-border px-4 py-3">`help@yourcompany.com`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>support@feedbackbin.com</code></td>
+        <td class="border border-border px-4 py-3"><code>help@yourcompany.com</code></td>
       </tr>
       <tr class="bg-muted/50">
-        <td class="border border-border px-4 py-3 font-mono text-sm">`RAILS_LOG_LEVEL`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>RAILS_LOG_LEVEL</code></td>
         <td class="border border-border px-4 py-3">Logging verbosity</td>
-        <td class="border border-border px-4 py-3 font-mono text-sm">`info`</td>
-        <td class="border border-border px-4 py-3">`debug`, `warn`, `error`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>info</code></td>
+        <td class="border border-border px-4 py-3"><code>debug</code>, <code>warn</code>, <code>error</code></td>
       </tr>
     </tbody>
   </table>
@@ -173,24 +173,24 @@ FeedbackBin is configured entirely through environment variables. Set these in y
     </thead>
     <tbody>
       <tr>
-        <td class="border border-border px-4 py-3 font-mono text-sm">`ALLOW_SIGNUP`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>ALLOW_SIGNUP</code></td>
         <td class="border border-border px-4 py-3">Enable user registration</td>
-        <td class="border border-border px-4 py-3 font-mono text-sm">`true`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>true</code></td>
       </tr>
       <tr class="bg-muted/50">
-        <td class="border border-border px-4 py-3 font-mono text-sm">`REQUIRE_EMAIL_CONFIRMATION`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>REQUIRE_EMAIL_CONFIRMATION</code></td>
         <td class="border border-border px-4 py-3">Require email verification</td>
-        <td class="border border-border px-4 py-3 font-mono text-sm">`true`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>true</code></td>
       </tr>
       <tr>
-        <td class="border border-border px-4 py-3 font-mono text-sm">`ENABLE_NOTIFICATIONS`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>ENABLE_NOTIFICATIONS</code></td>
         <td class="border border-border px-4 py-3">Enable email notifications</td>
-        <td class="border border-border px-4 py-3 font-mono text-sm">`true`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>true</code></td>
       </tr>
       <tr class="bg-muted/50">
-        <td class="border border-border px-4 py-3 font-mono text-sm">`ALLOW_GUEST_POSTS`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>ALLOW_GUEST_POSTS</code></td>
         <td class="border border-border px-4 py-3">Allow anonymous feedback</td>
-        <td class="border border-border px-4 py-3 font-mono text-sm">`false`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>false</code></td>
       </tr>
     </tbody>
   </table>
