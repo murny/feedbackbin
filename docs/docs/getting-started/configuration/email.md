@@ -19,39 +19,39 @@ Configure SMTP to enable email notifications, password resets, and user invitati
     </thead>
     <tbody>
       <tr>
-        <td class="border border-border px-4 py-3 font-mono text-sm">`SMTP_HOST`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>SMTP_HOST</code></td>
         <td class="border border-border px-4 py-3">SMTP server hostname</td>
-        <td class="border border-border px-4 py-3 font-mono text-sm">`smtp.gmail.com`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>smtp.gmail.com</code></td>
       </tr>
       <tr class="bg-muted/50">
-        <td class="border border-border px-4 py-3 font-mono text-sm">`SMTP_PORT`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>SMTP_PORT</code></td>
         <td class="border border-border px-4 py-3">SMTP server port</td>
-        <td class="border border-border px-4 py-3">`587` (StartTLS), `465` (SSL)</td>
+        <td class="border border-border px-4 py-3"><code>587</code> (StartTLS), <code>465</code> (SSL)</td>
       </tr>
       <tr>
-        <td class="border border-border px-4 py-3 font-mono text-sm">`SMTP_USERNAME`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>SMTP_USERNAME</code></td>
         <td class="border border-border px-4 py-3">SMTP authentication username</td>
-        <td class="border border-border px-4 py-3">`your-email@example.com`</td>
+        <td class="border border-border px-4 py-3"><code>your-email@example.com</code></td>
       </tr>
       <tr class="bg-muted/50">
-        <td class="border border-border px-4 py-3 font-mono text-sm">`SMTP_PASSWORD`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>SMTP_PASSWORD</code></td>
         <td class="border border-border px-4 py-3">SMTP authentication password</td>
-        <td class="border border-border px-4 py-3">`your-app-password`</td>
+        <td class="border border-border px-4 py-3"><code>your-app-password</code></td>
       </tr>
       <tr>
-        <td class="border border-border px-4 py-3 font-mono text-sm">`SMTP_DOMAIN`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>SMTP_DOMAIN</code></td>
         <td class="border border-border px-4 py-3">HELO domain</td>
-        <td class="border border-border px-4 py-3">`example.com`</td>
+        <td class="border border-border px-4 py-3"><code>example.com</code></td>
       </tr>
       <tr class="bg-muted/50">
-        <td class="border border-border px-4 py-3 font-mono text-sm">`SMTP_AUTHENTICATION`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>SMTP_AUTHENTICATION</code></td>
         <td class="border border-border px-4 py-3">Authentication method</td>
-        <td class="border border-border px-4 py-3">`plain`, `login`, `cram_md5`</td>
+        <td class="border border-border px-4 py-3"><code>plain</code>, <code>login</code>, <code>cram_md5</code></td>
       </tr>
       <tr>
-        <td class="border border-border px-4 py-3 font-mono text-sm">`SMTP_ENABLE_STARTTLS_AUTO`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>SMTP_ENABLE_STARTTLS_AUTO</code></td>
         <td class="border border-border px-4 py-3">Use StartTLS</td>
-        <td class="border border-border px-4 py-3 font-mono text-sm">`true`</td>
+        <td class="border border-border px-4 py-3 font-mono text-sm"><code>true</code></td>
       </tr>
     </tbody>
   </table>

@@ -6,6 +6,8 @@ document.addEventListener('DOMContentLoaded', function() {
   const backdrop = document.getElementById('sidebar-backdrop');
 
   function openSidebar() {
+    if (!sidebar || !backdrop) return;
+
     sidebar.classList.remove('-translate-x-full');
     backdrop.classList.remove('hidden');
     document.body.classList.add('overflow-hidden');
@@ -17,6 +19,8 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   function closeSidebar() {
+    if (!sidebar || !backdrop) return;
+
     sidebar.classList.add('-translate-x-full');
     backdrop.classList.add('hidden');
     document.body.classList.remove('overflow-hidden');
@@ -44,7 +48,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Close sidebar when escape key is pressed
   document.addEventListener('keydown', function(e) {
-    if (e.key === 'Escape' && !backdrop.classList.contains('hidden')) {
+    if (e.key === 'Escape' && backdrop && !backdrop.classList.contains('hidden')) {
       closeSidebar();
     }
   });
@@ -70,12 +74,16 @@ document.addEventListener('DOMContentLoaded', function() {
         if (isExpanded) {
           // Collapse
           submenu.classList.add('hidden');
-          chevron.classList.remove('rotate-90');
+          if (chevron) {
+            chevron.classList.remove('rotate-90');
+          }
           this.setAttribute('aria-expanded', 'false');
         } else {
           // Expand
           submenu.classList.remove('hidden');
-          chevron.classList.add('rotate-90');
+          if (chevron) {
+            chevron.classList.add('rotate-90');
+          }
           this.setAttribute('aria-expanded', 'true');
         }
       }

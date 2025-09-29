@@ -12,8 +12,7 @@ Enable social login to reduce friction for your users. FeedbackBin supports mult
 
 - Visit [Google Cloud Console](https://console.cloud.google.com/)
 - Create a new project or select existing one
-- Enable Google+ API
-- Go to "Credentials" → "Create Credentials" → "OAuth 2.0 Client IDs"
+- Go to "Credentials" → "Create Credentials" → "OAuth 2.0 Client IDs" (no additional APIs are required for basic OAuth)
 
 ### 2. Configure OAuth Settings
 

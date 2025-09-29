@@ -4,7 +4,7 @@ title: Getting Started
 description: "Learn how to configure and deploy FeedbackBin for your production feedback management needs."
 ---
 
-<div class="grid grid-cols-1 md:grid-cols-3 gap-6 my-8">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6 my-8">
 
   <a href="{{ "/docs/getting-started/deployment/" | relative_url }}" class="group flex gap-4 p-6 bg-card border border-border rounded-lg hover:shadow-lg transition-all duration-200 hover:border-primary/50">
     <div class="w-12 h-12 bg-primary/10 rounded-lg flex items-center justify-center group-hover:bg-primary/20 transition-colors flex-shrink-0 mt-8">
