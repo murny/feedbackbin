@@ -53,7 +53,7 @@
                     <%= t(".role.administrator") %>
                   </span>
                 </div>
-                <% unless @admin_users.count == 1 && user.administrator? %>
+                <% unless @admin_users.count == 1 %>
                   <%= link_to admin_settings_membership_path(user),
                         class: "text-sm text-destructive hover:text-destructive/80",
                         data: { "turbo-method": :delete, turbo_confirm: t(".remove_admin_confirm") } do %>
