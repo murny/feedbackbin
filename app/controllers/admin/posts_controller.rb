@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-module SuperAdmin
-  class PostsController < SuperAdmin::BaseController
+module Admin
+  class PostsController < Admin::BaseController
     def index
-      posts = Post.includes(:author, :organization, :category)
+      posts = Post.includes(:author, :category)
                   .search(params[:search])
                   .order(created_at: :desc)
 
@@ -20,8 +20,7 @@ module SuperAdmin
                 :category,
                 :post_status,
                 :rich_text_body,
-                author: { avatar_attachment: :blob },
-                organization: { logo_attachment: :blob }).find(params.expect(:id))
+                author: { avatar_attachment: :blob }).find(params.expect(:id))
 
       @recent_comments = @post.comments.includes(:rich_text_body, creator: { avatar_attachment: :blob }).limit(5).order(created_at: :desc)
     end
