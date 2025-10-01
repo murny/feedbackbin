@@ -42,20 +42,19 @@ module Components
 
       def components_toast_base_class
         [
-          "pointer-events-auto w-full max-w-sm overflow-hidden rounded-md bg-white",
-          "shadow-lg ring-1 ring-black ring-opacity-5 dark:bg-neutral-950",
-          "dark:border dark:border-neutral-700/80 transform transition-all duration-300"
+          "pointer-events-auto w-full max-w-sm overflow-hidden rounded-md bg-popover",
+          "shadow-lg ring-1 ring-border transform transition-all duration-300"
         ].join(" ")
       end
 
     def components_toast_variant_class(variant)
       case variant
       when :default
-        "text-foreground"
+        "text-popover-foreground"
       when :success
-        "border-l-4 border-l-success"
+        "border-l-4 border-l-green-500"
       when :warning
-        "border-l-4 border-l-warning"
+        "border-l-4 border-l-yellow-500"
       when :error
         "border-l-4 border-l-destructive"
       when :info

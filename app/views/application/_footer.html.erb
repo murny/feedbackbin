@@ -1,17 +1,17 @@
 <%# locals: () %>
 
-<footer class="bg-white dark:bg-gray-900">
+<footer class="bg-background border-t">
   <div class="mx-auto max-w-7xl px-8 py-8 md:flex md:items-center md:justify-between">
     <div class="flex justify-center space-x-6 md:order-2">
-      <%= link_to t(".about"), about_path, class: "text-gray-400 hover:text-gray-500 dark:text-gray-500 dark:hover:text-gray-400" %>
-      <%= link_to t(".privacy"), privacy_path, class: "text-gray-400 hover:text-gray-500 dark:text-gray-500 dark:hover:text-gray-400" %>
-      <%= link_to t(".terms"), terms_path, class: "text-gray-400 hover:text-gray-500 dark:text-gray-500 dark:hover:text-gray-400" %>
+      <%= link_to t(".about"), about_path, class: "text-muted-foreground hover:text-foreground transition-colors" %>
+      <%= link_to t(".privacy"), privacy_path, class: "text-muted-foreground hover:text-foreground transition-colors" %>
+      <%= link_to t(".terms"), terms_path, class: "text-muted-foreground hover:text-foreground transition-colors" %>
 
-      <a href="https://x.com/FeedbackBin" class="text-gray-400 hover:text-gray-500 dark:text-gray-500 dark:hover:text-gray-400">
+      <a href="https://x.com/FeedbackBin" class="text-muted-foreground hover:text-foreground transition-colors">
         <span class="sr-only"><%= t(".sr_only.twitter") %></span>
         <%= inline_svg_tag "icons/brand/twitter.svg", class: "h-6 w-6" %>
       </a>
-      <a href="https://github.com/murny/feedbackbin" class="text-gray-400 hover:text-gray-500 dark:text-gray-500 dark:hover:text-gray-400">
+      <a href="https://github.com/murny/feedbackbin" class="text-muted-foreground hover:text-foreground transition-colors">
         <span class="sr-only"><%= t(".sr_only.github") %></span>
         <%= inline_svg_tag "icons/brand/github.svg", class: "h-6 w-6" %>
       </a>

@@ -1,18 +1,39 @@
-<div class="container mx-auto max-w-4xl">
-  <h1 class="h2 mt-6 text-center dark:text-white"><%= t(".title") %></h1>
-  <p class="mt-2 text-center text-xl text-gray-700 dark:text-gray-300/75"><%= t(".description", name: Rails.application.config.app_name) %></p>
+<%= content_for :title, t(".title") %>
 
-  <div class="mt-6 flex flex-col rounded-lg divide-y divide-gray-200 bg-white border border-gray-200 dark:bg-gray-900 dark:border-gray-700 dark:divide-gray-700">
-    <%= render @changelogs %>
+<section class="container mx-auto px-4 sm:px-6 mt-6 md:mt-10">
+  <div class="max-w-4xl mx-auto space-y-6">
+    <div class="text-center">
+      <h1 class="text-3xl font-bold mb-2"><%= t(".title") %></h1>
+      <p class="text-muted-foreground text-lg"><%= t(".description", name: Rails.application.config.app_name) %></p>
+    </div>
 
     <% if @changelogs.empty? %>
-      <div class="p-4 lg:p-10 dark:text-white"><%= t(".empty_placeholder") %></div>
+      <%= render_card(class: "p-4 md:p-6 lg:p-8") do %>
+        <div class="flex flex-col items-center justify-center text-center py-12">
+          <div class="flex h-20 w-20 items-center justify-center rounded-full bg-muted/50">
+            <%= lucide_icon "scroll-text", class: "h-10 w-10 text-muted-foreground" %>
+          </div>
+          <h3 class="mt-6 text-lg font-semibold text-foreground"><%= t(".empty_placeholder") %></h3>
+          <p class="mt-2 text-sm text-muted-foreground max-w-sm">
+            <%= t(".empty_description") %>
+          </p>
+        </div>
+      <% end %>
+    <% else %>
+      <div class="space-y-4">
+        <% @changelogs.each do |changelog| %>
+          <%= render_card(class: "hover:shadow-lg transition-shadow duration-200") do %>
+            <%= render changelog %>
+          <% end %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <% if @pagy.pages > 1 %>
+      <div class="flex items-center justify-between px-4 py-3 sm:px-6">
+        <%== pagy_info(@pagy) %>
+        <%== pagy_nav(@pagy) %>
+      </div>
     <% end %>
   </div>
-
-  <% if @pagy.pages > 1 %>
-    <div class="text-center mt-8">
-      <%== pagy_nav(@pagy) %>
-    </div>
-  <% end %>
-</div>
+</section>
