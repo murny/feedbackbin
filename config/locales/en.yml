@@ -208,6 +208,52 @@ en:
           role:
             administrator: Administrator
           title: Administrators
+    users:
+      index:
+        description: Manage all users on the platform
+        heading: Users
+        search_label: Search users
+        search_placeholder: Search by name, email, or username...
+        title: Users
+      show:
+        ago: ago
+        back_button: Back to Users
+        basic_info_title: Basic Information
+        comment_plural: comments
+        comment_singular: comment
+        current_role_label: Current Role
+        description: User profile and activity details
+        email_label: Email
+        joined_label: Joined
+        like_plural: likes
+        like_singular: like
+        name_label: Name
+        no_posts: No posts created yet
+        recent_posts_title: Recent Posts
+        role_description: User permissions and access level
+        role_title: Role & Permissions
+        status_title: Status
+        super_admin_badge: Super Admin
+        unverified_badge: Email Unverified
+        user_info_title: User Information
+        username_label: Username
+        verified_badge: Email Verified
+      users_list:
+        actions_column: Actions
+        ago: ago
+        joined_column: Joined
+        no_posts: No posts
+        no_users_empty: No users have joined yet.
+        no_users_search: Try adjusting your search criteria.
+        no_users_title: No users found
+        post_plural: posts
+        post_singular: post
+        posts_column: Posts
+        status_column: Status
+        unverified_badge: Unverified
+        user_column: User
+        verified_badge: Verified
+        view_button: View
   application:
     default_title: FeedbackBin
     footer:
