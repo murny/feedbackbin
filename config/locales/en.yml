@@ -119,7 +119,7 @@ en:
           danger_zone: Danger Zone
           general: General
           invitations: Invitations
-          members: Members
+          members: Administrators
         title: Settings
       invitations:
         create:
@@ -192,6 +192,22 @@ en:
         user_column: User
         verified_badge: Verified
         view_button: View
+      memberships:
+        destroy:
+          cannot_remove_last_admin: Cannot remove the last administrator.
+          successfully_removed: Administrator privileges were successfully removed.
+        index:
+          admin_count:
+            one: "%{count} Administrator"
+            other: "%{count} Administrators"
+          description: Manage administrator roles and permissions. Use invitations to add new administrators.
+          no_admins_description: No administrators found.
+          no_admins_title: No administrators
+          remove_admin: Remove admin privileges
+          remove_admin_confirm: Are you sure you want to remove administrator privileges from this user?
+          role:
+            administrator: Administrator
+          title: Administrators
   application:
     default_title: FeedbackBin
     footer:
@@ -230,12 +246,11 @@ en:
   changelogs:
     index:
       description: New updates and improvements to %{name}
+      empty_description: Check back later for the latest updates and improvements to our platform.
       empty_placeholder: Exciting stuff coming very soon!
       title: What's New
     show:
       back: Back
-      description: New updates and improvements to %{name}
-      title: What's New
   comments:
     comments:
       comments_title_with_count: Comments (%{comment_count})
