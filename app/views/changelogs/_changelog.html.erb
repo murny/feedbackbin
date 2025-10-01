@@ -1,16 +1,21 @@
 <%# locals: (changelog:) %>
 
-<div class="p-4 lg:p-10" id="<%= dom_id(changelog) %>">
-  <%= link_to changelog_path(changelog), class: "text-gray-400 text-sm font-medium capitalize" do %>
-    <%= local_datetime_tag changelog.published_at, style: :datetime %>
-  <% end %>
+<div id="<%= dom_id(changelog) %>" class="px-6">
+  <div class="flex items-center justify-between gap-3 mb-4">
+    <%= link_to changelog_path(changelog), class: "text-sm text-muted-foreground hover:text-foreground font-medium" do %>
+      <%= local_datetime_tag changelog.published_at, style: :datetime %>
+    <% end %>
+    <%= render_badge(
+      text: changelog.kind.humanize.titleize,
+      variant: changelog_badge_variant(changelog.kind)
+    ) %>
+  </div>
 
-  <h2 class="font-semibold text-gray-900 text-lg mb-2 dark:text-gray-100"><%= changelog.title %></h2>
-  <%= tag.div class: "mb-2 #{changelog_color(changelog)}" do %>
-    <%= changelog.kind.humanize.titleize %>
-  <% end %>
+  <h2 class="text-xl font-semibold mb-4 text-foreground leading-tight">
+    <%= link_to changelog.title, changelog_path(changelog), class: "hover:underline" %>
+  </h2>
 
-  <div class="text-gray-700 text-sm dark:text-gray-300">
+  <div class="prose prose-sm max-w-none text-muted-foreground leading-relaxed">
     <%= changelog.description %>
   </div>
 </div>

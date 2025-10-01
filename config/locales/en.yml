@@ -155,6 +155,7 @@ en:
     index:
       description: New updates and improvements to %{name}
       empty_placeholder: Exciting stuff coming very soon!
+      empty_description: Check back later for the latest updates and improvements to our platform.
       title: What's New
     show:
       back: Back

@@ -8,8 +8,19 @@ module ChangelogsHelper
     "fix" => "bg-red-100 text-red-600"
   }
 
+  CHANGELOG_BADGE_VARIANTS = {
+    "new" => :default,
+    "update" => :secondary,
+    "improvement" => :outline,
+    "fix" => :destructive
+  }
+
   def changelog_color(changelog)
     CHANGELOG_COLORS.fetch(changelog.kind, "bg-green-100 text-green-600")
+  end
+
+  def changelog_badge_variant(kind)
+    CHANGELOG_BADGE_VARIANTS.fetch(kind, :secondary)
   end
 
   def unread_changelogs_class(user)

@@ -1,6 +1,6 @@
 <%# locals: () %>
 
-<div id="flash_toast" class="pointer-events-none fixed inset-0 z-50 flex flex-col items-end gap-2 p-4 sm:p-6" data-turbo-temporary>
+<div id="flash_toast" class="pointer-events-none fixed inset-0 z-50 flex flex-col items-end gap-2 p-4 sm:p-6" role="region" aria-live="assertive" data-turbo-temporary>
   <% if alert = flash[:alert] %>
     <%= render_toast(
       title: "Error",
