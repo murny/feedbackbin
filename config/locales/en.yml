@@ -154,13 +154,11 @@ en:
   changelogs:
     index:
       description: New updates and improvements to %{name}
-      empty_placeholder: Exciting stuff coming very soon!
       empty_description: Check back later for the latest updates and improvements to our platform.
+      empty_placeholder: Exciting stuff coming very soon!
       title: What's New
     show:
       back: Back
-      description: New updates and improvements to %{name}
-      title: What's New
   comments:
     comments:
       comments_title_with_count: Comments (%{comment_count})
