@@ -8,18 +8,18 @@
         <%= @user.name %>
       </h1>
       <p class="text-muted-foreground">
-        User profile and activity details
+        <%= t(".description") %>
       </p>
     </div>
     <%= render_button(
-      text: "Back to Users",
-      href: super_admin_users_path,
+      text: t(".back_button"),
+      href: admin_users_path,
       variant: :outline
     ) %>
   </div>
 
   <!-- User Info -->
-  <%= render_card(title: "User Information", class: "px-6") do %>
+  <%= render_card(title: t(".user_info_title"), class: "px-6") do %>
     <div class="flex items-start space-x-6">
       <%= render_avatar(
         src: @user.avatar.attached? ? url_for(@user.avatar) : nil,
@@ -31,26 +31,26 @@
       <div class="flex-1 space-y-4">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <h4 class="text-sm font-medium text-foreground mb-2">Basic Information</h4>
+            <h4 class="text-sm font-medium text-foreground mb-2"><%= t(".basic_info_title") %></h4>
             <div class="space-y-2 text-sm">
-              <div><strong>Name:</strong> <%= @user.name %></div>
-              <div><strong>Email:</strong> <%= @user.email_address %></div>
+              <div><strong><%= t(".name_label") %>:</strong> <%= @user.name %></div>
+              <div><strong><%= t(".email_label") %>:</strong> <%= @user.email_address %></div>
               <% if @user.username.present? %>
-                <div><strong>Username:</strong> @<%= @user.username %></div>
+                <div><strong><%= t(".username_label") %>:</strong> @<%= @user.username %></div>
               <% end %>
-              <div><strong>Joined:</strong> <%= @user.created_at.strftime("%B %d, %Y") %></div>
+              <div><strong><%= t(".joined_label") %>:</strong> <%= @user.created_at.strftime("%B %d, %Y") %></div>
             </div>
           </div>
 
           <div>
-            <h4 class="text-sm font-medium text-foreground mb-2">Status</h4>
+            <h4 class="text-sm font-medium text-foreground mb-2"><%= t(".status_title") %></h4>
             <div class="space-y-2">
               <%= render_badge(
-                text: @user.super_admin? ? "Super Admin" : @user.role.humanize,
+                text: @user.super_admin? ? t(".super_admin_badge") : @user.role.humanize,
                 variant: @user.administrator? || @user.super_admin? ? :default : :secondary
               ) %>
               <%= render_badge(
-                text: @user.email_verified? ? "Email Verified" : "Email Unverified",
+                text: @user.email_verified? ? t(".verified_badge") : t(".unverified_badge"),
                 variant: @user.email_verified? ? :default : :destructive
               ) %>
             </div>
@@ -61,13 +61,13 @@
   <% end %>
 
   <!-- Role Information -->
-  <%= render_card(title: "Role & Permissions", class: "px-6") do %>
+  <%= render_card(title: t(".role_title"), class: "px-6") do %>
     <div class="p-4 border border-border rounded-lg">
       <div class="flex items-center justify-between">
         <div>
-          <div class="font-medium text-foreground">Current Role</div>
+          <div class="font-medium text-foreground"><%= t(".current_role_label") %></div>
           <div class="text-sm text-muted-foreground">
-            User permissions and access level
+            <%= t(".role_description") %>
           </div>
         </div>
         <%= render_badge(
@@ -79,7 +79,7 @@
   <% end %>
 
   <!-- Recent Posts -->
-  <%= render_card(title: "Recent Posts", class: "px-6") do %>
+  <%= render_card(title: t(".recent_posts_title"), class: "px-6") do %>
     <% if @recent_posts.any? %>
       <div class="space-y-4">
         <% @recent_posts.each do |post| %>
@@ -87,7 +87,7 @@
             <div class="min-w-0 flex-1">
               <div class="font-medium text-foreground truncate"><%= post.title %></div>
               <div class="text-sm text-muted-foreground">
-                <%= time_ago_in_words(post.created_at) %> ago
+                <%= time_ago_in_words(post.created_at) %> <%= t(".ago") %>
               </div>
               <% if post.category %>
                 <%= render_badge(
@@ -97,14 +97,14 @@
               <% end %>
             </div>
             <div class="text-xs text-muted-foreground">
-              <%= pluralize(post.likes_count, "like") %> • <%= pluralize(post.comments_count, "comment") %>
+              <%= pluralize(post.likes_count, t(".like_singular"), t(".like_plural")) %> • <%= pluralize(post.comments_count, t(".comment_singular"), t(".comment_plural")) %>
             </div>
           </div>
         <% end %>
       </div>
     <% else %>
       <div class="text-center py-8 text-muted-foreground">
-        No posts created yet
+        <%= t(".no_posts") %>
       </div>
     <% end %>
   <% end %>

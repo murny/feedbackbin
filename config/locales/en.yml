@@ -52,6 +52,36 @@ en:
           total_posts: Total Posts
           total_users: Total Users
         title: "%{organization_name} Admin"
+    posts:
+      index:
+        description: View all feedback posts from users
+        heading: Posts
+        search_label: Search posts
+        search_placeholder: Search by title or content...
+        title: Posts
+      posts_list:
+        actions_column: Actions
+        ago: ago
+        author_column: Author
+        created_column: Created
+        engagement_column: Engagement
+        no_posts_empty: No posts have been created yet.
+        no_posts_search: Try adjusting your search criteria.
+        no_posts_title: No posts found
+        post_column: Post
+        view_button: View
+      show:
+        ago: ago
+        back_button: Back to Posts
+        comments_label: Comments
+        comments_title: Comments
+        created_label: Created
+        description: Post details and engagement
+        engagement_title: Engagement
+        likes_label: Likes
+        no_comments: No comments yet
+        post_info_title: Post Information
+        recent_comments_title: Recent Comments
     settings:
       brandings:
         show:
@@ -132,6 +162,52 @@ en:
           role:
             administrator: Administrator
           title: Administrators
+    users:
+      index:
+        description: Manage all users on the platform
+        heading: Users
+        search_label: Search users
+        search_placeholder: Search by name, email, or username...
+        title: Users
+      show:
+        ago: ago
+        back_button: Back to Users
+        basic_info_title: Basic Information
+        comment_plural: comments
+        comment_singular: comment
+        current_role_label: Current Role
+        description: User profile and activity details
+        email_label: Email
+        joined_label: Joined
+        like_plural: likes
+        like_singular: like
+        name_label: Name
+        no_posts: No posts created yet
+        recent_posts_title: Recent Posts
+        role_description: User permissions and access level
+        role_title: Role & Permissions
+        status_title: Status
+        super_admin_badge: Super Admin
+        unverified_badge: Email Unverified
+        user_info_title: User Information
+        username_label: Username
+        verified_badge: Email Verified
+      users_list:
+        actions_column: Actions
+        ago: ago
+        joined_column: Joined
+        no_posts: No posts
+        no_users_empty: No users have joined yet.
+        no_users_search: Try adjusting your search criteria.
+        no_users_title: No users found
+        post_plural: posts
+        post_singular: post
+        posts_column: Posts
+        status_column: Status
+        unverified_badge: Unverified
+        user_column: User
+        verified_badge: Verified
+        view_button: View
   application:
     default_title: FeedbackBin
     footer:

@@ -4,8 +4,6 @@ namespace :super_admin do
   mount MissionControl::Jobs::Engine, at: "/jobs"
 
   resources :changelogs
-  resources :users
-  resources :posts
   resources :organizations
 
   resource :docs, only: [ :show ]

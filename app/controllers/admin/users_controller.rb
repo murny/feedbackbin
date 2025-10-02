@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-module SuperAdmin
-  class UsersController < SuperAdmin::BaseController
+module Admin
+  class UsersController < Admin::BaseController
     def index
       users = User.with_attached_avatar
                   .search(params[:search])
