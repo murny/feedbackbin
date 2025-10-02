@@ -20,6 +20,7 @@ module Admin
       get admin_users_path, params: { search: "shane" }
 
       assert_response :success
+      assert_includes @response.body, "Shane"
     end
 
     test "should get index as turbo_stream" do

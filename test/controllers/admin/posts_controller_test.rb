@@ -21,6 +21,7 @@ module Admin
       get admin_posts_path, params: { search: "dark" }
 
       assert_response :success
+      assert_includes @response.body, "dark"
     end
 
     test "should get index as turbo_stream" do
