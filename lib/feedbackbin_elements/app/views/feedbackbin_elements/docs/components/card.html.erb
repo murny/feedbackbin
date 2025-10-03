@@ -1,0 +1,36 @@
+<%= render "feedbackbin_elements/docs/shared/page_header",
+  title: "Card",
+  breadcrumb_items: [
+    { text: "Docs", path: nil },
+    { text: "Components", path: nil },
+    { text: "Card", path: nil }
+  ],
+  description: "A flexible card component for displaying content in various layouts." %>
+
+<%= render "feedbackbin_elements/docs/components/card/base" %>
+<%= render "feedbackbin_elements/docs/components/card/layouts" %>
+<%= render "feedbackbin_elements/docs/components/card/with_image" %>
+<%= render "feedbackbin_elements/docs/components/card/with_action" %>
+<%= render "feedbackbin_elements/docs/components/card/with_form" %>
+<%= render "feedbackbin_elements/docs/components/card/advanced" %>
+
+<%= render partial: "feedbackbin_elements/docs/shared/pagination", locals: {
+  prev_path: button_path,
+  prev_text: "Button",
+  next_path: breadcrumb_path,
+  next_text: "Breadcrumb"
+} %>
+
+<%= content_for :component_nav do %>
+  <%= render partial: "feedbackbin_elements/docs/shared/component_nav", locals: {
+    title: "On this page",
+    items: [
+      { text: "Base", path: "#card-base" },
+      { text: "Layouts", path: "#card-layouts" },
+      { text: "With Image", path: "#card-with-image" },
+      { text: "With Action", path: "#card-with-action" },
+      { text: "With Form", path: "#card-with-form" },
+      { text: "Advanced Card", path: "#card-advanced" }
+    ]
+  } %>
+<% end %>

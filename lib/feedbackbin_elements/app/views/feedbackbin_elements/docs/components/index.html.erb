@@ -1,0 +1,81 @@
+<%= render "feedbackbin_elements/docs/shared/page_header",
+  title: "Components",
+  breadcrumb_items: [
+    { text: "Docs", path: nil },
+    { text: "Components", path: nil }
+  ],
+  description: "A collection of reusable UI components built with Ruby on Rails, Stimulus.js, and Tailwind CSS." %>
+
+<div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+  <div class="flex flex-col gap-2 rounded-lg border border-border p-6 shadow-sm">
+    <h2 class="text-xl font-semibold tracking-tight">Accordion</h2>
+    <p class="text-muted-foreground">A vertically stacked set of interactive headings that each reveal a section of content.</p>
+    <%= link_to "View Component →", accordion_path, class: "text-primary hover:underline mt-auto pt-4" %>
+  </div>
+
+  <div class="flex flex-col gap-2 rounded-lg border border-border p-6 shadow-sm">
+    <h2 class="text-xl font-semibold tracking-tight">Alert</h2>
+    <p class="text-muted-foreground">Displays a styled message that attracts user's attention without interrupting the user's task.</p>
+    <%= link_to "View Component →", alert_path, class: "text-primary hover:underline mt-auto pt-4" %>
+  </div>
+
+  <div class="flex flex-col gap-2 rounded-lg border border-border p-6 shadow-sm">
+    <h2 class="text-xl font-semibold tracking-tight">Avatar</h2>
+    <p class="text-muted-foreground">An image element representing a user or entity with support for fallbacks.</p>
+    <%= link_to "View Component →", avatar_path, class: "text-primary hover:underline mt-auto pt-4" %>
+  </div>
+
+  <div class="flex flex-col gap-2 rounded-lg border border-border p-6 shadow-sm">
+    <h2 class="text-xl font-semibold tracking-tight">Badge</h2>
+    <p class="text-muted-foreground">Small colored element for labeling, categorizing, or highlighting an item.</p>
+    <%= link_to "View Component →", badge_path, class: "text-primary hover:underline mt-auto pt-4" %>
+  </div>
+
+  <div class="flex flex-col gap-2 rounded-lg border border-border p-6 shadow-sm">
+    <h2 class="text-xl font-semibold tracking-tight">Breadcrumb</h2>
+    <p class="text-muted-foreground">A navigation aid that shows the user's location in a website or app.</p>
+    <%= link_to "View Component →", breadcrumb_path, class: "text-primary hover:underline mt-auto pt-4" %>
+  </div>
+
+  <div class="flex flex-col gap-2 rounded-lg border border-border p-6 shadow-sm">
+    <h2 class="text-xl font-semibold tracking-tight">Button</h2>
+    <p class="text-muted-foreground">Interactive element that enables users to trigger an action or event.</p>
+    <%= link_to "View Component →", button_path, class: "text-primary hover:underline mt-auto pt-4" %>
+  </div>
+
+  <div class="flex flex-col gap-2 rounded-lg border border-border p-6 shadow-sm">
+    <h2 class="text-xl font-semibold tracking-tight">Card</h2>
+    <p class="text-muted-foreground">A container for grouping related content and actions about a single subject.</p>
+    <%= link_to "View Component →", card_path, class: "text-primary hover:underline mt-auto pt-4" %>
+  </div>
+
+  <div class="flex flex-col gap-2 rounded-lg border border-border p-6 shadow-sm">
+    <h2 class="text-xl font-semibold tracking-tight">Dropdown Menu</h2>
+    <p class="text-muted-foreground">A contextual menu displayed on demand that can provide additional actions and options.</p>
+    <%= link_to "View Component →", dropdown_menu_path, class: "text-primary hover:underline mt-auto pt-4" %>
+  </div>
+
+  <div class="flex flex-col gap-2 rounded-lg border border-border p-6 shadow-sm">
+    <h2 class="text-xl font-semibold tracking-tight">Forms</h2>
+    <p class="text-muted-foreground">Build forms with custom styling and Rails form helpers.</p>
+    <%= link_to "View Component →", forms_path, class: "text-primary hover:underline mt-auto pt-4" %>
+  </div>
+
+  <div class="flex flex-col gap-2 rounded-lg border border-border p-6 shadow-sm">
+    <h2 class="text-xl font-semibold tracking-tight">Popover</h2>
+    <p class="text-muted-foreground">A small overlay that displays contextual information or controls related to an element.</p>
+    <%= link_to "View Component →", popover_path, class: "text-primary hover:underline mt-auto pt-4" %>
+  </div>
+
+  <div class="flex flex-col gap-2 rounded-lg border border-border p-6 shadow-sm">
+    <h2 class="text-xl font-semibold tracking-tight">Tabs</h2>
+    <p class="text-muted-foreground">A set of layered sections of content that display one panel at a time.</p>
+    <%= link_to "View Component →", tabs_path, class: "text-primary hover:underline mt-auto pt-4" %>
+  </div>
+
+  <div class="flex flex-col gap-2 rounded-lg border border-border p-6 shadow-sm">
+    <h2 class="text-xl font-semibold tracking-tight">Toast</h2>
+    <p class="text-muted-foreground">A non-disruptive message that appears temporarily and provides brief feedback to the user.</p>
+    <%= link_to "View Component →", toast_path, class: "text-primary hover:underline mt-auto pt-4" %>
+  </div>
+</div>

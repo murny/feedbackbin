@@ -1,0 +1,34 @@
+<%= render "feedbackbin_elements/docs/shared/page_header",
+  title: "Badge",
+  breadcrumb_items: [
+    { text: "Docs", path: nil },
+    { text: "Components", path: nil },
+    { text: "Badge", path: nil }
+  ],
+  description: "Small UI component used to highlight status, categories, or labels with different styles." %>
+
+<%= render "feedbackbin_elements/docs/components/badge/base" %>
+<%= render "feedbackbin_elements/docs/components/badge/variants" %>
+<%= render "feedbackbin_elements/docs/components/badge/with_icons" %>
+<%= render "feedbackbin_elements/docs/components/badge/links" %>
+<%= render "feedbackbin_elements/docs/components/badge/custom" %>
+
+<%= render partial: "feedbackbin_elements/docs/shared/pagination", locals: {
+  prev_path: avatar_path,
+  prev_text: "Avatar",
+  next_path: breadcrumb_path,
+  next_text: "Breadcrumb"
+} %>
+
+<%= content_for :component_nav do %>
+  <%= render partial: "feedbackbin_elements/docs/shared/component_nav", locals: {
+    title: "On this page",
+    items: [
+      { text: "Base", path: "#badge-base" },
+      { text: "Variants", path: "#badge-variants" },
+      { text: "With Icons", path: "#badge-with-icons" },
+      { text: "Links", path: "#badge-links" },
+      { text: "Custom Styling", path: "#badge-custom" }
+    ]
+  } %>
+<% end %>

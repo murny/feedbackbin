@@ -1,0 +1,51 @@
+<nav class="sticky top-16 hidden max-h-[calc(100dvh-(--spacing(16)))] w-48 shrink-0 overflow-y-auto pt-12 pb-16 lg:block">
+  <ul role="list" class="p-2">
+    <li>
+      <%= link_to root_path, class: "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-foreground #{'bg-secondary' if current_page?(root_path)} #{'hover:bg-secondary' unless current_page?(root_path)}" do %>
+        <%= lucide_icon "layout-grid", class: "h-6 w-6 shrink-0 text-muted-foreground" %>
+        All Components
+      <% end %>
+    </li>
+    <li class="mt-6">
+      <p class="px-2 text-xs font-semibold leading-6 text-muted-foreground">Components</p>
+      <ul role="list" class="mt-2">
+        <li>
+          <%= link_to "Accordion", accordion_path, class: "block rounded-md py-2 px-2 text-sm leading-6 text-foreground #{'bg-secondary' if current_page?(accordion_path)} #{'hover:bg-secondary' unless current_page?(accordion_path)}" %>
+        </li>
+        <li>
+          <%= link_to "Alert", alert_path, class: "block rounded-md py-2 px-2 text-sm leading-6 text-foreground #{'bg-secondary' if current_page?(alert_path)} #{'hover:bg-secondary' unless current_page?(alert_path)}" %>
+        </li>
+        <li>
+          <%= link_to "Avatar", avatar_path, class: "block rounded-md py-2 px-2 text-sm leading-6 text-foreground #{'bg-secondary' if current_page?(avatar_path)} #{'hover:bg-secondary' unless current_page?(avatar_path)}" %>
+        </li>
+        <li>
+          <%= link_to "Badge", badge_path, class: "block rounded-md py-2 px-2 text-sm leading-6 text-foreground #{'bg-secondary' if current_page?(badge_path)} #{'hover:bg-secondary' unless current_page?(badge_path)}" %>
+        </li>
+        <li>
+          <%= link_to "Breadcrumb", breadcrumb_path, class: "block rounded-md py-2 px-2 text-sm leading-6 text-foreground #{'bg-secondary' if current_page?(breadcrumb_path)} #{'hover:bg-secondary' unless current_page?(breadcrumb_path)}" %>
+        </li>
+        <li>
+          <%= link_to "Button", button_path, class: "block rounded-md py-2 px-2 text-sm leading-6 text-foreground #{'bg-secondary' if current_page?(button_path)} #{'hover:bg-secondary' unless current_page?(button_path)}" %>
+        </li>
+        <li>
+          <%= link_to "Card", card_path, class: "block rounded-md py-2 px-2 text-sm leading-6 text-foreground #{'bg-secondary' if current_page?(card_path)} #{'hover:bg-secondary' unless current_page?(card_path)}" %>
+        </li>
+        <li>
+          <%= link_to "Dropdown Menu", dropdown_menu_path, class: "block rounded-md py-2 px-2 text-sm leading-6 text-foreground #{'bg-secondary' if current_page?(dropdown_menu_path)} #{'hover:bg-secondary' unless current_page?(dropdown_menu_path)}" %>
+        </li>
+        <li>
+          <%= link_to "Forms", forms_path, class: "block rounded-md py-2 px-2 text-sm leading-6 text-foreground #{'bg-secondary' if current_page?(forms_path)} #{'hover:bg-secondary' unless current_page?(forms_path)}" %>
+        </li>
+        <li>
+          <%= link_to "Popover", popover_path, class: "block rounded-md py-2 px-2 text-sm leading-6 text-foreground #{'bg-secondary' if current_page?(popover_path)} #{'hover:bg-secondary' unless current_page?(popover_path)}" %>
+        </li>
+        <li>
+          <%= link_to "Tabs", tabs_path, class: "block rounded-md py-2 px-2 text-sm leading-6 text-foreground #{'bg-secondary' if current_page?(tabs_path)} #{'hover:bg-secondary' unless current_page?(tabs_path)}" %>
+        </li>
+        <li>
+          <%= link_to "Toast", toast_path, class: "block rounded-md py-2 px-2 text-sm leading-6 text-foreground #{'bg-secondary' if current_page?(toast_path)} #{'hover:bg-secondary' unless current_page?(toast_path)}" %>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav>

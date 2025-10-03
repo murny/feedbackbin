@@ -1,0 +1,34 @@
+<%= render "feedbackbin_elements/docs/shared/page_header",
+  title: "Popover",
+  breadcrumb_items: [
+    { text: "Docs", path: nil },
+    { text: "Components", path: nil },
+    { text: "Popover", path: nil }
+  ],
+  description: "A popover component that appears when hovering or clicking an element, showing additional content." %>
+
+<%= render "feedbackbin_elements/docs/components/popover/base" %>
+<%= render "feedbackbin_elements/docs/components/popover/positioning" %>
+<%= render "feedbackbin_elements/docs/components/popover/trigger" %>
+<%= render "feedbackbin_elements/docs/components/popover/width" %>
+<%= render "feedbackbin_elements/docs/components/popover/auto_dismiss" %>
+
+<%= render partial: "feedbackbin_elements/docs/shared/pagination", locals: {
+  prev_path: card_path,
+  prev_text: "Card",
+  next_path: tabs_path,
+  next_text: "Tabs"
+} %>
+
+<%= content_for :component_nav do %>
+  <%= render partial: "feedbackbin_elements/docs/shared/component_nav", locals: {
+    title: "On this page",
+    items: [
+      { text: "Base", path: "#popover-base" },
+      { text: "Positioning", path: "#popover-positioning" },
+      { text: "Trigger Types", path: "#popover-trigger" },
+      { text: "Custom Width", path: "#popover-width" },
+      { text: "Auto Dismiss", path: "#popover-auto-dismiss" }
+    ]
+  } %>
+<% end %>
