@@ -1,0 +1,30 @@
+<%= render "feedbackbin_elements/docs/shared/page_header",
+  title: "Breadcrumb",
+  breadcrumb_items: [
+    { text: "Docs", path: nil },
+    { text: "Components", path: nil },
+    { text: "Breadcrumb", path: nil }
+  ],
+  description: "Displays the path to the current resource using a hierarchy of links." %>
+
+<%= render "feedbackbin_elements/docs/components/breadcrumb/base" %>
+<%= render "feedbackbin_elements/docs/components/breadcrumb/separator" %>
+<%= render "feedbackbin_elements/docs/components/breadcrumb/collapse" %>
+
+<%= render partial: "feedbackbin_elements/docs/shared/pagination", locals: {
+  prev_path: badge_path,
+  prev_text: "Badge",
+  next_path: button_path,
+  next_text: "Button"
+} %>
+
+<%= content_for :component_nav do %>
+  <%= render partial: "feedbackbin_elements/docs/shared/component_nav", locals: {
+    title: "On this page",
+    items: [
+      { text: "Base", path: "#breadcrumb-base" },
+      { text: "Custom Separator", path: "#breadcrumb-separator" },
+      { text: "Collapse", path: "#breadcrumb-collapse" }
+    ]
+  } %>
+<% end %>

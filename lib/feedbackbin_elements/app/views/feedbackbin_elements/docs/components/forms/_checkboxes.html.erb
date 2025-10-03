@@ -1,0 +1,42 @@
+<div id="forms-checkboxes">
+
+  <% content_for :preview_example, flush: true do %>
+    <%= render_form_with(url: "#", class: "w-2/3") do |form| %>
+      <div class="flex items-center gap-2">
+        <%= form.check_box :terms %>
+        <%= form.label :terms, "I accept the terms and conditions" %>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <%= form.check_box :newsletter %>
+        <%= form.label :newsletter, "Subscribe to our newsletter" %>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <%= form.check_box :notifications %>
+        <%= form.label :notifications, "Enable email notifications" %>
+      </div>
+    <% end %>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_form_with(url: "#", class: "w-2/3") do |form| %>
+  <div class="flex items-center gap-2">
+    <%%= form.check_box :terms %>
+    <%%= form.label :terms, "I accept the terms and conditions" %>
+  </div>
+
+  <div class="flex items-center gap-2">
+    <%%= form.check_box :newsletter %>
+    <%%= form.label :newsletter, "Subscribe to our newsletter" %>
+  </div>
+
+  <div class="flex items-center gap-2">
+    <%%= form.check_box :notifications %>
+    <%%= form.label :notifications, "Enable email notifications" %>
+  </div>
+<%% end %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: { heading: "Checkboxes" } %>
+</div>

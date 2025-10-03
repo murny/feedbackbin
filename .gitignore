@@ -39,7 +39,8 @@
 # Ignore coverage reports.
 /coverage/*
 
-# ClaudeOnRails
+# Claude
+.claude/
 .claude-on-rails/sessions/
 .claude-swarm/
 claude-swarm.log

@@ -1,0 +1,20 @@
+<div id="alert-with-icon">
+
+  <% content_for :preview_example, flush: true do %>
+    <%= render_alert(
+      title: "Success",
+      description: "Your changes have been saved successfully.",
+      icon: "circle-check"
+    ) %>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_alert(
+  title: "Success",
+  description: "Your changes have been saved successfully.",
+  icon: "circle-check"
+) %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: { heading: "With Custom Icon", description: "You can customize the alert with different icons from the Lucide icon set." } %>
+</div>

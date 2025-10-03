@@ -1,0 +1,89 @@
+<div id="toast-advanced" data-controller="toggle">
+  <% content_for :preview_example, flush: true do %>
+    <div class="mb-4">
+      <%= render_button(
+        text: "Show Advanced Toasts",
+        variant: :default,
+        data: {
+          action: "click->toggle#toggle"
+        }
+      ) %>
+    </div>
+
+    <div class="hidden flex flex-col items-end justify-end py-6 px-4 fixed right-0 top-12 z-30 space-y-4 w-full max-w-[384px]" data-toggle-target="toggleable">
+      <%= render_toast(
+        title: "With Action Button",
+        description: "This toast includes an action button that links to another page.",
+        variant: :info,
+        dismiss_after: false,
+        action: {
+          label: "View Details",
+          url: "#view-details"
+        }
+      ) %>
+
+      <%= render_toast(
+        title: "Without Icon",
+        description: "This toast is displayed without an icon for a cleaner look.",
+        variant: :default,
+        show_icon: false,
+        dismiss_after: false
+      ) %>
+
+      <%= render_toast(
+        title: "Custom Duration",
+        description: "In actual use, this toast would dismiss after 10 seconds instead of the default 3 seconds.",
+        variant: :success,
+        dismiss_after: false  # For demo purposes, we're disabling auto-dismiss
+      ) %>
+
+      <%= render_toast(
+        title: "Non-dismissible",
+        description: "This toast cannot be manually dismissed with the close button.",
+        variant: :warning,
+        dismissable: false,
+        dismiss_after: false  # For demo purposes, we're disabling auto-dismiss
+      ) %>
+    </div>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%# With action button %>
+<%%= render_toast(
+  title: "With Action Button",
+  description: "Toast with an action button.",
+  variant: :info,
+  action: {
+    label: "View Details",
+    url: item_path(@item)
+  }
+) %>
+
+<%# Without icon %>
+<%%= render_toast(
+  title: "Without Icon",
+  description: "Toast without an icon.",
+  variant: :default,
+  show_icon: false
+) %>
+
+<%# Custom auto-dismiss duration (in milliseconds) %>
+<%%= render_toast(
+  title: "Custom Duration",
+  description: "Dismisses after 10 seconds.",
+  dismiss_after: 10000
+) %>
+
+<%# Non-dismissible toast %>
+<%%= render_toast(
+  title: "Non-dismissible",
+  description: "No manual dismiss button.",
+  dismissable: false
+) %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: {
+    heading: "Advanced Features",
+    description: "Toasts can be customized with various options including action buttons, icon visibility, custom durations, and dismissal behavior. These features can be combined to create toasts that best suit your application's needs."
+  } %>
+</div>

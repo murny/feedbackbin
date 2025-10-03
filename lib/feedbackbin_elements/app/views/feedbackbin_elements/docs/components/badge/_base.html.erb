@@ -1,0 +1,14 @@
+<div id="badge-base">
+  <% content_for :preview_example, flush: true do %>
+    <%= render_badge(text: "Badge") %>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_badge(text: "Badge") %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: {
+    heading: "Base",
+    description: "The default badge with primary styling."
+  } %>
+</div>

@@ -1,0 +1,18 @@
+<div id="button-sizes">
+  <% content_for :preview_example, flush: true do %>
+    <%= render_button(text: "Large button", size: :lg) %>
+    <%= render_button(text: "Base button") %>
+    <%= render_button(text: "Small button", size: :sm) %>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_button(text: "Large button", size: :lg) %>
+<%%= render_button(text: "Base button") %>
+<%%= render_button(text: "Small button", size: :sm) %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: {
+    heading: "Sizes",
+    description: "Choose from two additional buttons sizes outside of the default <code>.btn</code> class (<code>.btn-lg</code>, <code>.btn-sm</code>) or customize size with additional Tailwind CSS classes."
+  } %>
+</div>

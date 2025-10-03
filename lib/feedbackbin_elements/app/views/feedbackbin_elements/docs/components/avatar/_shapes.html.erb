@@ -1,0 +1,16 @@
+<div id="avatar-shapes">
+
+  <% content_for :preview_example, flush: true do %>
+    <div class="flex flex-wrap items-center gap-6 p-6">
+      <%= render_avatar src: "https://github.com/murny.png", alt: "@murny", shape: :circle %>
+      <%= render_avatar src: "https://github.com/murny.png", alt: "@murny", shape: :square %>
+    </div>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_avatar src: "https://github.com/murny.png", alt: "@murny", shape: :circle %>
+<%%= render_avatar src: "https://github.com/murny.png", alt: "@murny", shape: :square %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: { heading: "Shapes" } %>
+</div>

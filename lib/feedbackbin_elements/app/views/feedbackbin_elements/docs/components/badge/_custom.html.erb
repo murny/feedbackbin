@@ -1,0 +1,26 @@
+<div id="badge-custom">
+  <% content_for :preview_example, flush: true do %>
+    <%= render_badge(text: "8", class: "h-5 min-w-5 rounded-full px-1 font-mono tabular-nums") %>
+
+    <%= render_badge(text: "99", variant: :destructive, class: "h-5 min-w-5 rounded-full px-1 font-mono tabular-nums") %>
+
+    <%= render_badge(text: "20+", variant: :outline, class: "h-5 min-w-5 rounded-full px-1 font-mono tabular-nums") %>
+
+    <%= render_badge(text: "New", class: "bg-blue-500 text-white border-transparent") %>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_badge(text: "8", class: "h-5 min-w-5 rounded-full px-1 font-mono tabular-nums") %>
+
+<%%= render_badge(text: "99", variant: :destructive, class: "h-5 min-w-5 rounded-full px-1 font-mono tabular-nums") %>
+
+<%%= render_badge(text: "20+", variant: :outline, class: "h-5 min-w-5 rounded-full px-1 font-mono tabular-nums") %>
+
+<%%= render_badge(text: "New", class: "bg-blue-500 text-white border-transparent") %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: {
+    heading: "Custom Styling",
+    description: "Badges can be customized with additional Tailwind classes to create different shapes and styles."
+  } %>
+</div>

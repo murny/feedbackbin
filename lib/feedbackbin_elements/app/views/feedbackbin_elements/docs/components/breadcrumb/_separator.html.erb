@@ -1,0 +1,75 @@
+<div id="breadcrumb-separator">
+  <% content_for :preview_example, flush: true do %>
+    <div class="space-y-6">
+      <div>
+        <p class="text-sm font-medium mb-2">Default separator (chevron)</p>
+        <%= render_breadcrumb [
+          { text: "Home", path: "#" },
+          { text: "Components", path: "#" },
+          { text: "Breadcrumb", path: nil }
+        ] %>
+      </div>
+
+      <div>
+        <p class="text-sm font-medium mb-2">Slash separator</p>
+        <%= render_breadcrumb [
+          { text: "Home", path: "#" },
+          { text: "Components", path: "#" },
+          { text: "Breadcrumb", path: nil }
+        ], separator: "/" %>
+      </div>
+
+      <div>
+        <p class="text-sm font-medium mb-2">Dot separator</p>
+        <%= render_breadcrumb [
+          { text: "Home", path: "#" },
+          { text: "Components", path: "#" },
+          { text: "Breadcrumb", path: nil }
+        ], separator: "•" %>
+      </div>
+
+      <div>
+        <p class="text-sm font-medium mb-2">Arrow separator</p>
+        <%= render_breadcrumb [
+          { text: "Home", path: "#" },
+          { text: "Components", path: "#" },
+          { text: "Breadcrumb", path: nil }
+        ], separator: lucide_icon("arrow-right") %>
+      </div>
+    </div>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<!-- Default separator (chevron) -->
+<%%= render_breadcrumb [
+  { text: "Home", path: "#" },
+  { text: "Components", path: "#" },
+  { text: "Breadcrumb", path: nil }
+] %>
+
+<!-- Slash separator -->
+<%%= render_breadcrumb [
+  { text: "Home", path: "#" },
+  { text: "Components", path: "#" },
+  { text: "Breadcrumb", path: nil }
+], separator: "/" %>
+
+<!-- Dot separator -->
+<%%= render_breadcrumb [
+  { text: "Home", path: "#" },
+  { text: "Components", path: "#" },
+  { text: "Breadcrumb", path: nil }
+], separator: "•" %>
+
+<!-- Arrow separator -->
+<%%= render_breadcrumb [
+  { text: "Home", path: "#" },
+  { text: "Components", path: "#" },
+  { text: "Breadcrumb", path: nil }
+], separator: lucide_icon("arrow-right") %>
+    <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: {
+    heading: "Custom Separator",
+    description: "Customize the separator between breadcrumb items." } %>
+</div>

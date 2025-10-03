@@ -1,0 +1,19 @@
+<div id="card-base">
+  <% content_for :preview_example, flush: true do %>
+    <div class="flex w-full flex-wrap items-start gap-8 md:*:data-[slot=card]:basis-1/2">
+      <%= render_card(
+        title: "Card Title",
+        description: "This is a simple card with just a title and description."
+      ) %>
+    </div>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_card(
+  title: "Card Title",
+  description: "This is a simple card with just a title and description."
+) %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: { heading: "Base Card" } %>
+</div>

@@ -1,0 +1,44 @@
+<div id="tabs-with-icons">
+  <% content_for :preview_example, flush: true do %>
+    <%= render_tabs(
+      items: [
+        {
+          value: "preview",
+          label: "Preview",
+          icon: "eye",
+          content: content_tag(:div, "Preview tab content", class: "p-4 text-sm")
+        },
+        {
+          value: "code",
+          label: "Code",
+          icon: "code",
+          content: content_tag(:div, "Code tab content", class: "p-4 text-sm")
+        }
+      ]
+    ) %>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_tabs(
+  items: [
+    {
+      value: "preview",
+      label: "Preview",
+      icon: "eye",
+      content: content_tag(:div, "Preview tab content", class: "p-4 text-sm")
+    },
+    {
+      value: "code",
+      label: "Code",
+      icon: "code",
+      content: content_tag(:div, "Code tab content", class: "p-4 text-sm")
+    }
+  ]
+) %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: {
+    heading: "With Icons",
+    description: "Tabs can include icons alongside the tab label for better visual recognition."
+  } %>
+</div>

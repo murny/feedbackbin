@@ -1,0 +1,22 @@
+<div id="button-base">
+
+  <% content_for :preview_example, flush: true do %>
+    <%= render_button(text: "Primary") %>
+    <%= render_button(text: "Secondary", variant: :secondary) %>
+    <%= render_button(text: "Destructive", variant: :destructive) %>
+    <%= render_button(text: "Outline", variant: :outline) %>
+    <%= render_button(text: "Ghost", variant: :ghost) %>
+    <%= render_button(text: "Link", variant: :link) %>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_button(text: "Primary") %>
+<%%= render_button(text: "Secondary", variant: :secondary) %>
+<%%= render_button(text: "Destructive", variant: :destructive) %>
+<%%= render_button(text: "Outline", variant: :outline) %>
+<%%= render_button(text: "Ghost", variant: :ghost) %>
+<%%= render_button(text: "Link", variant: :link) %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: { heading: "Base" } %>
+</div>

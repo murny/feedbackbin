@@ -1,0 +1,41 @@
+<div id="toast-basic" data-controller="toggle">
+  <% content_for :preview_example, flush: true do %>
+    <div class="mb-4">
+      <%= render_button(
+        text: "Show Basic Toast",
+        variant: :default,
+        data: {
+          action: "click->toggle#toggle"
+        }
+      ) %>
+    </div>
+
+    <div class="hidden flex flex-col items-end justify-end py-6 px-4 fixed right-0 top-12 z-30 space-y-4 w-full max-w-[384px]" data-toggle-target="toggleable">
+      <%= render_toast(
+        title: "Basic Toast",
+        description: "This is a basic toast notification that provides feedback to users.",
+        variant: :default,
+        dismiss_after: false
+      ) %>
+    </div>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%# Direct usage in views %>
+<%%= render_toast(
+  title: "Basic Toast",
+  description: "This is a basic toast notification.",
+  variant: :default
+) %>
+
+<%# Usage with flash messages in controllers %>
+# Simple flash messages automatically become toasts
+flash[:notice] = "Changes saved successfully"
+flash[:alert] = "Something went wrong"
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: {
+    heading: "Basic Usage",
+    description: "Toasts provide temporary feedback at the top-right corner of the screen and automatically disappear after a duration. They can be triggered by flash messages or rendered directly in views."
+  } %>
+</div>

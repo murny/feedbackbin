@@ -1,0 +1,32 @@
+<div id="alert-without-icon">
+
+  <% content_for :preview_example, flush: true do %>
+    <%= render_alert(
+      title: "No Icon Alert",
+      description: "This alert doesn't display any icon.",
+      show_icon: false
+    ) %>
+
+    <div class="mt-4">
+      <%= render_alert(
+        description: "This alert has only description, no title and no icon.",
+        show_icon: false
+      ) %>
+    </div>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_alert(
+  title: "No Icon Alert",
+  description: "This alert doesn't display any icon.",
+  show_icon: false
+) %>
+
+<%%= render_alert(
+  description: "This alert has only description, no title and no icon.",
+  show_icon: false
+) %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: { heading: "Without Icon", description: "You can hide the icon if you prefer a simpler design." } %>
+</div>

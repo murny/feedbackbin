@@ -1,0 +1,38 @@
+<%= render "feedbackbin_elements/docs/shared/page_header",
+  title: "Avatar",
+  breadcrumb_items: [
+    { text: "Docs", path: nil },
+    { text: "Components", path: nil },
+    { text: "Avatar", path: nil }
+  ],
+  description: "An image element with a fallback for representing the user." %>
+
+<%= render "feedbackbin_elements/docs/components/avatar/base" %>
+<%= render "feedbackbin_elements/docs/components/avatar/sizes" %>
+<%= render "feedbackbin_elements/docs/components/avatar/shapes" %>
+<%= render "feedbackbin_elements/docs/components/avatar/fallbacks" %>
+<%= render "feedbackbin_elements/docs/components/avatar/groups" %>
+<%= render "feedbackbin_elements/docs/components/avatar/ring" %>
+<%= render "feedbackbin_elements/docs/components/avatar/performance" %>
+
+<%= render partial: "feedbackbin_elements/docs/shared/pagination", locals: {
+  prev_path: alert_path,
+  prev_text: "Alert",
+  next_path: badge_path,
+  next_text: "Badge"
+} %>
+
+<%= content_for :component_nav do %>
+  <%= render partial: "feedbackbin_elements/docs/shared/component_nav", locals: {
+    title: "On this page",
+    items: [
+      { text: "Base", path: "#avatar-base" },
+      { text: "Sizes", path: "#avatar-sizes" },
+      { text: "Shapes", path: "#avatar-shapes" },
+      { text: "Fallbacks", path: "#avatar-fallbacks" },
+      { text: "Groups", path: "#avatar-groups" },
+      { text: "Ring Styling", path: "#avatar-ring" },
+      { text: "Performance", path: "#avatar-performance" }
+    ]
+  } %>
+<% end %>

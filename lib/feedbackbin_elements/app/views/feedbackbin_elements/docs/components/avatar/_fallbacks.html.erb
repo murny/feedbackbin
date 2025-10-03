@@ -1,0 +1,22 @@
+<div id="avatar-fallbacks">
+
+  <% content_for :preview_example, flush: true do %>
+    <div class="flex flex-wrap items-center gap-6 p-6">
+      <%= render_avatar fallback: "SM" %>
+      <%= render_avatar fallback: "John Doe" %>
+      <%= render_avatar fallback: "Sarah Johnson" %>
+    </div>
+
+    <div class="px-6 pb-6 text-sm text-muted-foreground">
+      <p>When providing a full name as the fallback, the component will automatically generate initials (up to 2 characters).</p>
+    </div>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_avatar fallback: "SM" %>
+<%%= render_avatar fallback: "John Doe" %>
+<%%= render_avatar fallback: "Sarah Johnson" %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: { heading: "Fallbacks" } %>
+</div>

@@ -1,0 +1,28 @@
+<div id="popover-base">
+
+  <% content_for :preview_example, flush: true do %>
+    <%= render_popover(
+      trigger: render_button(text: "Open Popover", variant: :outline),
+      content: tag.div(class: "grid gap-4") do
+        concat(tag.div(class: "grid gap-1.5") do
+          concat(tag.h4("Dimensions", class: "leading-none font-medium"))
+          concat(tag.p("Set the dimensions for the layer.", class: "text-muted-foreground text-sm"))
+        end)
+      end
+    ) %>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_popover(
+  trigger: render_button(text: "Open Popover", variant: :outline),
+  content: tag.div(class: "grid gap-4") do
+    concat(tag.div(class: "grid gap-1.5") do
+      concat(tag.h4("Dimensions", class: "leading-none font-medium"))
+      concat(tag.p("Set the dimensions for the layer.", class: "text-muted-foreground text-sm"))
+    end)
+  end
+) %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: { heading: "Base", description: "A basic popover that appears when hovering over a button." } %>
+</div>

@@ -1,0 +1,34 @@
+<%= render "feedbackbin_elements/docs/shared/page_header",
+  title: "Dropdown Menu",
+  breadcrumb_items: [
+    { text: "Docs", path: nil },
+    { text: "Components", path: nil },
+    { text: "Dropdown Menu", path: nil }
+  ],
+  description: "A dropdown menu component that displays a list of options when triggered by a button." %>
+
+<%= render "feedbackbin_elements/docs/components/dropdown_menu/base" %>
+<%= render "feedbackbin_elements/docs/components/dropdown_menu/width" %>
+<%= render "feedbackbin_elements/docs/components/dropdown_menu/with_icons" %>
+<%= render "feedbackbin_elements/docs/components/dropdown_menu/with_separator" %>
+<%= render "feedbackbin_elements/docs/components/dropdown_menu/avatar_button" %>
+
+<%= render partial: "feedbackbin_elements/docs/shared/pagination", locals: {
+  prev_path: card_path,
+  prev_text: "Card",
+  next_path: popover_path,
+  next_text: "Popover"
+} %>
+
+<%= content_for :component_nav do %>
+  <%= render partial: "feedbackbin_elements/docs/shared/component_nav", locals: {
+    title: "On this page",
+    items: [
+      { text: "Base", path: "#dropdown-menu-base" },
+      { text: "Custom Width", path: "#dropdown-menu-width" },
+      { text: "With Icons", path: "#dropdown-menu-with-icons" },
+      { text: "With Separator", path: "#dropdown-menu-with-separator" },
+      { text: "Avatar Button", path: "#dropdown-menu-avatar-button" }
+    ]
+  } %>
+<% end %>

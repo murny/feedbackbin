@@ -1,0 +1,44 @@
+<div id="badge-links">
+  <% content_for :preview_example, flush: true do %>
+    <%= render_badge(text: "Default Link", href: "#") %>
+
+    <%= render_badge(variant: :secondary, href: "#") do %>
+      Secondary Link
+      <%= lucide_icon "arrow-right" %>
+    <% end %>
+
+    <%= render_badge(variant: :destructive, href: "#") do %>
+      Destructive Link
+      <%= lucide_icon "arrow-right" %>
+    <% end %>
+
+    <%= render_badge(variant: :outline, href: "#") do %>
+      Outline Link
+      <%= lucide_icon "arrow-right" %>
+    <% end %>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_badge(text: "Default Link", href: "#") %>
+
+<%%= render_badge(variant: :secondary, href: "#") do %>
+  Secondary Link
+  <%%= lucide_icon "arrow-right" %>
+<%% end %>
+
+<%%= render_badge(variant: :destructive, href: "#") do %>
+  Destructive Link
+  <%%= lucide_icon "arrow-right" %>
+<%% end %>
+
+<%%= render_badge(variant: :outline, href: "#") do %>
+  Outline Link
+  <%%= lucide_icon "arrow-right" %>
+<%% end %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: {
+    heading: "Links",
+    description: "Badges can be rendered as links by providing an <code>href</code> parameter."
+  } %>
+</div>

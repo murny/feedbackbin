@@ -1,0 +1,42 @@
+<div id="tabs-disabled">
+  <% content_for :preview_example, flush: true do %>
+    <%= render_tabs(
+      items: [
+        {
+          value: "home",
+          label: "Home",
+          content: content_tag(:div, "Home tab content", class: "p-4 text-sm")
+        },
+        {
+          value: "settings",
+          label: "Settings",
+          disabled: true,
+          content: content_tag(:div, "Settings tab content", class: "p-4 text-sm")
+        }
+      ]
+    ) %>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_tabs(
+  items: [
+    {
+      value: "home",
+      label: "Home",
+      content: content_tag(:div, "Home tab content", class: "p-4 text-sm")
+    },
+    {
+      value: "settings",
+      label: "Settings",
+      disabled: true,
+      content: content_tag(:div, "Settings tab content", class: "p-4 text-sm")
+    }
+  ]
+) %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: {
+    heading: "Disabled",
+    description: "Individual tabs can be disabled to prevent interaction."
+  } %>
+</div>

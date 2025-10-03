@@ -1,0 +1,30 @@
+<%= render "feedbackbin_elements/docs/shared/page_header",
+  title: "Accordion",
+  breadcrumb_items: [
+    { text: "Docs", path: nil },
+    { text: "Components", path: nil },
+    { text: "Accordion", path: nil }
+  ],
+  description: "A vertically stacked set of interactive headings that each reveal a section of content." %>
+
+<%= render "feedbackbin_elements/docs/components/accordion/base" %>
+<%= render "feedbackbin_elements/docs/components/accordion/multiple" %>
+<%= render "feedbackbin_elements/docs/components/accordion/with_partial" %>
+
+<%= render partial: "feedbackbin_elements/docs/shared/pagination", locals: {
+  prev_path: toast_path,
+  prev_text: "Toast",
+  next_path: alert_path,
+  next_text: "Alert"
+} %>
+
+<%= content_for :component_nav do %>
+  <%= render partial: "feedbackbin_elements/docs/shared/component_nav", locals: {
+    title: "On this page",
+    items: [
+      { text: "Base", path: "#accordion-base" },
+      { text: "Multiple Items", path: "#accordion-multiple" },
+      { text: "With Complex Content", path: "#accordion-with-partial" }
+    ]
+  } %>
+<% end %>

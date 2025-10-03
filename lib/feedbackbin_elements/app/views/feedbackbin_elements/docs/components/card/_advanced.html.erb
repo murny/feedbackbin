@@ -1,0 +1,53 @@
+<div id="card-advanced">
+  <% content_for :preview_example, flush: true do %>
+    <%= render_card(
+      title: "Meeting Notes",
+      description: "Transcript from the meeting with the client.",
+      footer: tag.div(class: "flex") do
+        concat(render_avatar_group([
+          { src: "https://github.com/murny.png", alt: "@murny", fallback: "SM" },
+          { fallback: "JD" },
+          { fallback: "FB" }
+        ]))
+      end
+    ) do %>
+      <div class="px-6 text-sm">
+        <p>Client requested dashboard redesign with focus on mobile responsiveness.</p>
+        <ol class="mt-4 flex list-decimal flex-col gap-2 pl-6">
+          <li>New analytics widgets for daily/weekly metrics</li>
+          <li>Simplified navigation menu</li>
+          <li>Dark mode support</li>
+          <li>Timeline: 6 weeks</li>
+          <li>Follow-up meeting scheduled for next Tuesday</li>
+        </ol>
+      </div>
+    <% end %>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_card(
+  title: "Meeting Notes",
+  description: "Transcript from the meeting with the client."
+  footer: tag.div(class: "flex") do
+    concat(render_avatar_group([
+      { src: "https://github.com/murny.png", alt: "@murny", fallback: "SM" },
+      { fallback: "JD" },
+      { fallback: "FB" }
+    ]))
+  end
+) do %>
+  <div class="px-6 text-sm">
+    <p>Client requested dashboard redesign with focus on mobile responsiveness.</p>
+    <ol class="mt-4 flex list-decimal flex-col gap-2 pl-6">
+      <li>New analytics widgets for daily/weekly metrics</li>
+      <li>Simplified navigation menu</li>
+      <li>Dark mode support</li>
+      <li>Timeline: 6 weeks</li>
+      <li>Follow-up meeting scheduled for next Tuesday</li>
+    </ol>
+  </div>
+<%% end %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: { heading: "Advanced Card" } %>
+</div>

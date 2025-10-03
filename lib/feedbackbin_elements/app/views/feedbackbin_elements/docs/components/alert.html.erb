@@ -1,0 +1,34 @@
+<%= render "feedbackbin_elements/docs/shared/page_header",
+  title: "Alert",
+  breadcrumb_items: [
+    { text: "Docs", path: nil },
+    { text: "Components", path: nil },
+    { text: "Alert", path: nil }
+  ],
+  description: "Displays a styled message that attracts user's attention without interrupting the user's task." %>
+
+<%= render "feedbackbin_elements/docs/components/alert/base" %>
+<%= render "feedbackbin_elements/docs/components/alert/destructive" %>
+<%= render "feedbackbin_elements/docs/components/alert/with_icon" %>
+<%= render "feedbackbin_elements/docs/components/alert/without_icon" %>
+<%= render "feedbackbin_elements/docs/components/alert/with_list" %>
+
+<%= render partial: "feedbackbin_elements/docs/shared/pagination", locals: {
+  prev_path: accordion_path,
+  prev_text: "Accordion",
+  next_path: avatar_path,
+  next_text: "Avatar"
+} %>
+
+<%= content_for :component_nav do %>
+  <%= render partial: "feedbackbin_elements/docs/shared/component_nav", locals: {
+    title: "On this page",
+    items: [
+      { text: "Base", path: "#alert-base" },
+      { text: "Destructive", path: "#alert-destructive" },
+      { text: "With Icon", path: "#alert-with-icon" },
+      { text: "Without Icon", path: "#alert-without-icon" },
+      { text: "With List", path: "#alert-with-list" }
+    ]
+  } %>
+<% end %>

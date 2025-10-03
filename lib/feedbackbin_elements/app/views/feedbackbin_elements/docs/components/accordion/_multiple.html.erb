@@ -1,0 +1,45 @@
+<div id="accordion-multiple">
+
+  <% content_for :preview_example, flush: true do %>
+    <%= render_accordion(
+      items: [
+        {
+          trigger: "Is it accessible?",
+          content: "Yes. It adheres to the WAI-ARIA design pattern using the native HTML details and summary elements."
+        },
+        {
+          trigger: "Is it styled?",
+          content: "Yes. It comes with default styles that match the other components' aesthetic."
+        },
+        {
+          trigger: "How does it work?",
+          content: "The accordion uses HTML's native <details> and <summary> elements, which provide built-in functionality for expanding and collapsing content without JavaScript."
+        }
+      ]
+    ) %>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_accordion(
+  items: [
+    {
+      trigger: "Is it accessible?",
+      content: "Yes. It adheres to the WAI-ARIA design pattern using the native HTML details and summary elements."
+    },
+    {
+      trigger: "Is it styled?",
+      content: "Yes. It comes with default styles that match the other components' aesthetic."
+    },
+    {
+      trigger: "How does it work?",
+      content: "The accordion uses HTML's native <details> and <summary> elements, which provide built-in functionality for expanding and collapsing content without JavaScript."
+    }
+  ]
+) %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: {
+    heading: "Multiple Items",
+    description: "You can add multiple items to an accordion to create a list of expandable sections."
+  } %>
+</div>

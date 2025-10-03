@@ -1,0 +1,20 @@
+<div id="alert-destructive">
+
+  <% content_for :preview_example, flush: true do %>
+    <%= render_alert(
+      title: "Error",
+      description: "Something went wrong. Please try again later.",
+      variant: :destructive
+    ) %>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_alert(
+  title: "Error",
+  description: "Something went wrong. Please try again later.",
+  variant: :destructive
+) %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: { heading: "Destructive Alert", description: "Used for error messages or warning users about destructive actions." } %>
+</div>

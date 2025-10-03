@@ -1,0 +1,36 @@
+<div id="forms-selects">
+
+  <% content_for :preview_example, flush: true do %>
+    <%= render_form_with(url: "#", class: "w-2/3") do |form| %>
+      <%= form.label :country %>
+      <%= form.select :country, options_for_select([
+        [ "Select a country", "" ],
+        [ "United States", "us" ],
+        [ "Canada", "ca" ],
+        [ "United Kingdom", "uk" ],
+        [ "Australia", "au" ]
+      ]), { prompt: false } %>
+
+      <%= form.label :timezone %>
+      <%= form.time_zone_select :timezone, nil, { prompt: "Select your timezone" } %>
+    <% end %>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_form_with(url: "#", class: "w-2/3") do |form| %>
+  <%%= form.label :country %>
+  <%%= form.select :country, options_for_select([
+    ["Select a country", ""],
+    ["United States", "us"],
+    ["Canada", "ca"],
+    ["United Kingdom", "uk"],
+    ["Australia", "au"]
+  ]), { prompt: false } %>
+
+  <%%= form.label :timezone %>
+  <%%= form.time_zone_select :timezone, nil, { prompt: "Select your timezone" } %>
+<%% end %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: { heading: "Select Dropdowns" } %>
+</div>

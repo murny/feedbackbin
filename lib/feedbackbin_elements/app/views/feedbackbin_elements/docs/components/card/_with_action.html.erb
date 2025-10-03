@@ -1,0 +1,21 @@
+<div id="card-with-action">
+  <% content_for :preview_example, flush: true do %>
+    <%= render_card(
+      title: "Card with Action",
+      description: "This card has an action button in the header.",
+      header_action: render_button(text: "Action", variant: :secondary, size: :sm),
+      body: tag.p("Card content with an action button in the header area.", class: "text-sm")
+    ) %>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_card(
+  title: "Card with Action",
+  description: "This card has an action button in the header.",
+  header_action: render_button(text: "Action", variant: :secondary, size: :sm),
+  body: tag.p("Card content with an action button in the header area.", class: "text-sm")
+) %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: { heading: "Card with Action" } %>
+</div>

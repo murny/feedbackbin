@@ -1,0 +1,22 @@
+<div id="forms-basic">
+
+  <% content_for :preview_example, flush: true do %>
+    <%= render_form_with(url: "#", class: "w-2/3") do |form| %>
+      <%= form.label :email %>
+      <%= form.email_field :email, placeholder: "Enter your email" %>
+
+      <%= form.submit "Submit" %>
+    <% end %>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_form_with(url: "#", class: "w-2/3") do |form| %>
+  <%%= form.label :email %>
+  <%%= form.email_field :email, placeholder: "Enter your email" %>
+
+  <%%= form.submit "Submit" %>
+<%% end %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: { heading: "Basic Form" } %>
+</div>

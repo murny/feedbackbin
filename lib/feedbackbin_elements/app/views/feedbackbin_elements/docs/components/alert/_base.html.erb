@@ -1,0 +1,18 @@
+<div id="alert-base">
+
+  <% content_for :preview_example, flush: true do %>
+    <%= render_alert(
+      title: "Information",
+      description: "This is a default alert with basic information."
+    ) %>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_alert(
+  title: "Information",
+  description: "This is a default alert with basic information."
+) %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: { heading: "Base Alert", description: "The default alert style, used for showing general information to users." } %>
+</div>

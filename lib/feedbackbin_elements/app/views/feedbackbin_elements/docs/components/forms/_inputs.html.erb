@@ -1,0 +1,36 @@
+<div id="forms-inputs">
+
+  <% content_for :preview_example, flush: true do %>
+    <%= render_form_with(url: "#", class: "w-2/3") do |form| %>
+      <%= form.label :name %>
+      <%= form.text_field :name, placeholder: "Enter your name" %>
+
+      <%= form.label :email %>
+      <%= form.email_field :email, placeholder: "Enter your email" %>
+
+      <%= form.label :password %>
+      <%= form.password_field :password, placeholder: "Enter your password" %>
+
+      <%= form.label :birth_date %>
+      <%= form.date_field :birth_date %>
+    <% end %>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_form_with(url: "#", class: "w-2/3") do |form| %>
+  <%%= form.label :name %>
+  <%%= form.text_field :name, placeholder: "Enter your name" %>
+
+  <%%= form.label :email %>
+  <%%= form.email_field :email, placeholder: "Enter your email" %>
+
+  <%%= form.label :password %>
+  <%%= form.password_field :password, placeholder: "Enter your password" %>
+
+  <%%= form.label :birth_date %>
+  <%%= form.date_field :birth_date %>
+<%% end %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: { heading: "Input Fields" } %>
+</div>

@@ -1,0 +1,105 @@
+<div id="card-with-form">
+  <% content_for :preview_example, flush: true do %>
+    <%= render_card(
+      title: "Login to your account",
+      description: "Enter your email below to login to your account"
+    ) do %>
+      <div class="px-6">
+        <form>
+          <div class="flex flex-col gap-6">
+            <div class="grid gap-2">
+              <label for="email" class="text-sm font-medium leading-none">Email</label>
+              <input
+                type="email"
+                id="email"
+                placeholder="m@example.com"
+                class="h-9 rounded-md border bg-transparent px-3 text-sm"
+                autocomplete="email"
+                required>
+            </div>
+
+            <div class="grid gap-2">
+              <div class="flex items-center">
+                <label for="password" class="text-sm font-medium leading-none">Password</label>
+                <a href="#" class="ml-auto text-sm hover:underline underline-offset-4">Forgot your password?</a>
+              </div>
+              <input
+                type="password"
+                id="password"
+                class="h-9 rounded-md border bg-transparent px-3 text-sm"
+                autocomplete="current-password"
+                required>
+            </div>
+
+            <div class="flex flex-col gap-3">
+              <%= render_button(variant: :default, type: "submit", class: "w-full") do %>
+                Login
+              <% end %>
+              <%= render_button(variant: :outline, type: "button", class: "w-full") do %>
+                Login with Google
+              <% end %>
+            </div>
+          </div>
+          <div class="mt-4 text-center text-sm">
+            Don't have an account?
+            <a href="#" class="underline underline-offset-4">Sign up</a>
+          </div>
+        </form>
+      </div>
+    <% end %>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_card(
+  title: "Login to your account",
+  description: "Enter your email below to login to your account"
+) do %>
+  <div class="px-6">
+    <form>
+      <div class="flex flex-col gap-6">
+        <div class="grid gap-2">
+          <label for="email" class="text-sm font-medium leading-none">Email</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="m@example.com"
+            class="h-9 rounded-md border bg-transparent px-3 text-sm"
+            autocomplete="email"
+            required>
+        </div>
+
+        <div class="grid gap-2">
+          <div class="flex items-center">
+            <label for="password" class="text-sm font-medium leading-none">Password</label>
+            <a href="#" class="ml-auto text-sm hover:underline underline-offset-4">
+              Forgot your password?
+            </a>
+          </div>
+          <input
+            type="password"
+            id="password"
+            class="h-9 rounded-md border bg-transparent px-3 text-sm"
+            autocomplete="current-password"
+            required>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <%%= render_button(variant: :default, type: "submit", class: "w-full") do %>
+            Login
+          <%% end %>
+          <%%= render_button(variant: :outline, type: "button", class: "w-full") do %>
+            Login with Google
+          <%% end %>
+        </div>
+      </div>
+      <div class="mt-4 text-center text-sm">
+        Don't have an account?
+        <a href="#" class="underline underline-offset-4">Sign up</a>
+      </div>
+    </form>
+  </div>
+<%% end %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: { heading: "Card with Form" } %>
+</div>

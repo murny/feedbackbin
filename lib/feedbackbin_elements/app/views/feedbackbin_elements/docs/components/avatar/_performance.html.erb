@@ -1,0 +1,38 @@
+<div id="avatar-performance">
+
+  <% content_for :preview_example, flush: true do %>
+    <div class="p-6">
+      <h3 class="text-sm font-medium mb-4">Performance Optimizations</h3>
+
+      <div class="mb-4">
+        <p class="text-sm text-muted-foreground mb-2">Avatars use lazy loading for better performance with many images:</p>
+
+        <div class="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-8 lg:grid-cols-10 gap-2">
+          <% 30.times do |i| %>
+            <%= render_avatar src: "https://randomuser.me/api/portraits/men/#{i + 1}.jpg", alt: "User #{i + 1}" %>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="mt-6">
+        <p class="text-sm text-muted-foreground mb-2">Optimizing group display with limit parameter:</p>
+
+        <% many_avatars = (1..20).map do |i| %>
+          <% { src: "https://randomuser.me/api/portraits/women/#{i}.jpg", alt: "User #{i}", fallback: "U#{i}" } %>
+        <% end %>
+
+        <%= render_avatar_group(many_avatars, limit: 5, ring: true) %>
+      </div>
+    </div>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<!-- Avatars use lazy loading for improved performance -->
+<%%= image_tag "avatar.jpg", alt: "Avatar", loading: "lazy" %>
+
+<!-- Using limit parameter to optimize rendering of large groups -->
+<%%= render_avatar_group(many_avatars, limit: 5) %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: { heading: "Performance Optimizations" } %>
+</div>

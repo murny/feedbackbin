@@ -1,0 +1,95 @@
+<div id="popover-positioning">
+
+  <% content_for :preview_example, flush: true do %>
+    <div class="flex flex-wrap gap-4">
+      <%= render_popover(
+        trigger: render_button(text: "Top", variant: :outline),
+        side: :top,
+        content: "This popover appears above the trigger."
+      ) %>
+
+      <%= render_popover(
+        trigger: render_button(text: "Right", variant: :outline),
+        side: :right,
+        content: "This popover appears to the right of the trigger."
+      ) %>
+
+      <%= render_popover(
+        trigger: render_button(text: "Bottom", variant: :outline),
+        side: :bottom,
+        content: "This popover appears below the trigger."
+      ) %>
+
+      <%= render_popover(
+        trigger: render_button(text: "Left", variant: :outline),
+        side: :left,
+        content: "This popover appears to the left of the trigger."
+      ) %>
+    </div>
+    <div class="flex flex-wrap gap-4 mt-6">
+      <%= render_popover(
+        trigger: render_button(text: "Start Align", variant: :outline),
+        align: :start,
+        content: "This popover is aligned to the start."
+      ) %>
+
+      <%= render_popover(
+        trigger: render_button(text: "Center Align", variant: :outline),
+        align: :center,
+        content: "This popover is aligned to the center."
+      ) %>
+
+      <%= render_popover(
+        trigger: render_button(text: "End Align", variant: :outline),
+        align: :end,
+        content: "This popover is aligned to the end."
+      ) %>
+    </div>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_popover(
+  trigger: render_button(text: "Top", variant: :outline),
+  side: :top,
+  content: "This popover appears above the trigger."
+) %>
+
+<%%= render_popover(
+  trigger: render_button(text: "Right", variant: :outline),
+  side: :right,
+  content: "This popover appears to the right of the trigger."
+) %>
+
+<%%= render_popover(
+  trigger: render_button(text: "Bottom", variant: :outline),
+  side: :bottom,
+  content: "This popover appears below the trigger."
+) %>
+
+<%%= render_popover(
+  trigger: render_button(text: "Left", variant: :outline),
+  side: :left,
+  content: "This popover appears to the left of the trigger."
+) %>
+
+<%%= render_popover(
+  trigger: render_button(text: "Start Align", variant: :outline),
+  align: :start,
+  content: "This popover is aligned to the start."
+) %>
+
+<%%= render_popover(
+  trigger: render_button(text: "Center Align", variant: :outline),
+  align: :center,
+  content: "This popover is aligned to the center."
+) %>
+
+<%%= render_popover(
+  trigger: render_button(text: "End Align", variant: :outline),
+  align: :end,
+  content: "This popover is aligned to the end."
+) %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: { heading: "Positioning", description: "Popovers can be positioned on any side of the trigger element (top, right, bottom, left) and with different alignments (start, center, end)." } %>
+</div>
