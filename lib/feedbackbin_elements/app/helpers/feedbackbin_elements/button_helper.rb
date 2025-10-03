@@ -17,7 +17,7 @@ module FeedbackbinElements
         text = capture(&block)
       end
 
-      render "feedbackbin_elements/ui/button", {
+      render "feedbackbin_elements/components/button", {
         text: text,
         href: href,
         loading: loading,

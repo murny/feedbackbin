@@ -11,7 +11,7 @@ module FeedbackbinElements
       # Process the items to handle collapse logic
       processed_items = components_breadcrumb_process_items(items, collapse)
 
-      render "feedbackbin_elements/ui/breadcrumb", {
+      render "feedbackbin_elements/components/breadcrumb", {
         items: processed_items,
         separator: separator,
         collapse: collapse,

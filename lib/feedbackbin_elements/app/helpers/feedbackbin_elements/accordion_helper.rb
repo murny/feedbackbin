@@ -12,7 +12,7 @@ module FeedbackbinElements
       # Use the tw_merge helper to intelligently merge classes
       options[:class] = tw_merge(base_classes, custom_classes)
 
-      render "feedbackbin_elements/ui/accordion", {
+      render "feedbackbin_elements/components/accordion", {
         items: items,
         options: options,
         item_classes: item_classes,

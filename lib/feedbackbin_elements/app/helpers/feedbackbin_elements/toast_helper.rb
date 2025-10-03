@@ -27,7 +27,7 @@ module FeedbackbinElements
         options[:data][:alert_dismiss_after_value] = dismiss_after
       end
 
-      render "feedbackbin_elements/ui/toast", {
+      render "feedbackbin_elements/components/toast", {
         title: title,
         description: description,
         icon: icon,

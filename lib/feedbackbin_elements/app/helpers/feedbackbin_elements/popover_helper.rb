@@ -37,7 +37,7 @@ module FeedbackbinElements
       # Set position attributes based on side and align
       content_position = components_popover_position(side, align, side_offset)
 
-      render "feedbackbin_elements/ui/popover", {
+      render "feedbackbin_elements/components/popover", {
         trigger: trigger,
         content: content,
         align: align,

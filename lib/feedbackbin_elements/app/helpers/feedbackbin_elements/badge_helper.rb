@@ -14,7 +14,7 @@ module FeedbackbinElements
         text = capture(&block)
       end
 
-      render "feedbackbin_elements/ui/badge", {
+      render "feedbackbin_elements/components/badge", {
         text: text,
         href: href,
         data: data,

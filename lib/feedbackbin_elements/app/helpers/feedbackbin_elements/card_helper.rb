@@ -9,7 +9,7 @@ module FeedbackbinElements
       # Use the tw_merge helper to intelligently merge classes
       options[:class] = tw_merge(base_classes, custom_classes)
 
-      render "feedbackbin_elements/ui/card", {
+      render "feedbackbin_elements/components/card", {
         title: title,
         description: description,
         body: block_given? ? capture(&block) : body,

@@ -42,7 +42,7 @@ module FeedbackbinElements
       trigger_button_options[:data][:action] = "dropdown#toggle:stop"
       trigger_button_options[:data][:dropdown_target] = "button"
 
-      render "feedbackbin_elements/ui/dropdown_menu", {
+      render "feedbackbin_elements/components/dropdown_menu", {
         trigger: trigger,
         trigger_button_options: trigger_button_options,
         content: content,

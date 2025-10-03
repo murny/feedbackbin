@@ -1,4 +1,4 @@
-# FeedbackBin::Ui
+# Feedbackbin Elements
 
 Shadcn-inspired UI component library for Ruby on Rails, built with Tailwind CSS.
 
@@ -22,7 +22,7 @@ Shadcn-inspired UI component library for Ruby on Rails, built with Tailwind CSS.
 Add this line to your application's Gemfile:
 
 ```ruby
-gem "feedback_bin-ui", path: "lib/feedback_bin-ui"
+gem "feedbackbin_elements", path: "lib/feedbackbin_elements"
 ```
 
 And then execute:
@@ -49,7 +49,7 @@ All component helpers are automatically available in your views:
 Mount the documentation engine in your routes to access interactive component examples:
 
 ```ruby
-mount FeedbackBin::Ui::Engine, at: "/ui/docs"
+mount FeedbackbinElements::Engine, at: "/ui/docs"
 ```
 
 Then visit `/ui/docs/components` to view all component examples and usage.

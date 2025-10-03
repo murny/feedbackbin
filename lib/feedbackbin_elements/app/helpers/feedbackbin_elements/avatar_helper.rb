@@ -18,7 +18,7 @@ module FeedbackbinElements
         initials = fallback
       end
 
-      render "feedbackbin_elements/ui/avatar", {
+      render "feedbackbin_elements/components/avatar", {
         src: src,
         alt: alt,
         fallback: initials,
@@ -39,7 +39,7 @@ module FeedbackbinElements
       item_classes << "ring-2 ring-background" if ring
       item_classes << "transition-all duration-300 ease-in-out" if hover_effect
 
-      render "feedbackbin_elements/ui/avatar_group", {
+      render "feedbackbin_elements/components/avatar_group", {
         avatars: limit ? avatars.first(limit) : avatars,
         total: avatars.size,
         limit: limit,

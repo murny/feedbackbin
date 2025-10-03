@@ -22,7 +22,7 @@ module FeedbackbinElements
         description = capture(&block)
       end
 
-      render "feedbackbin_elements/ui/alert", {
+      render "feedbackbin_elements/components/alert", {
         title: title,
         description: description,
         icon: icon,

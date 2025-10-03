@@ -23,7 +23,7 @@ module FeedbackbinElements
       # Merge any custom data attributes provided
       options[:data] = default_data.merge(options[:data] || {})
 
-      render "feedbackbin_elements/ui/tabs", {
+      render "feedbackbin_elements/components/tabs", {
         items: items,
         index_value: index_value,
         options: options,
