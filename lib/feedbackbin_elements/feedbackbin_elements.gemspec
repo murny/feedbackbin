@@ -5,8 +5,8 @@ require_relative "lib/feedbackbin_elements/version"
 Gem::Specification.new do |spec|
   spec.name        = "feedbackbin_elements"
   spec.version     = FeedbackbinElements::VERSION
-  spec.authors     = ["FeedbackBin"]
-  spec.email       = ["info@feedbackbin.com"]
+  spec.authors     = [ "FeedbackBin" ]
+  spec.email       = [ "info@feedbackbin.com" ]
   spec.homepage    = "https://github.com/feedbackbin/feedbackbin_elements"
   spec.summary     = "Shadcn-inspired UI component library for Rails"
   spec.description = "A collection of reusable UI components built with Tailwind CSS, inspired by Shadcn UI"
