@@ -1,0 +1,14 @@
+<div id="avatar-base">
+
+  <% content_for :preview_example, flush: true do %>
+    <div class="flex flex-wrap items-center gap-4 p-6">
+      <%= render_avatar src: "https://github.com/murny.png", alt: "@murny" %>
+    </div>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_avatar src: "https://github.com/murny.png", alt: "@murny" %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: { heading: "Base" } %>
+</div>

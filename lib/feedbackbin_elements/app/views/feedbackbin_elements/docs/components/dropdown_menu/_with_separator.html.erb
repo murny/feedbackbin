@@ -1,0 +1,59 @@
+<div id="dropdown-menu-with-separator">
+
+  <% content_for :preview_example, flush: true do %>
+    <%= render_dropdown_menu(
+      trigger: "More Options",
+      trigger_button_variant: :outline,
+      content: tag.div do
+        concat(tag.div(class: "flex flex-col gap-1") do
+          concat(link_to("Edit", "#", class: "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem"))
+          concat(link_to("Duplicate", "#", class: "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem"))
+          concat(link_to("Archive", "#", class: "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem"))
+        end)
+
+        concat(tag.div(class: "bg-border -mx-1 my-1 h-px"))
+
+        concat(tag.div(class: "flex flex-col gap-1") do
+          concat(link_to("Share", "#", class: "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem"))
+        end)
+
+        concat(tag.div(class: "bg-border -mx-1 my-1 h-px"))
+
+        concat(tag.div(class: "flex flex-col gap-1") do
+          concat(link_to("Delete", "#", class: "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm text-destructive outline-hidden select-none", "data-dropdown-target": "menuItem"))
+        end)
+      end
+    ) %>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_dropdown_menu(
+  trigger: "More Options",
+  trigger_button_variant: :outline,
+  content: tag.div do
+    concat(tag.div(class: "flex flex-col gap-1") do
+      concat(link_to("Edit", "#", class: "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem"))
+      concat(link_to("Duplicate", "#", class: "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem"))
+      concat(link_to("Archive", "#", class: "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem"))
+    end)
+
+    # Add a separator
+    concat(tag.div(class: "bg-border -mx-1 my-1 h-px"))
+
+    concat(tag.div(class: "flex flex-col gap-1") do
+      concat(link_to("Share", "#", class: "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem"))
+    end)
+
+    # Add another separator
+    concat(tag.div(class: "bg-border -mx-1 my-1 h-px"))
+
+    # Destructive action
+    concat(tag.div(class: "flex flex-col gap-1") do
+      concat(link_to("Delete", "#", class: "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm text-destructive outline-hidden select-none", "data-dropdown-target": "menuItem"))
+    end)
+  end
+) %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: { heading: "With Separator", description: "Use separators to group related menu items and create visual hierarchy." } %>
+</div>

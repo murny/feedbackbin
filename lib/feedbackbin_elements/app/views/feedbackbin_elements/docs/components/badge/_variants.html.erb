@@ -1,0 +1,20 @@
+<div id="badge-variants">
+  <% content_for :preview_example, flush: true do %>
+    <%= render_badge(text: "Default") %>
+    <%= render_badge(text: "Secondary", variant: :secondary) %>
+    <%= render_badge(text: "Destructive", variant: :destructive) %>
+    <%= render_badge(text: "Outline", variant: :outline) %>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_badge(text: "Default") %>
+<%%= render_badge(text: "Secondary", variant: :secondary) %>
+<%%= render_badge(text: "Destructive", variant: :destructive) %>
+<%%= render_badge(text: "Outline", variant: :outline) %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: {
+    heading: "Variants",
+    description: "Badges come in multiple variants to indicate different types of information."
+  } %>
+</div>

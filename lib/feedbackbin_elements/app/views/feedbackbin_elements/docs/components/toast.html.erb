@@ -1,0 +1,30 @@
+<%= render "feedbackbin_elements/docs/shared/page_header",
+  title: "Toast",
+  breadcrumb_items: [
+    { text: "Docs", path: nil },
+    { text: "Components", path: nil },
+    { text: "Toast", path: nil }
+  ],
+  description: "A toast is a non-disruptive message that appears temporarily and provides brief feedback to the user." %>
+
+<%= render "feedbackbin_elements/docs/components/toast/basic" %>
+<%= render "feedbackbin_elements/docs/components/toast/variants" %>
+<%= render "feedbackbin_elements/docs/components/toast/advanced" %>
+
+<%= render partial: "feedbackbin_elements/docs/shared/pagination", locals: {
+  prev_path: tabs_path,
+  prev_text: "Tabs",
+  next_path: accordion_path,
+  next_text: "Accordion"
+} %>
+
+<%= content_for :component_nav do %>
+  <%= render partial: "feedbackbin_elements/docs/shared/component_nav", locals: {
+    title: "On this page",
+    items: [
+      { text: "Basic", path: "#toast-basic" },
+      { text: "Variants", path: "#toast-variants" },
+      { text: "Advanced", path: "#toast-advanced" }
+    ]
+  } %>
+<% end %>

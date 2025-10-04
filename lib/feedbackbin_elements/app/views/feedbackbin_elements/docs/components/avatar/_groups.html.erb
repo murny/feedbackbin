@@ -1,0 +1,74 @@
+<div id="avatar-groups">
+
+  <% content_for :preview_example, flush: true do %>
+    <div class="flex flex-col gap-6 p-6">
+      <div>
+        <h3 class="text-sm font-medium mb-2">Basic Group</h3>
+        <%= render_avatar_group([
+          { src: "https://github.com/murny.png", alt: "@murny", fallback: "SM" },
+          { src: "https://github.com/rails.png", alt: "@rails", fallback: "RR" },
+          { src: "https://github.com/ruby.png", alt: "@ruby", fallback: "RB" }
+        ]) %>
+      </div>
+
+      <div>
+        <h3 class="text-sm font-medium mb-2">With Limit</h3>
+        <%= render_avatar_group([
+          { src: "https://github.com/murny.png", alt: "@murny", fallback: "SM" },
+          { src: "https://github.com/rails.png", alt: "@rails", fallback: "RR" },
+          { src: "https://github.com/ruby.png", alt: "@ruby", fallback: "RB" },
+          { src: "https://github.com/feedbackbin.png", alt: "@feedbackbin", fallback: "FB" },
+          { src: "https://github.com/github.png", alt: "@github", fallback: "GH" }
+        ], limit: 3) %>
+      </div>
+
+      <div>
+        <h3 class="text-sm font-medium mb-2">Different Sizes</h3>
+        <%= render_avatar_group([
+          { src: "https://github.com/murny.png", alt: "@murny", fallback: "SM" },
+          { src: "https://github.com/rails.png", alt: "@rails", fallback: "RR" },
+          { src: "https://github.com/ruby.png", alt: "@ruby", fallback: "RB" }
+        ], size: :lg) %>
+      </div>
+
+      <div>
+        <h3 class="text-sm font-medium mb-2">With Hover Effect</h3>
+        <%= render_avatar_group([
+          { src: "https://github.com/murny.png", alt: "@murny", fallback: "SM" },
+          { src: "https://github.com/rails.png", alt: "@rails", fallback: "RR" },
+          { src: "https://github.com/ruby.png", alt: "@ruby", fallback: "RB" }
+        ], hover_effect: true) %>
+      </div>
+    </div>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_avatar_group([
+  { src: "https://github.com/murny.png", alt: "@murny", fallback: "SM" },
+  { src: "https://github.com/rails.png", alt: "@rails", fallback: "RR" },
+  { src: "https://github.com/ruby.png", alt: "@ruby", fallback: "RB" }
+]) %>
+
+<%%= render_avatar_group([
+  { src: "https://github.com/murny.png", alt: "@murny", fallback: "SM" },
+  { src: "https://github.com/rails.png", alt: "@rails", fallback: "RR" },
+  { src: "https://github.com/ruby.png", alt: "@ruby", fallback: "RB" },
+  { src: "https://github.com/feedbackbin.png", alt: "@feedbackbin", fallback: "FB" },
+  { src: "https://github.com/github.png", alt: "@github", fallback: "GH" }
+], limit: 3) %>
+
+<%%= render_avatar_group([
+  { src: "https://github.com/murny.png", alt: "@murny", fallback: "SM" },
+  { src: "https://github.com/rails.png", alt: "@rails", fallback: "RR" },
+  { src: "https://github.com/ruby.png", alt: "@ruby", fallback: "RB" }
+], size: :lg) %>
+
+<%%= render_avatar_group([
+  { src: "https://github.com/murny.png", alt: "@murny", fallback: "SM" },
+  { src: "https://github.com/rails.png", alt: "@rails", fallback: "RR" },
+  { src: "https://github.com/ruby.png", alt: "@ruby", fallback: "RB" }
+], hover_effect: true) %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: { heading: "Groups" } %>
+</div>

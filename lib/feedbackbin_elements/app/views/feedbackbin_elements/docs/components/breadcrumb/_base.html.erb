@@ -1,0 +1,21 @@
+<div id="breadcrumb-base">
+  <% content_for :preview_example, flush: true do %>
+    <%= render_breadcrumb [
+      { text: "Home", path: "#" },
+      { text: "Components", path: "#" },
+      { text: "Breadcrumb", path: nil }
+    ] %>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_breadcrumb [
+  { text: "Home", path: "#" },
+  { text: "Components", path: "#" },
+  { text: "Breadcrumb", path: nil }
+] %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: {
+    heading: "Base Breadcrumb",
+    description: "A standard breadcrumb navigation showing the current path hierarchy." } %>
+</div>

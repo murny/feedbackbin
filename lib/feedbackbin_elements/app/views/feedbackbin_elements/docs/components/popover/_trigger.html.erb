@@ -1,0 +1,34 @@
+<div id="popover-trigger">
+
+  <% content_for :preview_example, flush: true do %>
+    <div class="flex flex-wrap gap-4">
+      <%= render_popover(
+        trigger: render_button(text: "Hover Me", variant: :outline),
+        trigger_on: :hover,
+        content: "This popover appears when you hover over the button."
+      ) %>
+
+      <%= render_popover(
+        trigger: render_button(text: "Click Me", variant: :outline),
+        trigger_on: :click,
+        content: "This popover appears when you click the button and disappears when you click again."
+      ) %>
+    </div>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_popover(
+  trigger: render_button(text: "Hover Me", variant: :outline),
+  trigger_on: :hover,
+  content: "This popover appears when you hover over the button."
+) %>
+
+<%%= render_popover(
+  trigger: render_button(text: "Click Me", variant: :outline),
+  trigger_on: :click,
+  content: "This popover appears when you click the button and disappears when you click again."
+) %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: { heading: "Trigger Types", description: "Popovers can be triggered by hovering or clicking on the trigger element." } %>
+</div>

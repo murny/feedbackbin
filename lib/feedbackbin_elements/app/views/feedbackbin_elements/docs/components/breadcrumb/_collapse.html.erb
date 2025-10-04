@@ -1,0 +1,77 @@
+<div id="breadcrumb-collapse">
+  <% content_for :preview_example, flush: true do %>
+    <div class="space-y-6">
+      <div>
+        <p class="text-sm font-medium mb-2">Regular breadcrumb with many items</p>
+        <%= render_breadcrumb [
+          { text: "Home", path: "#" },
+          { text: "Products", path: "#" },
+          { text: "Electronics", path: "#" },
+          { text: "Computers", path: "#" },
+          { text: "Laptops", path: "#" },
+          { text: "MacBook Pro", path: nil }
+        ] %>
+      </div>
+
+      <div>
+        <p class="text-sm font-medium mb-2">Collapsed breadcrumb with ellipsis</p>
+        <%= render_breadcrumb [
+          { text: "Home", path: "#" },
+          { text: "Products", path: "#" },
+          { text: "Electronics", path: "#" },
+          { text: "Computers", path: "#" },
+          { text: "Laptops", path: "#" },
+          { text: "MacBook Pro", path: nil }
+        ], collapse: true %>
+      </div>
+
+      <div>
+        <p class="text-sm font-medium mb-2">Collapsed breadcrumb with custom separator</p>
+        <%= render_breadcrumb [
+          { text: "Home", path: "#" },
+          { text: "Products", path: "#" },
+          { text: "Electronics", path: "#" },
+          { text: "Computers", path: "#" },
+          { text: "Laptops", path: "#" },
+          { text: "MacBook Pro", path: nil }
+        ], collapse: true, separator: "/" %>
+      </div>
+    </div>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<!-- Regular breadcrumb with many items -->
+<%%= render_breadcrumb [
+  { text: "Home", path: "#" },
+  { text: "Products", path: "#" },
+  { text: "Electronics", path: "#" },
+  { text: "Computers", path: "#" },
+  { text: "Laptops", path: "#" },
+  { text: "MacBook Pro", path: nil }
+] %>
+
+<!-- Collapsed breadcrumb with ellipsis -->
+<%%= render_breadcrumb [
+  { text: "Home", path: "#" },
+  { text: "Products", path: "#" },
+  { text: "Electronics", path: "#" },
+  { text: "Computers", path: "#" },
+  { text: "Laptops", path: "#" },
+  { text: "MacBook Pro", path: nil }
+], collapse: true %>
+
+<!-- Collapsed breadcrumb with custom separator -->
+<%%= render_breadcrumb [
+  { text: "Home", path: "#" },
+  { text: "Products", path: "#" },
+  { text: "Electronics", path: "#" },
+  { text: "Computers", path: "#" },
+  { text: "Laptops", path: "#" },
+  { text: "MacBook Pro", path: nil }
+], collapse: true, separator: "/" %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: {
+    heading: "Collapsible Breadcrumb",
+    description: "Use the collapse option to handle long navigation paths efficiently." } %>
+</div>

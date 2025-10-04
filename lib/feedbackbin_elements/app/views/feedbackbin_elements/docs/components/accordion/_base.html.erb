@@ -1,0 +1,26 @@
+<div id="accordion-base">
+
+  <% content_for :preview_example, flush: true do %>
+    <%= render_accordion(
+      items: [
+        {
+          trigger: "Is it accessible?",
+          content: "Yes. It adheres to the WAI-ARIA design pattern using the native HTML details and summary elements."
+        }
+      ]
+    ) %>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_accordion(
+  items: [
+    {
+      trigger: "Is it accessible?",
+      content: "Yes. It adheres to the WAI-ARIA design pattern using the native HTML details and summary elements."
+    }
+  ]
+) %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: { heading: "Base" } %>
+</div>

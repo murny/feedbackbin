@@ -2,36 +2,9 @@
 
 namespace :super_admin do
   mount MissionControl::Jobs::Engine, at: "/jobs"
+  mount FeedbackbinElements::Engine, at: "/docs/components", as: :feedbackbin_elements
 
-  resources :changelogs
   resources :organizations
-
-  resource :docs, only: [ :show ]
-
-  namespace :docs do
-    # Get Started
-    get :introduction
-    get :installation
-    get :configuration
-    get :deploying
-
-    get :components
-
-    namespace :components do
-      get :accordion
-      get :alert
-      get :avatar
-      get :badge
-      get :breadcrumb
-      get :button
-      get :card
-      get :dropdown_menu
-      get :forms
-      get :popover
-      get :tabs
-      get :toast
-    end
-  end
 
   root to: "dashboard#show"
 end

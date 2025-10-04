@@ -1,0 +1,34 @@
+<%= render "feedbackbin_elements/docs/shared/page_header",
+  title: "Button",
+  breadcrumb_items: [
+    { text: "Docs", path: nil },
+    { text: "Components", path: nil },
+    { text: "Button", path: nil }
+  ],
+  description: "Displays a button or a component that looks like a button." %>
+
+<%= render "feedbackbin_elements/docs/components/button/base" %>
+<%= render "feedbackbin_elements/docs/components/button/sizes" %>
+<%= render "feedbackbin_elements/docs/components/button/icons" %>
+<%= render "feedbackbin_elements/docs/components/button/loading" %>
+<%= render "feedbackbin_elements/docs/components/button/expanded" %>
+
+<%= render partial: "feedbackbin_elements/docs/shared/pagination", locals: {
+  prev_path: breadcrumb_path,
+  prev_text: "Breadcrumb",
+  next_path: card_path,
+  next_text: "Card"
+} %>
+
+<%= content_for :component_nav do %>
+  <%= render partial: "feedbackbin_elements/docs/shared/component_nav", locals: {
+    title: "On this page",
+    items: [
+      { text: "Base", path: "#button-base" },
+      { text: "Sizes", path: "#button-sizes" },
+      { text: "Icons", path: "#button-icons" },
+      { text: "Loading State", path: "#button-loading" },
+      { text: "Expanded display", path: "#button-expanded" }
+    ]
+  } %>
+<% end %>

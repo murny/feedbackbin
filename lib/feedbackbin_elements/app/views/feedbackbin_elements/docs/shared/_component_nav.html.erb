@@ -1,0 +1,19 @@
+<%# locals(title:, items: []) %>
+
+<nav class="sticky top-16 hidden max-h-[calc(100dvh-(--spacing(16)))] w-64 shrink-0 overflow-y-auto pt-12 pb-16 xl:block">
+  <h2 class="text-sm/6 font-medium text-zinc-950 dark:text-white"><%= title %></h2>
+  <nav role="component nav">
+    <ul role="list" class="mt-3.5 space-y-3 text-sm/6 text-zinc-700 dark:text-zinc-400">
+      <% items.each do |item| %>
+        <li>
+          <%= link_to item[:text], item[:path],
+                      class: "hover:text-zinc-950 dark:hover:text-white",
+                      data: {
+                        action: "click->super_admin--smooth#scroll",
+                        super_admin_scroll_spy_target: "link"
+                      } %>
+        </li>
+      <% end %>
+    </ul>
+  </nav>
+</div>

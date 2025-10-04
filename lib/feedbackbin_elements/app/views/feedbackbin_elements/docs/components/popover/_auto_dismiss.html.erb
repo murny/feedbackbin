@@ -1,0 +1,54 @@
+<div id="popover-auto-dismiss">
+
+  <% content_for :preview_example, flush: true do %>
+    <div class="flex flex-wrap gap-4">
+      <%= render_popover(
+        trigger: render_button(text: "Auto Dismiss (2s)", variant: :outline),
+        dismiss_after: 2000,
+        content: tag.div(class: "grid gap-4") do
+          concat(tag.div(class: "grid gap-1.5") do
+            concat(tag.h4("Auto Dismiss Popover", class: "leading-none font-medium"))
+            concat(tag.p("This popover will automatically close after 2 seconds.", class: "text-muted-foreground text-sm"))
+          end)
+        end
+      ) %>
+
+      <%= render_popover(
+        trigger: render_button(text: "Auto Dismiss (5s)", variant: :outline),
+        dismiss_after: 5000,
+        content: tag.div(class: "grid gap-4") do
+          concat(tag.div(class: "grid gap-1.5") do
+            concat(tag.h4("Auto Dismiss Popover", class: "leading-none font-medium"))
+            concat(tag.p("This popover will automatically close after 5 seconds.", class: "text-muted-foreground text-sm"))
+          end)
+        end
+      ) %>
+    </div>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_popover(
+  trigger: render_button(text: "Auto Dismiss (2s)", variant: :outline),
+  dismiss_after: 2000,
+  content: tag.div(class: "grid gap-4") do
+    concat(tag.div(class: "grid gap-1.5") do
+      concat(tag.h4("Auto Dismiss Popover", class: "leading-none font-medium"))
+      concat(tag.p("This popover will automatically close after 2 seconds.", class: "text-muted-foreground text-sm"))
+    end)
+  end
+) %>
+
+<%%= render_popover(
+  trigger: render_button(text: "Auto Dismiss (5s)", variant: :outline),
+  dismiss_after: 5000,
+  content: tag.div(class: "grid gap-4") do
+    concat(tag.div(class: "grid gap-1.5") do
+      concat(tag.h4("Auto Dismiss Popover", class: "leading-none font-medium"))
+      concat(tag.p("This popover will automatically close after 5 seconds.", class: "text-muted-foreground text-sm"))
+    end)
+  end
+) %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: { heading: "Auto Dismiss", description: "Popovers can be configured to automatically dismiss after a specified time period in milliseconds." } %>
+</div>

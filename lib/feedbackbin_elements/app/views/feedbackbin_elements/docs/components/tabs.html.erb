@@ -1,0 +1,30 @@
+<%= render "feedbackbin_elements/docs/shared/page_header",
+  title: "Tabs",
+  breadcrumb_items: [
+    { text: "Docs", path: nil },
+    { text: "Components", path: nil },
+    { text: "Tabs", path: nil }
+  ],
+  description: "A tabbed interface that allows switching between different content sections." %>
+
+<%= render "feedbackbin_elements/docs/components/tabs/base" %>
+<%= render "feedbackbin_elements/docs/components/tabs/with_icons" %>
+<%= render "feedbackbin_elements/docs/components/tabs/disabled" %>
+
+<%= render partial: "feedbackbin_elements/docs/shared/pagination", locals: {
+  prev_path: card_path,
+  prev_text: "Card",
+  next_path: toast_path,
+  next_text: "Toast"
+} %>
+
+<%= content_for :component_nav do %>
+  <%= render partial: "feedbackbin_elements/docs/shared/component_nav", locals: {
+    title: "On this page",
+    items: [
+      { text: "Base", path: "#tabs-base" },
+      { text: "With Icons", path: "#tabs-with-icons" },
+      { text: "Disabled", path: "#tabs-disabled" }
+    ]
+  } %>
+<% end %>

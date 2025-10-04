@@ -1,0 +1,28 @@
+<div id="button-icons">
+  <% content_for :preview_example, flush: true do %>
+    <%= render_button(variant: :outline, size: :icon) do %>
+      <%= lucide_icon "chevron-right" %>
+    <% end %>
+
+      <%= render_button do %>
+        <%= lucide_icon "plus" %>
+        Add Item
+      <% end %>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_button(variant: :outline,size: :icon) do %>
+  <%%= lucide_icon "chevron-right" %>
+<%% end %>
+
+<%%= render_button do %>
+  <%%= lucide_icon "plus" %>
+  Add Item
+<%% end %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: {
+    heading: "Icons",
+    description: "Icons may be placed at the start or end of a button"
+  } %>
+</div>

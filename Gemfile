@@ -36,6 +36,9 @@ gem "inline_svg"
 gem "lucide-rails"
 gem "tailwind_merge", "~> 1.3.1"
 
+# UI Components
+gem "feedbackbin_elements", path: "lib/feedbackbin_elements"
+
 # Authentication & Authorization
 gem "bcrypt", "~> 3.1.7"
 gem "omniauth"

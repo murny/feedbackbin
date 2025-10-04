@@ -1,0 +1,61 @@
+<div id="dropdown-menu-width">
+
+  <% content_for :preview_example, flush: true do %>
+    <div class="flex flex-wrap items-center gap-4">
+      <%= render_dropdown_menu(
+        width: "w-48",
+        trigger: "Custom Width",
+        trigger_button_variant: :outline,
+        content: tag.div do
+          concat(tag.div(class: "px-2 py-1.5 text-sm font-medium") do
+            concat "Custom Width (w-48)"
+          end)
+          concat(tag.div(class: "flex flex-col gap-1") do
+            concat(link_to("This dropdown menu has a fixed width of 12rem (w-48)", "#", class: "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem"))
+          end)
+        end
+      ) %>
+
+      <%= render_dropdown_menu(
+        width: "w-72",
+        trigger: "Wider Menu",
+        trigger_button_variant: :outline,
+        content: tag.div do
+          concat(tag.div(class: "px-2 py-1.5 text-sm font-medium") do
+            concat "Wider Menu (w-72)"
+          end)
+          concat(tag.div(class: "flex flex-col gap-1") do
+            concat(link_to("This dropdown menu has a fixed width of 18rem (w-72) which gives more space for longer content", "#", class: "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem"))
+          end)
+        end
+      ) %>
+    </div>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_dropdown_menu(
+  width: "w-48", # 12rem
+  trigger: "Custom Width",
+  trigger_button_variant: :outline,
+  content: tag.div do
+    concat(tag.div(class: "px-2 py-1.5 text-sm font-medium") do
+      concat "Custom Width (w-48)"
+    end)
+    concat(tag.div(class: "flex flex-col gap-1") do
+      concat(link_to("This dropdown menu has a fixed width", "#", class: "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem"))
+    end)
+  end
+) %>
+
+<%%= render_dropdown_menu(
+  width: "w-72", # 18rem
+  trigger: "Wider Menu",
+  trigger_button_variant: :outline,
+  content: tag.div do
+    # menu content
+  end
+) %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: { heading: "Custom Width", description: "Specify a custom width for the dropdown menu using Tailwind width classes." } %>
+</div>

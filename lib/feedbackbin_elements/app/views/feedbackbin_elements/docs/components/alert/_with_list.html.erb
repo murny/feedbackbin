@@ -1,0 +1,34 @@
+<div id="alert-with-list">
+
+  <% content_for :preview_example, flush: true do %>
+    <%= render_alert(
+      title: "Unable to process your payment",
+      icon: "circle-alert",
+      variant: :destructive
+    ) do %>
+      <p>Please verify your billing information and try again.</p>
+      <ul class="list-inside list-disc text-sm">
+        <li>Check your card details</li>
+        <li>Ensure sufficient funds</li>
+        <li>Verify billing address</li>
+      </ul>
+    <% end %>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_alert(
+  title: "Unable to process your payment",
+  icon: "circle-alert",
+  variant: :destructive
+) do %>
+  <p>Please verify your billing information and try again.</p>
+  <ul class="list-inside list-disc text-sm">
+    <li>Check your card details</li>
+    <li>Ensure sufficient funds</li>
+    <li>Verify billing address</li>
+  </ul>
+<%% end %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: { heading: "With List Content", description: "You can use the block syntax to add rich content including lists to your alerts." } %>
+</div>

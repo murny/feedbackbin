@@ -1,0 +1,50 @@
+<div id="badge-with-icons">
+  <% content_for :preview_example, flush: true do %>
+    <%= render_badge(variant: :default) do %>
+      <%= lucide_icon "check" %>
+      Success
+    <% end %>
+
+    <%= render_badge(variant: :destructive) do %>
+      <%= lucide_icon "circle-alert" %>
+      Error
+    <% end %>
+
+    <%= render_badge(variant: :secondary) do %>
+      <%= lucide_icon "info" %>
+      Info
+    <% end %>
+
+    <%= render_badge(variant: :outline) do %>
+      <%= lucide_icon "tag" %>
+      Tag
+    <% end %>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_badge(variant: :default) do %>
+  <%%= lucide_icon "check" %>
+  Success
+<%% end %>
+
+<%%= render_badge(variant: :destructive) do %>
+  <%%= lucide_icon "circle-alert" %>
+  Error
+<%% end %>
+
+<%%= render_badge(variant: :secondary) do %>
+  <%%= lucide_icon "info" %>
+  Info
+<%% end %>
+
+<%%= render_badge(variant: :outline) do %>
+  <%%= lucide_icon "tag" %>
+  Tag
+<%% end %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: {
+    heading: "With Icons",
+    description: "Badges can contain icons alongside text to provide additional visual cues."
+  } %>
+</div>

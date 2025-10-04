@@ -1,0 +1,24 @@
+<div id="forms-textareas">
+
+  <% content_for :preview_example, flush: true do %>
+    <%= render_form_with(url: "#", class: "w-2/3") do |form| %>
+      <%= form.label :bio %>
+      <%= form.text_area :bio, placeholder: "Tell us a little bit about yourself" %>
+
+      <%= form.label :comments %>
+      <%= form.text_area :comments, placeholder: "Your comments here...", rows: 6 %>
+    <% end %>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_form_with(url: "#", class: "w-2/3") do |form| %>
+  <%%= form.label :bio %>
+  <%%= form.text_area :bio, placeholder: "Tell us a little bit about yourself" %>
+
+  <%%= form.label :comments %>
+  <%%= form.text_area :comments, placeholder: "Your comments here...", rows: 6 %>
+<%% end %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: { heading: "Text Areas" } %>
+</div>

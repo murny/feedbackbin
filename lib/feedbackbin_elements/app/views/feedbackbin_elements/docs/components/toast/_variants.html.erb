@@ -1,0 +1,68 @@
+<div id="toast-variants" data-controller="toggle">
+  <% content_for :preview_example, flush: true do %>
+    <div class="mb-4">
+      <%= render_button(
+        text: "Show Toast Variants",
+        variant: :default,
+        data: {
+          action: "click->toggle#toggle"
+        }
+      ) %>
+    </div>
+
+    <div class="hidden flex flex-col items-end justify-end py-6 px-4 fixed right-0 top-12 z-30 space-y-4 w-full max-w-[384px]" data-toggle-target="toggleable">
+      <%= render_toast(
+        title: "Default Toast",
+        description: "This is a default toast notification.",
+        variant: :default,
+        dismiss_after: false
+      ) %>
+
+      <%= render_toast(
+        title: "Success Toast",
+        description: "Your action was completed successfully.",
+        variant: :success,
+        dismiss_after: false
+      ) %>
+
+      <%= render_toast(
+        title: "Info Toast",
+        description: "Here's some information you might find useful.",
+        variant: :info,
+        dismiss_after: false
+      ) %>
+
+      <%= render_toast(
+        title: "Warning Toast",
+        description: "Please be careful with this action.",
+        variant: :warning,
+        dismiss_after: false
+      ) %>
+
+      <%= render_toast(
+        title: "Error Toast",
+        description: "There was a problem completing your action.",
+        variant: :error,
+        dismiss_after: false
+      ) %>
+    </div>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%# Available variants %>
+<%%= render_toast(title: "Default Toast", variant: :default) %>
+<%%= render_toast(title: "Success Toast", variant: :success) %>
+<%%= render_toast(title: "Info Toast", variant: :info) %>
+<%%= render_toast(title: "Warning Toast", variant: :warning) %>
+<%%= render_toast(title: "Error Toast", variant: :error) %>
+
+<%# With flash messages %>
+flash[:notice] = "Success message" # Uses success variant
+flash[:alert] = "Error message" # Uses error variant
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: {
+    heading: "Toast Variants",
+    description: "Toasts come in different variants to communicate different types of messages: default, success, info, warning, and error. Each variant has appropriate styling and icons to convey its purpose."
+  } %>
+</div>

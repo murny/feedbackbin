@@ -1,0 +1,20 @@
+<div id="button-loading">
+  <% content_for :preview_example, flush: true do %>
+    <%= render_button(text: "Loading Primary", loading: true) %>
+    <%= render_button(text: "Loading Secondary", variant: :secondary, loading: true) %>
+    <%= render_button(text: "Loading Destructive", variant: :destructive, loading: true) %>
+    <%= render_button(text: "Loading Outline", variant: :outline, loading: true) %>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_button(text: "Loading Primary", loading: true) %>
+<%%= render_button(text: "Loading Secondary", variant: :secondary, loading: true) %>
+<%%= render_button(text: "Loading Destructive", variant: :destructive, loading: true) %>
+<%%= render_button(text: "Loading Outline", variant: :outline, loading: true) %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: {
+    heading: "Loading State",
+    description: "Add a loading spinner to indicate an action in progress. When <code>loading: true</code> is provided, the button will display a spinner icon and automatically be disabled."
+  } %>
+</div>

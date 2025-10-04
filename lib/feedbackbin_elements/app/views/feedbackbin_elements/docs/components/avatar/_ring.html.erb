@@ -1,0 +1,40 @@
+<div id="avatar-ring">
+
+  <% content_for :preview_example, flush: true do %>
+    <div class="flex flex-col gap-6 p-6">
+      <div>
+        <h3 class="text-sm font-medium mb-2">With Ring</h3>
+        <%= render_avatar_group([
+          { src: "https://github.com/murny.png", alt: "@murny", fallback: "SM" },
+          { src: "https://github.com/rails.png", alt: "@rails", fallback: "RR" },
+          { src: "https://github.com/ruby.png", alt: "@ruby", fallback: "RB" }
+        ], ring: true) %>
+      </div>
+
+      <div>
+        <h3 class="text-sm font-medium mb-2">With Hover Effect and Ring</h3>
+        <%= render_avatar_group([
+          { src: "https://github.com/murny.png", alt: "@murny", fallback: "SM" },
+          { src: "https://github.com/rails.png", alt: "@rails", fallback: "RR" },
+          { src: "https://github.com/ruby.png", alt: "@ruby", fallback: "RB" }
+        ], ring: true, hover_effect: true) %>
+      </div>
+    </div>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_avatar_group([
+  { src: "https://github.com/murny.png", alt: "@murny", fallback: "SM" },
+  { src: "https://github.com/rails.png", alt: "@rails", fallback: "RR" },
+  { src: "https://github.com/ruby.png", alt: "@ruby", fallback: "RB" }
+], ring: true) %>
+
+<%%= render_avatar_group([
+  { src: "https://github.com/murny.png", alt: "@murny", fallback: "SM" },
+  { src: "https://github.com/rails.png", alt: "@rails", fallback: "RR" },
+  { src: "https://github.com/ruby.png", alt: "@ruby", fallback: "RB" }
+], ring: true, hover_effect: true) %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: { heading: "Ring Styling" } %>
+</div>

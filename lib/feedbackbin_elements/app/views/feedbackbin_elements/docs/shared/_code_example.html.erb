@@ -1,0 +1,55 @@
+<%# locals: (heading:, description: nil) -%>
+
+<div class="py-8">
+  <div class="mt-4 mb-3">
+    <%= content_tag :h2, heading, class: "text-foreground text-xl font-semibold dark:text-foreground scroll-mt-20 tracking-tight relative" %>
+  </div>
+
+  <% if description.present? %>
+    <div class="prose prose-neutral dark:prose-invert mb-4">
+      <p><%= description %></p>
+    </div>
+  <% end %>
+
+  <%= render_tabs(
+    items: [
+      {
+        value: "preview",
+        label: "Preview",
+        icon: "eye",
+        content: render_card(class: "p-4 md:p-8") do
+          content_tag(:div, class: "flex justify-center w-full") do
+            content_tag(:div, class: "w-full max-w-3xl") do
+              yield(:preview_example)
+            end
+          end
+        end
+      },
+      {
+        value: "code",
+        label: "Code",
+        icon: "code",
+        content: render_card(class: "relative p-4 md:p-8") do
+          content_tag(:div, data: { controller: "clipboard" }) do
+            concat(
+              content_tag(:button,
+                lucide_icon("clipboard", class: "size-5 text-white stroke-current"),
+                data: { action: "click->clipboard#copy" },
+                class: "absolute right-4 top-4 p-1.5 rounded-lg bg-white/10 backdrop-blur-sm hover:bg-gradient-to-br hover:from-rose-400 hover:to-rose-600 transition duration-200 ease-in-out",
+                type: "button"
+              )
+            )
+            concat(
+              content_tag(:pre, data: { controller: "highlight" }, class: "max-h-[650px] overflow-x-auto rounded-xl bg-popover py-4 dark:bg-popover") do
+                content_tag(:code, yield(:code_example).to_s.strip,
+                  data: { "clipboard-target": "content" },
+                  class: "language-erb scrollbar relative rounded bg-muted px-[0.3rem] py-[0.2rem] font-mono text-sm"
+                )
+              end
+            )
+          end
+        end
+      }
+    ]
+  ) %>
+</div>

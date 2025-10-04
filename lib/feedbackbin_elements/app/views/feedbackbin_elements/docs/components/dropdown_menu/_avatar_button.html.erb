@@ -1,0 +1,122 @@
+<div id="dropdown-menu-avatar-button">
+
+  <% content_for :preview_example, flush: true do %>
+    <%= render_dropdown_menu(
+      trigger: capture do
+        render_avatar src: "https://github.com/murny.png", alt: "@murny", class: "size-8 rounded-full"
+      end,
+      trigger_button_options: {
+        variant: nil,
+        class: "p-0 bg-transparent hover:bg-transparent border-0 focus-visible:ring-offset-2 focus-visible:ring-2 focus-visible:ring-ring rounded-full"
+      },
+      width: "w-56",
+      content: tag.div do
+        concat(tag.div(class: "p-0 font-normal") do
+          concat(tag.div(class: "flex items-center gap-2 px-1 py-1.5 text-left text-sm") do
+            concat(render_avatar(src: "https://github.com/murny.png", alt: "@murny", class: "size-8"))
+            concat(tag.div(class: "grid flex-1 text-left text-sm leading-tight") do
+              concat(tag.span("murny", class: "truncate font-semibold"))
+              concat(tag.span("murny@feedbackbin.com", class: "text-muted-foreground truncate text-xs"))
+            end)
+          end)
+        end)
+
+        concat(tag.div(class: "bg-border -mx-1 my-1 h-px"))
+
+        concat(tag.div(class: "flex flex-col gap-1") do
+          concat(link_to("#", class: "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem") do
+            concat lucide_icon("sparkles", class: "text-muted-foreground size-4")
+            concat "Upgrade to Pro"
+          end)
+        end)
+
+        concat(tag.div(class: "bg-border -mx-1 my-1 h-px"))
+
+        concat(tag.div(class: "flex flex-col gap-1") do
+          concat(link_to("#", class: "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem") do
+            concat lucide_icon("user", class: "text-muted-foreground size-4")
+            concat "Account"
+          end)
+          concat(link_to("#", class: "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem") do
+            concat lucide_icon("credit-card", class: "text-muted-foreground size-4")
+            concat "Billing"
+          end)
+          concat(link_to("#", class: "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem") do
+            concat lucide_icon("bell", class: "text-muted-foreground size-4")
+            concat "Notifications"
+          end)
+        end)
+
+        concat(tag.div(class: "bg-border -mx-1 my-1 h-px"))
+
+        concat(tag.div(class: "flex flex-col gap-1") do
+          concat(link_to("#", class: "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem") do
+            concat lucide_icon("log-out", class: "text-muted-foreground size-4")
+            concat "Sign Out"
+          end)
+        end)
+      end
+    ) %>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_dropdown_menu(
+  trigger: capture do
+    render_avatar src: "https://github.com/leerob.png", alt: "@leerob", class: "size-8 rounded-full"
+  end,
+  trigger_button_options: {
+    variant: nil,
+    class: "p-0 bg-transparent hover:bg-transparent border-0 focus-visible:ring-offset-2 focus-visible:ring-2 focus-visible:ring-ring rounded-full"
+  },
+  width: "w-56",
+  content: tag.div do
+    # User info header
+    concat(tag.div(class: "p-0 font-normal") do
+      concat(tag.div(class: "flex items-center gap-2 px-1 py-1.5 text-left text-sm") do
+        concat(render_avatar(src: "https://github.com/leerob.png", alt: "@leerob", class: "size-8"))
+        concat(tag.div(class: "grid flex-1 text-left text-sm leading-tight") do
+          concat(tag.span("leerob", class: "truncate font-semibold"))
+          concat(tag.span("leerob@example.com", class: "text-muted-foreground truncate text-xs"))
+        end)
+      end)
+    end)
+
+    # Separator
+    concat(tag.div(class: "bg-border -mx-1 my-1 h-px"))
+
+    # Upgrade section
+    concat(tag.div(class: "flex flex-col gap-1") do
+      concat(link_to("#", class: "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem") do
+        concat lucide_icon("sparkles", class: "text-muted-foreground size-4")
+        concat "Upgrade to Pro"
+      end)
+    end)
+
+    # Separator
+    concat(tag.div(class: "bg-border -mx-1 my-1 h-px"))
+
+    # Account options
+    concat(tag.div(class: "flex flex-col gap-1") do
+      concat(link_to("#", class: "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem") do
+        concat lucide_icon("user", class: "text-muted-foreground size-4")
+        concat "Account"
+      end)
+      # More menu items...
+    end)
+
+    # Separator
+    concat(tag.div(class: "bg-border -mx-1 my-1 h-px"))
+
+    # Sign out option
+    concat(tag.div(class: "flex flex-col gap-1") do
+      concat(link_to("#", class: "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem") do
+        concat lucide_icon("log-out", class: "text-muted-foreground size-4")
+        concat "Sign Out"
+      end)
+    end)
+  end
+) %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: { heading: "Avatar Button", description: "Create a user dropdown menu triggered by an avatar image." } %>
+</div>

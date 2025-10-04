@@ -1,0 +1,20 @@
+<div id="avatar-sizes">
+
+  <% content_for :preview_example, flush: true do %>
+    <div class="flex flex-wrap items-center gap-6 p-6">
+      <%= render_avatar src: "https://github.com/murny.png", alt: "@murny", size: :sm %>
+      <%= render_avatar src: "https://github.com/murny.png", alt: "@murny", size: :default %>
+      <%= render_avatar src: "https://github.com/murny.png", alt: "@murny", size: :lg %>
+      <%= render_avatar src: "https://github.com/murny.png", alt: "@murny", size: :xl %>
+    </div>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_avatar src: "https://github.com/murny.png", alt: "@murny", size: :sm %>
+<%%= render_avatar src: "https://github.com/murny.png", alt: "@murny" %>
+<%%= render_avatar src: "https://github.com/murny.png", alt: "@murny", size: :lg %>
+<%%= render_avatar src: "https://github.com/murny.png", alt: "@murny", size: :xl %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: { heading: "Sizes" } %>
+</div>

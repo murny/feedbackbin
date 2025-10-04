@@ -1,0 +1,44 @@
+<div id="popover-width">
+
+  <% content_for :preview_example, flush: true do %>
+    <div class="flex flex-wrap gap-4">
+      <%= render_popover(
+        trigger: render_button(text: "Default Width", variant: :outline),
+        content: "This popover has the default width."
+      ) %>
+
+      <%= render_popover(
+        trigger: render_button(text: "Custom Width", variant: :outline),
+        width: "w-96",
+        content: tag.div(class: "grid gap-4") do
+          concat(tag.div(class: "grid gap-1.5") do
+            concat(tag.h4("Wider Popover", class: "leading-none font-medium"))
+            concat(tag.p("This popover has a custom width of 24rem (w-96).", class: "text-muted-foreground text-sm"))
+          end)
+          concat(tag.div("The custom width allows for more content to be displayed comfortably without wrapping or appearing cramped."))
+        end
+      ) %>
+    </div>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_popover(
+  trigger: render_button(text: "Default Width", variant: :outline),
+  content: "This popover has the default width."
+) %>
+
+<%%= render_popover(
+  trigger: render_button(text: "Custom Width", variant: :outline),
+  width: "w-96",
+  content: tag.div(class: "grid gap-4") do
+    concat(tag.div(class: "grid gap-1.5") do
+      concat(tag.h4("Wider Popover", class: "leading-none font-medium"))
+      concat(tag.p("This popover has a custom width of 24rem (w-96).", class: "text-muted-foreground text-sm"))
+    end)
+    concat(tag.div("The custom width allows for more content to be displayed comfortably without wrapping or appearing cramped."))
+  end
+) %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: { heading: "Custom Width", description: "Popovers can have custom widths to accommodate different amounts of content." } %>
+</div>

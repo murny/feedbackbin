@@ -1,0 +1,34 @@
+<div id="dropdown-menu-base">
+
+  <% content_for :preview_example, flush: true do %>
+    <%= render_dropdown_menu(
+      trigger: "Open Menu",
+      trigger_button_variant: :outline,
+      content: tag.div do
+        concat(tag.div(class: "flex flex-col gap-1") do
+          concat(link_to("Profile", "#", class: "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem"))
+          concat(link_to("Billing", "#", class: "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem"))
+          concat(link_to("Settings", "#", class: "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem"))
+          concat(link_to("Keyboard shortcuts", "#", class: "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem"))
+        end)
+      end
+    ) %>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_dropdown_menu(
+  trigger: "Open Menu",
+  trigger_button_variant: :outline,
+  content: tag.div do
+    concat(tag.div(class: "flex flex-col gap-1") do
+      concat(link_to("Profile", "#", class: "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem"))
+      concat(link_to("Billing", "#", class: "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem"))
+      concat(link_to("Settings", "#", class: "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem"))
+      concat(link_to("Keyboard shortcuts", "#", class: "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem"))
+    end)
+  end
+) %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: { heading: "Base", description: "A basic dropdown menu that displays when clicking a button." } %>
+</div>

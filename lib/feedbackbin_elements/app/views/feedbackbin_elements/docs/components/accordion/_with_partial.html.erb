@@ -1,0 +1,47 @@
+<div id="accordion-with-partial">
+
+  <% content_for :preview_example, flush: true do %>
+    <%= render_accordion(
+      items: [
+        {
+          trigger: "Can I use complex content?",
+          content: capture do %>
+            <div class="prose prose-zinc dark:prose-invert max-w-none prose-a:font-semibold prose-a:text-primary prose-a:no-underline hover:prose-a:underline">
+              <p>Yes! You can include complex content directly using a capture block:</p>
+              <ul>
+                <li>Lists</li>
+                <li>Links - <a href="#">Example link</a></li>
+                <li>And other HTML elements</li>
+              </ul>
+            </div>
+          <% end
+        }
+      ]
+    ) %>
+  <% end %>
+
+  <% content_for :code_example, flush: true do %>
+<%%= render_accordion(
+  items: [
+    {
+      trigger: "Can I use complex content?",
+      content: capture do %>
+        <div class="prose prose-zinc dark:prose-invert max-w-none">
+          <p>Yes! You can include complex content directly using a capture block:</p>
+          <ul>
+            <li>Lists</li>
+            <li>Links - <a href="#">Example link</a></li>
+            <li>And other HTML elements</li>
+          </ul>
+        </div>
+      <%% end
+    }
+  ]
+) %>
+  <% end %>
+
+  <%= render partial: "feedbackbin_elements/docs/shared/code_example", locals: {
+    heading: "With Complex Content",
+    description: "For more complex content, you can use a capture block directly within the accordion items."
+  } %>
+</div>
