@@ -33,9 +33,15 @@
 
       <div class="space-y-4">
         <div>
-          <h4 class="text-sm font-medium text-foreground mb-2">Details</h4>
+          <h4 class="text-sm font-medium text-foreground mb-2">Subdomain</h4>
+          <div class="text-sm text-muted-foreground font-mono">
+            <%= @organization.subdomain %>
+          </div>
+        </div>
+        <div>
+          <h4 class="text-sm font-medium text-foreground mb-2">Created</h4>
           <div class="text-sm text-muted-foreground">
-            Organization for managing feedback and posts
+            <%= @organization.created_at.strftime("%B %d, %Y at %I:%M %p") %>
           </div>
         </div>
       </div>

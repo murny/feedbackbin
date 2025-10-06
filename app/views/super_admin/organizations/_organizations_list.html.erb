@@ -6,8 +6,7 @@
       <thead class="border-b border-border">
         <tr class="bg-muted/50">
           <th class="px-6 py-4 text-left font-semibold text-foreground">Organization</th>
-          <th class="px-6 py-4 text-left font-semibold text-foreground">Owner</th>
-          <th class="px-6 py-4 text-left font-semibold text-foreground">Members</th>
+          <th class="px-6 py-4 text-left font-semibold text-foreground">Subdomain</th>
           <th class="px-6 py-4 text-left font-semibold text-foreground">Created</th>
           <th class="px-6 py-4 text-center font-semibold text-foreground">Actions</th>
         </tr>
@@ -25,34 +24,13 @@
                     <div class="font-medium text-foreground truncate">
                       <%= organization.name %>
                     </div>
-                    <div class="text-xs text-muted-foreground truncate">
-                      <%= organization.subdomain %>
-                    </div>
                   </div>
                 </div>
               </td>
               <td class="px-6 py-4">
-                <div class="flex items-center space-x-3">
-                  <%= render_avatar(
-                    src: organization.owner.avatar.attached? ? url_for(organization.owner.avatar) : nil,
-                    alt: organization.owner.name,
-                    size: :sm,
-                    fallback: organization.owner.name[0, 2].upcase
-                  ) %>
-                  <div class="min-w-0">
-                    <div class="font-medium text-foreground truncate">
-                      <%= organization.owner.name %>
-                    </div>
-                    <div class="text-xs text-muted-foreground truncate">
-                      <%= organization.owner.email_address %>
-                    </div>
-                  </div>
+                <div class="text-sm text-muted-foreground">
+                  <%= organization.subdomain %>
                 </div>
-              </td>
-              <td class="px-6 py-4">
-                <span class="inline-flex items-center rounded-full bg-secondary px-2 py-1 text-xs font-medium text-secondary-foreground">
-                  <%= pluralize(organization.users.count, "member") %>
-                </span>
               </td>
               <td class="px-6 py-4 text-muted-foreground">
                 <div class="text-sm">
@@ -75,7 +53,7 @@
           <% end %>
         <% else %>
           <tr>
-            <td colspan="5" class="px-6 py-12 text-center">
+            <td colspan="4" class="px-6 py-12 text-center">
               <div class="mx-auto size-12 bg-muted rounded-full flex items-center justify-center mb-4">
                 <%= lucide_icon "building.svg", class: "size-6 text-muted-foreground" %>
               </div>

@@ -10,23 +10,13 @@
       <% end %>
     </li>
     <li class="mt-6">
-      <%= active_link_to "#TODO",
-            class: "flex w-full items-center gap-x-3 rounded-md p-2 text-left text-sm font-semibold leading-6 text-foreground hover:bg-secondary",
+      <%= active_link_to super_admin_organizations_path,
+            class: "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-foreground",
             active_class: "bg-secondary",
             inactive_class: "hover:bg-secondary" do %>
-        <%= lucide_icon "users", class: "h-6 w-6 shrink-0 text-muted-foreground" %>
-        Resources
+        <%= lucide_icon "building", class: "h-6 w-6 shrink-0 text-muted-foreground" %>
+        Organizations
       <% end %>
-      <ul role="list" class="mt-4 border-l border-border">
-        <li>
-          <%= active_link_to super_admin_organizations_path,
-                class: "block rounded-md py-2 pl-9 pr-2 text-sm leading-6 text-foreground",
-                active_class: "bg-secondary",
-                inactive_class: "hover:bg-secondary" do %>
-            Organizations
-          <% end %>
-        </li>
-      </ul>
     </li>
     <li class="mt-6">
       <%= active_link_to super_admin_feedbackbin_elements.root_path,
