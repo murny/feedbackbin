@@ -60,21 +60,21 @@ class PostStatusTest < ActiveSupport::TestCase
     assert_equal "Cannot delete record because dependent posts exist", status.errors[:base].first
   end
 
-  test "cannot delete default status (first by position)" do
-    default = PostStatus.default
+  test "cannot delete status used as organization default" do
+    default_status = PostStatus.default
 
     # Delete posts associated with the default status first
-    Post.where(post_status: default).destroy_all
+    Post.where(post_status: default_status).destroy_all
 
     assert_no_difference "PostStatus.count" do
-      default.destroy
+      default_status.destroy
     end
 
-    assert_equal "Cannot delete the default status. Reassign default to another status first.", default.errors[:base].first
+    assert_equal "Cannot delete the default status. Reassign default to another status first.", default_status.errors[:base].first
   end
 
   test "can delete non-default status without posts" do
-    # Create a new status that's not default and has no posts
+    # Create a new status that's not the default and has no posts
     status = PostStatus.create!(
       name: "Deletable",
       color: "#FF0000",
@@ -84,5 +84,19 @@ class PostStatusTest < ActiveSupport::TestCase
     assert_difference "PostStatus.count", -1 do
       status.destroy
     end
+  end
+
+  test "default scope returns organization's default status" do
+    default_status = PostStatus.default
+
+    assert_not_nil default_status
+    assert_equal organizations(:feedbackbin).default_post_status, default_status
+    assert_equal "Open", default_status.name
+  end
+
+  test "ordered scope returns statuses in position order" do
+    statuses = PostStatus.ordered.pluck(:name)
+
+    assert_equal [ "Open", "Planned", "In Progress", "Complete", "Closed" ], statuses
   end
 end

@@ -22,5 +22,5 @@ complete:
 
 closed:
   name: Closed
-  color: '#6b7280'
+  color: '#ef4444'
   position: 5

@@ -38,4 +38,11 @@ class OrganizationTest < ActiveSupport::TestCase
       assert_equal("image over 2 MB", @organization.errors[:logo].first)
     end
   end
+
+  test "organization must have a default status" do
+    @organization.default_post_status = nil
+
+    assert_not @organization.valid?
+    assert_equal "must exist", @organization.errors[:default_post_status].first
+  end
 end
