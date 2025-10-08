@@ -122,7 +122,7 @@ ActiveRecord::Schema[8.1].define(version: 2024_05_17_075643) do
     t.datetime "created_at", null: false
     t.integer "likes_count", default: 0, null: false
     t.boolean "pinned", default: false, null: false
-    t.integer "post_status_id"
+    t.integer "post_status_id", null: false
     t.string "title", null: false
     t.datetime "updated_at", null: false
     t.index ["author_id"], name: "index_posts_on_author_id"

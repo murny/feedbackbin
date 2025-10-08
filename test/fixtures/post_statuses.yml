@@ -1,11 +1,26 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
+open:
+  name: Open
+  color: '#3b82f6'
+  position: 1
+
+planned:
+  name: Planned
+  color: '#8b5cf6'
+  position: 2
+
 in_progress:
   name: In Progress
-  color: '#0000ff'
-  position: 1
+  color: '#f59e0b'
+  position: 3
 
 complete:
   name: Complete
-  color: '#00ff00'
-  position: 2
+  color: '#10b981'
+  position: 4
+
+closed:
+  name: Closed
+  color: '#6b7280'
+  position: 5
