@@ -46,11 +46,43 @@ class PostStatusTest < ActiveSupport::TestCase
     assert_equal "is invalid", @post_status.errors[:color].first
   end
 
-  test "dependent nullify on posts" do
-    post = posts(:one)
-    post.post_status = @post_status
-    @post_status.destroy
+  test "cannot delete status with posts attached" do
+    status = post_statuses(:in_progress)
 
-    assert_nil post.reload.post_status
+    # Post fixtures already use this status
+    assert_predicate(status.posts, :any?)
+
+    # Attempt to destroy should fail
+    assert_no_difference "PostStatus.count" do
+      status.destroy
+    end
+
+    assert_equal "Cannot delete record because dependent posts exist", status.errors[:base].first
+  end
+
+  test "cannot delete default status (first by position)" do
+    default = PostStatus.default
+
+    # Delete posts associated with the default status first
+    Post.where(post_status: default).destroy_all
+
+    assert_no_difference "PostStatus.count" do
+      default.destroy
+    end
+
+    assert_equal "Cannot delete the default status. Reassign default to another status first.", default.errors[:base].first
+  end
+
+  test "can delete non-default status without posts" do
+    # Create a new status that's not default and has no posts
+    status = PostStatus.create!(
+      name: "Deletable",
+      color: "#FF0000",
+      position: 100
+    )
+
+    assert_difference "PostStatus.count", -1 do
+      status.destroy
+    end
   end
 end

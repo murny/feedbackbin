@@ -21,6 +21,10 @@ en:
             subdomain:
               format: must be at least 2 characters and alphanumeric
               reserved: "%{value} is reserved"
+        post_status:
+          attributes:
+            base:
+              cannot_delete_default: Cannot delete the default status. Reassign default to another status first.
         user:
           attributes:
             username:
