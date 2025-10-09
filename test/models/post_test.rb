@@ -52,7 +52,7 @@ class PostTest < ActiveSupport::TestCase
       category: categories(:one)
     )
 
-    # Default should be set automatically when accessed
+    # Default should be set automatically from organization's default
     assert_not_nil post.post_status
     assert_equal PostStatus.default, post.post_status
     assert_equal "Open", post.post_status.name

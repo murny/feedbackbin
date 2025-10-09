@@ -8,7 +8,7 @@ class PostStatus < ApplicationRecord
   validates :color, presence: true, format: { with: /\A#[0-9a-f]{6}\z/i }
 
   scope :ordered, -> { order(:position) }
-  scope :default, -> { ordered.first }
+  scope :default, -> { Current.organization&.default_post_status }
 
   before_destroy :prevent_default_deletion
 

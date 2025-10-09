@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2024_05_17_075643) do
+ActiveRecord::Schema[8.1].define(version: 2025_10_08_210216) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -102,9 +102,11 @@ ActiveRecord::Schema[8.1].define(version: 2024_05_17_075643) do
 
   create_table "organizations", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.integer "default_post_status_id", null: false
     t.string "name", null: false
     t.string "subdomain"
     t.datetime "updated_at", null: false
+    t.index ["default_post_status_id"], name: "index_organizations_on_default_post_status_id"
   end
 
   create_table "post_statuses", force: :cascade do |t|
@@ -179,6 +181,7 @@ ActiveRecord::Schema[8.1].define(version: 2024_05_17_075643) do
   add_foreign_key "comments", "users", column: "creator_id"
   add_foreign_key "invitations", "users", column: "invited_by_id"
   add_foreign_key "likes", "users", column: "voter_id"
+  add_foreign_key "organizations", "post_statuses", column: "default_post_status_id"
   add_foreign_key "posts", "categories"
   add_foreign_key "posts", "post_statuses"
   add_foreign_key "posts", "users", column: "author_id"

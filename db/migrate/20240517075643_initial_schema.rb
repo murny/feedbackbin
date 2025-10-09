@@ -93,9 +93,11 @@ class InitialSchema < ActiveRecord::Migration[8.1]
 
     create_table "organizations", force: :cascade do |t|
       t.datetime "created_at", null: false
+      t.integer "default_post_status_id", null: false
       t.string "name", null: false
       t.string "subdomain"
       t.datetime "updated_at", null: false
+      t.index [ "default_post_status_id" ], name: "index_organizations_on_default_post_status_id"
     end
 
     create_table "post_statuses", force: :cascade do |t|
@@ -170,6 +172,7 @@ class InitialSchema < ActiveRecord::Migration[8.1]
     add_foreign_key "comments", "users", column: "creator_id"
     add_foreign_key "invitations", "users", column: "invited_by_id"
     add_foreign_key "likes", "users", column: "voter_id"
+    add_foreign_key "organizations", "post_statuses", column: "default_post_status_id"
     add_foreign_key "posts", "categories"
     add_foreign_key "posts", "post_statuses"
     add_foreign_key "posts", "users", column: "author_id"

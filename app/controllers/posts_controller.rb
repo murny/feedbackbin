@@ -11,7 +11,7 @@ class PostsController < ApplicationController
 
     posts = Post.includes(:author, :category, :post_status)
     @categories = Category.all.order(:name)
-    @post_statuses = PostStatus.all.order(:position)
+    @post_statuses = PostStatus.all.ordered
 
     if params[:category_id].present?
       @category = @categories.find_by(id: params[:category_id])

@@ -14,12 +14,25 @@ class OrganizationsController < ApplicationController
 
     @organization = Organization.new(organization_params)
 
-    if @organization.save
-      # Test that we can use flash messages here?
-      redirect_to admin_root_url(subdomain: @organization.subdomain), allow_other_host: true, notice: t(".successfully_created")
-    else
-      render :new, status: :unprocessable_entity
+    ApplicationRecord.transaction do
+      # Create all default post statuses
+      PostStatus.create!([
+        { name: "Open", color: "#3b82f6", position: 1 },
+        { name: "Planned", color: "#8b5cf6", position: 2 },
+        { name: "In Progress", color: "#f59e0b", position: 3 },
+        { name: "Complete", color: "#10b981", position: 4 },
+        { name: "Closed", color: "#ef4444", position: 5 }
+      ])
+
+      # Set default post status to first by position
+      @organization.default_post_status = PostStatus.ordered.first
+      @organization.save!
     end
+
+    # Test that we can use flash messages here?
+    redirect_to admin_root_url(subdomain: @organization.subdomain), allow_other_host: true, notice: t(".successfully_created")
+  rescue ActiveRecord::RecordInvalid
+    render :new, status: :unprocessable_entity
   end
 
   private

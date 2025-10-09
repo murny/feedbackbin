@@ -42,8 +42,16 @@ class FirstRun
     raise ActiveModel::ValidationError.new(self) unless valid?
 
     ApplicationRecord.transaction do
+      PostStatus.create!([
+        { name: "Open", color: "#3b82f6", position: 1 },
+        { name: "Planned", color: "#8b5cf6", position: 2 },
+        { name: "In Progress", color: "#f59e0b", position: 3 },
+        { name: "Complete", color: "#10b981", position: 4 },
+        { name: "Closed", color: "#ef4444", position: 5 }
+      ])
+
       @user = User.create!(user_attributes)
-      @organization = Organization.create!(organization_attributes)
+      @organization = Organization.create!(organization_attributes.merge(default_post_status: PostStatus.ordered.first))
       @category = Category.create!(category_attributes)
       self
     end
