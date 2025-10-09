@@ -43,6 +43,10 @@ class PostPolicy < ApplicationPolicy
     admin?
   end
 
+  def update_status?
+    admin?
+  end
+
   private
 
     def owned?

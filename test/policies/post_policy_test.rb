@@ -61,4 +61,11 @@ class PostPolicyTest < ActiveSupport::TestCase
     assert_not_predicate PostPolicy.new(@regular_user, @post), :unpin?
     assert_predicate PostPolicy.new(@admin_user, @post), :unpin?
   end
+
+  test "post update_status only available to admin" do
+    assert_not_predicate PostPolicy.new(nil, @post), :update_status?
+    assert_not_predicate PostPolicy.new(@regular_user, @post), :update_status?
+    assert_not_predicate PostPolicy.new(@post_owner, @post), :update_status?
+    assert_predicate PostPolicy.new(@admin_user, @post), :update_status?
+  end
 end
