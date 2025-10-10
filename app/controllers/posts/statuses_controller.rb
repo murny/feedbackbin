@@ -8,7 +8,8 @@ module Posts
     def update
       authorize @post, :update_status?
 
-      @post.update!(post_status_id: params.expect(:post_status_id))
+      post_status = PostStatus.find(params.expect(:post_status_id))
+      @post.update!(post_status: post_status)
 
       respond_to do |format|
         format.html { redirect_to @post, notice: t(".success") }

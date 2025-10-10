@@ -111,12 +111,15 @@ module Admin
       test "should not destroy default status" do
         default_status = @organization.default_post_status
 
+        # Ensure default status has zero posts to validate the default-protection error specifically
+        default_status.posts.destroy_all
+
         assert_no_difference "PostStatus.count" do
           delete admin_settings_post_status_url(default_status)
         end
 
         assert_redirected_to admin_settings_post_statuses_path
-        assert_equal "Cannot delete the default status. Please set another status as default first.", flash[:alert]
+        assert_equal "Cannot delete the default status. Reassign default to another status first.", flash[:alert]
       end
 
       test "should not destroy status with posts" do
@@ -124,14 +127,13 @@ module Admin
         status_with_posts = post_statuses(:in_progress)
 
         assert_predicate status_with_posts.posts, :any?
-        posts_count = status_with_posts.posts.count
 
         assert_no_difference "PostStatus.count" do
           delete admin_settings_post_status_url(status_with_posts)
         end
 
         assert_redirected_to admin_settings_post_statuses_path
-        assert_includes flash[:alert], "Cannot delete this status because #{posts_count}"
+        assert_equal "Cannot delete this status because posts are still using it. Please reassign or delete those posts first.", flash[:alert]
       end
     end
   end

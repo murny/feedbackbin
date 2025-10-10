@@ -6,7 +6,7 @@ module Admin
       before_action :set_post_status, only: [ :edit, :update, :destroy ]
 
       def index
-        @post_statuses = PostStatus.ordered
+        @post_statuses = PostStatus.includes(:posts).ordered
       end
 
       def new
@@ -27,8 +27,9 @@ module Admin
       end
 
       def update
+        # TODO: updating of default status should get moved to a more specific action
         # Handle default status assignment (this affects Organization, not PostStatus)
-        if params[:post_status][:set_as_default] == "1"
+        if params.dig(:post_status, :set_as_default) == "1"
           Current.organization.update!(default_post_status: @post_status)
         end
 
@@ -40,18 +41,6 @@ module Admin
       end
 
       def destroy
-        # Check if it's the default status
-        if @post_status == Current.organization.default_post_status
-          redirect_to admin_settings_post_statuses_path, alert: t(".cannot_delete_default")
-          return
-        end
-
-        # Check if it has posts
-        if @post_status.posts.any?
-          redirect_to admin_settings_post_statuses_path, alert: t(".cannot_delete_with_posts", count: @post_status.posts.count)
-          return
-        end
-
         if @post_status.destroy
           redirect_to admin_settings_post_statuses_path, notice: t(".successfully_destroyed")
         else

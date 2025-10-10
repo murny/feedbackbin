@@ -57,7 +57,7 @@ class PostStatusTest < ActiveSupport::TestCase
       status.destroy
     end
 
-    assert_equal "Cannot delete record because dependent posts exist", status.errors[:base].first
+    assert_equal "Cannot delete this status because posts are still using it. Please reassign or delete those posts first.", status.errors[:base].first
   end
 
   test "cannot delete status used as organization default" do

@@ -25,6 +25,8 @@ en:
           attributes:
             base:
               cannot_delete_default: Cannot delete the default status. Reassign default to another status first.
+              restrict_dependent_destroy:
+                has_many: Cannot delete this status because posts are still using it. Please reassign or delete those posts first.
         user:
           attributes:
             username:
@@ -171,10 +173,6 @@ en:
         create:
           successfully_created: Post status was successfully created.
         destroy:
-          cannot_delete_default: Cannot delete the default status. Please set another status as default first.
-          cannot_delete_with_posts:
-            one: Cannot delete this status because 1 post is using it. Please reassign or delete that post first.
-            other: Cannot delete this status because %{count} posts are using it. Please reassign or delete those posts first.
           successfully_destroyed: Post status was successfully deleted.
         edit:
           description: Update the details of this post status
