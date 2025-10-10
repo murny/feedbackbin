@@ -25,6 +25,8 @@ en:
           attributes:
             base:
               cannot_delete_default: Cannot delete the default status. Reassign default to another status first.
+              restrict_dependent_destroy:
+                has_many: Cannot delete this status because posts are still using it. Please reassign or delete those posts first.
         user:
           attributes:
             username:
@@ -124,6 +126,7 @@ en:
           general: General
           invitations: Invitations
           members: Administrators
+          post_statuses: Post Statuses
         title: Settings
       invitations:
         create:
@@ -166,6 +169,45 @@ en:
           role:
             administrator: Administrator
           title: Administrators
+      post_statuses:
+        create:
+          successfully_created: Post status was successfully created.
+        destroy:
+          successfully_destroyed: Post status was successfully deleted.
+        edit:
+          description: Update the details of this post status
+          title: Edit Post Status
+        form:
+          color_hint: Choose a color for this status badge
+          color_label: Color
+          create_status: Create Status
+          name_label: Name
+          name_placeholder: e.g., Under Review
+          position_hint: Lower numbers appear first. Drag to reorder on the list page.
+          position_label: Position
+          position_placeholder: '1'
+          preview_label: Preview
+          preview_placeholder: Status Name
+          save_changes: Save changes
+          set_as_default_hint: New posts will automatically be assigned this status
+          set_as_default_label: Set as default status for new posts
+        index:
+          create_first_status: Create First Status
+          default_badge: Default
+          description: Manage post statuses to organize and track feedback
+          new_status: New Status
+          no_statuses_description: Post statuses help you organize and communicate the progress of feedback.
+          no_statuses_title: No post statuses
+          position_label: Position
+          posts_count:
+            one: "%{count} post"
+            other: "%{count} posts"
+          title: Post Statuses
+        new:
+          description: Create a new status to organize your feedback
+          title: New Post Status
+        update:
+          successfully_updated: Post status was successfully updated.
     users:
       index:
         description: Manage all users on the platform
@@ -399,6 +441,9 @@ en:
       share: Share
       unpin: Unpin
       watch: Watch
+    statuses:
+      update:
+        success: Post status has been updated.
     update:
       successfully_updated: Post was successfully updated.
   select_category: Select a category

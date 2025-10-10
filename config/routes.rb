@@ -49,6 +49,7 @@ Rails.application.routes.draw do
   resources :posts do
     scope module: :posts do
       resource :pin, only: [ :create, :destroy ]
+      resource :status, only: [ :update ]
     end
   end
   resources :comments, except: [ :index, :new ]
@@ -64,6 +65,7 @@ Rails.application.routes.draw do
       resource :branding, only: [ :show, :update ]
       resources :invitations, only: [ :index, :new, :create, :destroy ]
       resources :memberships, only: [ :index, :destroy ]
+      resources :post_statuses
       resource :danger_zone, only: [ :show, :destroy ]
 
       root to: redirect("/admin/settings/branding")

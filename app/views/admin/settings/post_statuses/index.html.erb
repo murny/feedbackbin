@@ -1,0 +1,73 @@
+<% content_for :title, t(".title") %>
+
+<div class="container mx-auto max-w-4xl">
+  <%= render partial: "admin/settings/header" %>
+
+  <div class="mt-8">
+    <div class="flex items-center justify-between mb-6">
+      <div>
+        <h2 class="text-lg font-medium"><%= t(".title") %></h2>
+        <p class="text-sm text-muted-foreground"><%= t(".description") %></p>
+      </div>
+      <div class="whitespace-nowrap">
+        <%= link_to t(".new_status"), new_admin_settings_post_status_path, class: "btn btn-primary" %>
+      </div>
+    </div>
+
+    <% if @post_statuses.any? %>
+      <%= render_card do %>
+        <ul role="list" class="divide-y divide-border">
+          <% @post_statuses.each do |status| %>
+            <li class="flex items-center justify-between gap-x-6 py-5 px-6">
+              <div class="flex items-center gap-x-4 min-w-0">
+                <span class="w-6 h-6 rounded-full flex-shrink-0 ring-2 ring-background shadow-sm" style="background-color: <%= status.color %>;"></span>
+                <div class="min-w-0 flex-auto">
+                  <p class="text-sm font-semibold leading-6 text-foreground">
+                    <%= status.name %>
+                  </p>
+                  <div class="mt-1 flex items-center gap-x-2 text-xs leading-5 text-muted-foreground">
+                    <p><%= t(".position_label") %> <%= status.position %></p>
+                    <svg viewBox="0 0 2 2" class="h-0.5 w-0.5 fill-current">
+                      <circle cx="1" cy="1" r="1" />
+                    </svg>
+                    <p>
+                      <%= t(".posts_count", count: status.posts.size) %>
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center gap-x-4">
+                <% if status == Current.organization.default_post_status %>
+                  <span class="inline-flex items-center rounded-full px-3 py-1 text-xs font-medium ring-1 ring-inset bg-primary/10 text-primary ring-primary/30">
+                    <%= t(".default_badge") %>
+                  </span>
+                <% end %>
+                <div class="flex gap-2">
+                  <%= link_to edit_admin_settings_post_status_path(status), class: "text-sm text-muted-foreground hover:text-foreground" do %>
+                    <%= lucide_icon "pencil", class: "h-5 w-5" %>
+                    <span class="sr-only"><%= t("edit") %></span>
+                  <% end %>
+                  <%= link_to admin_settings_post_status_path(status),
+                        class: "text-sm text-destructive hover:text-destructive/80",
+                        data: { "turbo-method": :delete, turbo_confirm: t("are_you_sure") } do %>
+                    <%= lucide_icon "trash-2", class: "h-5 w-5" %>
+                    <span class="sr-only"><%= t("delete") %></span>
+                  <% end %>
+                </div>
+              </div>
+            </li>
+          <% end %>
+        </ul>
+      <% end %>
+    <% else %>
+      <%= render_card(class: "p-8 text-center") do %>
+        <%= lucide_icon "tag", class: "mx-auto h-12 w-12 text-muted-foreground" %>
+        <h3 class="mt-4 text-lg font-semibold text-foreground"><%= t(".no_statuses_title") %></h3>
+        <p class="mt-2 text-sm text-muted-foreground"><%= t(".no_statuses_description") %></p>
+        <div class="mt-6">
+          <%= link_to t(".create_first_status"), new_admin_settings_post_status_path, class: "btn btn-primary" %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>

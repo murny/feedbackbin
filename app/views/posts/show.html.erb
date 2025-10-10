@@ -21,9 +21,7 @@
               <% if @post.category %>
                 <%= render_badge(text: @post.category.name, variant: :outline, class: "text-muted-foreground bg-muted/30") %>
               <% end %>
-              <% if @post.post_status.present? %>
-                <%= render_badge(text: @post.post_status.name, class: "text-white font-medium", style: "background-color: #{@post.post_status.color};") %>
-              <% end %>
+
               <% if @post.pinned? %>
                   <%= render_badge(variant: :secondary) do %>
                     <%= lucide_icon "map-pin" %>
@@ -32,8 +30,11 @@
               <% end %>
             </div>
 
-            <% if policy(@post).pin? || policy(@post).edit? || policy(@post).destroy? %>
-              <%= render_dropdown_menu(
+            <div class="flex items-center gap-2">
+              <%= render "posts/status_badge", post: @post %>
+
+              <% if policy(@post).pin? || policy(@post).edit? || policy(@post).destroy? %>
+                <%= render_dropdown_menu(
                 trigger: lucide_icon("ellipsis"),
                 trigger_button_variant: :ghost,
                 trigger_button_options: { size: :icon, class: "text-muted-foreground" },
@@ -52,12 +53,14 @@
                       end)
                     end
                     if policy(@post).destroy?
+                      concat(tag.div(class: "border-t border-border my-1"))
                       concat(button_to(t("delete"), @post, method: :delete, form: { data: { turbo_confirm: t("are_you_sure") } }, class: "focus:bg-accent focus:text-accent-foreground relative flex w-full text-left cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none text-destructive", "data-dropdown-target": "menuItem"))
                     end
                   end)
                 end
               ) %>
-            <% end %>
+              <% end %>
+            </div>
           </div>
 
           <h1 class="text-2xl sm:text-3xl font-bold tracking-tight mb-2"><%= @post.title %></h1>
