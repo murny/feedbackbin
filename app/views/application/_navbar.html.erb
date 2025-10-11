@@ -14,6 +14,19 @@
           <% end %>
         <% end %>
 
+        <!-- Desktop Navigation Links -->
+        <div class="hidden md:ml-8 md:flex md:items-center md:space-x-1">
+          <%= active_link_to t(".links.feedback"),
+                posts_path,
+                class: "rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                active_class: "bg-accent text-accent-foreground",
+                inactive_class: "text-foreground hover:bg-accent hover:text-accent-foreground" %>
+          <%= active_link_to t(".links.roadmap"),
+                roadmap_path,
+                class: "rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                active_class: "bg-accent text-accent-foreground",
+                inactive_class: "text-foreground hover:bg-accent hover:text-accent-foreground" %>
+        </div>
       </div>
 
       <div class="flex flex-1 items-center justify-center px-6 md:ml-6 md:justify-end">
@@ -178,14 +191,14 @@
         data-transition-leave-from="opacity-100"
         data-transition-leave-to="opacity-0">
     <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-      <%= active_link_to t(".links.roadmap"),
-            root_path,
-            class: "rounded-md px-3 py-2 text-base font-medium transition-colors",
-            active_class: "bg-accent text-accent-foreground",
-            inactive_class: "text-foreground hover:bg-accent hover:text-accent-foreground" %>
       <%= active_link_to t(".links.feedback"),
             posts_path,
-            class: "rounded-md px-3 py-2 text-base font-medium transition-colors",
+            class: "block rounded-md px-3 py-2 text-base font-medium transition-colors",
+            active_class: "bg-accent text-accent-foreground",
+            inactive_class: "text-foreground hover:bg-accent hover:text-accent-foreground" %>
+      <%= active_link_to t(".links.roadmap"),
+            roadmap_path,
+            class: "block rounded-md px-3 py-2 text-base font-medium transition-colors",
             active_class: "bg-accent text-accent-foreground",
             inactive_class: "text-foreground hover:bg-accent hover:text-accent-foreground" %>
     </div>

@@ -55,6 +55,9 @@ Rails.application.routes.draw do
   resources :comments, except: [ :index, :new ]
   resources :changelogs, only: [ :index, :show ]
 
+  # Roadmap
+  get "roadmap", to: "roadmap#index"
+
   namespace :admin do
     root to: "dashboard#show"
 
