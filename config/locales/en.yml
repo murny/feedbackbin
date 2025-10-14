@@ -446,6 +446,14 @@ en:
         success: Post status has been updated.
     update:
       successfully_updated: Post was successfully updated.
+  roadmap:
+    column:
+      no_posts: No posts in this status
+    index:
+      description: Track features being planned, in progress, and completed
+      title: Roadmap
+    post_card:
+      ago: ago
   select_category: Select a category
   something_went_wrong: Something went wrong, please try again.
   super_admin:
