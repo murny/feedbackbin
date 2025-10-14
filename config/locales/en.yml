@@ -88,6 +88,20 @@ en:
         no_comments: No comments yet
         post_info_title: Post Information
         recent_comments_title: Recent Comments
+    ownership_transfers:
+      create:
+        failure: Failed to transfer ownership. Please try again.
+        new_owner_must_be_admin: The new owner must be an administrator.
+        success: Ownership transferred to %{name}.
+        user_not_found: Selected user not found.
+      new:
+        new_owner: New Owner
+        new_owner_help: Only administrators can become owners.
+        select_admin: Select an administrator
+        title: Transfer Organization Ownership
+        transfer_ownership: Transfer Ownership
+        warning_message: Transferring ownership cannot be undone. The new owner will have full control of this organization.
+        warning_title: Warning
     settings:
       brandings:
         show:
@@ -95,9 +109,12 @@ en:
           logo: Logo
           logo_size_hint: JPG, PNG up to 2MB. Recommended size 400x400px.
           name: Organization name
+          organization_owner: Organization Owner
+          owner_description: The owner has ultimate control over this organization and cannot be removed.
           save_changes: Save changes
           subdomain: Subdomain
           title: Branding
+          transfer_ownership: Transfer Ownership
           upload_new_logo: Upload new logo
         update:
           successfully_updated: Branding settings were successfully updated.

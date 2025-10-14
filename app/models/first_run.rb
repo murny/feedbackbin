@@ -51,7 +51,10 @@ class FirstRun
       ])
 
       @user = User.create!(user_attributes)
-      @organization = Organization.create!(organization_attributes.merge(default_post_status: PostStatus.ordered.first))
+      @organization = Organization.create!(organization_attributes.merge(
+        default_post_status: PostStatus.ordered.first,
+        owner: @user
+      ))
       @category = Category.create!(category_attributes)
       self
     end

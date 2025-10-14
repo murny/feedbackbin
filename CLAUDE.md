@@ -85,7 +85,7 @@ FeedbackBin is a customer feedback management platform built with Ruby on Rails 
 
 ### Testing Strategy
 - Rails testing framework (Rails + Minitest) with fixtures
-- System tests using Capybara and Selenium
+- System tests using Capybara and Selenium (use sparingly, only in critical paths and at smoke test level)
 - Comprehensive test coverage expected for all models/controllers
 - Test data managed through `test/fixtures/`
 
