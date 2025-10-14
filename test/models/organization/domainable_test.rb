@@ -16,7 +16,12 @@ class Organization
     end
 
     test "validates uniqueness of subdomain" do
-      original = Organization.create!(name: "test", subdomain: "test", default_post_status: post_statuses(:open))
+      original = Organization.create!(
+        name: "test",
+        subdomain: "test",
+        default_post_status: post_statuses(:open),
+        owner: users(:shane)
+      )
       organization = original.dup
 
       assert_not organization.valid?

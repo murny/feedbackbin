@@ -1,0 +1,39 @@
+<% content_for :title, t(".title") %>
+
+<div class="container mx-auto max-w-2xl">
+  <div class="px-4 py-8">
+    <h1 class="text-2xl font-bold mb-4"><%= t(".title") %></h1>
+
+    <div class="mb-6 p-4 border-l-4 border-yellow-500 bg-yellow-50 dark:bg-yellow-900/20">
+      <div class="flex items-start gap-2">
+        <%= lucide_icon "alert-triangle", class: "h-5 w-5 text-yellow-600 dark:text-yellow-400 mt-0.5" %>
+        <div>
+          <span class="font-semibold text-yellow-800 dark:text-yellow-300"><%= t(".warning_title") %></span>
+          <p class="text-sm mt-1 text-yellow-700 dark:text-yellow-400"><%= t(".warning_message") %></p>
+        </div>
+      </div>
+    </div>
+
+    <%= render_card do %>
+      <div class="px-6 py-4">
+        <%= render_form_with url: admin_ownership_transfer_path, method: :post do |f| %>
+          <div class="mb-4">
+            <%= f.label :new_owner_id, t(".new_owner"), class: "block text-sm font-medium mb-2" %>
+            <%= f.select :new_owner_id,
+                options_from_collection_for_select(@administrators, :id, :name),
+                { prompt: t(".select_admin") },
+                class: "form-select w-full" %>
+            <p class="text-sm text-muted-foreground mt-1">
+              <%= t(".new_owner_help") %>
+            </p>
+          </div>
+
+          <div class="flex gap-3 mt-6">
+            <%= render_button text: t(".transfer_ownership"), type: :submit, variant: :default %>
+            <%= link_to t("cancel"), admin_settings_branding_path, class: "btn btn-outline" %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

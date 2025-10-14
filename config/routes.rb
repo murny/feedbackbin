@@ -60,6 +60,7 @@ Rails.application.routes.draw do
 
     resources :users, only: [ :index, :show ]
     resources :posts, only: [ :index, :show ]
+    resource :ownership_transfer, only: [ :new, :create ]
 
     namespace :settings do
       resource :branding, only: [ :show, :update ]
@@ -72,7 +73,7 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :organizations, only: [ :new, :create ]
+  # resources :organizations, only: [ :new, :create ]
 
   scope controller: :static do
     get :about

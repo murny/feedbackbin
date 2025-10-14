@@ -44,10 +44,39 @@ class OrganizationPolicyTest < ActiveSupport::TestCase
     assert_predicate OrganizationPolicy.new(@admin_user, @organization), :update?
   end
 
-  test "organization destroy available by administrators" do
+  test "organization destroy only available to owner" do
     assert_not_predicate OrganizationPolicy.new(nil, @organization), :destroy?
     assert_not_predicate OrganizationPolicy.new(@user, @organization), :destroy?
 
+    # Create another admin who is not the owner
+    other_admin = User.create!(
+      username: "admin_two",
+      name: "Admin Two",
+      email_address: "admin2@feedbackbin.com",
+      password: "password123456",
+      role: :administrator
+    )
+    assert_not_predicate OrganizationPolicy.new(other_admin, @organization), :destroy?
+
+    # Only the owner can destroy
     assert_predicate OrganizationPolicy.new(@admin_user, @organization), :destroy?
+  end
+
+  test "transfer_ownership only available to owner" do
+    assert_not_predicate OrganizationPolicy.new(nil, @organization), :transfer_ownership?
+    assert_not_predicate OrganizationPolicy.new(@user, @organization), :transfer_ownership?
+
+    # Create another admin who is not the owner
+    other_admin = User.create!(
+      username: "admin_three",
+      name: "Admin Three",
+      email_address: "admin3@feedbackbin.com",
+      password: "password123456",
+      role: :administrator
+    )
+    assert_not_predicate OrganizationPolicy.new(other_admin, @organization), :transfer_ownership?
+
+    # Only the owner can transfer ownership
+    assert_predicate OrganizationPolicy.new(@admin_user, @organization), :transfer_ownership?
   end
 end
