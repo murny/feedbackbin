@@ -18,12 +18,14 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
     user = User.create!(
       username: "test_user",
       email_address: "new@feedbackbin.com",
-      password: "secret123456"
+      password: "secret123456",
+      role: :administrator
     )
     Organization.create!(
       name: "FeedbackBin",
       subdomain: "testfeedbackbin",
-      default_post_status: post_statuses(:open)
+      default_post_status: post_statuses(:open),
+      owner: user
     )
 
     get first_run_url

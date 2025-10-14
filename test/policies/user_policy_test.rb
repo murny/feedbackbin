@@ -28,4 +28,29 @@ class UserPolicyTest < ActiveSupport::TestCase
   test "user destroy available by admin" do
     assert_predicate UserPolicy.new(@admin_user, @target_user), :destroy?
   end
+
+  test "organization owner cannot be destroyed" do
+    owner = users(:shane)
+    assert owner.organization_owner?
+
+    # Owner cannot delete themselves
+    assert_not_predicate UserPolicy.new(owner, owner), :destroy?
+
+    # Admin cannot delete the owner
+    assert_not_predicate UserPolicy.new(@admin_user, owner), :destroy?
+  end
+
+  test "update_role available to admins" do
+    assert_not_predicate UserPolicy.new(nil, @target_user), :update_role?
+    assert_not_predicate UserPolicy.new(@regular_user, @target_user), :update_role?
+    assert_predicate UserPolicy.new(@admin_user, @target_user), :update_role?
+  end
+
+  test "update_role not available for organization owner" do
+    owner = users(:shane)
+    assert owner.organization_owner?
+
+    # Admin cannot update owner's role
+    assert_not_predicate UserPolicy.new(@admin_user, owner), :update_role?
+  end
 end

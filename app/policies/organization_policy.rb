@@ -24,6 +24,10 @@ class OrganizationPolicy < ApplicationPolicy
   end
 
   def destroy?
-    edit?
+    record.owned_by?(user)
+  end
+
+  def transfer_ownership?
+    record.owned_by?(user)
   end
 end
