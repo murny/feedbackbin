@@ -26,6 +26,11 @@ module FeedbackBin
     # config.time_zone = "Central Time (US & Canada)"
     # config.eager_load_paths << Rails.root.join("extras")
 
+    # Multi-tenant mode configuration
+    # When true, uses subdomain-based routing for tenant isolation
+    # When false, uses single-tenant mode (all routes on main domain)
+    config.multi_tenant = ENV.fetch("MULTI_TENANT", "false") == "true"
+
     config.mission_control.jobs.base_controller_class = "SuperAdmin::BaseController"
     config.mission_control.jobs.http_basic_auth_enabled = false
   end

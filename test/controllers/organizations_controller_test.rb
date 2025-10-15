@@ -5,22 +5,33 @@ require "test_helper"
 class OrganizationsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @organization = organizations(:feedbackbin)
-
     @user = users(:shane)
-    sign_in_as @user
+
+    # Enable multi-tenant mode and reload routes
+    Rails.application.config.multi_tenant = true
+    Rails.application.routes_reloader.reload!
   end
 
+  teardown do
+    # Restore original multi-tenant setting and reload routes
+    Rails.application.config.multi_tenant = false
+    Rails.application.routes_reloader.reload!
+  end
 
   test "should get new" do
-    get new_organization_url
+    sign_in_as @user
+
+    get new_organization_url(subdomain: "app")
 
     assert_response :success
   end
 
   test "should create organization" do
+    sign_in_as @user
+
     assert_difference "Organization.count", 1 do
       assert_difference "PostStatus.count", 5 do
-        post organizations_url, params: { organization: { name: "ACME Corp", subdomain: "acme" } }
+        post organizations_url(subdomain: "app"), params: { organization: { name: "ACME Corp", subdomain: "acme" } }
       end
     end
 
