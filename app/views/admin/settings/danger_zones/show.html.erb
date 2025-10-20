@@ -11,6 +11,30 @@
 
     <%= render_alert variant: :destructive, title: t(".subtitle"), description: t(".description"), icon: "shield-alert" %>
 
+    <!-- Transfer Ownership Section -->
+    <% if policy(Current.organization).transfer_ownership? %>
+      <div class="mt-8">
+        <%= render_card title: t(".transfer_ownership_title"), description: t(".transfer_ownership_description") do %>
+          <div class="px-6 py-4">
+            <div class="flex items-center gap-3">
+              <%= image_tag fresh_user_avatar_path(Current.organization.owner),
+                  class: "h-10 w-10 rounded-full" %>
+
+              <div class="flex-1">
+                <p class="font-medium"><%= Current.organization.owner.name %></p>
+                <p class="text-sm text-muted-foreground"><%= Current.organization.owner.email_address %></p>
+              </div>
+
+              <%= render_button text: t(".transfer_ownership_button"),
+                  href: new_admin_ownership_transfer_path,
+                  variant: :outline,
+                  size: :sm %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+
     <div class="mt-8">
       <%= render_card title: t(".delete_title"), description: t(".delete_description") do %>
           <div class="px-6">

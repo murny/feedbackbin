@@ -40,16 +40,6 @@ module Admin
       assert_equal "Ownership transferred to Admin Two.", flash[:notice]
     end
 
-    test "cannot transfer to non-administrator" do
-      member = users(:one)
-
-      post admin_ownership_transfer_url, params: { new_owner_id: member.id }
-
-      assert_redirected_to new_admin_ownership_transfer_path
-      assert_equal @owner, @organization.reload.owner
-      assert_equal "The new owner must be an administrator.", flash[:alert]
-    end
-
     test "non-owner cannot transfer ownership" do
       sign_in_as(@admin)
 

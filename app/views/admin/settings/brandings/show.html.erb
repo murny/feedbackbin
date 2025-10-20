@@ -3,34 +3,6 @@
 <div class="container mx-auto max-w-4xl">
   <%= render partial: "admin/settings/header" %>
 
-  <!-- Organization Owner Section -->
-  <div class="mt-8">
-    <div class="mb-6">
-      <h2 class="text-lg font-medium"><%= t(".organization_owner") %></h2>
-      <p class="text-sm text-muted-foreground"><%= t(".owner_description") %></p>
-    </div>
-
-    <%= render_card do %>
-      <div class="px-6 py-4">
-        <div class="flex items-center gap-3">
-          <%= image_tag fresh_user_avatar_path(Current.organization.owner),
-              class: "h-10 w-10 rounded-full" %>
-
-          <div class="flex-1">
-            <p class="font-medium"><%= Current.organization.owner.name %></p>
-            <p class="text-sm text-muted-foreground"><%= Current.organization.owner.email_address %></p>
-          </div>
-
-          <% if policy(Current.organization).transfer_ownership? %>
-            <%= link_to t(".transfer_ownership"),
-                new_admin_ownership_transfer_path,
-                class: "btn btn-outline btn-sm" %>
-          <% end %>
-        </div>
-      </div>
-    <% end %>
-  </div>
-
   <!-- Branding Section -->
   <div class="mt-8">
     <div class="mb-6">

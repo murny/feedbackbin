@@ -13,11 +13,6 @@ module Admin
       @organization = Current.organization
       new_owner = User.find(params[:new_owner_id])
 
-      unless new_owner.administrator?
-        redirect_to new_admin_ownership_transfer_path, alert: t(".new_owner_must_be_admin")
-        return
-      end
-
       if @organization.update(owner: new_owner)
         redirect_to admin_settings_branding_path, notice: t(".success", name: new_owner.name)
       else

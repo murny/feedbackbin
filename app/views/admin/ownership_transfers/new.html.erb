@@ -30,7 +30,7 @@
 
           <div class="flex gap-3 mt-6">
             <%= render_button text: t(".transfer_ownership"), type: :submit, variant: :default %>
-            <%= link_to t("cancel"), admin_settings_branding_path, class: "btn btn-outline" %>
+            <%= render_button text: t("cancel"), href: admin_settings_branding_path, variant: :outline %>
           </div>
         <% end %>
       </div>

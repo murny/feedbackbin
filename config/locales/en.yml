@@ -61,7 +61,6 @@ en:
     ownership_transfers:
       create:
         failure: Failed to transfer ownership. Please try again.
-        new_owner_must_be_admin: The new owner must be an administrator.
         success: Ownership transferred to %{name}.
       new:
         new_owner: New Owner
@@ -108,12 +107,9 @@ en:
           logo: Logo
           logo_size_hint: JPG, PNG up to 2MB. Recommended size 400x400px.
           name: Organization name
-          organization_owner: Organization Owner
-          owner_description: The owner has ultimate control over this organization and cannot be removed.
           save_changes: Save changes
           subdomain: Subdomain
           title: Branding
-          transfer_ownership: Transfer Ownership
           upload_new_logo: Upload new logo
         update:
           successfully_updated: Branding settings were successfully updated.
@@ -134,6 +130,9 @@ en:
           page_description: Irreversible and destructive actions for your organization
           subtitle: These settings are critical to your organization.
           title: Danger Zone
+          transfer_ownership_button: Transfer Ownership
+          transfer_ownership_description: The owner has ultimate control over this organization. Transferring ownership is permanent and cannot be undone.
+          transfer_ownership_title: Transfer Organization Ownership
           turbo_confirm: Are you sure? This action cannot be undone.
       header:
         description: Manage your organization settings
