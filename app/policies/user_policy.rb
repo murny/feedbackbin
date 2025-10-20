@@ -11,15 +11,6 @@ class UserPolicy < ApplicationPolicy
     owned? || admin?
   end
 
-  def update_role?
-    return false unless admin?
-
-    # Prevent updating the owner's role at all
-    return false if record.organization_owner?
-
-    true
-  end
-
   private
 
     def owned?

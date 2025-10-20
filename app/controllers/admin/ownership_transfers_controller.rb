@@ -14,7 +14,8 @@ module Admin
       new_owner = User.find(params[:new_owner_id])
 
       unless new_owner.administrator?
-        redirect_to new_admin_ownership_transfer_path, alert: t(".new_owner_must_be_admin") and return
+        redirect_to new_admin_ownership_transfer_path, alert: t(".new_owner_must_be_admin")
+        return
       end
 
       if @organization.update(owner: new_owner)
@@ -24,8 +25,6 @@ module Admin
         flash.now[:alert] = t(".failure")
         render :new, status: :unprocessable_entity
       end
-    rescue ActiveRecord::RecordNotFound
-      redirect_to new_admin_ownership_transfer_path, alert: t(".user_not_found")
     end
 
     private

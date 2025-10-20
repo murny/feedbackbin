@@ -58,6 +58,19 @@ en:
           total_posts: Total Posts
           total_users: Total Users
         title: "%{organization_name} Admin"
+    ownership_transfers:
+      create:
+        failure: Failed to transfer ownership. Please try again.
+        new_owner_must_be_admin: The new owner must be an administrator.
+        success: Ownership transferred to %{name}.
+      new:
+        new_owner: New Owner
+        new_owner_help: Only administrators can become owners.
+        select_admin: Select an administrator
+        title: Transfer Organization Ownership
+        transfer_ownership: Transfer Ownership
+        warning_message: Transferring ownership cannot be undone. The new owner will have full control of this organization.
+        warning_title: Warning
     posts:
       index:
         description: View all feedback posts from users
@@ -88,20 +101,6 @@ en:
         no_comments: No comments yet
         post_info_title: Post Information
         recent_comments_title: Recent Comments
-    ownership_transfers:
-      create:
-        failure: Failed to transfer ownership. Please try again.
-        new_owner_must_be_admin: The new owner must be an administrator.
-        success: Ownership transferred to %{name}.
-        user_not_found: Selected user not found.
-      new:
-        new_owner: New Owner
-        new_owner_help: Only administrators can become owners.
-        select_admin: Select an administrator
-        title: Transfer Organization Ownership
-        transfer_ownership: Transfer Ownership
-        warning_message: Transferring ownership cannot be undone. The new owner will have full control of this organization.
-        warning_title: Warning
     settings:
       brandings:
         show:
@@ -288,7 +287,6 @@ en:
         feedback: Feedback
         letter_opener: Letter opener
         mission_control_jobs: Mission control jobs
-        new_organization: New Organization
         roadmap: Roadmap
         settings: Settings
         super_admin: Super Admin
@@ -389,22 +387,6 @@ en:
       successfully_unliked: You unliked this %{resource}
   oauth:
     sign_in_with: Sign in with %{provider}
-  organizations:
-    create:
-      successfully_created: Organization was successfully created.
-    form:
-      basic_information: Basic Information
-      basic_information_description: Set up the basic details for your organization.
-      create_organization: Create Organization
-      logo_description: Upload a logo to represent your organization.
-      logo_size_hint: JPG, PNG up to 2MB. Recommended size 400x400px.
-      name_placeholder: Enter organization name
-      organization_logo: Organization Logo
-      remove_logo: Remove Logo
-      upload_new_logo: Upload new logo
-    new:
-      description: Create a new organization to get started with collecting feedback.
-      title: New organization
   pagy:
     aria_label:
       nav:

@@ -7,7 +7,8 @@ module Admin
       end
 
       def destroy
-        # TODO: Should this be only owners able to delete the organization or all admins?
+        authorize(Current.organization, :destroy?)
+
         name_confirmation = params.dig(:organization, :name).to_s.strip
         acknowledged = ActiveModel::Type::Boolean.new.cast(params.dig(:organization, :acknowledge))
 
