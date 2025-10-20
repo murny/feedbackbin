@@ -99,4 +99,28 @@ class PostStatusTest < ActiveSupport::TestCase
 
     assert_equal [ "Open", "Planned", "In Progress", "Complete", "Closed" ], statuses
   end
+
+  test "visible_on_feedback scope returns only statuses with show_on_feedback true" do
+    feedback_statuses = PostStatus.visible_on_feedback.pluck(:name)
+
+    # Based on fixtures: Open, Planned, In Progress show on feedback
+    assert_includes feedback_statuses, "Open"
+    assert_includes feedback_statuses, "Planned"
+    assert_includes feedback_statuses, "In Progress"
+    # Complete and Closed should not be included
+    assert_not_includes feedback_statuses, "Complete"
+    assert_not_includes feedback_statuses, "Closed"
+  end
+
+  test "visible_on_roadmap scope returns only statuses with show_on_roadmap true" do
+    roadmap_statuses = PostStatus.visible_on_roadmap.pluck(:name)
+
+    # Based on fixtures: Planned, In Progress show on roadmap
+    assert_includes roadmap_statuses, "Planned"
+    assert_includes roadmap_statuses, "In Progress"
+    # Open, Complete, and Closed should not be included
+    assert_not_includes roadmap_statuses, "Open"
+    assert_not_includes roadmap_statuses, "Complete"
+    assert_not_includes roadmap_statuses, "Closed"
+  end
 end

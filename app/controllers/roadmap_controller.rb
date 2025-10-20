@@ -12,8 +12,8 @@ class RoadmapController < ApplicationController
   private
 
     def roadmap_data
-      # Get all post statuses ordered by position
-      statuses = PostStatus.ordered
+      # Get only post statuses visible on roadmap, ordered by position
+      statuses = PostStatus.visible_on_roadmap.ordered
 
       # Load all posts for these statuses in a single query
       posts = Post

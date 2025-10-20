@@ -7,8 +7,16 @@ class PostStatus < ApplicationRecord
   validates :position, presence: true, numericality: { only_integer: true }
   validates :color, presence: true, format: { with: /\A#[0-9a-f]{6}\z/i }
 
+  # Visibility flag validations
+  validates :show_on_feedback, inclusion: { in: [ true, false ] }
+  validates :show_on_roadmap, inclusion: { in: [ true, false ] }
+
   scope :ordered, -> { order(:position) }
   scope :default, -> { Current.organization&.default_post_status }
+
+  # Visibility scopes
+  scope :visible_on_feedback, -> { where(show_on_feedback: true) }
+  scope :visible_on_roadmap, -> { where(show_on_roadmap: true) }
 
   before_destroy :prevent_default_deletion
 

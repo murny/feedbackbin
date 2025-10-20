@@ -20,9 +20,12 @@ class PostsController < ApplicationController
 
     posts = posts.sort_by_params(sort_column(Post), sort_direction)
 
-    # Apply status filtering if provided
+    # Apply status filtering if provided, otherwise default to visible on feedback
     if params[:post_status_id].present?
       posts = posts.where(post_status_id: params[:post_status_id])
+    else
+      # By default, only show posts with statuses visible on feedback page
+      posts = posts.joins(:post_status).merge(PostStatus.visible_on_feedback)
     end
 
     # Order with pinned posts first

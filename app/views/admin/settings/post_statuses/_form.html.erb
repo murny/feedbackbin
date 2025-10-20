@@ -21,6 +21,25 @@
       <p class="text-xs text-muted-foreground"><%= t(".position_hint") %></p>
     </div>
 
+    <div class="grid gap-3">
+      <label class="text-sm font-medium"><%= t(".visibility_label") %></label>
+      <div class="space-y-3 border rounded-lg p-4 bg-muted/30">
+        <div class="flex items-center space-x-2">
+          <%= f.check_box :show_on_feedback,
+                class: "h-4 w-4 rounded border-input text-primary focus:ring-primary" %>
+          <%= f.label :show_on_feedback, t(".show_on_feedback_label"), class: "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" %>
+        </div>
+        <p class="text-xs text-muted-foreground ml-6"><%= t(".show_on_feedback_hint") %></p>
+
+        <div class="flex items-center space-x-2">
+          <%= f.check_box :show_on_roadmap,
+                class: "h-4 w-4 rounded border-input text-primary focus:ring-primary" %>
+          <%= f.label :show_on_roadmap, t(".show_on_roadmap_label"), class: "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" %>
+        </div>
+        <p class="text-xs text-muted-foreground ml-6"><%= t(".show_on_roadmap_hint") %></p>
+      </div>
+    </div>
+
     <% if post_status.persisted? %>
       <div class="grid gap-3">
         <div class="flex items-center space-x-2">
