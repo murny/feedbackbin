@@ -56,6 +56,7 @@ class OrganizationPolicyTest < ActiveSupport::TestCase
       password: "password123456",
       role: :administrator
     )
+
     assert_not_predicate OrganizationPolicy.new(other_admin, @organization), :destroy?
 
     # Only the owner can destroy
@@ -74,6 +75,7 @@ class OrganizationPolicyTest < ActiveSupport::TestCase
       password: "password123456",
       role: :administrator
     )
+
     assert_not_predicate OrganizationPolicy.new(other_admin, @organization), :transfer_ownership?
 
     # Only the owner can transfer ownership

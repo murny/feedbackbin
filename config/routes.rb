@@ -76,8 +76,6 @@ Rails.application.routes.draw do
     end
   end
 
-  # resources :organizations, only: [ :new, :create ]
-
   scope controller: :static do
     get :about
     get :terms

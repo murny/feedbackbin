@@ -20,9 +20,9 @@ class Organization < ApplicationRecord
 
   private
 
-  def owner_must_be_administrator
-    if owner && !owner.administrator?
-      errors.add(:owner, "must be an administrator")
+    def owner_must_be_administrator
+      if owner && !owner.administrator?
+        errors.add(:owner, "must be an administrator")
+      end
     end
-  end
 end

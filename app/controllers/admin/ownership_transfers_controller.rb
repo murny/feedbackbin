@@ -30,8 +30,8 @@ module Admin
 
     private
 
-    def ensure_owner
-      authorize Current.organization, :transfer_ownership?
-    end
+      def ensure_owner
+        authorize Current.organization, :transfer_ownership?
+      end
   end
 end

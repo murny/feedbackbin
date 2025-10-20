@@ -66,7 +66,7 @@ class OrganizationTest < ActiveSupport::TestCase
     admin = users(:shane)
     @organization.owner = admin
 
-    assert @organization.valid?
+    assert_predicate @organization, :valid?
   end
 
   test "owned_by? returns true for owner" do

@@ -31,7 +31,8 @@ class UserPolicyTest < ActiveSupport::TestCase
 
   test "organization owner cannot be destroyed" do
     owner = users(:shane)
-    assert owner.organization_owner?
+
+    assert_predicate owner, :organization_owner?
 
     # Owner cannot delete themselves
     assert_not_predicate UserPolicy.new(owner, owner), :destroy?
@@ -48,7 +49,8 @@ class UserPolicyTest < ActiveSupport::TestCase
 
   test "update_role not available for organization owner" do
     owner = users(:shane)
-    assert owner.organization_owner?
+
+    assert_predicate owner, :organization_owner?
 
     # Admin cannot update owner's role
     assert_not_predicate UserPolicy.new(@admin_user, owner), :update_role?

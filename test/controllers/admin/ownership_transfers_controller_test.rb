@@ -37,7 +37,7 @@ module Admin
 
       assert_redirected_to admin_settings_branding_path
       assert_equal @admin, @organization.reload.owner
-      assert_equal I18n.t("transferred"), flash[:notice]
+      assert_equal "Ownership transferred to Admin Two.", flash[:notice]
     end
 
     test "cannot transfer to non-administrator" do
@@ -47,14 +47,14 @@ module Admin
 
       assert_redirected_to new_admin_ownership_transfer_path
       assert_equal @owner, @organization.reload.owner
-      assert_equal I18n.t("administrator"), flash[:alert]
+      assert_equal "The new owner must be an administrator.", flash[:alert]
     end
 
     test "cannot transfer to non-existent user" do
       post admin_ownership_transfer_url, params: { new_owner_id: 999999 }
 
       assert_redirected_to new_admin_ownership_transfer_path
-      assert_equal I18n.t("not_found"), flash[:alert]
+      assert_equal "Selected user not found.", flash[:alert]
     end
 
     test "non-owner cannot transfer ownership" do
