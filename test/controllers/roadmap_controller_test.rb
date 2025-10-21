@@ -26,15 +26,15 @@ class RoadmapControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "displays posts in their status columns" do
-    open_status = post_statuses(:open)
+    planned_status = post_statuses(:planned)
     post = posts(:one)
-    post.update!(post_status: open_status, title: "Unique Test Post Title")
+    post.update!(post_status: planned_status, title: "Unique Test Post Title")
 
     get roadmap_url
 
     assert_response :success
     # Verify the status name appears
-    assert_match(/#{Regexp.escape(open_status.name)}/, response.body)
+    assert_match(/#{Regexp.escape(planned_status.name)}/, response.body)
     # Verify the post title appears
     assert_match(/#{Regexp.escape(post.title)}/, response.body)
   end

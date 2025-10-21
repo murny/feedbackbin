@@ -118,9 +118,10 @@ class PostStatusTest < ActiveSupport::TestCase
     # Based on fixtures: Planned, In Progress show on roadmap
     assert_includes roadmap_statuses, "Planned"
     assert_includes roadmap_statuses, "In Progress"
-    # Open, Complete, and Closed should not be included
+    assert_includes roadmap_statuses, "Complete"
+
+    # Open and Closed should not be included
     assert_not_includes roadmap_statuses, "Open"
-    assert_not_includes roadmap_statuses, "Complete"
     assert_not_includes roadmap_statuses, "Closed"
   end
 end
