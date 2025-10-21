@@ -313,7 +313,7 @@ GEM
     json (2.15.1)
     jwt (3.1.2)
       base64
-    kamal (2.8.0)
+    kamal (2.8.1)
       activesupport (>= 7.0)
       base64 (~> 0.2)
       bcrypt_pbkdf (~> 1.0)
@@ -822,7 +822,7 @@ CHECKSUMS
   jbuilder (2.14.1) sha256=4eb26376ff60ef100cb4fd6fd7533cd271f9998327e86adf20fd8c0e69fabb42
   json (2.15.1) sha256=b1c1b2e7c116eb1903e0ce0c374783e6ead8747a0f9eca132d274018ebb80b89
   jwt (3.1.2) sha256=af6991f19a6bb4060d618d9add7a66f0eeb005ac0bc017cd01f63b42e122d535
-  kamal (2.8.0) sha256=6b10f53cec7f7135d460d9d13a3229ab12334eb2af08f6a7159bd48025208493
+  kamal (2.8.1) sha256=abf03b048b2e89a5e379a4b86eaa12567e4f06333be981ce5d8ba9a926c15f5b
   language_server-protocol (3.17.0.5) sha256=fd1e39a51a28bf3eec959379985a72e296e9f9acfce46f6a79d31ca8760803cc
   launchy (3.1.1) sha256=72b847b5cc961589dde2c395af0108c86ff0119f42d4648d25b5440ebb10059e
   letter_opener (1.10.0) sha256=2ff33f2e3b5c3c26d1959be54b395c086ca6d44826e8bf41a14ff96fdf1bdbb2
