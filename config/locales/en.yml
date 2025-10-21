@@ -58,18 +58,6 @@ en:
           total_posts: Total Posts
           total_users: Total Users
         title: "%{organization_name} Admin"
-    ownership_transfers:
-      create:
-        failure: Failed to transfer ownership. Please try again.
-        success: Ownership transferred to %{name}.
-      new:
-        new_owner: New Owner
-        new_owner_help: Only administrators can become owners.
-        select_admin: Select an administrator
-        title: Transfer Organization Ownership
-        transfer_ownership: Transfer Ownership
-        warning_message: Transferring ownership cannot be undone. The new owner will have full control of this organization.
-        warning_title: Warning
     posts:
       index:
         description: View all feedback posts from users
@@ -184,6 +172,18 @@ en:
           role:
             administrator: Administrator
           title: Administrators
+      ownership_transfers:
+        create:
+          failure: Failed to transfer ownership. Please try again.
+          success: Ownership transferred to %{name}.
+        new:
+          new_owner: New Owner
+          new_owner_help: Only administrators can become owners.
+          select_admin: Select an administrator
+          title: Transfer Organization Ownership
+          transfer_ownership: Transfer Ownership
+          warning_message: Transferring ownership cannot be undone. The new owner will have full control of this organization.
+          warning_title: Warning
       post_statuses:
         create:
           successfully_created: Post status was successfully created.

@@ -63,7 +63,6 @@ Rails.application.routes.draw do
 
     resources :users, only: [ :index, :show ]
     resources :posts, only: [ :index, :show ]
-    resource :ownership_transfer, only: [ :new, :create ]
 
     namespace :settings do
       resource :branding, only: [ :show, :update ]
@@ -71,6 +70,7 @@ Rails.application.routes.draw do
       resources :memberships, only: [ :index, :destroy ]
       resources :post_statuses
       resource :danger_zone, only: [ :show, :destroy ]
+      resource :ownership_transfer, only: [ :new, :create ]
 
       root to: redirect("/admin/settings/branding")
     end

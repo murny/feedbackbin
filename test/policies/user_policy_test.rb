@@ -13,11 +13,11 @@ class UserPolicyTest < ActiveSupport::TestCase
     assert_predicate UserPolicy.new(nil, @target_user), :show?
   end
 
-  test "user destroy not avaiable by non logged in users" do
+  test "user destroy not available by non logged in users" do
     assert_not_predicate UserPolicy.new(nil, @target_user), :destroy?
   end
 
-  test "user destroy not avaiable by other users" do
+  test "user destroy not available by other users" do
     assert_not_predicate UserPolicy.new(@regular_user, @target_user), :destroy?
   end
 
@@ -37,7 +37,15 @@ class UserPolicyTest < ActiveSupport::TestCase
     # Owner cannot delete themselves
     assert_not_predicate UserPolicy.new(owner, owner), :destroy?
 
+    admin = User.create!(
+      username: "admin_two",
+      name: "Admin Two",
+      email_address: "admin2@feedbackbin.com",
+      password: "password123456",
+      role: :administrator
+    )
+
     # Admin cannot delete the owner
-    assert_not_predicate UserPolicy.new(@admin_user, owner), :destroy?
+    assert_not_predicate UserPolicy.new(admin, owner), :destroy?
   end
 end

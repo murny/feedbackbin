@@ -16,7 +16,7 @@
 
     <%= render_card do %>
       <div class="px-6 py-4">
-        <%= render_form_with url: admin_ownership_transfer_path, method: :post do |f| %>
+        <%= render_form_with url: admin_settings_ownership_transfer_path, method: :post do |f| %>
           <div class="mb-4">
             <%= f.label :new_owner_id, t(".new_owner"), class: "block text-sm font-medium mb-2" %>
             <%= f.select :new_owner_id,
