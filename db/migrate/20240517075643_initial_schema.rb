@@ -41,6 +41,7 @@ class InitialSchema < ActiveRecord::Migration[8.1]
     end
 
     create_table "categories", force: :cascade do |t|
+      t.string "color", null: false
       t.datetime "created_at", null: false
       t.text "description"
       t.string "name", null: false
