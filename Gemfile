@@ -87,7 +87,6 @@ group :development do
   gem "hotwire-spark"
 
   gem "ruby-lsp-rails", require: false
-  gem "claude-on-rails"
 end
 
 group :test do
