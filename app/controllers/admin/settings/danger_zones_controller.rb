@@ -9,7 +9,6 @@ module Admin
       end
 
       def destroy
-
         name_confirmation = params.dig(:organization, :name).to_s.strip
         acknowledged = ActiveModel::Type::Boolean.new.cast(params.dig(:organization, :acknowledge))
 
