@@ -1,6 +1,6 @@
-# ClaudeOnRails Context
+# Claude Swarm Context
 
-This project uses ClaudeOnRails with a swarm of specialized agents for Rails development.
+This project uses Claude Swarm with a swarm of specialized agents for Rails development.
 
 ## Project Information
 - **Rails Version**: 8.1

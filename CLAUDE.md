@@ -135,4 +135,4 @@ Database schema is managed through standard Rails migrations in `db/migrate/`. T
 - Queue database: Background jobs
 - Cable database: WebSocket connections
 
-/file:.claude-on-rails/context.md
+/file:.claude-swarm/context.md
