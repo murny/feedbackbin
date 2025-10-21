@@ -50,6 +50,25 @@ module Admin
         assert_response :redirect
         assert_equal "You are not authorized to perform this action.", flash[:alert]
       end
+
+      test "non-owner admin cannot delete organization" do
+        # Create another admin who is not the owner
+        admin = User.create!(
+          username: "admin_user",
+          name: "Admin User",
+          email_address: "admin@feedbackbin.com",
+          password: "secret123456",
+          role: :administrator
+        )
+        sign_in_as(admin)
+
+        assert_no_difference("Organization.count") do
+          delete admin_settings_danger_zone_url, params: { organization: { name: @organization.name, acknowledge: "1" } }
+        end
+
+        assert_redirected_to root_path
+        assert_equal "You are not authorized to perform this action.", flash[:alert]
+      end
     end
   end
 end

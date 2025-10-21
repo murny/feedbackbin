@@ -45,4 +45,37 @@ class OrganizationTest < ActiveSupport::TestCase
     assert_not @organization.valid?
     assert_equal "must exist", @organization.errors[:default_post_status].first
   end
+
+  # Owner tests
+  test "organization requires an owner" do
+    @organization.owner = nil
+
+    assert_not @organization.valid?
+    assert_equal "must exist", @organization.errors[:owner].first
+  end
+
+  test "owner must be an administrator" do
+    member = users(:one)
+    @organization.owner = member
+
+    assert_not @organization.valid?
+    assert_includes @organization.errors[:owner], "must be an administrator"
+  end
+
+  test "owner can be an administrator" do
+    admin = users(:shane)
+    @organization.owner = admin
+
+    assert_predicate @organization, :valid?
+  end
+
+  test "owned_by? returns true for owner" do
+    assert @organization.owned_by?(@organization.owner)
+  end
+
+  test "owned_by? returns false for non-owner" do
+    other_user = users(:one)
+
+    assert_not @organization.owned_by?(other_user)
+  end
 end

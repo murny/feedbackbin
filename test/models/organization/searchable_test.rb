@@ -39,7 +39,8 @@ class Organization::SearchableTest < ActiveSupport::TestCase
     special_org = Organization.create!(
       name: "Test[Special 50%_Off]Organization",
       subdomain: "specialtest",
-      default_post_status: post_statuses(:open)
+      default_post_status: post_statuses(:open),
+      owner: users(:shane)
     )
 
     results = Organization.search("Special")

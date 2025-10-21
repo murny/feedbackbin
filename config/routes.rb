@@ -70,12 +70,11 @@ Rails.application.routes.draw do
       resources :memberships, only: [ :index, :destroy ]
       resources :post_statuses
       resource :danger_zone, only: [ :show, :destroy ]
+      resource :ownership_transfer, only: [ :new, :create ]
 
       root to: redirect("/admin/settings/branding")
     end
   end
-
-  resources :organizations, only: [ :new, :create ]
 
   scope controller: :static do
     get :about

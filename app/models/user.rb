@@ -20,6 +20,7 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy, foreign_key: :voter_id, inverse_of: :voter
   has_many :user_connected_accounts, dependent: :destroy
   has_many :invitations, dependent: :destroy, foreign_key: :invited_by_id, inverse_of: :invited_by
+  has_one :owned_organization, class_name: "Organization", foreign_key: :owner_id, inverse_of: :owner, dependent: :restrict_with_error
 
   has_one_attached :avatar
 
@@ -70,6 +71,10 @@ class User < ApplicationRecord
 
   def deactivated?
     !active?
+  end
+
+  def organization_owner?
+    owned_organization.present?
   end
 
   private
