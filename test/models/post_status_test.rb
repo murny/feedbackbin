@@ -115,7 +115,7 @@ class PostStatusTest < ActiveSupport::TestCase
   test "visible_on_roadmap scope returns only statuses with show_on_roadmap true" do
     roadmap_statuses = PostStatus.visible_on_roadmap.pluck(:name)
 
-    # Based on fixtures: Planned, In Progress show on roadmap
+    # Based on fixtures: Planned, In Progress and Complete get shown on roadmap
     assert_includes roadmap_statuses, "Planned"
     assert_includes roadmap_statuses, "In Progress"
     assert_includes roadmap_statuses, "Complete"

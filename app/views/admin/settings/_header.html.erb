@@ -34,11 +34,13 @@
               class: "inline-flex items-center px-1 pt-4 pb-4 text-muted-foreground hover:text-foreground transition-colors",
               active_class: "border-b-2 border-primary text-primary" %>
       </li>
-      <li>
-        <%= active_link_to t(".navigation.danger_zone"), admin_settings_danger_zone_path,
-              class: "inline-flex items-center px-1 pt-4 pb-4 text-destructive hover:text-destructive/80 transition-colors",
-              active_class: "border-b-2 border-destructive text-destructive" %>
-      </li>
+      <% if policy(Current.organization).destroy? %>
+        <li>
+          <%= active_link_to t(".navigation.danger_zone"), admin_settings_danger_zone_path,
+                class: "inline-flex items-center px-1 pt-4 pb-4 text-destructive hover:text-destructive/80 transition-colors",
+                active_class: "border-b-2 border-destructive text-destructive" %>
+        </li>
+      <% end %>
     </ul>
   </nav>
 </div>
