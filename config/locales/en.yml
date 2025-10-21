@@ -206,10 +206,16 @@ en:
           save_changes: Save changes
           set_as_default_hint: New posts will automatically be assigned this status
           set_as_default_label: Set as default status for new posts
+          show_on_feedback_hint: When enabled, posts with this status will appear on the main feedback page by default
+          show_on_feedback_label: Show on feedback page
+          show_on_roadmap_hint: When enabled, posts with this status will appear on the roadmap
+          show_on_roadmap_label: Show on roadmap
+          visibility_label: Visibility Settings
         index:
           create_first_status: Create First Status
           default_badge: Default
           description: Manage post statuses to organize and track feedback
+          feedback_badge: Feedback
           new_status: New Status
           no_statuses_description: Post statuses help you organize and communicate the progress of feedback.
           no_statuses_title: No post statuses
@@ -217,7 +223,10 @@ en:
           posts_count:
             one: "%{count} post"
             other: "%{count} posts"
+          roadmap_badge: Roadmap
           title: Post Statuses
+          visible_on_feedback: Visible on feedback page
+          visible_on_roadmap: Visible on roadmap
         new:
           description: Create a new status to organize your feedback
           title: New Post Status

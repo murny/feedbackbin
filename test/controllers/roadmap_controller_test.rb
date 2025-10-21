@@ -9,32 +9,38 @@ class RoadmapControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "displays all post statuses" do
+  test "displays only roadmap-visible post statuses" do
     get roadmap_url
 
     assert_response :success
-    PostStatus.ordered.each do |status|
-      # Each status should appear as a heading in the page
+    # Only statuses with show_on_roadmap: true should appear
+    PostStatus.visible_on_roadmap.each do |status|
+      # Each roadmap-visible status should appear as a heading in the page
       assert_select "h2", text: status.name
+    end
+
+    # Statuses NOT visible on roadmap should not appear
+    PostStatus.where(show_on_roadmap: false).each do |status|
+      assert_select "h2", { text: status.name, count: 0 }
     end
   end
 
   test "displays posts in their status columns" do
-    open_status = post_statuses(:open)
+    planned_status = post_statuses(:planned)
     post = posts(:one)
-    post.update!(post_status: open_status, title: "Unique Test Post Title")
+    post.update!(post_status: planned_status, title: "Unique Test Post Title")
 
     get roadmap_url
 
     assert_response :success
     # Verify the status name appears
-    assert_match(/#{Regexp.escape(open_status.name)}/, response.body)
+    assert_match(/#{Regexp.escape(planned_status.name)}/, response.body)
     # Verify the post title appears
     assert_match(/#{Regexp.escape(post.title)}/, response.body)
   end
 
   test "displays posts ordered by created_at desc" do
-    status = post_statuses(:open)
+    status = post_statuses(:planned)  # Use a roadmap-visible status
 
     # Update existing posts to have specific timestamps and titles
     old_post = posts(:one)

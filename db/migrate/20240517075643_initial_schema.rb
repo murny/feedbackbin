@@ -106,6 +106,8 @@ class InitialSchema < ActiveRecord::Migration[8.1]
       t.datetime "created_at", null: false
       t.string "name", null: false
       t.integer "position", null: false
+      t.boolean "show_on_feedback", default: true, null: false
+      t.boolean "show_on_roadmap", default: false, null: false
       t.datetime "updated_at", null: false
     end
 

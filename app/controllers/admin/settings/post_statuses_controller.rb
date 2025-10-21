@@ -55,7 +55,7 @@ module Admin
         end
 
         def post_status_params
-          params.require(:post_status).permit(:name, :color, :position)
+          params.require(:post_status).permit(:name, :color, :position, :show_on_feedback, :show_on_roadmap)
         end
     end
   end
