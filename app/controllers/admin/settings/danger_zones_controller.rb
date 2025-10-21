@@ -3,11 +3,12 @@
 module Admin
   module Settings
     class DangerZonesController < Admin::BaseController
+      before_action :ensure_owner
+
       def show
       end
 
       def destroy
-        authorize(Current.organization, :destroy?)
 
         name_confirmation = params.dig(:organization, :name).to_s.strip
         acknowledged = ActiveModel::Type::Boolean.new.cast(params.dig(:organization, :acknowledge))
@@ -31,6 +32,12 @@ module Admin
         # TODO: This won't be root_path in the future but marketing site?
         redirect_to root_path, notice: t(".success")
       end
+
+      private
+
+        def ensure_owner
+          authorize Current.organization, :destroy?
+        end
     end
   end
 end
