@@ -5,8 +5,6 @@ class FirstRun
   include ActiveModel::Attributes
   include ActiveModel::Validations
 
-  DEFAULT_CATEGORY_NAME = "Feature Requests"
-
   # User attributes
   attribute :username, :string
   attribute :name, :string
@@ -20,7 +18,8 @@ class FirstRun
   attribute :organization_logo
 
   # Category attribute
-  attribute :category_name, :string, default: DEFAULT_CATEGORY_NAME
+  attribute :category_name, :string
+  attribute :category_color, :string
 
   # User validations
   validates :username, presence: true,
@@ -35,6 +34,7 @@ class FirstRun
 
   # Category validations
   validates :category_name, presence: true
+  validates :category_color, presence: true, format: { with: /\A#[0-9a-f]{6}\z/i }
 
   attr_reader :organization, :user, :category
 
@@ -86,7 +86,8 @@ class FirstRun
 
     def category_attributes
       {
-        name: category_name
+        name: category_name,
+        color: category_color
       }
     end
 
@@ -108,7 +109,8 @@ class FirstRun
         end
       when Category
         attribute_mapping = {
-          name: :category_name
+          name: :category_name,
+          color: :category_color
         }
         record.errors.each do |error|
           attr_name = attribute_mapping[error.attribute] || error.attribute

@@ -3,7 +3,9 @@
 one:
   name: Feature Requests
   description: Feature Requests
+  color: "#3b82f6"
 
 two:
   name: Bug Reports
   description: Bug Reports
+  color: "#ef4444"

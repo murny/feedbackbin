@@ -44,7 +44,8 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
             name: "New Person",
             organization_name: "Test Organization",
             organization_subdomain: "testorg",
-            category_name: "Custom Category"
+            category_name: "Custom Category",
+            category_color: "#3b82f6"
           }
         }
       end

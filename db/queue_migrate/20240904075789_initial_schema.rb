@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class InitialSchema < ActiveRecord::Migration[8.1]
+class InitialSchema < ActiveRecord::Migration[8.2]
   def change
     create_table "solid_queue_blocked_executions", force: :cascade do |t|
       t.bigint "job_id", null: false
