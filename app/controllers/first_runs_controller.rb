@@ -30,7 +30,7 @@ class FirstRunsController < ApplicationController
       params.expect(first_run: [
         :username, :name, :avatar, :email_address, :password,
         :organization_name, :organization_subdomain, :organization_logo,
-        :category_name
+        :category_name, :category_color
       ])
     end
 end

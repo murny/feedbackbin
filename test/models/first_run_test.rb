@@ -15,7 +15,8 @@ class FirstRunTest < ActiveSupport::TestCase
         password: "secret123456",
         organization_name: "Test Organization",
         organization_subdomain: "testorg",
-        category_name: "Test Category"
+        category_name: "Test Category",
+        category_color: "#3b82f6"
       ).save!
 
       assert_predicate first_run.user, :administrator?

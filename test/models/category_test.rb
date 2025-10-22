@@ -69,17 +69,16 @@ class CategoryTest < ActiveSupport::TestCase
   test "cannot delete category with posts" do
     category = categories(:one)
     # Create a post with this category
-    post = Post.create!(
+    Post.create!(
       title: "Test Post",
       category: category,
       author: users(:one),
-      post_status: post_statuses(:one)
+      post_status: post_statuses(:planned)
     )
 
-    assert_raises(ActiveRecord::DeleteRestrictionError) do
-      category.destroy
-    end
+    category.destroy
 
     assert Category.exists?(category.id)
+    assert_equal "Cannot delete record because dependent posts exist", category.errors[:base].first
   end
 end
