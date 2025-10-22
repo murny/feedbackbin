@@ -101,6 +101,41 @@ en:
           upload_new_logo: Upload new logo
         update:
           successfully_updated: Branding settings were successfully updated.
+      categories:
+        create:
+          successfully_created: Category was successfully created.
+        destroy:
+          successfully_destroyed: Category was successfully deleted.
+        edit:
+          description: Update the details of this category
+          title: Edit Category
+        form:
+          color_hint: Choose a color to help identify this category
+          color_label: Color
+          create_category: Create Category
+          description_hint: Help users understand what type of feedback belongs in this category (maximum 500 characters)
+          description_label: Description
+          description_placeholder: e.g., Share your ideas and help us improve our product
+          name_label: Name
+          name_placeholder: e.g., Feature Requests
+          preview_label: Preview
+          preview_placeholder: Category Name
+          save_changes: Save changes
+        index:
+          create_first_category: Create First Category
+          description: Manage categories to organize feedback into logical groups
+          new_category: New Category
+          no_categories_description: Categories help you organize feedback into logical groups.
+          no_categories_title: No categories
+          posts_count:
+            one: "%{count} post"
+            other: "%{count} posts"
+          title: Categories
+        new:
+          description: Create a new category to organize your feedback
+          title: New Category
+        update:
+          successfully_updated: Category was successfully updated.
       danger_zones:
         destroy:
           acknowledgment_required: You must acknowledge this action to proceed.
@@ -125,6 +160,7 @@ en:
       header:
         description: Manage your organization settings
         navigation:
+          categories: Categories
           danger_zone: Danger Zone
           general: General
           invitations: Invitations

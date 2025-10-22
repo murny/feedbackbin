@@ -27,12 +27,14 @@
         </div>
 
         <!-- Category and metadata row -->
-        <div class="flex items-center gap-2 mb-1">
+        <div class="flex items-center gap-2 mb-2">
           <%= render_badge(
-            text: post.category.name,
             variant: :outline,
-            class: "text-muted-foreground bg-muted/30"
-          ) %>
+            class: "gap-1.5 text-muted-foreground bg-muted/30 border-border"
+          ) do %>
+            <span class="w-2 h-2 rounded-full flex-shrink-0" style="background-color: <%= post.category.color %>;"></span>
+            <span><%= post.category.name %></span>
+          <% end %>
         </div>
         <div class="mt-1 flex items-center gap-x-2 text-xs leading-5">
           <%= avatar_tag post.author, class: "rounded-full w-8 h-8" %>
