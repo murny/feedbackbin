@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class InitialSchema < ActiveRecord::Migration[8.1]
+class InitialSchema < ActiveRecord::Migration[8.2]
   def change
     create_table "solid_cache_entries", force: :cascade do |t|
       t.binary "key", limit: 1024, null: false

@@ -13,5 +13,5 @@ class Category < ApplicationRecord
   normalizes :name, with: ->(name) { name.squish }
 
   # Scopes
-  scope :ordered, -> { order("name COLLATE NOCASE") }
+  scope :ordered, -> { order(arel_table[:name].lower)  }
 end

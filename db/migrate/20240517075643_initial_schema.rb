@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-class InitialSchema < ActiveRecord::Migration[8.1]
+class InitialSchema < ActiveRecord::Migration[8.2]
   def change
     create_table "action_text_rich_texts", force: :cascade do |t|
       t.text "body"
