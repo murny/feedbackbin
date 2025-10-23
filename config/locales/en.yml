@@ -119,7 +119,6 @@ en:
           name_label: Name
           name_placeholder: e.g., Feature Requests
           preview_label: Preview
-          preview_placeholder: Category Name
           save_changes: Save changes
         index:
           create_first_category: Create First Category
@@ -238,7 +237,6 @@ en:
           position_label: Position
           position_placeholder: '1'
           preview_label: Preview
-          preview_placeholder: Status Name
           save_changes: Save changes
           set_as_default_hint: New posts will automatically be assigned this status
           set_as_default_label: Set as default status for new posts

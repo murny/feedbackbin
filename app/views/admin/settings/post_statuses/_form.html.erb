@@ -1,6 +1,6 @@
 <%# locals: (post_status:) %>
 
-<%= render_form_with model: post_status, url: post_status.persisted? ? admin_settings_post_status_path(post_status) : admin_settings_post_statuses_path, method: post_status.persisted? ? :patch : :post, html: { data: { controller: "badge-preview", badge_preview_mode_value: "badge", badge_preview_default_name_value: t(".preview_placeholder"), badge_preview_default_color_value: "#3b82f6" } } do |f| %>
+<%= render_form_with model: post_status, url: post_status.persisted? ? admin_settings_post_status_path(post_status) : admin_settings_post_statuses_path, method: post_status.persisted? ? :patch : :post, html: { data: { controller: "badge-preview" } } do |f| %>
   <div class="grid gap-6">
     <div class="grid gap-3">
       <%= f.label :name, t(".name_label") %>
@@ -54,8 +54,8 @@
 
     <div class="rounded-lg border border-border bg-muted/50 p-4">
       <h4 class="text-sm font-medium mb-2"><%= t(".preview_label") %></h4>
-      <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold text-white" style="background-color: <%= post_status.color.presence || "#3b82f6" %>;" data-badge-preview-target="previewColor">
-        <span data-badge-preview-target="previewName"><%= post_status.name.presence || t(".preview_placeholder") %></span>
+      <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold text-white" style="background-color: <%= post_status.color %>;" data-badge-preview-target="previewColor">
+        <span data-badge-preview-target="previewName"><%= post_status.name %></span>
       </span>
     </div>
   </div>

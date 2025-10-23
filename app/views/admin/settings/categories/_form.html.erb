@@ -1,6 +1,6 @@
 <%# locals: (category:) %>
 
-<%= render_form_with model: category, url: category.persisted? ? admin_settings_category_path(category) : admin_settings_categories_path, method: category.persisted? ? :patch : :post, html: { data: { controller: "badge-preview", badge_preview_mode_value: "circle", badge_preview_default_name_value: t(".preview_placeholder"), badge_preview_default_color_value: "#3b82f6" } } do |f| %>
+<%= render_form_with model: category, url: category.persisted? ? admin_settings_category_path(category) : admin_settings_categories_path, method: category.persisted? ? :patch : :post, html: { data: { controller: "badge-preview" } } do |f| %>
   <div class="grid gap-6">
     <div class="grid gap-3">
       <%= f.label :name, t(".name_label") %>
@@ -23,12 +23,13 @@
 
     <div class="rounded-lg border border-border bg-muted/50 p-4">
       <h4 class="text-sm font-medium mb-2"><%= t(".preview_label") %></h4>
-      <div class="flex items-center gap-2">
-        <span class="w-4 h-4 rounded-full flex-shrink-0" style="background-color: <%= category.color.presence || "#3b82f6" %>;" data-badge-preview-target="previewColor"></span>
-        <span class="text-sm font-medium" data-badge-preview-target="previewName">
-          <%= category.name.presence || t(".preview_placeholder") %>
-        </span>
-      </div>
+      <%= render_badge(
+        variant: :outline,
+        class: "gap-1.5 text-muted-foreground bg-muted/30 border-border"
+      ) do %>
+        <span class="w-2 h-2 rounded-full flex-shrink-0" style="background-color: <%= category.color %>;" data-badge-preview-target="previewColor"></span>
+        <span data-badge-preview-target="previewName"><%= category.name %></span>
+      <% end %>
     </div>
   </div>
 
