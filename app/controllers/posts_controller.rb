@@ -10,8 +10,8 @@ class PostsController < ApplicationController
     authorize Post
 
     posts = Post.includes(:author, :category, :post_status)
-    @categories = Category.all.order(:name)
-    @post_statuses = PostStatus.all.ordered
+    @categories = Category.ordered
+    @post_statuses = PostStatus.ordered
 
     if params[:category_id].present?
       @category = @categories.find_by(id: params[:category_id])
@@ -52,7 +52,7 @@ class PostsController < ApplicationController
 
     @post = Post.new
 
-    @categories = Category.all.order(:name)
+    @categories = Category.ordered
 
     if params[:category_id].present?
       @post.category = @categories.find_by(id: params[:category_id])
@@ -63,7 +63,7 @@ class PostsController < ApplicationController
   def edit
     authorize @post
 
-    @categories = Category.all.order(:name)
+    @categories = Category.ordered
   end
 
   # POST /posts or /posts.json

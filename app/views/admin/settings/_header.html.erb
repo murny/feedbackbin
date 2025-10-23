@@ -34,6 +34,11 @@
               class: "inline-flex items-center px-1 pt-4 pb-4 text-muted-foreground hover:text-foreground transition-colors",
               active_class: "border-b-2 border-primary text-primary" %>
       </li>
+      <li>
+        <%= active_link_to t(".navigation.categories"), admin_settings_categories_path,
+              class: "inline-flex items-center px-1 pt-4 pb-4 text-muted-foreground hover:text-foreground transition-colors",
+              active_class: "border-b-2 border-primary text-primary" %>
+      </li>
       <% if policy(Current.organization).destroy? %>
         <li>
           <%= active_link_to t(".navigation.danger_zone"), admin_settings_danger_zone_path,

@@ -69,6 +69,7 @@ Rails.application.routes.draw do
       resources :invitations, only: [ :index, :new, :create, :destroy ]
       resources :memberships, only: [ :index, :destroy ]
       resources :post_statuses
+      resources :categories
       resource :danger_zone, only: [ :show, :destroy ]
       resource :ownership_transfer, only: [ :new, :create ]
 
