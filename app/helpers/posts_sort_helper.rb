@@ -5,6 +5,19 @@ module PostsSortHelper
   ACTIVE_SORT_CLASSES = "bg-primary text-primary-foreground shadow-sm"
   INACTIVE_SORT_CLASSES = "text-muted-foreground hover:text-foreground hover:bg-muted"
 
+  # Helper method to clean params by removing nil and blank values
+  def clean_params(**params)
+    params.compact.reject { |_k, v| v.blank? }
+  end
+
+  # Returns common turbo frame data attributes for filtering/searching
+  def turbo_frame_data(frame_id:)
+    {
+      turbo_action: "advance",
+      action: "turbo:frame-load->search#searchComplete"
+    }
+  end
+
   def posts_sort_active_state(sort_field, direction, params)
     # "created_at" is the default sort, so it's active when no sort is specified
     # or when explicitly set to created_at with desc direction
@@ -15,7 +28,7 @@ module PostsSortHelper
     end
   end
 
-  def posts_sort_link(text:, sort_field:, direction: "desc", params:, path_helper: :posts_path)
+  def posts_sort_link(text:, sort_field:, direction: "desc", params:, path_helper: :posts_path, turbo_frame: nil)
     active = posts_sort_active_state(sort_field, direction, params)
     state_classes = active ? ACTIVE_SORT_CLASSES : INACTIVE_SORT_CLASSES
     css_classes = "#{BASE_SORT_CLASSES} #{state_classes}"
@@ -29,6 +42,10 @@ module PostsSortHelper
       search: params[:search]
     }.compact # Remove nil values
 
-    link_to text, send(path_helper, path_params), class: css_classes
+    # Build link options
+    link_options = { class: css_classes }
+    link_options[:data] = { turbo_frame: turbo_frame } if turbo_frame
+
+    link_to text, send(path_helper, path_params), **link_options
   end
 end

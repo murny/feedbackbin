@@ -72,4 +72,16 @@ class PostsSortHelperTest < ActionView::TestCase
     assert_includes link, 'href="/posts?direction=desc&amp;sort=created_at"'
     assert_includes link, "Latest"
   end
+
+  test "sort_link includes turbo_frame data attribute when provided" do
+    test_params = ActionController::Parameters.new({
+      sort: "created_at",
+      direction: "desc"
+    })
+
+    link = posts_sort_link(text: "Latest", sort_field: "created_at", direction: "desc", params: test_params, turbo_frame: "posts_content")
+
+    assert_includes link, 'data-turbo-frame="posts_content"'
+    assert_includes link, "Latest"
+  end
 end

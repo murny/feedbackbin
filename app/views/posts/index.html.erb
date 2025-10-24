@@ -21,111 +21,100 @@
       </div>
     </div>
 
-    <div class="mb-6">
-      <!-- Filters -->
-      <div class="flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between mb-6">
-        <!-- Categories Filter -->
-        <div class="flex items-center gap-2">
-          <label class="text-sm font-medium text-muted-foreground"><%= t(".categories_label") %></label>
-          <%= render_dropdown_menu(
-            trigger: (@category&.name || t(".all_categories")),
-            width: "w-48",
-            trigger_button_variant: :outline,
-            content: capture do %>
-              <%= link_to t(".all_categories"), posts_path(category_id: nil, sort: params[:sort], direction: params[:direction], post_status_id: params[:post_status_id], search: @search),
-                  class: "block px-4 py-2 text-sm hover:bg-muted rounded-sm #{'bg-muted' unless @category}" %>
-              <% @categories.each do |category| %>
-                <%= link_to posts_path(category_id: category.id, sort: params[:sort], direction: params[:direction], post_status_id: params[:post_status_id], search: @search),
-                    class: "flex items-center gap-2 px-4 py-2 text-sm hover:bg-muted rounded-sm #{'bg-muted' if @category == category}" do %>
-                  <span class="w-3 h-3 rounded-full flex-shrink-0" style="background-color: <%= category.color %>;"></span>
-                  <span><%= category.name %></span>
+    <%= turbo_frame_tag "posts_content", data: turbo_frame_data(frame_id: "posts_content") do %>
+      <div class="mb-6">
+        <!-- Filters -->
+        <div class="flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between mb-6">
+          <%= render "shared/category_filter",
+            path_helper: :posts_path,
+            categories: @categories,
+            selected_category: @category,
+            turbo_frame: "posts_content",
+            preserve_params: {
+              sort: params[:sort],
+              direction: params[:direction],
+              post_status_id: params[:post_status_id],
+              search: @search
+            } %>
+
+          <%= render "shared/search_filter",
+            path_helper: :posts_path,
+            search_value: @search,
+            turbo_frame: "posts_content",
+            placeholder: t(".search_placeholder"),
+            preserve_params: {
+              category_id: params[:category_id],
+              post_status_id: params[:post_status_id],
+              sort: params[:sort],
+              direction: params[:direction]
+            } %>
+        </div>
+      </div>
+
+      <!-- Status Filter Tabs -->
+      <div class="mb-6">
+        <div class="bg-muted text-muted-foreground inline-flex h-9 w-fit items-center justify-center rounded-lg p-[3px]">
+          <%= link_to t(".all_posts"), posts_path(**clean_params(category_id: params[:category_id], sort: params[:sort], direction: params[:direction], search: @search)),
+              class: "inline-flex h-[calc(100%-1px)] items-center justify-center rounded-md border border-transparent px-3 py-1 text-sm font-medium whitespace-nowrap transition-all duration-200 #{ params[:post_status_id].blank? ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground hover:bg-muted/50' }",
+              data: { turbo_frame: "posts_content" } %>
+          <% @post_statuses.each do |status| %>
+            <%= link_to status.name, posts_path(**clean_params(post_status_id: status.id, category_id: params[:category_id], sort: params[:sort], direction: params[:direction], search: @search)),
+                class: "inline-flex h-[calc(100%-1px)] items-center justify-center rounded-md border border-transparent px-3 py-1 text-sm font-medium whitespace-nowrap transition-all duration-200 #{ params[:post_status_id] == status.id.to_s ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground hover:bg-muted/50' }",
+                data: { turbo_frame: "posts_content" } %>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Sort Options -->
+      <div class="mb-6">
+        <div class="flex items-center gap-2 text-sm">
+          <span class="text-muted-foreground font-medium"><%= t(".sort_by_label") %></span>
+          <div class="flex items-center gap-1 border border-border rounded-lg p-1 bg-background">
+            <%= posts_sort_link text: t(".sort_latest"), sort_field: "created_at", direction: "desc", params: params, turbo_frame: "posts_content" %>
+            <%= posts_sort_link text: t(".sort_top"), sort_field: "likes_count", direction: "desc", params: params, turbo_frame: "posts_content" %>
+            <%= posts_sort_link text: t(".sort_most_commented"), sort_field: "comments_count", direction: "desc", params: params, turbo_frame: "posts_content" %>
+          </div>
+        </div>
+      </div>
+
+      <%= tag.div id: ("posts" if first_page?(@pagy.page)), class: "mb-12" do %>
+        <% if @posts.empty? %>
+          <div class="card">
+            <div class="flex flex-col items-center justify-center text-center py-12 px-4 md:px-6">
+              <div class="flex h-20 w-20 items-center justify-center rounded-full bg-muted/50">
+                <%= lucide_icon "message-circle", class: "h-10 w-10 text-muted-foreground" %>
+              </div>
+              <h3 class="mt-6 text-lg font-semibold text-foreground"><%= t(".empty_feedback_title") %></h3>
+              <p class="mt-2 text-sm text-muted-foreground max-w-sm">
+                <%= t(".empty_feedback_description") %>
+              </p>
+              <div class="mt-6">
+                <%= render_button(
+                  variant: :default,
+                  size: :default,
+                  href: new_post_path(category_id: @category&.id),
+                  class: "gap-2",
+                  data: { turbo_frame: "_top" }
+                ) do %>
+                  <%= lucide_icon "plus", class: "h-4 w-4" %>
+                  <%= t("posts.new.title") %>
                 <% end %>
-              <% end %>
-            <% end
-          ) %>
-        </div>
-
-        <!-- Search -->
-        <%= form_with url: posts_path, method: :get, class: "w-full sm:w-auto sm:min-w-[320px]" do |f| %>
-          <%= f.hidden_field :category_id, value: params[:category_id] %>
-          <%= f.hidden_field :post_status_id, value: params[:post_status_id] %>
-          <%= f.hidden_field :sort, value: params[:sort] %>
-          <%= f.hidden_field :direction, value: params[:direction] %>
-          <div class="relative">
-            <%= lucide_icon "search", class: "absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground pointer-events-none" %>
-            <%= f.text_field :search, value: @search, placeholder: t(".search_placeholder"),
-                class: "w-full h-10 pl-10 pr-10 border border-input rounded-md text-sm bg-background shadow-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-0 transition-shadow" %>
-            <% if @search.present? %>
-              <%= link_to posts_path(category_id: params[:category_id], post_status_id: params[:post_status_id], sort: params[:sort], direction: params[:direction]),
-                  class: "absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors" do %>
-                <%= lucide_icon "x", class: "h-4 w-4" %>
-              <% end %>
-            <% end %>
-          </div>
-        <% end %>
-      </div>
-    </div>
-
-    <!-- Status Filter Tabs -->
-    <div class="mb-6">
-      <div class="bg-muted text-muted-foreground inline-flex h-9 w-fit items-center justify-center rounded-lg p-[3px]">
-        <%= link_to t(".all_posts"), posts_path(category_id: params[:category_id], sort: params[:sort], direction: params[:direction], search: @search),
-            class: "inline-flex h-[calc(100%-1px)] items-center justify-center rounded-md border border-transparent px-3 py-1 text-sm font-medium whitespace-nowrap transition-all duration-200 #{ params[:post_status_id].blank? ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground hover:bg-muted/50' }" %>
-        <% @post_statuses.each do |status| %>
-          <%= link_to status.name, posts_path(post_status_id: status.id, category_id: params[:category_id], sort: params[:sort], direction: params[:direction], search: @search),
-              class: "inline-flex h-[calc(100%-1px)] items-center justify-center rounded-md border border-transparent px-3 py-1 text-sm font-medium whitespace-nowrap transition-all duration-200 #{ params[:post_status_id] == status.id.to_s ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground hover:bg-muted/50' }" %>
-        <% end %>
-      </div>
-    </div>
-
-    <!-- Sort Options -->
-    <div class="mb-6">
-      <div class="flex items-center gap-2 text-sm">
-        <span class="text-muted-foreground font-medium"><%= t(".sort_by_label") %></span>
-        <div class="flex items-center gap-1 border border-border rounded-lg p-1 bg-background">
-          <%= posts_sort_link text: t(".sort_latest"), sort_field: "created_at", direction: "desc", params: params %>
-          <%= posts_sort_link text: t(".sort_top"), sort_field: "likes_count", direction: "desc", params: params %>
-          <%= posts_sort_link text: t(".sort_most_commented"), sort_field: "comments_count", direction: "desc", params: params %>
-        </div>
-      </div>
-    </div>
-
-    <%= tag.div id: ("posts" if first_page?(@pagy.page)), class: "mb-12" do %>
-      <% if @posts.empty? %>
-        <div class="card">
-          <div class="flex flex-col items-center justify-center text-center py-12 px-4 md:px-6">
-            <div class="flex h-20 w-20 items-center justify-center rounded-full bg-muted/50">
-              <%= lucide_icon "message-circle", class: "h-10 w-10 text-muted-foreground" %>
-            </div>
-            <h3 class="mt-6 text-lg font-semibold text-foreground"><%= t(".empty_feedback_title") %></h3>
-            <p class="mt-2 text-sm text-muted-foreground max-w-sm">
-              <%= t(".empty_feedback_description") %>
-            </p>
-            <div class="mt-6">
-              <%= render_button(
-                variant: :default,
-                size: :default,
-                href: new_post_path(category_id: @category&.id),
-                class: "gap-2"
-              ) do %>
-                <%= lucide_icon "plus", class: "h-4 w-4" %>
-                <%= t("posts.new.title") %>
-              <% end %>
+              </div>
             </div>
           </div>
-        </div>
-      <% else %>
-        <ul role="list" class="space-y-4">
-          <%= render partial: "posts/post", collection: @posts, as: :post %>
-        </ul>
+        <% else %>
+          <ul role="list" class="space-y-4">
+            <%= render partial: "posts/post", collection: @posts, as: :post %>
+          </ul>
+        <% end %>
       <% end %>
-    <% end %>
 
-    <% if @pagy.pages > 1 %>
-      <div class="flex items-center justify-between px-4 py-3 sm:px-6">
-        <%== pagy_info(@pagy) %>
-        <%== pagy_nav(@pagy) %>
-      </div>
+      <% if @pagy.pages > 1 %>
+        <div class="flex items-center justify-between px-4 py-3 sm:px-6">
+          <%== pagy_info(@pagy) %>
+          <%== pagy_nav(@pagy, link_extra: 'data-turbo-frame="posts_content"') %>
+        </div>
+      <% end %>
     <% end %>
   </div>
 </section>
