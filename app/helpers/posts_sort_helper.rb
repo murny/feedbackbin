@@ -10,14 +10,6 @@ module PostsSortHelper
     params.compact.reject { |_k, v| v.blank? }
   end
 
-  # Returns common turbo frame data attributes for filtering/searching
-  def turbo_frame_data(frame_id:)
-    {
-      turbo_action: "advance",
-      action: "turbo:frame-load->search#searchComplete"
-    }
-  end
-
   def posts_sort_active_state(sort_field, direction, params)
     # "created_at" is the default sort, so it's active when no sort is specified
     # or when explicitly set to created_at with desc direction

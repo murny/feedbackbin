@@ -92,10 +92,4 @@ class PostsSortHelperTest < ActionView::TestCase
 
     assert_equal({ sort: "created_at", category_id: "7" }, params)
   end
-
-  test "turbo_frame_data returns correct data hash" do
-    data = turbo_frame_data(frame_id: "posts_content")
-
-    assert_equal({ turbo_action: "advance", action: "turbo:frame-load->search#searchComplete" }, data)
-  end
 end
