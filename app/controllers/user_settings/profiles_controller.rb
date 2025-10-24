@@ -23,16 +23,16 @@ module UserSettings
         params.require(:user).permit(:name, :avatar, :bio).compact
       end
 
-    def set_user
-      @user = Current.user
-    end
-
-    def update_notice
-      if params[:user][:avatar]
-        t("user_settings.profiles.avatar_updated")
-      else
-        t("user_settings.profiles.profile_updated")
+      def set_user
+        @user = Current.user
       end
-    end
+
+      def update_notice
+        if params[:user][:avatar]
+          t("user_settings.profiles.avatar_updated")
+        else
+          t("user_settings.profiles.profile_updated")
+        end
+      end
   end
 end

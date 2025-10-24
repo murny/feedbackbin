@@ -41,26 +41,26 @@ module FeedbackbinElements
         ].join(" ")
       end
 
-    def components_alert_variant_class(variant)
-      case variant
-      when :default
-        "bg-card text-card-foreground"
-      when :destructive
-        "text-destructive bg-card [&>svg]:text-current *:data-[slot=alert-description]:text-destructive/90"
-      else
-        raise ArgumentError, "Unknown alert variant: #{variant}"
+      def components_alert_variant_class(variant)
+        case variant
+        when :default
+          "bg-card text-card-foreground"
+        when :destructive
+          "text-destructive bg-card [&>svg]:text-current *:data-[slot=alert-description]:text-destructive/90"
+        else
+          raise ArgumentError, "Unknown alert variant: #{variant}"
+        end
       end
-    end
 
-    def components_alert_default_icon_for_variant(variant)
-      case variant
-      when :default
-        "info"
-      when :destructive
-        "circle-alert"
-      else
-        "info"
+      def components_alert_default_icon_for_variant(variant)
+        case variant
+        when :default
+          "info"
+        when :destructive
+          "circle-alert"
+        else
+          "info"
+        end
       end
-    end
   end
 end

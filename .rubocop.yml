@@ -38,6 +38,9 @@ Style/StringLiterals:
 Style/ClassAndModuleChildren:
   EnforcedStyle: nested
 
+Layout/IndentationConsistency:
+  Enabled: true
+
 Layout/IndentationWidth:
   Enabled: true
 

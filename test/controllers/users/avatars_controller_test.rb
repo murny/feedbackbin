@@ -8,29 +8,29 @@ module Users
       @user = users(:one)
     end
 
-  test "show initials" do
-    get user_avatar_url(@user)
+    test "show initials" do
+      get user_avatar_url(@user)
 
-    assert_select "text", text: "JD"
-  end
+      assert_select "text", text: "JD"
+    end
 
-  test "show image" do
-    @user.update! avatar: fixture_file_upload("random.jpeg", "image/jpeg")
-    get user_avatar_url(@user)
+    test "show image" do
+      @user.update! avatar: fixture_file_upload("random.jpeg", "image/jpeg")
+      get user_avatar_url(@user)
 
-    assert_equal "image/webp", @response.content_type
-  end
+      assert_equal "image/webp", @response.content_type
+    end
 
-  test "destroy" do
-    @shane = users(:shane)
-    sign_in_as @shane
+    test "destroy" do
+      @shane = users(:shane)
+      sign_in_as @shane
 
-    @shane.update! avatar: fixture_file_upload("random.jpeg", "image/jpeg")
+      @shane.update! avatar: fixture_file_upload("random.jpeg", "image/jpeg")
 
-    delete user_avatar_url(@shane)
+      delete user_avatar_url(@shane)
 
-    assert_redirected_to user_settings_profile_url
-    assert_not_predicate @shane.reload.avatar, :attached?
-  end
+      assert_redirected_to user_settings_profile_url
+      assert_not_predicate @shane.reload.avatar, :attached?
+    end
   end
 end

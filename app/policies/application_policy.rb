@@ -51,21 +51,21 @@ class ApplicationPolicy
       user&.administrator?
     end
 
-  class Scope
-    def initialize(user, scope)
-      # Uncomment to not allow guest users
-      # raise Pundit::NotAuthorizedError, "must be logged in" unless user
+    class Scope
+      def initialize(user, scope)
+        # Uncomment to not allow guest users
+        # raise Pundit::NotAuthorizedError, "must be logged in" unless user
 
-      @user = user
-      @scope = scope
+        @user = user
+        @scope = scope
+      end
+
+      def resolve
+        scope.all
+      end
+
+      private
+
+        attr_reader :user, :scope
     end
-
-    def resolve
-      scope.all
-    end
-
-    private
-
-      attr_reader :user, :scope
-  end
 end

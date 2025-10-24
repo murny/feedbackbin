@@ -47,42 +47,42 @@ module FeedbackbinElements
         ].join(" ")
       end
 
-    def components_toast_variant_class(variant)
-      case variant
-      when :default
-        "text-popover-foreground"
-      when :success
-        "border-l-4 border-l-green-500"
-      when :warning
-        "border-l-4 border-l-yellow-500"
-      when :error
-        "border-l-4 border-l-destructive"
-      when :info
-        "border-l-4 border-l-primary"
-      else
-        raise ArgumentError, "Unknown toast variant: #{variant}"
+      def components_toast_variant_class(variant)
+        case variant
+        when :default
+          "text-popover-foreground"
+        when :success
+          "border-l-4 border-l-green-500"
+        when :warning
+          "border-l-4 border-l-yellow-500"
+        when :error
+          "border-l-4 border-l-destructive"
+        when :info
+          "border-l-4 border-l-primary"
+        else
+          raise ArgumentError, "Unknown toast variant: #{variant}"
+        end
       end
-    end
 
-    def components_toast_animation_class
-      "animate-in fade-in slide-in-from-right"
-    end
-
-    def components_toast_default_icon_for_variant(variant)
-      case variant
-      when :default
-        "info"
-      when :success
-        "circle-check"
-      when :warning
-        "triangle-alert"
-      when :error
-        "circle-alert"
-      when :info
-        "info"
-      else
-        "info"
+      def components_toast_animation_class
+        "animate-in fade-in slide-in-from-right"
       end
-    end
+
+      def components_toast_default_icon_for_variant(variant)
+        case variant
+        when :default
+          "info"
+        when :success
+          "circle-check"
+        when :warning
+          "triangle-alert"
+        when :error
+          "circle-alert"
+        when :info
+          "info"
+        else
+          "info"
+        end
+      end
   end
 end

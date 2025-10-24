@@ -83,13 +83,13 @@ class User < ApplicationRecord
       email_address.gsub(/@/, "-deactivated-#{SecureRandom.uuid}@")
     end
 
-  def close_remote_connections
-    ActionCable.server.remote_connections.where(current_user: self).disconnect reconnect: false
-  end
-
-  def anonymize_avatar_filename
-    if avatar.attached?
-      avatar.blob.filename = "avatar#{avatar.filename.extension_with_delimiter}"
+    def close_remote_connections
+      ActionCable.server.remote_connections.where(current_user: self).disconnect reconnect: false
     end
-  end
+
+    def anonymize_avatar_filename
+      if avatar.attached?
+        avatar.blob.filename = "avatar#{avatar.filename.extension_with_delimiter}"
+      end
+    end
 end

@@ -42,58 +42,58 @@ module FeedbackbinElements
         ].join(" ")
       end
 
-    def components_button_variant_class(variant)
-      case variant
-      when :default
-        [
-          "bg-primary text-primary-foreground shadow-xs",
-          "hover:bg-primary/90"
-        ].join(" ")
-      when :destructive
-        [
-          "bg-destructive text-white shadow-xs",
-           "hover:bg-destructive/90",
-          "focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40",
-          "dark:bg-destructive/60"
-        ].join(" ")
-      when :outline
-        [
-          "border bg-background shadow-xs",
-          "hover:bg-accent hover:text-accent-foreground",
-          "dark:bg-input/30 dark:border-input dark:hover:bg-input/50"
-        ].join(" ")
-      when :secondary
-        [
-          "bg-secondary text-secondary-foreground shadow-xs",
-          "hover:bg-secondary/80"
-        ].join(" ")
-      when :ghost
-        [
-          "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50"
-        ].join(" ")
-      when :link
-        [
-          "text-primary underline-offset-4",
-          "hover:underline"
-        ].join(" ")
-      else
-        raise ArgumentError, "Unknown button variant: #{variant}"
+      def components_button_variant_class(variant)
+        case variant
+        when :default
+          [
+            "bg-primary text-primary-foreground shadow-xs",
+            "hover:bg-primary/90"
+          ].join(" ")
+        when :destructive
+          [
+            "bg-destructive text-white shadow-xs",
+             "hover:bg-destructive/90",
+            "focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40",
+            "dark:bg-destructive/60"
+          ].join(" ")
+        when :outline
+          [
+            "border bg-background shadow-xs",
+            "hover:bg-accent hover:text-accent-foreground",
+            "dark:bg-input/30 dark:border-input dark:hover:bg-input/50"
+          ].join(" ")
+        when :secondary
+          [
+            "bg-secondary text-secondary-foreground shadow-xs",
+            "hover:bg-secondary/80"
+          ].join(" ")
+        when :ghost
+          [
+            "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50"
+          ].join(" ")
+        when :link
+          [
+            "text-primary underline-offset-4",
+            "hover:underline"
+          ].join(" ")
+        else
+          raise ArgumentError, "Unknown button variant: #{variant}"
+        end
       end
-    end
 
-    def components_button_size_class(size)
-      case size
-      when :default
-        "h-9 px-4 py-2 has-[>svg]:px-3"
-      when :sm
-        "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5"
-      when :lg
-        "h-10 rounded-md px-6 has-[>svg]:px-4"
-      when :icon
-        "size-9"
-      else
-        raise ArgumentError, "Unknown button size: #{size}"
+      def components_button_size_class(size)
+        case size
+        when :default
+          "h-9 px-4 py-2 has-[>svg]:px-3"
+        when :sm
+          "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5"
+        when :lg
+          "h-10 rounded-md px-6 has-[>svg]:px-4"
+        when :icon
+          "size-9"
+        else
+          raise ArgumentError, "Unknown button size: #{size}"
+        end
       end
-    end
   end
 end

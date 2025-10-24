@@ -25,8 +25,8 @@ module UserSettings
         params.require(:user).permit(:username).compact
       end
 
-    def set_user
-      @user = Current.user
-    end
+      def set_user
+        @user = Current.user
+      end
   end
 end

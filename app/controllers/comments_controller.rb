@@ -63,7 +63,7 @@ class CommentsController < ApplicationController
       @comment = Comment.find(params.expect(:id))
     end
 
-  def comment_params
-    params.expect(comment: [ :body, :parent_id, :post_id ])
-  end
+    def comment_params
+      params.expect(comment: [ :body, :parent_id, :post_id ])
+    end
 end
