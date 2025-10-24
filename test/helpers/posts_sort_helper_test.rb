@@ -40,13 +40,15 @@ class PostsSortHelperTest < ActionView::TestCase
       sort: "created_at",
       direction: "desc",
       category_id: "5",
-      post_status_id: "3"
+      post_status_id: "3",
+      search: "feature"
     })
 
     link = posts_sort_link(text: "Top", sort_field: "likes_count", direction: "desc", params: test_params)
 
     assert_includes link, "category_id=5"
     assert_includes link, "post_status_id=3"
+    assert_includes link, "search=feature"
   end
 
   test "sort_link uses custom path_helper when provided" do
@@ -83,5 +85,17 @@ class PostsSortHelperTest < ActionView::TestCase
 
     assert_includes link, 'data-turbo-frame="posts_content"'
     assert_includes link, "Latest"
+  end
+
+  test "clean_params removes nil and blank values" do
+    params = clean_params(sort: "created_at", direction: "", search: nil, category_id: "7")
+
+    assert_equal({ sort: "created_at", category_id: "7" }, params)
+  end
+
+  test "turbo_frame_data returns correct data hash" do
+    data = turbo_frame_data(frame_id: "posts_content")
+
+    assert_equal({ turbo_action: "advance", action: "turbo:frame-load->search#searchComplete" }, data)
   end
 end

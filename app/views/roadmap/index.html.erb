@@ -55,7 +55,7 @@
       </div>
     <% else %>
       <!-- Kanban Board -->
-      <div class="<%= @column_count <= 3 ? "grid grid-cols-#{@column_count} gap-6 pb-4" : "flex gap-6 overflow-x-auto pb-4" %>">
+      <div class="<%= roadmap_grid_classes(@column_count) %>">
         <% @roadmap_data.each do |status, posts| %>
           <%= render "column", status: status, posts: posts %>
         <% end %>
