@@ -461,11 +461,12 @@ en:
     index:
       all_categories: All Categories
       all_posts: All Posts
-      categories_label: 'Categories:'
+      categories_label: Category
       description: Share your ideas and help us improve our product
       empty_feedback_description: Get started by sharing your first suggestion or idea with the community.
       empty_feedback_title: No feedback yet
-      sort_by_label: 'Sort by:'
+      search_placeholder: Search feedback...
+      sort_by_label: Sort by
       sort_latest: Latest
       sort_most_commented: Most Commented
       sort_top: Top
@@ -491,7 +492,17 @@ en:
     column:
       no_posts: No posts in this status
     index:
+      all_categories: All Categories
+      category_label: Category
+      clear_filters: Clear Filters
       description: Track features being planned, in progress, and completed
+      no_results_description: Try adjusting your filters to see more results
+      no_results_title: No posts found
+      search_placeholder: Search roadmap...
+      sort_by_label: Sort by
+      sort_latest: Latest
+      sort_most_commented: Most Commented
+      sort_top: Top
       title: Roadmap
     post_card:
       ago: ago

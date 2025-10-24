@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class PostsHelperTest < ActionView::TestCase
+class PostsSortHelperTest < ActionView::TestCase
   test "sort_active_state returns true for latest when no sort params" do
     test_params = ActionController::Parameters.new({ direction: nil })
 
@@ -47,5 +47,29 @@ class PostsHelperTest < ActionView::TestCase
 
     assert_includes link, "category_id=5"
     assert_includes link, "post_status_id=3"
+  end
+
+  test "sort_link uses custom path_helper when provided" do
+    test_params = ActionController::Parameters.new({
+      sort: "created_at",
+      direction: "desc"
+    })
+
+    link = posts_sort_link(text: "Latest", sort_field: "created_at", direction: "desc", params: test_params, path_helper: :roadmap_path)
+
+    assert_includes link, 'href="/roadmap?direction=desc&amp;sort=created_at"'
+    assert_includes link, "Latest"
+  end
+
+  test "sort_link defaults to posts_path when no path_helper provided" do
+    test_params = ActionController::Parameters.new({
+      sort: "created_at",
+      direction: "desc"
+    })
+
+    link = posts_sort_link(text: "Latest", sort_field: "created_at", direction: "desc", params: test_params)
+
+    assert_includes link, 'href="/posts?direction=desc&amp;sort=created_at"'
+    assert_includes link, "Latest"
   end
 end
