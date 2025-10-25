@@ -12,11 +12,15 @@ class PostsController < ApplicationController
     posts = Post.includes(:author, :category, :post_status)
     @categories = Category.ordered
     @post_statuses = PostStatus.ordered
+    @search = params[:search]
 
     if params[:category_id].present?
       @category = @categories.find_by(id: params[:category_id])
       posts = posts.where(category_id: @category.id) if @category
     end
+
+    # Apply search filter using Post.search method
+    posts = posts.search(@search)
 
     posts = posts.sort_by_params(sort_column(Post), sort_direction)
 

@@ -9,7 +9,7 @@
 
     <div class="grid gap-3">
       <%= f.label :description, t(".description_label") %>
-      <%= f.text_area :description, placeholder: t(".description_placeholder"), rows: 3 %>
+      <%= f.text_area :description, placeholder: t(".description_placeholder"), rows: 3, maxlength: 500 %>
       <p class="text-xs text-muted-foreground"><%= t(".description_hint") %></p>
     </div>
 
