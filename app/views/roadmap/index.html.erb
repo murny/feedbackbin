@@ -7,10 +7,62 @@
     <p class="text-muted-foreground mt-2"><%= t(".description") %></p>
   </div>
 
-  <!-- Kanban Board -->
-  <div class="flex gap-6 overflow-x-auto pb-4">
-    <% @roadmap_data.each do |status, posts| %>
-      <%= render "column", status: status, posts: posts %>
+  <%= turbo_frame_tag "roadmap_content", data: {
+    turbo_action: "advance",
+    action: "turbo:frame-load->search#searchComplete"
+  } do %>
+    <!-- Filters -->
+    <div class="mb-6">
+      <div class="flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between mb-6">
+        <%= render "shared/category_filter",
+          path_helper: :roadmap_path,
+          categories: @categories,
+          selected_category: @selected_category,
+          turbo_frame: "roadmap_content",
+          preserve_params: {
+            sort: params[:sort],
+            direction: params[:direction],
+            search: @search
+          } %>
+
+        <%= render "shared/search_filter",
+          path_helper: :roadmap_path,
+          search_value: @search,
+          turbo_frame: "roadmap_content",
+          placeholder: t(".search_placeholder"),
+          preserve_params: {
+            category_id: params[:category_id],
+            sort: params[:sort],
+            direction: params[:direction]
+          } %>
+      </div>
+    </div>
+
+    <!-- Sort Options -->
+    <div class="flex items-center gap-2 text-sm mb-6">
+      <span class="text-muted-foreground font-medium"><%= t(".sort_by_label") %></span>
+      <div class="flex items-center gap-1 border border-border rounded-lg p-1 bg-background">
+        <%= posts_sort_link text: t(".sort_latest"), sort_field: "created_at", direction: "desc", params: params, path_helper: :roadmap_path, turbo_frame: "roadmap_content" %>
+        <%= posts_sort_link text: t(".sort_top"), sort_field: "likes_count", direction: "desc", params: params, path_helper: :roadmap_path, turbo_frame: "roadmap_content" %>
+        <%= posts_sort_link text: t(".sort_most_commented"), sort_field: "comments_count", direction: "desc", params: params, path_helper: :roadmap_path, turbo_frame: "roadmap_content" %>
+      </div>
+    </div>
+
+    <!-- Empty State (if filters return no results) -->
+    <% if @roadmap_data.values.all?(&:empty?) %>
+      <div class="text-center py-12">
+        <%= lucide_icon "search-x", class: "h-12 w-12 mx-auto mb-4 text-muted-foreground opacity-50" %>
+        <h3 class="text-lg font-semibold mb-2"><%= t(".no_results_title") %></h3>
+        <p class="text-muted-foreground mb-4"><%= t(".no_results_description") %></p>
+        <%= link_to t(".clear_filters"), roadmap_path, class: "btn btn-primary", data: { turbo_frame: "roadmap_content" } %>
+      </div>
+    <% else %>
+      <!-- Kanban Board -->
+      <div class="<%= roadmap_grid_classes(@column_count) %>">
+        <% @roadmap_data.each do |status, posts| %>
+          <%= render "column", status: status, posts: posts %>
+        <% end %>
+      </div>
     <% end %>
-  </div>
+  <% end %>
 </div>
