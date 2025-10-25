@@ -644,7 +644,6 @@ en:
       create:
         password_reset_instructions_sent: Password reset instructions sent (if user with that email address exists).
         rate_limited: Please try again later.
-        verify_email_first: You can't reset your password until you verify your email
       edit:
         confirm_new_password: Confirm new password
         confirm_new_password_placeholder: Repeat new password
@@ -663,6 +662,7 @@ en:
       password_reset_link_is_invalid: Password reset link is invalid or has expired.
       update:
         password_has_been_reset: Password has been reset.
+        password_is_invalid: Password is invalid.
         passwords_did_not_match: Passwords did not match.
     posts_tab:
       empty_posts: No posts yet.

@@ -82,15 +82,15 @@ module Users
       assert_redirected_to new_users_password_reset_url
       assert_equal "Password reset link is invalid or has expired.", flash[:alert]
     end
-  end
 
-  test "should not update password when password is too short" do
-    patch users_password_reset_url(token: @user.password_reset_token), params: {
-      password: "short",
-      password_confirmation: "short"
-    }
+    test "should not update password when password is too short" do
+      patch users_password_reset_url(token: @user.password_reset_token), params: {
+        password: "short",
+        password_confirmation: "short"
+      }
 
-    assert_redirected_to edit_users_password_reset_url
-    assert_equal "Password is too short.", flash[:alert]
+      assert_redirected_to edit_users_password_reset_url
+      assert_equal "Password is invalid.", flash[:alert]
+    end
   end
 end

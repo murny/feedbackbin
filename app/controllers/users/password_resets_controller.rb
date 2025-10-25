@@ -27,7 +27,13 @@ module Users
       if @user.update(params.permit(:password, :password_confirmation))
         redirect_to sign_in_path, notice: t(".password_has_been_reset")
       else
-        redirect_to edit_users_password_reset_path(params[:token]), alert: t(".passwords_did_not_match")
+        error_message = if @user.errors[:password_confirmation].any?
+          t(".passwords_did_not_match")
+        else
+          t(".password_is_invalid")
+        end
+
+        redirect_to edit_users_password_reset_path(params[:token]), alert: error_message
       end
     end
 
