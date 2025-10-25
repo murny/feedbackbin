@@ -31,8 +31,8 @@ module Users
 
       SQUARE_WEBP_VARIANT = { resize_to_limit: [ 512, 512 ], format: :webp }
 
-    def send_webp_blob_file(key)
-      send_file ActiveStorage::Blob.service.path_for(key), content_type: "image/webp", disposition: :inline
-    end
+      def send_webp_blob_file(key)
+        send_file ActiveStorage::Blob.service.path_for(key), content_type: "image/webp", disposition: :inline
+      end
   end
 end

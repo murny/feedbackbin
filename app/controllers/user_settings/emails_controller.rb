@@ -26,8 +26,8 @@ module UserSettings
         params.expect(user: [ :email_address, :password_challenge ])
       end
 
-    def set_user
-      @user = Current.user
-    end
+      def set_user
+        @user = Current.user
+      end
   end
 end

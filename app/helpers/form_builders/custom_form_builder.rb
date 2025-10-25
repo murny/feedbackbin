@@ -120,46 +120,46 @@ module FormBuilders
         [ classes, options[:class] ].compact.join(" ")
       end
 
-    def classes_for_label(attribute, options)
-      classes = if @object && @object.errors[attribute].present?
-        LABEL_INVALID_CLASSES
-      else
-        LABEL_VALID_CLASSES
+      def classes_for_label(attribute, options)
+        classes = if @object && @object.errors[attribute].present?
+          LABEL_INVALID_CLASSES
+        else
+          LABEL_VALID_CLASSES
+        end
+
+        [ classes, options[:class] ].compact.join(" ")
       end
 
-      [ classes, options[:class] ].compact.join(" ")
-    end
-
-    def text_layout(attribute)
-      @template.content_tag :div, class: "relative grid gap-2", "data-slot": "form-item" do
-        yield + attribute_error_icon(attribute)
+      def text_layout(attribute)
+        @template.content_tag :div, class: "relative grid gap-2", "data-slot": "form-item" do
+          yield + attribute_error_icon(attribute)
+        end
       end
-    end
 
-    def leading_icon(&)
-      @template.content_tag(:div, class: "pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3", &)
-    end
-
-    def attribute_error_icon(attribute)
-      return if @object.blank? || @object.errors[attribute].blank?
-
-      @template.content_tag :div, class: "pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 " do
-        @template.lucide_icon(
-          "circle-alert",
-          class: "h-5 w-5 text-red-500",
-          aria: true,
-          title: "Error",
-          desc: "Error icon"
-        )
+      def leading_icon(&)
+        @template.content_tag(:div, class: "pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3", &)
       end
-    end
 
-    def attribute_error_message(attribute)
-      return if @object.blank? || @object.errors[attribute].blank?
+      def attribute_error_icon(attribute)
+        return if @object.blank? || @object.errors[attribute].blank?
 
-      @template.content_tag :div, class: ERROR_MESSAGE_CLASSES do
-        @object.errors[attribute].to_sentence.upcase_first
+        @template.content_tag :div, class: "pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 " do
+          @template.lucide_icon(
+            "circle-alert",
+            class: "h-5 w-5 text-red-500",
+            aria: true,
+            title: "Error",
+            desc: "Error icon"
+          )
+        end
       end
-    end
+
+      def attribute_error_message(attribute)
+        return if @object.blank? || @object.errors[attribute].blank?
+
+        @template.content_tag :div, class: ERROR_MESSAGE_CLASSES do
+          @object.errors[attribute].to_sentence.upcase_first
+        end
+      end
   end
 end
