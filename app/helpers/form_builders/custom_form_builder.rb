@@ -147,9 +147,8 @@ module FormBuilders
           @template.lucide_icon(
             "circle-alert",
             class: "h-5 w-5 text-red-500",
-            aria: true,
-            title: "Error",
-            desc: "Error icon"
+            "aria-hidden": true,
+            focusable: false
           )
         end
       end

@@ -139,4 +139,64 @@ class UserTest < ActiveSupport::TestCase
       @user.destroy
     end
   end
+
+  # Active/Deactivated status tests
+  test "user is active by default" do
+    user = User.new(
+      username: "newuser",
+      email_address: "newuser@example.com",
+      password: "password123456",
+      name: "New User"
+    )
+
+    assert user.active
+    assert_not user.deactivated?
+  end
+
+  test "can deactivate a regular user" do
+    assert @user.deactivate
+
+    @user.reload
+
+    assert_predicate @user, :deactivated?
+    assert_not @user.active
+  end
+
+  test "cannot deactivate organization owner" do
+    owner = users(:shane)
+
+    assert_not owner.deactivate
+    assert owner.active
+  end
+
+  test "deactivate clears all user sessions" do
+    # Create additional session
+    @user.sessions.create!(user_agent: "test", ip_address: "127.0.0.1")
+
+    assert_equal 2, @user.sessions.count
+
+    @user.deactivate
+
+    assert_equal 0, @user.sessions.count
+  end
+
+  test "active scope returns only active users" do
+    deactivated_user = users(:two)
+    deactivated_user.deactivate
+
+    active_users = User.active
+
+    assert_includes active_users, @user
+    assert_not_includes active_users, deactivated_user
+  end
+
+  test "deactivated scope returns only deactivated users" do
+    deactivated_user = users(:two)
+    deactivated_user.deactivate
+
+    deactivated_users = User.deactivated
+
+    assert_includes deactivated_users, deactivated_user
+    assert_not_includes deactivated_users, @user
+  end
 end

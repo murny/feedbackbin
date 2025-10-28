@@ -38,6 +38,17 @@ module Users
       assert_nil cookies[:session_id]
     end
 
+    test "should not sign in when account is deactivated" do
+      regular_user = users(:one)
+      regular_user.deactivate
+
+      post users_session_url, params: { email_address: regular_user.email_address, password: "secret123456" }
+
+      assert_redirected_to sign_in_url
+      assert_equal "Your account has been deactivated. Please contact support for assistance.", flash[:alert]
+      assert_nil cookies[:session_id]
+    end
+
     test "should sign out" do
       sign_in_as(@user)
 

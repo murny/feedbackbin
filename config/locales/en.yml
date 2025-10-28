@@ -703,6 +703,7 @@ en:
         username_placeholder: Enter your username
     sessions:
       create:
+        account_deactivated: Your account has been deactivated. Please contact support for assistance.
         invalid_credentials: Try another email address or password.
         rate_limited: Please try again later.
         signed_in_successfully: You have signed in successfully.
