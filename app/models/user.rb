@@ -42,6 +42,8 @@ class User < ApplicationRecord
   validates :avatar, resizable_image: true, max_file_size: 2.megabytes
   validates :bio, length: { maximum: 255 }
 
+  validate :organization_owner_cannot_be_deactivated, if: -> { active_changed? && organization_owner? }
+
   normalizes :email_address, with: ->(email) { email.strip.downcase }
   normalizes :username, with: ->(username) { username.squish }
   normalizes :name, with: ->(name) { name.squish }
@@ -61,12 +63,10 @@ class User < ApplicationRecord
   end
 
   def deactivate
-    return false if organization_owner?
-
     transaction do
       close_remote_connections
       sessions.delete_all
-      update!(active: false)
+      update(active: false)
     end
   end
 
@@ -88,5 +88,9 @@ class User < ApplicationRecord
       if avatar.attached?
         avatar.blob.filename = "avatar#{avatar.filename.extension_with_delimiter}"
       end
+    end
+
+    def organization_owner_cannot_be_deactivated
+      errors.add(:active, :organization_owner_cannot_be_deactivated)
     end
 end

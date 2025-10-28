@@ -22,7 +22,7 @@ class Organization < ApplicationRecord
 
     def owner_must_be_administrator
       if owner && !owner.administrator?
-        errors.add(:owner, "must be an administrator")
+        errors.add(:owner, :must_be_administrator)
       end
     end
 end
