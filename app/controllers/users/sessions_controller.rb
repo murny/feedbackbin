@@ -13,8 +13,12 @@ module Users
 
     def create
       if (user = User.authenticate_by(params.permit(:email_address, :password)))
-        start_new_session_for user
-        redirect_to after_authentication_url, notice: t(".signed_in_successfully")
+        if user.active?
+          start_new_session_for user
+          redirect_to after_authentication_url, notice: t(".signed_in_successfully")
+        else
+          redirect_to sign_in_path, alert: t(".account_deactivated")
+        end
       else
         redirect_to sign_in_path, alert: t(".invalid_credentials")
       end

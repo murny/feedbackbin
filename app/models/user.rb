@@ -11,6 +11,7 @@ class User < ApplicationRecord
   has_secure_password
 
   scope :active, -> { where(active: true) }
+  scope :deactivated, -> { where(active: false) }
   scope :filtered_by, ->(query) { where("name like ?", "%#{query}%") }
   scope :ordered, -> { order(:name) }
 
@@ -60,12 +61,12 @@ class User < ApplicationRecord
   end
 
   def deactivate
+    return false if organization_owner?
+
     transaction do
       close_remote_connections
-
       sessions.delete_all
-
-      update! active: false, email_address: deactived_email_address
+      update!(active: false)
     end
   end
 
@@ -78,10 +79,6 @@ class User < ApplicationRecord
   end
 
   private
-
-    def deactived_email_address
-      email_address.gsub(/@/, "-deactivated-#{SecureRandom.uuid}@")
-    end
 
     def close_remote_connections
       ActionCable.server.remote_connections.where(current_user: self).disconnect reconnect: false

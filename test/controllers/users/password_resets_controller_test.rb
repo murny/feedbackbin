@@ -38,7 +38,7 @@ module Users
       assert_equal "Password reset instructions sent (if user with that email address exists).", flash[:notice]
     end
 
-    test "should not send a password reset email to a unverified email" do
+    test "should not send a password reset email to an unverified email" do
       @user.update!(email_verified: false)
 
       assert_no_enqueued_emails do

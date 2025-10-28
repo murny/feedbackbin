@@ -27,8 +27,14 @@ module Authentication
     def resume_session
       Current.session ||= begin
         session = find_session_by_cookie
-        session&.resume(user_agent: request.user_agent, ip_address: request.remote_ip)
-        session
+        if session&.user&.active?
+          session.resume(user_agent: request.user_agent, ip_address: request.remote_ip)
+          session
+        else
+          # Clear the session cookie if it exists but user is deactivated or session is invalid
+          cookies.delete(:session_id) if session
+          nil
+        end
       end
     end
 
