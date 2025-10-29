@@ -293,8 +293,8 @@ en:
         title: Users
       roles:
         update:
-          success: User role has been updated
           invalid_role: Invalid role.
+          success: User role has been updated
       show:
         account_info_title: Account Information
         account_status: Account Status
