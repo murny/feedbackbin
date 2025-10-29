@@ -18,6 +18,8 @@ en:
           attributes:
             categories:
               must_have_at_least_one: must have at least one category
+            owner:
+              must_be_administrator: must be an administrator
             subdomain:
               format: must be at least 2 characters and alphanumeric
               reserved: "%{value} is reserved"
@@ -29,6 +31,10 @@ en:
                 has_many: Cannot delete this status because posts are still using it. Please reassign or delete those posts first.
         user:
           attributes:
+            active:
+              organization_owner_cannot_be_deactivated: organization owner cannot be deactivated
+            role:
+              organization_owner_cannot_change: cannot be changed for organization owner
             username:
               invalid: can only contain letters, numbers, and underscores
   admin:
@@ -267,47 +273,87 @@ en:
         update:
           successfully_updated: Post status was successfully updated.
     users:
+      activations:
+        create:
+          success: User has been activated
+        destroy:
+          success: User has been deactivated
       index:
         description: Manage all users on the platform
+        filter_active: Active
+        filter_administrators: Administrators
+        filter_all_roles: All Roles
+        filter_all_status: All Status
+        filter_bots: Bots
+        filter_deactivated: Deactivated
+        filter_members: Members
         heading: Users
         search_label: Search users
         search_placeholder: Search by name, email, or username...
         title: Users
+      roles:
+        update:
+          invalid_role: Invalid role.
+          success: User role has been updated
       show:
+        account_info_title: Account Information
+        account_status: Account Status
+        account_status_label: Account Status
+        activate_user: Activate User
+        active_badge: Active
+        active_status: Active
+        activity_stats_title: Activity Statistics
         ago: ago
         back_button: Back to Users
         basic_info_title: Basic Information
         comment_plural: comments
         comment_singular: comment
-        current_role_label: Current Role
+        deactivate_confirm: Are you sure you want to deactivate this user? They will be logged out and unable to sign in.
+        deactivate_user: Deactivate User
+        deactivated_badge: Deactivated
+        deactivated_status: Deactivated
         description: User profile and activity details
         email_label: Email
+        email_status: Email Status
+        email_unverified: Unverified
+        email_verification_label: Email Verification
+        email_verified: Verified
         joined_label: Joined
+        last_sign_in: Last Sign In
         like_plural: likes
         like_singular: like
+        member_since: Member Since
         name_label: Name
+        never_signed_in: Never signed in
         no_posts: No posts created yet
+        owner_badge: Owner
         recent_posts_title: Recent Posts
-        role_description: User permissions and access level
-        role_title: Role & Permissions
-        status_title: Status
-        super_admin_badge: Super Admin
-        unverified_badge: Email Unverified
+        role_label: Role
+        total_comments: Comments
+        total_likes: Likes
+        total_posts: Posts
+        unverified_badge: Unverified
+        update_button: Update
         user_info_title: User Information
         username_label: Username
-        verified_badge: Email Verified
+        verified_badge: Verified
       users_list:
+        account_status_column: Account Status
         actions_column: Actions
+        active_badge: Active
         ago: ago
+        deactivated_badge: Deactivated
+        email_status_column: Email Status
         joined_column: Joined
         no_posts: No posts
         no_users_empty: No users have joined yet.
         no_users_search: Try adjusting your search criteria.
         no_users_title: No users found
+        owner_badge: Owner
         post_plural: posts
         post_singular: post
         posts_column: Posts
-        status_column: Status
+        role_column: Role
         unverified_badge: Unverified
         user_column: User
         verified_badge: Verified

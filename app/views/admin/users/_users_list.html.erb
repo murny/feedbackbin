@@ -6,7 +6,9 @@
       <thead class="border-b border-border">
         <tr class="bg-muted/50">
           <th class="px-6 py-4 text-left font-semibold text-foreground"><%= t(".user_column") %></th>
-          <th class="px-6 py-4 text-left font-semibold text-foreground"><%= t(".status_column") %></th>
+          <th class="px-6 py-4 text-left font-semibold text-foreground"><%= t(".role_column") %></th>
+          <th class="px-6 py-4 text-left font-semibold text-foreground"><%= t(".account_status_column") %></th>
+          <th class="px-6 py-4 text-left font-semibold text-foreground"><%= t(".email_status_column") %></th>
           <th class="px-6 py-4 text-left font-semibold text-foreground"><%= t(".posts_column") %></th>
           <th class="px-6 py-4 text-left font-semibold text-foreground"><%= t(".joined_column") %></th>
           <th class="px-6 py-4 text-center font-semibold text-foreground"><%= t(".actions_column") %></th>
@@ -39,24 +41,34 @@
                   </div>
                 </div>
               </td>
+              <!-- Role Column -->
               <td class="px-6 py-4">
-                <div class="space-y-1">
+                <div class="flex flex-wrap gap-1">
                   <%= render_badge(
                     text: user.role.humanize,
                     variant: user.administrator? ? :default : :secondary
                   ) %>
-                  <% if user.email_verified? %>
+                  <% if user.organization_owner? %>
                     <%= render_badge(
-                      text: t(".verified_badge"),
+                      text: t(".owner_badge"),
                       variant: :default
-                    ) %>
-                  <% else %>
-                    <%= render_badge(
-                      text: t(".unverified_badge"),
-                      variant: :destructive
                     ) %>
                   <% end %>
                 </div>
+              </td>
+              <!-- Account Status Column -->
+              <td class="px-6 py-4">
+                <%= render_badge(
+                  text: user.active? ? t(".active_badge") : t(".deactivated_badge"),
+                  variant: user.active? ? :default : :destructive
+                ) %>
+              </td>
+              <!-- Email Status Column -->
+              <td class="px-6 py-4">
+                <%= render_badge(
+                  text: user.email_verified? ? t(".verified_badge") : t(".unverified_badge"),
+                  variant: user.email_verified? ? :default : :outline
+                ) %>
               </td>
               <td class="px-6 py-4">
                 <% posts_count = user.posts.count %>
@@ -89,7 +101,7 @@
           <% end %>
         <% else %>
           <tr>
-            <td colspan="5" class="px-6 py-12 text-center">
+            <td colspan="7" class="px-6 py-12 text-center">
               <div class="mx-auto size-12 bg-muted rounded-full flex items-center justify-center mb-4">
                 <%= lucide_icon "users", class: "size-6 text-muted-foreground" %>
               </div>

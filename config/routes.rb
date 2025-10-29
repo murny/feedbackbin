@@ -61,7 +61,12 @@ Rails.application.routes.draw do
   namespace :admin do
     root to: "dashboard#show"
 
-    resources :users, only: [ :index, :show ]
+    resources :users, only: [ :index, :show ] do
+      scope module: :users do
+        resource :role, only: [ :update ]
+        resource :activation, only: [ :create, :destroy ]
+      end
+    end
     resources :posts, only: [ :index, :show ]
 
     namespace :settings do

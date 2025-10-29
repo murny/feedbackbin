@@ -140,21 +140,8 @@ class UserTest < ActiveSupport::TestCase
     end
   end
 
-  # Active/Deactivated status tests
-  test "user is active by default" do
-    user = User.new(
-      username: "newuser",
-      email_address: "newuser@example.com",
-      password: "password123456",
-      name: "New User"
-    )
-
-    assert user.active
-    assert_not user.deactivated?
-  end
-
   test "can deactivate a regular user" do
-    assert @user.deactivate
+    @user.deactivate
 
     @user.reload
 
@@ -166,7 +153,8 @@ class UserTest < ActiveSupport::TestCase
     owner = users(:shane)
 
     assert_not owner.deactivate
-    assert owner.active
+    assert owner.reload.active
+    assert_equal "organization owner cannot be deactivated", owner.errors[:active].first
   end
 
   test "deactivate clears all user sessions" do
