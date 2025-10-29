@@ -62,10 +62,9 @@ Rails.application.routes.draw do
     root to: "dashboard#show"
 
     resources :users, only: [ :index, :show ] do
-      member do
-        patch :update_role
-        patch :activate
-        patch :deactivate
+      scope module: :users do
+        resource :role, only: [ :update ]
+        resource :activation, only: [ :create, :destroy ]
       end
     end
     resources :posts, only: [ :index, :show ]

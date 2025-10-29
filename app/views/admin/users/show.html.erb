@@ -60,7 +60,7 @@
                   <% end %>
                 </div>
                 <!-- Role Management -->
-                <%= form_with url: update_role_admin_user_path(@user), method: :patch, class: "flex gap-2 items-center" do |form| %>
+                <%= form_with url: admin_user_role_path(@user), method: :patch, class: "flex gap-2 items-center" do |form| %>
                   <%= form.select :role,
                       options_for_select(
                         User.roles.keys.map { |role| [ role.humanize, role ] },
@@ -89,20 +89,20 @@
                 <!-- Status Management -->
                 <% if @user.active? %>
                   <%= render_button(
-                    href: deactivate_admin_user_path(@user),
+                    href: admin_user_activation_path(@user),
                     variant: :destructive,
                     size: :sm,
-                    data: { turbo_method: :patch, turbo_confirm: t(".deactivate_confirm") }
+                    data: { turbo_method: :delete, turbo_confirm: t(".deactivate_confirm") }
                   ) do %>
                     <%= lucide_icon "user-x", class: "size-4" %>
                     <span><%= t(".deactivate_user") %></span>
                   <% end %>
                 <% else %>
                   <%= render_button(
-                    href: activate_admin_user_path(@user),
+                    href: admin_user_activation_path(@user),
                     variant: :default,
                     size: :sm,
-                    data: { turbo_method: :patch }
+                    data: { turbo_method: :post }
                   ) do %>
                     <%= lucide_icon "user-check", class: "size-4" %>
                     <span><%= t(".activate_user") %></span>

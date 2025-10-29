@@ -273,10 +273,11 @@ en:
         update:
           successfully_updated: Post status was successfully updated.
     users:
-      activate:
-        activated_successfully: User has been activated
-      deactivate:
-        deactivated_successfully: User has been deactivated
+      activations:
+        create:
+          success: User has been activated
+        destroy:
+          success: User has been deactivated
       index:
         description: Manage all users on the platform
         filter_active: Active
@@ -290,6 +291,9 @@ en:
         search_label: Search users
         search_placeholder: Search by name, email, or username...
         title: Users
+      roles:
+        update:
+          success: User role has been updated
       show:
         account_info_title: Account Information
         account_status: Account Status
@@ -332,8 +336,6 @@ en:
         user_info_title: User Information
         username_label: Username
         verified_badge: Verified
-      update_role:
-        role_updated_successfully: User role has been updated
       users_list:
         account_status_column: Account Status
         actions_column: Actions
