@@ -169,7 +169,6 @@ en:
           danger_zone: Danger Zone
           general: General
           invitations: Invitations
-          members: Administrators
           post_statuses: Post Statuses
         title: Settings
       invitations:
@@ -197,22 +196,6 @@ en:
           email_placeholder: user@example.com
           send_invitation: Send Invitation
           title: Invite Member
-      memberships:
-        destroy:
-          cannot_remove_last_admin: Cannot remove the last administrator.
-          successfully_removed: Administrator privileges were successfully removed.
-        index:
-          admin_count:
-            one: "%{count} Administrator"
-            other: "%{count} Administrators"
-          description: Manage administrator roles and permissions. Use invitations to add new administrators.
-          no_admins_description: No administrators found.
-          no_admins_title: No administrators
-          remove_admin: Remove admin privileges
-          remove_admin_confirm: Are you sure you want to remove administrator privileges from this user?
-          role:
-            administrator: Administrator
-          title: Administrators
       ownership_transfers:
         create:
           failure: Failed to transfer ownership. Please try again.

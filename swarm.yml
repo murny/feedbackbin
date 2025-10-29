@@ -1,0 +1,14 @@
+---
+version: 2
+swarm:
+  name: FeedbackBin Rails Development Team
+  lead: architect
+  agents:
+    architect: ".claude/agents/architect.md"
+    controllers: ".claude/agents/controllers.md"
+    devops: ".claude/agents/devops.md"
+    jobs: ".claude/agents/jobs.md"
+    models: ".claude/agents/models.md"
+    stimulus: ".claude/agents/stimulus.md"
+    tests: ".claude/agents/tests.md"
+    views: ".claude/agents/views.md"
