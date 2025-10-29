@@ -10,13 +10,24 @@ module Admin
         role = params.expect(:role)
 
         unless User.roles.key?(role)
-          return redirect_to admin_user_path(@user), alert: t(".invalid_role")
+          flash.now[:alert] = t(".invalid_role")
+          respond_to do |format|
+            format.html { redirect_to admin_user_path(@user) }
+            format.turbo_stream { render :update, status: :unprocessable_entity }
+          end
+          return
         end
 
-        if @user.update(role: role)
-          redirect_to admin_user_path(@user), notice: t(".success")
-        else
-          redirect_to admin_user_path(@user), alert: @user.errors.full_messages.to_sentence
+        respond_to do |format|
+          if @user.update(role: role)
+            flash.now[:notice] = t(".success")
+            format.html { redirect_to admin_user_path(@user), notice: t(".success") }
+            format.turbo_stream
+          else
+            flash.now[:alert] = @user.errors.full_messages.to_sentence
+            format.html { redirect_to admin_user_path(@user), alert: @user.errors.full_messages.to_sentence }
+            format.turbo_stream { render :update, status: :unprocessable_entity }
+          end
         end
       end
 
