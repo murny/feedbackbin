@@ -40,5 +40,6 @@
 /coverage/*
 
 # Claude
-.claude/
-claude-swarm.log
+/.claude/*
+!/.claude/agents/
+!/.claude/agents/*.md
