@@ -4,7 +4,7 @@ This project uses Claude Swarm with a swarm of specialized agents for Rails deve
 
 ## Project Information
 - **Rails Version**: 8.1
-- **Ruby Version**: 3.4.6
+- **Ruby Version**: 3.4.7
 - **Project Type**: Full-stack Rails
 - **Test Framework**: Minitest
 - **Turbo/Stimulus**: Enabled
