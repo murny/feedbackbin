@@ -7,7 +7,13 @@ module Admin
 
       # PATCH /admin/users/:user_id/role
       def update
-        if @user.update(role: params.expect(:role))
+        role = params.expect(:role)
+
+        unless User.roles.key?(role)
+          return redirect_to admin_user_path(@user), alert: t(".invalid_role")
+        end
+
+        if @user.update(role: role)
           redirect_to admin_user_path(@user), notice: t(".success")
         else
           redirect_to admin_user_path(@user), alert: @user.errors.full_messages.to_sentence

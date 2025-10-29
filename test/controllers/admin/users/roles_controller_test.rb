@@ -47,6 +47,18 @@ module Admin
         assert_predicate user.reload, :bot?, "User should be bot"
       end
 
+      test "should reject invalid role param" do
+        user = users(:one)
+
+        assert_predicate user, :member?, "User should start as member"
+
+        patch admin_user_role_path(user), params: { role: "super_admin" }
+
+        assert_redirected_to admin_user_path(user)
+        assert_equal I18n.t("admin.users.roles.update.invalid_role"), flash[:alert]
+        assert_predicate user.reload, :member?, "User should remain member"
+      end
+
       test "should not update organization owner role" do
         owner = users(:shane)
 

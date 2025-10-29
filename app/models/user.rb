@@ -63,11 +63,19 @@ class User < ApplicationRecord
   end
 
   def deactivate
-    transaction do
-      close_remote_connections
-      sessions.delete_all
-      update(active: false)
+    success = transaction do
+      if update(active: false)
+        sessions.delete_all
+        true
+      else
+        raise ActiveRecord::Rollback
+      end
     end
+
+    return false unless success
+
+    close_remote_connections
+    true
   end
 
   def deactivated?

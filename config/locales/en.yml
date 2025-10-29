@@ -294,6 +294,7 @@ en:
       roles:
         update:
           success: User role has been updated
+          invalid_role: Invalid role.
       show:
         account_info_title: Account Information
         account_status: Account Status
