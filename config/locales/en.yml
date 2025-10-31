@@ -279,12 +279,9 @@ en:
           invalid_role: Invalid role.
           success: User role has been updated
       show:
-        account_info_title: Account Information
-        account_status: Account Status
         account_status_label: Account Status
         activate_user: Activate User
         active_badge: Active
-        active_status: Active
         activity_stats_title: Activity Statistics
         ago: ago
         back_button: Back to Users
@@ -294,18 +291,13 @@ en:
         deactivate_confirm: Are you sure you want to deactivate this user? They will be logged out and unable to sign in.
         deactivate_user: Deactivate User
         deactivated_badge: Deactivated
-        deactivated_status: Deactivated
         description: User profile and activity details
         email_label: Email
-        email_status: Email Status
-        email_unverified: Unverified
         email_verification_label: Email Verification
-        email_verified: Verified
         joined_label: Joined
         last_sign_in: Last Sign In
         like_plural: likes
         like_singular: like
-        member_since: Member Since
         name_label: Name
         never_signed_in: Never signed in
         no_posts: No posts created yet
@@ -320,6 +312,7 @@ en:
         user_info_title: User Information
         username_label: Username
         verified_badge: Verified
+        view_profile: View Profile
       users_list:
         account_status_column: Account Status
         actions_column: Actions
