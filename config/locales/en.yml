@@ -462,22 +462,18 @@ en:
     show:
       already_accepted: This invitation has already been accepted.
       already_have_account: Already have an account?
-      contact_support: Contact support
       create_account: Create Your Account
       expired:
         already_have_account: Already have an account?
-        contact_support: Contact support
         description: This invitation link has expired and is no longer valid.
         go_home: Go to Homepage
         heading: Invitation Expired
-        questions_html: Questions? %{support_link}
         sign_in: Sign in
         title: Invitation Expired
         what_to_do: Please contact the person who invited you to request a new invitation.
       expires_info: This invitation expires on %{expiration_date}.
       heading: You've been invited!
       invited_by_html: "%{inviter_name} has invited you to join the team."
-      questions_html: Questions? %{support_link}
       sign_in: Sign in
       title: You're Invited!
   layouts:
