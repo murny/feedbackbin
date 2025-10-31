@@ -3,3 +3,4 @@ one:
   token: <%= Invitation.generate_unique_secure_token %>
   name: Invited User
   email: invited@example.com
+  expires_at: <%= 7.days.from_now %>

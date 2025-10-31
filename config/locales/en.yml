@@ -64,6 +64,47 @@ en:
           total_posts: Total Posts
           total_users: Total Users
         title: "%{organization_name} Admin"
+    invitations:
+      create:
+        successfully_sent: Invitation has been sent successfully.
+      destroy:
+        cannot_cancel_accepted: Cannot cancel an invitation that has already been accepted.
+        successfully_cancelled: Invitation was successfully cancelled.
+      index:
+        accepted_ago: Accepted %{time} ago
+        accepted_by: Accepted by
+        accepted_invitations: Accepted Invitations
+        ago: ago
+        cancel_confirm: Are you sure you want to cancel this invitation?
+        cancel_invitation: Cancel invitation
+        description: Invite new users to join your team
+        expires_in: Expires in %{time}
+        heading: Invitations
+        invited_by: Invited by
+        new_invitation: Invite User
+        no_accepted_description: No one has accepted an invitation yet.
+        no_accepted_title: No accepted invitations
+        no_pending_description: All invitations have been accepted or expired.
+        no_pending_title: No pending invitations
+        pending_invitations: Pending Invitations
+        showing_recent_accepted: Showing recent accepted invitations
+        status:
+          accepted: Accepted
+        title: Invitations
+      new:
+        back_to_invitations: Back to Invitations
+        cancel: Cancel
+        description: Send an invitation email to add a new team member
+        email: Email Address
+        email_hint: We'll send them an invitation email
+        email_placeholder: user@example.com
+        expiration_note: Invitations expire after 7 days.
+        member_role_note: New users will be invited as Members. You can promote them to Admin after they join.
+        name: Name
+        name_hint: What should we call them?
+        name_placeholder: John Doe
+        send_invitation: Send Invitation
+        title: Invite New User
     posts:
       index:
         description: View all feedback posts from users
@@ -168,34 +209,8 @@ en:
           categories: Categories
           danger_zone: Danger Zone
           general: General
-          invitations: Invitations
           post_statuses: Post Statuses
         title: Settings
-      invitations:
-        create:
-          successfully_created: Invitation was successfully created.
-        destroy:
-          successfully_destroyed: Invitation was successfully cancelled.
-        index:
-          ago: ago
-          cancel_confirm: Are you sure you want to cancel this invitation?
-          cancel_invitation: Cancel invitation
-          description: Manage pending invitations to join your organization
-          invited_by: invited by
-          new_invitation: New Invitation
-          no_invitations_description: Send invitations to add new members to your organization.
-          no_invitations_title: No pending invitations
-          send_first_invitation: Send First Invitation
-          status:
-            pending: Pending
-          title: Invitations
-        new:
-          cancel: Cancel
-          description: Send an invitation to add a new member to your organization
-          email_hint: We'll send them an invitation to join your organization
-          email_placeholder: user@example.com
-          send_invitation: Send Invitation
-          title: Invite Member
       ownership_transfers:
         create:
           failure: Failed to transfer ownership. Please try again.
@@ -433,6 +448,38 @@ en:
       upload_organization_logo: Upload Logo
       username_hint: unique, no spaces, short
       username_placeholder: Enter your username
+  invitation_mailer:
+    invite:
+      accept_invitation: Accept Invitation
+      description: FeedbackBin helps teams collect, organize, and act on customer feedback. You've been invited to join as a team member.
+      expires_info: This invitation expires on %{expiration_date}.
+      greeting: Hi %{name},
+      invited_by: "%{inviter_name} has invited you to join FeedbackBin!"
+      questions: Questions? Reply to this email and we'll be happy to help.
+      signature: The FeedbackBin Team
+      subject: You've been invited to join FeedbackBin
+  invitations:
+    show:
+      already_accepted: This invitation has already been accepted.
+      already_have_account: Already have an account?
+      contact_support: Contact support
+      create_account: Create Your Account
+      expired:
+        already_have_account: Already have an account?
+        contact_support: Contact support
+        description: This invitation link has expired and is no longer valid.
+        go_home: Go to Homepage
+        heading: Invitation Expired
+        questions_html: Questions? %{support_link}
+        sign_in: Sign in
+        title: Invitation Expired
+        what_to_do: Please contact the person who invited you to request a new invitation.
+      expires_info: This invitation expires on %{expiration_date}.
+      heading: You've been invited!
+      invited_by_html: "%{inviter_name} has invited you to join the team."
+      questions_html: Questions? %{support_link}
+      sign_in: Sign in
+      title: You're Invited!
   layouts:
     admin:
       badges:
@@ -443,6 +490,7 @@ en:
         changelog: Changelog
         dashboard: Dashboard
         feedback_section: Feedback
+        invitations: Invitations
         management_section: Management
         posts: Posts
         roadmap: Roadmap
@@ -717,6 +765,8 @@ en:
         email: Email
         email_address_hint: Never shown to the public
         email_address_placeholder: Enter your email address
+        invitation_already_accepted: This invitation has already been accepted.
+        invitation_expired: This invitation has expired.
         login: Log in
         name: Name
         name_hint: Your full name (Optional)
