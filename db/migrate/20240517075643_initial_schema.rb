@@ -70,13 +70,19 @@ class InitialSchema < ActiveRecord::Migration[8.2]
     end
 
     create_table "invitations", force: :cascade do |t|
+      t.datetime "accepted_at"
+      t.bigint "accepted_by_id"
       t.datetime "created_at", null: false
       t.string "email", null: false
+      t.datetime "expires_at", null: false
       t.bigint "invited_by_id", null: false
       t.string "name", null: false
       t.string "token", null: false
       t.datetime "updated_at", null: false
+      t.index [ "accepted_at" ], name: "index_invitations_on_accepted_at"
+      t.index [ "accepted_by_id" ], name: "index_invitations_on_accepted_by_id"
       t.index [ "email" ], name: "index_invitations_on_email", unique: true
+      t.index [ "expires_at" ], name: "index_invitations_on_expires_at"
       t.index [ "invited_by_id" ], name: "index_invitations_on_invited_by_id"
       t.index [ "token" ], name: "index_invitations_on_token", unique: true
     end
@@ -174,6 +180,7 @@ class InitialSchema < ActiveRecord::Migration[8.2]
     add_foreign_key "comments", "comments", column: "parent_id"
     add_foreign_key "comments", "posts"
     add_foreign_key "comments", "users", column: "creator_id"
+    add_foreign_key "invitations", "users", column: "accepted_by_id"
     add_foreign_key "invitations", "users", column: "invited_by_id"
     add_foreign_key "likes", "users", column: "voter_id"
     add_foreign_key "organizations", "post_statuses", column: "default_post_status_id"

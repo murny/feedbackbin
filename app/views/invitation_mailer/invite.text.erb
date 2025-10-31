@@ -1,0 +1,15 @@
+<%= t(".greeting", name: @invitation.name) %>
+
+<%= t(".invited_by", inviter_name: @invited_by.name) %>
+
+<%= t(".description") %>
+
+<%= t(".accept_invitation") %>:
+<%= invitation_url(@invitation.token) %>
+
+<%= t(".expires_info", expiration_date: l(@invitation.expires_at.to_date, format: :long)) %>
+
+<%= t(".questions") %>
+
+---
+<%= t(".signature") %>

@@ -1,0 +1,95 @@
+<% content_for(:title) { @invitation.expired? ? t(".expired.title") : t(".title") } %>
+
+<div class="flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
+  <div class="flex w-full max-w-md flex-col gap-6">
+    <%= link_to root_path, class: "flex items-center gap-2 self-center font-medium" do %>
+      <%= inline_svg_tag "mark.svg", class: "h-8 w-8 text-blue-500" %>
+      <span class="font-bold text-blue-500">FeedbackBin</span>
+    <% end %>
+
+    <div class="card flex flex-col gap-6 py-8">
+      <% if @invitation.expired? %>
+        <%# Expired Invitation State %>
+        <div class="px-6 text-center space-y-4">
+          <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-destructive/10">
+            <%= lucide_icon "clock", class: "h-8 w-8 text-destructive" %>
+          </div>
+
+          <div class="space-y-2">
+            <h1 class="font-semibold text-2xl"><%= t(".expired.heading") %></h1>
+            <p class="text-muted-foreground text-sm">
+              <%= t(".expired.description") %>
+            </p>
+          </div>
+
+          <div class="pt-2 p-4 bg-muted rounded-md text-left">
+            <p class="text-sm text-muted-foreground">
+              <%= t(".expired.what_to_do") %>
+            </p>
+          </div>
+        </div>
+
+        <div class="px-6">
+          <div class="relative text-center text-sm">
+            <div class="border-t border-border"></div>
+          </div>
+        </div>
+
+        <div class="px-6 text-center space-y-3">
+          <%= link_to root_path, class: "btn btn-primary w-full" do %>
+            <%= lucide_icon "home", class: "mr-2 h-4 w-4" %>
+            <%= t(".expired.go_home") %>
+          <% end %>
+
+          <p class="text-sm text-muted-foreground">
+            <%= t(".expired.already_have_account") %>
+            <%= link_to t(".expired.sign_in"), sign_in_path, class: "text-primary hover:underline underline-offset-4 font-medium" %>
+          </p>
+        </div>
+      <% else %>
+        <%# Active Invitation State %>
+        <div class="px-6 text-center space-y-4">
+          <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/30">
+            <%= lucide_icon "mail", class: "h-8 w-8 text-blue-600 dark:text-blue-400" %>
+          </div>
+
+          <div class="space-y-2">
+            <h1 class="font-semibold text-2xl"><%= t(".heading") %></h1>
+            <p class="text-muted-foreground text-sm">
+              <%= t(".invited_by_html", inviter_name: content_tag(:strong, @invitation.invited_by.name)) %>
+            </p>
+          </div>
+
+          <div class="pt-4">
+            <%= link_to sign_up_path(invitation_token: @invitation.token), class: "btn btn-primary w-full" do %>
+              <%= lucide_icon "user-plus", class: "mr-2 h-4 w-4" %>
+              <%= t(".create_account") %>
+            <% end %>
+          </div>
+
+          <p class="text-xs text-muted-foreground pt-2">
+            <%= t(".expires_info", expiration_date: l(@invitation.expires_at.to_date, format: :long)) %>
+          </p>
+        </div>
+
+        <div class="px-6">
+          <div class="relative text-center text-sm">
+            <div class="border-t border-border"></div>
+          </div>
+        </div>
+
+        <div class="px-6 text-center">
+          <p class="text-sm text-muted-foreground">
+            <%= t(".already_have_account") %>
+            <%= link_to t(".sign_in"), sign_in_path, class: "text-primary hover:underline underline-offset-4 font-medium" %>
+          </p>
+        </div>
+      <% end %>
+    </div>
+
+    <p class="text-muted-foreground text-center text-xs text-balance">
+      <%= t(".#{@invitation.expired? ? 'expired.' : ''}questions_html",
+            support_link: link_to(t(".#{@invitation.expired? ? 'expired.' : ''}contact_support"), "mailto:support@feedbackbin.com", class: "hover:text-primary underline underline-offset-4")) %>
+    </p>
+  </div>
+</div>

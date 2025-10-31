@@ -68,10 +68,10 @@ Rails.application.routes.draw do
       end
     end
     resources :posts, only: [ :index, :show ]
+    resources :invitations, only: [ :index, :new, :create, :destroy ]
 
     namespace :settings do
       resource :branding, only: [ :show, :update ]
-      resources :invitations, only: [ :index, :new, :create, :destroy ]
       resources :post_statuses
       resources :categories
       resource :danger_zone, only: [ :show, :destroy ]
@@ -80,6 +80,9 @@ Rails.application.routes.draw do
       root to: redirect("/admin/settings/branding")
     end
   end
+
+  # Public invitation acceptance
+  resources :invitations, only: [ :show ], param: :token
 
   scope controller: :static do
     get :about

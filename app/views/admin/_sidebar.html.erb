@@ -51,6 +51,15 @@
           <% end %>
         </li>
         <li>
+          <%= active_link_to admin_invitations_path,
+                class: "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold transition-colors",
+                active_class: "bg-accent text-accent-foreground",
+                inactive_class: "text-muted-foreground hover:text-foreground hover:bg-accent" do %>
+            <%= lucide_icon "mail", class: "h-6 w-6 shrink-0" %>
+            <%= t("layouts.admin.navigation.invitations") %>
+          <% end %>
+        </li>
+        <li>
           <div class="group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-muted-foreground cursor-not-allowed">
             <%= lucide_icon "megaphone", class: "h-6 w-6 shrink-0" %>
             <%= t("layouts.admin.navigation.changelog") %>
