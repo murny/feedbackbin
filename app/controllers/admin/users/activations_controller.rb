@@ -7,19 +7,31 @@ module Admin
 
       # POST /admin/users/:user_id/activation
       def create
-        if @user.update(active: true)
-          redirect_to admin_user_path(@user), notice: t(".success")
-        else
-          redirect_to admin_user_path(@user), alert: @user.errors.full_messages.to_sentence
+        respond_to do |format|
+          if @user.update(active: true)
+            flash.now[:notice] = t(".success")
+            format.html { redirect_to admin_user_path(@user), notice: t(".success") }
+            format.turbo_stream
+          else
+            flash.now[:alert] = @user.errors.full_messages.to_sentence
+            format.html { redirect_to admin_user_path(@user), alert: @user.errors.full_messages.to_sentence }
+            format.turbo_stream { render :create, status: :unprocessable_entity }
+          end
         end
       end
 
       # DELETE /admin/users/:user_id/activation
       def destroy
-        if @user.deactivate
-          redirect_to admin_user_path(@user), notice: t(".success")
-        else
-          redirect_to admin_user_path(@user), alert: @user.errors.full_messages.to_sentence
+        respond_to do |format|
+          if @user.deactivate
+            flash.now[:notice] = t(".success")
+            format.html { redirect_to admin_user_path(@user), notice: t(".success") }
+            format.turbo_stream
+          else
+            flash.now[:alert] = @user.errors.full_messages.to_sentence
+            format.html { redirect_to admin_user_path(@user), alert: @user.errors.full_messages.to_sentence }
+            format.turbo_stream { render :destroy, status: :unprocessable_entity }
+          end
         end
       end
 

@@ -21,7 +21,7 @@
       </div>
     </div>
 
-    <%= turbo_frame_tag "posts_content", data: {
+    <%= turbo_frame_tag "posts_content", target: "_top", data: {
       turbo_action: "advance",
       action: "turbo:frame-load->search#searchComplete"
     } do %>

@@ -11,11 +11,18 @@
         <%= t(".description") %>
       </p>
     </div>
-    <%= render_button(
-      text: t(".back_button"),
-      href: admin_users_path,
-      variant: :outline
-    ) %>
+    <div class="flex gap-2">
+      <%= render_button(
+        text: t(".back_button"),
+        href: admin_users_path,
+        variant: :outline
+      ) %>
+      <%= render_button(
+        text: t(".view_profile"),
+        href: user_path(@user),
+        variant: :outline
+      ) %>
+    </div>
   </div>
 
   <!-- User Info -->
@@ -38,7 +45,22 @@
               <% if @user.username.present? %>
                 <div><strong><%= t(".username_label") %>:</strong> @<%= @user.username %></div>
               <% end %>
-              <div><strong><%= t(".joined_label") %>:</strong> <%= @user.created_at.strftime("%B %d, %Y") %></div>
+              <div>
+                <strong><%= t(".joined_label") %>:</strong>
+                <%= @user.created_at.strftime("%B %d, %Y") %>
+                (<%= time_ago_in_words(@user.created_at) %> <%= t(".ago") %>)
+              </div>
+              <% if @last_session %>
+                <div>
+                  <strong><%= t(".last_sign_in") %>:</strong>
+                  <%= time_ago_in_words(@last_session.last_active_at) %> <%= t(".ago") %>
+                </div>
+              <% else %>
+                <div>
+                  <strong><%= t(".last_sign_in") %>:</strong>
+                  <span class="text-muted-foreground"><%= t(".never_signed_in") %></span>
+                </div>
+              <% end %>
             </div>
           </div>
 
@@ -46,69 +68,13 @@
             <!-- Role -->
             <div>
               <h4 class="text-sm font-medium text-foreground mb-3"><%= t(".role_label") %></h4>
-              <div class="flex items-center justify-between gap-4">
-                <div class="flex flex-wrap gap-1">
-                  <%= render_badge(
-                    text: @user.role.humanize,
-                    variant: @user.administrator? ? :default : :secondary
-                  ) %>
-                  <% if @user.organization_owner? %>
-                    <%= render_badge(
-                      text: t(".owner_badge"),
-                      variant: :default
-                    ) %>
-                  <% end %>
-                </div>
-                <!-- Role Management -->
-                <%= form_with url: admin_user_role_path(@user), method: :patch, class: "flex gap-2 items-center" do |form| %>
-                  <%= form.select :role,
-                      options_for_select(
-                        User.roles.keys.map { |role| [ role.humanize, role ] },
-                        @user.role
-                      ),
-                      {},
-                      class: "select" %>
-                  <%= render_button(
-                    text: t(".update_button"),
-                    variant: :secondary,
-                    size: :sm,
-                    type: :submit
-                  ) %>
-                <% end %>
-              </div>
+              <%= render "role_section", user: @user %>
             </div>
 
             <!-- Account Status -->
             <div>
               <h4 class="text-sm font-medium text-foreground mb-3"><%= t(".account_status_label") %></h4>
-              <div class="flex items-center justify-between gap-4">
-                <%= render_badge(
-                  text: @user.active? ? t(".active_badge") : t(".deactivated_badge"),
-                  variant: @user.active? ? :default : :destructive
-                ) %>
-                <!-- Status Management -->
-                <% if @user.active? %>
-                  <%= render_button(
-                    href: admin_user_activation_path(@user),
-                    variant: :destructive,
-                    size: :sm,
-                    data: { turbo_method: :delete, turbo_confirm: t(".deactivate_confirm") }
-                  ) do %>
-                    <%= lucide_icon "user-x", class: "size-4" %>
-                    <span><%= t(".deactivate_user") %></span>
-                  <% end %>
-                <% else %>
-                  <%= render_button(
-                    href: admin_user_activation_path(@user),
-                    variant: :default,
-                    size: :sm,
-                    data: { turbo_method: :post }
-                  ) do %>
-                    <%= lucide_icon "user-check", class: "size-4" %>
-                    <span><%= t(".activate_user") %></span>
-                  <% end %>
-                <% end %>
-              </div>
+              <%= render "status_section", user: @user %>
             </div>
 
             <!-- Email Verification -->
@@ -140,35 +106,6 @@
         <div class="text-2xl font-bold text-foreground"><%= @total_likes %></div>
         <div class="text-sm text-muted-foreground"><%= t(".total_likes") %></div>
       </div>
-    </div>
-  <% end %>
-
-  <!-- Account Information -->
-  <%= render_card(title: t(".account_info_title"), class: "px-6") do %>
-    <div class="space-y-3 text-sm">
-      <div class="flex justify-between py-2 border-b border-border">
-        <span class="text-muted-foreground"><%= t(".member_since") %></span>
-        <span class="font-medium text-foreground"><%= @user.created_at.strftime("%B %d, %Y") %> (<%= time_ago_in_words(@user.created_at) %> <%= t(".ago") %>)</span>
-      </div>
-      <div class="flex justify-between py-2 border-b border-border">
-        <span class="text-muted-foreground"><%= t(".account_status") %></span>
-        <span class="font-medium"><%= @user.active? ? t(".active_status") : t(".deactivated_status") %></span>
-      </div>
-      <div class="flex justify-between py-2 border-b border-border">
-        <span class="text-muted-foreground"><%= t(".email_status") %></span>
-        <span class="font-medium"><%= @user.email_verified? ? t(".email_verified") : t(".email_unverified") %></span>
-      </div>
-      <% if @last_session %>
-        <div class="flex justify-between py-2">
-          <span class="text-muted-foreground"><%= t(".last_sign_in") %></span>
-          <span class="font-medium text-foreground"><%= time_ago_in_words(@last_session.last_active_at) %> <%= t(".ago") %></span>
-        </div>
-      <% else %>
-        <div class="flex justify-between py-2">
-          <span class="text-muted-foreground"><%= t(".last_sign_in") %></span>
-          <span class="font-medium text-muted-foreground"><%= t(".never_signed_in") %></span>
-        </div>
-      <% end %>
     </div>
   <% end %>
 

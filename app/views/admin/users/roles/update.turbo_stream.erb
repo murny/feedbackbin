@@ -1,0 +1,7 @@
+<%= turbo_stream.update "flash_toast", partial: "flash_toast" %>
+
+<%= turbo_stream.replace dom_id(@user, "role_section") do %>
+  <%= render "admin/users/role_section", user: @user %>
+<% end %>
+
+
