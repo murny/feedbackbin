@@ -1,0 +1,108 @@
+name: Build and Publish Docker Image
+
+# Trigger on pushes to main branch and pull requests targeting main
+# This allows us to build images for PRs (validation) without pushing them
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+  workflow_dispatch:
+
+# Prevent multiple builds for the same ref from running concurrently
+concurrency:
+  group: publish-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# Required permissions for GHCR, attestations, and OIDC
+permissions:
+  contents: read      # Read repository contents
+  packages: write     # Push to GitHub Container Registry
+  id-token: write     # Required for attestation signing
+  attestations: write # Generate build attestations
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }} # Will be: murny/feedbackbin
+
+jobs:
+  build:
+    name: Build and push image
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      # Checkout the repository code
+      - name: Checkout code
+        uses: actions/checkout@v5
+
+      # Set up Docker Buildx for advanced build features
+      # Enables BuildKit features like better caching and multi-platform builds
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      # Authenticate to GitHub Container Registry
+      # GITHUB_TOKEN is automatically provided by GitHub Actions
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # Compute the lowercase image name (GHCR requires lowercase)
+      # GitHub repository names can have uppercase, but container registries require lowercase
+      - name: Compute canonical image name
+        id: image
+        run: |
+          IMAGE_REF="${REGISTRY}/${IMAGE_NAME,,}"
+          echo "name=${IMAGE_REF}" >> $GITHUB_OUTPUT
+
+      # Extract metadata for Docker (tags, labels)
+      # This handles smart tagging based on the git ref
+      - name: Extract Docker metadata
+        id: meta
+        uses: docker/metadata-action@v5
+        with:
+          images: ${{ steps.image.outputs.name }}
+          tags: |
+            # Branch name for branch pushes (e.g., main)
+            type=ref,event=branch
+            # PR number for pull requests (e.g., pr-123)
+            type=ref,event=pr
+            # Git SHA with branch prefix (e.g., sha-abc1234)
+            type=sha,format=short,prefix=sha-
+          flavor: |
+            # Only tag as 'latest' on main branch pushes
+            latest=${{ github.ref == 'refs/heads/main' }}
+          labels: |
+            org.opencontainers.image.source=https://github.com/${{ github.repository }}
+            org.opencontainers.image.description=FeedbackBin - Customer feedback management platform
+
+      # Build the Docker image and push to GHCR (only on main, not PRs)
+      - name: Build and push Docker image
+        id: build
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: Dockerfile
+          platforms: linux/amd64
+          # Only push images when on main branch, not on PRs
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          # Use GitHub Actions cache for layer caching (speeds up builds)
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      # Generate build provenance attestation for supply chain security
+      # Only runs when we actually push an image (not on PRs)
+      - name: Attest build provenance
+        if: github.event_name != 'pull_request'
+        uses: actions/attest-build-provenance@v1
+        with:
+          subject-name: ${{ steps.image.outputs.name }}
+          subject-digest: ${{ steps.build.outputs.digest }}
+          push-to-registry: true
