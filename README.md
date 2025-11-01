@@ -1,6 +1,8 @@
 <div align="center">
 
-# 📋 FeedbackBin
+<img src="public/icon.svg" alt="FeedbackBin Logo" width="120" height="120" />
+
+# FeedbackBin
 
 **A modern, self-hosted customer feedback management platform**
 
