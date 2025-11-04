@@ -1,0 +1,11 @@
+<p><%= t(".greeting", name: @invitation.name) %></p>
+
+<p><%= t(".invited_by", inviter_name: @invited_by.name) %></p>
+
+<p><%= t(".description") %></p>
+
+<p><strong><%= link_to t(".accept_invitation"), invitation_url(@invitation.token), class: "button" %></strong></p>
+
+<p><%= t(".questions") %></p>
+
+<p><%= t(".signature") %></p>

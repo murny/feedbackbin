@@ -1,0 +1,50 @@
+<% content_for(:title) { t(".title") } %>
+
+<div class="flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
+  <div class="flex w-full max-w-md flex-col gap-6">
+    <%= link_to root_path, class: "flex items-center gap-2 self-center font-medium" do %>
+      <%= inline_svg_tag "mark.svg", class: "h-8 w-8 text-blue-500" %>
+      <span class="font-bold text-blue-500">FeedbackBin</span>
+    <% end %>
+
+    <div class="card flex flex-col gap-6 py-8">
+      <div class="px-6 text-center space-y-4">
+        <div class="mx-auto flex h-16 w-16 items-center justify-center rounded-full bg-blue-100 dark:bg-blue-900/30">
+          <%= lucide_icon "mail", class: "h-8 w-8 text-blue-600 dark:text-blue-400" %>
+        </div>
+
+        <div class="space-y-2">
+          <h1 class="font-semibold text-2xl"><%= t(".heading") %></h1>
+          <p class="text-muted-foreground text-sm">
+            <%= t(".invited_by_html", inviter_name: content_tag(:strong, @invitation.invited_by.name)) %>
+          </p>
+        </div>
+
+        <div class="pt-4">
+          <%= link_to sign_up_path(invitation_token: @invitation.token), class: "btn btn-primary w-full" do %>
+            <%= lucide_icon "user-plus", class: "mr-2 h-4 w-4" %>
+            <%= t(".create_account") %>
+          <% end %>
+        </div>
+      </div>
+
+      <div class="px-6">
+        <div class="relative text-center text-sm">
+          <div class="border-t border-border"></div>
+        </div>
+      </div>
+
+      <div class="px-6 text-center">
+        <p class="text-sm text-muted-foreground">
+          <%= t(".already_have_account") %>
+          <%= link_to t(".sign_in"), sign_in_path, class: "text-primary hover:underline underline-offset-4 font-medium" %>
+        </p>
+      </div>
+    </div>
+
+    <p class="text-muted-foreground text-center text-xs text-balance">
+      <%= t(".questions_html",
+            support_link: link_to(t(".contact_support"), "mailto:support@feedbackbin.com", class: "hover:text-primary underline underline-offset-4")) %>
+    </p>
+  </div>
+</div>

@@ -22,6 +22,7 @@
 
         <%= form_with model: @user, url: users_registrations_path, class: "grid gap-6" do |form| %>
           <%= render "error_messages", resource: @user %>
+          <%= hidden_field_tag :invitation_token, params[:invitation_token] %>
 
           <div class="grid gap-3">
             <%= form.label :email_address, t(".email"), class: "text-sm font-medium leading-none" %>

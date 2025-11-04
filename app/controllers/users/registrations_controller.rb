@@ -9,15 +9,31 @@ module Users
 
     def new
       @user = User.new
+      @invitation = Invitation.find_by(token: params[:invitation_token]) if params[:invitation_token]
+
+      if @invitation
+        # Pre-fill form with invitation data
+        @user.email_address = @invitation.email
+        @user.name = @invitation.name
+      end
     end
 
     def create
       @user = User.new(user_params)
+      @user.role = :member # Always create as member
+
+      # Check for invitation
+      @invitation = Invitation.find_by(token: params[:invitation_token]) if params[:invitation_token]
 
       if @user.save
-        start_new_session_for(@user)
+        # Auto-verify email for invited users
+        if @invitation
+          @invitation.accept!(@user)
+        else
+          UserMailer.email_verification(@user).deliver_later
+        end
 
-        UserMailer.email_verification(@user).deliver_later
+        start_new_session_for(@user)
 
         redirect_to root_path, notice: t(".signed_up_successfully")
       else
