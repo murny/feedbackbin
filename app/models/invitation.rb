@@ -6,7 +6,7 @@ class Invitation < ApplicationRecord
   has_secure_token
 
   validates :email, presence: true
-  validates :name, presence: true # TODO: Is name useful?
+  validates :name, presence: true
   validates :invited_by, presence: true
 
   validates :email, uniqueness: { message: :invited },
@@ -20,9 +20,14 @@ class Invitation < ApplicationRecord
     InvitationsMailer.with(invitation: self).invite.deliver_later
   end
 
-  # def accept!(user)
-  # TODO: This needs to be implemented
-  # end
+  def accept!
+    # TODO:
+    # we can pass in the user to be created here and this can be in a transaction
+
+    destroy!
+
+    # TODO: Send notification to owner and invited by?
+  end
 
   def reject!
     destroy!

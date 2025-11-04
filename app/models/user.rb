@@ -3,6 +3,7 @@
 class User < ApplicationRecord
   MAX_USERNAME_LENGTH = 20
   MIN_PASSWORD_LENGTH_ALLOWED = 10
+  MAX_PASSWORD_LENGTH_ALLOWED = 72 # Comes from User::BCryptPassword::MAX_PASSWORD_LENGTH_ALLOWED
 
   include Mentionable
   include Searchable
