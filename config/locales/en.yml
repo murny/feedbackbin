@@ -73,6 +73,7 @@ en:
         ago: ago
         cancel_confirm: Are you sure you want to cancel this invitation?
         cancel_invitation: Cancel invitation
+        copy_invitation_link: Copy invitation link
         description: Invite new users to join your team
         heading: Invitations
         invited_by: Invited by

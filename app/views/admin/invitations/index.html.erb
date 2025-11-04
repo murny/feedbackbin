@@ -52,6 +52,10 @@
               </div>
             </div>
             <div class="flex flex-none items-center gap-x-2">
+              <%= button_to_copy_to_clipboard(invitation_url(invitation.token)) do %>
+                <%= lucide_icon "copy", class: "h-4 w-4" %>
+                <span class="sr-only"><%= t(".copy_invitation_link") %></span>
+              <% end %>
               <%= link_to admin_invitation_path(invitation),
                     class: "btn btn-sm btn-ghost text-destructive hover:text-destructive/80",
                     data: { "turbo-method": :delete, turbo_confirm: t(".cancel_confirm") } do %>
