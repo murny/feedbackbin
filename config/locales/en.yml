@@ -74,7 +74,7 @@ en:
         cancel_confirm: Are you sure you want to cancel this invitation?
         cancel_invitation: Cancel invitation
         copy_invitation_link: Copy invitation link
-        description: Invite new users to join your team
+        description: Invite users to your organization
         heading: Invitations
         invited_by: Invited by
         new_invitation: Invite User
@@ -434,23 +434,21 @@ en:
   invitations:
     show:
       already_have_account: Already have an account?
-      contact_support: contact support
       create_account: Create Your Account
       heading: You've been invited!
-      invited_by_html: "%{inviter_name} has invited you to join the team."
+      invited_by_html: "%{inviter_name} has invited you to collaborate on customer feedback and help shape the product roadmap."
       not_found: This invitation link is invalid or has already been used.
-      questions_html: Have questions? Please %{support_link}.
       sign_in: Sign in
       title: You're Invited!
   invitations_mailer:
     invite:
       accept_invitation: Accept Invitation
-      description: FeedbackBin helps teams collect, organize, and act on customer feedback. You've been invited to join as a team member.
+      description: You've been invited to collaborate on customer feedback and help shape the product roadmap.
       greeting: Hi %{name},
-      invited_by: "%{inviter_name} has invited you to join FeedbackBin!"
+      invited_by: "%{inviter_name} has invited you to join %{organization_name}"
       questions: Questions? Reply to this email and we'll be happy to help.
-      signature: The FeedbackBin Team
-      subject: You've been invited to join FeedbackBin
+      signature: The %{organization_name} team
+      subject: You've been invited to join %{organization_name}
   layouts:
     admin:
       badges:

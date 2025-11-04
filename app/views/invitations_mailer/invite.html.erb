@@ -1,6 +1,6 @@
 <p><%= t(".greeting", name: @invitation.name) %></p>
 
-<p><%= t(".invited_by", inviter_name: @invited_by.name) %></p>
+<p><%= t(".invited_by", inviter_name: @invited_by.name, organization_name: @organization.name) %></p>
 
 <p><%= t(".description") %></p>
 
@@ -8,4 +8,4 @@
 
 <p><%= t(".questions") %></p>
 
-<p><%= t(".signature") %></p>
+<p><%= t(".signature", organization_name: @organization.name) %></p>

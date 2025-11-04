@@ -1,6 +1,6 @@
 <%= t(".greeting", name: @invitation.name) %>
 
-<%= t(".invited_by", inviter_name: @invited_by.name) %>
+<%= t(".invited_by", inviter_name: @invited_by.name, organization_name: @organization.name) %>
 
 <%= t(".description") %>
 
@@ -10,4 +10,4 @@
 <%= t(".questions") %>
 
 ---
-<%= t(".signature") %>
+<%= t(".signature", organization_name: @organization.name) %>
