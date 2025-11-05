@@ -1,0 +1,30 @@
+<% content_for :title, t(".title") %>
+
+<div class="container mx-auto max-w-6xl px-4 py-8">
+  <div class="flex items-center justify-between mb-8">
+    <div>
+      <h1 class="text-2xl font-semibold tracking-tight"><%= t(".heading") %></h1>
+      <p class="text-sm text-muted-foreground"><%= t(".description") %></p>
+    </div>
+    <div class="whitespace-nowrap">
+      <%= render_button(
+        variant: :default,
+        href: new_admin_invitation_path
+      ) do %>
+        <%= lucide_icon "user-plus", class: "mr-2 h-4 w-4" %>
+        <%= t(".new_invitation") %>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="mb-4">
+    <h2 class="text-lg font-medium flex items-center gap-2">
+      <%= t(".pending_invitations") %>
+      <%= render_badge(text: @pagy.count, variant: :default) %>
+    </h2>
+  </div>
+
+  <%= turbo_frame_tag "invitations_content" do %>
+    <%= render "invitations_list", invitations: @invitations, pagy: @pagy %>
+  <% end %>
+</div>

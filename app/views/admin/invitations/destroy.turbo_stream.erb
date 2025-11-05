@@ -1,0 +1,5 @@
+<%= turbo_stream.update "flash_toast", partial: "flash_toast" %>
+
+<%= turbo_stream.replace "invitations_content" do %>
+  <%= render "invitations_list", invitations: @invitations, pagy: @pagy %>
+<% end %>
