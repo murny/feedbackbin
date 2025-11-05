@@ -20,13 +20,14 @@ class Invitation < ApplicationRecord
     InvitationsMailer.with(invitation: self).invite.deliver_later
   end
 
-  def accept!
-    # TODO:
-    # we can pass in the user to be created here and this can be in a transaction
+  def accept!(user)
+    transaction do
+      user.update!(email_verified: true)
+      destroy!
+    end
 
-    destroy!
-
-    # TODO: Send notification to owner and invited by?
+    # TODO: Send notification to inviter when invitation is accepted
+    # AcceptedInviteNotifier.with(record: user).deliver(invited_by)
   end
 
   def reject!

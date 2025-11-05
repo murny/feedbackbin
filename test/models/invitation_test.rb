@@ -39,19 +39,23 @@ class InvitationTest < ActiveSupport::TestCase
     assert_equal "has already been invited", invitation.errors[:email].first
   end
 
-  test "accept" do
-    # assert_difference "User.count" do
-    #   user = @invitation.accept!(user)
-
-    #   assert_predicate user, :persisted?
-    # end
+  test "#accept!" do
+    user = User.create!(
+      username: "newuser",
+      email_address: @invitation.email,
+      name: @invitation.name,
+      password: "password123",
+      password_confirmation: "password123"
+    )
 
     assert_difference "Invitation.count", -1 do
-      @invitation.accept!
+      @invitation.accept!(user)
     end
+
+    assert_predicate user.reload, :email_verified?
   end
 
-  test "reject" do
+  test "#reject!" do
     assert_difference "Invitation.count", -1 do
       @invitation.reject!
     end

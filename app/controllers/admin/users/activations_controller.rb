@@ -9,13 +9,16 @@ module Admin
       def create
         respond_to do |format|
           if @user.update(active: true)
-            flash.now[:notice] = t(".success")
             format.html { redirect_to admin_user_path(@user), notice: t(".success") }
-            format.turbo_stream
+            format.turbo_stream do
+              flash.now[:notice] = t(".success")
+            end
           else
-            flash.now[:alert] = @user.errors.full_messages.to_sentence
             format.html { redirect_to admin_user_path(@user), alert: @user.errors.full_messages.to_sentence }
-            format.turbo_stream { render :create, status: :unprocessable_entity }
+            format.turbo_stream do
+              flash.now[:alert] = @user.errors.full_messages.to_sentence
+              render :create, status: :unprocessable_entity
+            end
           end
         end
       end
@@ -24,13 +27,16 @@ module Admin
       def destroy
         respond_to do |format|
           if @user.deactivate
-            flash.now[:notice] = t(".success")
             format.html { redirect_to admin_user_path(@user), notice: t(".success") }
-            format.turbo_stream
+            format.turbo_stream do
+              flash.now[:notice] = t(".success")
+            end
           else
-            flash.now[:alert] = @user.errors.full_messages.to_sentence
             format.html { redirect_to admin_user_path(@user), alert: @user.errors.full_messages.to_sentence }
-            format.turbo_stream { render :destroy, status: :unprocessable_entity }
+            format.turbo_stream do
+              flash.now[:alert] = @user.errors.full_messages.to_sentence
+              render :destroy, status: :unprocessable_entity
+            end
           end
         end
       end
