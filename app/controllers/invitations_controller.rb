@@ -4,7 +4,7 @@ class InvitationsController < ApplicationController
   allow_unauthenticated_access
   skip_after_action :verify_authorized
 
-  rate_limit to: 10, within: 1.minute, only: :show
+  rate_limit to: 10, within: 1.minute, only: :show, with: -> { redirect_to root_path, alert: t("invitations.show.rate_limited") }
 
   def show
     @invitation = Invitation.find_by!(token: params[:token])

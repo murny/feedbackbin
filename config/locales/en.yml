@@ -439,6 +439,7 @@ en:
       heading: You've been invited!
       invited_by_html: "%{inviter_name} has invited you to collaborate on customer feedback and help shape the product roadmap."
       not_found: This invitation link is invalid or has already been used.
+      rate_limited: You have exceeded the maximum number of attempts. Please try again later.
       sign_in: Sign in
       title: You're Invited!
   invitations_mailer:
