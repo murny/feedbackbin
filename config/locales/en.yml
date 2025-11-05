@@ -69,6 +69,8 @@ en:
         successfully_sent: Invitation has been sent successfully.
       destroy:
         successfully_cancelled: Invitation was successfully cancelled.
+      resend:
+        resent: Invitation resent to %{email}
       index:
         description: Invite users to your organization
         heading: Invitations
@@ -81,6 +83,8 @@ en:
         cancel_invitation: Cancel invitation
         copy_invitation_link: Copy invitation link
         invited_by: Invited by
+        resend: Resend
+        resend_confirm: Are you sure you want to resend this invitation?
         no_invitations_description: No pending invitations. Invite someone to get started!
         no_invitations_title: No invitations
       new:
