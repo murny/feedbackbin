@@ -13,5 +13,6 @@ class InvitationsMailerTest < ActionMailer::TestCase
     assert_match invitation.name, mail.body.encoded
     assert_match invitation.invited_by.name, mail.body.encoded
     assert_match organization.name, mail.body.encoded
+    assert_match invitation.token, mail.body.encoded
   end
 end

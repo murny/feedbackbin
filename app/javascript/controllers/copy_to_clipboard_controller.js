@@ -10,9 +10,10 @@ export default class extends Controller {
 
     try {
       await navigator.clipboard.writeText(this.contentValue)
-      this.element.classList.add(this.successClass)
-      this.#showTooltip()
-    } catch {}
+      this.#showSuccess()
+    } catch (error) {
+      console.error("Failed to copy to clipboard", error)
+    }
   }
 
   reset() {
@@ -21,21 +22,29 @@ export default class extends Controller {
   }
 
   #forceReflow() {
+    // Access offsetWidth to force browser reflow for CSS transitions
     this.element.offsetWidth
   }
 
-  #showTooltip() {
+  #showSuccess() {
     const originalTitle = this.element.title
     const originalTooltip = this.element.dataset.tooltip
 
+    this.element.classList.add(this.successClass)
     this.element.title = this.successTitleValue
     this.element.dataset.tooltip = this.successTitleValue
 
-    setTimeout(() => {
+    // Clear any pending timeout
+    if (this.successTimeout) {
+      clearTimeout(this.successTimeout)
+    }
+
+    this.successTimeout = setTimeout(() => {
       this.element.title = originalTitle
       if (originalTooltip) {
         this.element.dataset.tooltip = originalTooltip
       }
-    }, 2000)
+      this.reset()
+    }, 1500)
   }
 }

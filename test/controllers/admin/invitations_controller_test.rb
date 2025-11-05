@@ -41,7 +41,9 @@ module Admin
 
     test "admin can create invitation" do
       assert_difference "Invitation.count", 1 do
-        post admin_invitations_url, params: { invitation: { email: "new@example.com", name: "New User" } }
+        assert_enqueued_emails 1 do
+          post admin_invitations_url, params: { invitation: { email: "new@example.com", name: "New User" } }
+        end
       end
 
       assert_redirected_to admin_invitations_path
@@ -69,7 +71,7 @@ module Admin
       invitation = invitations(:one)
 
       assert_difference "Invitation.count", -1 do
-        delete admin_invitation_url(invitation.id)
+        delete admin_invitation_url(invitation.token)
       end
 
       assert_redirected_to admin_invitations_path
@@ -80,7 +82,7 @@ module Admin
       sign_in_as users(:two)
       invitation = invitations(:one)
 
-      delete admin_invitation_url(invitation)
+      delete admin_invitation_url(invitation.token)
 
       assert_response :redirect
       assert_equal I18n.t("unauthorized"), flash[:alert]

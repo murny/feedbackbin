@@ -70,18 +70,19 @@ en:
       destroy:
         successfully_cancelled: Invitation was successfully cancelled.
       index:
+        description: Invite users to your organization
+        heading: Invitations
+        new_invitation: Invite User
+        pending_invitations: Pending Invitations
+        title: Invitations
+      invitations_list:
         ago: ago
         cancel_confirm: Are you sure you want to cancel this invitation?
         cancel_invitation: Cancel invitation
         copy_invitation_link: Copy invitation link
-        description: Invite users to your organization
-        heading: Invitations
         invited_by: Invited by
-        new_invitation: Invite User
         no_invitations_description: No pending invitations. Invite someone to get started!
         no_invitations_title: No invitations
-        pending_invitations: Pending Invitations
-        title: Invitations
       new:
         back_to_invitations: Back to Invitations
         cancel: Cancel

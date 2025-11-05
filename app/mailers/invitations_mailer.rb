@@ -2,7 +2,7 @@
 
 class InvitationsMailer < ApplicationMailer
   def invite
-    @invitation = params[:invitation]
+    @invitation = params.fetch(:invitation)
     @invited_by = @invitation.invited_by
     @organization = Current.organization
 

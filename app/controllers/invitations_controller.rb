@@ -4,17 +4,9 @@ class InvitationsController < ApplicationController
   allow_unauthenticated_access
   skip_after_action :verify_authorized
 
-  before_action :set_invitation
+  rate_limit to: 10, within: 1.minute, only: :show
 
   def show
-    # Invitation exists, so it's pending (accepted invitations are deleted)
+    @invitation = Invitation.find_by!(token: params[:token])
   end
-
-  private
-
-    def set_invitation
-      @invitation = Invitation.find_by!(token: params[:token])
-    rescue ActiveRecord::RecordNotFound
-      redirect_to root_path, alert: t("invitations.show.not_found")
-    end
 end

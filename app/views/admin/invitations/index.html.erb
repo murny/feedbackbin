@@ -7,7 +7,10 @@
       <p class="text-sm text-muted-foreground"><%= t(".description") %></p>
     </div>
     <div class="whitespace-nowrap">
-      <%= link_to new_admin_invitation_path, class: "btn btn-primary" do %>
+      <%= render_button(
+        variant: :default,
+        href: new_admin_invitation_path
+      ) do %>
         <%= lucide_icon "user-plus", class: "mr-2 h-4 w-4" %>
         <%= t(".new_invitation") %>
       <% end %>
@@ -17,61 +20,11 @@
   <div class="mb-4">
     <h2 class="text-lg font-medium flex items-center gap-2">
       <%= t(".pending_invitations") %>
-      <span class="inline-flex items-center rounded-full px-2 py-1 text-xs font-medium ring-1 ring-inset bg-yellow-50 text-yellow-800 ring-yellow-600/20 dark:bg-yellow-400/10 dark:text-yellow-400 dark:ring-yellow-400/20">
-        <%= @invitations.count %>
-      </span>
+      <%= render_badge(text: @pagy.count, variant: :default) %>
     </h2>
   </div>
 
-  <% if @invitations.any? %>
-    <div class="card">
-      <ul role="list" class="divide-y divide-gray-200 dark:divide-gray-700">
-        <% @invitations.each do |invitation| %>
-          <li class="flex items-center justify-between gap-x-6 py-5 px-6">
-            <div class="min-w-0 flex-1">
-              <div class="flex items-start gap-x-3">
-                <div class="min-w-0 flex-auto">
-                  <p class="text-sm font-semibold leading-6 text-foreground">
-                    <%= invitation.email %>
-                    <% if invitation.name.present? %>
-                      <span class="text-muted-foreground font-normal">(<%= invitation.name %>)</span>
-                    <% end %>
-                  </p>
-                  <div class="mt-1 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs leading-5 text-muted-foreground">
-                    <p>
-                      <%= t(".invited_by") %> <%= invitation.invited_by.name %>
-                    </p>
-                    <svg viewBox="0 0 2 2" class="h-0.5 w-0.5 fill-current">
-                      <circle cx="1" cy="1" r="1" />
-                    </svg>
-                    <p>
-                      <%= time_ago_in_words(invitation.created_at) %> <%= t(".ago") %>
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="flex flex-none items-center gap-x-2">
-              <%= button_to_copy_to_clipboard(invitation_url(invitation.token)) do %>
-                <%= lucide_icon "copy", class: "h-4 w-4" %>
-                <span class="sr-only"><%= t(".copy_invitation_link") %></span>
-              <% end %>
-              <%= link_to admin_invitation_path(invitation),
-                    class: "btn btn-sm btn-ghost text-destructive hover:text-destructive/80",
-                    data: { "turbo-method": :delete, turbo_confirm: t(".cancel_confirm") } do %>
-                <%= lucide_icon "x", class: "h-4 w-4" %>
-                <span class="sr-only"><%= t(".cancel_invitation") %></span>
-              <% end %>
-            </div>
-          </li>
-        <% end %>
-      </ul>
-    </div>
-  <% else %>
-    <div class="card p-8 text-center">
-      <%= lucide_icon "mail-check", class: "mx-auto h-12 w-12 text-muted-foreground" %>
-      <h3 class="mt-4 text-lg font-semibold text-foreground"><%= t(".no_invitations_title") %></h3>
-      <p class="mt-2 text-sm text-muted-foreground"><%= t(".no_invitations_description") %></p>
-    </div>
+  <%= turbo_frame_tag "invitations_content" do %>
+    <%= render "invitations_list", invitations: @invitations, pagy: @pagy %>
   <% end %>
 </div>
