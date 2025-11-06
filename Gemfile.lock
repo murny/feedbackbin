@@ -1,4 +1,19 @@
 GIT
+  remote: https://github.com/murny/feedbackbin_elements.git
+  revision: 8d791d826e4e7214020e5ae367e7789a1c7463f2
+  branch: master
+  specs:
+    feedbackbin_elements (0.1.0)
+      importmap-rails
+      lucide-rails
+      propshaft
+      rails (>= 8.1.1)
+      stimulus-rails
+      tailwind_merge
+      tailwindcss-rails
+      turbo-rails
+
+GIT
   remote: https://github.com/rails/rails.git
   revision: f8dbca93520f5bec095b6e81bdfe54af44c05c0a
   branch: main
@@ -98,19 +113,6 @@ GIT
       thor (~> 1.0, >= 1.2.2)
       tsort (>= 0.2)
       zeitwerk (~> 2.6)
-
-PATH
-  remote: lib/feedbackbin_elements
-  specs:
-    feedbackbin_elements (0.1.0)
-      importmap-rails
-      lucide-rails
-      propshaft
-      rails (>= 8.0.0)
-      stimulus-rails
-      tailwind_merge (~> 1.3)
-      tailwindcss-rails
-      turbo-rails
 
 GEM
   remote: https://rubygems.org/
