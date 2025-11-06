@@ -1,4 +1,4 @@
-<% password_digest = BCrypt::Password.create("secret123456") %>
+<% password_digest = BCrypt::Password.create("secret123456", cost: 1) %>
 
 shane:
   username: Murny
