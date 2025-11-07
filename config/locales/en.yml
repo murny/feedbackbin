@@ -408,8 +408,11 @@ en:
       account_setup: Account Setup
       account_setup_description: Create your personal account to get started.
       avatar_size_hint: JPG, PNG up to 2MB. Recommended size 400x400px.
+      category_color: Category Color
+      category_color_hint: Choose a color for the category
       category_hint: Start with one category to organize feedback.
       category_placeholder: Enter category name
+      category_preview: Preview
       create_account_and_organization: Create Account & Organization
       description: Let's get you set up with your account and organization.
       email_address_hint: Never shown to the public

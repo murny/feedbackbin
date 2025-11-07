@@ -30,7 +30,7 @@ class FirstRun
 
   # Organization validations
   validates :organization_name, presence: true
-  validates :organization_subdomain, presence: true
+  validates :organization_subdomain, presence: true, if: -> { Rails.application.config.multi_tenant }
 
   # Category validations
   validates :category_name, presence: true

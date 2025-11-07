@@ -19,10 +19,12 @@
                 <%= f.text_field :name %>
               </div>
 
-              <div class="grid gap-3">
-                <%= f.label :subdomain, t(".subdomain") %>
+              <% if Rails.application.config.multi_tenant %>
+                <div class="grid gap-3">
+                  <%= f.label :subdomain, t(".subdomain") %>
                 <%= f.text_field :subdomain %>
-              </div>
+                </div>
+              <% end %>
 
               <div class="grid gap-3">
                 <%= f.label :logo, t(".logo"), class: "text-sm font-medium" %>

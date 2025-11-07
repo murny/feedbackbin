@@ -14,7 +14,6 @@ class FirstRunTest < ActiveSupport::TestCase
         email_address: "owner@example.com",
         password: "secret123456",
         organization_name: "Test Organization",
-        organization_subdomain: "testorg",
         category_name: "Test Category",
         category_color: "#3b82f6"
       ).save!
@@ -34,6 +33,7 @@ class FirstRunTest < ActiveSupport::TestCase
     assert_includes first_run.errors[:email_address], "can't be blank"
     assert_includes first_run.errors[:password], "can't be blank"
     assert_includes first_run.errors[:organization_name], "can't be blank"
-    assert_includes first_run.errors[:organization_subdomain], "can't be blank"
+    assert_includes first_run.errors[:category_name], "can't be blank"
+    assert_includes first_run.errors[:category_color], "can't be blank"
   end
 end
