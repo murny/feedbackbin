@@ -163,12 +163,12 @@ bin/jobs
 
 FeedbackBin supports both single-tenant and multi-tenant deployments:
 
-**Single-Tenant Mode (Default)**
+#### Single-Tenant Mode (Default)**
 - One organization per instance
 - Subdomains are optional
 - Simpler setup for dedicated installations
 
-**Multi-Tenant Mode**
+#### Multi-Tenant Mode**
 - Multiple organizations with unique subdomains
 - Subdomain-based routing
 - Enable by setting environment variable:
