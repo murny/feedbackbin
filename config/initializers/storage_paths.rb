@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # Ensure storage subdirectories exist with correct ownership
 # This prevents permission issues in Docker and other deployment scenarios
 # by creating directories at runtime as the Rails user
