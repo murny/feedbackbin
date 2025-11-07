@@ -304,7 +304,7 @@ bin/importmap audit
 
 ## 🚀 Deployment
 
-FeedbackBin uses Kamal for modern, container-based deployment:
+FeedbackBin supports multiple deployment methods depending on your needs:
 
 ### Server Requirements
 - **VPS**: Any cloud provider (DigitalOcean, Hetzner, AWS, etc.)
@@ -323,7 +323,144 @@ FeedbackBin uses Kamal for modern, container-based deployment:
 sudo apt update && sudo apt upgrade -y
 ```
 
-### Deployment with Kamal
+### Deploying with Docker
+
+FeedbackBin's Docker image contains everything needed for a fully-functional, single-machine deployment. This includes the web app, background jobs, caching, file serving, and SSL support via Thruster.
+
+#### Building and Running
+
+```bash
+# Build the image
+docker build -t feedbackbin .
+
+# Run the container
+docker run \
+  --publish 80:80 \
+  --restart unless-stopped \
+  --volume feedbackbin-storage:/rails/storage \
+  --env SECRET_KEY_BASE=$YOUR_SECRET_KEY_BASE \
+  --name feedbackbin \
+  feedbackbin
+```
+
+#### Using the prebuilt image from GHCR.io
+
+If you prefer not to build locally, you can use the published image:
+
+```bash
+# Pull the image
+docker pull ghcr.io/murny/feedbackbin:master
+
+# Run the container
+docker run \
+  --publish 80:80 \
+  --restart unless-stopped \
+  --volume feedbackbin-storage:/rails/storage \
+  --env SECRET_KEY_BASE=$YOUR_SECRET_KEY_BASE \
+  --name feedbackbin \
+  ghcr.io/murny/feedbackbin:master
+```
+
+Need a `SECRET_KEY_BASE`? Generate one with:
+
+```bash
+docker run --rm ghcr.io/murny/feedbackbin:master bin/rails secret
+```
+
+#### Volume Persistence
+
+To persist the database and file attachments, you **must** map a volume to `/rails/storage`. This directory contains:
+- SQLite databases (`/rails/storage/db/`)
+- File uploads (`/rails/storage/files/`)
+
+#### ⚠️ Important: Volume Permissions
+
+The FeedbackBin container runs as a non-root user (`rails`, UID 1000) for security. **You must ensure that host-mounted volumes are owned by UID 1000** or the container will fail with permission errors.
+
+**For named volumes** (recommended):
+```bash
+docker run --volume feedbackbin-storage:/rails/storage ...
+```
+Docker handles permissions automatically. ✅
+
+**For bind mounts** (host directories):
+```bash
+# First, set correct ownership on the host
+sudo chown -R 1000:1000 /path/to/host/storage
+
+# Then mount it
+docker run --volume /path/to/host/storage:/rails/storage ...
+```
+
+#### Environment Variables
+
+Configure additional features by setting environment variables:
+
+| Variable | Description |
+|----------|-------------|
+| `SECRET_KEY_BASE` | **Required**. Rails secret for session encryption |
+| `RAILS_MASTER_KEY` | Rails credentials encryption key (if using credentials) |
+| `HTTP_PORT` | HTTP port to listen on (default: 80) |
+
+
+### Deploying with Docker Compose
+
+For easier management, use Docker Compose:
+
+#### 1. Create `docker-compose.yml`
+
+```yaml
+services:
+  feedbackbin:
+    image: ghcr.io/murny/feedbackbin:master
+    container_name: feedbackbin
+    restart: unless-stopped
+    ports:
+      - "4080:4080"
+    volumes:
+      # Using bind mount - ensure proper permissions!
+      - ./data:/rails/storage
+    environment:
+      SECRET_KEY_BASE: ${SECRET_KEY_BASE}
+      HTTP_PORT: 4080
+```
+
+#### 2. Set up environment variables
+
+Create a `.env` file:
+```bash
+SECRET_KEY_BASE=your_secret_key_base_here
+```
+
+Generate a secret key:
+```bash
+docker run --rm feedbackbin bin/rails secret
+```
+
+#### 3. Prepare storage directory
+
+```bash
+# Create and set permissions BEFORE starting
+mkdir -p ./data
+sudo chown -R 1000:1000 ./data
+```
+
+#### 4. Start the application
+
+```bash
+docker compose up -d
+```
+
+#### 5. Check logs
+
+```bash
+docker compose logs -f feedbackbin
+```
+
+### Deploying with Kamal
+
+For production deployments with zero-downtime updates:
+
 ```bash
 # Configure deployment settings
 cp config/deploy.example.yml config/deploy.yml
