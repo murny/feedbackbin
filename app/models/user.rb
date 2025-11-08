@@ -28,6 +28,16 @@ class User < ApplicationRecord
 
   enum :theme, { system: 0, light: 1, dark: 2 }, default: :system, prefix: true, validate: true
 
+  # Theme preference for organization-level theme choice
+  enum :theme_preference, {
+    organization: "organization",
+    system: "system",
+    light: "light",
+    dark: "dark",
+    purple: "purple",
+    navy: "navy"
+  }, default: :organization
+
   validates :username, presence: true,
     length: { minimum: 3, maximum: MAX_USERNAME_LENGTH },
     uniqueness: { case_sensitive: false },
@@ -85,6 +95,15 @@ class User < ApplicationRecord
 
   def organization_owner?
     owned_organization.present?
+  end
+
+  # Get the effective theme for this user (respects organization settings)
+  def effective_theme
+    if theme_preference == "organization" || !Current.organization&.allow_user_theme_choice?
+      Current.organization&.theme || "system"
+    else
+      theme_preference
+    end
   end
 
   private

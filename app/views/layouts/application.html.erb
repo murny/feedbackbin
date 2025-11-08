@@ -25,7 +25,9 @@
   <%= tag.body class: "h-full flex flex-col",
         data: {
           controller: "local-time lightbox theme-application",
-          theme_application_preference_value: Current.user&.theme || "system"
+          theme_application_preference_value: Current.user&.theme || "system",
+          theme_application_theme_value: effective_theme,
+          theme_application_accent_color_value: effective_accent_color
         } do %>
     <% if content_for?(:sidebar) %>
       <!-- Admin layout with sidebar -->

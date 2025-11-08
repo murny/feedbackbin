@@ -139,6 +139,23 @@ en:
           upload_new_logo: Upload new logo
         update:
           successfully_updated: Branding settings were successfully updated.
+      themes:
+        show:
+          accent_color: Accent color
+          accent_color_hint: Used for buttons, links, and other accent elements
+          allow_user_theme_choice: Allow users to choose light/dark mode
+          allow_user_theme_choice_hint: When enabled, users can override your theme choice in their profile settings
+          appearance: Appearance
+          description: Customize the interface appearance for your customers
+          save_changes: Save changes
+          theme_dark: Dark
+          theme_light: Light
+          theme_navy: Navy
+          theme_purple: Purple
+          theme_system: System
+          title: Theme
+        update:
+          successfully_updated: Theme settings were successfully updated.
       categories:
         create:
           successfully_created: Category was successfully created.
@@ -201,6 +218,7 @@ en:
           danger_zone: Danger Zone
           general: General
           post_statuses: Post Statuses
+          theme: Theme
         title: Settings
       ownership_transfers:
         create:

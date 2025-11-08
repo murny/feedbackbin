@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.2].define(version: 2024_05_17_075643) do
+ActiveRecord::Schema[8.2].define(version: 2025_11_08_012301) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -102,14 +102,18 @@ ActiveRecord::Schema[8.2].define(version: 2024_05_17_075643) do
   end
 
   create_table "organizations", force: :cascade do |t|
+    t.string "accent_color"
+    t.boolean "allow_user_theme_choice", default: false, null: false
     t.datetime "created_at", null: false
     t.integer "default_post_status_id", null: false
     t.string "name", null: false
     t.integer "owner_id", null: false
     t.string "subdomain"
+    t.string "theme", default: "system", null: false
     t.datetime "updated_at", null: false
     t.index ["default_post_status_id"], name: "index_organizations_on_default_post_status_id"
     t.index ["owner_id"], name: "index_organizations_on_owner_id"
+    t.index ["theme"], name: "index_organizations_on_theme"
   end
 
   create_table "post_statuses", force: :cascade do |t|
@@ -172,10 +176,12 @@ ActiveRecord::Schema[8.2].define(version: 2024_05_17_075643) do
     t.integer "role", default: 0, null: false
     t.boolean "super_admin", default: false, null: false
     t.integer "theme", default: 0, null: false
+    t.string "theme_preference", default: "organization", null: false
     t.string "time_zone"
     t.datetime "updated_at", null: false
     t.string "username", null: false
     t.index ["email_address"], name: "index_users_on_email_address", unique: true
+    t.index ["theme_preference"], name: "index_users_on_theme_preference"
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 

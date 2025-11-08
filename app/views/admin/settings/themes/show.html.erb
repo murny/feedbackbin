@@ -1,0 +1,82 @@
+<% content_for :title, t(".title") %>
+
+<div class="container mx-auto max-w-4xl">
+  <%= render partial: "admin/settings/header" %>
+
+  <!-- Theme Section -->
+  <div class="mt-8">
+    <div class="mb-6">
+      <h2 class="text-lg font-medium"><%= t(".title") %></h2>
+      <p class="text-sm text-muted-foreground"><%= t(".description") %></p>
+    </div>
+
+    <%= render_card do %>
+      <div class="px-6">
+        <%= render_form_with model: Current.organization, url: admin_settings_theme_path, method: :patch do |f| %>
+          <div class="grid gap-6">
+            <!-- Theme Selector -->
+            <div class="grid gap-3">
+              <%= f.label :theme, t(".appearance"), class: "text-sm font-medium" %>
+              <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+                <% Organization.themes.keys.each do |theme_key| %>
+                  <%= f.label "theme_#{theme_key}", class: "cursor-pointer" do %>
+                    <div class="border-2 rounded-lg overflow-hidden transition <%= 'border-primary ring-2 ring-primary ring-offset-2' if Current.organization.theme == theme_key %>">
+                      <!-- Theme preview card -->
+                      <div class="relative aspect-[4/3] <%= theme_preview_class(theme_key) %>">
+                        <div class="absolute inset-0 flex flex-col p-3 gap-2">
+                          <div class="h-2 w-16 rounded bg-current opacity-20"></div>
+                          <div class="flex-1 rounded bg-current opacity-10"></div>
+                          <div class="h-6 rounded bg-primary"></div>
+                        </div>
+                      </div>
+                      <!-- Theme name -->
+                      <div class="p-2 text-center bg-muted">
+                        <%= f.radio_button :theme, theme_key, class: "hidden theme-radio" %>
+                        <span class="text-sm font-medium"><%= t(".theme_#{theme_key}") %></span>
+                      </div>
+                    </div>
+                  <% end %>
+                <% end %>
+              </div>
+            </div>
+
+            <!-- Accent Color Picker -->
+            <div class="grid gap-3">
+              <%= f.label :accent_color, t(".accent_color"), class: "text-sm font-medium" %>
+              <div class="flex items-center gap-3">
+                <%= f.color_field :accent_color,
+                      value: Current.organization.accent_color_or_default,
+                      class: "h-10 w-20 rounded border cursor-pointer" %>
+                <%= f.text_field :accent_color,
+                      placeholder: "#ef567c",
+                      class: "flex-1" %>
+              </div>
+              <p class="text-xs text-muted-foreground">
+                <%= t(".accent_color_hint") %>
+              </p>
+            </div>
+
+            <!-- Allow User Theme Choice Toggle -->
+            <div class="grid gap-3">
+              <div class="flex items-center justify-between">
+                <div class="flex-1">
+                  <%= f.label :allow_user_theme_choice, t(".allow_user_theme_choice"), class: "text-sm font-medium cursor-pointer" %>
+                  <p class="text-xs text-muted-foreground mt-1">
+                    <%= t(".allow_user_theme_choice_hint") %>
+                  </p>
+                </div>
+                <div class="flex items-center">
+                  <%= f.check_box :allow_user_theme_choice, class: "rounded border-input" %>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mt-8 flex items-center justify-end gap-3">
+            <%= render_button text: t(".save_changes"), type: :submit, variant: :default %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>
