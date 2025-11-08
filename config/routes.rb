@@ -51,6 +51,13 @@ Rails.application.routes.draw do
       resource :pin, only: [ :create, :destroy ]
       resource :status, only: [ :update ]
     end
+    resource :subscription, only: [ :create, :destroy ]
+  end
+
+  resources :notifications, only: [ :index, :update ] do
+    collection do
+      post :mark_all_as_read
+    end
   end
   resources :comments, except: [ :index, :new ]
   resources :changelogs, only: [ :index, :show ]

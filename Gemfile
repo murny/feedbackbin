@@ -15,6 +15,9 @@ gem "mission_control-jobs"
 gem "solid_cache"
 gem "solid_cable"
 
+# Notifications
+gem "noticed", "~> 2.0"
+
 # Deployment
 gem "puma", "~> 7.1"
 gem "thruster", require: false

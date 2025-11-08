@@ -22,6 +22,7 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy, foreign_key: :voter_id, inverse_of: :voter
   has_many :user_connected_accounts, dependent: :destroy
   has_many :invitations, dependent: :destroy, foreign_key: :invited_by_id, inverse_of: :invited_by
+  has_many :subscriptions, dependent: :destroy
   has_one :owned_organization, class_name: "Organization", foreign_key: :owner_id, inverse_of: :owner, dependent: :restrict_with_error
 
   has_one_attached :avatar
@@ -85,6 +86,19 @@ class User < ApplicationRecord
 
   def organization_owner?
     owned_organization.present?
+  end
+
+  # Notification helpers
+  def notifications
+    Noticed::Notification.where(recipient: self).order(created_at: :desc)
+  end
+
+  def unread_notifications
+    notifications.where(read_at: nil)
+  end
+
+  def unread_notifications_count
+    unread_notifications.count
   end
 
   private
