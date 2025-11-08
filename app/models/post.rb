@@ -4,6 +4,7 @@ class Post < ApplicationRecord
   include ModelSortable
   include Likeable
   include Searchable
+  include Subscribable
 
   has_rich_text :body
 
@@ -18,4 +19,22 @@ class Post < ApplicationRecord
   validates :title, presence: true
 
   scope :ordered_with_pinned, -> { order(pinned: :desc, created_at: :desc) }
+
+  after_create :subscribe_author
+  after_create :notify_admins_of_new_post
+
+  private
+
+    def subscribe_author
+      subscribe(author) if author
+    end
+
+    def notify_admins_of_new_post
+      return unless author
+
+      NewPostCreatedNotification.with(
+        post: self,
+        author: author
+      ).deliver_later(User.where(role: :administrator).where.not(id: author.id))
+    end
 end

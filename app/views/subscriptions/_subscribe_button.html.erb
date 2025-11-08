@@ -1,0 +1,21 @@
+<%# locals: (post:) %>
+
+<% if Current.user %>
+  <% if post.subscribed_by?(Current.user) %>
+    <%= button_to post_subscription_path(post),
+                  method: :delete,
+                  class: "btn btn-ghost btn-sm",
+                  title: t(".unsubscribe") do %>
+      <%= lucide_icon "bell-off", class: "h-4 w-4" %>
+      <span class="ml-1.5"><%= t(".subscribed") %></span>
+    <% end %>
+  <% else %>
+    <%= button_to post_subscription_path(post),
+                  method: :post,
+                  class: "btn btn-ghost btn-sm",
+                  title: t(".subscribe") do %>
+      <%= lucide_icon "bell", class: "h-4 w-4" %>
+      <span class="ml-1.5"><%= t(".subscribe") %></span>
+    <% end %>
+  <% end %>
+<% end %>

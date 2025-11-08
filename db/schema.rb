@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.2].define(version: 2024_05_17_075643) do
+ActiveRecord::Schema[8.2].define(version: 2025_11_08_182509) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -101,6 +101,30 @@ ActiveRecord::Schema[8.2].define(version: 2024_05_17_075643) do
     t.index ["voter_id"], name: "index_likes_on_voter_id"
   end
 
+  create_table "noticed_events", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "notifications_count"
+    t.json "params"
+    t.bigint "record_id"
+    t.string "record_type"
+    t.string "type"
+    t.datetime "updated_at", null: false
+    t.index ["record_type", "record_id"], name: "index_noticed_events_on_record"
+  end
+
+  create_table "noticed_notifications", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "event_id", null: false
+    t.datetime "read_at", precision: nil
+    t.bigint "recipient_id", null: false
+    t.string "recipient_type", null: false
+    t.datetime "seen_at", precision: nil
+    t.string "type"
+    t.datetime "updated_at", null: false
+    t.index ["event_id"], name: "index_noticed_notifications_on_event_id"
+    t.index ["recipient_type", "recipient_id"], name: "index_noticed_notifications_on_recipient"
+  end
+
   create_table "organizations", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "default_post_status_id", null: false
@@ -148,6 +172,21 @@ ActiveRecord::Schema[8.2].define(version: 2024_05_17_075643) do
     t.index ["user_id"], name: "index_sessions_on_user_id"
   end
 
+  create_table "subscriptions", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "subscribable_id", null: false
+    t.string "subscribable_type", null: false
+    t.datetime "subscribed_at"
+    t.datetime "unsubscribed_at"
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["subscribable_type", "subscribable_id"], name: "index_subscriptions_on_subscribable"
+    t.index ["subscribed_at"], name: "index_subscriptions_on_subscribed_at"
+    t.index ["unsubscribed_at"], name: "index_subscriptions_on_unsubscribed_at"
+    t.index ["user_id", "subscribable_type", "subscribable_id"], name: "index_subscriptions_on_user_and_subscribable", unique: true
+    t.index ["user_id"], name: "index_subscriptions_on_user_id"
+  end
+
   create_table "user_connected_accounts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "provider_name", null: false
@@ -192,5 +231,6 @@ ActiveRecord::Schema[8.2].define(version: 2024_05_17_075643) do
   add_foreign_key "posts", "post_statuses"
   add_foreign_key "posts", "users", column: "author_id"
   add_foreign_key "sessions", "users"
+  add_foreign_key "subscriptions", "users"
   add_foreign_key "user_connected_accounts", "users"
 end

@@ -796,3 +796,28 @@ en:
       tabs_posts: Posts
       twitter: Twitter
       website: Website
+  notifications:
+    index:
+      title: Notifications
+      mark_all_as_read: Mark all as read
+      mark_as_read: Mark as read
+      ago: ago
+      no_notifications: No notifications
+      no_notifications_description: "When there's activity on posts you're following, you'll see it here."
+    update:
+      success: Notification marked as read
+    mark_all_as_read:
+      success: All notifications marked as read
+  subscriptions:
+    create:
+      success: Successfully subscribed to post
+    destroy:
+      success: Successfully unsubscribed from post
+    subscribe_button:
+      subscribe: Subscribe
+      unsubscribe: Unsubscribe
+      subscribed: Subscribed
+  posts:
+    statuses:
+      update:
+        success: Post status updated successfully
