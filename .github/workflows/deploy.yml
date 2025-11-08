@@ -1,10 +1,10 @@
 name: Deploy to Production
 
-# Trigger on pushes to main and allow manual deployment
+# Trigger on pushes to master and allow manual deployment
 on:
   push:
     branches:
-      - main
+      - master
   workflow_dispatch: # Allows manual triggering from GitHub Actions UI
 
 # Read-only permissions by default
@@ -23,8 +23,8 @@ jobs:
       name: production
       url: https://feedbackbin.com
 
-    # Only deploy from main branch (safety check for manual triggers)
-    if: github.ref == 'refs/heads/main'
+    # Only deploy from master branch (safety check for manual triggers)
+    if: github.ref == 'refs/heads/master'
 
     env:
       # Use GITHUB_TOKEN for GHCR authentication
