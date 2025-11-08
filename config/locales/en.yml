@@ -16,10 +16,14 @@ en:
               administrator_cannot_be_removed: administrator role cannot be removed for the organization owner
         organization:
           attributes:
+            base:
+              at_least_one_module_required: At least one module must be enabled
             categories:
               must_have_at_least_one: must have at least one category
             owner:
               must_be_administrator: must be an administrator
+            root_path_module:
+              must_be_enabled: The default landing page must be an enabled module
             subdomain:
               format: must be at least 2 characters and alphanumeric
               reserved: "%{value} is reserved"
@@ -139,6 +143,22 @@ en:
           upload_new_logo: Upload new logo
         update:
           successfully_updated: Branding settings were successfully updated.
+      navigations:
+        show:
+          at_least_one_module_warning: At least one section must be enabled for your site to function.
+          changelog_module: Announcements
+          changelog_module_description: Keep customers updated on changes
+          default_landing_page: Default landing page
+          default_landing_page_hint: Choose which page visitors see when they first arrive at your feedback site
+          description: Control which sections appear on your feedback site
+          posts_module: Ideas
+          posts_module_description: Collect and organize customer feedback
+          roadmap_module: Roadmap
+          roadmap_module_description: Share what you're working on
+          save_changes: Save changes
+          title: Site Navigation
+        update:
+          successfully_updated: Navigation settings updated successfully
       categories:
         create:
           successfully_created: Category was successfully created.
@@ -201,6 +221,7 @@ en:
           danger_zone: Danger Zone
           general: General
           post_statuses: Post Statuses
+          site_navigation: Navigation
         title: Settings
       ownership_transfers:
         create:
@@ -796,3 +817,7 @@ en:
       tabs_posts: Posts
       twitter: Twitter
       website: Website
+  modules:
+    changelog: Announcements
+    posts: Ideas
+    roadmap: Roadmap
