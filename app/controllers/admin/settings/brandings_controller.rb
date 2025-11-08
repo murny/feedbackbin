@@ -17,7 +17,15 @@ module Admin
       private
 
         def organization_params
-          params.require(:organization).permit(:name, :logo, :subdomain).compact
+          params.require(:organization).permit(
+            :name,
+            :subdomain,
+            :logo,
+            :logo_display_mode,
+            :logo_link,
+            :favicon,
+            :og_image
+          ).compact
         end
     end
   end

@@ -12,11 +12,33 @@
 
     <%= yield :head %>
 
+    <% if Current.organization %>
+      <!-- Open Graph / Facebook -->
+      <meta property="og:type" content="website">
+      <meta property="og:url" content="<%= request.original_url %>">
+      <meta property="og:title" content="<%= content_for(:title) || Current.organization.name %>">
+      <meta property="og:description" content="<%= Current.organization.name %> feedback">
+      <meta property="og:image" content="<%= Current.organization.og_image_url %>">
+      <meta property="og:image:width" content="1200">
+      <meta property="og:image:height" content="630">
+
+      <!-- Twitter -->
+      <meta name="twitter:card" content="summary_large_image">
+      <meta name="twitter:url" content="<%= request.original_url %>">
+      <meta name="twitter:title" content="<%= content_for(:title) || Current.organization.name %>">
+      <meta name="twitter:description" content="<%= Current.organization.name %> feedback">
+      <meta name="twitter:image" content="<%= Current.organization.og_image_url %>">
+    <% end %>
+
     <%= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
 
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
+    <% if Current.organization&.favicon&.attached? %>
+      <%= favicon_link_tag Current.organization.favicon.url %>
+    <% else %>
+      <link rel="icon" href="/icon.png" type="image/png">
+      <link rel="icon" href="/icon.svg" type="image/svg+xml">
+      <link rel="apple-touch-icon" href="/icon.png">
+    <% end %>
 
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
