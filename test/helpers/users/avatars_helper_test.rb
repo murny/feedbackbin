@@ -15,8 +15,8 @@ module Users
     test "avatar_tag" do
       tag = avatar_tag(@user)
 
-      assert_match %r{<a title="#{CGI.escapeHTML(@user.title)}" data-turbo-frame="_top" href="/users/#{@user.id}">}, tag
-      assert_match %r{<img alt="#{@user.name}" loading="lazy" src="/users/#{@user.id}/avatar\?v=\d+" /></a>}, tag
+      assert_match %r{<a title="#{CGI.escapeHTML(@user.title)}" data-turbo-frame="_top" href="/users/#{@user.to_param}">}, tag
+      assert_match %r{<img alt="#{@user.name}" loading="lazy" src="/users/#{@user.to_param}/avatar\?v=\d+" /></a>}, tag
     end
   end
 end
