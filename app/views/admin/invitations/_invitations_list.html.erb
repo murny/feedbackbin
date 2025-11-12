@@ -37,7 +37,7 @@
               variant: :outline,
               size: :icon,
               href: resend_admin_invitation_path(invitation),
-              data: { "turbo-method": :post, turbo_confirm: t(".resend_confirm"), tooltip: t(".resend") }
+              data: { turbo_method: :post, turbo_confirm: t(".resend_confirm"), tooltip: t(".resend") }
             ) do %>
               <%= lucide_icon "mail", class: "h-4 w-4" %>
               <span class="sr-only"><%= t(".resend") %></span>
@@ -46,7 +46,7 @@
               variant: :destructive,
               size: :icon,
               href: admin_invitation_path(invitation),
-              data: { "turbo-method": :delete, turbo_confirm: t(".cancel_confirm"), tooltip: t(".cancel_invitation") }
+              data: { turbo_method: :delete, turbo_confirm: t(".cancel_confirm"), tooltip: t(".cancel_invitation") }
             ) do %>
               <%= lucide_icon "x", class: "h-4 w-4" %>
               <span class="sr-only"><%= t(".cancel_invitation") %></span>
