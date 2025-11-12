@@ -1,0 +1,230 @@
+name: Build and Publish Docker Image
+
+# Trigger on pushes to master branch, tags, and pull requests targeting master
+# This allows us to build images for PRs (validation) without pushing them
+# Tags enable versioned releases with semantic versioning support
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - 'v*'
+  pull_request:
+  workflow_dispatch:
+
+# Prevent multiple builds for the same ref from running concurrently
+concurrency:
+  group: publish-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+# Required permissions for GHCR, attestations, and OIDC
+permissions:
+  contents: read      # Read repository contents
+  packages: write     # Push to GitHub Container Registry
+  id-token: write     # Required for attestation signing
+  attestations: write # Generate build attestations
+
+env:
+  IMAGE_DESCRIPTION: FeedbackBin - Open source customer feedback and roadmap management platform. Collect feedback, organize ideas, prioritize with voting, and share your roadmap. Self-hosted and production-ready.
+  SOURCE_URL: https://github.com/${{ github.repository }}
+
+jobs:
+  build:
+    name: Build and push image (${{ matrix.arch }})
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 45
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - runner: ubuntu-latest
+            platform: linux/amd64
+            arch: amd64
+          - runner: ubuntu-24.04-arm
+            platform: linux/arm64
+            arch: arm64
+
+    env:
+      REGISTRY: ghcr.io
+      IMAGE_NAME: ${{ github.repository }} # Will be: murny/feedbackbin
+    steps:
+      # Checkout the repository code
+      - name: Checkout code
+        uses: actions/checkout@v5.0.0
+
+      # Set up Docker Buildx for advanced build features
+      # Enables BuildKit features like better caching and multi-platform builds
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3.11.1
+
+      # Authenticate to GitHub Container Registry
+      # GITHUB_TOKEN is automatically provided by GitHub Actions
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3.6.0
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      # Compute the lowercase image name (GHCR requires lowercase)
+      # GitHub repository names can have uppercase, but container registries require lowercase
+      - name: Compute canonical image name (lowercase)
+        id: vars
+        shell: bash
+        run: |
+          set -eu
+          IMAGE_REF="${IMAGE_NAME:-$GITHUB_REPOSITORY}"
+          CANONICAL_IMAGE="${REGISTRY}/${IMAGE_REF,,}"
+          echo "canonical=${CANONICAL_IMAGE}" >> "$GITHUB_OUTPUT"
+
+      # Extract metadata for Docker (tags, labels) with arch suffix
+      # This handles smart tagging based on the git ref
+      - name: Extract Docker metadata (tags, labels) with arch suffix
+        id: meta
+        uses: docker/metadata-action@v5.9.0
+        with:
+          images: ${{ steps.vars.outputs.canonical }}
+          tags: |
+            # Branch name for branch pushes (e.g., master)
+            type=ref,event=branch
+            # Tag name for tag pushes (e.g., v1.0.0)
+            type=ref,event=tag
+            # Git SHA with sha prefix (e.g., sha-abc1234)
+            type=sha,format=short,prefix=sha-
+            # Semantic versioning patterns (only for tags starting with v)
+            type=semver,pattern={{version}},enable=${{ startsWith(github.ref, 'refs/tags/v') }}
+            type=semver,pattern={{major}}.{{minor}},enable=${{ startsWith(github.ref, 'refs/tags/v') }}
+            type=semver,pattern={{major}},enable=${{ startsWith(github.ref, 'refs/tags/v') }}
+          flavor: |
+            # Don't auto-tag as latest here (handled in manifest job)
+            latest=false
+            # Add architecture suffix to all tags
+            suffix=-${{ matrix.arch }}
+          labels: |
+            org.opencontainers.image.source=${{ env.SOURCE_URL }}
+            org.opencontainers.image.description=${{ env.IMAGE_DESCRIPTION }}
+
+      # Build the Docker image and push to GHCR (only on master/tags, not PRs)
+      - name: Build and push (${{ matrix.platform }})
+        id: build
+        uses: docker/build-push-action@v6.18.0
+        with:
+          context: .
+          file: Dockerfile
+          build-args: |
+            OCI_SOURCE=${{ env.SOURCE_URL }}
+            OCI_DESCRIPTION=${{ env.IMAGE_DESCRIPTION }}
+          platforms: ${{ matrix.platform }}
+          # Only push images when not on a pull request
+          push: ${{ github.event_name != 'pull_request' }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          # Use GitHub Actions cache for layer caching (speeds up builds)
+          cache-from: type=gha,scope=${{ matrix.platform }}
+          cache-to: type=gha,scope=${{ matrix.platform }},mode=max
+          # Disable built-in SBOM/provenance to handle attestations separately
+          sbom: false
+          provenance: false
+
+      # Generate build provenance attestation for supply chain security (per-arch)
+      # Only runs when we actually push an image (not on PRs)
+      - name: Attest image provenance (per-arch)
+        if: github.event_name != 'pull_request'
+        uses: actions/attest-build-provenance@v3.0.0
+        with:
+          subject-name: ${{ steps.vars.outputs.canonical }}
+          subject-digest: ${{ steps.build.outputs.digest }}
+          # Don't push attestations to registry yet (will be handled in manifest job)
+          push-to-registry: false
+
+  manifest:
+    name: Create multi-arch manifest and sign
+    needs: build
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    env:
+      REGISTRY: ghcr.io
+      IMAGE_NAME: ${{ github.repository }} # Will be: murny/feedbackbin
+    steps:
+      - name: Set up Docker Buildx (for imagetools)
+        uses: docker/setup-buildx-action@v3.11.1
+
+      - name: Log in to GHCR
+        uses: docker/login-action@v3.6.0
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Compute canonical image name (lowercase)
+        id: vars
+        shell: bash
+        run: |
+          set -eu
+          IMAGE_REF="${IMAGE_NAME:-$GITHUB_REPOSITORY}"
+          CANONICAL_IMAGE="${REGISTRY}/${IMAGE_REF,,}"
+          echo "canonical=${CANONICAL_IMAGE}" >> "$GITHUB_OUTPUT"
+
+      - name: Compute base tags (no suffix)
+        id: meta
+        uses: docker/metadata-action@v5.9.0
+        with:
+          images: ${{ steps.vars.outputs.canonical }}
+          tags: |
+            type=ref,event=branch
+            type=ref,event=tag
+            type=sha,format=short,prefix=sha-
+            type=semver,pattern={{version}},enable=${{ startsWith(github.ref, 'refs/tags/v') }}
+            type=semver,pattern={{major}}.{{minor}},enable=${{ startsWith(github.ref, 'refs/tags/v') }}
+            type=semver,pattern={{major}},enable=${{ startsWith(github.ref, 'refs/tags/v') }}
+            type=raw,value=latest,enable=${{ startsWith(github.ref, 'refs/tags/v') }}
+          flavor: |
+            latest=false
+          labels: |
+            org.opencontainers.image.source=${{ env.SOURCE_URL }}
+
+      - name: Create multi-arch manifests
+        shell: bash
+        run: |
+          set -eu
+          tags="${{ steps.meta.outputs.tags }}"
+          echo "Creating manifests for tags:"
+          printf '%s\n' "$tags"
+          while IFS= read -r tag; do
+            [ -z "$tag" ] && continue
+            echo "Creating manifest for $tag"
+            src_tag="$tag"
+            if [[ "$tag" == *:latest && "${GITHUB_REF}" == refs/tags/* ]]; then
+              ref="${GITHUB_REF#refs/tags/}"
+              src_tag="${tag%:latest}:$ref"
+            fi
+            if [ -n "${IMAGE_DESCRIPTION:-}" ]; then
+              docker buildx imagetools create \
+                --tag "$tag" \
+                --annotation "index:org.opencontainers.image.description=${IMAGE_DESCRIPTION}" \
+                "${src_tag}-amd64" \
+                "${src_tag}-arm64"
+            else
+              docker buildx imagetools create \
+                --tag "$tag" \
+                "${src_tag}-amd64" \
+                "${src_tag}-arm64"
+            fi
+          done <<< "$tags"
+
+      - name: Install Cosign
+        uses: sigstore/cosign-installer@v4.0.0
+
+      - name: Cosign sign all tags (keyless OIDC)
+        shell: bash
+        run: |
+          set -eu
+          tags="${{ steps.meta.outputs.tags }}"
+          printf '%s\n' "$tags"
+          while IFS= read -r tag; do
+            [ -z "$tag" ] && continue
+            echo "Signing $tag"
+            cosign sign --yes "$tag"
+          done <<< "$tags"

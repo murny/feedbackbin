@@ -9,7 +9,7 @@ module Users
 
     # Returns the background color for the user's avatar initials using a deterministic algorithm based on the user's ID.
     def avatar_background_color(user)
-      AVATAR_COLORS[Zlib.crc32(user.to_param) % AVATAR_COLORS.size]
+      AVATAR_COLORS[Zlib.crc32(user.id.to_s) % AVATAR_COLORS.size]
     end
 
     def avatar_tag(user, **options)

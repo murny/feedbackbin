@@ -7,6 +7,8 @@ class Post < ApplicationRecord
 
   has_rich_text :body
 
+  to_param :title
+
   belongs_to :author, class_name: "User", default: -> { Current.user }
   belongs_to :category
   belongs_to :post_status, default: -> { PostStatus.default }

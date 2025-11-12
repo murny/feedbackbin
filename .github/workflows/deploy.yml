@@ -1,36 +1,59 @@
 name: Deploy to Production
 
+# Manual deployment only - automatic CD is commented out
 on:
-  push:
-    branches:
-      - main
+  # Automatic deployment on push to master (commented out)
+  # push:
+  #   branches:
+  #     - master
+  workflow_dispatch: # Allows manual triggering from GitHub Actions UI
 
+# Read-only permissions by default
 permissions:
   contents: read
 
 jobs:
   deploy:
+    name: Deploy with Kamal
     runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    # Use GitHub Environment for deployment protection and environment-specific secrets
+    # This enables deployment protection rules, required reviewers, and wait timers
+    environment:
+      name: production
+      url: https://feedbackbin.com
+
+    # Only deploy from master branch (safety check for manual triggers)
+    if: github.ref == 'refs/heads/master'
+
     env:
-      KAMAL_REGISTRY_PASSWORD: ${{secrets.KAMAL_REGISTRY_PASSWORD}}
-      RAILS_MASTER_KEY: ${{secrets.RAILS_MASTER_KEY}}
+      # Use GITHUB_TOKEN for GHCR authentication
+      # Kamal will use this to pull the image from GitHub Container Registry
+      KAMAL_REGISTRY_PASSWORD: ${{ secrets.GITHUB_TOKEN }}
+      RAILS_MASTER_KEY: ${{ secrets.RAILS_MASTER_KEY }}
+
     steps:
+      # Checkout the repository to get Kamal configuration files
       - name: Checkout code
         uses: actions/checkout@v5
 
-      - name: Setup Ruby
+      # Set up Ruby environment for Kamal CLI
+      # Kamal is a Ruby gem, so we need Ruby installed
+      - name: Set up Ruby
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: .ruby-version
-          bundler-cache: true
+          bundler-cache: true # Cache gems for faster builds
 
-      - name: Setup Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - uses: webfactory/ssh-agent@v0.9.1
+      # Set up SSH agent for server access
+      # Kamal needs SSH access to deploy to your servers
+      - name: Set up SSH agent
+        uses: webfactory/ssh-agent@v0.9.1
         with:
-          ssh-private-key: ${{secrets.SSH_PRIVATE_KEY}}
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
-      # Disable for now
-      # - name: Deploy to production
-      #   run: bin/kamal deploy
+      # Deploy the application using Kamal
+      # This will pull the image from GHCR and deploy to your servers
+      - name: Deploy to production
+        run: bin/kamal deploy

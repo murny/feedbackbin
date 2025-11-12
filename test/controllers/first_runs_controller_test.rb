@@ -23,7 +23,6 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
     )
     Organization.create!(
       name: "FeedbackBin",
-      subdomain: "testfeedbackbin",
       default_post_status: post_statuses(:open),
       owner: user
     )
@@ -43,7 +42,6 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
             password: "secret123456",
             name: "New Person",
             organization_name: "Test Organization",
-            organization_subdomain: "testorg",
             category_name: "Custom Category",
             category_color: "#3b82f6"
           }
@@ -72,9 +70,8 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
       post first_run_url, params: {
         first_run: {
           email_address: "new@feedbackbin.com",
-          password: "secret123456",
-          organization_subdomain: "myorg"
-          # Missing: username, organization_name (required fields)
+          password: "secret123456"
+          # Missing: username, organization_name, category_name, category_color (required fields)
         }
       }
     end

@@ -1,9 +1,0 @@
-<% if href.present? %>
-  <%= link_to href, data: data, **options do %>
-    <%= text %>
-  <% end %>
-<% else %>
-  <%= tag.span(data: { slot: "badge" }, **options) do %>
-    <%= text %>
-  <% end %>
-<% end %>

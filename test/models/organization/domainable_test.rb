@@ -6,16 +6,33 @@ class Organization
   class DomainableTest < ActiveSupport::TestCase
     setup do
       @organization = organizations(:feedbackbin)
+      @original_multi_tenant = Rails.application.config.multi_tenant
     end
 
-    test "validates presence of subdomain" do
+    teardown do
+      Rails.application.config.multi_tenant = @original_multi_tenant
+    end
+
+    test "subdomain is optional in single-tenant mode" do
+      Rails.application.config.multi_tenant = false
+      @organization.subdomain = nil
+
+      assert_predicate @organization, :valid?
+
+      @organization.subdomain = ""
+
+      assert_predicate @organization, :valid?
+    end
+
+    test "subdomain is required in multi-tenant mode" do
+      Rails.application.config.multi_tenant = true
       @organization.subdomain = nil
 
       assert_not @organization.valid?
       assert_equal "can't be blank", @organization.errors[:subdomain].first
     end
 
-    test "validates uniqueness of subdomain" do
+    test "validates uniqueness of subdomain when present" do
       original = Organization.create!(
         name: "test",
         subdomain: "test",

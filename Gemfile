@@ -25,7 +25,7 @@ gem "propshaft"
 gem "turbo-rails"
 gem "stimulus-rails"
 gem "importmap-rails"
-gem "tailwindcss-rails", "4.3.0"
+gem "tailwindcss-rails", "4.4.0"
 
 # API
 gem "jbuilder"
@@ -37,7 +37,7 @@ gem "lucide-rails"
 gem "tailwind_merge", "~> 1.3.1"
 
 # UI Components
-gem "feedbackbin_elements", path: "lib/feedbackbin_elements"
+gem "feedbackbin_elements", github: "murny/feedbackbin_elements", branch: "master"
 
 # Authentication & Authorization
 gem "bcrypt", "~> 3.1.7"
