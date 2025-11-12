@@ -9,7 +9,7 @@ module Users
     end
 
     test "avatar_background_color" do
-      assert_equal "##67695E", avatar_background_color(@user)
+      assert_equal "#67695E", avatar_background_color(@user)
     end
 
     test "avatar_tag" do
