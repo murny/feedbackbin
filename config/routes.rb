@@ -68,7 +68,11 @@ Rails.application.routes.draw do
       end
     end
     resources :posts, only: [ :index, :show ]
-    resources :invitations, only: [ :index, :new, :create, :destroy ]
+    resources :invitations, only: [ :index, :new, :create, :destroy ] do
+      member do
+        post :resend
+      end
+    end
 
     namespace :settings do
       resource :branding, only: [ :show, :update ]

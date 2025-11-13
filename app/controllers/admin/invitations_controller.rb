@@ -21,6 +21,13 @@ module Admin
       end
     end
 
+    def resend
+      @invitation = Invitation.find_by!(token: params.expect(:id))
+      @invitation.send_invite
+
+      redirect_to admin_invitations_path, status: :see_other, notice: t(".resent", email: @invitation.email)
+    end
+
     def destroy
       @invitation = Invitation.find_by!(token: params.expect(:id))
 

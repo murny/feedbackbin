@@ -83,6 +83,8 @@ en:
         invited_by: Invited by
         no_invitations_description: No pending invitations. Invite someone to get started!
         no_invitations_title: No invitations
+        resend: Resend
+        resend_confirm: Are you sure you want to resend this invitation?
       new:
         back_to_invitations: Back to Invitations
         cancel: Cancel
@@ -96,6 +98,8 @@ en:
         name_placeholder: John Doe
         send_invitation: Send Invitation
         title: Invite New User
+      resend:
+        resent: Invitation resent to %{email}
     posts:
       index:
         description: View all feedback posts from users
