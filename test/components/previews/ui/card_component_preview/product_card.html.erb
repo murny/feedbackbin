@@ -1,0 +1,30 @@
+<%= render Ui::CardComponent.new do |c| %>
+  <% c.with_header(title: "Premium Plan", description: "$29/month") do %>
+    <%= render Ui::BadgeComponent.new(variant: :default) { "Popular" } %>
+  <% end %>
+  <% c.with_body do %>
+    <div class="space-y-4">
+      <ul class="space-y-2 text-sm">
+        <li>
+          <%= lucide_icon("check", class: "inline mr-2 size-4") %>
+          Unlimited projects
+        </li>
+        <li>
+          <%= lucide_icon("check", class: "inline mr-2 size-4") %>
+          24/7 support
+        </li>
+        <li>
+          <%= lucide_icon("check", class: "inline mr-2 size-4") %>
+          Advanced analytics
+        </li>
+        <li>
+          <%= lucide_icon("check", class: "inline mr-2 size-4") %>
+          Custom domain
+        </li>
+      </ul>
+    </div>
+  <% end %>
+  <% c.with_footer do %>
+    <%= render Ui::ButtonComponent.new(variant: :default, class: "w-full") { "Upgrade now" } %>
+  <% end %>
+<% end %>
