@@ -63,7 +63,7 @@ module Ui
 
     test "renders with icon content" do
       render_inline(BadgeComponent.new) do
-        '<svg></svg>With Icon'.html_safe
+        "<svg></svg>With Icon".html_safe
       end
 
       assert_selector "span svg"
