@@ -35,6 +35,7 @@ gem "pagy", "~> 9.2"
 gem "inline_svg"
 gem "lucide-rails"
 gem "tailwind_merge", "~> 1.3.1"
+gem "view_component"
 
 # UI Components
 gem "feedbackbin_elements", github: "murny/feedbackbin_elements", branch: "master"
@@ -87,6 +88,9 @@ group :development do
   gem "hotwire-spark"
 
   gem "ruby-lsp-rails", require: false
+
+  # ViewComponent preview and development
+  gem "lookbook"
 end
 
 group :test do
