@@ -23,9 +23,9 @@ module Ui
 
     def call
       if @href.present?
-        link_to(@href, **html_attrs) { content_with_loading }
+        link_to(@href, **link_attrs) { content_with_loading }
       else
-        button_tag(**html_attrs.merge(type: @type)) { content_with_loading }
+        button_tag(**button_attrs) { content_with_loading }
       end
     end
 
@@ -44,9 +44,25 @@ module Ui
         end
       end
 
-      def html_attrs
+      def link_attrs
+        attrs = @attrs.merge(
+          class: button_classes,
+          data: @attrs[:data] || {}
+        )
+
+        # Links use aria-disabled instead of disabled attribute
+        if @loading || @attrs[:disabled]
+          attrs[:"aria-disabled"] = "true"
+          attrs.delete(:disabled) # Remove invalid disabled attribute for links
+        end
+
+        attrs
+      end
+
+      def button_attrs
         @attrs.merge(
           class: button_classes,
+          type: @type,
           disabled: (@loading || @attrs[:disabled]),
           data: @attrs[:data] || {}
         )
@@ -66,8 +82,10 @@ module Ui
           "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all shrink-0 outline-none",
           # Aria
           "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
-          # Disabled
+          # Disabled (for buttons)
           "disabled:pointer-events-none disabled:opacity-50",
+          # Aria-disabled (for links)
+          "aria-disabled:pointer-events-none aria-disabled:opacity-50",
           # Focus
           "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
           # Icon

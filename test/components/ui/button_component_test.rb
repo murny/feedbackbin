@@ -48,6 +48,20 @@ module Ui
       assert_selector "button[disabled]"
     end
 
+    test "uses aria-disabled for links when loading" do
+      render_inline(ButtonComponent.new(href: "/test", loading: true)) { "Loading" }
+
+      assert_selector "a[href='/test'][aria-disabled='true']"
+      assert_no_selector "a[disabled]"
+    end
+
+    test "uses aria-disabled for links when disabled" do
+      render_inline(ButtonComponent.new(href: "/test", disabled: true)) { "Disabled Link" }
+
+      assert_selector "a[href='/test'][aria-disabled='true']"
+      assert_no_selector "a[disabled]"
+    end
+
     test "merges custom classes" do
       render_inline(ButtonComponent.new(class: "custom-class")) { "Test" }
 
