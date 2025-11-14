@@ -1,0 +1,21 @@
+<div class="flex flex-wrap gap-4">
+  <%= render Ui::BadgeComponent.new(variant: :default) do %>
+    <%= lucide_icon "check" %>
+    Success
+  <% end %>
+
+  <%= render Ui::BadgeComponent.new(variant: :secondary) do %>
+    <%= lucide_icon "map-pin" %>
+    Pinned
+  <% end %>
+
+  <%= render Ui::BadgeComponent.new(variant: :destructive) do %>
+    <%= lucide_icon "x" %>
+    Error
+  <% end %>
+
+  <%= render Ui::BadgeComponent.new(variant: :outline) do %>
+    <%= lucide_icon "info" %>
+    Info
+  <% end %>
+</div>
