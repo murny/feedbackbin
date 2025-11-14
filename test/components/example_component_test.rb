@@ -4,9 +4,8 @@ require "test_helper"
 
 class ExampleComponentTest < ViewComponent::TestCase
   def test_component_renders_something_useful
-    assert_equal(
-      %(<div class="p-4 bg-primary text-primary-foreground rounded-lg">Hello, components!</div>),
-      render_inline(ExampleComponent.new(text: "Hello, components!")).css("div").to_html
-    )
+    render_inline(ExampleComponent.new(text: "Hello, components!"))
+
+    assert_selector "div.p-4.bg-primary.text-primary-foreground.rounded-lg", text: "Hello, components!"
   end
 end
