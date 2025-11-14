@@ -54,40 +54,5 @@ module Ui
         "Disabled"
       end
     end
-
-    # @label Destructive
-    def destructive
-      render Ui::ButtonComponent.new(variant: :destructive) do
-        "Delete Account"
-      end
-    end
-
-    # @label Outline
-    def outline
-      render Ui::ButtonComponent.new(variant: :outline) do
-        "Outline"
-      end
-    end
-
-    # @label Secondary
-    def secondary
-      render Ui::ButtonComponent.new(variant: :secondary) do
-        "Secondary"
-      end
-    end
-
-    # @label Ghost
-    def ghost
-      render Ui::ButtonComponent.new(variant: :ghost) do
-        "Ghost"
-      end
-    end
-
-    # @label Link
-    def link_variant
-      render Ui::ButtonComponent.new(variant: :link) do
-        "Link Style"
-      end
-    end
   end
 end
