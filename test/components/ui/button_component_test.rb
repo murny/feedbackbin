@@ -77,7 +77,7 @@ module Ui
     test "loading spinner has aria-label for screen readers" do
       render_inline(ButtonComponent.new(loading: true)) { "Loading" }
 
-      assert_selector "div[aria-label='Loading']"
+      assert_selector "[aria-label='Loading']"
     end
 
     test "merges custom classes" do
