@@ -9,10 +9,8 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <%
-    # Get theme from Lookbook display options (defaults to light)
-    theme = params.dig(:lookbook, :display, :theme) || "light"
-  %>
+  <%# Get theme from Lookbook display options (defaults to light) %>
+  <% theme = params.dig(:lookbook, :display, :theme) || "light" %>
 
   <%= tag.body class: "h-full p-8 bg-white dark:bg-slate-950",
         data: {

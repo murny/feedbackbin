@@ -8,7 +8,7 @@ if defined?(Lookbook)
 
     # Add theme switcher in Lookbook UI
     config.preview_display_options = {
-      theme: ["light", "dark"]
+      theme: [ "light", "dark" ]
     }
   end
 end
