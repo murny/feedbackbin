@@ -38,7 +38,7 @@ module Ui
       def loading_spinner
         return unless @loading
 
-        tag.div(class: "animate-spin mr-2") do
+        tag.div(class: "animate-spin mr-2", "aria-label": "Loading") do
           # Using lucide-rails icon helper
           helpers.lucide_icon("loader", class: "size-4")
         end
@@ -56,16 +56,24 @@ module Ui
           attrs.delete(:disabled) # Remove invalid disabled attribute for links
         end
 
+        # Add aria-busy for screen readers when loading
+        attrs[:"aria-busy"] = "true" if @loading
+
         attrs
       end
 
       def button_attrs
-        @attrs.merge(
+        attrs = @attrs.merge(
           class: button_classes,
           type: @type,
           disabled: (@loading || @attrs[:disabled]),
           data: @attrs[:data] || {}
         )
+
+        # Add aria-busy for screen readers when loading
+        attrs[:"aria-busy"] = "true" if @loading
+
+        attrs
       end
 
       def button_classes

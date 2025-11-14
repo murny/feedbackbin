@@ -62,6 +62,24 @@ module Ui
       assert_no_selector "a[disabled]"
     end
 
+    test "adds aria-busy to buttons when loading" do
+      render_inline(ButtonComponent.new(loading: true)) { "Loading" }
+
+      assert_selector "button[aria-busy='true']"
+    end
+
+    test "adds aria-busy to links when loading" do
+      render_inline(ButtonComponent.new(href: "/test", loading: true)) { "Loading" }
+
+      assert_selector "a[aria-busy='true']"
+    end
+
+    test "loading spinner has aria-label for screen readers" do
+      render_inline(ButtonComponent.new(loading: true)) { "Loading" }
+
+      assert_selector "div[aria-label='Loading']"
+    end
+
     test "merges custom classes" do
       render_inline(ButtonComponent.new(class: "custom-class")) { "Test" }
 
