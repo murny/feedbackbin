@@ -1,0 +1,7 @@
+<div class="flex flex-wrap gap-4">
+  <% variants.each do |variant| %>
+    <%= render Ui::ButtonComponent.new(variant: variant) do %>
+      <%= variant.to_s.titleize %>
+    <% end %>
+  <% end %>
+</div>
