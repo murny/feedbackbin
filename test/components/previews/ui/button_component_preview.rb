@@ -42,7 +42,7 @@ module Ui
     def with_icon
       render Ui::ButtonComponent.new do
         safe_join([
-          helpers.lucide_icon("mail", class: "mr-2"),
+          lucide_icon("mail", class: "mr-2"),
           "Email"
         ])
       end
@@ -51,7 +51,7 @@ module Ui
     # @label Icon Only
     def icon_only
       render Ui::ButtonComponent.new(size: :icon) do
-        helpers.lucide_icon("chevron-right")
+        lucide_icon("chevron-right")
       end
     end
 
