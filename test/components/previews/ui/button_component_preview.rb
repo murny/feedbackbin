@@ -40,19 +40,12 @@ module Ui
 
     # @label With Icon
     def with_icon
-      render Ui::ButtonComponent.new do
-        safe_join([
-          lucide_icon("mail", class: "mr-2"),
-          "Email"
-        ])
-      end
+      render_with_template
     end
 
     # @label Icon Only
     def icon_only
-      render Ui::ButtonComponent.new(size: :icon) do
-        lucide_icon("chevron-right")
-      end
+      render_with_template
     end
 
     # @label Disabled
