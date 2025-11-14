@@ -1,0 +1,7 @@
+<div class="flex items-center gap-4">
+  <% sizes.each do |size| %>
+    <%= render Ui::ButtonComponent.new(size: size) do %>
+      <%= size == :icon ? lucide_icon("star") : size.to_s.titleize %>
+    <% end %>
+  <% end %>
+</div>
