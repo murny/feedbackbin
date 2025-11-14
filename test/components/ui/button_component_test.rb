@@ -14,6 +14,7 @@ module Ui
     test "renders all variants without errors" do
       ButtonComponent::VARIANTS.each do |variant|
         render_inline(ButtonComponent.new(variant: variant)) { "Test" }
+
         assert_selector "button, a"
       end
     end
@@ -21,6 +22,7 @@ module Ui
     test "renders all sizes without errors" do
       ButtonComponent::SIZES.each do |size|
         render_inline(ButtonComponent.new(size: size)) { "Test" }
+
         assert_selector "button, a"
       end
     end
@@ -80,6 +82,7 @@ module Ui
       render_inline(ButtonComponent.new) { "Test" }
 
       page_html = page.native.to_html
+
       assert_includes page_html, "focus-visible:"
       assert_includes page_html, "disabled:"
     end
