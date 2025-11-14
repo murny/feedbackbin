@@ -1,0 +1,18 @@
+<%= tag.div(**html_attrs) do %>
+  <% if @src.present? %>
+    <%= image_tag @src,
+        alt: @alt,
+        class: "aspect-square size-full object-cover",
+        data: { slot: "avatar-image" },
+        loading: "lazy" %>
+  <% end %>
+
+  <% if @fallback.present? || @src.blank? %>
+    <%= tag.div(
+      data: { slot: "avatar-fallback" },
+      class: "bg-muted flex size-full items-center justify-center rounded-inherit text-muted-foreground font-medium"
+    ) do %>
+      <%= @fallback || "" %>
+    <% end %>
+  <% end %>
+<% end %>
