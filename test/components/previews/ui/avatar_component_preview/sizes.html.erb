@@ -1,0 +1,9 @@
+<div class="flex items-center gap-4">
+  <% sizes.each do |size| %>
+    <%= render Ui::AvatarComponent.new(
+      src: "https://i.pravatar.cc/150?img=1",
+      alt: "User",
+      size: size
+    ) %>
+  <% end %>
+</div>
