@@ -78,4 +78,63 @@ class OrganizationTest < ActiveSupport::TestCase
 
     assert_not @organization.owned_by?(other_user)
   end
+
+  # Module management tests
+  test "at least one module must be enabled" do
+    @organization.posts_enabled = false
+    @organization.roadmap_enabled = false
+    @organization.changelog_enabled = false
+
+    assert_not @organization.valid?
+    assert_includes @organization.errors[:base], "At least one module must be enabled"
+  end
+
+  test "can disable individual modules if others remain" do
+    @organization.roadmap_enabled = false
+
+    assert @organization.valid?
+    assert @organization.posts_enabled?
+    assert_not @organization.roadmap_enabled?
+    assert @organization.changelog_enabled?
+  end
+
+  test "root_path_module must be an enabled module" do
+    @organization.roadmap_enabled = false
+    @organization.root_path_module = :roadmap
+
+    assert_not @organization.valid?
+    assert_includes @organization.errors[:root_path_module], "The default landing page must be an enabled module"
+  end
+
+  test "enabled_modules returns only enabled modules" do
+    @organization.roadmap_enabled = false
+
+    assert_equal [ :posts, :changelog ], @organization.enabled_modules
+  end
+
+  test "module_enabled? checks specific module" do
+    @organization.roadmap_enabled = false
+
+    assert @organization.module_enabled?(:posts)
+    assert_not @organization.module_enabled?(:roadmap)
+    assert @organization.module_enabled?(:changelog)
+  end
+
+  test "root_path_url returns correct path for posts" do
+    @organization.root_path_module = :posts
+
+    assert_equal "/posts", @organization.root_path_url
+  end
+
+  test "root_path_url returns correct path for roadmap" do
+    @organization.root_path_module = :roadmap
+
+    assert_equal "/roadmap", @organization.root_path_url
+  end
+
+  test "root_path_url returns correct path for changelog" do
+    @organization.root_path_module = :changelog
+
+    assert_equal "/changelogs", @organization.root_path_url
+  end
 end
