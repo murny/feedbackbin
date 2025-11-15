@@ -12,16 +12,18 @@
       </p>
     </div>
     <div class="flex gap-2">
-      <%= render_button(
-        text: t(".back_button"),
+      <%= render Ui::ButtonComponent.new(
         href: admin_users_path,
         variant: :outline
-      ) %>
-      <%= render_button(
-        text: t(".view_profile"),
+      ) do %>
+        <%= t(".back_button") %>
+      <% end %>
+      <%= render Ui::ButtonComponent.new(
         href: user_path(@user),
         variant: :outline
-      ) %>
+      ) do %>
+        <%= t(".view_profile") %>
+      <% end %>
     </div>
   </div>
 

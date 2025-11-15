@@ -7,7 +7,7 @@
       <p class="text-sm text-muted-foreground"><%= t(".description") %></p>
     </div>
     <div class="whitespace-nowrap">
-      <%= render_button(
+      <%= render Ui::ButtonComponent.new(
         variant: :default,
         href: new_admin_invitation_path
       ) do %>

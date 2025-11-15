@@ -8,14 +8,14 @@
       </p>
     </div>
     <div class="flex items-center gap-2">
-      <%= render_button(
+      <%= render Ui::ButtonComponent.new(
         variant: :outline,
         size: :default
       ) do %>
         <%= lucide_icon "calendar", class: "h-4 w-4" %>
         <span>Last 30 days</span>
       <% end %>
-      <%= render_button(
+      <%= render Ui::ButtonComponent.new(
         variant: :default,
         size: :default
       ) do %>

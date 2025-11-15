@@ -75,13 +75,14 @@
                 </div>
               </td>
               <td class="px-6 py-4 text-center">
-                <%= render_button(
-                  text: t(".view_button"),
+                <%= render Ui::ButtonComponent.new(
                   href: admin_post_path(post),
                   variant: :outline,
                   size: :sm,
                   data: { turbo_frame: "_top" }
-                ) %>
+                ) do %>
+                  <%= t(".view_button") %>
+                <% end %>
               </td>
             </tr>
           <% end %>

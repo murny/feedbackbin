@@ -41,13 +41,14 @@
                 </div>
               </td>
               <td class="px-6 py-4 text-center">
-                <%= render_button(
-                  text: "View",
+                <%= render Ui::ButtonComponent.new(
                   href: super_admin_organization_path(organization),
                   variant: :outline,
                   size: :sm,
                   data: { turbo_frame: "_top" }
-                ) %>
+                ) do %>
+                  View
+                <% end %>
               </td>
             </tr>
           <% end %>

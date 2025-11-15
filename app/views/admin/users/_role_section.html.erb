@@ -20,12 +20,13 @@
           ),
           {},
           class: "select" %>
-      <%= render_button(
-        text: t("admin.users.show.update_button"),
+      <%= render Ui::ButtonComponent.new(
         variant: :secondary,
         size: :sm,
         type: :submit
-      ) %>
+      ) do %>
+        <%= t("admin.users.show.update_button") %>
+      <% end %>
     <% end %>
   </div>
 <% end %>

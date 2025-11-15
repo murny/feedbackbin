@@ -11,11 +11,12 @@
         Organization details and activity
       </p>
     </div>
-    <%= render_button(
-      text: "Back to Organizations",
+    <%= render Ui::ButtonComponent.new(
       href: super_admin_organizations_path,
       variant: :outline
-    ) %>
+    ) do %>
+      Back to Organizations
+    <% end %>
   </div>
 
   <!-- Organization Info -->
