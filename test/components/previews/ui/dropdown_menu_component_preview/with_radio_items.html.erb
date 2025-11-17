@@ -1,0 +1,22 @@
+<div class="flex justify-center p-8">
+  <%= render Ui::DropdownMenuComponent.new do |dropdown| %>
+    <% dropdown.with_trigger do %>
+      <%= render Ui::ButtonComponent.new(variant: :outline) do %>
+        Text Size
+      <% end %>
+    <% end %>
+
+    <% dropdown.with_label do %>
+      Font Size
+    <% end %>
+    <% dropdown.with_radio_item(checked: false) do %>
+      Small
+    <% end %>
+    <% dropdown.with_radio_item(checked: true) do %>
+      Medium
+    <% end %>
+    <% dropdown.with_radio_item(checked: false) do %>
+      Large
+    <% end %>
+  <% end %>
+</div>

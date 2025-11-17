@@ -1,0 +1,64 @@
+<div class="flex justify-center gap-8 p-8">
+  <div class="text-center">
+    <p class="mb-2 text-sm font-medium">Align Start</p>
+    <%= render Ui::DropdownMenuComponent.new(align: :start) do |dropdown| %>
+      <% dropdown.with_trigger do %>
+        <%= render Ui::ButtonComponent.new(variant: :outline) do %>
+          Start
+        <% end %>
+      <% end %>
+
+      <% dropdown.with_item do %>
+        Profile
+      <% end %>
+      <% dropdown.with_item do %>
+        Settings
+      <% end %>
+      <% dropdown.with_item do %>
+        Log out
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="text-center">
+    <p class="mb-2 text-sm font-medium">Align Center</p>
+    <%= render Ui::DropdownMenuComponent.new(align: :center) do |dropdown| %>
+      <% dropdown.with_trigger do %>
+        <%= render Ui::ButtonComponent.new(variant: :outline) do %>
+          Center
+        <% end %>
+      <% end %>
+
+      <% dropdown.with_item do %>
+        Profile
+      <% end %>
+      <% dropdown.with_item do %>
+        Settings
+      <% end %>
+      <% dropdown.with_item do %>
+        Log out
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="text-center">
+    <p class="mb-2 text-sm font-medium">Align End</p>
+    <%= render Ui::DropdownMenuComponent.new(align: :end) do |dropdown| %>
+      <% dropdown.with_trigger do %>
+        <%= render Ui::ButtonComponent.new(variant: :outline) do %>
+          End
+        <% end %>
+      <% end %>
+
+      <% dropdown.with_item do %>
+        Profile
+      <% end %>
+      <% dropdown.with_item do %>
+        Settings
+      <% end %>
+      <% dropdown.with_item do %>
+        Log out
+      <% end %>
+    <% end %>
+  </div>
+</div>

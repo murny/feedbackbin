@@ -1,0 +1,24 @@
+<div class="flex justify-center p-8">
+  <%= render Ui::DropdownMenuComponent.new do |dropdown| %>
+    <% dropdown.with_trigger do %>
+      <%= render Ui::ButtonComponent.new(variant: :outline) do %>
+        Menu
+      <% end %>
+    <% end %>
+
+    <% dropdown.with_item do %>
+      New Tab
+    <% end %>
+    <% dropdown.with_item do %>
+      New Window
+    <% end %>
+    <% dropdown.with_separator %>
+    <% dropdown.with_item do %>
+      Share
+    <% end %>
+    <% dropdown.with_separator %>
+    <% dropdown.with_item do %>
+      Print
+    <% end %>
+  <% end %>
+</div>

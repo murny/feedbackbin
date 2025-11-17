@@ -1,0 +1,37 @@
+<div class="flex justify-center p-8">
+  <%= render Ui::DropdownMenuComponent.new do |dropdown| %>
+    <% dropdown.with_trigger do %>
+      <%= render Ui::ButtonComponent.new(variant: :outline) do %>
+        Preferences
+      <% end %>
+    <% end %>
+
+    <% dropdown.with_label do %>
+      My Account
+    <% end %>
+    <% dropdown.with_item do %>
+      <%= lucide_icon("user") %>
+      Profile
+    <% end %>
+    <% dropdown.with_item do %>
+      <%= lucide_icon("credit-card") %>
+      Billing
+    <% end %>
+    <% dropdown.with_item do %>
+      <%= lucide_icon("settings") %>
+      Settings
+    <% end %>
+    <% dropdown.with_separator %>
+    <% dropdown.with_label do %>
+      Team
+    <% end %>
+    <% dropdown.with_item do %>
+      <%= lucide_icon("users") %>
+      Team Settings
+    <% end %>
+    <% dropdown.with_item do %>
+      <%= lucide_icon("user-plus") %>
+      Invite Members
+    <% end %>
+  <% end %>
+</div>

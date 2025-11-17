@@ -1,0 +1,23 @@
+<div class="flex justify-center p-8">
+  <%= render Ui::DropdownMenuComponent.new do |dropdown| %>
+    <% dropdown.with_trigger do %>
+      <%= render Ui::ButtonComponent.new(variant: :outline) do %>
+        Open Menu
+      <% end %>
+    <% end %>
+
+    <% dropdown.with_item do %>
+      Profile
+    <% end %>
+    <% dropdown.with_item do %>
+      Settings
+    <% end %>
+    <% dropdown.with_item do %>
+      Keyboard shortcuts
+    <% end %>
+    <% dropdown.with_separator %>
+    <% dropdown.with_item do %>
+      Log out
+    <% end %>
+  <% end %>
+</div>
