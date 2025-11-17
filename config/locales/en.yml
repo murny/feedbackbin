@@ -566,6 +566,11 @@ en:
   super_admin:
     base:
       unauthorized: You are not authorized to access this page.
+    organizations:
+      organizations_list:
+        view_button: View
+      show:
+        back_button: Back to Organizations
   themes:
     dark: Dark
     light: Light
