@@ -36,6 +36,8 @@
       end
     ) %>
   <% else %>
-    <%= render_badge(text: post.post_status.name, class: "text-white font-medium", style: "background-color: #{post.post_status.color};") %>
+    <%= render Ui::BadgeComponent.new(class: "text-white font-medium", style: "background-color: #{post.post_status.color};") do %>
+      <%= post.post_status.name %>
+    <% end %>
   <% end %>
 </span>

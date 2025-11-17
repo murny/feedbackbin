@@ -7,12 +7,10 @@ module Ui
     def initialize(
       variant: :default,
       href: nil,
-      text: nil,
       **attrs
     )
       @variant = validate_option(variant, VARIANTS, "variant")
       @href = href
-      @text = text
       @attrs = attrs
     end
 
@@ -27,8 +25,7 @@ module Ui
     private
 
       def badge_content
-        # Prefer block content over text parameter (block takes precedence)
-        content.presence || @text
+        content
       end
 
       def badge_attrs

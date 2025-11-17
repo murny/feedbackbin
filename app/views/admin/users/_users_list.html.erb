@@ -44,31 +44,33 @@
               <!-- Role Column -->
               <td class="px-6 py-4">
                 <div class="flex flex-wrap gap-1">
-                  <%= render_badge(
-                    text: user.role.humanize,
+                  <%= render Ui::BadgeComponent.new(
                     variant: user.administrator? ? :default : :secondary
-                  ) %>
+                  ) do %>
+                    <%= user.role.humanize %>
+                  <% end %>
                   <% if user.organization_owner? %>
-                    <%= render_badge(
-                      text: t(".owner_badge"),
-                      variant: :default
-                    ) %>
+                    <%= render Ui::BadgeComponent.new(variant: :default) do %>
+                      <%= t(".owner_badge") %>
+                    <% end %>
                   <% end %>
                 </div>
               </td>
               <!-- Account Status Column -->
               <td class="px-6 py-4">
-                <%= render_badge(
-                  text: user.active? ? t(".active_badge") : t(".deactivated_badge"),
+                <%= render Ui::BadgeComponent.new(
                   variant: user.active? ? :default : :destructive
-                ) %>
+                ) do %>
+                  <%= user.active? ? t(".active_badge") : t(".deactivated_badge") %>
+                <% end %>
               </td>
               <!-- Email Status Column -->
               <td class="px-6 py-4">
-                <%= render_badge(
-                  text: user.email_verified? ? t(".verified_badge") : t(".unverified_badge"),
+                <%= render Ui::BadgeComponent.new(
                   variant: user.email_verified? ? :default : :outline
-                ) %>
+                ) do %>
+                  <%= user.email_verified? ? t(".verified_badge") : t(".unverified_badge") %>
+                <% end %>
               </td>
               <td class="px-6 py-4">
                 <% posts_count = user.posts.count %>

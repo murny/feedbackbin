@@ -22,17 +22,17 @@
                     <%= post.title %>
                   </div>
                   <% if post.category %>
-                    <%= render_badge(
-                      text: post.category.name,
-                      variant: :secondary
-                    ) %>
+                    <%= render Ui::BadgeComponent.new(variant: :secondary) do %>
+                      <%= post.category.name %>
+                    <% end %>
                   <% end %>
                   <% if post.post_status %>
-                    <%= render_badge(
-                      text: post.post_status.name,
+                    <%= render Ui::BadgeComponent.new(
                       variant: :outline,
                       class: "ml-2"
-                    ) %>
+                    ) do %>
+                      <%= post.post_status.name %>
+                    <% end %>
                   <% end %>
                 </div>
               </td>

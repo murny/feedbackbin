@@ -20,7 +20,9 @@
   <div class="mb-4">
     <h2 class="text-lg font-medium flex items-center gap-2">
       <%= t(".pending_invitations") %>
-      <%= render_badge(text: @pagy.count, variant: :default) %>
+      <%= render Ui::BadgeComponent.new(variant: :default) do %>
+        <%= @pagy.count %>
+      <% end %>
     </h2>
   </div>
 
