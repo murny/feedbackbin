@@ -18,9 +18,9 @@ module Ui
 
     def call
       if @href.present?
-        link_to(@href, **link_attrs) { badge_content }
+        link_to(@href, **badge_attrs) { badge_content }
       else
-        tag.span(**span_attrs) { badge_content }
+        tag.span(**badge_attrs) { badge_content }
       end
     end
 
@@ -31,14 +31,7 @@ module Ui
         content.presence || @text
       end
 
-      def link_attrs
-        @attrs.merge(
-          class: badge_classes,
-          data: @attrs[:data] || {}
-        )
-      end
-
-      def span_attrs
+      def badge_attrs
         @attrs.merge(
           class: badge_classes,
           data: @attrs[:data] || {}
