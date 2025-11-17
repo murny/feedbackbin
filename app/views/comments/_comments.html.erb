@@ -8,7 +8,7 @@
           <%= t(".comments_title_with_count", comment_count: post.comments_count) %>
         <% end %>
       </h2>
-      <%= render_button(variant: :outline) do %>
+      <%= render Ui::ButtonComponent.new(variant: :outline) do %>
         <%= lucide_icon "bell" %>
         <%= t(".subscribe") %>
       <% end %>

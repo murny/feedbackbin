@@ -35,7 +35,7 @@
             <!-- Action Buttons -->
             <div class="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-x-4 sm:space-y-0">
               <% if Current.user == @user %>
-                <%= render_button(
+                <%= render Ui::ButtonComponent.new(
                   variant: :outline,
                   href: user_settings_profile_path
                 ) do %>
@@ -43,7 +43,7 @@
                   <%= t(".edit_profile") %>
                 <% end %>
               <% else %>
-                <%= render_button(
+                <%= render Ui::ButtonComponent.new(
                   variant: :outline
                 ) do %>
                   <%= lucide_icon "triangle-alert", class: "size-4 mr-2" %>

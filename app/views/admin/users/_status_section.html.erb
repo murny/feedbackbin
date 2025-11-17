@@ -5,7 +5,7 @@
       variant: user.active? ? :default : :destructive
     ) %>
     <% if user.active? %>
-      <%= render_button(
+      <%= render Ui::ButtonComponent.new(
         href: admin_user_activation_path(user),
         variant: :destructive,
         size: :sm,
@@ -15,7 +15,7 @@
         <span><%= t("admin.users.show.deactivate_user") %></span>
       <% end %>
     <% else %>
-      <%= render_button(
+      <%= render Ui::ButtonComponent.new(
         href: admin_user_activation_path(user),
         variant: :default,
         size: :sm,

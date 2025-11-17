@@ -84,11 +84,11 @@
 
           <!-- Bottom: user actions -->
           <div class="mt-6 flex flex-wrap items-center gap-2">
-            <%= render_button(variant: :outline) do %>
+            <%= render Ui::ButtonComponent.new(variant: :outline) do %>
               <%= lucide_icon "eye" %>
               <%= t(".watch") %>
             <% end %>
-            <%= render_button(variant: :outline) do %>
+            <%= render Ui::ButtonComponent.new(variant: :outline) do %>
               <%= lucide_icon "share" %>
               <%= t(".share") %>
             <% end %>

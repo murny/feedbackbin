@@ -11,11 +11,12 @@
         <%= t(".description") %>
       </p>
     </div>
-    <%= render_button(
-      text: t(".back_button"),
+    <%= render Ui::ButtonComponent.new(
       href: admin_posts_path,
       variant: :outline
-    ) %>
+    ) do %>
+      <%= t(".back_button") %>
+    <% end %>
   </div>
 
   <!-- Post Info -->
