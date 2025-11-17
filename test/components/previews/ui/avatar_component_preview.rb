@@ -6,7 +6,7 @@ module Ui
     # @label Default
     def default
       render Ui::AvatarComponent.new(
-        src: "https://i.pravatar.cc/150?img=1",
+        src: "/test/fixtures/files/random.jpeg",
         alt: "User Avatar"
       )
     end
@@ -50,11 +50,11 @@ module Ui
     # @label Avatar Group
     def avatar_group
       avatars = [
-        { src: "https://i.pravatar.cc/150?img=1", alt: "User 1" },
-        { src: "https://i.pravatar.cc/150?img=2", alt: "User 2" },
-        { src: "https://i.pravatar.cc/150?img=3", alt: "User 3" },
-        { src: "https://i.pravatar.cc/150?img=4", alt: "User 4" },
-        { src: "https://i.pravatar.cc/150?img=5", alt: "User 5" }
+        { src: "/test/fixtures/files/random.jpeg", alt: "User 1" },
+        { src: "/test/fixtures/files/random.jpeg", alt: "User 2" },
+        { src: "/test/fixtures/files/random.jpeg", alt: "User 3" },
+        { src: "/test/fixtures/files/random.jpeg", alt: "User 4" },
+        { src: "/test/fixtures/files/random.jpeg", alt: "User 5" }
       ]
 
       render Ui::AvatarGroupComponent.new(
@@ -85,9 +85,9 @@ module Ui
     # @label Avatar Group - No Limit
     def avatar_group_no_limit
       avatars = [
-        { src: "https://i.pravatar.cc/150?img=1", alt: "User 1" },
-        { src: "https://i.pravatar.cc/150?img=2", alt: "User 2" },
-        { src: "https://i.pravatar.cc/150?img=3", alt: "User 3" }
+        { src: "/test/fixtures/files/random.jpeg", alt: "User 1" },
+        { src: "/test/fixtures/files/random.jpeg", alt: "User 2" },
+        { src: "/test/fixtures/files/random.jpeg", alt: "User 3" }
       ]
 
       render Ui::AvatarGroupComponent.new(
@@ -99,7 +99,7 @@ module Ui
     # @label Avatar Group - With Hover
     def avatar_group_hover
       avatars = 4.times.map do |i|
-        { src: "https://i.pravatar.cc/150?img=#{i + 1}", alt: "User #{i + 1}" }
+        { src: "/test/fixtures/files/random.jpeg", alt: "User #{i + 1}" }
       end
 
       render Ui::AvatarGroupComponent.new(
