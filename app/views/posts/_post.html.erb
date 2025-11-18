@@ -52,7 +52,7 @@
 
         <!-- Comments section moved to bottom -->
         <div class="flex items-center justify-between pt-2 pr-2">
-          <%= render_avatar_group([
+          <%= render Ui::AvatarGroupComponent.new([
               { src: "https://github.com/murny.png", alt: "@murny", fallback: "SM" },
               { src: "https://github.com/rails.png", alt: "@rails", fallback: "RR" },
               { src: "https://github.com/ruby.png", alt: "@ruby", fallback: "RB" }
