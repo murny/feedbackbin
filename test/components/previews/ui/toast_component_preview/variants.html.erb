@@ -1,0 +1,9 @@
+<div class="flex flex-col gap-4">
+  <% variants.each do |variant| %>
+    <%= render Ui::ToastComponent.new(
+      title: variant.to_s.titleize,
+      description: "This is a #{variant} toast notification.",
+      variant: variant
+    ) %>
+  <% end %>
+</div>

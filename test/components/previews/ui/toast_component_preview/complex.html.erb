@@ -1,0 +1,26 @@
+<div class="flex flex-col gap-4 max-w-md">
+  <%= render Ui::ToastComponent.new(
+    title: "Event Published",
+    description: "Your event 'Summer Conference 2024' is now live.",
+    variant: :success,
+    action_label: "View Event",
+    action_href: "#"
+  ) %>
+
+  <%= render Ui::ToastComponent.new(
+    title: "Storage Almost Full",
+    description: "You've used 95% of your storage. Upgrade to get more space.",
+    variant: :warning,
+    action_label: "Upgrade",
+    action_href: "#",
+    icon: "hard-drive"
+  ) %>
+
+  <%= render Ui::ToastComponent.new(
+    title: "Connection Lost",
+    description: "Unable to reach the server. Your changes may not be saved.",
+    variant: :error,
+    action_label: "Retry",
+    action_href: "#"
+  ) %>
+</div>
