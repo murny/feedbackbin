@@ -25,9 +25,11 @@ module Ui
     end
 
     test "raises error when rendered without content" do
-      assert_raises(ArgumentError, "Badge content cannot be empty") do
+      error = assert_raises(ArgumentError) do
         render_inline(BadgeComponent.new)
       end
+
+      assert_equal "Badge content cannot be empty", error.message
     end
 
     test "merges custom classes" do
