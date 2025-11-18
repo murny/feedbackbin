@@ -9,7 +9,7 @@
       <p class="text-sm text-muted-foreground"><%= t(".page_description") %></p>
     </div>
 
-    <%= render_alert variant: :destructive, title: t(".subtitle"), description: t(".description"), icon: "shield-alert" %>
+    <%= render Ui::AlertComponent.new(variant: :destructive, title: t(".subtitle"), description: t(".description"), icon: "shield-alert") %>
 
     <!-- Transfer Ownership Section -->
     <div class="mt-8">
