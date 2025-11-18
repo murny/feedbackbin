@@ -19,7 +19,7 @@
         <!-- Avatar and Basic Info Section -->
         <div class="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
           <div class="flex justify-center sm:justify-start">
-            <%= render_avatar(
+            <%= render Ui::AvatarComponent.new(
               src: fresh_user_avatar_path(@user),
               size: :xl,
               fallback: @user.name,

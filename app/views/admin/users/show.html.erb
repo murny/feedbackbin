@@ -30,7 +30,7 @@
   <!-- User Info -->
   <%= render_card(title: t(".user_info_title"), class: "px-6") do %>
     <div class="flex items-start space-x-6">
-      <%= render_avatar(
+      <%= render Ui::AvatarComponent.new(
         src: @user.avatar.attached? ? url_for(@user.avatar) : nil,
         alt: @user.name,
         size: :xl,
