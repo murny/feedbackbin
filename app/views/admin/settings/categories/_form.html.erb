@@ -35,6 +35,8 @@
 
   <div class="mt-8 flex items-center justify-end gap-3">
     <%= link_to t("cancel"), admin_settings_categories_path, class: "btn btn-secondary" %>
-    <%= render_button text: category.persisted? ? t(".save_changes") : t(".create_category"), type: :submit, variant: :default %>
+    <%= render Ui::ButtonComponent.new(type: :submit, variant: :default) do %>
+      <%= category.persisted? ? t(".save_changes") : t(".create_category") %>
+    <% end %>
   </div>
 <% end %>
