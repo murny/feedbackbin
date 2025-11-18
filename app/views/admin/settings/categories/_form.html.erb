@@ -23,7 +23,7 @@
 
     <div class="rounded-lg border border-border bg-muted/50 p-4">
       <h4 class="text-sm font-medium mb-2"><%= t(".preview_label") %></h4>
-      <%= render_badge(
+      <%= render Ui::BadgeComponent.new(
         variant: :outline,
         class: "gap-1.5 text-muted-foreground bg-muted/30 border-border"
       ) do %>

@@ -146,15 +146,15 @@
         <div class="mt-8">
           <h3 class="text-lg font-semibold text-foreground mb-4"><%= t(".achievements") %></h3>
           <div class="flex flex-wrap gap-2">
-            <%= render_badge(variant: :default) do %>
+            <%= render Ui::BadgeComponent.new(variant: :default) do %>
               <%= lucide_icon "trophy" %>
               <%= t(".achievements_top_contributor") %>
             <% end %>
-            <%= render_badge(variant: :secondary) do %>
+            <%= render Ui::BadgeComponent.new(variant: :secondary) do %>
               <%= lucide_icon "thumbs-up" %>
               <%= t(".achievements_helpful") %>
             <% end %>
-            <%= render_badge(variant: :outline) do %>
+            <%= render Ui::BadgeComponent.new(variant: :outline) do %>
               <%= lucide_icon "rocket" %>
               <%= t(".achievements_early_adopter") %>
             <% end %>

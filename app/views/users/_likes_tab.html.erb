@@ -19,9 +19,13 @@
                       <% end %>
                     </h2>
                     <% if like.likeable.respond_to?(:category) && like.likeable.category %>
-                      <%= render_badge(text: like.likeable.category.name, variant: :outline) %>
+                      <%= render Ui::BadgeComponent.new(variant: :outline) do %>
+                        <%= like.likeable.category.name %>
+                      <% end %>
                     <% elsif like.likeable.respond_to?(:post) && like.likeable.post.category %>
-                      <%= render_badge(text: like.likeable.post.category.name, variant: :outline) %>
+                      <%= render Ui::BadgeComponent.new(variant: :outline) do %>
+                        <%= like.likeable.post.category.name %>
+                      <% end %>
                     <% end %>
                   </div>
                   <div class="mt-1 flex items-center gap-x-2 text-xs leading-5">

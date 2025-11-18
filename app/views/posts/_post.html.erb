@@ -11,24 +11,25 @@
           </h2>
           <div class="flex items-center gap-2 flex-shrink-0">
             <% if post.pinned? %>
-              <%= render_badge(variant: :secondary) do %>
+              <%= render Ui::BadgeComponent.new(variant: :secondary) do %>
                 <%= lucide_icon "map-pin" %>
                 <%= t(".pinned") %>
               <% end %>
             <% end %>
             <% if post.post_status.present? %>
-              <%= render_badge(
-                text: post.post_status.name,
+              <%= render Ui::BadgeComponent.new(
                 class: "text-white font-medium",
                 style: "background-color: #{post.post_status.color};"
-              ) %>
+              ) do %>
+                <%= post.post_status.name %>
+              <% end %>
             <% end %>
           </div>
         </div>
 
         <!-- Category and metadata row -->
         <div class="flex items-center gap-2 mb-2">
-          <%= render_badge(
+          <%= render Ui::BadgeComponent.new(
             variant: :outline,
             class: "gap-1.5 text-muted-foreground bg-muted/30 border-border"
           ) do %>

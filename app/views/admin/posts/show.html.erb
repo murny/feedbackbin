@@ -41,16 +41,14 @@
 
           <div class="flex flex-wrap gap-2 mb-4">
             <% if @post.category %>
-              <%= render_badge(
-                text: @post.category.name,
-                variant: :secondary
-              ) %>
+              <%= render Ui::BadgeComponent.new(variant: :secondary) do %>
+                <%= @post.category.name %>
+              <% end %>
             <% end %>
             <% if @post.post_status %>
-              <%= render_badge(
-                text: @post.post_status.name,
-                variant: :outline
-              ) %>
+              <%= render Ui::BadgeComponent.new(variant: :outline) do %>
+                <%= @post.post_status.name %>
+              <% end %>
             <% end %>
           </div>
 

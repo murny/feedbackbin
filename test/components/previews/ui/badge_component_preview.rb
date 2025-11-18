@@ -29,11 +29,6 @@ module Ui
       end
     end
 
-    # @label With Legacy Text Parameter
-    def with_text_parameter
-      render Ui::BadgeComponent.new(text: "Legacy Badge", variant: :outline)
-    end
-
     # @label Custom Styled
     def custom_styled
       render Ui::BadgeComponent.new(
