@@ -15,7 +15,9 @@
                       <% end %>
                     </h2>
                     <% if comment.post.category %>
-                      <%= render_badge(text: comment.post.category.name, variant: :outline) %>
+                      <%= render Ui::BadgeComponent.new(variant: :outline) do %>
+                        <%= comment.post.category.name %>
+                      <% end %>
                     <% end %>
                   </div>
                   <div class="mt-1 flex items-center gap-x-2 text-xs leading-5">

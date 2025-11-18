@@ -8,14 +8,14 @@
       </p>
     </div>
     <div class="flex items-center gap-2">
-      <%= render_button(
+      <%= render Ui::ButtonComponent.new(
         variant: :outline,
         size: :default
       ) do %>
         <%= lucide_icon "calendar", class: "h-4 w-4" %>
         <span>Last 30 days</span>
       <% end %>
-      <%= render_button(
+      <%= render Ui::ButtonComponent.new(
         variant: :default,
         size: :default
       ) do %>
@@ -101,7 +101,7 @@
       <div class="space-y-6">
         <!-- Activity item 1 -->
         <div class="flex items-center">
-          <%= render_avatar(
+          <%= render Ui::AvatarComponent.new(
             fallback: "OM",
             size: :default
           ) %>
@@ -114,7 +114,7 @@
 
         <!-- Activity item 2 -->
         <div class="flex items-center">
-          <%= render_avatar(
+          <%= render Ui::AvatarComponent.new(
             fallback: "JL",
             size: :default
           ) %>
@@ -127,7 +127,7 @@
 
         <!-- Activity item 3 -->
         <div class="flex items-center">
-          <%= render_avatar(
+          <%= render Ui::AvatarComponent.new(
             fallback: "IN",
             size: :default
           ) %>
@@ -140,7 +140,7 @@
 
         <!-- Activity item 4 -->
         <div class="flex items-center">
-          <%= render_avatar(
+          <%= render Ui::AvatarComponent.new(
             fallback: "WK",
             size: :default
           ) %>

@@ -19,7 +19,7 @@
         <!-- Avatar and Basic Info Section -->
         <div class="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
           <div class="flex justify-center sm:justify-start">
-            <%= render_avatar(
+            <%= render Ui::AvatarComponent.new(
               src: fresh_user_avatar_path(@user),
               size: :xl,
               fallback: @user.name,
@@ -35,7 +35,7 @@
             <!-- Action Buttons -->
             <div class="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-x-4 sm:space-y-0">
               <% if Current.user == @user %>
-                <%= render_button(
+                <%= render Ui::ButtonComponent.new(
                   variant: :outline,
                   href: user_settings_profile_path
                 ) do %>
@@ -43,7 +43,7 @@
                   <%= t(".edit_profile") %>
                 <% end %>
               <% else %>
-                <%= render_button(
+                <%= render Ui::ButtonComponent.new(
                   variant: :outline
                 ) do %>
                   <%= lucide_icon "triangle-alert", class: "size-4 mr-2" %>
@@ -146,15 +146,15 @@
         <div class="mt-8">
           <h3 class="text-lg font-semibold text-foreground mb-4"><%= t(".achievements") %></h3>
           <div class="flex flex-wrap gap-2">
-            <%= render_badge(variant: :default) do %>
+            <%= render Ui::BadgeComponent.new(variant: :default) do %>
               <%= lucide_icon "trophy" %>
               <%= t(".achievements_top_contributor") %>
             <% end %>
-            <%= render_badge(variant: :secondary) do %>
+            <%= render Ui::BadgeComponent.new(variant: :secondary) do %>
               <%= lucide_icon "thumbs-up" %>
               <%= t(".achievements_helpful") %>
             <% end %>
-            <%= render_badge(variant: :outline) do %>
+            <%= render Ui::BadgeComponent.new(variant: :outline) do %>
               <%= lucide_icon "rocket" %>
               <%= t(".achievements_early_adopter") %>
             <% end %>

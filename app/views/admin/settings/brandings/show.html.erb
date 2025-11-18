@@ -63,7 +63,9 @@
             </div>
 
             <div class="mt-8 flex items-center justify-end gap-3">
-              <%= render_button text: t(".save_changes"), type: :submit, variant: :default %>
+              <%= render Ui::ButtonComponent.new(type: :submit, variant: :default) do %>
+                <%= t(".save_changes") %>
+              <% end %>
             </div>
           <% end %>
         </div>

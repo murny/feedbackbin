@@ -33,7 +33,7 @@
               <%= lucide_icon "copy", class: "h-4 w-4" %>
               <span class="sr-only"><%= t(".copy_invitation_link") %></span>
             <% end %>
-            <%= render_button(
+            <%= render Ui::ButtonComponent.new(
               variant: :outline,
               size: :icon,
               href: resend_admin_invitation_path(invitation),
@@ -42,7 +42,7 @@
               <%= lucide_icon "mail", class: "h-4 w-4" %>
               <span class="sr-only"><%= t(".resend") %></span>
             <% end %>
-            <%= render_button(
+            <%= render Ui::ButtonComponent.new(
               variant: :destructive,
               size: :icon,
               href: admin_invitation_path(invitation),

@@ -12,23 +12,25 @@
       </p>
     </div>
     <div class="flex gap-2">
-      <%= render_button(
-        text: t(".back_button"),
+      <%= render Ui::ButtonComponent.new(
         href: admin_users_path,
         variant: :outline
-      ) %>
-      <%= render_button(
-        text: t(".view_profile"),
+      ) do %>
+        <%= t(".back_button") %>
+      <% end %>
+      <%= render Ui::ButtonComponent.new(
         href: user_path(@user),
         variant: :outline
-      ) %>
+      ) do %>
+        <%= t(".view_profile") %>
+      <% end %>
     </div>
   </div>
 
   <!-- User Info -->
   <%= render_card(title: t(".user_info_title"), class: "px-6") do %>
     <div class="flex items-start space-x-6">
-      <%= render_avatar(
+      <%= render Ui::AvatarComponent.new(
         src: @user.avatar.attached? ? url_for(@user.avatar) : nil,
         alt: @user.name,
         size: :xl,
@@ -80,10 +82,11 @@
             <!-- Email Verification -->
             <div>
               <h4 class="text-sm font-medium text-foreground mb-3"><%= t(".email_verification_label") %></h4>
-              <%= render_badge(
-                text: @user.email_verified? ? t(".verified_badge") : t(".unverified_badge"),
+              <%= render Ui::BadgeComponent.new(
                 variant: @user.email_verified? ? :default : :outline
-              ) %>
+              ) do %>
+                <%= @user.email_verified? ? t(".verified_badge") : t(".unverified_badge") %>
+              <% end %>
             </div>
           </div>
         </div>
@@ -121,10 +124,9 @@
                 <%= time_ago_in_words(post.created_at) %> <%= t(".ago") %>
               </div>
               <% if post.category %>
-                <%= render_badge(
-                  text: post.category.name,
-                  variant: :outline
-                ) %>
+                <%= render Ui::BadgeComponent.new(variant: :outline) do %>
+                  <%= post.category.name %>
+                <% end %>
               <% end %>
             </div>
             <div class="text-xs text-muted-foreground">
