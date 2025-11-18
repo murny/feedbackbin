@@ -37,81 +37,81 @@ module Ui
 
     private
 
-    def html_attrs
-      @attrs.merge(
-        class: alert_classes,
-        role: "alert"
-      )
-    end
-
-    def alert_classes
-      tw_merge(
-        base_classes,
-        variant_classes,
-        @attrs[:class]
-      )
-    end
-
-    def base_classes
-      [
-        "relative w-full rounded-lg border px-4 py-3 text-sm grid",
-        "has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] grid-cols-[0_1fr]",
-        "has-[>svg]:gap-x-3 gap-y-0.5 items-start",
-        "[&>svg]:size-4 [&>svg]:translate-y-0.5 [&>svg]:text-current"
-      ].join(" ")
-    end
-
-    def variant_classes
-      case @variant
-      when :default
-        "bg-card text-card-foreground"
-      when :destructive
-        "text-destructive bg-card [&>svg]:text-current *:data-[slot=alert-description]:text-destructive/90"
+      def html_attrs
+        @attrs.merge(
+          class: alert_classes,
+          role: "alert"
+        )
       end
-    end
 
-    def icon_element
-      return nil unless @show_icon && icon_name.present?
-
-      helpers.lucide_icon(icon_name)
-    end
-
-    def icon_name
-      return @custom_icon if @custom_icon.present?
-
-      # Default icons based on variant
-      case @variant
-      when :destructive
-        "circle-alert"
-      else
-        "info"
+      def alert_classes
+        tw_merge(
+          base_classes,
+          variant_classes,
+          @attrs[:class]
+        )
       end
-    end
 
-    def title_element
-      return nil unless @title.present?
-
-      tag.div(@title,
-        data: { slot: "alert-title" },
-        class: "col-start-2 line-clamp-1 min-h-4 font-medium tracking-tight"
-      )
-    end
-
-    def description_element
-      return nil unless @description.present?
-
-      tag.div(
-        data: { slot: "alert-description" },
-        class: "text-muted-foreground col-start-2 grid justify-items-start gap-1 text-sm [&_p]:leading-relaxed"
-      ) do
-        @description
+      def base_classes
+        [
+          "relative w-full rounded-lg border px-4 py-3 text-sm grid",
+          "has-[>svg]:grid-cols-[calc(var(--spacing)*4)_1fr] grid-cols-[0_1fr]",
+          "has-[>svg]:gap-x-3 gap-y-0.5 items-start",
+          "[&>svg]:size-4 [&>svg]:translate-y-0.5 [&>svg]:text-current"
+        ].join(" ")
       end
-    end
 
-    def validate_option(value, valid_options, option_name)
-      return value if valid_options.include?(value)
+      def variant_classes
+        case @variant
+        when :default
+          "bg-card text-card-foreground"
+        when :destructive
+          "text-destructive bg-card [&>svg]:text-current *:data-[slot=alert-description]:text-destructive/90"
+        end
+      end
 
-      raise ArgumentError, "Unknown #{option_name}: #{value}. Valid options: #{valid_options.join(', ')}"
-    end
+      def icon_element
+        return nil unless @show_icon && icon_name.present?
+
+        helpers.lucide_icon(icon_name)
+      end
+
+      def icon_name
+        return @custom_icon if @custom_icon.present?
+
+        # Default icons based on variant
+        case @variant
+        when :destructive
+          "circle-alert"
+        else
+          "info"
+        end
+      end
+
+      def title_element
+        return nil unless @title.present?
+
+        tag.div(@title,
+          data: { slot: "alert-title" },
+          class: "col-start-2 line-clamp-1 min-h-4 font-medium tracking-tight"
+        )
+      end
+
+      def description_element
+        return nil unless @description.present?
+
+        tag.div(
+          data: { slot: "alert-description" },
+          class: "text-muted-foreground col-start-2 grid justify-items-start gap-1 text-sm [&_p]:leading-relaxed"
+        ) do
+          @description
+        end
+      end
+
+      def validate_option(value, valid_options, option_name)
+        return value if valid_options.include?(value)
+
+        raise ArgumentError, "Unknown #{option_name}: #{value}. Valid options: #{valid_options.join(', ')}"
+      end
   end
 end
