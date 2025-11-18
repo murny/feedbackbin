@@ -1,6 +1,8 @@
 <%= render Ui::CardComponent.new do |c| %>
   <% c.with_header(title: "Premium Plan", description: "$29/month") do %>
-    <%= render Ui::BadgeComponent.new(variant: :default) { "Popular" } %>
+    <%= render Ui::BadgeComponent.new(variant: :default) do %>
+      Popular
+    <% end %>
   <% end %>
   <% c.with_body do %>
     <div class="space-y-4">
@@ -25,6 +27,8 @@
     </div>
   <% end %>
   <% c.with_footer do %>
-    <%= render Ui::ButtonComponent.new(variant: :default, class: "w-full") { "Upgrade now" } %>
+    <%= render Ui::ButtonComponent.new(variant: :default, class: "w-full") do %>
+      Upgrade now
+    <% end %>
   <% end %>
 <% end %>

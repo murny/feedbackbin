@@ -83,6 +83,7 @@ module Ui
       end
 
       page_html = page.native.to_html
+
       assert_includes page_html, "rounded-xl"
       assert_includes page_html, "border-2"
     end
@@ -102,6 +103,7 @@ module Ui
       end
 
       page_html = page.native.to_html
+
       assert_includes page_html, "grid-cols-[1fr_auto]"
       assert_includes page_html, "@container/card-header"
     end
@@ -160,6 +162,7 @@ module Ui
       end
 
       page_html = page.native.to_html
+
       assert_includes page_html, "bg-card"
       assert_includes page_html, "rounded-xl"
       assert_includes page_html, "border"
@@ -173,6 +176,7 @@ module Ui
       end
 
       page_html = page.native.to_html
+
       assert_includes page_html, "px-6"
     end
 
@@ -182,6 +186,7 @@ module Ui
       end
 
       page_html = page.native.to_html
+
       assert_includes page_html, "px-6"
     end
 
@@ -192,6 +197,7 @@ module Ui
       end
 
       page_html = page.native.to_html
+
       assert_includes page_html, "px-6"
       assert_includes page_html, "flex"
       assert_includes page_html, "items-center"

@@ -33,41 +33,7 @@ module Ui
 
     # @label With Footer
     def with_footer
-      render Ui::CardComponent.new do |c|
-        c.with_header(title: "Create project", description: "Deploy your new project in one-click.")
-        c.with_body do
-          tag.div(class: "space-y-4") do
-            safe_join([
-              tag.div(class: "space-y-2") do
-                safe_join([
-                  tag.label("Name", class: "text-sm font-medium"),
-                  tag.input(type: "text", placeholder: "Project name", class: "w-full rounded-md border px-3 py-2 text-sm")
-                ])
-              end,
-              tag.div(class: "space-y-2") do
-                safe_join([
-                  tag.label("Framework", class: "text-sm font-medium"),
-                  tag.select(class: "w-full rounded-md border px-3 py-2 text-sm") do
-                    safe_join([
-                      tag.option("Next.js"),
-                      tag.option("SvelteKit"),
-                      tag.option("Nuxt.js")
-                    ])
-                  end
-                ])
-              end
-            ])
-          end
-        end
-        c.with_footer do
-          tag.div(class: "flex gap-2") do
-            safe_join([
-              render(Ui::ButtonComponent.new(variant: :outline)) { "Cancel" },
-              render(Ui::ButtonComponent.new(variant: :default)) { "Deploy" }
-            ])
-          end
-        end
-      end
+      render_with_template
     end
 
     # @label Simple - Title Only
@@ -97,30 +63,7 @@ module Ui
     # @label With Border Separators
     # Shows how to use .border-b and .border-t classes
     def with_border_separators
-      render Ui::CardComponent.new(class: "border-b") do |c|
-        c.with_header(title: "Account Settings", description: "Manage your account preferences")
-        c.with_body do
-          tag.div(class: "space-y-3") do
-            safe_join([
-              tag.div(class: "flex items-center justify-between") do
-                safe_join([
-                  tag.span("Email notifications", class: "text-sm"),
-                  tag.input(type: "checkbox", checked: true)
-                ])
-              end,
-              tag.div(class: "flex items-center justify-between") do
-                safe_join([
-                  tag.span("SMS notifications", class: "text-sm"),
-                  tag.input(type: "checkbox")
-                ])
-              end
-            ])
-          end
-        end
-        c.with_footer(class: "border-t") do
-          render(Ui::ButtonComponent.new(variant: :default, size: :sm)) { "Save changes" }
-        end
-      end
+      render_with_template
     end
 
     # @label Product Card Example
