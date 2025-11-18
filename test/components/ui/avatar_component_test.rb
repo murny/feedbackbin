@@ -95,6 +95,7 @@ module Ui
       ))
 
       page_html = page.native.to_html
+
       assert_includes page_html, "size-12"
     end
 
@@ -105,6 +106,7 @@ module Ui
       ))
 
       page_html = page.native.to_html
+
       assert_includes page_html, "rounded-md"
     end
 

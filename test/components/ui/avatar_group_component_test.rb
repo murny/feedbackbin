@@ -53,31 +53,34 @@ module Ui
     end
 
     test "applies hover effect classes when enabled" do
-      avatars = [{ src: "/user1.jpg", alt: "User 1" }]
+      avatars = [ { src: "/user1.jpg", alt: "User 1" } ]
 
       render_inline(AvatarGroupComponent.new(avatars, hover_effect: true))
 
       page_html = page.native.to_html
+
       assert_includes page_html, "hover:space-x-1"
       assert_includes page_html, "transition-all"
     end
 
     test "applies ring classes when enabled" do
-      avatars = [{ src: "/user1.jpg", alt: "User 1" }]
+      avatars = [ { src: "/user1.jpg", alt: "User 1" } ]
 
       render_inline(AvatarGroupComponent.new(avatars, ring: true))
 
       page_html = page.native.to_html
+
       assert_includes page_html, "ring-2"
       assert_includes page_html, "ring-background"
     end
 
     test "passes size to child avatars" do
-      avatars = [{ src: "/user1.jpg", alt: "User 1" }]
+      avatars = [ { src: "/user1.jpg", alt: "User 1" } ]
 
       render_inline(AvatarGroupComponent.new(avatars, size: :lg))
 
       page_html = page.native.to_html
+
       assert_includes page_html, "size-12"
     end
 
@@ -94,11 +97,12 @@ module Ui
     end
 
     test "merges custom classes with container" do
-      avatars = [{ src: "/user1.jpg", alt: "User 1" }]
+      avatars = [ { src: "/user1.jpg", alt: "User 1" } ]
 
       render_inline(AvatarGroupComponent.new(avatars, class: "custom-container"))
 
       page_html = page.native.to_html
+
       assert_includes page_html, "custom-container"
       assert_includes page_html, "flex"
     end

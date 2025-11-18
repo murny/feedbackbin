@@ -5,23 +5,28 @@ module Ui
   class AvatarComponentPreview < ViewComponent::Preview
     # @label Default
     def default
+      user = create_user_with_avatar
       render Ui::AvatarComponent.new(
-        src: "/test/fixtures/files/random.jpeg",
+        src: user.avatar,
         alt: "User Avatar"
       )
     end
 
     # @label All Sizes
     def sizes
+      user = create_user_with_avatar
       render_with_template locals: {
-        sizes: Ui::AvatarComponent::SIZES
+        sizes: Ui::AvatarComponent::SIZES,
+        avatar_url: user.avatar
       }
     end
 
     # @label Shapes
     def shapes
+      user = create_user_with_avatar
       render_with_template locals: {
-        shapes: Ui::AvatarComponent::SHAPES
+        shapes: Ui::AvatarComponent::SHAPES,
+        avatar_url: user.avatar
       }
     end
 
@@ -49,12 +54,13 @@ module Ui
 
     # @label Avatar Group
     def avatar_group
+      user = create_user_with_avatar
       avatars = [
-        { src: "/test/fixtures/files/random.jpeg", alt: "User 1" },
-        { src: "/test/fixtures/files/random.jpeg", alt: "User 2" },
-        { src: "/test/fixtures/files/random.jpeg", alt: "User 3" },
-        { src: "/test/fixtures/files/random.jpeg", alt: "User 4" },
-        { src: "/test/fixtures/files/random.jpeg", alt: "User 5" }
+        { src: user.avatar, alt: "User 1" },
+        { src: user.avatar, alt: "User 2" },
+        { src: user.avatar, alt: "User 3" },
+        { src: user.avatar, alt: "User 4" },
+        { src: user.avatar, alt: "User 5" }
       ]
 
       render Ui::AvatarGroupComponent.new(
@@ -84,10 +90,11 @@ module Ui
 
     # @label Avatar Group - No Limit
     def avatar_group_no_limit
+      user = create_user_with_avatar
       avatars = [
-        { src: "/test/fixtures/files/random.jpeg", alt: "User 1" },
-        { src: "/test/fixtures/files/random.jpeg", alt: "User 2" },
-        { src: "/test/fixtures/files/random.jpeg", alt: "User 3" }
+        { src: user.avatar, alt: "User 1" },
+        { src: user.avatar, alt: "User 2" },
+        { src: user.avatar, alt: "User 3" }
       ]
 
       render Ui::AvatarGroupComponent.new(
@@ -98,8 +105,9 @@ module Ui
 
     # @label Avatar Group - With Hover
     def avatar_group_hover
+      user = create_user_with_avatar
       avatars = 4.times.map do |i|
-        { src: "/test/fixtures/files/random.jpeg", alt: "User #{i + 1}" }
+        { src: user.avatar, alt: "User #{i + 1}" }
       end
 
       render Ui::AvatarGroupComponent.new(
@@ -109,5 +117,26 @@ module Ui
         size: :lg
       )
     end
+
+    private
+
+      def create_user_with_avatar
+        user = User.first || User.create!(
+          email: "preview@example.com",
+          name: "Preview User",
+          password: "password",
+          password_confirmation: "password"
+        )
+
+        unless user.avatar.attached?
+          user.avatar.attach(
+            io: File.open(Rails.root.join("test/fixtures/files/random.jpeg")),
+            filename: "random.jpeg",
+            content_type: "image/jpeg"
+          )
+        end
+
+        user
+      end
   end
 end

@@ -1,7 +1,7 @@
 <div class="flex items-center gap-4">
   <% sizes.each do |size| %>
     <%= render Ui::AvatarComponent.new(
-      src: "/test/fixtures/files/random.jpeg",
+      src: avatar_url,
       alt: "User",
       size: size
     ) %>
