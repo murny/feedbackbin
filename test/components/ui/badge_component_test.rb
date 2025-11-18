@@ -24,17 +24,10 @@ module Ui
       assert_selector "a[href='/test']", text: "Link Badge"
     end
 
-    test "renders with text parameter (legacy support)" do
-      render_inline(BadgeComponent.new(text: "Legacy Text"))
-
-      assert_selector "span", text: "Legacy Text"
-    end
-
-    test "prefers block content over text parameter" do
-      render_inline(BadgeComponent.new(text: "Text Param")) { "Block Content" }
-
-      assert_selector "span", text: "Block Content"
-      assert_no_selector "span", text: "Text Param"
+    test "raises error when rendered without content" do
+      assert_raises(ArgumentError, "Badge content cannot be empty") do
+        render_inline(BadgeComponent.new)
+      end
     end
 
     test "merges custom classes" do

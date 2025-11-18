@@ -25,6 +25,8 @@ module Ui
     private
 
       def badge_content
+        raise ArgumentError, "Badge content cannot be empty" if content.blank?
+
         content
       end
 
