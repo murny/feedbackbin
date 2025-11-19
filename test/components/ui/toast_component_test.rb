@@ -176,6 +176,7 @@ module Ui
       ))
 
       page_html = page.native.to_html
+
       assert_includes page_html, "border-l-green-500"
     end
 
@@ -186,6 +187,7 @@ module Ui
       ))
 
       page_html = page.native.to_html
+
       assert_includes page_html, "border-l-yellow-500"
     end
 
@@ -196,6 +198,7 @@ module Ui
       ))
 
       page_html = page.native.to_html
+
       assert_includes page_html, "border-l-destructive"
     end
 
@@ -206,6 +209,7 @@ module Ui
       ))
 
       page_html = page.native.to_html
+
       assert_includes page_html, "border-l-primary"
     end
 
