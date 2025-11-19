@@ -48,7 +48,7 @@ module Ui
         { text: "Current" }
       ]))
 
-      assert_selector "li:has(svg)", count: 1 # 1 separator
+      assert_selector "li[data-slot='breadcrumb-separator']", count: 1
     end
 
     test "supports custom text separator" do
@@ -117,8 +117,8 @@ module Ui
 
       render_inline(BreadcrumbComponent.new(items: items, collapse: true))
 
-      assert_selector ".sr-only", text: "More"
-      assert_selector "[aria-hidden='true']", text: "More"
+      assert_selector "[data-slot='breadcrumb-ellipsis'] .sr-only", text: "More"
+      assert_selector "svg[aria-hidden='true']"
     end
 
     test "has proper semantic and accessibility structure" do
