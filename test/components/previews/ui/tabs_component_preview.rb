@@ -141,7 +141,7 @@ module Ui
             icon: "list",
             content: tag.div(class: "space-y-2") do
               tag.ul(class: "space-y-2") do
-                ["Item 1", "Item 2", "Item 3"].map do |item|
+                [ "Item 1", "Item 2", "Item 3" ].map do |item|
                   tag.li(item, class: "text-sm")
                 end.join.html_safe
               end

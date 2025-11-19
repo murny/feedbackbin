@@ -66,6 +66,7 @@ module Ui
       render_inline(TabsComponent.new(items: items))
 
       page_html = page.native.to_html
+
       assert_includes page_html, "data-tabs-index-value=\"0\""
     end
 
@@ -78,6 +79,7 @@ module Ui
       render_inline(TabsComponent.new(items: items, index_value: 1))
 
       page_html = page.native.to_html
+
       assert_includes page_html, "data-tabs-index-value=\"1\""
     end
 
@@ -195,6 +197,7 @@ module Ui
       render_inline(TabsComponent.new(items: items))
 
       page_html = page.native.to_html
+
       assert_includes page_html, "bg-muted"
       assert_includes page_html, "rounded-lg"
     end
@@ -207,6 +210,7 @@ module Ui
       render_inline(TabsComponent.new(items: items))
 
       page_html = page.native.to_html
+
       assert_includes page_html, "transition-all"
       assert_includes page_html, "focus-visible:ring-2"
     end
