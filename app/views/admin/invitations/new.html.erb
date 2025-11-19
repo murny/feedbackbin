@@ -12,8 +12,8 @@
     <p class="text-sm text-muted-foreground"><%= t(".description") %></p>
   </div>
 
-  <%= render_card do %>
-    <div class="p-6">
+  <%= render Ui::CardComponent.new do |c| %>
+    <% c.with_body do %>
       <%= form_with model: @invitation, url: admin_invitations_path, class: "space-y-6" do |form| %>
         <%= render "error_messages", resource: form.object %>
 
@@ -43,6 +43,6 @@
           <%= form.submit t(".send_invitation"), class: "btn btn-primary" %>
         </div>
       <% end %>
-    </div>
+    <% end %>
   <% end %>
 </div>

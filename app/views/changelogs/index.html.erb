@@ -8,7 +8,8 @@
     </div>
 
     <% if @changelogs.empty? %>
-      <%= render_card(class: "p-4 md:p-6 lg:p-8") do %>
+      <%= render Ui::CardComponent.new do |c| %>
+        <% c.with_body(class: "p-4 md:p-6 lg:p-8") do %>
         <div class="flex flex-col items-center justify-center text-center py-12">
           <div class="flex h-20 w-20 items-center justify-center rounded-full bg-muted/50">
             <%= lucide_icon "scroll-text", class: "h-10 w-10 text-muted-foreground" %>
@@ -18,21 +19,24 @@
             <%= t(".empty_description") %>
           </p>
         </div>
+        <% end %>
       <% end %>
     <% else %>
       <div class="space-y-4">
         <% @changelogs.each do |changelog| %>
-          <%= render_card(class: "hover:shadow-lg transition-shadow duration-200") do %>
-            <%= render changelog %>
+          <%= render Ui::CardComponent.new(class: "hover:shadow-lg transition-shadow duration-200") do |c| %>
+            <% c.with_body do %>
+              <%= render changelog %>
+            <% end %>
           <% end %>
         <% end %>
       </div>
     <% end %>
 
-    <% if @pagy.pages > 1 %>
+    <% if @pagy.last > 1 %>
       <div class="flex items-center justify-between px-4 py-3 sm:px-6">
-        <%== pagy_info(@pagy) %>
-        <%== pagy_nav(@pagy) %>
+        <%== pagy.info_tag %>
+        <%== pagy.series_nav %>
       </div>
     <% end %>
   </div>
