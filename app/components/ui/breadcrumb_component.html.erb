@@ -1,0 +1,36 @@
+<%= tag.nav(**html_attrs) do %>
+  <ol data-slot="breadcrumb-list" class="<%= breadcrumb_classes %>">
+    <% processed_items.each_with_index do |item, index| %>
+      <% is_last = last_item?(index) %>
+
+      <% if item[:is_ellipsis] %>
+        <li data-slot="breadcrumb-item" class="inline-flex items-center gap-1.5">
+          <span data-slot="breadcrumb-ellipsis" class="flex size-9 items-center justify-center">
+            <%= helpers.lucide_icon "ellipsis", class: "size-4" %>
+            <span class="sr-only">More</span>
+          </span>
+        </li>
+      <% else %>
+        <li data-slot="breadcrumb-item" class="inline-flex items-center gap-1.5">
+          <% if item[:path].present? %>
+            <%= link_to item[:text], item[:path],
+                data: { slot: "breadcrumb-link" },
+                class: "hover:text-foreground transition-colors" %>
+          <% else %>
+            <span data-slot="breadcrumb-page"
+                  aria-current="page"
+                  class="text-foreground font-normal">
+              <%= item[:text] %>
+            </span>
+          <% end %>
+        </li>
+      <% end %>
+
+      <% unless is_last %>
+        <li data-slot="breadcrumb-separator" role="presentation" aria-hidden="true" class="[&>svg]:size-3.5">
+          <%= separator_content %>
+        </li>
+      <% end %>
+    <% end %>
+  </ol>
+<% end %>
