@@ -3,12 +3,12 @@
   <% c.with_body do %>
     <div class="space-y-3">
       <div class="flex items-center justify-between">
-        <span class="text-sm">Email notifications</span>
-        <input type="checkbox" checked>
+        <label for="email-notifications" class="text-sm">Email notifications</label>
+        <input type="checkbox" id="email-notifications" checked>
       </div>
       <div class="flex items-center justify-between">
-        <span class="text-sm">SMS notifications</span>
-        <input type="checkbox">
+        <label for="sms-notifications" class="text-sm">SMS notifications</label>
+        <input type="checkbox" id="sms-notifications">
       </div>
     </div>
   <% end %>

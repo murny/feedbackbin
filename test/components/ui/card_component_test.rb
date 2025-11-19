@@ -82,10 +82,7 @@ module Ui
         c.with_body { "Content" }
       end
 
-      page_html = page.native.to_html
-
-      assert_includes page_html, "rounded-xl"
-      assert_includes page_html, "border-2"
+      assert_selector "div[data-slot='card'].rounded-xl.border-2"
     end
 
     test "applies data attributes to card" do
@@ -102,10 +99,9 @@ module Ui
         c.with_body { "Content" }
       end
 
-      page_html = page.native.to_html
-
-      assert_includes page_html, "grid-cols-[1fr_auto]"
-      assert_includes page_html, "@container/card-header"
+      header = page.find("div[data-slot='card-header']")
+      assert_includes header[:class], "grid-cols-[1fr_auto]"
+      assert_includes header[:class], "@container/card-header"
     end
 
     test "renders without header when not provided" do
@@ -161,12 +157,7 @@ module Ui
         c.with_body { "Content" }
       end
 
-      page_html = page.native.to_html
-
-      assert_includes page_html, "bg-card"
-      assert_includes page_html, "rounded-xl"
-      assert_includes page_html, "border"
-      assert_includes page_html, "shadow-sm"
+      assert_selector "div[data-slot='card'].bg-card.rounded-xl.border.shadow-sm"
     end
 
     test "header has correct padding classes" do
@@ -175,9 +166,7 @@ module Ui
         c.with_body { "Content" }
       end
 
-      page_html = page.native.to_html
-
-      assert_includes page_html, "px-6"
+      assert_selector "div[data-slot='card-header'].px-6"
     end
 
     test "content has correct padding classes" do
@@ -185,9 +174,7 @@ module Ui
         c.with_body { "Content" }
       end
 
-      page_html = page.native.to_html
-
-      assert_includes page_html, "px-6"
+      assert_selector "div[data-slot='card-content'].px-6"
     end
 
     test "footer has correct padding and alignment classes" do
@@ -196,11 +183,7 @@ module Ui
         c.with_footer { "Footer" }
       end
 
-      page_html = page.native.to_html
-
-      assert_includes page_html, "px-6"
-      assert_includes page_html, "flex"
-      assert_includes page_html, "items-center"
+      assert_selector "div[data-slot='card-footer'].px-6.flex.items-center"
     end
 
     test "supports custom header classes" do
@@ -236,6 +219,18 @@ module Ui
       end
 
       assert_selector "div[data-slot='card-footer'][data-controller='footer-test']"
+    end
+
+    test "header with action only (no title/description) renders without empty text container" do
+      render_inline(CardComponent.new) do |c|
+        c.with_header { "Action Only" }
+        c.with_body { "Content" }
+      end
+
+      assert_selector "div[data-slot='card-header']"
+      assert_selector "div[data-slot='card-action']", text: "Action Only"
+      assert_no_selector "div[data-slot='card-title']"
+      assert_no_selector "div[data-slot='card-description']"
     end
   end
 end

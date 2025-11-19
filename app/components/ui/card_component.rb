@@ -51,21 +51,19 @@ module Ui
           tag.div(**header_attrs) do
             if content.present?
               # Has action content from block
-              safe_join([
-                tag.div do
-                  safe_join([
-                    render_title,
-                    render_description
-                  ].compact)
-                end,
+              text_content = render_text_content
+              if text_content.present?
+                safe_join([
+                  tag.div { text_content },
+                  tag.div(data: { slot: "card-action" }) { content }
+                ])
+              else
+                # Only action, no title/description
                 tag.div(data: { slot: "card-action" }) { content }
-              ])
+              end
             else
               # No action
-              safe_join([
-                render_title,
-                render_description
-              ].compact)
+              render_text_content
             end
           end
         end
@@ -89,6 +87,13 @@ module Ui
               "has-[data-slot=card-action]:grid-cols-[1fr_auto]",
               "[.border-b_&]:pb-6"
             ].join(" ")
+          end
+
+          def render_text_content
+            parts = [render_title, render_description].compact
+            return nil if parts.empty?
+
+            safe_join(parts)
           end
 
           def render_title

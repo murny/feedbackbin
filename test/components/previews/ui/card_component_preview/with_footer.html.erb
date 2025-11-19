@@ -3,12 +3,12 @@
   <% c.with_body do %>
     <div class="space-y-4">
       <div class="space-y-2">
-        <label class="text-sm font-medium">Name</label>
-        <input type="text" placeholder="Project name" autocomplete="off" class="w-full rounded-md border px-3 py-2 text-sm">
+        <label for="project-name" class="text-sm font-medium">Name</label>
+        <input type="text" id="project-name" placeholder="Project name" autocomplete="off" class="w-full rounded-md border px-3 py-2 text-sm">
       </div>
       <div class="space-y-2">
-        <label class="text-sm font-medium">Framework</label>
-        <select class="w-full rounded-md border px-3 py-2 text-sm">
+        <label for="project-framework" class="text-sm font-medium">Framework</label>
+        <select id="project-framework" class="w-full rounded-md border px-3 py-2 text-sm">
           <option>Next.js</option>
           <option>SvelteKit</option>
           <option>Nuxt.js</option>
