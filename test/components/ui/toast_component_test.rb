@@ -143,6 +143,24 @@ module Ui
       assert_selector "[data-toast-dismiss-after-value='5000']"
     end
 
+    test "sets show_delay value when provided" do
+      render_inline(ToastComponent.new(
+        title: "Test",
+        show_delay: 2000
+      ))
+
+      assert_selector "[data-toast-show-delay-value='2000']"
+    end
+
+    test "does not set show_delay attribute when zero" do
+      render_inline(ToastComponent.new(
+        title: "Test",
+        show_delay: 0
+      ))
+
+      assert_no_selector "[data-toast-show-delay-value]"
+    end
+
     test "has accessibility attributes" do
       render_inline(ToastComponent.new(title: "Test"))
 

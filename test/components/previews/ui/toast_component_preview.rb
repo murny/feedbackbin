@@ -117,6 +117,20 @@ module Ui
       )
     end
 
+    # @label Delayed Show
+    def delayed_show
+      render Ui::ToastComponent.new(
+        title: "Delayed Toast",
+        description: "This toast appears after a 2 second delay.",
+        show_delay: 2000
+      )
+    end
+
+    # @label Staggered Toasts
+    def staggered
+      render_with_template
+    end
+
     # @label With Block Content
     def with_block
       render_with_template

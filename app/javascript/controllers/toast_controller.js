@@ -1,58 +1,63 @@
 import { Controller } from "@hotwired/stimulus"
+import { enter, leave } from "./transition.js"
 
 export default class extends Controller {
   static values = {
-    dismissAfter: { type: Number, default: 5000 }
+    dismissAfter: Number,
+    showDelay: { type: Number, default: 0 }
   }
 
   connect() {
-    // Set initial state
-    this.element.dataset.state = "open"
+    // Show toast after optional delay
+    setTimeout(() => {
+      enter(this.element)
+    }, this.showDelayValue)
 
     // Auto-dismiss if configured
-    if (this.dismissAfterValue > 0) {
-      this.timeout = setTimeout(() => {
+    if (this.hasDismissAfterValue) {
+      this.dismissTimeout = setTimeout(() => {
         this.close()
-      }, this.dismissAfterValue)
+      }, this.dismissAfterValue + this.showDelayValue)
     }
   }
 
   disconnect() {
-    if (this.timeout) {
-      clearTimeout(this.timeout)
-    }
+    this.#clearTimeouts()
   }
 
   close() {
-    // Clear timeout if exists
-    if (this.timeout) {
-      clearTimeout(this.timeout)
-      this.timeout = null
-    }
+    this.#clearTimeouts()
 
-    // Set closed state for animation
-    this.element.dataset.state = "closed"
-
-    // Remove element after animation completes
-    setTimeout(() => {
+    // Run leave animation and then remove element
+    leave(this.element).then(() => {
       this.element.remove()
-    }, 300) // Match animation duration
+    })
   }
 
   // Allow external pause (e.g., on hover)
   pause() {
-    if (this.timeout) {
-      clearTimeout(this.timeout)
-      this.timeout = null
+    if (this.dismissTimeout) {
+      clearTimeout(this.dismissTimeout)
+      this.pausedAt = Date.now()
+      this.remainingTime = this.dismissAfterValue - (this.pausedAt - this.startedAt)
     }
   }
 
-  // Resume auto-dismiss
+  // Resume auto-dismiss from where it was paused
   resume() {
-    if (this.dismissAfterValue > 0 && !this.timeout) {
-      this.timeout = setTimeout(() => {
+    if (this.pausedAt && this.remainingTime > 0) {
+      this.dismissTimeout = setTimeout(() => {
         this.close()
-      }, this.dismissAfterValue)
+      }, this.remainingTime)
+      this.startedAt = Date.now()
+      this.pausedAt = null
+    }
+  }
+
+  #clearTimeouts() {
+    if (this.dismissTimeout) {
+      clearTimeout(this.dismissTimeout)
+      this.dismissTimeout = null
     }
   }
 }

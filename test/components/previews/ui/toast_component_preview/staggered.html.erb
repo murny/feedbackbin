@@ -1,0 +1,22 @@
+<div class="flex flex-col gap-4">
+  <%= render Ui::ToastComponent.new(
+    title: "First Toast",
+    description: "Appears immediately",
+    variant: :info,
+    show_delay: 0
+  ) %>
+
+  <%= render Ui::ToastComponent.new(
+    title: "Second Toast",
+    description: "Appears after 500ms",
+    variant: :success,
+    show_delay: 500
+  ) %>
+
+  <%= render Ui::ToastComponent.new(
+    title: "Third Toast",
+    description: "Appears after 1000ms",
+    variant: :warning,
+    show_delay: 1000
+  ) %>
+</div>

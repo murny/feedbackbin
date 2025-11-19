@@ -11,6 +11,7 @@ module Ui
       icon: nil,
       show_icon: true,
       dismiss_after: 5000,
+      show_delay: 0,
       dismissable: true,
       action_label: nil,
       action_href: nil,
@@ -22,6 +23,7 @@ module Ui
       @show_icon = show_icon
       @custom_icon = icon
       @dismiss_after = dismiss_after
+      @show_delay = show_delay
       @dismissable = dismissable
       @action_label = action_label
       @action_href = action_href
@@ -49,9 +51,16 @@ module Ui
       def html_attrs
         data_attrs = {
           controller: "toast",
-          toast_dismiss_after_value: @dismiss_after,
           action: "toast:close->toast#close"
-        }.merge(@attrs[:data] || {})
+        }
+
+        # Only add dismiss_after if provided
+        data_attrs[:toast_dismiss_after_value] = @dismiss_after if @dismiss_after
+
+        # Only add show_delay if non-zero
+        data_attrs[:toast_show_delay_value] = @show_delay if @show_delay > 0
+
+        data_attrs.merge!(@attrs[:data] || {})
 
         @attrs.merge(
           class: toast_classes,
