@@ -90,7 +90,7 @@ module Ui
           end
 
           def render_text_content
-            parts = [render_title, render_description].compact
+            parts = [ render_title, render_description ].compact
             return nil if parts.empty?
 
             safe_join(parts)

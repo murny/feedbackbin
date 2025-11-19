@@ -100,6 +100,7 @@ module Ui
       end
 
       header = page.find("div[data-slot='card-header']")
+
       assert_includes header[:class], "grid-cols-[1fr_auto]"
       assert_includes header[:class], "@container/card-header"
     end
