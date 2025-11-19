@@ -29,135 +29,135 @@ module Ui
 
     private
 
-    def controller_data
-      data = {
-        controller: "popover",
-        popover_trigger_value: @trigger_mode
-      }
+      def controller_data
+        data = {
+          controller: "popover",
+          popover_trigger_value: @trigger_mode
+        }
 
-      data[:popover_dismiss_after_value] = @dismiss_after if @dismiss_after
+        data[:popover_dismiss_after_value] = @dismiss_after if @dismiss_after
 
-      data
-    end
-
-    def trigger_actions
-      case @trigger_mode
-      when :click
-        "click->popover#toggle"
-      when :hover
-        "mouseenter->popover#handleMouseEnter mouseleave->popover#handleMouseLeave"
-      end
-    end
-
-    def wrapper_attrs
-      attrs = @attrs.merge(
-        class: tw_merge("relative inline-block", @attrs[:class]),
-        data: controller_data
-      )
-
-      attrs
-    end
-
-    def content_attrs
-      {
-        data: {
-          popover_target: "content",
-          transition_enter: "transition ease-out duration-200",
-          transition_enter_from: "opacity-0 scale-95",
-          transition_enter_to: "opacity-100 scale-100",
-          transition_leave: "transition ease-in duration-150",
-          transition_leave_from: "opacity-100 scale-100",
-          transition_leave_to: "opacity-0 scale-95"
-        },
-        class: content_classes,
-        style: position_styles
-      }
-    end
-
-    def content_classes
-      tw_merge(
-        base_content_classes,
-        position_classes,
-        "hidden" # Start hidden
-      )
-    end
-
-    def base_content_classes
-      "absolute z-50 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none"
-    end
-
-    def position_classes
-      # Calculate position based on side and align
-      classes = []
-
-      # Side positioning (without offset, handled in styles)
-      case @side
-      when :top
-        classes << "bottom-full"
-      when :right
-        classes << "left-full"
-      when :bottom
-        classes << "top-full"
-      when :left
-        classes << "right-full"
+        data
       end
 
-      # Alignment
-      case @align
-      when :start
-        if %i[top bottom].include?(@side)
-          classes << "left-0"
-        else
-          classes << "top-0"
-        end
-      when :center
-        if %i[top bottom].include?(@side)
-          classes << "left-1/2 -translate-x-1/2"
-        else
-          classes << "top-1/2 -translate-y-1/2"
-        end
-      when :end
-        if %i[top bottom].include?(@side)
-          classes << "right-0"
-        else
-          classes << "bottom-0"
+      def trigger_actions
+        case @trigger_mode
+        when :click
+          "click->popover#toggle"
+        when :hover
+          "mouseenter->popover#handleMouseEnter mouseleave->popover#handleMouseLeave"
         end
       end
 
-      classes.join(" ")
-    end
+      def wrapper_attrs
+        attrs = @attrs.merge(
+          class: tw_merge("relative inline-block", @attrs[:class]),
+          data: controller_data
+        )
 
-    def position_styles
-      styles = []
-
-      # Side offset
-      case @side
-      when :top
-        styles << "margin-bottom: #{@side_offset}px"
-      when :right
-        styles << "margin-left: #{@side_offset}px"
-      when :bottom
-        styles << "margin-top: #{@side_offset}px"
-      when :left
-        styles << "margin-right: #{@side_offset}px"
+        attrs
       end
 
-      # Align offset
-      if @align_offset != 0
-        if %i[top bottom].include?(@side)
-          styles << "margin-left: #{@align_offset}px"
-        else
-          styles << "margin-top: #{@align_offset}px"
+      def content_attrs
+        {
+          data: {
+            popover_target: "content",
+            transition_enter: "transition ease-out duration-200",
+            transition_enter_from: "opacity-0 scale-95",
+            transition_enter_to: "opacity-100 scale-100",
+            transition_leave: "transition ease-in duration-150",
+            transition_leave_from: "opacity-100 scale-100",
+            transition_leave_to: "opacity-0 scale-95"
+          },
+          class: content_classes,
+          style: position_styles
+        }
+      end
+
+      def content_classes
+        tw_merge(
+          base_content_classes,
+          position_classes,
+          "hidden" # Start hidden
+        )
+      end
+
+      def base_content_classes
+        "absolute z-50 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none"
+      end
+
+      def position_classes
+        # Calculate position based on side and align
+        classes = []
+
+        # Side positioning (without offset, handled in styles)
+        case @side
+        when :top
+          classes << "bottom-full"
+        when :right
+          classes << "left-full"
+        when :bottom
+          classes << "top-full"
+        when :left
+          classes << "right-full"
         end
+
+        # Alignment
+        case @align
+        when :start
+          if %i[top bottom].include?(@side)
+            classes << "left-0"
+          else
+            classes << "top-0"
+          end
+        when :center
+          if %i[top bottom].include?(@side)
+            classes << "left-1/2 -translate-x-1/2"
+          else
+            classes << "top-1/2 -translate-y-1/2"
+          end
+        when :end
+          if %i[top bottom].include?(@side)
+            classes << "right-0"
+          else
+            classes << "bottom-0"
+          end
+        end
+
+        classes.join(" ")
       end
 
-      styles.join("; ")
-    end
+      def position_styles
+        styles = []
 
-    def validate_option(value, valid_options, option_name)
-      return value if valid_options.include?(value)
+        # Side offset
+        case @side
+        when :top
+          styles << "margin-bottom: #{@side_offset}px"
+        when :right
+          styles << "margin-left: #{@side_offset}px"
+        when :bottom
+          styles << "margin-top: #{@side_offset}px"
+        when :left
+          styles << "margin-right: #{@side_offset}px"
+        end
 
-      raise ArgumentError, "Unknown #{option_name}: #{value}. Valid options: #{valid_options.join(', ')}"
-    end
+        # Align offset
+        if @align_offset != 0
+          if %i[top bottom].include?(@side)
+            styles << "margin-left: #{@align_offset}px"
+          else
+            styles << "margin-top: #{@align_offset}px"
+          end
+        end
+
+        styles.join("; ")
+      end
+
+      def validate_option(value, valid_options, option_name)
+        return value if valid_options.include?(value)
+
+        raise ArgumentError, "Unknown #{option_name}: #{value}. Valid options: #{valid_options.join(', ')}"
+      end
   end
 end
