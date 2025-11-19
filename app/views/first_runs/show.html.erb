@@ -11,8 +11,8 @@
       </p>
     </div>
 
-    <%= render_card do %>
-      <div class="px-6">
+    <%= render Ui::CardComponent.new do |c| %>
+      <% c.with_body do %>
         <%= render_form_with(model: @first_run,
                              url: first_run_path,
                              data: {
@@ -176,7 +176,7 @@
 
                 <div class="rounded-lg border border-border bg-muted/50 p-4">
                   <h4 class="text-sm font-medium mb-2"><%= t(".category_preview") %></h4>
-                  <%= render_badge(
+                  <%= render Ui::BadgeComponent.new(
                     variant: :outline,
                     class: "gap-1.5 text-muted-foreground bg-muted/30 border-border"
                   ) do %>
@@ -193,7 +193,7 @@
             <%= form.submit t(".create_account_and_organization"), class: "btn btn-primary" %>
           </div>
         <% end %>
-      </div>
+      <% end %>
     <% end %>
   </div>
 </div>
