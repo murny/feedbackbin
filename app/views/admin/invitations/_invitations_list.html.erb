@@ -65,13 +65,13 @@
 <% end %>
 
 <!-- Pagination -->
-<% if pagy.pages > 1 %>
+<% if pagy.last > 1 %>
   <div class="mt-8 space-y-4">
     <div class="text-center text-sm text-muted-foreground">
-      <%== pagy_info(pagy) %>
+      <%== pagy.info_tag %>
     </div>
     <div class="flex justify-center">
-      <%== pagy_nav(pagy, link_extra: 'data-turbo-frame="invitations_content"') %>
+      <%== pagy.series_nav(link_extra: 'data-turbo-frame="invitations_content"') %>
     </div>
   </div>
 <% end %>
