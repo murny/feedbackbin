@@ -1,7 +1,8 @@
 <%# locals: (posts:, pagy:) %>
 
-<%= render_card(class: "p-0 overflow-hidden") do %>
-  <div class="overflow-x-auto">
+<%= render Ui::CardComponent.new(class: "overflow-hidden") do |c| %>
+  <% c.with_body(class: "p-0") do %>
+    <div class="overflow-x-auto">
     <table class="w-full text-sm">
       <thead class="border-b border-border">
         <tr class="bg-muted/50">
@@ -105,7 +106,8 @@
         <% end %>
       </tbody>
     </table>
-  </div>
+    </div>
+  <% end %>
 <% end %>
 
 <!-- Pagination -->
