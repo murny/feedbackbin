@@ -12,23 +12,27 @@
       </p>
     </div>
     <div class="flex gap-2">
-      <%= render_button(
-        text: t(".back_button"),
+      <%= render Ui::ButtonComponent.new(
         href: admin_users_path,
         variant: :outline
-      ) %>
-      <%= render_button(
-        text: t(".view_profile"),
+      ) do %>
+        <%= t(".back_button") %>
+      <% end %>
+      <%= render Ui::ButtonComponent.new(
         href: user_path(@user),
         variant: :outline
-      ) %>
+      ) do %>
+        <%= t(".view_profile") %>
+      <% end %>
     </div>
   </div>
 
   <!-- User Info -->
-  <%= render_card(title: t(".user_info_title"), class: "px-6") do %>
-    <div class="flex items-start space-x-6">
-      <%= render_avatar(
+  <%= render Ui::CardComponent.new do |c| %>
+    <% c.with_header(title: t(".user_info_title")) %>
+    <% c.with_body do %>
+      <div class="flex items-start space-x-6">
+      <%= render Ui::AvatarComponent.new(
         src: @user.avatar.attached? ? url_for(@user.avatar) : nil,
         alt: @user.name,
         size: :xl,
@@ -80,20 +84,24 @@
             <!-- Email Verification -->
             <div>
               <h4 class="text-sm font-medium text-foreground mb-3"><%= t(".email_verification_label") %></h4>
-              <%= render_badge(
-                text: @user.email_verified? ? t(".verified_badge") : t(".unverified_badge"),
+              <%= render Ui::BadgeComponent.new(
                 variant: @user.email_verified? ? :default : :outline
-              ) %>
+              ) do %>
+                <%= @user.email_verified? ? t(".verified_badge") : t(".unverified_badge") %>
+              <% end %>
             </div>
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    <% end %>
   <% end %>
 
   <!-- Activity Statistics -->
-  <%= render_card(title: t(".activity_stats_title"), class: "px-6") do %>
-    <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
+  <%= render Ui::CardComponent.new do |c| %>
+    <% c.with_header(title: t(".activity_stats_title")) %>
+    <% c.with_body do %>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
       <div class="p-4 border border-border rounded-lg">
         <div class="text-2xl font-bold text-foreground"><%= @total_posts %></div>
         <div class="text-sm text-muted-foreground"><%= t(".total_posts") %></div>
@@ -106,11 +114,14 @@
         <div class="text-2xl font-bold text-foreground"><%= @total_likes %></div>
         <div class="text-sm text-muted-foreground"><%= t(".total_likes") %></div>
       </div>
-    </div>
+      </div>
+    <% end %>
   <% end %>
 
   <!-- Recent Posts -->
-  <%= render_card(title: t(".recent_posts_title"), class: "px-6") do %>
+  <%= render Ui::CardComponent.new do |c| %>
+    <% c.with_header(title: t(".recent_posts_title")) %>
+    <% c.with_body do %>
     <% if @recent_posts.any? %>
       <div class="space-y-4">
         <% @recent_posts.each do |post| %>
@@ -121,10 +132,9 @@
                 <%= time_ago_in_words(post.created_at) %> <%= t(".ago") %>
               </div>
               <% if post.category %>
-                <%= render_badge(
-                  text: post.category.name,
-                  variant: :outline
-                ) %>
+                <%= render Ui::BadgeComponent.new(variant: :outline) do %>
+                  <%= post.category.name %>
+                <% end %>
               <% end %>
             </div>
             <div class="text-xs text-muted-foreground">
@@ -137,6 +147,7 @@
       <div class="text-center py-8 text-muted-foreground">
         <%= t(".no_posts") %>
       </div>
+    <% end %>
     <% end %>
   <% end %>
 </div>
