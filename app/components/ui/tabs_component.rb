@@ -21,17 +21,21 @@ module Ui
 
       def container_attrs
         {
-          class: tw_merge("w-full", @attrs[:class]),
+          class: tw_merge("flex flex-col gap-2 w-full", @attrs[:class]),
           data: {
             controller: "tabs",
             tabs_index_value: @index_value,
-            action: "keydown.right->tabs#nextTab keydown.left->tabs#previousTab"
+            action: "keydown.right->tabs#nextTab keydown.left->tabs#previousTab keydown.home->tabs#firstTab keydown.end->tabs#lastTab"
           }.merge(@attrs[:data] || {})
         }
       end
 
       def render_tab_list
-        tag.div(class: list_classes, role: "tablist", aria: { orientation: "horizontal" }) do
+        tag.div(
+          role: "tablist",
+          aria: { orientation: "horizontal" },
+          class: "bg-muted text-muted-foreground inline-flex h-9 w-fit items-center justify-center rounded-lg p-[3px]"
+        ) do
           safe_join(
             @items.map.with_index do |item, index|
               render_tab_trigger(item, index)
@@ -52,8 +56,7 @@ module Ui
           },
           data: {
             tabs_target: "tab",
-            action: "click->tabs#change",
-            state: index == @index_value ? "active" : "inactive"
+            action: "click->tabs#change"
           },
           class: trigger_classes
         ) do
@@ -76,14 +79,12 @@ module Ui
         tag.div(
           id: panel_id(item[:value]),
           role: "tabpanel",
-          hidden: index != @index_value,
           aria: { labelledby: trigger_id(item[:value]) },
           tabindex: 0,
           data: {
-            tabs_target: "panel",
-            state: index == @index_value ? "active" : "inactive"
+            tabs_target: "panel"
           },
-          class: content_classes
+          class: panel_classes(index)
         ) do
           if item[:content].present?
             item[:content]
@@ -93,28 +94,27 @@ module Ui
         end
       end
 
-      def list_classes
-        [
-          "inline-flex h-9 items-center justify-center rounded-lg",
-          "bg-muted p-1 text-muted-foreground"
-        ].join(" ")
-      end
-
       def trigger_classes
         [
-          "inline-flex items-center justify-center whitespace-nowrap rounded-md",
-          "px-3 py-1 text-sm font-medium ring-offset-background transition-all",
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+          # Base styles
+          "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring",
+          "text-foreground dark:text-muted-foreground",
+          "inline-flex h-[calc(100%_-_1px)] flex-1 items-center justify-center gap-1.5",
+          "rounded-md border border-transparent px-2 py-1 text-sm font-medium whitespace-nowrap",
+          "transition-[color,box-shadow]",
+          "focus-visible:ring-[3px] focus-visible:outline-1",
           "disabled:pointer-events-none disabled:opacity-50",
-          # Active state (controlled by data-state attribute)
-          "data-[state=active]:bg-background data-[state=active]:text-foreground data-[state=active]:shadow",
-          # Icon sizing
-          "[&_svg]:pointer-events-none [&_svg]:shrink-0"
+          # Active state (when aria-selected="true")
+          "aria-selected:bg-background aria-selected:dark:text-foreground aria-selected:dark:border-input aria-selected:dark:bg-input/30 aria-selected:shadow-sm",
+          # Icon styles
+          "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
         ].join(" ")
       end
 
-      def content_classes
-        "mt-2 ring-offset-background focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+      def panel_classes(index)
+        classes = [ "flex-1 outline-none" ]
+        classes << "hidden" if index != @index_value
+        classes.join(" ")
       end
 
       def trigger_id(value)

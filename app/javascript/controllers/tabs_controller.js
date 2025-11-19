@@ -66,12 +66,16 @@ export default class extends Controller {
     }
   }
 
-  firstTab() {
+  firstTab(event) {
+    if (event) event.preventDefault()
     this.indexValue = 0
+    this.tabTargets[0].focus()
   }
 
-  lastTab() {
+  lastTab(event) {
+    if (event) event.preventDefault()
     this.indexValue = this.tabsCount - 1
+    this.tabTargets[this.tabsCount - 1].focus()
   }
 
   indexValueChanged() {
@@ -106,24 +110,15 @@ export default class extends Controller {
   showTab() {
     this.panelTargets.forEach((panel, index) => {
       const tab = this.tabTargets[index]
-      const isActive = index === this.indexValue
 
-      if (isActive) {
+      if (index === this.indexValue) {
         panel.classList.remove('hidden')
-        panel.removeAttribute('hidden')
-        panel.dataset.state = 'active'
         tab.ariaSelected = 'true'
-        tab.dataset.active = true
-        tab.dataset.state = 'active'
         if (this.hasInactiveTabClass) tab?.classList?.remove(...this.inactiveTabClasses)
         if (this.hasActiveTabClass) tab?.classList?.add(...this.activeTabClasses)
       } else {
         panel.classList.add('hidden')
-        panel.setAttribute('hidden', '')
-        panel.dataset.state = 'inactive'
-        tab.ariaSelected = null
-        delete tab.dataset.active
-        tab.dataset.state = 'inactive'
+        tab.ariaSelected = 'false'
         if (this.hasActiveTabClass) tab?.classList?.remove(...this.activeTabClasses)
         if (this.hasInactiveTabClass) tab?.classList?.add(...this.inactiveTabClasses)
       }

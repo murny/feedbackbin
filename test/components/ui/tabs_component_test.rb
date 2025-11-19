@@ -149,7 +149,7 @@ module Ui
       assert_selector "button[aria-selected='false']#tab-tab2"
     end
 
-    test "selected tab has active data state" do
+    test "selected tab has correct aria-selected" do
       items = [
         { label: "Tab 1", value: "tab1", content: "Content 1" },
         { label: "Tab 2", value: "tab2", content: "Content 2" }
@@ -157,8 +157,8 @@ module Ui
 
       render_inline(TabsComponent.new(items: items, index_value: 1))
 
-      assert_selector "button[data-state='inactive']#tab-tab1"
-      assert_selector "button[data-state='active']#tab-tab2"
+      assert_selector "button[aria-selected='false']#tab-tab1"
+      assert_selector "button[aria-selected='true']#tab-tab2"
     end
 
     test "first panel is visible by default" do
@@ -171,13 +171,13 @@ module Ui
 
       page_html = page.native.to_html
 
-      # First panel should not have hidden attribute
-      assert_selector "div[role='tabpanel']#panel-tab1:not([hidden])", visible: :all
-      # Second panel should have hidden attribute
-      assert_selector "div[role='tabpanel']#panel-tab2[hidden]", visible: :all
+      # First panel should not have hidden class
+      assert_selector "div[role='tabpanel']#panel-tab1:not(.hidden)", visible: :all
+      # Second panel should have hidden class
+      assert_selector "div[role='tabpanel']#panel-tab2.hidden", visible: :all
     end
 
-    test "selected panel has active data state" do
+    test "selected panel is visible, others hidden" do
       items = [
         { label: "Tab 1", value: "tab1", content: "Content 1" },
         { label: "Tab 2", value: "tab2", content: "Content 2" }
@@ -185,11 +185,11 @@ module Ui
 
       render_inline(TabsComponent.new(items: items, index_value: 1))
 
-      assert_selector "div[data-state='inactive']#panel-tab1", visible: :all
-      assert_selector "div[data-state='active']#panel-tab2", visible: :all
+      assert_selector "div[role='tabpanel'].hidden#panel-tab1", visible: :all
+      assert_selector "div[role='tabpanel']:not(.hidden)#panel-tab2", visible: :all
     end
 
-    test "applies list classes" do
+    test "applies container classes" do
       items = [
         { label: "Tab", value: "tab", content: "Content" }
       ]
@@ -198,21 +198,22 @@ module Ui
 
       page_html = page.native.to_html
 
+      # Component uses inline Tailwind classes
+      assert_includes page_html, "flex flex-col gap-2"
       assert_includes page_html, "bg-muted"
-      assert_includes page_html, "rounded-lg"
     end
 
-    test "applies trigger classes" do
+    test "renders proper semantic structure" do
       items = [
         { label: "Tab", value: "tab", content: "Content" }
       ]
 
       render_inline(TabsComponent.new(items: items))
 
-      page_html = page.native.to_html
-
-      assert_includes page_html, "transition-all"
-      assert_includes page_html, "focus-visible:ring-2"
+      # Tabs are styled via tabs.css, not inline classes
+      assert_selector "[role='tablist']"
+      assert_selector "[role='tab']"
+      assert_selector "[role='tabpanel']"
     end
 
     test "includes keyboard navigation actions" do

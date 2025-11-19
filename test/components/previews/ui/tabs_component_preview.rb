@@ -5,34 +5,7 @@ module Ui
   class TabsComponentPreview < ViewComponent::Preview
     # @label Default
     def default
-      render Ui::TabsComponent.new(
-        items: [
-          {
-            label: "Account",
-            value: "account",
-            content: tag.div(class: "space-y-4") do
-              tag.h3("Account Settings", class: "text-lg font-semibold") +
-              tag.p("Make changes to your account here. Click save when you're done.", class: "text-sm text-muted-foreground")
-            end
-          },
-          {
-            label: "Password",
-            value: "password",
-            content: tag.div(class: "space-y-4") do
-              tag.h3("Password Settings", class: "text-lg font-semibold") +
-              tag.p("Change your password here. After saving, you'll be logged out.", class: "text-sm text-muted-foreground")
-            end
-          },
-          {
-            label: "Settings",
-            value: "settings",
-            content: tag.div(class: "space-y-4") do
-              tag.h3("General Settings", class: "text-lg font-semibold") +
-              tag.p("Manage your account settings and preferences.", class: "text-sm text-muted-foreground")
-            end
-          }
-        ]
-      )
+      render_with_template
     end
 
     # @label With Icons
