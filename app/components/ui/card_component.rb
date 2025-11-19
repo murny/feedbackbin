@@ -26,7 +26,7 @@ module Ui
 
       def card_attrs
         {
-          data: { slot: "card" }.merge(@attrs[:data] || {}),
+          data: (@attrs[:data] || {}).merge(slot: "card"),
           class: card_classes
         }.merge(@attrs.except(:class, :data))
       end
@@ -72,7 +72,7 @@ module Ui
 
           def header_attrs
             {
-              data: { slot: "card-header" }.merge(@attrs[:data] || {}),
+              data: (@attrs[:data] || {}).merge(slot: "card-header"),
               class: header_classes
             }.merge(@attrs.except(:class, :data))
           end
@@ -123,7 +123,7 @@ module Ui
 
           def body_attrs
             {
-              data: { slot: "card-content" }.merge(@attrs[:data] || {}),
+              data: (@attrs[:data] || {}).merge(slot: "card-content"),
               class: body_classes
             }.merge(@attrs.except(:class, :data))
           end
@@ -147,7 +147,7 @@ module Ui
 
           def footer_attrs
             {
-              data: { slot: "card-footer" }.merge(@attrs[:data] || {}),
+              data: (@attrs[:data] || {}).merge(slot: "card-footer"),
               class: footer_classes
             }.merge(@attrs.except(:class, :data))
           end

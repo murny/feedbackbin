@@ -13,8 +13,9 @@
 
     <!-- Transfer Ownership Section -->
     <div class="mt-8">
-      <%= render_card title: t(".transfer_ownership_title"), description: t(".transfer_ownership_description") do %>
-        <div class="px-6 py-4">
+      <%= render Ui::CardComponent.new do |c| %>
+        <% c.with_header(title: t(".transfer_ownership_title"), description: t(".transfer_ownership_description")) %>
+        <% c.with_body(class: "py-4") do %>
           <div class="flex items-center gap-3">
             <%= image_tag fresh_user_avatar_path(Current.organization.owner),
                 class: "h-10 w-10 rounded-full" %>
@@ -32,13 +33,14 @@
               <%= t(".transfer_ownership_button") %>
             <% end %>
           </div>
-        </div>
+        <% end %>
       <% end %>
     </div>
 
     <div class="mt-8">
-      <%= render_card title: t(".delete_title"), description: t(".delete_description") do %>
-          <div class="px-6">
+      <%= render Ui::CardComponent.new do |c| %>
+        <% c.with_header(title: t(".delete_title"), description: t(".delete_description")) %>
+        <% c.with_body do %>
             <%= form_with model: Current.organization, url: admin_settings_danger_zone_path, method: :delete, class: "space-y-4" do |form| %>
             <%= render "error_messages", resource: form.object %>
 
@@ -71,7 +73,7 @@
               <% end %>
             </div>
             <% end %>
-          </div>
+        <% end %>
       <% end %>
     </div>
   </div>
