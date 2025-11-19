@@ -38,19 +38,22 @@
   <!-- Stats cards -->
   <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
     <!-- Total Revenue -->
-    <%= render_card(class: "p-0") do %>
-      <div class="p-6 flex flex-row items-center justify-between pb-2">
+    <%= render Ui::CardComponent.new do |c| %>
+      <% c.with_body(class: "p-0") do %>
+        <div class="p-6 flex flex-row items-center justify-between pb-2">
         <div class="text-sm font-medium text-foreground">Total Revenue</div>
         <%= lucide_icon "dollar-sign", class: "h-4 w-4 text-muted-foreground" %>
       </div>
       <div class="p-6 pt-0">
         <div class="text-2xl font-bold text-foreground">$45,231.89</div>
         <p class="text-xs text-muted-foreground">+20.1% from last month</p>
-      </div>
+        </div>
+      <% end %>
     <% end %>
 
     <!-- Active Users -->
-    <%= render_card(class: "p-0") do %>
+    <%= render Ui::CardComponent.new do |c| %>
+      <% c.with_body(class: "p-0") do %>
       <div class="p-6 flex flex-row items-center justify-between pb-2">
         <div class="text-sm font-medium text-foreground">Active Users</div>
         <%= lucide_icon "users", class: "h-4 w-4 text-muted-foreground" %>
@@ -58,11 +61,13 @@
       <div class="p-6 pt-0">
         <div class="text-2xl font-bold text-foreground">2,350</div>
         <p class="text-xs text-muted-foreground">+18.1% from last month</p>
-      </div>
+        </div>
+      <% end %>
     <% end %>
 
     <!-- New Signups -->
-    <%= render_card(class: "p-0") do %>
+    <%= render Ui::CardComponent.new do |c| %>
+      <% c.with_body(class: "p-0") do %>
       <div class="p-6 flex flex-row items-center justify-between pb-2">
         <div class="text-sm font-medium text-foreground">New Signups</div>
         <%= lucide_icon "credit-card", class: "h-4 w-4 text-muted-foreground" %>
@@ -70,11 +75,13 @@
       <div class="p-6 pt-0">
         <div class="text-2xl font-bold text-foreground">+1,234</div>
         <p class="text-xs text-muted-foreground">+19% from last month</p>
-      </div>
+        </div>
+      <% end %>
     <% end %>
 
     <!-- Active Now -->
-    <%= render_card(class: "p-0") do %>
+    <%= render Ui::CardComponent.new do |c| %>
+      <% c.with_body(class: "p-0") do %>
       <div class="p-6 flex flex-row items-center justify-between pb-2">
         <div class="text-sm font-medium text-foreground">Active Now</div>
         <%= lucide_icon "activity", class: "h-4 w-4 text-muted-foreground" %>
@@ -82,26 +89,32 @@
       <div class="p-6 pt-0">
         <div class="text-2xl font-bold text-foreground">573</div>
         <p class="text-xs text-muted-foreground">+201 since last hour</p>
-      </div>
+        </div>
+      <% end %>
     <% end %>
   </div>
 
   <!-- Main content area -->
   <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
     <!-- Chart overview -->
-    <%= render_card(title: "Overview", class: "col-span-4") do %>
+    <%= render Ui::CardComponent.new(class: "col-span-4") do |c| %>
+      <% c.with_header(title: "Overview") %>
+      <% c.with_body do %>
       <!-- Placeholder for chart/graph -->
       <div class="w-full h-[350px] bg-muted rounded flex items-center justify-center">
         <span class="text-muted-foreground">Monthly revenue chart (placeholder)</span>
       </div>
+      <% end %>
     <% end %>
 
     <!-- Recent activity -->
-    <%= render_card(title: "Recent Activity", description: "You had 265 actions this month.", class: "col-span-3") do %>
+    <%= render Ui::CardComponent.new(class: "col-span-3") do |c| %>
+      <% c.with_header(title: "Recent Activity", description: "You had 265 actions this month.") %>
+      <% c.with_body do %>
       <div class="space-y-6">
         <!-- Activity item 1 -->
         <div class="flex items-center">
-          <%= render_avatar(
+          <%= render Ui::AvatarComponent.new(
             fallback: "OM",
             size: :default
           ) %>
@@ -114,7 +127,7 @@
 
         <!-- Activity item 2 -->
         <div class="flex items-center">
-          <%= render_avatar(
+          <%= render Ui::AvatarComponent.new(
             fallback: "JL",
             size: :default
           ) %>
@@ -127,7 +140,7 @@
 
         <!-- Activity item 3 -->
         <div class="flex items-center">
-          <%= render_avatar(
+          <%= render Ui::AvatarComponent.new(
             fallback: "IN",
             size: :default
           ) %>
@@ -140,7 +153,7 @@
 
         <!-- Activity item 4 -->
         <div class="flex items-center">
-          <%= render_avatar(
+          <%= render Ui::AvatarComponent.new(
             fallback: "WK",
             size: :default
           ) %>
@@ -151,6 +164,7 @@
           <div class="ml-auto font-medium text-foreground">+$99.00</div>
         </div>
       </div>
+      <% end %>
     <% end %>
   </div>
 </div>

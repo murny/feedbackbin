@@ -12,7 +12,7 @@ module SetLocale
 
   def set_locale
     I18n.locale = find_locale
-    @pagy_locale = I18n.locale.to_s
+    Pagy::I18n.locale = I18n.locale.to_s
   end
 
   private

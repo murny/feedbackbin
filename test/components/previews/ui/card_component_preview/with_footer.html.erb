@@ -1,0 +1,27 @@
+<%= render Ui::CardComponent.new do |c| %>
+  <% c.with_header(title: "Create project", description: "Deploy your new project in one-click.") %>
+  <% c.with_body do %>
+    <div class="space-y-4">
+      <div class="space-y-2">
+        <label for="project-name" class="text-sm font-medium">Name</label>
+        <input type="text" id="project-name" placeholder="Project name" autocomplete="off" class="w-full rounded-md border px-3 py-2 text-sm">
+      </div>
+      <div class="space-y-2">
+        <label for="project-framework" class="text-sm font-medium">Framework</label>
+        <select id="project-framework" class="w-full rounded-md border px-3 py-2 text-sm">
+          <option>Next.js</option>
+          <option>SvelteKit</option>
+          <option>Nuxt.js</option>
+        </select>
+      </div>
+    </div>
+  <% end %>
+  <% c.with_footer(class: "gap-2") do %>
+    <%= render Ui::ButtonComponent.new(variant: :outline) do %>
+      Cancel
+    <% end %>
+    <%= render Ui::ButtonComponent.new(variant: :default) do %>
+      Deploy
+    <% end %>
+  <% end %>
+<% end %>

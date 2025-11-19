@@ -10,9 +10,9 @@
       <p class="text-sm text-muted-foreground"><%= t(".description") %></p>
     </div>
 
-    <%= render_card do %>
-        <div class="px-6">
-          <%= render_form_with model: Current.organization, url: admin_settings_branding_path, method: :patch, html: { multipart: true } do |f| %>
+    <%= render Ui::CardComponent.new do |c| %>
+      <% c.with_body do %>
+        <%= render_form_with model: Current.organization, url: admin_settings_branding_path, method: :patch, html: { multipart: true } do |f| %>
             <div class="grid gap-6">
               <div class="grid gap-3">
                 <%= f.label :name, t(".name") %>
@@ -68,7 +68,7 @@
               <% end %>
             </div>
           <% end %>
-        </div>
+      <% end %>
     <% end %>
   </div>
 </div>

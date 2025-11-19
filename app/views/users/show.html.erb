@@ -11,15 +11,16 @@
 <!-- Main Profile Card -->
 <div class="container mx-auto px-4 pb-6">
   <div class="max-w-4xl mx-auto">
-    <%= render_card(class: "pt-0") do %>
-      <!-- User Banner (placeholder) -->
-      <div class="h-32 w-full bg-gradient-to-r from-blue-500 to-purple-600 lg:h-48"></div>
+    <%= render Ui::CardComponent.new(class: "pt-0") do |c| %>
+      <% c.with_body(class: "p-0") do %>
+        <!-- User Banner (placeholder) -->
+        <div class="h-32 w-full bg-gradient-to-r from-blue-500 to-purple-600 lg:h-48"></div>
 
-      <div data-slot="card-content" class="px-6 pb-6 pt-0">
+        <div class="px-6 pb-6 pt-0">
         <!-- Avatar and Basic Info Section -->
         <div class="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
           <div class="flex justify-center sm:justify-start">
-            <%= render_avatar(
+            <%= render Ui::AvatarComponent.new(
               src: fresh_user_avatar_path(@user),
               size: :xl,
               fallback: @user.name,
@@ -182,7 +183,8 @@
             </div>
           </div>
         </div>
-      </div>
+        </div>
+      <% end %>
     <% end %>
   </div>
 </div>
@@ -190,8 +192,8 @@
 <!-- Activity Tabs Section -->
 <div class="container mx-auto px-4 pb-6">
   <div class="max-w-4xl mx-auto">
-    <%= render_card do %>
-      <div data-slot="card-content" class="p-6">
+    <%= render Ui::CardComponent.new do |c| %>
+      <% c.with_body do %>
         <%= render_tabs(
           items: [
             {
@@ -212,7 +214,7 @@
           ],
           index_value: 0
         ) %>
-      </div>
+      <% end %>
     <% end %>
   </div>
 </div>
