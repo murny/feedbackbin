@@ -1,0 +1,19 @@
+<%= tag.div(**html_attrs) do %>
+  <% @avatars.each do |avatar| %>
+    <%= render Ui::AvatarComponent.new(
+      src: avatar[:src],
+      alt: avatar[:alt],
+      fallback: avatar[:fallback],
+      size: @size,
+      class: avatar_item_classes
+    ) %>
+  <% end %>
+
+  <% if show_remaining? %>
+    <%= render Ui::AvatarComponent.new(
+      fallback: "+#{remaining_count}",
+      size: @size,
+      class: "bg-muted text-muted-foreground ring-2 ring-background"
+    ) %>
+  <% end %>
+<% end %>

@@ -1,7 +1,8 @@
 <%# locals: (posts:, pagy:) %>
 
-<%= render_card(class: "p-0 overflow-hidden") do %>
-  <div class="overflow-x-auto">
+<%= render Ui::CardComponent.new(class: "overflow-hidden") do |c| %>
+  <% c.with_body(class: "p-0") do %>
+    <div class="overflow-x-auto">
     <table class="w-full text-sm">
       <thead class="border-b border-border">
         <tr class="bg-muted/50">
@@ -22,23 +23,23 @@
                     <%= post.title %>
                   </div>
                   <% if post.category %>
-                    <%= render_badge(
-                      text: post.category.name,
-                      variant: :secondary
-                    ) %>
+                    <%= render Ui::BadgeComponent.new(variant: :secondary) do %>
+                      <%= post.category.name %>
+                    <% end %>
                   <% end %>
                   <% if post.post_status %>
-                    <%= render_badge(
-                      text: post.post_status.name,
+                    <%= render Ui::BadgeComponent.new(
                       variant: :outline,
                       class: "ml-2"
-                    ) %>
+                    ) do %>
+                      <%= post.post_status.name %>
+                    <% end %>
                   <% end %>
                 </div>
               </td>
               <td class="px-6 py-4">
                 <div class="flex items-center space-x-3">
-                  <%= render_avatar(
+                  <%= render Ui::AvatarComponent.new(
                     src: post.author.avatar.attached? ? url_for(post.author.avatar) : nil,
                     alt: post.author.name,
                     size: :sm,
@@ -75,13 +76,14 @@
                 </div>
               </td>
               <td class="px-6 py-4 text-center">
-                <%= render_button(
-                  text: t(".view_button"),
+                <%= render Ui::ButtonComponent.new(
                   href: admin_post_path(post),
                   variant: :outline,
                   size: :sm,
                   data: { turbo_frame: "_top" }
-                ) %>
+                ) do %>
+                  <%= t(".view_button") %>
+                <% end %>
               </td>
             </tr>
           <% end %>
@@ -104,7 +106,8 @@
         <% end %>
       </tbody>
     </table>
-  </div>
+    </div>
+  <% end %>
 <% end %>
 
 <!-- Pagination -->

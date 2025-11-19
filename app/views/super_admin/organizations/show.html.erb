@@ -11,16 +11,19 @@
         Organization details and activity
       </p>
     </div>
-    <%= render_button(
-      text: "Back to Organizations",
+    <%= render Ui::ButtonComponent.new(
       href: super_admin_organizations_path,
       variant: :outline
-    ) %>
+    ) do %>
+      <%= t(".back_button") %>
+    <% end %>
   </div>
 
   <!-- Organization Info -->
-  <%= render_card(title: "Organization Information", class: "px-6") do %>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <%= render Ui::CardComponent.new do |c| %>
+    <% c.with_header(title: "Organization Information") %>
+    <% c.with_body do %>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <div class="space-y-4">
         <div class="flex items-center space-x-4">
           <%= organization_logo(@organization, size: :lg) %>
@@ -45,6 +48,7 @@
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    <% end %>
   <% end %>
 </div>

@@ -10,8 +10,9 @@
       <% end %>
     </div>
 
-    <%= render_card(class: "p-4 md:p-6 lg:p-8") do %>
-      <div class="flex items-start gap-3 md:gap-4">
+    <%= render Ui::CardComponent.new do |c| %>
+      <% c.with_body(class: "p-4 md:p-6 lg:p-8") do %>
+        <div class="flex items-start gap-3 md:gap-4">
         <div class="pt-1">
           <%= render partial: "likes/like_button", locals: { likeable: @post } %>
         </div>
@@ -19,7 +20,7 @@
           <div class="flex items-center justify-between gap-2 mb-2">
             <div class="flex items-center flex-wrap gap-2">
             <% if @post.category %>
-                <%= render_badge(
+                <%= render Ui::BadgeComponent.new(
                   variant: :outline,
                   class: "gap-1.5 text-muted-foreground bg-muted/30 border-border"
                 ) do %>
@@ -29,7 +30,7 @@
               <% end %>
 
               <% if @post.pinned? %>
-                  <%= render_badge(variant: :secondary) do %>
+                  <%= render Ui::BadgeComponent.new(variant: :secondary) do %>
                     <%= lucide_icon "map-pin" %>
                     <%= t(".pinned") %>
                   <% end %>
@@ -84,17 +85,18 @@
 
           <!-- Bottom: user actions -->
           <div class="mt-6 flex flex-wrap items-center gap-2">
-            <%= render_button(variant: :outline) do %>
+            <%= render Ui::ButtonComponent.new(variant: :outline) do %>
               <%= lucide_icon "eye" %>
               <%= t(".watch") %>
             <% end %>
-            <%= render_button(variant: :outline) do %>
+            <%= render Ui::ButtonComponent.new(variant: :outline) do %>
               <%= lucide_icon "share" %>
               <%= t(".share") %>
             <% end %>
           </div>
         </div>
-      </div>
+        </div>
+      <% end %>
     <% end %>
 
     <%= render partial: "comments/comments", locals: {
