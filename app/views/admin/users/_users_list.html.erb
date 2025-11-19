@@ -123,13 +123,13 @@
 
 <!-- Pagination -->
 <div class="mt-8">
-  <%= tag.div id: ("users" if first_page?(pagy.page)), class: "space-y-4" do %>
+  <%= tag.div id: ("users" if first_page?(pagy.last)), class: "space-y-4" do %>
     <div class="text-center text-sm text-muted-foreground">
-      <%== pagy_info(pagy) %>
+      <%== pagy.info_tag %>
     </div>
-    <% if pagy.pages > 1 %>
+    <% if pagy.last > 1 %>
       <div class="flex justify-center">
-        <%== pagy_nav(pagy, link_extra: 'data-turbo-frame="users_content"') %>
+        <%== pagy.series_nav(link_extra: 'data-turbo-frame="users_content"') %>
       </div>
     <% end %>
   <% end %>
