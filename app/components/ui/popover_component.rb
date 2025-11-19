@@ -60,7 +60,15 @@ module Ui
 
     def content_attrs
       {
-        data: { popover_target: "content" },
+        data: {
+          popover_target: "content",
+          transition_enter: "transition ease-out duration-200",
+          transition_enter_from: "opacity-0 scale-95",
+          transition_enter_to: "opacity-100 scale-100",
+          transition_leave: "transition ease-in duration-150",
+          transition_leave_from: "opacity-100 scale-100",
+          transition_leave_to: "opacity-0 scale-95"
+        },
         class: content_classes,
         style: position_styles
       }
@@ -75,12 +83,7 @@ module Ui
     end
 
     def base_content_classes
-      [
-        "absolute z-50 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none",
-        "data-[state=open]:animate-in data-[state=closed]:animate-out",
-        "data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0",
-        "data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95"
-      ].join(" ")
+      "absolute z-50 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none"
     end
 
     def position_classes
@@ -91,16 +94,12 @@ module Ui
       case @side
       when :top
         classes << "bottom-full"
-        classes << "data-[state=open]:slide-in-from-bottom-2"
       when :right
         classes << "left-full"
-        classes << "data-[state=open]:slide-in-from-left-2"
       when :bottom
         classes << "top-full"
-        classes << "data-[state=open]:slide-in-from-top-2"
       when :left
         classes << "right-full"
-        classes << "data-[state=open]:slide-in-from-right-2"
       end
 
       # Alignment
