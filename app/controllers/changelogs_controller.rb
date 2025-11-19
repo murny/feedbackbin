@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class ChangelogsController < ApplicationController
+  include ModuleEnforcement
+  enforce_module :changelog
+
   allow_unauthenticated_access only: %i[index show]
   before_action :mark_as_read, if: :authenticated?
 

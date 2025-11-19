@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class CommentsController < ApplicationController
+  include ModuleEnforcement
+  enforce_module :posts
+
   allow_unauthenticated_access only: %i[show]
   before_action :set_comment, only: %i[show edit update destroy]
 
