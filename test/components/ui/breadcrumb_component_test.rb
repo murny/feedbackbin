@@ -136,7 +136,7 @@ module Ui
     end
 
     test "renders single item without separator" do
-      items = [{ text: "Home" }]
+      items = [ { text: "Home" } ]
 
       render_inline(BreadcrumbComponent.new(items: items))
 
@@ -157,11 +157,12 @@ module Ui
     end
 
     test "merges custom classes" do
-      items = [{ text: "Home" }]
+      items = [ { text: "Home" } ]
 
       render_inline(BreadcrumbComponent.new(items: items, class: "custom-class"))
 
       page_html = page.native.to_html
+
       assert_includes page_html, "custom-class"
     end
 
@@ -179,11 +180,12 @@ module Ui
     end
 
     test "applies responsive gap classes" do
-      items = [{ text: "Home" }]
+      items = [ { text: "Home" } ]
 
       render_inline(BreadcrumbComponent.new(items: items))
 
       page_html = page.native.to_html
+
       assert_includes page_html, "gap-1.5"
       assert_includes page_html, "sm:gap-2.5"
     end
