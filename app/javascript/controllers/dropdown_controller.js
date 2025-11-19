@@ -2,21 +2,35 @@ import { Controller } from "@hotwired/stimulus"
 
 // Dropdown menu controller for managing open/close state
 // Supports:
-// - Click outside to close
-// - Escape key to close
-// - Keyboard navigation (arrow keys)
+// - Click outside to close (configurable)
+// - Escape key to close (configurable)
+// - Keyboard navigation (arrow keys, home, end)
+// - CSS animations via data-state attribute
 // - Focus management
+// - Turbo cache compatibility
 export default class extends Controller {
   static targets = ["menu", "trigger"]
-  static classes = ["hidden"]
   static values = {
-    open: { type: Boolean, default: false }
+    open: { type: Boolean, default: false },
+    closeOnEscape: { type: Boolean, default: true },
+    closeOnClickOutside: { type: Boolean, default: true }
   }
 
   connect() {
     this.closeOnClickOutside = this.closeOnClickOutside.bind(this)
     this.closeOnEscape = this.closeOnEscape.bind(this)
     this.handleKeyNavigation = this.handleKeyNavigation.bind(this)
+    this.beforeCache = this.beforeCache.bind(this)
+
+    // Ensure dropdown is closed before Turbo caches the page
+    document.addEventListener("turbo:before-cache", this.beforeCache)
+  }
+
+  disconnect() {
+    document.removeEventListener("click", this.closeOnClickOutside)
+    document.removeEventListener("keydown", this.closeOnEscape)
+    document.removeEventListener("keydown", this.handleKeyNavigation)
+    document.removeEventListener("turbo:before-cache", this.beforeCache)
   }
 
   toggle(event) {
@@ -25,7 +39,7 @@ export default class extends Controller {
     this.openValue = !this.openValue
   }
 
-  open() {
+  show() {
     this.openValue = true
   }
 
@@ -35,14 +49,14 @@ export default class extends Controller {
 
   openValueChanged() {
     if (this.openValue) {
-      this.show()
+      this.showMenu()
     } else {
-      this.hide()
+      this.hideMenu()
     }
   }
 
-  show() {
-    this.menuTarget.classList.remove(...this.hiddenClasses)
+  showMenu() {
+    // Update state for CSS animations (component has data-[state=open]:animate-in classes)
     this.menuTarget.setAttribute("data-state", "open")
     this.triggerTarget.setAttribute("aria-expanded", "true")
 
@@ -51,12 +65,14 @@ export default class extends Controller {
     document.addEventListener("keydown", this.closeOnEscape)
     document.addEventListener("keydown", this.handleKeyNavigation)
 
-    // Focus first menu item
-    this.focusFirstItem()
+    // Focus first menu item after a brief delay to allow animation to start
+    requestAnimationFrame(() => {
+      this.focusFirstItem()
+    })
   }
 
-  hide() {
-    this.menuTarget.classList.add(...this.hiddenClasses)
+  hideMenu() {
+    // Update state for CSS animations (component has data-[state=closed]:animate-out classes)
     this.menuTarget.setAttribute("data-state", "closed")
     this.triggerTarget.setAttribute("aria-expanded", "false")
 
@@ -70,13 +86,13 @@ export default class extends Controller {
   }
 
   closeOnClickOutside(event) {
-    if (!this.element.contains(event.target)) {
+    if (this.closeOnClickOutsideValue && !this.element.contains(event.target)) {
       this.close()
     }
   }
 
   closeOnEscape(event) {
-    if (event.key === "Escape") {
+    if (this.closeOnEscapeValue && event.key === "Escape") {
       event.preventDefault()
       this.close()
     }
@@ -92,7 +108,7 @@ export default class extends Controller {
         if (currentIndex < items.length - 1) {
           items[currentIndex + 1].focus()
         } else {
-          items[0].focus()
+          items[0].focus() // Loop to first
         }
         break
       case "ArrowUp":
@@ -100,7 +116,7 @@ export default class extends Controller {
         if (currentIndex > 0) {
           items[currentIndex - 1].focus()
         } else {
-          items[items.length - 1].focus()
+          items[items.length - 1].focus() // Loop to last
         }
         break
       case "Home":
@@ -117,7 +133,7 @@ export default class extends Controller {
   getFocusableItems() {
     return Array.from(
       this.menuTarget.querySelectorAll(
-        'a[href], button:not([disabled]), [role="menuitem"]:not([disabled])'
+        'a[href], button:not([disabled]), [role="menuitem"]:not([disabled]), [role="menuitemcheckbox"]:not([disabled]), [role="menuitemradio"]:not([disabled])'
       )
     )
   }
@@ -127,9 +143,8 @@ export default class extends Controller {
     items[0]?.focus()
   }
 
-  disconnect() {
-    document.removeEventListener("click", this.closeOnClickOutside)
-    document.removeEventListener("keydown", this.closeOnEscape)
-    document.removeEventListener("keydown", this.handleKeyNavigation)
+  // Ensures the menu is closed before Turbo caches the page
+  beforeCache() {
+    this.openValue = false
   }
 }
