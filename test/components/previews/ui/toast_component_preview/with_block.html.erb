@@ -1,0 +1,9 @@
+<%= render Ui::ToastComponent.new(
+  title: "Custom Content",
+  variant: :info
+) do %>
+  <div class="mt-1">
+    <p class="text-sm">This toast uses <strong>block content</strong> for the description.</p>
+    <p class="text-sm mt-1">You can include any HTML here.</p>
+  </div>
+<% end %>
