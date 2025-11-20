@@ -20,4 +20,16 @@ class Post < ApplicationRecord
   validates :title, presence: true
 
   scope :ordered_with_pinned, -> { order(pinned: :desc, created_at: :desc) }
+
+  def comments_count
+    Rails.cache.fetch("#{cache_key_with_version}/comments_count", expires_in: 5.minutes) do
+      comments.count
+    end
+  end
+
+  def likes_count
+    Rails.cache.fetch("#{cache_key_with_version}/likes_count", expires_in: 1.minute) do
+      likes.count
+    end
+  end
 end
