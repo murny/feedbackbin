@@ -74,6 +74,8 @@
           <span class="text-muted-foreground font-medium"><%= t(".sort_by_label") %></span>
           <div class="flex items-center gap-1 border border-border rounded-lg p-1 bg-background">
             <%= posts_sort_link text: t(".sort_latest"), sort_field: "created_at", direction: "desc", params: params, turbo_frame: "posts_content" %>
+            <%= posts_sort_link text: t(".sort_top"), sort_field: "likes_count", direction: "desc", params: params, turbo_frame: "posts_content" %>
+            <%= posts_sort_link text: t(".sort_most_commented"), sort_field: "comments_count", direction: "desc", params: params, turbo_frame: "posts_content" %>
           </div>
         </div>
       </div>
