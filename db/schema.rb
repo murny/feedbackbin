@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.2].define(version: 2024_05_17_075643) do
+ActiveRecord::Schema[8.2].define(version: 2025_11_08_020415) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -102,14 +102,21 @@ ActiveRecord::Schema[8.2].define(version: 2024_05_17_075643) do
   end
 
   create_table "organizations", force: :cascade do |t|
+    t.boolean "changelog_enabled", default: true, null: false
     t.datetime "created_at", null: false
     t.integer "default_post_status_id", null: false
     t.string "name", null: false
     t.integer "owner_id", null: false
+    t.boolean "posts_enabled", default: true, null: false
+    t.boolean "roadmap_enabled", default: true, null: false
+    t.string "root_path_module", default: "posts", null: false
     t.string "subdomain"
     t.datetime "updated_at", null: false
+    t.index ["changelog_enabled"], name: "index_organizations_on_changelog_enabled"
     t.index ["default_post_status_id"], name: "index_organizations_on_default_post_status_id"
     t.index ["owner_id"], name: "index_organizations_on_owner_id"
+    t.index ["posts_enabled"], name: "index_organizations_on_posts_enabled"
+    t.index ["roadmap_enabled"], name: "index_organizations_on_roadmap_enabled"
   end
 
   create_table "post_statuses", force: :cascade do |t|

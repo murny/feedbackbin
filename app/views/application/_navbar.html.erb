@@ -16,16 +16,20 @@
 
         <!-- Desktop Navigation Links -->
         <div class="hidden md:ml-8 md:flex md:items-center md:space-x-1">
-          <%= active_link_to t(".links.feedback"),
-                posts_path,
-                class: "rounded-md px-3 py-2 text-sm font-medium transition-colors",
-                active_class: "bg-accent text-accent-foreground",
-                inactive_class: "text-foreground hover:bg-accent hover:text-accent-foreground" %>
-          <%= active_link_to t(".links.roadmap"),
-                roadmap_path,
-                class: "rounded-md px-3 py-2 text-sm font-medium transition-colors",
-                active_class: "bg-accent text-accent-foreground",
-                inactive_class: "text-foreground hover:bg-accent hover:text-accent-foreground" %>
+          <% if Current.organization&.posts_enabled? %>
+            <%= active_link_to t(".links.feedback"),
+                  posts_path,
+                  class: "rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                  active_class: "bg-accent text-accent-foreground",
+                  inactive_class: "text-foreground hover:bg-accent hover:text-accent-foreground" %>
+          <% end %>
+          <% if Current.organization&.roadmap_enabled? %>
+            <%= active_link_to t(".links.roadmap"),
+                  roadmap_path,
+                  class: "rounded-md px-3 py-2 text-sm font-medium transition-colors",
+                  active_class: "bg-accent text-accent-foreground",
+                  inactive_class: "text-foreground hover:bg-accent hover:text-accent-foreground" %>
+          <% end %>
         </div>
       </div>
 
@@ -48,14 +52,16 @@
         </div>
       </div>
       <div class="flex items-center">
-        <div class="flex-shrink-0">
-          <%= link_to changelogs_path,
-                      class: [ "relative inline-flex items-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-                      unread_changelogs_class(Current.user) ] do %>
-          <%= lucide_icon "megaphone", class: "h-6 w-6" %>
-          <span class="hidden md:block"><%= t(".links.whats_new") %></span>
-          <% end %>
-        </div>
+        <% if Current.organization&.changelog_enabled? %>
+          <div class="flex-shrink-0">
+            <%= link_to changelogs_path,
+                        class: [ "relative inline-flex items-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                        unread_changelogs_class(Current.user) ] do %>
+            <%= lucide_icon "megaphone", class: "h-6 w-6" %>
+            <span class="hidden md:block"><%= t(".links.whats_new") %></span>
+            <% end %>
+          </div>
+        <% end %>
       </div>
       <div class="flex items-center md:hidden">
         <!-- Mobile menu button -->
@@ -186,16 +192,20 @@
         data-transition-leave-from="opacity-100"
         data-transition-leave-to="opacity-0">
     <div class="space-y-1 px-2 pb-3 pt-2 sm:px-3">
-      <%= active_link_to t(".links.feedback"),
-            posts_path,
-            class: "block rounded-md px-3 py-2 text-base font-medium transition-colors",
-            active_class: "bg-accent text-accent-foreground",
-            inactive_class: "text-foreground hover:bg-accent hover:text-accent-foreground" %>
-      <%= active_link_to t(".links.roadmap"),
-            roadmap_path,
-            class: "block rounded-md px-3 py-2 text-base font-medium transition-colors",
-            active_class: "bg-accent text-accent-foreground",
-            inactive_class: "text-foreground hover:bg-accent hover:text-accent-foreground" %>
+      <% if Current.organization&.posts_enabled? %>
+        <%= active_link_to t(".links.feedback"),
+              posts_path,
+              class: "block rounded-md px-3 py-2 text-base font-medium transition-colors",
+              active_class: "bg-accent text-accent-foreground",
+              inactive_class: "text-foreground hover:bg-accent hover:text-accent-foreground" %>
+      <% end %>
+      <% if Current.organization&.roadmap_enabled? %>
+        <%= active_link_to t(".links.roadmap"),
+              roadmap_path,
+              class: "block rounded-md px-3 py-2 text-base font-medium transition-colors",
+              active_class: "bg-accent text-accent-foreground",
+              inactive_class: "text-foreground hover:bg-accent hover:text-accent-foreground" %>
+      <% end %>
     </div>
     <div class="border-t border-border pb-3 pt-4">
       <% if authenticated? %>
