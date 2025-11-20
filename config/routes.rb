@@ -76,6 +76,7 @@ Rails.application.routes.draw do
 
     namespace :settings do
       resource :branding, only: [ :show, :update ]
+      resource :theme, only: [ :show, :update ]
       resources :post_statuses
       resources :categories
       resource :danger_zone, only: [ :show, :destroy ]
