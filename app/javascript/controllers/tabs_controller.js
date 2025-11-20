@@ -12,7 +12,10 @@ export default class extends Controller {
 
   initialize() {
     if (this.updateAnchorValue && this.anchor) {
-      this.indexValue = this.tabTargets.findIndex((tab) => tab.id === this.anchor)
+      const anchorIndex = this.tabTargets.findIndex((tab) => tab.id === this.anchor)
+      if (anchorIndex >= 0) {
+        this.indexValue = anchorIndex
+      }
     }
   }
 
@@ -32,7 +35,10 @@ export default class extends Controller {
     } else if (event.currentTarget.dataset.index) {
       this.indexValue = parseInt(event.currentTarget.dataset.index)
     } else if (event.currentTarget.dataset.id) {
-      this.indexValue = this.tabTargets.findIndex((tab) => tab.id == event.currentTarget.dataset.id)
+      const index = this.tabTargets.findIndex((tab) => tab.id == event.currentTarget.dataset.id)
+      if (index >= 0) {
+        this.indexValue = index
+      }
     } else {
       this.indexValue = this.tabTargets.indexOf(event.currentTarget)
     }
@@ -68,29 +74,43 @@ export default class extends Controller {
 
   firstTab(event) {
     if (event) event.preventDefault()
-    this.indexValue = 0
-    this.tabTargets[0].focus()
+    let firstEnabledIndex = 0
+    while (firstEnabledIndex < this.tabsCount && this.tabTargets[firstEnabledIndex]?.disabled) {
+      firstEnabledIndex++
+    }
+    if (firstEnabledIndex < this.tabsCount) {
+      this.indexValue = firstEnabledIndex
+      this.tabTargets[firstEnabledIndex].focus()
+    }
   }
 
   lastTab(event) {
     if (event) event.preventDefault()
-    this.indexValue = this.tabsCount - 1
-    this.tabTargets[this.tabsCount - 1].focus()
+    let lastEnabledIndex = this.tabsCount - 1
+    while (lastEnabledIndex >= 0 && this.tabTargets[lastEnabledIndex]?.disabled) {
+      lastEnabledIndex--
+    }
+    if (lastEnabledIndex >= 0) {
+      this.indexValue = lastEnabledIndex
+      this.tabTargets[lastEnabledIndex].focus()
+    }
   }
 
   indexValueChanged() {
     this.showTab()
+
+    const activeTab = this.tabTargets[this.indexValue]
+    if (!activeTab) return
+
     this.dispatch("tab-change", {
-      target: this.tabTargets[this.indexValue],
-      detail: {
-        activeIndex: this.indexValue
-      }
+      target: activeTab,
+      detail: { activeIndex: this.indexValue }
     })
 
     // Update URL with the tab ID if it has one
     // This will be automatically selected on page load
     if (this.updateAnchorValue) {
-      const new_tab_id = this.tabTargets[this.indexValue].id
+      const new_tab_id = activeTab.id
       if (new_tab_id) {
         if (this.scrollToAnchorValue) {
           location.hash = new_tab_id

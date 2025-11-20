@@ -18,7 +18,9 @@
               <label for="username" class="text-sm font-medium">Username</label>
               <input type="text" id="username" value="@peduarte" autocomplete="off" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
             </div>
-            <button type="button" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2">Save changes</button>
+            <%= render Ui::ButtonComponent.new(variant: :default, class: "w-full") do %>
+              Save changes
+            <% end %>
           </div>
         </div>
       <% end
@@ -41,7 +43,9 @@
               <label for="new" class="text-sm font-medium">New password</label>
               <input type="password" id="new" autocomplete="off" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
             </div>
-            <button type="button" class="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 bg-primary text-primary-foreground shadow hover:bg-primary/90 h-9 px-4 py-2">Save password</button>
+            <%= render Ui::ButtonComponent.new(variant: :default, class: "w-full") do %>
+              Save password
+            <% end %>
           </div>
         </div>
       <% end
