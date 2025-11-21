@@ -100,6 +100,8 @@ export default class extends Controller {
 
   handleKeyNavigation(event) {
     const items = this.getFocusableItems()
+    if (items.length === 0) return
+
     const currentIndex = items.indexOf(document.activeElement)
 
     switch (event.key) {

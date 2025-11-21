@@ -2,21 +2,48 @@
   <%= render Ui::DropdownMenuComponent.new do |dropdown| %>
     <% dropdown.with_trigger do %>
       <%= render Ui::ButtonComponent.new(variant: :outline) do %>
-        Open Menu
+        Open
       <% end %>
     <% end %>
 
-    <% dropdown.with_item do %>
+    <% dropdown.with_item_content do %>
+      My Account
+    <% end %>
+    <% dropdown.with_item_separator %>
+    <% dropdown.with_item_content do %>
       Profile
     <% end %>
-    <% dropdown.with_item do %>
+    <% dropdown.with_item_content do %>
+      Billing
+    <% end %>
+    <% dropdown.with_item_content do %>
       Settings
     <% end %>
-    <% dropdown.with_item do %>
+    <% dropdown.with_item_content do %>
       Keyboard shortcuts
     <% end %>
-    <% dropdown.with_separator %>
-    <% dropdown.with_item do %>
+    <% dropdown.with_item_separator %>
+    <% dropdown.with_item_content do %>
+      Team
+    <% end %>
+    <% dropdown.with_item_content do %>
+      Invite users
+    <% end %>
+    <% dropdown.with_item_content do %>
+      New Team
+    <% end %>
+    <% dropdown.with_item_separator %>
+    <% dropdown.with_item_content do %>
+      GitHub
+    <% end %>
+    <% dropdown.with_item_content do %>
+      Support
+    <% end %>
+    <% dropdown.with_item_content(disabled: true) do %>
+      API
+    <% end %>
+    <% dropdown.with_item_separator %>
+    <% dropdown.with_item_content do %>
       Log out
     <% end %>
   <% end %>
