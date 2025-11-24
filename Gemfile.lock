@@ -641,7 +641,7 @@ DEPENDENCIES
   omniauth-facebook
   omniauth-google-oauth2
   omniauth-rails_csrf_protection
-  pagy (~> 43.0)
+  pagy (~> 43.1)
   propshaft
   puma (~> 7.1)
   pundit (~> 2.5)
