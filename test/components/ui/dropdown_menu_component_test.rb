@@ -37,10 +37,14 @@ module Ui
       render_inline(DropdownMenuComponent.new) do |dropdown|
         dropdown.with_trigger { "Open" }
         dropdown.with_item_content(href: "/profile") { "Profile" }
+        dropdown.with_item_content(href: "/settings", method: :get) { "Settings" }
       end
 
+      # Both render as links (method: :get is normalized to nil)
       assert_selector "a[href='/profile'][role='menuitem']"
-      assert_selector "a[data-action='click->dropdown#close']"
+      assert_selector "a[href='/settings'][role='menuitem']"
+      assert_selector "a[data-action='click->dropdown#close']", count: 2
+      refute_selector "form"
     end
 
     test "renders form for non-GET methods with ARIA on button" do

@@ -103,7 +103,8 @@ module Ui
       class ItemComponent < BaseComponent
         def initialize(href: nil, method: nil, params: {}, inset: false, disabled: false, id: nil, **attrs)
           @href = href
-          @method = method
+          # Normalize :get to nil - GET requests should be links, not forms
+          @method = method == :get ? nil : method
           @params = params
           @inset = inset
           @disabled = disabled

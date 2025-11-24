@@ -12,20 +12,19 @@
       <% end %>
 
       <% PostStatus.ordered.each do |status| %>
-        <%= turbo_frame_tag("post-status-#{status.id}") do %>
-          <% dropdown.with_item_content(
-            href: post_status_path(post),
-            method: :patch,
-            params: { post_status_id: status.id },
-            class: status.id == post.post_status_id ? "bg-accent" : nil
-          ) do %>
-            <span class="w-3 h-3 rounded-full flex-shrink-0" style="background-color: <%= status.color %>;"></span>
-            <span><%= status.name %></span>
-            <% if status.id == post.post_status_id %>
-              <span class="ml-auto">
-                <%= lucide_icon("check", class: "w-4 h-4") %>
-              </span>
-            <% end %>
+        <% dropdown.with_item_content(
+          id: "post-status-#{status.id}",
+          href: post_status_path(post),
+          method: :patch,
+          params: { post_status_id: status.id },
+          class: status.id == post.post_status_id ? "bg-accent" : nil
+        ) do %>
+          <span class="w-3 h-3 rounded-full flex-shrink-0" style="background-color: <%= status.color %>;"></span>
+          <span><%= status.name %></span>
+          <% if status.id == post.post_status_id %>
+            <span class="ml-auto">
+              <%= lucide_icon("check", class: "w-4 h-4") %>
+            </span>
           <% end %>
         <% end %>
       <% end %>
