@@ -15,7 +15,7 @@ GIT
 
 GIT
   remote: https://github.com/rails/rails.git
-  revision: cf4e3c508adf930eb70e4b3e6e16d2ca83b7e9b3
+  revision: 3f888f4076ea45464b093ceaf5c58c932b8f3ff3
   branch: main
   specs:
     actioncable (8.2.0.alpha)
@@ -211,7 +211,7 @@ GEM
     htmlentities (4.3.4)
     i18n (1.14.7)
       concurrent-ruby (~> 1.0)
-    i18n-tasks (1.1.0)
+    i18n-tasks (1.1.1)
       activesupport (>= 4.0.2)
       ast (>= 2.1.0)
       erubi
@@ -375,11 +375,11 @@ GEM
     omniauth-oauth2 (1.8.0)
       oauth2 (>= 1.4, < 3)
       omniauth (~> 2.0)
-    omniauth-rails_csrf_protection (1.0.2)
+    omniauth-rails_csrf_protection (2.0.0)
       actionpack (>= 4.2)
       omniauth (~> 2.0)
     ostruct (0.6.3)
-    pagy (43.0.6)
+    pagy (43.1.4)
       json
       yaml
     parallel (1.27.0)
@@ -423,7 +423,7 @@ GEM
     rails-html-sanitizer (1.6.2)
       loofah (~> 2.21)
       nokogiri (>= 1.15.7, != 1.16.7, != 1.16.6, != 1.16.5, != 1.16.4, != 1.16.3, != 1.16.2, != 1.16.1, != 1.16.0.rc1, != 1.16.0)
-    rails-i18n (8.0.2)
+    rails-i18n (8.1.0)
       i18n (>= 0.7, < 2)
       railties (>= 8.0.0, < 9)
     rainbow (3.1.1)
@@ -468,7 +468,7 @@ GEM
       lint_roller (~> 1.1)
       rubocop (>= 1.75.0, < 2.0)
       rubocop-ast (>= 1.47.1, < 2.0)
-    rubocop-rails (2.34.0)
+    rubocop-rails (2.34.1)
       activesupport (>= 4.2.0)
       lint_roller (~> 1.1)
       rack (>= 1.1)
@@ -478,7 +478,7 @@ GEM
       rubocop (>= 1.72)
       rubocop-performance (>= 1.24)
       rubocop-rails (>= 2.30)
-    ruby-lsp (0.26.3)
+    ruby-lsp (0.26.4)
       language_server-protocol (~> 3.17.0)
       prism (>= 1.2, < 2.0)
       rbs (>= 3, < 5)
@@ -641,7 +641,7 @@ DEPENDENCIES
   omniauth-facebook
   omniauth-google-oauth2
   omniauth-rails_csrf_protection
-  pagy (~> 43.0)
+  pagy (~> 43.1)
   propshaft
   puma (~> 7.1)
   pundit (~> 2.5)
@@ -732,7 +732,7 @@ CHECKSUMS
   htmlbeautifier (1.4.3) sha256=b43d08f7e2aa6ae1b5a6f0607b4ed8954c8d4a8e85fd2336f975dda1e4db385b
   htmlentities (4.3.4) sha256=125a73c6c9f2d1b62100b7c3c401e3624441b663762afa7fe428476435a673da
   i18n (1.14.7) sha256=ceba573f8138ff2c0915427f1fc5bdf4aa3ab8ae88c8ce255eb3ecf0a11a5d0f
-  i18n-tasks (1.1.0) sha256=ebc1e145ca96418307e931f79a60e35e64b8e5f7c3758255c68c1dfad113b068
+  i18n-tasks (1.1.1) sha256=fcde802f4efdcebff520bac4422dff18a0ee4990a1d153b8d7d80f4867cbb742
   image_processing (1.14.0) sha256=754cc169c9c262980889bec6bfd325ed1dafad34f85242b5a07b60af004742fb
   importmap-rails (2.2.2) sha256=729f5b1092f832780829ade1d0b46c7e53d91c556f06da7254da2977e93fe614
   inline_svg (1.10.0) sha256=5b652934236fd9f8adc61f3fd6e208b7ca3282698b19f28659971da84bf9a10f
@@ -785,9 +785,9 @@ CHECKSUMS
   omniauth-facebook (10.0.0) sha256=dfdc6cbada5387572d554784861546cf6382f9fa16c4731cbe5813e570fcb9e1
   omniauth-google-oauth2 (1.2.1) sha256=c81c50b680fc3372d0c18147cdaf9764a67ace9e7e4e6afe7b869a01fa1aaedd
   omniauth-oauth2 (1.8.0) sha256=b2f8e9559cc7e2d4efba57607691d6d2b634b879fc5b5b6ccfefa3da85089e78
-  omniauth-rails_csrf_protection (1.0.2) sha256=1170fd672aff092b9b7ebebc1453559f073ed001e3ce62a1df616e32f8dc5fe0
+  omniauth-rails_csrf_protection (2.0.0) sha256=bd83e43716e1b821bd1bc6498da87326860cd33caf8381d74100c780d008b931
   ostruct (0.6.3) sha256=95a2ed4a4bd1d190784e666b47b2d3f078e4a9efda2fccf18f84ddc6538ed912
-  pagy (43.0.6) sha256=246eedfacc0182910109dde7ba20dea93bba9d75ba6b7e8bd920cc9c17c45000
+  pagy (43.1.4) sha256=fc90273b134110a0f9ee34ad24ad645166fb09c4944b91c5f430907d7b75970c
   parallel (1.27.0) sha256=4ac151e1806b755fb4e2dc2332cbf0e54f2e24ba821ff2d3dcf86bf6dc4ae130
   parser (3.3.10.0) sha256=ce3587fa5cc55a88c4ba5b2b37621b3329aadf5728f9eafa36bbd121462aabd6
   pp (0.6.3) sha256=2951d514450b93ccfeb1df7d021cae0da16e0a7f95ee1e2273719669d0ab9df6
@@ -808,7 +808,7 @@ CHECKSUMS
   rails (8.2.0.alpha)
   rails-dom-testing (2.3.0) sha256=8acc7953a7b911ca44588bf08737bc16719f431a1cc3091a292bca7317925c1d
   rails-html-sanitizer (1.6.2) sha256=35fce2ca8242da8775c83b6ba9c1bcaad6751d9eb73c1abaa8403475ab89a560
-  rails-i18n (8.0.2) sha256=624f31f652f85fd28024a521fea786223c4653cc83a468fbe3d410cb40f738af
+  rails-i18n (8.1.0) sha256=52d5fd6c0abef28d84223cc05647f6ae0fd552637a1ede92deee9545755b6cf3
   railties (8.2.0.alpha)
   rainbow (3.1.1) sha256=039491aa3a89f42efa1d6dec2fc4e62ede96eb6acd95e52f1ad581182b79bc6a
   rake (13.3.1) sha256=8c9e89d09f66a26a01264e7e3480ec0607f0c497a861ef16063604b1b08eb19c
@@ -826,9 +826,9 @@ CHECKSUMS
   rubocop-capybara (2.22.1) sha256=ced88caef23efea53f46e098ff352f8fc1068c649606ca75cb74650970f51c0c
   rubocop-minitest (0.38.2) sha256=5a9dfb5a538973d0601aa51e59637d3998bb8df81233edf1ff421504c6280068
   rubocop-performance (1.26.1) sha256=cd19b936ff196df85829d264b522fd4f98b6c89ad271fa52744a8c11b8f71834
-  rubocop-rails (2.34.0) sha256=d90eb95655bdb3a2276eff8daa8972b35d9b0fd0c0a71e812c714213a056d71e
+  rubocop-rails (2.34.1) sha256=77a092ed1f05405a9e2ca1bee3d13b78ed0c3cc5342671a2d4f7de2056ee6a6e
   rubocop-rails-omakase (1.1.0) sha256=2af73ac8ee5852de2919abbd2618af9c15c19b512c4cfc1f9a5d3b6ef009109d
-  ruby-lsp (0.26.3) sha256=80d28b6c80ce3003997ebebe9bab5599e21fa6888cb5bdb4cee7d24b461d6981
+  ruby-lsp (0.26.4) sha256=1cb3046a066c8f1983dfe5f0cd3baa76034d6ba156e8ab460b15ab129d37a9f7
   ruby-lsp-rails (0.4.8) sha256=f09d1f926d4063deeb2f3049311925c20dfe6c912371e3bcd04a265a865c44ae
   ruby-progressbar (1.13.0) sha256=80fc9c47a9b640d6834e0dc7b3c94c9df37f08cb072b7761e4a71e22cff29b33
   ruby-vips (2.2.5) sha256=f3c547a172c36ba26b8614c809f5823bc6199623ec6204ec7c3bce29037f7758
