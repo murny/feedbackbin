@@ -29,43 +29,65 @@
                 <% end %>
               <% end %>
 
-              <% if @post.pinned? %>
+              <span id="post-pinned-badge">
+                <% if @post.pinned? %>
                   <%= render Ui::BadgeComponent.new(variant: :secondary) do %>
                     <%= lucide_icon "map-pin" %>
                     <%= t(".pinned") %>
                   <% end %>
-              <% end %>
+                <% end %>
+              </span>
             </div>
 
             <div class="flex items-center gap-2">
               <%= render "posts/status_badge", post: @post %>
 
               <% if policy(@post).pin? || policy(@post).edit? || policy(@post).destroy? %>
-                <%= render_dropdown_menu(
-                trigger: lucide_icon("ellipsis"),
-                trigger_button_variant: :ghost,
-                trigger_button_options: { size: :icon, class: "text-muted-foreground" },
-                content: tag.div do
-                  concat(tag.div(class: "flex flex-col gap-1") do
-                    if policy(@post).edit?
-                      concat(link_to(t("edit"), edit_post_path(@post), class: "focus:bg-accent focus:text-accent-foreground relative flex cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem"))
-                    end
-                    if policy(@post).pin?
-                      concat(turbo_frame_tag("post-pin-button") do
-                        if @post.pinned?
-                          button_to(t(".unpin"), post_pin_path(@post), method: :delete, class: "focus:bg-accent focus:text-accent-foreground relative flex w-full text-left cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem")
-                        else
-                          button_to(t(".pin"), post_pin_path(@post), method: :post, class: "focus:bg-accent focus:text-accent-foreground relative flex w-full text-left cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none", "data-dropdown-target": "menuItem")
-                        end
-                      end)
-                    end
-                    if policy(@post).destroy?
-                      concat(tag.div(class: "border-t border-border my-1"))
-                      concat(button_to(t("delete"), @post, method: :delete, form: { data: { turbo_confirm: t("are_you_sure") } }, class: "focus:bg-accent focus:text-accent-foreground relative flex w-full text-left cursor-default items-center rounded-sm px-2 py-1.5 text-sm outline-hidden select-none text-destructive", "data-dropdown-target": "menuItem"))
-                    end
-                  end)
-                end
-              ) %>
+                <%= render Ui::DropdownMenuComponent.new do |dropdown| %>
+                  <% dropdown.with_trigger do %>
+                    <%= render Ui::ButtonComponent.new(variant: :ghost, size: :icon, class: "text-muted-foreground") do %>
+                      <%= lucide_icon("ellipsis") %>
+                    <% end %>
+                  <% end %>
+
+                  <% if policy(@post).edit? %>
+                    <% dropdown.with_item_content(href: edit_post_path(@post)) do %>
+                      <%= t("edit") %>
+                    <% end %>
+                  <% end %>
+
+                  <% if policy(@post).pin? %>
+                    <% if @post.pinned? %>
+                      <% dropdown.with_item_content(
+                        id: "post-pin-button",
+                        href: post_pin_path(@post),
+                        method: :delete
+                      ) do %>
+                        <%= t(".unpin") %>
+                      <% end %>
+                    <% else %>
+                      <% dropdown.with_item_content(
+                        id: "post-pin-button",
+                        href: post_pin_path(@post),
+                        method: :post
+                      ) do %>
+                        <%= t(".pin") %>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+
+                  <% if policy(@post).destroy? %>
+                    <% dropdown.with_item_separator %>
+                    <% dropdown.with_item_content(
+                      href: @post,
+                      method: :delete,
+                      form: { data: { turbo_confirm: t("are_you_sure") } },
+                      class: "text-destructive"
+                    ) do %>
+                      <%= t("delete") %>
+                    <% end %>
+                  <% end %>
+                <% end %>
               <% end %>
             </div>
           </div>

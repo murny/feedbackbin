@@ -2,22 +2,30 @@
 
 <div class="flex items-center gap-2">
   <label class="text-sm font-medium text-muted-foreground"><%= t(".category_label") %></label>
-  <%= render_dropdown_menu(
-    trigger: (selected_category&.name || t(".all_categories")),
-    width: "w-48",
-    trigger_button_variant: :outline,
-    content: capture do %>
-      <%= link_to t(".all_categories"), send(path_helper, **clean_params(**preserve_params, category_id: nil)),
-          class: "block px-4 py-2 text-sm hover:bg-muted rounded-sm #{'bg-muted' unless selected_category}",
-          data: { turbo_frame: turbo_frame } %>
-      <% categories.each do |category| %>
-        <%= link_to send(path_helper, **clean_params(**preserve_params, category_id: category.id)),
-            class: "flex items-center gap-2 px-4 py-2 text-sm hover:bg-muted rounded-sm #{'bg-muted' if selected_category == category}",
-            data: { turbo_frame: turbo_frame } do %>
-          <span class="w-3 h-3 rounded-full flex-shrink-0" style="background-color: <%= category.color %>;"></span>
-          <span><%= category.name %></span>
-        <% end %>
+  <%= render Ui::DropdownMenuComponent.new do |dropdown| %>
+    <% dropdown.with_trigger do %>
+      <%= render Ui::ButtonComponent.new(variant: :outline) do %>
+        <%= selected_category&.name || t(".all_categories") %>
       <% end %>
-    <% end
-  ) %>
+    <% end %>
+
+    <% dropdown.with_item_content(
+      href: send(path_helper, **clean_params(**preserve_params, category_id: nil)),
+      data: { turbo_frame: turbo_frame },
+      class: selected_category ? nil : "bg-accent"
+    ) do %>
+      <%= t(".all_categories") %>
+    <% end %>
+
+    <% categories.each do |category| %>
+      <% dropdown.with_item_content(
+        href: send(path_helper, **clean_params(**preserve_params, category_id: category.id)),
+        data: { turbo_frame: turbo_frame },
+        class: selected_category == category ? "bg-accent" : nil
+      ) do %>
+        <span class="w-3 h-3 rounded-full flex-shrink-0" style="background-color: <%= category.color %>;"></span>
+        <span><%= category.name %></span>
+      <% end %>
+    <% end %>
+  <% end %>
 </div>

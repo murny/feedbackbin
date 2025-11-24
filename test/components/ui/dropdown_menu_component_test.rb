@@ -74,6 +74,7 @@ module Ui
       end
 
       page_html = page.native.to_html
+
       assert_includes page_html, "pl-8"
     end
 
@@ -114,6 +115,7 @@ module Ui
       end
 
       page_html = page.native.to_html
+
       assert_includes page_html, "relative inline-block"
     end
 
@@ -124,6 +126,7 @@ module Ui
       end
 
       page_html = page.native.to_html
+
       assert_includes page_html, "top-full"
       assert_includes page_html, "left-0"
     end
@@ -144,6 +147,7 @@ module Ui
       end
 
       page_html = page.native.to_html
+
       assert_includes page_html, "data-state=\"closed\""
     end
 

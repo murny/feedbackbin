@@ -5,7 +5,8 @@ module Ui
     renders_one :trigger
     renders_many :items, types: {
       content: "ItemComponent",
-      separator: "SeparatorComponent"
+      separator: "SeparatorComponent",
+      label: "LabelComponent"
     }
 
     def initialize(**attrs)
@@ -48,6 +49,8 @@ module Ui
       end
 
       def content_wrapper
+        return unless items?
+
         tag.div(**content_attrs) do
           tag.div(class: content_inner_classes, role: "menu", "aria-orientation": "vertical") do
             safe_join(items)
@@ -79,18 +82,33 @@ module Ui
 
       # Item component for menu items
       class ItemComponent < BaseComponent
-        def initialize(href: nil, inset: false, disabled: false, **attrs)
+        def initialize(href: nil, method: nil, params: {}, inset: false, disabled: false, id: nil, **attrs)
           @href = href
+          @method = method
+          @params = params
           @inset = inset
           @disabled = disabled
+          @id = id
           @attrs = attrs
         end
 
         def call
-          if @href
+          item_content = if @method
+            # Render button_to form for POST/PATCH/DELETE actions
+            button_to(@href, **form_attrs) { content }
+          elsif @href
+            # Render link for GET actions
             link_to(@href, **link_attrs) { content }
           else
+            # Render plain button
             tag.button(**button_attrs) { content }
+          end
+
+          # Wrap in span with ID if provided (for Turbo Frame updates)
+          if @id
+            tag.span(id: @id) { item_content }
+          else
+            item_content
           end
         end
 
@@ -121,6 +139,21 @@ module Ui
             }.merge(@attrs.except(:class, :data))
           end
 
+          def form_attrs
+            {
+              method: @method,
+              params: @params,
+              class: item_classes,
+              role: "menuitem",
+              data: (@attrs[:data] || {}).merge(
+                action: "click->dropdown#close"
+              ),
+              form: {
+                class: "w-full"
+              }.merge(@attrs[:form] || {})
+            }.merge(@attrs.except(:class, :data, :form))
+          end
+
           def item_classes
             tw_merge(
               "relative flex w-full cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors",
@@ -139,6 +172,28 @@ module Ui
         def call
           tag.div(class: "my-1 h-px bg-muted", role: "separator")
         end
+      end
+
+      # Label component for headers/sections
+      class LabelComponent < BaseComponent
+        def initialize(**attrs)
+          @attrs = attrs
+        end
+
+        def call
+          tag.div(class: label_classes) do
+            content
+          end
+        end
+
+        private
+
+          def label_classes
+            tw_merge(
+              "px-2 py-1.5 text-sm font-semibold",
+              @attrs[:class]
+            )
+          end
       end
   end
 end

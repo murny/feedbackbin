@@ -6,7 +6,7 @@
       <% end %>
     <% end %>
 
-    <% dropdown.with_item_content do %>
+    <% dropdown.with_item_label do %>
       My Account
     <% end %>
     <% dropdown.with_item_separator %>
@@ -23,7 +23,7 @@
       Keyboard shortcuts
     <% end %>
     <% dropdown.with_item_separator %>
-    <% dropdown.with_item_content do %>
+    <% dropdown.with_item_label do %>
       Team
     <% end %>
     <% dropdown.with_item_content do %>
@@ -33,13 +33,16 @@
       New Team
     <% end %>
     <% dropdown.with_item_separator %>
-    <% dropdown.with_item_content do %>
+    <% dropdown.with_item_label do %>
+      Resources
+    <% end %>
+    <% dropdown.with_item_content(href: "#github") do %>
       GitHub
     <% end %>
-    <% dropdown.with_item_content do %>
+    <% dropdown.with_item_content(href: "#support") do %>
       Support
     <% end %>
-    <% dropdown.with_item_content(disabled: true) do %>
+    <% dropdown.with_item_content(href: "#api", disabled: true) do %>
       API
     <% end %>
     <% dropdown.with_item_separator %>

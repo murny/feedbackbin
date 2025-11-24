@@ -56,33 +56,42 @@ export default class extends Controller {
   }
 
   showMenu() {
+    if (!this.hasMenuTarget) return
+
     // Update state for CSS animations (component has data-[state=open]:animate-in classes)
     this.menuTarget.setAttribute("data-state", "open")
-    this.triggerTarget.setAttribute("aria-expanded", "true")
+    if (this.hasTriggerTarget) {
+      this.triggerTarget.setAttribute("aria-expanded", "true")
+    }
 
     // Add event listeners
     document.addEventListener("click", this.closeOnClickOutside)
     document.addEventListener("keydown", this.closeOnEscape)
     document.addEventListener("keydown", this.handleKeyNavigation)
 
-    // Focus first menu item after a brief delay to allow animation to start
+    // Focus first menu item after animation starts (double rAF ensures animation begins first)
     requestAnimationFrame(() => {
-      this.focusFirstItem()
+      requestAnimationFrame(() => {
+        this.focusFirstItem()
+      })
     })
   }
 
   hideMenu() {
+    if (!this.hasMenuTarget) return
+
     // Update state for CSS animations (component has data-[state=closed]:animate-out classes)
     this.menuTarget.setAttribute("data-state", "closed")
-    this.triggerTarget.setAttribute("aria-expanded", "false")
+    if (this.hasTriggerTarget) {
+      this.triggerTarget.setAttribute("aria-expanded", "false")
+      // Return focus to trigger
+      this.triggerTarget.focus()
+    }
 
     // Remove event listeners
     document.removeEventListener("click", this.closeOnClickOutside)
     document.removeEventListener("keydown", this.closeOnEscape)
     document.removeEventListener("keydown", this.handleKeyNavigation)
-
-    // Return focus to trigger
-    this.triggerTarget.focus()
   }
 
   closeOnClickOutside(event) {
@@ -135,7 +144,7 @@ export default class extends Controller {
   getFocusableItems() {
     return Array.from(
       this.menuTarget.querySelectorAll(
-        'a[href], button:not([disabled]), [role="menuitem"]:not([disabled]), [role="menuitemcheckbox"]:not([disabled]), [role="menuitemradio"]:not([disabled])'
+        'a[href]:not([aria-disabled="true"]), button:not([disabled]), [role="menuitem"]:not([disabled]):not([aria-disabled="true"])'
       )
     )
   }
