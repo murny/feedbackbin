@@ -541,6 +541,8 @@ en:
         success: Post status has been updated.
     update:
       successfully_updated: Post was successfully updated.
+  remove: Remove
+  report: Report
   roadmap:
     column:
       no_posts: No posts in this status
