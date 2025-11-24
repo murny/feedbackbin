@@ -4,9 +4,7 @@
   <label class="text-sm font-medium text-muted-foreground"><%= t(".category_label") %></label>
   <%= render Ui::DropdownMenuComponent.new do |dropdown| %>
     <% dropdown.with_trigger do %>
-      <%= render Ui::ButtonComponent.new(variant: :outline) do %>
-        <%= selected_category&.name || t(".all_categories") %>
-      <% end %>
+      <%= selected_category&.name || t(".all_categories") %>
     <% end %>
 
     <% dropdown.with_item_content(

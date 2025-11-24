@@ -16,13 +16,9 @@
             </a>
           </div>
           <%= render Ui::DropdownMenuComponent.new do |dropdown| %>
-            <% dropdown.with_trigger do %>
-              <button type="button" class="inline-flex items-center justify-center p-2 text-sm font-medium text-muted-foreground rounded-md transition-colors hover:bg-accent hover:text-accent-foreground">
-                <svg class="w-4 h-4" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 3">
-                  <path d="M2 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Zm6.041 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM14 0a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3Z" />
-                </svg>
-                <span class="sr-only">Comment settings</span>
-              </button>
+            <% dropdown.with_trigger(variant: :ghost, size: :icon, class: "text-muted-foreground") do %>
+              <%= lucide_icon("ellipsis") %>
+              <span class="sr-only">Comment settings</span>
             <% end %>
 
             <% dropdown.with_item_content(href: edit_comment_path(comment)) do %>

@@ -88,12 +88,10 @@
           <!-- Profile dropdown -->
           <div class="relative ml-3">
             <%= render Ui::DropdownMenuComponent.new do |dropdown| %>
-              <% dropdown.with_trigger do %>
-                <button type="button" class="relative flex rounded-full bg-background text-sm ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
-                  <span class="absolute -inset-1.5"></span>
-                  <span class="sr-only"><%= t(".sr_only.open_user_menu") %></span>
-                  <%= image_tag fresh_user_avatar_path(Current.user), role: "presentation", class: "h-8 w-8 rounded-full", alt: "" %>
-                </button>
+              <% dropdown.with_trigger(variant: :ghost, class: "relative rounded-full p-0 hover:bg-transparent") do %>
+                <span class="absolute -inset-1.5"></span>
+                <span class="sr-only"><%= t(".sr_only.open_user_menu") %></span>
+                <%= image_tag fresh_user_avatar_path(Current.user), role: "presentation", class: "h-8 w-8 rounded-full", alt: "" %>
               <% end %>
 
               <% dropdown.with_item_label do %>

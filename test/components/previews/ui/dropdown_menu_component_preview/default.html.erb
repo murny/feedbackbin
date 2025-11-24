@@ -1,9 +1,7 @@
 <div class="flex justify-center p-8">
   <%= render Ui::DropdownMenuComponent.new do |dropdown| %>
     <% dropdown.with_trigger do %>
-      <%= render Ui::ButtonComponent.new(variant: :outline) do %>
-        Open
-      <% end %>
+      Open
     <% end %>
 
     <% dropdown.with_item_label do %>

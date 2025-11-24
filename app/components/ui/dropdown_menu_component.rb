@@ -2,7 +2,13 @@
 
 module Ui
   class DropdownMenuComponent < BaseComponent
-    renders_one :trigger
+    renders_one :trigger, lambda { |variant: :outline, size: :default, **attrs, &block|
+      @trigger_variant = variant
+      @trigger_size = size
+      @trigger_attrs = attrs
+      @trigger_block = block
+    }
+
     renders_many :items, types: {
       content: "ItemComponent",
       separator: "SeparatorComponent",
@@ -25,26 +31,39 @@ module Ui
     private
 
       def wrapper_attrs
+        data = (@attrs[:data] || {}).dup
+        data[:controller] = [ data[:controller], "dropdown" ].compact.join(" ")
+
         {
-          data: {
-            controller: "dropdown"
-          },
+          data: data,
           class: tw_merge("relative inline-block", @attrs[:class])
-        }
+        }.merge(@attrs.except(:class, :data))
       end
 
       def trigger_wrapper
         return unless trigger?
 
-        tag.div(
-          data: {
-            dropdown_target: "trigger",
-            action: "click->dropdown#toggle"
-          },
-          "aria-haspopup": "true",
-          "aria-expanded": "false"
+        # Merge Stimulus and ARIA attributes into the trigger attrs
+        attrs = @trigger_attrs || {}
+        trigger_data = (attrs[:data] || {}).merge(
+          dropdown_target: "trigger",
+          action: "click->dropdown#toggle"
+        )
+
+        trigger_aria = (attrs[:aria] || {}).merge(
+          haspopup: "true",
+          expanded: "false"
+        )
+
+        # Render ButtonComponent with all attributes
+        render Ui::ButtonComponent.new(
+          variant: @trigger_variant || :outline,
+          size: @trigger_size || :default,
+          data: trigger_data,
+          aria: trigger_aria,
+          **attrs.except(:data, :aria)
         ) do
-          trigger.to_s
+          capture(&@trigger_block) if @trigger_block
         end
       end
 
@@ -93,9 +112,18 @@ module Ui
         end
 
         def call
-          item_content = if @method
-            # Render button_to form for POST/PATCH/DELETE actions
-            button_to(@href, **form_attrs) { content }
+          item_content = if @disabled
+            # Render non-interactive span for disabled items
+            tag.span(**disabled_attrs) { content }
+          elsif @method
+            # Render form with properly attributed button for POST/PATCH/DELETE actions
+            # Manual form construction for full control over button attributes
+            tag.form(**form_wrapper_attrs) do
+              safe_join([
+                form_hidden_fields,
+                tag.button(**form_button_attrs) { content }
+              ])
+            end
           elsif @href
             # Render link for GET actions
             link_to(@href, **link_attrs) { content }
@@ -114,12 +142,20 @@ module Ui
 
         private
 
+          def disabled_attrs
+            {
+              class: item_classes,
+              role: "menuitem",
+              "aria-disabled": "true",
+              data: (@attrs[:data] || {}).merge(disabled: "true")
+            }.merge(@attrs.except(:class, :data))
+          end
+
           def link_attrs
             {
               class: item_classes,
               role: "menuitem",
-              tabindex: @disabled ? "-1" : "0",
-              "aria-disabled": @disabled ? "true" : nil,
+              tabindex: "0",
               data: (@attrs[:data] || {}).merge(
                 action: "click->dropdown#close"
               )
@@ -131,26 +167,63 @@ module Ui
               class: item_classes,
               role: "menuitem",
               type: "button",
-              disabled: @disabled,
-              tabindex: @disabled ? "-1" : "0",
+              tabindex: "0",
               data: (@attrs[:data] || {}).merge(
                 action: "click->dropdown#close"
               )
             }.merge(@attrs.except(:class, :data))
           end
 
-          def form_attrs
+          def form_hidden_fields
+            safe_join([
+              csrf_token_tag,
+              method_override_tag,
+              params_tags
+            ].compact)
+          end
+
+          def csrf_token_tag
+            helpers.hidden_field_tag(
+              :authenticity_token,
+              helpers.form_authenticity_token,
+              autocomplete: "off"
+            )
+          end
+
+          def method_override_tag
+            return unless @method && ![ :get, :post ].include?(@method)
+
+            helpers.hidden_field_tag(:_method, @method, autocomplete: "off")
+          end
+
+          def params_tags
+            return if @params.empty?
+
+            @params.map do |key, value|
+              helpers.hidden_field_tag(key, value, autocomplete: "off")
+            end
+          end
+
+          def form_wrapper_attrs
             {
-              method: @method,
-              params: @params,
+              action: @href,
+              method: :post,
+              class: "w-full",
+              data: {
+                turbo_confirm: @attrs.dig(:form, :data, :turbo_confirm)
+              }.compact
+            }
+          end
+
+          def form_button_attrs
+            {
+              type: "submit",
               class: item_classes,
               role: "menuitem",
+              tabindex: "0",
               data: (@attrs[:data] || {}).merge(
                 action: "click->dropdown#close"
-              ),
-              form: {
-                class: "w-full"
-              }.merge(@attrs[:form] || {})
+              )
             }.merge(@attrs.except(:class, :data, :form))
           end
 
@@ -181,12 +254,16 @@ module Ui
         end
 
         def call
-          tag.div(class: label_classes) do
+          tag.div(**label_attrs) do
             content
           end
         end
 
         private
+
+          def label_attrs
+            { class: label_classes }.merge(@attrs.except(:class))
+          end
 
           def label_classes
             tw_merge(

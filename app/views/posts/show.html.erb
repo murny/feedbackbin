@@ -44,10 +44,8 @@
 
               <% if policy(@post).pin? || policy(@post).edit? || policy(@post).destroy? %>
                 <%= render Ui::DropdownMenuComponent.new do |dropdown| %>
-                  <% dropdown.with_trigger do %>
-                    <%= render Ui::ButtonComponent.new(variant: :ghost, size: :icon, class: "text-muted-foreground") do %>
-                      <%= lucide_icon("ellipsis") %>
-                    <% end %>
+                  <% dropdown.with_trigger(variant: :ghost, size: :icon, class: "text-muted-foreground") do %>
+                    <%= lucide_icon("ellipsis") %>
                   <% end %>
 
                   <% if policy(@post).edit? %>
