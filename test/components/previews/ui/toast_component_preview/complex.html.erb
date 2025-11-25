@@ -1,0 +1,78 @@
+<div class="flex flex-col items-center justify-center p-20 gap-6">
+  <div class="flex flex-wrap gap-2 justify-center">
+    <!-- Event Published -->
+    <div data-controller="toast-preview">
+      <%= render Ui::ButtonComponent.new(
+        variant: :secondary,
+        size: :sm,
+        data: { action: "click->toast-preview#show" }
+      ) do %>
+        <%= lucide_icon "calendar-check" %>
+        Event Published
+      <% end %>
+
+      <div data-toast-preview-target="container" class="fixed top-4 right-4 z-50 flex flex-col gap-2 w-full max-w-sm pointer-events-none"></div>
+
+      <template data-toast-preview-target="template">
+        <%= render Ui::ToastComponent.new(
+          title: "Event Published",
+          description: "Your event 'Summer Conference 2024' is now live.",
+          variant: :success,
+          action_label: "View Event",
+          action_href: "#"
+        ) %>
+      </template>
+    </div>
+
+    <!-- Storage Warning -->
+    <div data-controller="toast-preview">
+      <%= render Ui::ButtonComponent.new(
+        variant: :secondary,
+        size: :sm,
+        data: { action: "click->toast-preview#show" }
+      ) do %>
+        <%= lucide_icon "hard-drive" %>
+        Storage Warning
+      <% end %>
+
+      <div data-toast-preview-target="container" class="fixed top-4 right-4 z-50 flex flex-col gap-2 w-full max-w-sm pointer-events-none"></div>
+
+      <template data-toast-preview-target="template">
+        <%= render Ui::ToastComponent.new(
+          title: "Storage Almost Full",
+          description: "You've used 95% of your storage. Upgrade to get more space.",
+          variant: :warning,
+          action_label: "Upgrade",
+          action_href: "#",
+          icon: "hard-drive"
+        ) %>
+      </template>
+    </div>
+
+    <!-- Connection Error -->
+    <div data-controller="toast-preview">
+      <%= render Ui::ButtonComponent.new(
+        variant: :secondary,
+        size: :sm,
+        data: { action: "click->toast-preview#show" }
+      ) do %>
+        <%= lucide_icon "wifi-off" %>
+        Connection Error
+      <% end %>
+
+      <div data-toast-preview-target="container" class="fixed top-4 right-4 z-50 flex flex-col gap-2 w-full max-w-sm pointer-events-none"></div>
+
+      <template data-toast-preview-target="template">
+        <%= render Ui::ToastComponent.new(
+          title: "Connection Lost",
+          description: "Unable to reach the server. Your changes may not be saved.",
+          variant: :error,
+          action_label: "Retry",
+          action_href: "#"
+        ) %>
+      </template>
+    </div>
+  </div>
+
+  <p class="text-sm text-muted-foreground">Real-world toast examples with actions</p>
+</div>

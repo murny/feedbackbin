@@ -4,12 +4,12 @@
   <div class="px-4 py-8">
     <h1 class="text-2xl font-bold mb-4"><%= t(".title") %></h1>
 
-    <div class="mb-6 p-4 border-l-4 border-yellow-500 bg-yellow-50 dark:bg-yellow-900/20">
+    <div class="mb-6 p-4 border-l-4 border-warning bg-warning/10">
       <div class="flex items-start gap-2">
-        <%= lucide_icon "alert-triangle", class: "h-5 w-5 text-yellow-600 dark:text-yellow-400 mt-0.5" %>
+        <%= lucide_icon "alert-triangle", class: "h-5 w-5 text-warning mt-0.5" %>
         <div>
-          <span class="font-semibold text-yellow-800 dark:text-yellow-300"><%= t(".warning_title") %></span>
-          <p class="text-sm mt-1 text-yellow-700 dark:text-yellow-400"><%= t(".warning_message") %></p>
+          <span class="font-semibold text-warning"><%= t(".warning_title") %></span>
+          <p class="text-sm mt-1 text-warning/90"><%= t(".warning_message") %></p>
         </div>
       </div>
     </div>

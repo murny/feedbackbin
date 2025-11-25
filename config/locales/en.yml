@@ -346,6 +346,11 @@ en:
         view_button: View
   application:
     default_title: FeedbackBin
+    flash:
+      dismiss: Dismiss
+    flash_toast:
+      alert_title: Error
+      notice_title: Success
     footer:
       about: About
       copyright: "&copy; %{year} FeedbackBin"
@@ -577,6 +582,9 @@ en:
     dark: Dark
     light: Light
     system: System Default
+  ui:
+    toast:
+      dismiss: Dismiss
   unauthorized: You are not authorized to perform this action.
   user_mailer:
     email_verification:

@@ -4,13 +4,13 @@ class PostsController < ApplicationController
   allow_unauthenticated_access only: %i[index show]
 
   before_action :set_post, only: %i[show edit update destroy]
+  before_action :set_categories, only: %i[index new edit create update]
 
   # GET /posts or /posts.json
   def index
     authorize Post
 
     posts = Post.includes(:author, :category, :post_status)
-    @categories = Category.ordered
     @post_statuses = PostStatus.ordered
     @search = params[:search]
 
@@ -56,8 +56,6 @@ class PostsController < ApplicationController
 
     @post = Post.new
 
-    @categories = Category.ordered
-
     if params[:category_id].present?
       @post.category = @categories.find_by(id: params[:category_id])
     end
@@ -66,8 +64,6 @@ class PostsController < ApplicationController
   # GET /posts/1/edit
   def edit
     authorize @post
-
-    @categories = Category.ordered
   end
 
   # POST /posts or /posts.json
@@ -119,6 +115,10 @@ class PostsController < ApplicationController
     # Use callbacks to share common setup or constraints between actions.
     def set_post
       @post = Post.find(params.expect(:id))
+    end
+
+    def set_categories
+      @categories = Category.ordered
     end
 
     # Only allow a list of trusted parameters through.
