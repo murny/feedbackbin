@@ -16,7 +16,7 @@
 
     <%= render Ui::CardComponent.new do |c| %>
       <% c.with_body(class: "py-4") do %>
-        <%= render_form_with url: admin_settings_ownership_transfer_path, method: :post do |f| %>
+        <%= form_with url: admin_settings_ownership_transfer_path, method: :post, class: "space-y-6" do |f| %>
           <div class="mb-4">
             <%= f.label :new_owner_id, t(".new_owner"), class: "block text-sm font-medium mb-2" %>
             <%= f.select :new_owner_id,

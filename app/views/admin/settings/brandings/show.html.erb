@@ -12,7 +12,7 @@
 
     <%= render Ui::CardComponent.new do |c| %>
       <% c.with_body do %>
-        <%= render_form_with model: Current.organization, url: admin_settings_branding_path, method: :patch, html: { multipart: true } do |f| %>
+        <%= form_with model: Current.organization, url: admin_settings_branding_path, method: :patch, multipart: true, class: "space-y-6" do |f| %>
             <div class="grid gap-6">
               <div class="grid gap-3">
                 <%= f.label :name, t(".name") %>
