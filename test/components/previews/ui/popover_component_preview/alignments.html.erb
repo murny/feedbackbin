@@ -1,0 +1,25 @@
+<div class="space-y-12 p-20">
+  <% Ui::PopoverComponent::ALIGNS.each do |align| %>
+    <div class="flex items-center gap-4">
+      <div class="w-24 text-sm text-muted-foreground">
+        align: <%= align %>
+      </div>
+      <%= render Ui::PopoverComponent.new(side: :bottom, align: align) do |popover| %>
+        <% popover.with_trigger do %>
+          <%= render Ui::ButtonComponent.new(variant: :outline) do %>
+            <%= align.to_s.titleize %>
+          <% end %>
+        <% end %>
+
+        <% popover.with_popover_content do %>
+          <div class="space-y-2">
+            <h4 class="font-medium leading-none">Aligned <%= align.to_s.titleize %></h4>
+            <p class="text-sm text-muted-foreground">
+              Content aligned to the <%= align %>.
+            </p>
+          </div>
+        <% end %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
