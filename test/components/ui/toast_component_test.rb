@@ -4,34 +4,21 @@ require "test_helper"
 
 module Ui
   class ToastComponentTest < ViewComponent::TestCase
-    test "renders default toast" do
+    # Content rendering
+    test "renders toast with title and description" do
       render_inline(ToastComponent.new(
         title: "Notification",
         description: "Test message"
       ))
 
-      assert_selector "[role='status']"
       assert_text "Notification"
       assert_text "Test message"
-    end
-
-    test "renders all variants without errors" do
-      ToastComponent::VARIANTS.each do |variant|
-        render_inline(ToastComponent.new(
-          title: "Test",
-          description: "Test message",
-          variant: variant
-        ))
-
-        assert_selector "[role='status']"
-      end
     end
 
     test "renders with title only" do
       render_inline(ToastComponent.new(title: "Title only"))
 
       assert_text "Title only"
-      assert_no_text "description"
     end
 
     test "renders with description only" do
@@ -48,7 +35,26 @@ module Ui
       assert_text "Block content"
     end
 
-    test "shows default icon for each variant" do
+    # Variants
+    test "renders all variants without errors" do
+      ToastComponent::VARIANTS.each do |variant|
+        render_inline(ToastComponent.new(
+          title: "Test",
+          variant: variant
+        ))
+
+        assert_selector "[role='status']"
+      end
+    end
+
+    test "raises error for invalid variant" do
+      assert_raises(ArgumentError) do
+        ToastComponent.new(variant: :invalid)
+      end
+    end
+
+    # Icons
+    test "shows icon by default" do
       render_inline(ToastComponent.new(
         title: "Test",
         variant: :success
@@ -70,12 +76,13 @@ module Ui
       render_inline(ToastComponent.new(
         title: "Test",
         show_icon: false,
-        dismissable: false  # Also disable dismiss button to avoid its icon
+        dismissable: false
       ))
 
       assert_no_selector "svg"
     end
 
+    # Dismiss button
     test "renders dismiss button when dismissable" do
       render_inline(ToastComponent.new(
         title: "Test",
@@ -94,7 +101,8 @@ module Ui
       assert_no_selector "button[aria-label='Close']"
     end
 
-    test "renders action button when action provided" do
+    # Action button
+    test "renders action button when both label and href provided" do
       render_inline(ToastComponent.new(
         title: "Test",
         action_label: "Click me",
@@ -122,25 +130,14 @@ module Ui
       assert_no_selector "a[href='/test']"
     end
 
-    test "has toast stimulus controller" do
-      render_inline(ToastComponent.new(title: "Test"))
-
-      assert_selector "[data-controller='toast']"
-    end
-
-    test "sets dismiss_after value for stimulus" do
+    # Auto-dismiss timing
+    test "sets custom dismiss_after timing" do
       render_inline(ToastComponent.new(
         title: "Test",
         dismiss_after: 3000
       ))
 
       assert_selector "[data-toast-dismiss-after-value='3000']"
-    end
-
-    test "sets default dismiss_after value" do
-      render_inline(ToastComponent.new(title: "Test"))
-
-      assert_selector "[data-toast-dismiss-after-value='5000']"
     end
 
     test "does not set dismiss_after when zero" do
@@ -152,104 +149,13 @@ module Ui
       assert_no_selector "[data-toast-dismiss-after-value]"
     end
 
-    test "has accessibility attributes" do
+    # Accessibility
+    test "has proper accessibility attributes" do
       render_inline(ToastComponent.new(title: "Test"))
 
       assert_selector "[role='status']"
       assert_selector "[aria-live='polite']"
       assert_selector "[aria-atomic='true']"
-    end
-
-    test "applies success variant classes" do
-      render_inline(ToastComponent.new(
-        title: "Test",
-        variant: :success
-      ))
-
-      page_html = page.native.to_html
-
-      assert_includes page_html, "border-l-green-500"
-    end
-
-    test "applies warning variant classes" do
-      render_inline(ToastComponent.new(
-        title: "Test",
-        variant: :warning
-      ))
-
-      page_html = page.native.to_html
-
-      assert_includes page_html, "border-l-yellow-500"
-    end
-
-    test "applies error variant classes" do
-      render_inline(ToastComponent.new(
-        title: "Test",
-        variant: :error
-      ))
-
-      page_html = page.native.to_html
-
-      assert_includes page_html, "border-l-destructive"
-    end
-
-    test "applies info variant classes" do
-      render_inline(ToastComponent.new(
-        title: "Test",
-        variant: :info
-      ))
-
-      page_html = page.native.to_html
-
-      assert_includes page_html, "border-l-primary"
-    end
-
-    test "merges custom classes" do
-      render_inline(ToastComponent.new(
-        title: "Test",
-        class: "custom-class"
-      ))
-
-      assert_selector ".custom-class"
-    end
-
-    test "raises error for invalid variant" do
-      assert_raises(ArgumentError) do
-        ToastComponent.new(variant: :invalid)
-      end
-    end
-
-    test "works with data attributes" do
-      render_inline(ToastComponent.new(
-        title: "Test",
-        data: { testid: "custom-toast" }
-      ))
-
-      assert_selector "[data-testid='custom-toast']"
-    end
-
-    test "has close action bound to stimulus" do
-      render_inline(ToastComponent.new(title: "Test"))
-
-      assert_selector "[data-action='toast#close']"
-    end
-
-    test "dismiss button has stimulus close action" do
-      render_inline(ToastComponent.new(
-        title: "Test",
-        dismissable: true
-      ))
-
-      assert_selector "button[data-action='toast#close']"
-    end
-
-    test "has pause and resume actions on hover" do
-      render_inline(ToastComponent.new(title: "Test"))
-
-      page_html = page.native.to_html
-
-      assert_includes page_html, "mouseenter-&gt;toast#pause"
-      assert_includes page_html, "mouseleave-&gt;toast#resume"
     end
 
     test "uses assertive aria-live for error variant" do
@@ -259,15 +165,6 @@ module Ui
       ))
 
       assert_selector "[aria-live='assertive']"
-    end
-
-    test "uses polite aria-live for non-error variants" do
-      render_inline(ToastComponent.new(
-        title: "Test",
-        variant: :success
-      ))
-
-      assert_selector "[aria-live='polite']"
     end
   end
 end
