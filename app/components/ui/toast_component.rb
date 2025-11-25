@@ -171,7 +171,7 @@ module Ui
         tag.button(
           type: "button",
           class: "absolute right-1 top-1 rounded-md p-1 text-muted-foreground/50 opacity-0 transition-opacity hover:text-muted-foreground focus:opacity-100 focus:outline-none focus:ring-1 group-hover:opacity-100",
-          "aria-label": helpers.t("ui.toast.dismiss"),
+          "aria-label": t("ui.toast.dismiss"),
           data: { action: "toast#close" }
         ) do
           helpers.lucide_icon("x", class: "size-4")
