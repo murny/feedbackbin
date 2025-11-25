@@ -37,9 +37,6 @@ gem "lucide-rails"
 gem "tailwind_merge", "~> 1.3.1"
 gem "view_component"
 
-# UI Components
-gem "feedbackbin_elements", github: "murny/feedbackbin_elements", branch: "master"
-
 # Authentication & Authorization
 gem "bcrypt", "~> 3.1.7"
 gem "omniauth"
