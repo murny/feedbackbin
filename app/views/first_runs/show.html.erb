@@ -13,13 +13,14 @@
 
     <%= render Ui::CardComponent.new do |c| %>
       <% c.with_body do %>
-        <%= render_form_with(model: @first_run,
-                             url: first_run_path,
-                             data: {
-                              controller: "form badge-preview",
-                              action: "keydown.enter->form#submit:prevent"
-                             }
-                            ) do |form| %>
+        <%= form_with(model: @first_run,
+                      url: first_run_path,
+                      class: "space-y-6",
+                      data: {
+                        controller: "form badge-preview",
+                        action: "keydown.enter->form#submit:prevent"
+                      }
+                     ) do |form| %>
           <%= render "error_messages", resource: @first_run %>
 
           <div class="space-y-8">

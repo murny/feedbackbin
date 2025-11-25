@@ -1,6 +1,6 @@
 <%# locals: (category:) %>
 
-<%= render_form_with model: category, url: category.persisted? ? admin_settings_category_path(category) : admin_settings_categories_path, method: category.persisted? ? :patch : :post, html: { data: { controller: "badge-preview" } } do |f| %>
+<%= form_with model: category, url: category.persisted? ? admin_settings_category_path(category) : admin_settings_categories_path, method: category.persisted? ? :patch : :post, class: "space-y-6", data: { controller: "badge-preview" } do |f| %>
   <div class="grid gap-6">
     <div class="grid gap-3">
       <%= f.label :name, t(".name_label") %>
