@@ -194,7 +194,7 @@
   <div class="max-w-4xl mx-auto">
     <%= render Ui::CardComponent.new do |c| %>
       <% c.with_body do %>
-        <%= render_tabs(
+        <%= render Ui::TabsComponent.new(
           items: [
             {
               value: "posts",

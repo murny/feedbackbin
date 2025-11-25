@@ -1,0 +1,51 @@
+<div class="flex justify-center p-8">
+  <%= render Ui::DropdownMenuComponent.new do |dropdown| %>
+    <% dropdown.with_trigger do %>
+      Open
+    <% end %>
+
+    <% dropdown.with_item_label do %>
+      My Account
+    <% end %>
+    <% dropdown.with_item_separator %>
+    <% dropdown.with_item_content do %>
+      Profile
+    <% end %>
+    <% dropdown.with_item_content do %>
+      Billing
+    <% end %>
+    <% dropdown.with_item_content do %>
+      Settings
+    <% end %>
+    <% dropdown.with_item_content do %>
+      Keyboard shortcuts
+    <% end %>
+    <% dropdown.with_item_separator %>
+    <% dropdown.with_item_label do %>
+      Team
+    <% end %>
+    <% dropdown.with_item_content do %>
+      Invite users
+    <% end %>
+    <% dropdown.with_item_content do %>
+      New Team
+    <% end %>
+    <% dropdown.with_item_separator %>
+    <% dropdown.with_item_label do %>
+      Resources
+    <% end %>
+    <% dropdown.with_item_content(href: "#github") do %>
+      GitHub
+    <% end %>
+    <% dropdown.with_item_content(href: "#support") do %>
+      Support
+    <% end %>
+    <% dropdown.with_item_content(href: "#api", disabled: true) do %>
+      API
+    <% end %>
+    <% dropdown.with_item_separator %>
+    <% dropdown.with_item_content do %>
+      Log out
+    <% end %>
+  <% end %>
+</div>

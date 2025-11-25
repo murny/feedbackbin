@@ -134,7 +134,7 @@ jobs:
           - 5432:5432
           
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v6.0.0
     
     - name: Set up Ruby
       uses: ruby/setup-ruby@v1
