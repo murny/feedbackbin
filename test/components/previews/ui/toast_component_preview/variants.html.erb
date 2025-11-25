@@ -1,9 +1,30 @@
-<div class="flex flex-col gap-4">
-  <% variants.each do |variant| %>
-    <%= render Ui::ToastComponent.new(
-      title: variant.to_s.titleize,
-      description: "This is a #{variant} toast notification.",
-      variant: variant
-    ) %>
-  <% end %>
+<div class="flex flex-col items-center justify-center p-20 gap-6">
+  <div class="flex flex-wrap gap-2 justify-center">
+    <% variants.each do |variant| %>
+      <div data-controller="toast-preview">
+        <%= render Ui::ButtonComponent.new(
+          variant: :outline,
+          size: :sm,
+          data: { action: "click->toast-preview#show" }
+        ) do %>
+          <%= variant.to_s.titleize %>
+        <% end %>
+
+        <!-- Container for this variant's toasts -->
+        <div data-toast-preview-target="container" class="fixed top-4 right-4 z-50 flex flex-col gap-2 w-full max-w-sm pointer-events-none">
+        </div>
+
+        <!-- Template -->
+        <template data-toast-preview-target="template">
+          <%= render Ui::ToastComponent.new(
+            title: variant.to_s.titleize,
+            description: "This is a #{variant} toast notification.",
+            variant: variant
+          ) %>
+        </template>
+      </div>
+    <% end %>
+  </div>
+
+  <p class="text-sm text-muted-foreground">Click any button to show that variant</p>
 </div>

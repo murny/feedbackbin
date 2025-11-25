@@ -1,5 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
-import { transition } from "tailwindcss-stimulus-components"
+import { transition } from "helpers/transition"
 
 // Connects to data-controller="popover"
 export default class extends Controller {

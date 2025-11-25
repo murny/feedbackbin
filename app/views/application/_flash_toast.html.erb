@@ -1,8 +1,8 @@
 <%# locals: () %>
 
-<div id="flash_toast" class="pointer-events-none fixed inset-0 z-50 flex flex-col items-end gap-2 p-4 sm:p-6" role="region" aria-live="assertive" data-turbo-temporary>
+<div id="flash_toast" class="pointer-events-none fixed top-4 right-4 z-50 flex flex-col gap-2 w-full max-w-sm" role="region" aria-live="assertive" data-turbo-temporary>
   <% if alert = flash[:alert] %>
-    <%= render_toast(
+    <%= render Ui::ToastComponent.new(
       title: "Error",
       description: alert,
       variant: :error,
@@ -11,7 +11,7 @@
   <% end %>
 
   <% if notice = flash[:notice] %>
-    <%= render_toast(
+    <%= render Ui::ToastComponent.new(
       title: "Success",
       description: notice,
       variant: :success,

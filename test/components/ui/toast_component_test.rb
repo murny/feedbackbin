@@ -143,22 +143,13 @@ module Ui
       assert_selector "[data-toast-dismiss-after-value='5000']"
     end
 
-    test "sets show_delay value when provided" do
+    test "does not set dismiss_after when zero" do
       render_inline(ToastComponent.new(
         title: "Test",
-        show_delay: 2000
+        dismiss_after: 0
       ))
 
-      assert_selector "[data-toast-show-delay-value='2000']"
-    end
-
-    test "does not set show_delay attribute when zero" do
-      render_inline(ToastComponent.new(
-        title: "Test",
-        show_delay: 0
-      ))
-
-      assert_no_selector "[data-toast-show-delay-value]"
+      assert_no_selector "[data-toast-dismiss-after-value]"
     end
 
     test "has accessibility attributes" do
@@ -250,6 +241,33 @@ module Ui
       ))
 
       assert_selector "button[data-action='toast#close']"
+    end
+
+    test "has pause and resume actions on hover" do
+      render_inline(ToastComponent.new(title: "Test"))
+
+      page_html = page.native.to_html
+
+      assert_includes page_html, "mouseenter-&gt;toast#pause"
+      assert_includes page_html, "mouseleave-&gt;toast#resume"
+    end
+
+    test "uses assertive aria-live for error variant" do
+      render_inline(ToastComponent.new(
+        title: "Test",
+        variant: :error
+      ))
+
+      assert_selector "[aria-live='assertive']"
+    end
+
+    test "uses polite aria-live for non-error variants" do
+      render_inline(ToastComponent.new(
+        title: "Test",
+        variant: :success
+      ))
+
+      assert_selector "[aria-live='polite']"
     end
   end
 end

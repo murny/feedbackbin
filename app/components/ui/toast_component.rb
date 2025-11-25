@@ -11,7 +11,6 @@ module Ui
       icon: nil,
       show_icon: true,
       dismiss_after: 5000,
-      show_delay: 0,
       dismissable: true,
       action_label: nil,
       action_href: nil,
@@ -23,7 +22,6 @@ module Ui
       @show_icon = show_icon
       @custom_icon = icon
       @dismiss_after = dismiss_after
-      @show_delay = show_delay
       @dismissable = dismissable
       @action_label = action_label
       @action_href = action_href
@@ -51,24 +49,28 @@ module Ui
       def html_attrs
         data_attrs = {
           controller: "toast",
-          action: "toast:close->toast#close"
+          action: "mouseenter->toast#pause mouseleave->toast#resume"
         }
 
-        # Only add dismiss_after if provided
-        data_attrs[:toast_dismiss_after_value] = @dismiss_after if @dismiss_after
+        # Only add dismiss_after if provided and greater than 0
+        data_attrs[:toast_dismiss_after_value] = @dismiss_after if @dismiss_after && @dismiss_after > 0
 
-        # Only add show_delay if non-zero
-        data_attrs[:toast_show_delay_value] = @show_delay if @show_delay > 0
+        # Merge with any additional data attributes
+        data_attrs = data_attrs.merge(@attrs[:data] || {})
 
-        data_attrs.merge!(@attrs[:data] || {})
+        # Use assertive for error variant, polite for others
+        aria_live = @variant == :error ? "assertive" : "polite"
 
         @attrs.merge(
           class: toast_classes,
           role: "status",
-          "aria-live": "polite",
-          "aria-atomic": "true",
+          aria: {
+            live: aria_live,
+            atomic: "true"
+          },
           data: data_attrs
-        )
+        ).except(:aria)
+          .merge("aria-live": aria_live, "aria-atomic": "true")
       end
 
       def toast_classes
@@ -82,7 +84,7 @@ module Ui
       def base_classes
         [
           "group pointer-events-auto relative flex w-full items-start gap-3 overflow-hidden",
-          "rounded-lg border p-4 shadow-lg transition-all",
+          "rounded-lg border p-4 pr-10 shadow-lg transition-all",
           "data-[state=open]:animate-in data-[state=closed]:animate-out",
           "data-[state=closed]:fade-out-80 data-[state=open]:fade-in-0",
           "data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full",

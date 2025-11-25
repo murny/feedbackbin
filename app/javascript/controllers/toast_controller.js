@@ -1,63 +1,68 @@
 import { Controller } from "@hotwired/stimulus"
-import { enter, leave } from "./transition.js"
 
+// Toast notification controller for managing toast lifecycle
+// Supports:
+// - Auto-dismiss with configurable timing
+// - Pause on hover to read longer messages
+// - Keyboard interaction (Escape to dismiss)
+// - Turbo cache compatibility
 export default class extends Controller {
   static values = {
-    dismissAfter: Number,
-    showDelay: { type: Number, default: 0 }
+    dismissAfter: Number
   }
 
   connect() {
-    // Show toast after optional delay
-    setTimeout(() => {
-      enter(this.element)
-    }, this.showDelayValue)
+    // Show toast with enter animation
+    // Toast uses data-state attribute for Tailwind's data-[state] selectors
+    this.element.dataset.state = 'open'
+
+    // Track start time for pause/resume
+    this.startTime = Date.now()
 
     // Auto-dismiss if configured
-    if (this.hasDismissAfterValue) {
+    if (this.hasDismissAfterValue && this.dismissAfterValue > 0) {
       this.dismissTimeout = setTimeout(() => {
         this.close()
-      }, this.dismissAfterValue + this.showDelayValue)
+      }, this.dismissAfterValue)
     }
   }
 
   disconnect() {
-    this.#clearTimeouts()
+    if (this.dismissTimeout) {
+      clearTimeout(this.dismissTimeout)
+    }
   }
 
+  // Runs leave animation and then removes element from the page
   close() {
-    this.#clearTimeouts()
+    if (this.dismissTimeout) {
+      clearTimeout(this.dismissTimeout)
+    }
 
-    // Run leave animation and then remove element
-    leave(this.element).then(() => {
+    // Set closed state for animation, then remove
+    this.element.dataset.state = 'closed'
+
+    // Wait for animation to complete before removing
+    setTimeout(() => {
       this.element.remove()
-    })
+    }, 300) // Match animation duration from Tailwind
   }
 
-  // Allow external pause (e.g., on hover)
+  // Pause auto-dismiss on hover
   pause() {
     if (this.dismissTimeout) {
       clearTimeout(this.dismissTimeout)
-      this.pausedAt = Date.now()
-      this.remainingTime = this.dismissAfterValue - (this.pausedAt - this.startedAt)
+      // Calculate remaining time
+      this.remainingTime = this.dismissAfterValue - (Date.now() - this.startTime)
     }
   }
 
-  // Resume auto-dismiss from where it was paused
+  // Resume auto-dismiss after hover
   resume() {
-    if (this.pausedAt && this.remainingTime > 0) {
+    if (this.hasDismissAfterValue && this.remainingTime > 0) {
       this.dismissTimeout = setTimeout(() => {
         this.close()
       }, this.remainingTime)
-      this.startedAt = Date.now()
-      this.pausedAt = null
-    }
-  }
-
-  #clearTimeouts() {
-    if (this.dismissTimeout) {
-      clearTimeout(this.dismissTimeout)
-      this.dismissTimeout = null
     }
   }
 }
