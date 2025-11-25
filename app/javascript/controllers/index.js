@@ -3,7 +3,6 @@ import { application } from "controllers/application"
 import { eagerLoadControllersFrom } from "@hotwired/stimulus-loading"
 eagerLoadControllersFrom("controllers", application)
 
-import { Alert, Popover, Toggle } from "tailwindcss-stimulus-components"
+import { Alert, Toggle } from "tailwindcss-stimulus-components"
 application.register('alert', Alert)
-application.register('popover', Popover)
 application.register('toggle', Toggle)

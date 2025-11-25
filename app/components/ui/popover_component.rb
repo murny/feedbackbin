@@ -7,7 +7,7 @@ module Ui
     TRIGGER_MODES = %i[click hover].freeze
 
     renders_one :trigger
-    renders_one :content
+    renders_one :popover_content
 
     def initialize(
       side: :bottom,
@@ -16,6 +16,7 @@ module Ui
       align_offset: 0,
       trigger_mode: :click,
       dismiss_after: nil,
+      id: nil,
       **attrs
     )
       @side = validate_option(side, SIDES, "side")
@@ -24,10 +25,19 @@ module Ui
       @align_offset = align_offset
       @trigger_mode = validate_option(trigger_mode, TRIGGER_MODES, "trigger_mode")
       @dismiss_after = dismiss_after
+      @id = id || "popover-#{SecureRandom.hex(4)}"
       @attrs = attrs
     end
 
     private
+
+      def trigger_id
+        "#{@id}-trigger"
+      end
+
+      def content_id
+        "#{@id}-content"
+      end
 
       def controller_data
         data = {
@@ -49,25 +59,48 @@ module Ui
         end
       end
 
-      def wrapper_attrs
-        attrs = @attrs.merge(
-          class: tw_merge("relative inline-block", @attrs[:class]),
-          data: controller_data
-        )
+      def trigger_attrs
+        {
+          id: trigger_id,
+          data: {
+            slot: "popover-trigger",
+            action: trigger_actions,
+            popover_target: "trigger"
+          },
+          aria: {
+            haspopup: "dialog",
+            expanded: "false",
+            controls: content_id
+          }
+        }
+      end
 
-        attrs
+      def wrapper_attrs
+        {
+          class: tw_merge("relative inline-block", @attrs[:class]),
+          data: controller_data.merge(@attrs[:data] || {})
+        }.merge(@attrs.except(:class, :data))
       end
 
       def content_attrs
         {
+          id: content_id,
+          role: "dialog",
+          tabindex: "-1",
           data: {
+            slot: "popover-content",
             popover_target: "content",
+            state: "closed",
             transition_enter: "transition ease-out duration-200",
             transition_enter_from: "opacity-0 scale-95",
             transition_enter_to: "opacity-100 scale-100",
             transition_leave: "transition ease-in duration-150",
             transition_leave_from: "opacity-100 scale-100",
             transition_leave_to: "opacity-0 scale-95"
+          },
+          aria: {
+            hidden: "true",
+            labelledby: trigger_id
           },
           class: content_classes,
           style: position_styles
@@ -83,7 +116,7 @@ module Ui
       end
 
       def base_content_classes
-        "absolute z-50 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none"
+        "absolute z-50 w-72 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-none"
       end
 
       def position_classes

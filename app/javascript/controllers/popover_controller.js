@@ -3,7 +3,7 @@ import { transition } from "tailwindcss-stimulus-components"
 
 // Connects to data-controller="popover"
 export default class extends Controller {
-  static targets = ["content"]
+  static targets = ["content", "trigger"]
   static values = {
     dismissAfter: Number,
     trigger: { type: String, default: "click" }, // "click" or "hover"
@@ -14,6 +14,7 @@ export default class extends Controller {
     // Bind methods to maintain context for event listeners
     this.hideOnClickOutside = this.hideOnClickOutside.bind(this)
     this.hideOnEscape = this.hideOnEscape.bind(this)
+    this.trapFocus = this.trapFocus.bind(this)
   }
 
   disconnect() {
@@ -24,19 +25,10 @@ export default class extends Controller {
 
   // Stimulus value change callback - handles all transitions
   openValueChanged() {
-    // Update data-state attribute for CSS animations
-    this.contentTarget.setAttribute("data-state", this.openValue ? "open" : "closed")
-
-    // Use transition helper for smooth animations
-    transition(this.contentTarget, this.openValue)
-
     if (this.openValue) {
-      this.addGlobalListeners()
-      if (this.shouldAutoDismiss) {
-        this.scheduleDismissal()
-      }
+      this.showPopover()
     } else {
-      this.removeGlobalListeners()
+      this.hidePopover()
     }
   }
 
@@ -53,7 +45,68 @@ export default class extends Controller {
     this.openValue = false
   }
 
-  toggle() {
+  showPopover() {
+    if (!this.hasContentTarget) return
+
+    // Update ARIA attributes for accessibility
+    this.contentTarget.setAttribute("data-state", "open")
+    this.contentTarget.setAttribute("aria-hidden", "false")
+
+    if (this.hasTriggerTarget) {
+      this.triggerTarget.setAttribute("aria-expanded", "true")
+    }
+
+    // Use transition helper for smooth animations
+    transition(this.contentTarget, true)
+
+    // Focus management - move focus into popover after animation
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        this.contentTarget.focus()
+      })
+    })
+
+    // Add event listeners
+    this.addGlobalListeners()
+
+    // Add focus trap
+    document.addEventListener("keydown", this.trapFocus)
+
+    // Schedule auto-dismiss if configured
+    if (this.shouldAutoDismiss) {
+      this.scheduleDismissal()
+    }
+  }
+
+  hidePopover() {
+    if (!this.hasContentTarget) return
+
+    // Update ARIA attributes
+    this.contentTarget.setAttribute("data-state", "closed")
+    this.contentTarget.setAttribute("aria-hidden", "true")
+
+    if (this.hasTriggerTarget) {
+      this.triggerTarget.setAttribute("aria-expanded", "false")
+      // Return focus to trigger
+      this.triggerTarget.focus()
+    }
+
+    // Use transition helper for smooth animations
+    transition(this.contentTarget, false)
+
+    // Remove event listeners
+    this.removeGlobalListeners()
+    document.removeEventListener("keydown", this.trapFocus)
+
+    // Cancel any pending dismissal
+    this.cancelDismissal()
+  }
+
+  toggle(event) {
+    if (event) {
+      event.preventDefault()
+      event.stopPropagation()
+    }
     this.openValue = !this.openValue
   }
 
@@ -99,10 +152,7 @@ export default class extends Controller {
   // Event listener management
   addGlobalListeners() {
     // Listen for clicks outside the popover
-    // Delay to avoid immediate triggering from the click that opened it
-    setTimeout(() => {
-      document.addEventListener("click", this.hideOnClickOutside)
-    }, 0)
+    document.addEventListener("click", this.hideOnClickOutside)
 
     // Listen for escape key
     document.addEventListener("keydown", this.hideOnEscape)
@@ -124,7 +174,41 @@ export default class extends Controller {
 
   hideOnEscape(event) {
     if (event.key === "Escape") {
+      event.preventDefault()
       this.hide()
+    }
+  }
+
+  // Focus trap - keep focus within popover when open
+  trapFocus(event) {
+    if (event.key !== "Tab" || !this.openValue) return
+
+    const focusableElements = this.contentTarget.querySelectorAll(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    )
+    const focusableArray = Array.from(focusableElements)
+    const firstElement = focusableArray[0]
+    const lastElement = focusableArray[focusableArray.length - 1]
+
+    // If no focusable elements, prevent tab
+    if (focusableArray.length === 0) {
+      event.preventDefault()
+      return
+    }
+
+    // Shift + Tab
+    if (event.shiftKey) {
+      if (document.activeElement === firstElement || document.activeElement === this.contentTarget) {
+        event.preventDefault()
+        lastElement.focus()
+      }
+    }
+    // Tab
+    else {
+      if (document.activeElement === lastElement) {
+        event.preventDefault()
+        firstElement.focus()
+      }
     }
   }
 }
