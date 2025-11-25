@@ -89,7 +89,7 @@ module Ui
         dismissable: true
       ))
 
-      assert_selector "button[aria-label='Close']"
+      assert_selector "button[aria-label='Dismiss']"
     end
 
     test "does not render dismiss button when not dismissable" do
@@ -98,7 +98,7 @@ module Ui
         dismissable: false
       ))
 
-      assert_no_selector "button[aria-label='Close']"
+      assert_no_selector "button[aria-label='Dismiss']"
     end
 
     # Action button

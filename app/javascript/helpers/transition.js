@@ -2,6 +2,11 @@
 // Based on tailwindcss-stimulus-components
 // https://github.com/excid3/tailwindcss-stimulus-components
 
+// Helper to safely split class strings and filter out empty values
+function splitClasses(classString) {
+  return classString.split(' ').filter(Boolean)
+}
+
 // Main transition function:
 //
 //   transition(element, true)  // Enter
@@ -15,7 +20,7 @@
 //     enterTo: "opacity-100"
 //   })
 export async function transition(element, state, transitionOptions = {}) {
-  if (!!state) {
+  if (state) {
     await enter(element, transitionOptions)
   } else {
     await leave(element, transitionOptions)
@@ -37,17 +42,17 @@ export async function enter(element, transitionOptions = {}) {
 
   return performTransitions(element, {
     firstFrame() {
-      element.classList.add(...transitionClasses.split(' '))
-      element.classList.add(...fromClasses.split(' '))
-      element.classList.remove(...toClasses.split(' '))
-      element.classList.remove(...toggleClass.split(' '))
+      element.classList.add(...splitClasses(transitionClasses))
+      element.classList.add(...splitClasses(fromClasses))
+      element.classList.remove(...splitClasses(toClasses))
+      element.classList.remove(...splitClasses(toggleClass))
     },
     secondFrame() {
-      element.classList.remove(...fromClasses.split(' '))
-      element.classList.add(...toClasses.split(' '))
+      element.classList.remove(...splitClasses(fromClasses))
+      element.classList.add(...splitClasses(toClasses))
     },
     ending() {
-      element.classList.remove(...transitionClasses.split(' '))
+      element.classList.remove(...splitClasses(transitionClasses))
     }
   })
 }
@@ -64,17 +69,17 @@ export async function leave(element, transitionOptions = {}) {
 
   return performTransitions(element, {
     firstFrame() {
-      element.classList.add(...fromClasses.split(' '))
-      element.classList.remove(...toClasses.split(' '))
-      element.classList.add(...transitionClasses.split(' '))
+      element.classList.add(...splitClasses(fromClasses))
+      element.classList.remove(...splitClasses(toClasses))
+      element.classList.add(...splitClasses(transitionClasses))
     },
     secondFrame() {
-      element.classList.remove(...fromClasses.split(' '))
-      element.classList.add(...toClasses.split(' '))
+      element.classList.remove(...splitClasses(fromClasses))
+      element.classList.add(...splitClasses(toClasses))
     },
     ending() {
-      element.classList.remove(...transitionClasses.split(' '))
-      element.classList.add(...toggleClass.split(' '))
+      element.classList.remove(...splitClasses(transitionClasses))
+      element.classList.add(...splitClasses(toggleClass))
     }
   })
 }

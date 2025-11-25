@@ -3,14 +3,15 @@ import { transition } from "helpers/transition"
 
 // Reusable toggle controller with smooth animations
 // Can toggle visibility of one or more elements
+// Manages ARIA attributes for accessibility
 //
 // Usage:
 //   <div data-controller="toggle">
-//     <button data-action="toggle#toggle">Toggle</button>
+//     <button data-action="toggle#toggle" data-toggle-target="trigger">Toggle</button>
 //     <div data-toggle-target="toggleable" class="hidden">Content</div>
 //   </div>
 export default class extends Controller {
-  static targets = ["toggleable"]
+  static targets = ["toggleable", "trigger"]
   static values = {
     open: { type: Boolean, default: false }
   }
@@ -28,27 +29,30 @@ export default class extends Controller {
   toggle(event) {
     if (event) event.preventDefault()
     this.openValue = !this.openValue
-    this.animate()
   }
 
   // Sets open state based on checkbox or radio input
   toggleInput(event) {
     this.openValue = event.target.checked
-    this.animate()
   }
 
   // Explicitly hide
   hide(event) {
     if (event) event.preventDefault()
     this.openValue = false
-    this.animate()
   }
 
   // Explicitly show
   show(event) {
     if (event) event.preventDefault()
     this.openValue = true
+  }
+
+  // Value change callback - single source of truth for state changes
+  // Syncs visuals and ARIA attributes when open state changes
+  openValueChanged() {
     this.animate()
+    this.updateAria()
   }
 
   // Animate all toggleable targets
@@ -58,8 +62,18 @@ export default class extends Controller {
     })
   }
 
-  // Value change callback - can be used to sync state
-  openValueChanged() {
-    // Optional: add logic when open state changes
+  // Update ARIA attributes for accessibility
+  updateAria() {
+    // Update aria-expanded on trigger elements (e.g., buttons)
+    if (this.hasTriggerTarget) {
+      this.triggerTargets.forEach(trigger => {
+        trigger.setAttribute('aria-expanded', this.openValue)
+      })
+    }
+
+    // Update aria-hidden on toggleable content
+    this.toggleableTargets.forEach(target => {
+      target.setAttribute('aria-hidden', !this.openValue)
+    })
   }
 }

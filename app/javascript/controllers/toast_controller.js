@@ -12,32 +12,24 @@ export default class extends Controller {
   }
 
   connect() {
-    // Show toast with enter animation
-    // Toast uses data-state attribute for Tailwind's data-[state] selectors
-    this.element.dataset.state = 'open'
+    this.element.dataset.state = "open"
 
-    // Track start time for pause/resume
-    this.startTime = Date.now()
-
-    // Auto-dismiss if configured
     if (this.hasDismissAfterValue && this.dismissAfterValue > 0) {
+      this.remainingTime = this.dismissAfterValue
+      this.startedAt = Date.now()
       this.dismissTimeout = setTimeout(() => {
         this.close()
-      }, this.dismissAfterValue)
+      }, this.remainingTime)
     }
   }
 
   disconnect() {
-    if (this.dismissTimeout) {
-      clearTimeout(this.dismissTimeout)
-    }
+    this.#clearTimeout()
   }
 
   // Runs leave animation and then removes element from the page
   close() {
-    if (this.dismissTimeout) {
-      clearTimeout(this.dismissTimeout)
-    }
+    this.#clearTimeout()
 
     // Set closed state for animation, then remove
     this.element.dataset.state = 'closed'
@@ -52,17 +44,30 @@ export default class extends Controller {
   pause() {
     if (this.dismissTimeout) {
       clearTimeout(this.dismissTimeout)
-      // Calculate remaining time
-      this.remainingTime = this.dismissAfterValue - (Date.now() - this.startTime)
+      this.dismissTimeout = null
+
+      const now = Date.now()
+      const elapsed = now - this.startedAt
+      this.remainingTime = Math.max(0, this.remainingTime - elapsed)
+      this.pausedAt = now
     }
   }
 
   // Resume auto-dismiss after hover
   resume() {
     if (this.hasDismissAfterValue && this.remainingTime > 0) {
+      this.startedAt = Date.now()
       this.dismissTimeout = setTimeout(() => {
         this.close()
       }, this.remainingTime)
+      this.pausedAt = null
+    }
+  }
+
+  #clearTimeout() {
+    if (this.dismissTimeout) {
+      clearTimeout(this.dismissTimeout)
+      this.dismissTimeout = null
     }
   }
 }

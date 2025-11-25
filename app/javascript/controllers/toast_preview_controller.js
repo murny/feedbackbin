@@ -2,9 +2,23 @@ import { Controller } from "@hotwired/stimulus"
 
 // Simple controller for Lookbook toast previews
 // Spawns toasts when the trigger button is clicked
-// Supports stacking toasts with visual offset
+// Supports stacking toasts with visual offset (Sonner/Shadcn pattern)
 export default class extends Controller {
   static targets = ["container", "template"]
+
+  connect() {
+    // Create single observer to watch for toast additions/removals
+    this.observer = new MutationObserver(() => this.repositionToasts())
+    this.observer.observe(this.containerTarget, { childList: true })
+  }
+
+  disconnect() {
+    // Clean up observer when controller is removed
+    if (this.observer) {
+      this.observer.disconnect()
+      this.observer = null
+    }
+  }
 
   show(event) {
     event.preventDefault()
@@ -13,60 +27,37 @@ export default class extends Controller {
     const template = this.templateTarget
     const clone = template.content.cloneNode(true)
 
-    // Get the toast element from the cloned content
-    const toastElement = clone.querySelector('[data-controller*="toast"]')
-
-    if (toastElement) {
-      // Count existing toasts in this container
-      const existingToasts = this.containerTarget.querySelectorAll('[data-controller*="toast"]')
-      const index = existingToasts.length
-
-      // Add stacking styles: scale down and translate up based on position
-      // Each toast is slightly smaller and offset
-      if (index > 0) {
-        const scale = 1 - (index * 0.05) // Each toast 5% smaller
-        const translateY = -(index * 8) // Each toast 8px higher
-        const opacity = 1 - (index * 0.1) // Each toast slightly more transparent
-
-        toastElement.style.transform = `scale(${scale}) translateY(${translateY}px)`
-        toastElement.style.opacity = opacity
-        toastElement.style.pointerEvents = index === 0 ? 'auto' : 'none'
-
-        // Add transition for smooth animation
-        toastElement.style.transition = 'all 150ms ease-out'
-      }
-
-      // When a toast is removed, reposition remaining toasts
-      const observer = new MutationObserver(() => {
-        this.repositionToasts()
-      })
-
-      observer.observe(this.containerTarget, { childList: true })
-    }
-
-    // Append to container - Stimulus will automatically connect controllers
+    // Append to container - observer will automatically trigger repositionToasts()
     this.containerTarget.appendChild(clone)
   }
 
   repositionToasts() {
-    const toasts = this.containerTarget.querySelectorAll('[data-controller*="toast"]')
+    const toasts = Array.from(
+      this.containerTarget.querySelectorAll('[data-controller*="toast"]')
+    )
 
     toasts.forEach((toast, index) => {
-      if (index === 0) {
-        // First toast (top) is full size
+      // Make the newest toast (last in DOM) the primary one (Sonner/Shadcn pattern)
+      if (index === toasts.length - 1) {
+        // Newest toast is full size and interactive
         toast.style.transform = 'scale(1) translateY(0)'
         toast.style.opacity = '1'
         toast.style.pointerEvents = 'auto'
       } else {
-        // Stack subsequent toasts behind
-        const scale = 1 - (index * 0.05)
-        const translateY = -(index * 8)
-        const opacity = 1 - (index * 0.1)
+        // Older toasts are stacked behind with visual offset
+        // Calculate offset from the end (newest toast)
+        const offsetFromNewest = toasts.length - 1 - index
+        const scale = 1 - (offsetFromNewest * 0.05) // Each older toast 5% smaller
+        const translateY = -(offsetFromNewest * 8) // Each older toast 8px higher
+        const opacity = 1 - (offsetFromNewest * 0.1) // Each older toast slightly more transparent
 
         toast.style.transform = `scale(${scale}) translateY(${translateY}px)`
         toast.style.opacity = opacity
         toast.style.pointerEvents = 'none'
       }
+
+      // Add transition for smooth animation
+      toast.style.transition = 'all 150ms ease-out'
     })
   }
 }

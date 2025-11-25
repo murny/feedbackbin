@@ -64,13 +64,10 @@ module Ui
         @attrs.merge(
           class: toast_classes,
           role: "status",
-          aria: {
-            live: aria_live,
-            atomic: "true"
-          },
+          "aria-live": aria_live,
+          "aria-atomic": "true",
           data: data_attrs
-        ).except(:aria)
-          .merge("aria-live": aria_live, "aria-atomic": "true")
+        )
       end
 
       def toast_classes
@@ -97,9 +94,9 @@ module Ui
         when :default
           "bg-card text-card-foreground border-l-4 border-l-border"
         when :success
-          "bg-card text-card-foreground border-l-4 border-l-green-500 [&>svg]:text-green-500"
+          "bg-card text-card-foreground border-l-4 border-l-success [&>svg]:text-success"
         when :warning
-          "bg-card text-card-foreground border-l-4 border-l-yellow-500 [&>svg]:text-yellow-500"
+          "bg-card text-card-foreground border-l-4 border-l-warning [&>svg]:text-warning"
         when :error
           "bg-card text-card-foreground border-l-4 border-l-destructive [&>svg]:text-destructive"
         when :info
@@ -126,8 +123,8 @@ module Ui
           "circle-alert"
         when :info
           "info"
-        else
-          "info"
+        when :default
+          nil # Default variant has no icon unless custom icon is provided
         end
       end
 
@@ -174,7 +171,7 @@ module Ui
         tag.button(
           type: "button",
           class: "absolute right-1 top-1 rounded-md p-1 text-muted-foreground/50 opacity-0 transition-opacity hover:text-muted-foreground focus:opacity-100 focus:outline-none focus:ring-1 group-hover:opacity-100",
-          "aria-label": "Close",
+          "aria-label": helpers.t("ui.toast.dismiss"),
           data: { action: "toast#close" }
         ) do
           helpers.lucide_icon("x", class: "size-4")
