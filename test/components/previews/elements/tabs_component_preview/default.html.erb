@@ -1,0 +1,54 @@
+<%= render Elements::TabsComponent.new(
+  items: [
+    {
+      label: "Account",
+      value: "account",
+      content: capture do %>
+        <div class="rounded-lg border bg-card text-card-foreground p-6 space-y-6">
+          <div class="space-y-1">
+            <h3 class="text-lg font-semibold">Account</h3>
+            <p class="text-sm text-muted-foreground">Make changes to your account here. Click save when you're done.</p>
+          </div>
+          <div class="space-y-4">
+            <div class="space-y-2">
+              <label for="name" class="text-sm font-medium">Name</label>
+              <input type="text" id="name" value="Pedro Duarte" autocomplete="off" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+            </div>
+            <div class="space-y-2">
+              <label for="username" class="text-sm font-medium">Username</label>
+              <input type="text" id="username" value="@peduarte" autocomplete="off" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+            </div>
+            <%= render Elements::ButtonComponent.new(variant: :default, class: "w-full") do %>
+              Save changes
+            <% end %>
+          </div>
+        </div>
+      <% end
+    },
+    {
+      label: "Password",
+      value: "password",
+      content: capture do %>
+        <div class="rounded-lg border bg-card text-card-foreground p-6 space-y-6">
+          <div class="space-y-1">
+            <h3 class="text-lg font-semibold">Password</h3>
+            <p class="text-sm text-muted-foreground">Change your password here. After saving, you'll be logged out.</p>
+          </div>
+          <div class="space-y-4">
+            <div class="space-y-2">
+              <label for="current" class="text-sm font-medium">Current password</label>
+              <input type="password" id="current" autocomplete="off" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+            </div>
+            <div class="space-y-2">
+              <label for="new" class="text-sm font-medium">New password</label>
+              <input type="password" id="new" autocomplete="off" class="flex h-9 w-full rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-sm transition-colors placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:cursor-not-allowed disabled:opacity-50">
+            </div>
+            <%= render Elements::ButtonComponent.new(variant: :default, class: "w-full") do %>
+              Save password
+            <% end %>
+          </div>
+        </div>
+      <% end
+    }
+  ]
+) %>

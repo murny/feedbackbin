@@ -1,0 +1,31 @@
+<div class="flex items-center justify-center p-20">
+  <%= render Elements::PopoverComponent.new(side: :right, align: :start) do |popover| %>
+    <% popover.with_trigger do %>
+      <%= render Elements::ButtonComponent.new(variant: :outline, size: :icon) do %>
+        <%= lucide_icon("info") %>
+      <% end %>
+    <% end %>
+
+    <% popover.with_popover_content do %>
+      <div class="space-y-3 max-w-xs">
+        <div class="flex items-start gap-3">
+          <%= lucide_icon("lightbulb", class: "size-5 text-yellow-500 mt-0.5") %>
+          <div class="space-y-1">
+            <h4 class="font-medium leading-none">Pro Tip</h4>
+            <p class="text-sm text-muted-foreground">
+              You can use keyboard shortcuts to navigate faster. Press <kbd class="px-1.5 py-0.5 text-xs font-semibold bg-muted rounded">?</kbd> to see all shortcuts.
+            </p>
+          </div>
+        </div>
+        <div class="flex gap-2 pt-2">
+          <%= render Elements::ButtonComponent.new(size: :sm) do %>
+            Got it
+          <% end %>
+          <%= render Elements::ButtonComponent.new(variant: :ghost, size: :sm) do %>
+            Learn more
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+</div>

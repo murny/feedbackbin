@@ -11,7 +11,7 @@
         <%= t(".description") %>
       </p>
     </div>
-    <%= render Ui::ButtonComponent.new(
+    <%= render Elements::ButtonComponent.new(
       href: admin_posts_path,
       variant: :outline
     ) do %>
@@ -20,7 +20,7 @@
   </div>
 
   <!-- Post Info -->
-  <%= render Ui::CardComponent.new do |c| %>
+  <%= render Elements::CardComponent.new do |c| %>
     <% c.with_header(title: t(".post_info_title")) %>
     <% c.with_body do %>
       <div class="space-y-6">
@@ -29,7 +29,7 @@
           <h3 class="text-xl font-semibold text-foreground mb-4"><%= @post.title %></h3>
 
           <div class="flex items-center space-x-4 mb-4">
-            <%= render Ui::AvatarComponent.new(
+            <%= render Elements::AvatarComponent.new(
               src: @post.author.avatar.attached? ? url_for(@post.author.avatar) : nil,
               alt: @post.author.name,
               size: :sm,
@@ -43,12 +43,12 @@
 
           <div class="flex flex-wrap gap-2 mb-4">
             <% if @post.category %>
-              <%= render Ui::BadgeComponent.new(variant: :secondary) do %>
+              <%= render Elements::BadgeComponent.new(variant: :secondary) do %>
                 <%= @post.category.name %>
               <% end %>
             <% end %>
             <% if @post.post_status %>
-              <%= render Ui::BadgeComponent.new(variant: :outline) do %>
+              <%= render Elements::BadgeComponent.new(variant: :outline) do %>
                 <%= @post.post_status.name %>
               <% end %>
             <% end %>
@@ -86,13 +86,13 @@
 
   <!-- Recent Comments -->
   <% if @recent_comments.any? %>
-    <%= render Ui::CardComponent.new do |c| %>
+    <%= render Elements::CardComponent.new do |c| %>
       <% c.with_header(title: t(".recent_comments_title")) %>
       <% c.with_body do %>
       <div class="space-y-4">
         <% @recent_comments.each do |comment| %>
           <div class="flex items-start space-x-3 p-4 border border-border rounded-lg">
-            <%= render Ui::AvatarComponent.new(
+            <%= render Elements::AvatarComponent.new(
               src: comment.creator.avatar.attached? ? url_for(comment.creator.avatar) : nil,
               alt: comment.creator.name,
               size: :sm,
@@ -115,7 +115,7 @@
       <% end %>
     <% end %>
   <% else %>
-    <%= render Ui::CardComponent.new do |c| %>
+    <%= render Elements::CardComponent.new do |c| %>
       <% c.with_header(title: t(".comments_title")) %>
       <% c.with_body do %>
       <div class="text-center py-8 text-muted-foreground">

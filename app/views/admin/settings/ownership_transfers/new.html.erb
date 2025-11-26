@@ -14,7 +14,7 @@
       </div>
     </div>
 
-    <%= render Ui::CardComponent.new do |c| %>
+    <%= render Elements::CardComponent.new do |c| %>
       <% c.with_body(class: "py-4") do %>
         <%= form_with url: admin_settings_ownership_transfer_path, method: :post, class: "space-y-6" do |f| %>
           <div class="mb-4">
@@ -29,10 +29,10 @@
           </div>
 
           <div class="flex gap-3 mt-6">
-            <%= render Ui::ButtonComponent.new(type: :submit, variant: :default) do %>
+            <%= render Elements::ButtonComponent.new(type: :submit, variant: :default) do %>
               <%= t(".transfer_ownership") %>
             <% end %>
-            <%= render Ui::ButtonComponent.new(href: admin_settings_branding_path, variant: :outline) do %>
+            <%= render Elements::ButtonComponent.new(href: admin_settings_branding_path, variant: :outline) do %>
               <%= t("cancel") %>
             <% end %>
           </div>

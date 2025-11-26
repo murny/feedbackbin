@@ -1,0 +1,14 @@
+<div class="flex flex-wrap gap-4">
+  <%= render Elements::BadgeComponent.new(variant: :default) do %>
+    Default
+  <% end %>
+  <%= render Elements::BadgeComponent.new(variant: :secondary) do %>
+    Secondary
+  <% end %>
+  <%= render Elements::BadgeComponent.new(variant: :destructive) do %>
+    Destructive
+  <% end %>
+  <%= render Elements::BadgeComponent.new(variant: :outline) do %>
+    Outline
+  <% end %>
+</div>

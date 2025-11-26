@@ -5,7 +5,7 @@
     <%= link_to changelog_path(changelog), class: "text-sm text-muted-foreground hover:text-foreground font-medium" do %>
       <%= local_datetime_tag changelog.published_at, style: :datetime %>
     <% end %>
-    <%= render Ui::BadgeComponent.new(
+    <%= render Elements::BadgeComponent.new(
       variant: changelog_badge_variant(changelog.kind)
     ) do %>
       <%= changelog.kind.humanize.titleize %>

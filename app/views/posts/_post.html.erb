@@ -11,13 +11,13 @@
           </h2>
           <div class="flex items-center gap-2 flex-shrink-0">
             <% if post.pinned? %>
-              <%= render Ui::BadgeComponent.new(variant: :secondary) do %>
+              <%= render Elements::BadgeComponent.new(variant: :secondary) do %>
                 <%= lucide_icon "map-pin" %>
                 <%= t(".pinned") %>
               <% end %>
             <% end %>
             <% if post.post_status.present? %>
-              <%= render Ui::BadgeComponent.new(
+              <%= render Elements::BadgeComponent.new(
                 class: "text-white font-medium",
                 style: "background-color: #{post.post_status.color};"
               ) do %>
@@ -29,7 +29,7 @@
 
         <!-- Category and metadata row -->
         <div class="flex items-center gap-2 mb-2">
-          <%= render Ui::BadgeComponent.new(
+          <%= render Elements::BadgeComponent.new(
             variant: :outline,
             class: "gap-1.5 text-muted-foreground bg-muted/30 border-border"
           ) do %>
@@ -53,7 +53,7 @@
 
         <!-- Comments section moved to bottom -->
         <div class="flex items-center justify-between pt-2 pr-2">
-          <%= render Ui::AvatarGroupComponent.new([
+          <%= render Elements::AvatarGroupComponent.new([
               { src: "https://github.com/murny.png", alt: "@murny", fallback: "SM" },
               { src: "https://github.com/rails.png", alt: "@rails", fallback: "RR" },
               { src: "https://github.com/ruby.png", alt: "@ruby", fallback: "RB" }

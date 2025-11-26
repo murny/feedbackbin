@@ -1,0 +1,20 @@
+<div class="flex flex-wrap gap-4">
+  <%= render Elements::ButtonComponent.new(variant: :default) do %>
+    Default
+  <% end %>
+  <%= render Elements::ButtonComponent.new(variant: :destructive) do %>
+    Destructive
+  <% end %>
+  <%= render Elements::ButtonComponent.new(variant: :outline) do %>
+    Outline
+  <% end %>
+  <%= render Elements::ButtonComponent.new(variant: :secondary) do %>
+    Secondary
+  <% end %>
+  <%= render Elements::ButtonComponent.new(variant: :ghost) do %>
+    Ghost
+  <% end %>
+  <%= render Elements::ButtonComponent.new(variant: :link) do %>
+    Link
+  <% end %>
+</div>

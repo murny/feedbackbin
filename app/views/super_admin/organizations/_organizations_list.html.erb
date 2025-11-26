@@ -1,6 +1,6 @@
 <%# locals: (organizations:, pagy:) %>
 
-<%= render Ui::CardComponent.new(class: "overflow-hidden") do |c| %>
+<%= render Elements::CardComponent.new(class: "overflow-hidden") do |c| %>
   <% c.with_body(class: "p-0") do %>
     <div class="overflow-x-auto">
     <table class="w-full text-sm">
@@ -42,7 +42,7 @@
                 </div>
               </td>
               <td class="px-6 py-4 text-center">
-                <%= render Ui::ButtonComponent.new(
+                <%= render Elements::ButtonComponent.new(
                   href: super_admin_organization_path(organization),
                   variant: :outline,
                   size: :sm,

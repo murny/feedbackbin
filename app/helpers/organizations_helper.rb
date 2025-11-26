@@ -2,7 +2,7 @@
 
 module OrganizationsHelper
   def organization_logo(organization, size: :default, **options)
-    render Ui::AvatarComponent.new(
+    render Elements::AvatarComponent.new(
       src: organization.logo.attached? ? url_for(organization.logo) : nil,
       alt: organization.name,
       size: size,

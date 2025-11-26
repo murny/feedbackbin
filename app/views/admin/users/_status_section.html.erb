@@ -1,12 +1,12 @@
 <%= turbo_frame_tag dom_id(user, "status_section") do %>
   <div class="flex items-center justify-between gap-4">
-    <%= render Ui::BadgeComponent.new(
+    <%= render Elements::BadgeComponent.new(
       variant: user.active? ? :default : :destructive
     ) do %>
       <%= user.active? ? t("admin.users.show.active_badge") : t("admin.users.show.deactivated_badge") %>
     <% end %>
     <% if user.active? %>
-      <%= render Ui::ButtonComponent.new(
+      <%= render Elements::ButtonComponent.new(
         href: admin_user_activation_path(user),
         variant: :destructive,
         size: :sm,
@@ -16,7 +16,7 @@
         <span><%= t("admin.users.show.deactivate_user") %></span>
       <% end %>
     <% else %>
-      <%= render Ui::ButtonComponent.new(
+      <%= render Elements::ButtonComponent.new(
         href: admin_user_activation_path(user),
         variant: :default,
         size: :sm,

@@ -87,7 +87,7 @@
 
           <!-- Profile dropdown -->
           <div class="relative ml-3">
-            <%= render Ui::DropdownMenuComponent.new do |dropdown| %>
+            <%= render Elements::DropdownMenuComponent.new do |dropdown| %>
               <% dropdown.with_trigger(variant: :ghost, class: "relative rounded-full p-0 hover:bg-transparent") do %>
                 <span class="absolute -inset-1.5"></span>
                 <span class="sr-only"><%= t(".sr_only.open_user_menu") %></span>

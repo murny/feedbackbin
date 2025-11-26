@@ -1,6 +1,6 @@
 <%# locals: (posts:, pagy:) %>
 
-<%= render Ui::CardComponent.new(class: "overflow-hidden") do |c| %>
+<%= render Elements::CardComponent.new(class: "overflow-hidden") do |c| %>
   <% c.with_body(class: "p-0") do %>
     <div class="overflow-x-auto">
     <table class="w-full text-sm">
@@ -23,12 +23,12 @@
                     <%= post.title %>
                   </div>
                   <% if post.category %>
-                    <%= render Ui::BadgeComponent.new(variant: :secondary) do %>
+                    <%= render Elements::BadgeComponent.new(variant: :secondary) do %>
                       <%= post.category.name %>
                     <% end %>
                   <% end %>
                   <% if post.post_status %>
-                    <%= render Ui::BadgeComponent.new(
+                    <%= render Elements::BadgeComponent.new(
                       variant: :outline,
                       class: "ml-2"
                     ) do %>
@@ -39,7 +39,7 @@
               </td>
               <td class="px-6 py-4">
                 <div class="flex items-center space-x-3">
-                  <%= render Ui::AvatarComponent.new(
+                  <%= render Elements::AvatarComponent.new(
                     src: post.author.avatar.attached? ? url_for(post.author.avatar) : nil,
                     alt: post.author.name,
                     size: :sm,
@@ -76,7 +76,7 @@
                 </div>
               </td>
               <td class="px-6 py-4 text-center">
-                <%= render Ui::ButtonComponent.new(
+                <%= render Elements::ButtonComponent.new(
                   href: admin_post_path(post),
                   variant: :outline,
                   size: :sm,

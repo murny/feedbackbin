@@ -62,7 +62,7 @@
 
   <div class="mt-8 flex items-center justify-end gap-3">
     <%= link_to t("cancel"), admin_settings_post_statuses_path, class: "btn btn-secondary" %>
-    <%= render Ui::ButtonComponent.new(type: :submit, variant: :default) do %>
+    <%= render Elements::ButtonComponent.new(type: :submit, variant: :default) do %>
       <%= post_status.persisted? ? t(".save_changes") : t(".create_status") %>
     <% end %>
   </div>

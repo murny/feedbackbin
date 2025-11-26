@@ -15,7 +15,7 @@
     </div>
 
     <% if @post_statuses.any? %>
-      <%= render Ui::CardComponent.new do |c| %>
+      <%= render Elements::CardComponent.new do |c| %>
         <% c.with_body(class: "p-0") do %>
           <ul role="list" class="divide-y divide-border">
           <% @post_statuses.each do |status| %>
@@ -78,7 +78,7 @@
         <% end %>
       <% end %>
     <% else %>
-      <%= render Ui::CardComponent.new do |c| %>
+      <%= render Elements::CardComponent.new do |c| %>
         <% c.with_body(class: "p-8 text-center") do %>
           <%= lucide_icon "tag", class: "mx-auto h-12 w-12 text-muted-foreground" %>
         <h3 class="mt-4 text-lg font-semibold text-foreground"><%= t(".no_statuses_title") %></h3>

@@ -11,7 +11,7 @@
 <!-- Main Profile Card -->
 <div class="container mx-auto px-4 pb-6">
   <div class="max-w-4xl mx-auto">
-    <%= render Ui::CardComponent.new(class: "pt-0") do |c| %>
+    <%= render Elements::CardComponent.new(class: "pt-0") do |c| %>
       <% c.with_body(class: "p-0") do %>
         <!-- User Banner (placeholder) -->
         <div class="h-32 w-full bg-gradient-to-r from-blue-500 to-purple-600 lg:h-48"></div>
@@ -20,7 +20,7 @@
         <!-- Avatar and Basic Info Section -->
         <div class="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
           <div class="flex justify-center sm:justify-start">
-            <%= render Ui::AvatarComponent.new(
+            <%= render Elements::AvatarComponent.new(
               src: fresh_user_avatar_path(@user),
               size: :xl,
               fallback: @user.name,
@@ -36,7 +36,7 @@
             <!-- Action Buttons -->
             <div class="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-x-4 sm:space-y-0">
               <% if Current.user == @user %>
-                <%= render Ui::ButtonComponent.new(
+                <%= render Elements::ButtonComponent.new(
                   variant: :outline,
                   href: user_settings_profile_path
                 ) do %>
@@ -44,7 +44,7 @@
                   <%= t(".edit_profile") %>
                 <% end %>
               <% else %>
-                <%= render Ui::ButtonComponent.new(
+                <%= render Elements::ButtonComponent.new(
                   variant: :outline
                 ) do %>
                   <%= lucide_icon "triangle-alert", class: "size-4 mr-2" %>
@@ -147,15 +147,15 @@
         <div class="mt-8">
           <h3 class="text-lg font-semibold text-foreground mb-4"><%= t(".achievements") %></h3>
           <div class="flex flex-wrap gap-2">
-            <%= render Ui::BadgeComponent.new(variant: :default) do %>
+            <%= render Elements::BadgeComponent.new(variant: :default) do %>
               <%= lucide_icon "trophy" %>
               <%= t(".achievements_top_contributor") %>
             <% end %>
-            <%= render Ui::BadgeComponent.new(variant: :secondary) do %>
+            <%= render Elements::BadgeComponent.new(variant: :secondary) do %>
               <%= lucide_icon "thumbs-up" %>
               <%= t(".achievements_helpful") %>
             <% end %>
-            <%= render Ui::BadgeComponent.new(variant: :outline) do %>
+            <%= render Elements::BadgeComponent.new(variant: :outline) do %>
               <%= lucide_icon "rocket" %>
               <%= t(".achievements_early_adopter") %>
             <% end %>
@@ -192,9 +192,9 @@
 <!-- Activity Tabs Section -->
 <div class="container mx-auto px-4 pb-6">
   <div class="max-w-4xl mx-auto">
-    <%= render Ui::CardComponent.new do |c| %>
+    <%= render Elements::CardComponent.new do |c| %>
       <% c.with_body do %>
-        <%= render Ui::TabsComponent.new(
+        <%= render Elements::TabsComponent.new(
           items: [
             {
               value: "posts",
