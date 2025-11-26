@@ -76,6 +76,7 @@ Rails.application.routes.draw do
 
     namespace :settings do
       resource :branding, only: [ :show, :update ]
+      resource :navigation, only: [ :show, :update ]
       resources :post_statuses
       resources :categories
       resource :danger_zone, only: [ :show, :destroy ]
@@ -111,5 +112,5 @@ Rails.application.routes.draw do
     mount Lookbook::Engine, at: "/lookbook"
   end
 
-  root "posts#index"
+  root "home#index"
 end

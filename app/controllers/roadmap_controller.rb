@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 
 class RoadmapController < ApplicationController
+  include ModuleEnforcement
+  enforce_module :roadmap
+
   allow_unauthenticated_access only: %i[index]
 
   # GET /roadmap

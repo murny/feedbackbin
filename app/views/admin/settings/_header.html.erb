@@ -20,6 +20,11 @@
               active_class: "border-b-2 border-primary text-primary" %>
       </li>
       <li>
+        <%= active_link_to t(".navigation.site_navigation"), admin_settings_navigation_path,
+              class: "inline-flex items-center px-1 pt-4 pb-4 text-muted-foreground hover:text-foreground transition-colors",
+              active_class: "border-b-2 border-primary text-primary" %>
+      </li>
+      <li>
         <%= active_link_to t(".navigation.post_statuses"), admin_settings_post_statuses_path,
               class: "inline-flex items-center px-1 pt-4 pb-4 text-muted-foreground hover:text-foreground transition-colors",
               active_class: "border-b-2 border-primary text-primary" %>
