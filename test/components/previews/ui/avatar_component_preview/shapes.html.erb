@@ -1,10 +1,14 @@
 <div class="flex items-center gap-4">
-  <% shapes.each do |shape| %>
-    <%= render Ui::AvatarComponent.new(
-      src: avatar_url,
-      alt: "User",
-      shape: shape,
-      size: :lg
-    ) %>
-  <% end %>
+  <%= render Ui::AvatarComponent.new(
+    src: "https://avatars.githubusercontent.com/u/1930474?v=4",
+    alt: "User",
+    shape: :circle,
+    size: :lg
+  ) %>
+  <%= render Ui::AvatarComponent.new(
+    src: "https://avatars.githubusercontent.com/u/1930474?v=4",
+    alt: "User",
+    shape: :square,
+    size: :lg
+  ) %>
 </div>

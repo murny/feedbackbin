@@ -244,7 +244,7 @@ module Ui
       # Separator component
       class SeparatorComponent < BaseComponent
         def call
-          tag.div(class: "my-1 h-px bg-muted", role: "separator")
+          tag.div(class: "my-1 h-px bg-border", role: "separator")
         end
       end
 

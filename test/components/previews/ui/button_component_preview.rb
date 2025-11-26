@@ -12,16 +12,12 @@ module Ui
 
     # @label Variants
     def variants
-      render_with_template locals: {
-        variants: Ui::ButtonComponent::VARIANTS
-      }
+      render_with_template
     end
 
     # @label Sizes
     def sizes
-      render_with_template locals: {
-        sizes: Ui::ButtonComponent::SIZES
-      }
+      render_with_template
     end
 
     # @label Loading State

@@ -22,9 +22,7 @@ module Ui
 
     # @label All Variants
     def variants
-      render_with_template locals: {
-        variants: Ui::AlertComponent::VARIANTS
-      }
+      render_with_template
     end
 
     # @label With Block Content

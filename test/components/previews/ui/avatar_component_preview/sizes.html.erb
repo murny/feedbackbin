@@ -1,9 +1,22 @@
 <div class="flex items-center gap-4">
-  <% sizes.each do |size| %>
-    <%= render Ui::AvatarComponent.new(
-      src: avatar_url,
-      alt: "User",
-      size: size
-    ) %>
-  <% end %>
+  <%= render Ui::AvatarComponent.new(
+    src: "https://avatars.githubusercontent.com/u/1930474?v=4",
+    alt: "User",
+    size: :sm
+  ) %>
+  <%= render Ui::AvatarComponent.new(
+    src: "https://avatars.githubusercontent.com/u/1930474?v=4",
+    alt: "User",
+    size: :default
+  ) %>
+  <%= render Ui::AvatarComponent.new(
+    src: "https://avatars.githubusercontent.com/u/1930474?v=4",
+    alt: "User",
+    size: :lg
+  ) %>
+  <%= render Ui::AvatarComponent.new(
+    src: "https://avatars.githubusercontent.com/u/1930474?v=4",
+    alt: "User",
+    size: :xl
+  ) %>
 </div>

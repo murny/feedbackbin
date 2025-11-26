@@ -1,22 +1,77 @@
 <div class="flex items-center justify-center gap-8 p-20">
-  <% sides.each do |side| %>
-    <div class="flex flex-col items-center gap-2">
-      <%= render Ui::PopoverComponent.new(side: side) do |popover| %>
-        <% popover.with_trigger do %>
-          <%= render Ui::ButtonComponent.new(variant: :outline) do %>
-            <%= side.to_s.titleize %>
-          <% end %>
-        <% end %>
-
-        <% popover.with_popover_content do %>
-          <div class="space-y-2">
-            <h4 class="font-medium leading-none"><%= side.to_s.titleize %> Popover</h4>
-            <p class="text-sm text-muted-foreground">
-              This popover opens to the <%= side %>.
-            </p>
-          </div>
+  <div class="flex flex-col items-center gap-2">
+    <%= render Ui::PopoverComponent.new(side: :top) do |popover| %>
+      <% popover.with_trigger do %>
+        <%= render Ui::ButtonComponent.new(variant: :outline) do %>
+          Top
         <% end %>
       <% end %>
-    </div>
-  <% end %>
+
+      <% popover.with_popover_content do %>
+        <div class="space-y-2">
+          <h4 class="font-medium leading-none">Top Popover</h4>
+          <p class="text-sm text-muted-foreground">
+            This popover opens to the top.
+          </p>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="flex flex-col items-center gap-2">
+    <%= render Ui::PopoverComponent.new(side: :bottom) do |popover| %>
+      <% popover.with_trigger do %>
+        <%= render Ui::ButtonComponent.new(variant: :outline) do %>
+          Bottom
+        <% end %>
+      <% end %>
+
+      <% popover.with_popover_content do %>
+        <div class="space-y-2">
+          <h4 class="font-medium leading-none">Bottom Popover</h4>
+          <p class="text-sm text-muted-foreground">
+            This popover opens to the bottom.
+          </p>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="flex flex-col items-center gap-2">
+    <%= render Ui::PopoverComponent.new(side: :left) do |popover| %>
+      <% popover.with_trigger do %>
+        <%= render Ui::ButtonComponent.new(variant: :outline) do %>
+          Left
+        <% end %>
+      <% end %>
+
+      <% popover.with_popover_content do %>
+        <div class="space-y-2">
+          <h4 class="font-medium leading-none">Left Popover</h4>
+          <p class="text-sm text-muted-foreground">
+            This popover opens to the left.
+          </p>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="flex flex-col items-center gap-2">
+    <%= render Ui::PopoverComponent.new(side: :right) do |popover| %>
+      <% popover.with_trigger do %>
+        <%= render Ui::ButtonComponent.new(variant: :outline) do %>
+          Right
+        <% end %>
+      <% end %>
+
+      <% popover.with_popover_content do %>
+        <div class="space-y-2">
+          <h4 class="font-medium leading-none">Right Popover</h4>
+          <p class="text-sm text-muted-foreground">
+            This popover opens to the right.
+          </p>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
 </div>

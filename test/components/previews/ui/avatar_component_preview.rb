@@ -13,18 +13,12 @@ module Ui
 
     # @label All Sizes
     def sizes
-      render_with_template locals: {
-        sizes: Ui::AvatarComponent::SIZES,
-        avatar_url: "https://avatars.githubusercontent.com/u/1930474?v=4"
-      }
+      render_with_template
     end
 
     # @label Shapes
     def shapes
-      render_with_template locals: {
-        shapes: Ui::AvatarComponent::SHAPES,
-        avatar_url: "https://avatars.githubusercontent.com/u/1930474?v=4"
-      }
+      render_with_template
     end
 
     # @label With Initials Fallback

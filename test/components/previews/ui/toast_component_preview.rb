@@ -10,9 +10,7 @@ module Ui
 
     # @label All Variants
     def variants
-      render_with_template locals: {
-        variants: Ui::ToastComponent::VARIANTS
-      }
+      render_with_template
     end
 
     # @label Complex Examples

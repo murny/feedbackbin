@@ -10,9 +10,7 @@ module Ui
 
     # @label Positions (Sides)
     def positions
-      render_with_template locals: {
-        sides: Ui::PopoverComponent::SIDES
-      }
+      render_with_template
     end
 
     # @label Alignments

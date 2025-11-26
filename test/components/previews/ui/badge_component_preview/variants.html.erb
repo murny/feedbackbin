@@ -1,7 +1,14 @@
 <div class="flex flex-wrap gap-4">
-  <% variants.each do |variant| %>
-    <%= render Ui::BadgeComponent.new(variant: variant) do %>
-      <%= variant.to_s.titleize %>
-    <% end %>
+  <%= render Ui::BadgeComponent.new(variant: :default) do %>
+    Default
+  <% end %>
+  <%= render Ui::BadgeComponent.new(variant: :secondary) do %>
+    Secondary
+  <% end %>
+  <%= render Ui::BadgeComponent.new(variant: :destructive) do %>
+    Destructive
+  <% end %>
+  <%= render Ui::BadgeComponent.new(variant: :outline) do %>
+    Outline
   <% end %>
 </div>

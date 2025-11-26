@@ -1,29 +1,109 @@
 <div class="flex flex-col items-center justify-center p-20 gap-6">
   <div class="flex flex-wrap gap-2 justify-center">
-    <% variants.each do |variant| %>
-      <div data-controller="toast-preview">
-        <%= render Ui::ButtonComponent.new(
-          variant: :outline,
-          size: :sm,
-          data: { action: "click->toast-preview#show" }
-        ) do %>
-          <%= variant.to_s.titleize %>
-        <% end %>
+    <div data-controller="toast-preview">
+      <%= render Ui::ButtonComponent.new(
+        variant: :outline,
+        size: :sm,
+        data: { action: "click->toast-preview#show" }
+      ) do %>
+        Default
+      <% end %>
 
-        <!-- Container for this variant's toasts -->
-        <div data-toast-preview-target="container" class="fixed top-4 right-4 z-50 flex flex-col gap-2 w-full max-w-sm pointer-events-none">
-        </div>
-
-        <!-- Template -->
-        <template data-toast-preview-target="template">
-          <%= render Ui::ToastComponent.new(
-            title: variant.to_s.titleize,
-            description: "This is a #{variant} toast notification.",
-            variant: variant
-          ) %>
-        </template>
+      <div data-toast-preview-target="container" class="fixed top-4 right-4 z-50 flex flex-col gap-2 w-full max-w-sm pointer-events-none">
       </div>
-    <% end %>
+
+      <template data-toast-preview-target="template">
+        <%= render Ui::ToastComponent.new(
+          title: "Default",
+          description: "This is a default toast notification.",
+          variant: :default
+        ) %>
+      </template>
+    </div>
+
+    <div data-controller="toast-preview">
+      <%= render Ui::ButtonComponent.new(
+        variant: :outline,
+        size: :sm,
+        data: { action: "click->toast-preview#show" }
+      ) do %>
+        Success
+      <% end %>
+
+      <div data-toast-preview-target="container" class="fixed top-4 right-4 z-50 flex flex-col gap-2 w-full max-w-sm pointer-events-none">
+      </div>
+
+      <template data-toast-preview-target="template">
+        <%= render Ui::ToastComponent.new(
+          title: "Success",
+          description: "This is a success toast notification.",
+          variant: :success
+        ) %>
+      </template>
+    </div>
+
+    <div data-controller="toast-preview">
+      <%= render Ui::ButtonComponent.new(
+        variant: :outline,
+        size: :sm,
+        data: { action: "click->toast-preview#show" }
+      ) do %>
+        Warning
+      <% end %>
+
+      <div data-toast-preview-target="container" class="fixed top-4 right-4 z-50 flex flex-col gap-2 w-full max-w-sm pointer-events-none">
+      </div>
+
+      <template data-toast-preview-target="template">
+        <%= render Ui::ToastComponent.new(
+          title: "Warning",
+          description: "This is a warning toast notification.",
+          variant: :warning
+        ) %>
+      </template>
+    </div>
+
+    <div data-controller="toast-preview">
+      <%= render Ui::ButtonComponent.new(
+        variant: :outline,
+        size: :sm,
+        data: { action: "click->toast-preview#show" }
+      ) do %>
+        Error
+      <% end %>
+
+      <div data-toast-preview-target="container" class="fixed top-4 right-4 z-50 flex flex-col gap-2 w-full max-w-sm pointer-events-none">
+      </div>
+
+      <template data-toast-preview-target="template">
+        <%= render Ui::ToastComponent.new(
+          title: "Error",
+          description: "This is an error toast notification.",
+          variant: :error
+        ) %>
+      </template>
+    </div>
+
+    <div data-controller="toast-preview">
+      <%= render Ui::ButtonComponent.new(
+        variant: :outline,
+        size: :sm,
+        data: { action: "click->toast-preview#show" }
+      ) do %>
+        Info
+      <% end %>
+
+      <div data-toast-preview-target="container" class="fixed top-4 right-4 z-50 flex flex-col gap-2 w-full max-w-sm pointer-events-none">
+      </div>
+
+      <template data-toast-preview-target="template">
+        <%= render Ui::ToastComponent.new(
+          title: "Info",
+          description: "This is an info toast notification.",
+          variant: :info
+        ) %>
+      </template>
+    </div>
   </div>
 
   <p class="text-sm text-muted-foreground">Click any button to show that variant</p>

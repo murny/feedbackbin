@@ -12,9 +12,7 @@ module Ui
 
     # @label Variants
     def variants
-      render_with_template locals: {
-        variants: Ui::BadgeComponent::VARIANTS
-      }
+      render_with_template
     end
 
     # @label With Icon

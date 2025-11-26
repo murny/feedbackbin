@@ -1,7 +1,20 @@
 <div class="flex flex-wrap gap-4">
-  <% variants.each do |variant| %>
-    <%= render Ui::ButtonComponent.new(variant: variant) do %>
-      <%= variant.to_s.titleize %>
-    <% end %>
+  <%= render Ui::ButtonComponent.new(variant: :default) do %>
+    Default
+  <% end %>
+  <%= render Ui::ButtonComponent.new(variant: :destructive) do %>
+    Destructive
+  <% end %>
+  <%= render Ui::ButtonComponent.new(variant: :outline) do %>
+    Outline
+  <% end %>
+  <%= render Ui::ButtonComponent.new(variant: :secondary) do %>
+    Secondary
+  <% end %>
+  <%= render Ui::ButtonComponent.new(variant: :ghost) do %>
+    Ghost
+  <% end %>
+  <%= render Ui::ButtonComponent.new(variant: :link) do %>
+    Link
   <% end %>
 </div>

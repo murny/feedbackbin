@@ -71,7 +71,7 @@ module Ui
           ].join(" ")
         when :destructive
           [
-            "border-transparent bg-destructive text-destructive-foreground shadow",
+            "border-transparent bg-destructive text-white shadow",
             "[a&]:hover:bg-destructive/80"
           ].join(" ")
         when :outline
