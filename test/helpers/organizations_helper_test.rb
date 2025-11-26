@@ -3,9 +3,6 @@
 require "test_helper"
 
 class OrganizationsHelperTest < ActionView::TestCase
-  include FeedbackbinElements::TailwindMergeHelper
-  include FeedbackbinElements::AvatarHelper
-
   setup do
     @organization = organizations(:feedbackbin)
   end

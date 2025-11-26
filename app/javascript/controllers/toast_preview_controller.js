@@ -33,7 +33,7 @@ export default class extends Controller {
 
   repositionToasts() {
     const toasts = Array.from(
-      this.containerTarget.querySelectorAll('[data-controller*="toast"]')
+      this.containerTarget.querySelectorAll('[data-controller~="toast"]')
     )
 
     toasts.forEach((toast, index) => {

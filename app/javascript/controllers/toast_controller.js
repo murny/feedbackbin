@@ -1,11 +1,5 @@
 import { Controller } from "@hotwired/stimulus"
 
-// Toast notification controller for managing toast lifecycle
-// Supports:
-// - Auto-dismiss with configurable timing
-// - Pause on hover to read longer messages
-// - Keyboard interaction (Escape to dismiss)
-// - Turbo cache compatibility
 export default class extends Controller {
   static values = {
     dismissAfter: Number
