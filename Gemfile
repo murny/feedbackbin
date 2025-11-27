@@ -19,6 +19,7 @@ gem "solid_cable"
 gem "puma", "~> 7.1"
 gem "thruster", require: false
 gem "kamal", require: false
+gem "litestream"
 
 # Frontend
 gem "propshaft"
