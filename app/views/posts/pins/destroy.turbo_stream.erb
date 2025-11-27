@@ -1,5 +1,5 @@
 <%= turbo_stream.update "post-pin-button" do %>
-  <%= render Ui::DropdownMenuComponent::ItemComponent.new(
+  <%= render Elements::DropdownMenuComponent::ItemComponent.new(
     id: "post-pin-button",
     href: post_pin_path(@post),
     method: :post

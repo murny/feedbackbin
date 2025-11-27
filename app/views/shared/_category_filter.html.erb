@@ -2,9 +2,9 @@
 
 <div class="flex items-center gap-2">
   <label class="text-sm font-medium text-muted-foreground"><%= t(".category_label") %></label>
-  <%= render Ui::DropdownMenuComponent.new do |dropdown| %>
+  <%= render Elements::DropdownMenuComponent.new do |dropdown| %>
     <% dropdown.with_trigger do %>
-      <%= selected_category&.name || t(".all_categories") %>
+      <%= selected_category&.name || t("shared.category_filter.all_categories") %>
     <% end %>
 
     <% dropdown.with_item_content(
@@ -12,7 +12,7 @@
       data: { turbo_frame: turbo_frame },
       class: selected_category ? nil : "bg-accent"
     ) do %>
-      <%= t(".all_categories") %>
+      <%= t("shared.category_filter.all_categories") %>
     <% end %>
 
     <% categories.each do |category| %>

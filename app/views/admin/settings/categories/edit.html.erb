@@ -9,7 +9,7 @@
       <p class="text-sm text-muted-foreground"><%= t(".description") %></p>
     </div>
 
-    <%= render Ui::CardComponent.new do |c| %>
+    <%= render Elements::CardComponent.new do |c| %>
       <% c.with_body do %>
         <%= render "form", category: @category %>
       <% end %>

@@ -47,11 +47,14 @@ export default class extends Controller {
     this.openValue = false
   }
 
-  openValueChanged() {
+  openValueChanged(value, previousValue) {
     if (this.openValue) {
       this.showMenu()
     } else {
-      this.hideMenu()
+      // Only hide menu if it was previously open (not on initial page load)
+      if (previousValue !== undefined) {
+        this.hideMenu()
+      }
     }
   }
 
@@ -68,13 +71,6 @@ export default class extends Controller {
     document.addEventListener("click", this.closeOnClickOutside)
     document.addEventListener("keydown", this.closeOnEscape)
     document.addEventListener("keydown", this.handleKeyNavigation)
-
-    // Focus first menu item after animation starts (double rAF ensures animation begins first)
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        this.focusFirstItem()
-      })
-    })
   }
 
   hideMenu() {
@@ -112,11 +108,15 @@ export default class extends Controller {
     if (items.length === 0) return
 
     const currentIndex = items.indexOf(document.activeElement)
+    const isItemFocused = currentIndex !== -1
 
     switch (event.key) {
       case "ArrowDown":
         event.preventDefault()
-        if (currentIndex < items.length - 1) {
+        if (!isItemFocused) {
+          // Nothing focused yet, focus the first item
+          items[0].focus()
+        } else if (currentIndex < items.length - 1) {
           items[currentIndex + 1].focus()
         } else {
           items[0].focus() // Loop to first
@@ -124,7 +124,10 @@ export default class extends Controller {
         break
       case "ArrowUp":
         event.preventDefault()
-        if (currentIndex > 0) {
+        if (!isItemFocused) {
+          // Nothing focused yet, focus the last item
+          items[items.length - 1].focus()
+        } else if (currentIndex > 0) {
           items[currentIndex - 1].focus()
         } else {
           items[items.length - 1].focus() // Loop to last

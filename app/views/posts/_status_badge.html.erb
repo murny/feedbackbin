@@ -2,7 +2,7 @@
 
 <span id="post-status-badge">
   <% if policy(post).update_status? %>
-    <%= render Ui::DropdownMenuComponent.new do |dropdown| %>
+    <%= render Elements::DropdownMenuComponent.new do |dropdown| %>
       <% dropdown.with_trigger(
         type: "button",
         class: "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold text-white transition-opacity hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
@@ -30,7 +30,7 @@
       <% end %>
     <% end %>
   <% else %>
-    <%= render Ui::BadgeComponent.new(class: "text-white font-medium", style: "background-color: #{post.post_status.color};") do %>
+    <%= render Elements::BadgeComponent.new(class: "text-white font-medium", style: "background-color: #{post.post_status.color};") do %>
       <%= post.post_status.name %>
     <% end %>
   <% end %>

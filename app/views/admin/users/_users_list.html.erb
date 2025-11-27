@@ -1,6 +1,6 @@
 <%# locals: (users:, pagy:) %>
 
-<%= render Ui::CardComponent.new(class: "overflow-hidden") do |c| %>
+<%= render Elements::CardComponent.new(class: "overflow-hidden") do |c| %>
   <% c.with_body(class: "p-0") do %>
     <div class="overflow-x-auto">
     <table class="w-full text-sm">
@@ -21,7 +21,7 @@
             <tr class="hover:bg-muted/25 transition-colors">
               <td class="px-6 py-4">
                 <div class="flex items-center space-x-3">
-                  <%= render Ui::AvatarComponent.new(
+                  <%= render Elements::AvatarComponent.new(
                     src: user.avatar.attached? ? url_for(user.avatar) : nil,
                     alt: user.name,
                     size: :sm,
@@ -45,13 +45,13 @@
               <!-- Role Column -->
               <td class="px-6 py-4">
                 <div class="flex flex-wrap gap-1">
-                  <%= render Ui::BadgeComponent.new(
+                  <%= render Elements::BadgeComponent.new(
                     variant: user.administrator? ? :default : :secondary
                   ) do %>
                     <%= user.role.humanize %>
                   <% end %>
                   <% if user.organization_owner? %>
-                    <%= render Ui::BadgeComponent.new(variant: :default) do %>
+                    <%= render Elements::BadgeComponent.new(variant: :default) do %>
                       <%= t(".owner_badge") %>
                     <% end %>
                   <% end %>
@@ -59,7 +59,7 @@
               </td>
               <!-- Account Status Column -->
               <td class="px-6 py-4">
-                <%= render Ui::BadgeComponent.new(
+                <%= render Elements::BadgeComponent.new(
                   variant: user.active? ? :default : :destructive
                 ) do %>
                   <%= user.active? ? t(".active_badge") : t(".deactivated_badge") %>
@@ -67,7 +67,7 @@
               </td>
               <!-- Email Status Column -->
               <td class="px-6 py-4">
-                <%= render Ui::BadgeComponent.new(
+                <%= render Elements::BadgeComponent.new(
                   variant: user.email_verified? ? :default : :outline
                 ) do %>
                   <%= user.email_verified? ? t(".verified_badge") : t(".unverified_badge") %>
@@ -92,7 +92,7 @@
                 </div>
               </td>
               <td class="px-6 py-4 text-center">
-                <%= render Ui::ButtonComponent.new(
+                <%= render Elements::ButtonComponent.new(
                   href: admin_user_path(user),
                   variant: :outline,
                   size: :sm,

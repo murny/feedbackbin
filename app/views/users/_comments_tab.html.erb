@@ -15,7 +15,7 @@
                       <% end %>
                     </h2>
                     <% if comment.post.category %>
-                      <%= render Ui::BadgeComponent.new(variant: :outline) do %>
+                      <%= render Elements::BadgeComponent.new(variant: :outline) do %>
                         <%= comment.post.category.name %>
                       <% end %>
                     <% end %>

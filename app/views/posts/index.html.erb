@@ -92,7 +92,7 @@
                 <%= t(".empty_feedback_description") %>
               </p>
               <div class="mt-6">
-                <%= render Ui::ButtonComponent.new(
+                <%= render Elements::ButtonComponent.new(
                   variant: :default,
                   size: :default,
                   href: new_post_path(category_id: @category&.id),

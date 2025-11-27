@@ -12,13 +12,13 @@
       </p>
     </div>
     <div class="flex gap-2">
-      <%= render Ui::ButtonComponent.new(
+      <%= render Elements::ButtonComponent.new(
         href: admin_users_path,
         variant: :outline
       ) do %>
         <%= t(".back_button") %>
       <% end %>
-      <%= render Ui::ButtonComponent.new(
+      <%= render Elements::ButtonComponent.new(
         href: user_path(@user),
         variant: :outline
       ) do %>
@@ -28,11 +28,11 @@
   </div>
 
   <!-- User Info -->
-  <%= render Ui::CardComponent.new do |c| %>
+  <%= render Elements::CardComponent.new do |c| %>
     <% c.with_header(title: t(".user_info_title")) %>
     <% c.with_body do %>
       <div class="flex items-start space-x-6">
-      <%= render Ui::AvatarComponent.new(
+      <%= render Elements::AvatarComponent.new(
         src: @user.avatar.attached? ? url_for(@user.avatar) : nil,
         alt: @user.name,
         size: :xl,
@@ -84,7 +84,7 @@
             <!-- Email Verification -->
             <div>
               <h4 class="text-sm font-medium text-foreground mb-3"><%= t(".email_verification_label") %></h4>
-              <%= render Ui::BadgeComponent.new(
+              <%= render Elements::BadgeComponent.new(
                 variant: @user.email_verified? ? :default : :outline
               ) do %>
                 <%= @user.email_verified? ? t(".verified_badge") : t(".unverified_badge") %>
@@ -98,7 +98,7 @@
   <% end %>
 
   <!-- Activity Statistics -->
-  <%= render Ui::CardComponent.new do |c| %>
+  <%= render Elements::CardComponent.new do |c| %>
     <% c.with_header(title: t(".activity_stats_title")) %>
     <% c.with_body do %>
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
@@ -119,7 +119,7 @@
   <% end %>
 
   <!-- Recent Posts -->
-  <%= render Ui::CardComponent.new do |c| %>
+  <%= render Elements::CardComponent.new do |c| %>
     <% c.with_header(title: t(".recent_posts_title")) %>
     <% c.with_body do %>
     <% if @recent_posts.any? %>
@@ -132,7 +132,7 @@
                 <%= time_ago_in_words(post.created_at) %> <%= t(".ago") %>
               </div>
               <% if post.category %>
-                <%= render Ui::BadgeComponent.new(variant: :outline) do %>
+                <%= render Elements::BadgeComponent.new(variant: :outline) do %>
                   <%= post.category.name %>
                 <% end %>
               <% end %>

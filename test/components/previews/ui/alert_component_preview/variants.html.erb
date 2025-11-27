@@ -1,9 +1,0 @@
-<div class="space-y-4">
-  <% variants.each do |variant| %>
-    <%= render Ui::AlertComponent.new(
-      title: "#{variant.to_s.titleize} Alert",
-      description: "This is a #{variant} variant alert message.",
-      variant: variant
-    ) %>
-  <% end %>
-</div>

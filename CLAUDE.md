@@ -65,7 +65,7 @@ FeedbackBin is a customer feedback management platform built with Ruby on Rails 
 ### UI Framework
 - **Tailwind CSS**: Utility-first styling with custom components
 - **Basecoat CSS**: Shadcn-inspired layer on top of Tailwind
-- **Custom UI Components**: Shadcn-inspired components in `app/views/components/ui/`
+- **Custom UI Components**: Shadcn-inspired components in `app/components/elements/`
 - **Lucide Icons**: Icon system via lucide-rails gem using `lucide_icon("example_icon")` view helper
 - **Mobile-first responsive design**
 - **Dark/light theme support**
@@ -101,7 +101,7 @@ The application uses custom UI components inspired by Shadcn UI, built with View
 
 Example button usage:
 ```erb
-<%= render Ui::ButtonComponent.new(variant: :outline, size: :default) do %>
+<%= render Elements::ButtonComponent.new(variant: :outline, size: :default) do %>
   <%= lucide_icon "plus" %>
   Click me
 <% end %>
@@ -109,7 +109,7 @@ Example button usage:
 
 Example badge usage:
 ```erb
-<%= render Ui::BadgeComponent.new(variant: :secondary) do %>
+<%= render Elements::BadgeComponent.new(variant: :secondary) do %>
   <%= lucide_icon "check" %>
   Success
 <% end %>

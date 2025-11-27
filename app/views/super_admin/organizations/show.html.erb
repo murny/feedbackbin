@@ -11,7 +11,7 @@
         Organization details and activity
       </p>
     </div>
-    <%= render Ui::ButtonComponent.new(
+    <%= render Elements::ButtonComponent.new(
       href: super_admin_organizations_path,
       variant: :outline
     ) do %>
@@ -20,7 +20,7 @@
   </div>
 
   <!-- Organization Info -->
-  <%= render Ui::CardComponent.new do |c| %>
+  <%= render Elements::CardComponent.new do |c| %>
     <% c.with_header(title: "Organization Information") %>
     <% c.with_body do %>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-6">

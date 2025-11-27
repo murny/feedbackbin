@@ -19,7 +19,7 @@
                   </p>
               </a>
             </div>
-            <%= render Ui::DropdownMenuComponent.new do |dropdown| %>
+            <%= render Elements::DropdownMenuComponent.new do |dropdown| %>
               <% dropdown.with_trigger(variant: :ghost, size: :icon, class: "text-muted-foreground") do %>
                 <%= lucide_icon("ellipsis") %>
                 <span class="sr-only">Comment settings</span>

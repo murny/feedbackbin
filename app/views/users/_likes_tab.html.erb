@@ -19,11 +19,11 @@
                       <% end %>
                     </h2>
                     <% if like.likeable.respond_to?(:category) && like.likeable.category %>
-                      <%= render Ui::BadgeComponent.new(variant: :outline) do %>
+                      <%= render Elements::BadgeComponent.new(variant: :outline) do %>
                         <%= like.likeable.category.name %>
                       <% end %>
                     <% elsif like.likeable.respond_to?(:post) && like.likeable.post.category %>
-                      <%= render Ui::BadgeComponent.new(variant: :outline) do %>
+                      <%= render Elements::BadgeComponent.new(variant: :outline) do %>
                         <%= like.likeable.post.category.name %>
                       <% end %>
                     <% end %>
