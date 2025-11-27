@@ -8,7 +8,7 @@
 
         <%= form.hidden_field :post_id, value: post.id %>
         <%= form.rich_text_area :body, id: "post_#{post.id}_new_comment_body", placeholder: "Write a comment..." %>
-        <div class="mt-5 flex items-center space-x-4 justify-end">
+        <div class="mt-5 flex items-center gap-4 justify-end">
           <%= form.submit class: "btn btn-primary" %>
           <%= link_to "Cancel", comment, class: "btn btn-secondary" if form.object.persisted? %>
         </div>

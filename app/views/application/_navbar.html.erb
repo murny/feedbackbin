@@ -3,7 +3,7 @@
 <nav class="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60" data-controller="toggle">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <div class="flex h-16 items-center justify-between">
-      <div class="flex items-center space-x-6">
+      <div class="flex items-center gap-6">
         <%= link_to root_path, class: "flex-shrink-0 flex items-center" do %>
           <% if Current.organization %>
             <%= organization_logo(Current.organization, class: "h-8 w-8") %>
@@ -15,7 +15,7 @@
         <% end %>
 
         <!-- Desktop Navigation Links -->
-        <div class="hidden md:ml-8 md:flex md:items-center md:space-x-1">
+        <div class="hidden md:ml-8 md:flex md:items-center md:gap-1">
           <%= active_link_to t(".links.feedback"),
                 posts_path,
                 class: "rounded-md px-3 py-2 text-sm font-medium transition-colors",

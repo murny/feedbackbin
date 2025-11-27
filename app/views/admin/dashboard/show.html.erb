@@ -112,13 +112,13 @@
                   <% unless index == @recent_posts.length - 1 %>
                     <span class="absolute left-4 top-4 -ml-px h-full w-0.5 bg-border" aria-hidden="true"></span>
                   <% end %>
-                  <div class="relative flex space-x-3">
+                  <div class="relative flex gap-3">
                     <div>
                       <span class="h-8 w-8 rounded-full bg-primary flex items-center justify-center ring-8 ring-background">
                         <%= lucide_icon "message-square", class: "h-4 w-4 text-primary-foreground" %>
                       </span>
                     </div>
-                    <div class="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
+                    <div class="flex min-w-0 flex-1 justify-between gap-4 pt-1.5">
                       <div>
                         <p class="text-sm text-foreground font-medium">
                           <%= link_to post.title, post_path(post), class: "hover:text-primary transition-colors" %>
@@ -176,13 +176,13 @@
                   <% unless index == @recent_comments.length - 1 %>
                     <span class="absolute left-4 top-4 -ml-px h-full w-0.5 bg-border" aria-hidden="true"></span>
                   <% end %>
-                  <div class="relative flex space-x-3">
+                  <div class="relative flex gap-3">
                     <div>
                       <span class="h-8 w-8 rounded-full bg-secondary flex items-center justify-center ring-8 ring-background">
                         <%= lucide_icon "message-circle", class: "h-4 w-4 text-secondary-foreground" %>
                       </span>
                     </div>
-                    <div class="flex min-w-0 flex-1 justify-between space-x-4 pt-1.5">
+                    <div class="flex min-w-0 flex-1 justify-between gap-4 pt-1.5">
                       <div>
                         <p class="text-sm text-foreground">
                           <span class="font-medium"><%= comment.creator.name %></span>

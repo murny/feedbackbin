@@ -38,7 +38,7 @@
                 </div>
               </td>
               <td class="px-6 py-4">
-                <div class="flex items-center space-x-3">
+                <div class="flex items-center gap-3">
                   <%= render Elements::AvatarComponent.new(
                     src: post.author.avatar.attached? ? url_for(post.author.avatar) : nil,
                     alt: post.author.name,
@@ -56,12 +56,12 @@
                 </div>
               </td>
               <td class="px-6 py-4">
-                <div class="flex items-center space-x-4 text-xs text-muted-foreground">
-                  <div class="flex items-center space-x-1">
+                <div class="flex items-center gap-4 text-xs text-muted-foreground">
+                  <div class="flex items-center gap-1">
                     <%= lucide_icon "heart", class: "size-3" %>
                     <span><%= post.likes_count %></span>
                   </div>
-                  <div class="flex items-center space-x-1">
+                  <div class="flex items-center gap-1">
                     <%= lucide_icon "message-square", class: "size-3" %>
                     <span><%= post.comments_count %></span>
                   </div>

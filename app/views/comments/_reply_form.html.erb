@@ -16,7 +16,7 @@
           <%= form.hidden_field :parent_id, value: parent.id %>
 
           <%= form.rich_text_area :body, id: "comment_#{parent.id}_new_reply_body", row: 1, placeholder: "Write a reply..." %>
-          <div class="mt-5 flex items-center space-x-4 justify-end">
+          <div class="mt-5 flex items-center gap-4 justify-end">
             <% if form.object.persisted? %>
               <%= form.submit "Update Reply", class: "btn btn-primary" %>
               <%= link_to "Cancel", comment_path(parent), class: "btn btn-secondary" %>
