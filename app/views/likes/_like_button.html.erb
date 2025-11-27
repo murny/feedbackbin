@@ -1,6 +1,6 @@
 <%# locals: (likeable:) %>
 
-<div class="flex flex-col items-center flex-shrink-0">
+<div class="flex flex-col items-center shrink-0">
   <% if authenticated? %>
     <%= turbo_frame_tag likeable, :like_button do %>
       <% if likeable.liked_by?(Current.user) %>

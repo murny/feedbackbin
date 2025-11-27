@@ -21,7 +21,7 @@
           <% @categories.each do |category| %>
             <li class="flex items-center justify-between gap-x-6 py-5 px-6">
               <div class="flex items-center gap-x-4 min-w-0">
-                <span class="w-6 h-6 rounded-full flex-shrink-0 ring-2 ring-background shadow-sm" style="background-color: <%= category.color %>;"></span>
+                <span class="w-6 h-6 rounded-full shrink-0 ring-2 ring-background shadow-sm" style="background-color: <%= category.color %>;"></span>
                 <div class="min-w-0 flex-auto">
                   <p class="text-sm font-semibold leading-6 text-foreground">
                     <%= category.name %>

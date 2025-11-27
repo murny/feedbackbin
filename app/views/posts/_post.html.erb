@@ -9,7 +9,7 @@
           <h2 class="flex-1">
             <%= link_to post.title, post, class: "scroll-m-20 text-2xl font-semibold tracking-tight hover:underline cursor-pointer line-clamp-2" %>
           </h2>
-          <div class="flex items-center gap-2 flex-shrink-0">
+          <div class="flex items-center gap-2 shrink-0">
             <% if post.pinned? %>
               <%= render Elements::BadgeComponent.new(variant: :secondary) do %>
                 <%= lucide_icon "map-pin" %>
@@ -33,7 +33,7 @@
             variant: :outline,
             class: "gap-1.5 text-muted-foreground bg-muted/30 border-border"
           ) do %>
-            <span class="w-2 h-2 rounded-full flex-shrink-0" style="background-color: <%= post.category.color %>;"></span>
+            <span class="w-2 h-2 rounded-full shrink-0" style="background-color: <%= post.category.color %>;"></span>
             <span><%= post.category.name %></span>
           <% end %>
         </div>

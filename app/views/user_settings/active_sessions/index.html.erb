@@ -16,7 +16,7 @@
             <% @sessions.each do |session| %>
               <div class="flex items-start justify-between p-4 border rounded-lg">
                 <div class="flex items-start gap-4">
-                  <div class="flex-shrink-0 mt-1">
+                  <div class="shrink-0 mt-1">
                     <%= lucide_icon "code", class: "h-5 w-5 text-muted-foreground" %>
                   </div>
                   <div class="space-y-1">
@@ -46,7 +46,7 @@
                     </div>
                   </div>
                 </div>
-                <div class="flex-shrink-0">
+                <div class="shrink-0">
                   <% unless session.current? %>
                     <%= button_to t(".revoke"),
                           user_settings_active_session_path(session),
