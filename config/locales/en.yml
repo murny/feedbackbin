@@ -352,8 +352,7 @@ en:
       alert_title: Error
       notice_title: Success
     error_messages:
-      sr_only:
-        danger: Danger
+      danger: Danger
     footer:
       about: About
       copyright: "&copy; %{year} FeedbackBin"
@@ -374,16 +373,15 @@ en:
         super_admin: Super Admin
         whats_new: What's new?
         your_profile: Your profile
+      open_main_menu: Open main menu
+      open_user_menu: Open user menu
+      search: Search
       search_placeholder: Search
       sign_in: Sign in
       sign_out: Sign out
       sign_up: Sign up
       signed_in_as: Signed in as
-      sr_only:
-        open_main_menu: Open main menu
-        open_user_menu: Open user menu
-        search: Search
-        view_notifications: View notifications
+      view_notifications: View notifications
   are_you_sure: Are you sure?
   cancel: Cancel
   category: Category
@@ -397,8 +395,7 @@ en:
       back: Back
   comments:
     comment:
-      sr_only:
-        comment_settings: Comment settings
+      comment_settings: Comment settings
     comments:
       comments_title_with_count: Comments (%{comment_count})
       subscribe: Subscribe
@@ -407,8 +404,7 @@ en:
     destroy:
       successfully_destroyed: Comment was successfully destroyed.
     reply:
-      sr_only:
-        comment_settings: Comment settings
+      comment_settings: Comment settings
     reply_form:
       write_a_reply: Write a reply
     update:
@@ -417,8 +413,7 @@ en:
   edit: Edit
   elements:
     breadcrumb_component:
-      sr_only:
-        more: More
+      more: More
   errors:
     messages:
       not_saved:

@@ -18,7 +18,7 @@
           <%= render Elements::DropdownMenuComponent.new do |dropdown| %>
             <% dropdown.with_trigger(variant: :ghost, size: :icon, class: "text-muted-foreground") do %>
               <%= lucide_icon("ellipsis") %>
-              <span class="sr-only"><%= t(".sr_only.comment_settings") %></span>
+              <span class="sr-only"><%= t(".comment_settings") %></span>
             <% end %>
 
             <% dropdown.with_item_content(href: edit_comment_path(comment)) do %>
