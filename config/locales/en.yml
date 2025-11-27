@@ -346,13 +346,13 @@ en:
         view_button: View
   application:
     default_title: FeedbackBin
+    error_messages:
+      danger: Danger
     flash:
       dismiss: Dismiss
     flash_toast:
       alert_title: Error
       notice_title: Success
-    error_messages:
-      danger: Danger
     footer:
       about: About
       copyright: "&copy; %{year} FeedbackBin"
