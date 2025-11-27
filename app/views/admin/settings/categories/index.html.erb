@@ -27,11 +27,11 @@
                     <%= category.name %>
                   </p>
                   <% if category.description.present? %>
-                    <p class="mt-1 text-xs leading-5 text-muted-foreground line-clamp-1">
+                    <p class="mt-1 text-xs/5 text-muted-foreground line-clamp-1">
                       <%= category.description %>
                     </p>
                   <% end %>
-                  <div class="mt-1 flex items-center gap-x-2 text-xs leading-5 text-muted-foreground">
+                  <div class="mt-1 flex items-center gap-x-2 text-xs/5 text-muted-foreground">
                     <p>
                       <%= t(".posts_count", count: category.posts.size) %>
                     </p>
