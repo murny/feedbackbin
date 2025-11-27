@@ -1,4 +1,4 @@
-<%= content_for :title, t("posts.index.title") %>
+<%= content_for :title, t(".title") %>
 <%= turbo_stream_from :posts %>
 
 <% if @categories.present? %>

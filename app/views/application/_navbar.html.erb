@@ -31,7 +31,7 @@
 
       <div class="flex flex-1 items-center justify-center px-6 md:ml-6 md:justify-end">
         <div class="w-full max-w-lg md:max-w-xs">
-          <label for="search" class="sr-only">Search</label>
+          <label for="search" class="sr-only"><%= t(".search") %></label>
           <div class="relative">
             <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
               <svg class="h-4 w-4 text-muted-foreground" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -65,7 +65,7 @@
                 data-toggle-target="trigger"
                 data-action="click->toggle#toggle touch->toggle#toggle">
           <span class="absolute -inset-0.5"></span>
-          <span class="sr-only"><%= t(".sr_only.open_main_menu") %></span>
+          <span class="sr-only"><%= t(".open_main_menu") %></span>
           <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
           </svg>
@@ -79,7 +79,7 @@
         <% if authenticated? %>
           <button type="button" class="relative rounded-full bg-background p-1 text-muted-foreground hover:text-foreground ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
             <span class="absolute -inset-1.5"></span>
-            <span class="sr-only"><%= t(".sr_only.view_notifications") %></span>
+            <span class="sr-only"><%= t(".view_notifications") %></span>
             <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
             </svg>
@@ -90,7 +90,7 @@
             <%= render Elements::DropdownMenuComponent.new do |dropdown| %>
               <% dropdown.with_trigger(variant: :ghost, class: "relative rounded-full p-0 hover:bg-transparent") do %>
                 <span class="absolute -inset-1.5"></span>
-                <span class="sr-only"><%= t(".sr_only.open_user_menu") %></span>
+                <span class="sr-only"><%= t(".open_user_menu") %></span>
                 <%= image_tag fresh_user_avatar_path(Current.user), role: "presentation", class: "h-8 w-8 rounded-full", alt: "" %>
               <% end %>
 
@@ -188,7 +188,7 @@
           </div>
           <button type="button" class="relative ml-auto flex-shrink-0 rounded-full bg-background p-1 text-muted-foreground hover:text-foreground ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
             <span class="absolute -inset-1.5"></span>
-            <span class="sr-only"><%= t(".sr_only.view_notifications") %></span>
+            <span class="sr-only"><%= t(".view_notifications") %></span>
             <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
             </svg>
