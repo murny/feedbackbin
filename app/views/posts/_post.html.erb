@@ -9,7 +9,7 @@
           <h2 class="flex-1">
             <%= link_to post.title, post, class: "scroll-m-20 text-2xl font-semibold tracking-tight hover:underline cursor-pointer line-clamp-2" %>
           </h2>
-          <div class="flex items-center gap-2 flex-shrink-0">
+          <div class="flex items-center gap-2 shrink-0">
             <% if post.pinned? %>
               <%= render Elements::BadgeComponent.new(variant: :secondary) do %>
                 <%= lucide_icon "map-pin" %>
@@ -33,11 +33,11 @@
             variant: :outline,
             class: "gap-1.5 text-muted-foreground bg-muted/30 border-border"
           ) do %>
-            <span class="w-2 h-2 rounded-full flex-shrink-0" style="background-color: <%= post.category.color %>;"></span>
+            <span class="w-2 h-2 rounded-full shrink-0" style="background-color: <%= post.category.color %>;"></span>
             <span><%= post.category.name %></span>
           <% end %>
         </div>
-        <div class="mt-1 flex items-center gap-x-2 text-xs leading-5">
+        <div class="mt-1 flex items-center gap-x-2 text-xs/5">
           <%= avatar_tag post.author, class: "rounded-full w-8 h-8" %>
           <p>
             <%= link_to post.author.name, post.author, class: "hover:underline" %>
@@ -65,7 +65,7 @@
                 <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.76c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.076-4.076a1.526 1.526 0 011.037-.443 48.282 48.282 0 005.68-.494c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
               </svg>
             </div>
-            <div class="text-sm leading-6 text-foreground"><%= post.comments_count %></div>
+            <div class="text-sm/6 text-foreground"><%= post.comments_count %></div>
           </div>
         </div>
       </div>

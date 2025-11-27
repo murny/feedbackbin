@@ -160,7 +160,7 @@ module Elements
           helpers.link_to(
             @action_label,
             @action_href,
-            class: "inline-flex h-8 shrink-0 items-center justify-center rounded-md border bg-transparent px-3 text-sm font-medium transition-colors hover:bg-secondary focus:outline-none focus:ring-1 focus:ring-ring"
+            class: "inline-flex h-8 shrink-0 items-center justify-center rounded-md border bg-transparent px-3 text-sm font-medium transition-colors hover:bg-secondary focus:outline-hidden focus:ring-1 focus:ring-ring"
           )
         end
       end
@@ -170,7 +170,7 @@ module Elements
 
         tag.button(
           type: "button",
-          class: "absolute right-1 top-1 rounded-md p-1 text-muted-foreground/50 opacity-0 transition-opacity hover:text-muted-foreground focus:opacity-100 focus:outline-none focus:ring-1 group-hover:opacity-100",
+          class: "absolute right-1 top-1 rounded-md p-1 text-muted-foreground/50 opacity-0 transition-opacity hover:text-muted-foreground focus:opacity-100 focus:outline-hidden focus:ring-1 group-hover:opacity-100",
           "aria-label": t("ui.toast.dismiss"),
           data: { action: "toast#close" }
         ) do

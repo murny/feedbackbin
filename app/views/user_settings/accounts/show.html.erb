@@ -84,7 +84,7 @@
           <%# Email Verification Warning %>
           <div class="card p-6 border-yellow-200 bg-yellow-50 dark:bg-yellow-900/20 dark:border-yellow-800">
             <div class="flex">
-              <div class="flex-shrink-0">
+              <div class="shrink-0">
                 <%= lucide_icon "triangle-alert", class: "h-5 w-5 text-yellow-400" %>
               </div>
               <div class="ml-3">
@@ -129,7 +129,7 @@
                       <% end %>
                     </div>
                   </div>
-                  <div class="flex-shrink-0">
+                  <div class="shrink-0">
                     <% if (connected_account = @user_connected_accounts.find_by(provider_name: provider)) %>
                       <%= button_to t(".disconnect"), user_settings_connected_account_path(connected_account),
                             method: :delete,

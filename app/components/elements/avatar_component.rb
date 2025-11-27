@@ -38,7 +38,7 @@ module Elements
         [
           "relative flex shrink-0 overflow-hidden",
           # Focus
-          "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+          "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring"
         ].join(" ")
       end
 

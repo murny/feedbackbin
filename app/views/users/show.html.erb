@@ -14,11 +14,11 @@
     <%= render Elements::CardComponent.new(class: "pt-0") do |c| %>
       <% c.with_body(class: "p-0") do %>
         <!-- User Banner (placeholder) -->
-        <div class="h-32 w-full bg-gradient-to-r from-blue-500 to-purple-600 lg:h-48"></div>
+        <div class="h-32 w-full bg-linear-to-r from-blue-500 to-purple-600 lg:h-48"></div>
 
         <div class="px-6 pb-6 pt-0">
         <!-- Avatar and Basic Info Section -->
-        <div class="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
+        <div class="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:gap-5">
           <div class="flex justify-center sm:justify-start">
             <%= render Elements::AvatarComponent.new(
               src: fresh_user_avatar_path(@user),
@@ -28,13 +28,13 @@
             ) %>
           </div>
 
-          <div class="mt-6 sm:flex sm:min-w-0 sm:flex-1 sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
+          <div class="mt-6 sm:flex sm:min-w-0 sm:flex-1 sm:items-center sm:justify-end sm:gap-6 sm:pb-1">
             <div class="mt-6 min-w-0 flex-1 text-center sm:text-left">
               <h1 class="text-2xl font-bold text-foreground"><%= @user.name %></h1>
             </div>
 
             <!-- Action Buttons -->
-            <div class="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-x-4 sm:space-y-0">
+            <div class="mt-6 flex flex-col justify-stretch gap-3 sm:flex-row">
               <% if Current.user == @user %>
                 <%= render Elements::ButtonComponent.new(
                   variant: :outline,
