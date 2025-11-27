@@ -4,19 +4,19 @@
   <div class="px-4 py-8">
     <h1 class="text-2xl font-bold mb-4"><%= t(".title") %></h1>
 
-    <div class="mb-6 p-4 border-l-4 border-yellow-500 bg-yellow-50 dark:bg-yellow-900/20">
+    <div class="mb-6 p-4 border-l-4 border-warning bg-warning/10">
       <div class="flex items-start gap-2">
-        <%= lucide_icon "alert-triangle", class: "h-5 w-5 text-yellow-600 dark:text-yellow-400 mt-0.5" %>
+        <%= lucide_icon "alert-triangle", class: "h-5 w-5 text-warning mt-0.5" %>
         <div>
-          <span class="font-semibold text-yellow-800 dark:text-yellow-300"><%= t(".warning_title") %></span>
-          <p class="text-sm mt-1 text-yellow-700 dark:text-yellow-400"><%= t(".warning_message") %></p>
+          <span class="font-semibold text-warning"><%= t(".warning_title") %></span>
+          <p class="text-sm mt-1 text-warning/90"><%= t(".warning_message") %></p>
         </div>
       </div>
     </div>
 
-    <%= render_card do %>
-      <div class="px-6 py-4">
-        <%= render_form_with url: admin_settings_ownership_transfer_path, method: :post do |f| %>
+    <%= render Elements::CardComponent.new do |c| %>
+      <% c.with_body(class: "py-4") do %>
+        <%= form_with url: admin_settings_ownership_transfer_path, method: :post, class: "space-y-6" do |f| %>
           <div class="mb-4">
             <%= f.label :new_owner_id, t(".new_owner"), class: "block text-sm font-medium mb-2" %>
             <%= f.select :new_owner_id,
@@ -29,11 +29,15 @@
           </div>
 
           <div class="flex gap-3 mt-6">
-            <%= render_button text: t(".transfer_ownership"), type: :submit, variant: :default %>
-            <%= render_button text: t("cancel"), href: admin_settings_branding_path, variant: :outline %>
+            <%= render Elements::ButtonComponent.new(type: :submit, variant: :default) do %>
+              <%= t(".transfer_ownership") %>
+            <% end %>
+            <%= render Elements::ButtonComponent.new(href: admin_settings_branding_path, variant: :outline) do %>
+              <%= t("cancel") %>
+            <% end %>
           </div>
         <% end %>
-      </div>
+      <% end %>
     <% end %>
   </div>
 </div>

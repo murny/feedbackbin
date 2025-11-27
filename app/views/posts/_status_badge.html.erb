@@ -2,40 +2,36 @@
 
 <span id="post-status-badge">
   <% if policy(post).update_status? %>
-    <%= render_dropdown_menu(
-      trigger: post.post_status.name,
-      trigger_button_options: {
+    <%= render Elements::DropdownMenuComponent.new do |dropdown| %>
+      <% dropdown.with_trigger(
+        type: "button",
         class: "inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold text-white transition-opacity hover:opacity-80 focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2",
         style: "background-color: #{post.post_status.color};"
-      },
-      content: tag.div do
-        concat(tag.div(class: "flex flex-col gap-1") do
-          PostStatus.ordered.each do |status|
-            concat(turbo_frame_tag("post-status-#{status.id}") do
-              button_to(
-                post_status_path(post),
-                method: :patch,
-                params: { post_status_id: status.id },
-                class: [
-                  "focus:bg-accent focus:text-accent-foreground relative flex w-full text-left cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none",
-                  status.id == post.post_status_id ? "bg-accent" : ""
-                ].join(" "),
-                "data-dropdown-target": "menuItem"
-              ) do
-                concat(tag.span(class: "w-3 h-3 rounded-full flex-shrink-0", style: "background-color: #{status.color};"))
-                concat(tag.span(status.name))
-                if status.id == post.post_status_id
-                  concat(tag.span(class: "ml-auto") do
-                    lucide_icon("check", class: "w-4 h-4")
-                  end)
-                end
-              end
-            end)
-          end
-        end)
-      end
-    ) %>
+      ) do %>
+        <%= post.post_status.name %>
+      <% end %>
+
+      <% PostStatus.ordered.each do |status| %>
+        <% dropdown.with_item_content(
+          id: "post-status-#{status.id}",
+          href: post_status_path(post),
+          method: :patch,
+          params: { post_status_id: status.id },
+          class: status.id == post.post_status_id ? "bg-accent" : nil
+        ) do %>
+          <span class="w-3 h-3 rounded-full flex-shrink-0" style="background-color: <%= status.color %>;"></span>
+          <span><%= status.name %></span>
+          <% if status.id == post.post_status_id %>
+            <span class="ml-auto">
+              <%= lucide_icon("check", class: "w-4 h-4") %>
+            </span>
+          <% end %>
+        <% end %>
+      <% end %>
+    <% end %>
   <% else %>
-    <%= render_badge(text: post.post_status.name, class: "text-white font-medium", style: "background-color: #{post.post_status.color};") %>
+    <%= render Elements::BadgeComponent.new(class: "text-white font-medium", style: "background-color: #{post.post_status.color};") do %>
+      <%= post.post_status.name %>
+    <% end %>
   <% end %>
 </span>

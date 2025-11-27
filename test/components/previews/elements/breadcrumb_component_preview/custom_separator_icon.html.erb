@@ -1,0 +1,8 @@
+<%= render Elements::BreadcrumbComponent.new(
+  items: [
+    { text: "Dashboard", path: "/" },
+    { text: "Settings", path: "/settings" },
+    { text: "Profile" }
+  ],
+  separator: lucide_icon("arrow-right", class: "size-3.5")
+) %>

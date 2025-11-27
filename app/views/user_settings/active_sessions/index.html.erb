@@ -25,7 +25,9 @@
                         <%= session.ip_address %>
                       </p>
                       <% if session.current? %>
-                        <%= render_badge text: t(".current_session") %>
+                        <%= render Elements::BadgeComponent.new do %>
+                          <%= t(".current_session") %>
+                        <% end %>
                       <% end %>
                     </div>
                     <div class="text-sm text-muted-foreground">

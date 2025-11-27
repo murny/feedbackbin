@@ -9,10 +9,10 @@
       <p class="text-sm text-muted-foreground"><%= t(".description") %></p>
     </div>
 
-    <%= render_card do %>
-      <div class="px-6">
+    <%= render Elements::CardComponent.new do |c| %>
+      <% c.with_body do %>
         <%= render "form", post_status: @post_status %>
-      </div>
+      <% end %>
     <% end %>
   </div>
 </div>

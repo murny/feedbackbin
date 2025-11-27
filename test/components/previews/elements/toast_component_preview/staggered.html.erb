@@ -1,0 +1,74 @@
+<div class="flex flex-col items-center justify-center p-20 gap-6">
+  <div class="flex flex-wrap gap-2 justify-center">
+    <!-- Quick dismiss (1 second) -->
+    <div data-controller="toast-preview">
+      <%= render Elements::ButtonComponent.new(
+        variant: :outline,
+        size: :sm,
+        data: { action: "click->toast-preview#show" }
+      ) do %>
+        <%= lucide_icon "zap" %>
+        Quick (1s)
+      <% end %>
+
+      <div data-toast-preview-target="container" class="fixed top-4 right-4 z-50 flex flex-col gap-2 w-full max-w-sm pointer-events-none"></div>
+
+      <template data-toast-preview-target="template">
+        <%= render Elements::ToastComponent.new(
+          title: "Quick Notification",
+          description: "This will auto-dismiss after 1 second.",
+          variant: :info,
+          dismiss_after: 1000
+        ) %>
+      </template>
+    </div>
+
+    <!-- Normal dismiss (3 seconds) -->
+    <div data-controller="toast-preview">
+      <%= render Elements::ButtonComponent.new(
+        variant: :outline,
+        size: :sm,
+        data: { action: "click->toast-preview#show" }
+      ) do %>
+        <%= lucide_icon "clock" %>
+        Normal (3s)
+      <% end %>
+
+      <div data-toast-preview-target="container" class="fixed top-4 right-4 z-50 flex flex-col gap-2 w-full max-w-sm pointer-events-none"></div>
+
+      <template data-toast-preview-target="template">
+        <%= render Elements::ToastComponent.new(
+          title: "Standard Notification",
+          description: "This will auto-dismiss after 3 seconds.",
+          variant: :success,
+          dismiss_after: 3000
+        ) %>
+      </template>
+    </div>
+
+    <!-- Persistent (no auto-dismiss) -->
+    <div data-controller="toast-preview">
+      <%= render Elements::ButtonComponent.new(
+        variant: :outline,
+        size: :sm,
+        data: { action: "click->toast-preview#show" }
+      ) do %>
+        <%= lucide_icon "pin" %>
+        Persistent
+      <% end %>
+
+      <div data-toast-preview-target="container" class="fixed top-4 right-4 z-50 flex flex-col gap-2 w-full max-w-sm pointer-events-none"></div>
+
+      <template data-toast-preview-target="template">
+        <%= render Elements::ToastComponent.new(
+          title: "Important Message",
+          description: "This toast will not auto-dismiss. Must be closed manually.",
+          variant: :error,
+          dismiss_after: 0
+        ) %>
+      </template>
+    </div>
+  </div>
+
+  <p class="text-sm text-muted-foreground">Different auto-dismiss timings: quick (1s), normal (3s), and persistent</p>
+</div>

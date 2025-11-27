@@ -7,7 +7,7 @@
       <p class="text-sm text-muted-foreground"><%= t(".description") %></p>
     </div>
     <div class="whitespace-nowrap">
-      <%= render_button(
+      <%= render Elements::ButtonComponent.new(
         variant: :default,
         href: new_admin_invitation_path
       ) do %>
@@ -20,7 +20,9 @@
   <div class="mb-4">
     <h2 class="text-lg font-medium flex items-center gap-2">
       <%= t(".pending_invitations") %>
-      <%= render_badge(text: @pagy.count, variant: :default) %>
+      <%= render Elements::BadgeComponent.new(variant: :default) do %>
+        <%= @pagy.count %>
+      <% end %>
     </h2>
   </div>
 

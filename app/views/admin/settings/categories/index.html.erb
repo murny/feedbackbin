@@ -15,8 +15,9 @@
     </div>
 
     <% if @categories.any? %>
-      <%= render_card do %>
-        <ul role="list" class="divide-y divide-border">
+      <%= render Elements::CardComponent.new do |c| %>
+        <% c.with_body(class: "p-0") do %>
+          <ul role="list" class="divide-y divide-border">
           <% @categories.each do |category| %>
             <li class="flex items-center justify-between gap-x-6 py-5 px-6">
               <div class="flex items-center gap-x-4 min-w-0">
@@ -53,16 +54,19 @@
               </div>
             </li>
           <% end %>
-        </ul>
+          </ul>
+        <% end %>
       <% end %>
     <% else %>
-      <%= render_card(class: "p-8 text-center") do %>
-        <%= lucide_icon "folder", class: "mx-auto h-12 w-12 text-muted-foreground" %>
+      <%= render Elements::CardComponent.new do |c| %>
+        <% c.with_body(class: "p-8 text-center") do %>
+          <%= lucide_icon "folder", class: "mx-auto h-12 w-12 text-muted-foreground" %>
         <h3 class="mt-4 text-lg font-semibold text-foreground"><%= t(".no_categories_title") %></h3>
         <p class="mt-2 text-sm text-muted-foreground"><%= t(".no_categories_description") %></p>
         <div class="mt-6">
           <%= link_to t(".create_first_category"), new_admin_settings_category_path, class: "btn btn-primary" %>
         </div>
+        <% end %>
       <% end %>
     <% end %>
   </div>

@@ -1,0 +1,9 @@
+<%= tag.div(**wrapper_attrs) do %>
+  <%= tag.div(**trigger_attrs) do %>
+    <%= trigger %>
+  <% end %>
+
+  <%= tag.div(**content_attrs) do %>
+    <%= popover_content %>
+  <% end %>
+<% end %>

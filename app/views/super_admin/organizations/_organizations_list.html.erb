@@ -1,14 +1,15 @@
 <%# locals: (organizations:, pagy:) %>
 
-<%= render_card(class: "p-0 overflow-hidden") do %>
-  <div class="overflow-x-auto">
+<%= render Elements::CardComponent.new(class: "overflow-hidden") do |c| %>
+  <% c.with_body(class: "p-0") do %>
+    <div class="overflow-x-auto">
     <table class="w-full text-sm">
       <thead class="border-b border-border">
         <tr class="bg-muted/50">
-          <th class="px-6 py-4 text-left font-semibold text-foreground">Organization</th>
-          <th class="px-6 py-4 text-left font-semibold text-foreground">Subdomain</th>
-          <th class="px-6 py-4 text-left font-semibold text-foreground">Created</th>
-          <th class="px-6 py-4 text-center font-semibold text-foreground">Actions</th>
+          <th class="px-6 py-4 text-left font-semibold text-foreground"><%= t(".organization") %></th>
+          <th class="px-6 py-4 text-left font-semibold text-foreground"><%= t(".subdomain") %></th>
+          <th class="px-6 py-4 text-left font-semibold text-foreground"><%= t(".created") %></th>
+          <th class="px-6 py-4 text-center font-semibold text-foreground"><%= t(".actions") %></th>
         </tr>
       </thead>
       <tbody class="divide-y divide-border">
@@ -41,13 +42,14 @@
                 </div>
               </td>
               <td class="px-6 py-4 text-center">
-                <%= render_button(
-                  text: "View",
+                <%= render Elements::ButtonComponent.new(
                   href: super_admin_organization_path(organization),
                   variant: :outline,
                   size: :sm,
                   data: { turbo_frame: "_top" }
-                ) %>
+                ) do %>
+                  <%= t(".view_button") %>
+                <% end %>
               </td>
             </tr>
           <% end %>
@@ -57,12 +59,12 @@
               <div class="mx-auto size-12 bg-muted rounded-full flex items-center justify-center mb-4">
                 <%= lucide_icon "building.svg", class: "size-6 text-muted-foreground" %>
               </div>
-              <h3 class="text-sm font-medium text-foreground mb-2">No organizations found</h3>
+              <h3 class="text-sm font-medium text-foreground mb-2"><%= t(".no_organizations_found") %></h3>
               <p class="text-sm text-muted-foreground">
                 <% if params[:search].present? %>
-                  Try adjusting your search criteria.
+                  <%= t(".try_adjusting_search") %>
                 <% else %>
-                  No organizations have been created yet.
+                  <%= t(".no_organizations_yet") %>
                 <% end %>
               </p>
             </td>
@@ -70,18 +72,19 @@
         <% end %>
       </tbody>
     </table>
-  </div>
+    </div>
+  <% end %>
 <% end %>
 
 <!-- Pagination -->
 <div class="mt-8">
-  <%= tag.div id: ("organizations" if first_page?(pagy.page)), class: "space-y-4" do %>
+  <%= tag.div id: ("organizations" if first_page?(pagy.last)), class: "space-y-4" do %>
     <div class="text-center text-sm text-muted-foreground">
-      <%== pagy_info(pagy) %>
+      <%== pagy.info_tag %>
     </div>
-    <% if pagy.pages > 1 %>
+    <% if pagy.last > 1 %>
       <div class="flex justify-center">
-        <%== pagy_nav(pagy, link_extra: 'data-turbo-frame="organizations_content"') %>
+        <%== pagy.series_nav(link_extra: 'data-turbo-frame="organizations_content"') %>
       </div>
     <% end %>
   <% end %>

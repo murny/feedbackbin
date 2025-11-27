@@ -1,9 +1,13 @@
 <%= turbo_stream.update "post-pin-button" do %>
-  <%= button_to "Pin", post_pin_path(@post), method: :post, class: "btn-secondary", title: "Pin this post" %>
+  <%= render Elements::DropdownMenuComponent::ItemComponent.new(
+    id: "post-pin-button",
+    href: post_pin_path(@post),
+    method: :post
+  ) do %>
+    <%= t("posts.show.pin") %>
+  <% end %>
 <% end %>
 
-<%= turbo_stream.update "post-header" do %>
-  <div class="flex items-start gap-3 mb-4">
-    <h1 class="text-xl sm:text-2xl lg:text-3xl font-bold leading-tight flex-1"><%= @post.title %></h1>
-  </div>
+<%= turbo_stream.update "post-pinned-badge" do %>
+  <%# Empty - removes the badge when unpinned %>
 <% end %>

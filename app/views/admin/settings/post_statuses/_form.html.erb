@@ -1,6 +1,6 @@
 <%# locals: (post_status:) %>
 
-<%= render_form_with model: post_status, url: post_status.persisted? ? admin_settings_post_status_path(post_status) : admin_settings_post_statuses_path, method: post_status.persisted? ? :patch : :post, html: { data: { controller: "badge-preview" } } do |f| %>
+<%= form_with model: post_status, url: post_status.persisted? ? admin_settings_post_status_path(post_status) : admin_settings_post_statuses_path, method: post_status.persisted? ? :patch : :post, class: "space-y-6", data: { controller: "badge-preview" } do |f| %>
   <div class="grid gap-6">
     <div class="grid gap-3">
       <%= f.label :name, t(".name_label") %>
@@ -62,6 +62,8 @@
 
   <div class="mt-8 flex items-center justify-end gap-3">
     <%= link_to t("cancel"), admin_settings_post_statuses_path, class: "btn btn-secondary" %>
-    <%= render_button text: post_status.persisted? ? t(".save_changes") : t(".create_status"), type: :submit, variant: :default %>
+    <%= render Elements::ButtonComponent.new(type: :submit, variant: :default) do %>
+      <%= post_status.persisted? ? t(".save_changes") : t(".create_status") %>
+    <% end %>
   </div>
 <% end %>

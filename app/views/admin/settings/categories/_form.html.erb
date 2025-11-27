@@ -1,6 +1,6 @@
 <%# locals: (category:) %>
 
-<%= render_form_with model: category, url: category.persisted? ? admin_settings_category_path(category) : admin_settings_categories_path, method: category.persisted? ? :patch : :post, html: { data: { controller: "badge-preview" } } do |f| %>
+<%= form_with model: category, url: category.persisted? ? admin_settings_category_path(category) : admin_settings_categories_path, method: category.persisted? ? :patch : :post, class: "space-y-6", data: { controller: "badge-preview" } do |f| %>
   <div class="grid gap-6">
     <div class="grid gap-3">
       <%= f.label :name, t(".name_label") %>
@@ -23,7 +23,7 @@
 
     <div class="rounded-lg border border-border bg-muted/50 p-4">
       <h4 class="text-sm font-medium mb-2"><%= t(".preview_label") %></h4>
-      <%= render_badge(
+      <%= render Elements::BadgeComponent.new(
         variant: :outline,
         class: "gap-1.5 text-muted-foreground bg-muted/30 border-border"
       ) do %>
@@ -35,6 +35,8 @@
 
   <div class="mt-8 flex items-center justify-end gap-3">
     <%= link_to t("cancel"), admin_settings_categories_path, class: "btn btn-secondary" %>
-    <%= render_button text: category.persisted? ? t(".save_changes") : t(".create_category"), type: :submit, variant: :default %>
+    <%= render Elements::ButtonComponent.new(type: :submit, variant: :default) do %>
+      <%= category.persisted? ? t(".save_changes") : t(".create_category") %>
+    <% end %>
   </div>
 <% end %>

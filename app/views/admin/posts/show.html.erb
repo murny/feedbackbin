@@ -11,22 +11,25 @@
         <%= t(".description") %>
       </p>
     </div>
-    <%= render_button(
-      text: t(".back_button"),
+    <%= render Elements::ButtonComponent.new(
       href: admin_posts_path,
       variant: :outline
-    ) %>
+    ) do %>
+      <%= t(".back_button") %>
+    <% end %>
   </div>
 
   <!-- Post Info -->
-  <%= render_card(title: t(".post_info_title"), class: "px-6") do %>
-    <div class="space-y-6">
+  <%= render Elements::CardComponent.new do |c| %>
+    <% c.with_header(title: t(".post_info_title")) %>
+    <% c.with_body do %>
+      <div class="space-y-6">
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div class="lg:col-span-2">
           <h3 class="text-xl font-semibold text-foreground mb-4"><%= @post.title %></h3>
 
           <div class="flex items-center space-x-4 mb-4">
-            <%= render_avatar(
+            <%= render Elements::AvatarComponent.new(
               src: @post.author.avatar.attached? ? url_for(@post.author.avatar) : nil,
               alt: @post.author.name,
               size: :sm,
@@ -40,16 +43,14 @@
 
           <div class="flex flex-wrap gap-2 mb-4">
             <% if @post.category %>
-              <%= render_badge(
-                text: @post.category.name,
-                variant: :secondary
-              ) %>
+              <%= render Elements::BadgeComponent.new(variant: :secondary) do %>
+                <%= @post.category.name %>
+              <% end %>
             <% end %>
             <% if @post.post_status %>
-              <%= render_badge(
-                text: @post.post_status.name,
-                variant: :outline
-              ) %>
+              <%= render Elements::BadgeComponent.new(variant: :outline) do %>
+                <%= @post.post_status.name %>
+              <% end %>
             <% end %>
           </div>
 
@@ -79,16 +80,19 @@
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    <% end %>
   <% end %>
 
   <!-- Recent Comments -->
   <% if @recent_comments.any? %>
-    <%= render_card(title: t(".recent_comments_title"), class: "px-6") do %>
+    <%= render Elements::CardComponent.new do |c| %>
+      <% c.with_header(title: t(".recent_comments_title")) %>
+      <% c.with_body do %>
       <div class="space-y-4">
         <% @recent_comments.each do |comment| %>
           <div class="flex items-start space-x-3 p-4 border border-border rounded-lg">
-            <%= render_avatar(
+            <%= render Elements::AvatarComponent.new(
               src: comment.creator.avatar.attached? ? url_for(comment.creator.avatar) : nil,
               alt: comment.creator.name,
               size: :sm,
@@ -108,12 +112,16 @@
           </div>
         <% end %>
       </div>
+      <% end %>
     <% end %>
   <% else %>
-    <%= render_card(title: t(".comments_title"), class: "px-6") do %>
+    <%= render Elements::CardComponent.new do |c| %>
+      <% c.with_header(title: t(".comments_title")) %>
+      <% c.with_body do %>
       <div class="text-center py-8 text-muted-foreground">
         <%= t(".no_comments") %>
       </div>
+      <% end %>
     <% end %>
   <% end %>
 </div>

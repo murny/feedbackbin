@@ -72,7 +72,7 @@ You are an expert in Ruby, Ruby on Rails, Stimulus.js, Hotwire, Shadcn UI, and T
 - Implement responsive design which work on mobile/tablet and desktop screen sizes with Tailwind CSS. Use a mobile-first approach.
 - Ensure styles look good in both dark and light mode using Tailwind CSS
 - Use Rails view helpers and partials to keep views DRY.
-- We are using a custom UI components inspired by Shadcn UI in this repo. Please refer to these and use these (e.g for a button use `render_button`)
+- We are using custom UI components inspired by Shadcn UI built with ViewComponent. Use ViewComponents like `render Elements::ButtonComponent.new(variant: :outline) do ... end`
 - Use the builtin Tailwind CSS variable based colors, like `bg-primary` or `text-primary-foreground`
 - We use lucide icons with the `inline_svg_tag` Rails helper (e.g `inline_svg_tag "icons/cheveron-right.svg` )
 - Do not come up with your own svg icon names. Always reference the same names from https://lucide.dev/ 

@@ -1,10 +1,11 @@
 name: Deploy to Production
 
-# Trigger on pushes to master and allow manual deployment
+# Manual deployment only - automatic CD is commented out
 on:
-  push:
-    branches:
-      - master
+  # Automatic deployment on push to master (commented out)
+  # push:
+  #   branches:
+  #     - master
   workflow_dispatch: # Allows manual triggering from GitHub Actions UI
 
 # Read-only permissions by default
@@ -35,7 +36,7 @@ jobs:
     steps:
       # Checkout the repository to get Kamal configuration files
       - name: Checkout code
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6.0.0
 
       # Set up Ruby environment for Kamal CLI
       # Kamal is a Ruby gem, so we need Ruby installed

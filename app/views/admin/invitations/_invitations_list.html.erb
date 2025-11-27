@@ -33,11 +33,20 @@
               <%= lucide_icon "copy", class: "h-4 w-4" %>
               <span class="sr-only"><%= t(".copy_invitation_link") %></span>
             <% end %>
-            <%= render_button(
+            <%= render Elements::ButtonComponent.new(
+              variant: :outline,
+              size: :icon,
+              href: resend_admin_invitation_path(invitation),
+              data: { turbo_method: :post, turbo_confirm: t(".resend_confirm"), tooltip: t(".resend") }
+            ) do %>
+              <%= lucide_icon "mail", class: "h-4 w-4" %>
+              <span class="sr-only"><%= t(".resend") %></span>
+            <% end %>
+            <%= render Elements::ButtonComponent.new(
               variant: :destructive,
               size: :icon,
               href: admin_invitation_path(invitation),
-              data: { "turbo-method": :delete, turbo_confirm: t(".cancel_confirm"), tooltip: t(".cancel_invitation") }
+              data: { turbo_method: :delete, turbo_confirm: t(".cancel_confirm"), tooltip: t(".cancel_invitation") }
             ) do %>
               <%= lucide_icon "x", class: "h-4 w-4" %>
               <span class="sr-only"><%= t(".cancel_invitation") %></span>
@@ -56,13 +65,13 @@
 <% end %>
 
 <!-- Pagination -->
-<% if pagy.pages > 1 %>
+<% if pagy.last > 1 %>
   <div class="mt-8 space-y-4">
     <div class="text-center text-sm text-muted-foreground">
-      <%== pagy_info(pagy) %>
+      <%== pagy.info_tag %>
     </div>
     <div class="flex justify-center">
-      <%== pagy_nav(pagy, link_extra: 'data-turbo-frame="invitations_content"') %>
+      <%== pagy.series_nav(link_extra: 'data-turbo-frame="invitations_content"') %>
     </div>
   </div>
 <% end %>

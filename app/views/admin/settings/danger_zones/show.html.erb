@@ -9,12 +9,13 @@
       <p class="text-sm text-muted-foreground"><%= t(".page_description") %></p>
     </div>
 
-    <%= render_alert variant: :destructive, title: t(".subtitle"), description: t(".description"), icon: "shield-alert" %>
+    <%= render Elements::AlertComponent.new(variant: :destructive, title: t(".subtitle"), description: t(".description"), icon: "shield-alert") %>
 
     <!-- Transfer Ownership Section -->
     <div class="mt-8">
-      <%= render_card title: t(".transfer_ownership_title"), description: t(".transfer_ownership_description") do %>
-        <div class="px-6 py-4">
+      <%= render Elements::CardComponent.new do |c| %>
+        <% c.with_header(title: t(".transfer_ownership_title"), description: t(".transfer_ownership_description")) %>
+        <% c.with_body(class: "py-4") do %>
           <div class="flex items-center gap-3">
             <%= image_tag fresh_user_avatar_path(Current.organization.owner),
                 class: "h-10 w-10 rounded-full" %>
@@ -24,18 +25,22 @@
               <p class="text-sm text-muted-foreground"><%= Current.organization.owner.email_address %></p>
             </div>
 
-            <%= render_button text: t(".transfer_ownership_button"),
+            <%= render Elements::ButtonComponent.new(
                 href: new_admin_settings_ownership_transfer_path,
                 variant: :outline,
-                size: :sm %>
+                size: :sm
+            ) do %>
+              <%= t(".transfer_ownership_button") %>
+            <% end %>
           </div>
-        </div>
+        <% end %>
       <% end %>
     </div>
 
     <div class="mt-8">
-      <%= render_card title: t(".delete_title"), description: t(".delete_description") do %>
-          <div class="px-6">
+      <%= render Elements::CardComponent.new do |c| %>
+        <% c.with_header(title: t(".delete_title"), description: t(".delete_description")) %>
+        <% c.with_body do %>
             <%= form_with model: Current.organization, url: admin_settings_danger_zone_path, method: :delete, class: "space-y-4" do |form| %>
             <%= render "error_messages", resource: form.object %>
 
@@ -63,10 +68,12 @@
             </div>
 
             <div class="pt-2">
-              <%= render_button text: t(".delete_button"), variant: :destructive, type: :submit, data: { turbo_confirm: t(".turbo_confirm") } %>
+              <%= render Elements::ButtonComponent.new(variant: :destructive, type: :submit, data: { turbo_confirm: t(".turbo_confirm") }) do %>
+                <%= t(".delete_button") %>
+              <% end %>
             </div>
             <% end %>
-          </div>
+        <% end %>
       <% end %>
     </div>
   </div>

@@ -8,19 +8,22 @@
         <%= @organization.name %>
       </h1>
       <p class="text-muted-foreground">
-        Organization details and activity
+        <%= t(".description") %>
       </p>
     </div>
-    <%= render_button(
-      text: "Back to Organizations",
+    <%= render Elements::ButtonComponent.new(
       href: super_admin_organizations_path,
       variant: :outline
-    ) %>
+    ) do %>
+      <%= t(".back_button") %>
+    <% end %>
   </div>
 
   <!-- Organization Info -->
-  <%= render_card(title: "Organization Information", class: "px-6") do %>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+  <%= render Elements::CardComponent.new do |c| %>
+    <% c.with_header(title: t(".organization_information")) %>
+    <% c.with_body do %>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       <div class="space-y-4">
         <div class="flex items-center space-x-4">
           <%= organization_logo(@organization, size: :lg) %>
@@ -33,18 +36,19 @@
 
       <div class="space-y-4">
         <div>
-          <h4 class="text-sm font-medium text-foreground mb-2">Subdomain</h4>
+          <h4 class="text-sm font-medium text-foreground mb-2"><%= t(".subdomain") %></h4>
           <div class="text-sm text-muted-foreground font-mono">
             <%= @organization.subdomain %>
           </div>
         </div>
         <div>
-          <h4 class="text-sm font-medium text-foreground mb-2">Created</h4>
+          <h4 class="text-sm font-medium text-foreground mb-2"><%= t(".created") %></h4>
           <div class="text-sm text-muted-foreground">
             <%= @organization.created_at.strftime("%B %d, %Y at %I:%M %p") %>
           </div>
         </div>
       </div>
-    </div>
+      </div>
+    <% end %>
   <% end %>
 </div>

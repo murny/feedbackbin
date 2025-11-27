@@ -67,6 +67,35 @@ module Admin
       assert_equal I18n.t("unauthorized"), flash[:alert]
     end
 
+    test "should resend invitation email" do
+      invitation = invitations(:one)
+      original_token = invitation.token
+
+      assert_enqueued_emails 1 do
+        post resend_admin_invitation_url(invitation.token)
+      end
+
+      assert_redirected_to admin_invitations_path
+      assert_equal I18n.t("admin.invitations.resend.resent", email: invitation.email), flash[:notice]
+      assert_equal original_token, invitation.reload.token
+    end
+
+    test "non-admin cannot resend" do
+      sign_in_as users(:two)
+      invitation = invitations(:one)
+
+      post resend_admin_invitation_url(invitation.token)
+
+      assert_response :redirect
+      assert_equal I18n.t("unauthorized"), flash[:alert]
+    end
+
+    test "should return 404 for invalid invitation token on resend" do
+      post resend_admin_invitation_url("invalid-token")
+
+      assert_response :not_found
+    end
+
     test "should destroy invitation" do
       invitation = invitations(:one)
 

@@ -1,0 +1,14 @@
+<div class="flex items-center gap-4">
+  <%= render Elements::ButtonComponent.new(size: :sm) do %>
+    Small
+  <% end %>
+  <%= render Elements::ButtonComponent.new(size: :default) do %>
+    Default
+  <% end %>
+  <%= render Elements::ButtonComponent.new(size: :lg) do %>
+    Large
+  <% end %>
+  <%= render Elements::ButtonComponent.new(size: :icon) do %>
+    <%= lucide_icon("arrow-left") %>
+  <% end %>
+</div>

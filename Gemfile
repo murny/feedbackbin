@@ -31,13 +31,11 @@ gem "tailwindcss-rails", "4.4.0"
 gem "jbuilder"
 
 # View
-gem "pagy", "~> 9.2"
+gem "pagy", "~> 43.1"
 gem "inline_svg"
 gem "lucide-rails"
 gem "tailwind_merge", "~> 1.3.1"
-
-# UI Components
-gem "feedbackbin_elements", github: "murny/feedbackbin_elements", branch: "master"
+gem "view_component"
 
 # Authentication & Authorization
 gem "bcrypt", "~> 3.1.7"
@@ -87,6 +85,9 @@ group :development do
   gem "hotwire-spark"
 
   gem "ruby-lsp-rails", require: false
+
+  # ViewComponent preview and development
+  gem "lookbook"
 end
 
 group :test do

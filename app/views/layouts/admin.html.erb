@@ -13,7 +13,7 @@
       <button type="button"
               class="-m-2.5 p-2.5 text-muted-foreground"
               aria-controls="admin-mobile-sidebar"
-              aria-expanded="false"
+              data-toggle-target="trigger"
               data-action="click->toggle#toggle">
         <span class="sr-only"><%= t("layouts.admin.sr_only.open_sidebar") %></span>
         <%= lucide_icon "menu", class: "h-6 w-6" %>
@@ -34,7 +34,10 @@
       <div class="fixed inset-0 flex">
         <div class="relative mr-16 flex w-full max-w-xs flex-1">
           <div class="absolute left-full top-0 flex w-16 justify-center pt-5">
-            <button type="button" class="-m-2.5 p-2.5" data-action="click->toggle#hide">
+            <button type="button"
+                    class="-m-2.5 p-2.5"
+                    data-toggle-target="trigger"
+                    data-action="click->toggle#hide">
               <span class="sr-only"><%= t("layouts.admin.sr_only.close_sidebar") %></span>
               <%= lucide_icon "x", class: "h-6 w-6 text-foreground" %>
             </button>

@@ -10,11 +10,12 @@
     <!-- Post Meta -->
     <div class="flex items-center flex-wrap gap-2 text-xs text-muted-foreground">
       <!-- Category Badge -->
-      <%= render_badge(
-        text: post.category.name,
+      <%= render Elements::BadgeComponent.new(
         variant: :outline,
         class: "text-muted-foreground bg-muted/30"
-      ) %>
+      ) do %>
+        <%= post.category.name %>
+      <% end %>
 
       <!-- Vote Count -->
       <span class="inline-flex items-center gap-1">

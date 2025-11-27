@@ -1,0 +1,12 @@
+<div class="space-y-4">
+  <%= render Elements::AlertComponent.new(
+    title: "Default Alert",
+    description: "This is a default variant alert message.",
+    variant: :default
+  ) %>
+  <%= render Elements::AlertComponent.new(
+    title: "Destructive Alert",
+    description: "This is a destructive variant alert message.",
+    variant: :destructive
+  ) %>
+</div>

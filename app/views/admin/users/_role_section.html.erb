@@ -1,15 +1,15 @@
 <%= turbo_frame_tag dom_id(user, "role_section") do %>
   <div class="flex items-center justify-between gap-4">
     <div class="flex flex-wrap gap-1">
-      <%= render_badge(
-        text: user.role.humanize,
+      <%= render Elements::BadgeComponent.new(
         variant: user.administrator? ? :default : :secondary
-      ) %>
+      ) do %>
+        <%= user.role.humanize %>
+      <% end %>
       <% if user.organization_owner? %>
-        <%= render_badge(
-          text: t("admin.users.show.owner_badge"),
-          variant: :default
-        ) %>
+        <%= render Elements::BadgeComponent.new(variant: :default) do %>
+          <%= t("admin.users.show.owner_badge") %>
+        <% end %>
       <% end %>
     </div>
     <%= form_with url: admin_user_role_path(user), method: :patch, class: "flex gap-2 items-center" do |form| %>
@@ -20,12 +20,13 @@
           ),
           {},
           class: "select" %>
-      <%= render_button(
-        text: t("admin.users.show.update_button"),
+      <%= render Elements::ButtonComponent.new(
         variant: :secondary,
         size: :sm,
         type: :submit
-      ) %>
+      ) do %>
+        <%= t("admin.users.show.update_button") %>
+      <% end %>
     <% end %>
   </div>
 <% end %>

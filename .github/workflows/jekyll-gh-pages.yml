@@ -29,7 +29,7 @@ jobs:
         working-directory: ./docs
     steps:
       - name: Checkout
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6.0.0
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
@@ -37,7 +37,7 @@ jobs:
           ruby-version: '3.2'  # Latest stable Ruby for Jekyll 4
           bundler-cache: true
           working-directory: ./docs
-  
+
       - name: Setup Pages
         id: pages
         uses: actions/configure-pages@v5

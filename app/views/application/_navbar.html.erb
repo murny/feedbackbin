@@ -33,7 +33,7 @@
 
       <div class="flex flex-1 items-center justify-center px-6 md:ml-6 md:justify-end">
         <div class="w-full max-w-lg md:max-w-xs">
-          <label for="search" class="sr-only">Search</label>
+          <label for="search" class="sr-only"><%= t(".search") %></label>
           <div class="relative">
             <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
               <svg class="h-4 w-4 text-muted-foreground" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -64,10 +64,10 @@
         <button type="button"
                 class="relative inline-flex items-center justify-center rounded-md p-2 text-muted-foreground hover:bg-accent hover:text-accent-foreground ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                 aria-controls="mobile-menu"
-                aria-expanded="false"
+                data-toggle-target="trigger"
                 data-action="click->toggle#toggle touch->toggle#toggle">
           <span class="absolute -inset-0.5"></span>
-          <span class="sr-only"><%= t(".sr_only.open_main_menu") %></span>
+          <span class="sr-only"><%= t(".open_main_menu") %></span>
           <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
           </svg>
@@ -81,94 +81,73 @@
         <% if authenticated? %>
           <button type="button" class="relative rounded-full bg-background p-1 text-muted-foreground hover:text-foreground ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
             <span class="absolute -inset-1.5"></span>
-            <span class="sr-only"><%= t(".sr_only.view_notifications") %></span>
+            <span class="sr-only"><%= t(".view_notifications") %></span>
             <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
             </svg>
           </button>
 
           <!-- Profile dropdown -->
-          <div class="relative ml-3" data-controller="dropdown">
-            <div>
-              <button type="button"
-                      class="relative flex rounded-full bg-background text-sm ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-                      id="user-menu-button"
-                      aria-expanded="false"
-                      aria-haspopup="true"
-                      data-action="click->dropdown#toggle click@window->dropdown#hide">
+          <div class="relative ml-3">
+            <%= render Elements::DropdownMenuComponent.new do |dropdown| %>
+              <% dropdown.with_trigger(variant: :ghost, class: "relative rounded-full p-0 hover:bg-transparent") do %>
                 <span class="absolute -inset-1.5"></span>
-                <span class="sr-only"><%= t(".sr_only.open_user_menu") %></span>
+                <span class="sr-only"><%= t(".open_user_menu") %></span>
                 <%= image_tag fresh_user_avatar_path(Current.user), role: "presentation", class: "h-8 w-8 rounded-full", alt: "" %>
-              </button>
-            </div>
+              <% end %>
 
-            <div class="hidden absolute right-0 z-10 mt-2 w-56 origin-top-right divide-y divide-border rounded-md bg-popover py-1 shadow-md ring-1 ring-border focus:outline-none"
-                role="menu"
-                aria-orientation="vertical"
-                aria-labelledby="user-menu-button"
-                tabindex="-1"
-                data-dropdown-target="menu"
-                data-transition-enter="transition ease-out duration-200"
-                data-transition-enter-from="opacity-0 scale-95"
-                data-transition-enter-to="opacity-100 scale-100"
-                data-transition-leave="transition ease-in duration-75"
-                data-transition-leave-from="opacity-100 tscale-100"
-                data-transition-leave-to="opacity-0 scale-95">
-              <div class="px-4 py-3" role="none">
-                <p class="text-sm text-muted-foreground" role="none"><%= t(".signed_in_as") %></p>
-                <p class="truncate text-sm font-medium text-popover-foreground" role="none"><%= Current.user.username %></p>
-              </div>
-              <div class="py-1" role="none">
-                <%= link_to t(".links.your_profile"),
-                      user_path(Current.user),
-                      class: "block px-4 py-2 text-sm text-popover-foreground hover:bg-accent hover:text-accent-foreground transition-colors",
-                      tabindex: "-1",
-                      role: "menuitem" %>
-                <%= link_to t(".links.settings"),
-                      user_settings_profile_path,
-                      class: "block px-4 py-2 text-sm text-popover-foreground hover:bg-accent hover:text-accent-foreground transition-colors",
-                      tabindex: "-1",
-                      role: "menuitem" %>
-              </div>
-              <div class="py-1" role="none">
-                <% if Current.admin? && Current.organization %>
-                  <%= link_to t(".links.admin_dashboard"),
-                        admin_root_path,
-                        class: "block px-4 py-2 text-sm text-popover-foreground hover:bg-accent hover:text-accent-foreground transition-colors",
-                        tabindex: "-1",
-                        role: "menuitem" %>
+              <% dropdown.with_item_label do %>
+                <p class="text-sm text-muted-foreground"><%= t(".signed_in_as") %></p>
+                <p class="truncate text-sm font-medium text-popover-foreground"><%= Current.user.username %></p>
+              <% end %>
+
+              <% dropdown.with_item_separator %>
+
+              <% dropdown.with_item_content(href: user_path(Current.user)) do %>
+                <%= t(".links.your_profile") %>
+              <% end %>
+
+              <% dropdown.with_item_content(href: user_settings_profile_path) do %>
+                <%= t(".links.settings") %>
+              <% end %>
+
+              <% if Current.admin? && Current.organization %>
+                <% dropdown.with_item_separator %>
+
+                <% dropdown.with_item_content(href: admin_root_path) do %>
+                  <%= t(".links.admin_dashboard") %>
                 <% end %>
-              </div>
+              <% end %>
+
               <% if Rails.env.development? %>
-                <div class="py-1" role="none">
-                  <%= link_to t(".links.letter_opener"),
-                        letter_opener_web_path,
-                        class: "block px-4 py-2 text-sm text-popover-foreground hover:bg-accent hover:text-accent-foreground transition-colors",
-                        tabindex: "-1",
-                        role: "menuitem" %>
-                  <%= link_to t(".links.mission_control_jobs"),
-                        super_admin_mission_control_jobs_path,
-                        class: "block px-4 py-2 text-sm text-popover-foreground hover:bg-accent hover:text-accent-foreground transition-colors",
-                        tabindex: "-1",
-                        role: "menuitem" %>
-                </div>
+                <% dropdown.with_item_separator %>
+
+                <% dropdown.with_item_content(href: letter_opener_web_path) do %>
+                  <%= t(".links.letter_opener") %>
+                <% end %>
+
+                <% dropdown.with_item_content(href: super_admin_mission_control_jobs_path) do %>
+                  <%= t(".links.mission_control_jobs") %>
+                <% end %>
               <% end %>
-              <div class="py-1" role="none">
-                <%= button_to t(".sign_out"),
-                              users_session_path,
-                              method: :delete,
-                              class: "w-full text-left block px-4 py-2 text-sm text-popover-foreground hover:bg-accent hover:text-accent-foreground transition-colors" %>
-              </div>
+
+              <% dropdown.with_item_separator %>
+
+              <% dropdown.with_item_content(
+                href: users_session_path,
+                method: :delete
+              ) do %>
+                <%= t(".sign_out") %>
+              <% end %>
+
               <% if Current.user.super_admin? %>
-                <div class="py-1" role="none">
-                  <%= link_to t(".links.super_admin"),
-                        super_admin_root_path,
-                        class: "block px-4 py-2 text-sm text-popover-foreground hover:bg-accent hover:text-accent-foreground transition-colors",
-                        tabindex: "-1",
-                        role: "menuitem" %>
-                </div>
+                <% dropdown.with_item_separator %>
+
+                <% dropdown.with_item_content(href: super_admin_root_path) do %>
+                  <%= t(".links.super_admin") %>
+                <% end %>
               <% end %>
-            </div>
+            <% end %>
           </div>
         <% else %>
           <%= link_to t(".sign_up"), sign_up_path, class: "btn btn-secondary" %>
@@ -211,7 +190,7 @@
           </div>
           <button type="button" class="relative ml-auto flex-shrink-0 rounded-full bg-background p-1 text-muted-foreground hover:text-foreground ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
             <span class="absolute -inset-1.5"></span>
-            <span class="sr-only"><%= t(".sr_only.view_notifications") %></span>
+            <span class="sr-only"><%= t(".view_notifications") %></span>
             <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
               <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
             </svg>
