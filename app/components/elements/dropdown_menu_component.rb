@@ -230,7 +230,7 @@ module Elements
 
           def item_classes
             tw_merge(
-              "relative flex w-full cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-none transition-colors",
+              "relative flex w-full cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden transition-colors",
               "hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
               "disabled:pointer-events-none disabled:opacity-50",
               "aria-disabled:pointer-events-none aria-disabled:opacity-50",

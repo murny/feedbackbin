@@ -13,7 +13,7 @@
       <ul role="list" class="-mx-2 space-y-1">
         <li>
           <%= active_link_to admin_root_path,
-                class: "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold transition-colors",
+                class: "group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold transition-colors",
                 active_class: "bg-accent text-accent-foreground",
                 inactive_class: "text-muted-foreground hover:text-foreground hover:bg-accent" do %>
             <%= lucide_icon "layout-dashboard", class: "h-6 w-6 shrink-0" %>
@@ -27,7 +27,7 @@
         </li>
         <li>
           <%= active_link_to admin_posts_path,
-                class: "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold transition-colors",
+                class: "group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold transition-colors",
                 active_class: "bg-accent text-accent-foreground",
                 inactive_class: "text-muted-foreground hover:text-foreground hover:bg-accent" do %>
             <%= lucide_icon "message-square", class: "h-6 w-6 shrink-0" %>
@@ -35,7 +35,7 @@
           <% end %>
         </li>
         <li>
-          <div class="group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-muted-foreground cursor-not-allowed">
+          <div class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-muted-foreground cursor-not-allowed">
             <%= lucide_icon "map", class: "h-6 w-6 shrink-0" %>
             <%= t("layouts.admin.navigation.roadmap") %>
             <span class="ml-auto text-xs bg-muted text-muted-foreground px-2 py-1 rounded-full"><%= t("layouts.admin.badges.soon") %></span>
@@ -43,7 +43,7 @@
         </li>
         <li>
           <%= active_link_to admin_users_path,
-                class: "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold transition-colors",
+                class: "group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold transition-colors",
                 active_class: "bg-accent text-accent-foreground",
                 inactive_class: "text-muted-foreground hover:text-foreground hover:bg-accent" do %>
             <%= lucide_icon "users", class: "h-6 w-6 shrink-0" %>
@@ -52,7 +52,7 @@
         </li>
         <li>
           <%= active_link_to admin_invitations_path,
-                class: "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold transition-colors",
+                class: "group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold transition-colors",
                 active_class: "bg-accent text-accent-foreground",
                 inactive_class: "text-muted-foreground hover:text-foreground hover:bg-accent" do %>
             <%= lucide_icon "mail", class: "h-6 w-6 shrink-0" %>
@@ -60,7 +60,7 @@
           <% end %>
         </li>
         <li>
-          <div class="group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-muted-foreground cursor-not-allowed">
+          <div class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-muted-foreground cursor-not-allowed">
             <%= lucide_icon "megaphone", class: "h-6 w-6 shrink-0" %>
             <%= t("layouts.admin.navigation.changelog") %>
             <span class="ml-auto text-xs bg-muted text-muted-foreground px-2 py-1 rounded-full"><%= t("layouts.admin.badges.soon") %></span>
@@ -73,7 +73,7 @@
         </li>
         <li>
           <%= active_link_to admin_settings_branding_path,
-                class: "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold transition-colors",
+                class: "group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold transition-colors",
                 active_class: "bg-accent text-accent-foreground",
                 inactive_class: "text-muted-foreground hover:text-foreground hover:bg-accent" do %>
             <%= lucide_icon "settings", class: "h-6 w-6 shrink-0" %>
@@ -86,7 +86,7 @@
 </nav>
 <div class="border-t border-border pt-4">
   <%= link_to root_path,
-        class: "group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold text-muted-foreground hover:text-foreground hover:bg-accent transition-colors" do %>
+        class: "group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-muted-foreground hover:text-foreground hover:bg-accent transition-colors" do %>
     <%= lucide_icon "arrow-left", class: "h-6 w-6 shrink-0" %>
     <%= t("layouts.admin.navigation.back_to_app") %>
   <% end %>

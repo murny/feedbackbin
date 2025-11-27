@@ -3,8 +3,8 @@
 <nav class="sticky top-0 z-50 w-full border-b bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60" data-controller="toggle">
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <div class="flex h-16 items-center justify-between">
-      <div class="flex items-center space-x-6">
-        <%= link_to root_path, class: "flex-shrink-0 flex items-center" do %>
+      <div class="flex items-center gap-6">
+        <%= link_to root_path, class: "shrink-0 flex items-center" do %>
           <% if Current.organization %>
             <%= organization_logo(Current.organization, class: "h-8 w-8") %>
             <span class="ml-2 text-lg font-bold text-primary hidden md:block"><%= Current.organization.name %></span>
@@ -15,7 +15,7 @@
         <% end %>
 
         <!-- Desktop Navigation Links -->
-        <div class="hidden md:ml-8 md:flex md:items-center md:space-x-1">
+        <div class="hidden md:ml-8 md:flex md:items-center md:gap-1">
           <%= active_link_to t(".links.feedback"),
                 posts_path,
                 class: "rounded-md px-3 py-2 text-sm font-medium transition-colors",
@@ -41,16 +41,16 @@
             <input id="search"
                    name="search"
                    autocomplete="off"
-                   class="flex h-10 w-full rounded-md border border-input bg-background pl-10 pr-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+                   class="flex h-10 w-full rounded-md border border-input bg-background pl-10 pr-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-muted-foreground focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
                    placeholder="<%= t(".search_placeholder") %>"
                    type="search">
           </div>
         </div>
       </div>
       <div class="flex items-center">
-        <div class="flex-shrink-0">
+        <div class="shrink-0">
           <%= link_to changelogs_path,
-                      class: [ "relative inline-flex items-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                      class: [ "relative inline-flex items-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
                       unread_changelogs_class(Current.user) ] do %>
           <%= lucide_icon "megaphone", class: "h-6 w-6" %>
           <span class="hidden md:block"><%= t(".links.whats_new") %></span>
@@ -60,7 +60,7 @@
       <div class="flex items-center md:hidden">
         <!-- Mobile menu button -->
         <button type="button"
-                class="relative inline-flex items-center justify-center rounded-md p-2 text-muted-foreground hover:bg-accent hover:text-accent-foreground ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+                class="relative inline-flex items-center justify-center rounded-md p-2 text-muted-foreground hover:bg-accent hover:text-accent-foreground ring-offset-background transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
                 aria-controls="mobile-menu"
                 data-toggle-target="trigger"
                 data-action="click->toggle#toggle touch->toggle#toggle">
@@ -75,9 +75,9 @@
           </svg>
         </button>
       </div>
-      <div class="hidden md:ml-4 md:flex md:flex-shrink-0 md:items-center">
+      <div class="hidden md:ml-4 md:flex md:shrink-0 md:items-center">
         <% if authenticated? %>
-          <button type="button" class="relative rounded-full bg-background p-1 text-muted-foreground hover:text-foreground ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+          <button type="button" class="relative rounded-full bg-background p-1 text-muted-foreground hover:text-foreground ring-offset-background transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
             <span class="absolute -inset-1.5"></span>
             <span class="sr-only"><%= t(".view_notifications") %></span>
             <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
@@ -179,14 +179,14 @@
     <div class="border-t border-border pb-3 pt-4">
       <% if authenticated? %>
         <div class="flex items-center px-5 sm:px-6">
-          <div class="flex-shrink-0">
+          <div class="shrink-0">
             <%= image_tag fresh_user_avatar_path(Current.user), role: "presentation", class: "h-10 w-10 rounded-full", alt: "" %>
           </div>
           <div class="ml-3">
             <div class="text-base font-medium text-foreground"><%= Current.user.name %></div>
             <div class="text-sm font-medium text-muted-foreground"><%= Current.user.username %></div>
           </div>
-          <button type="button" class="relative ml-auto flex-shrink-0 rounded-full bg-background p-1 text-muted-foreground hover:text-foreground ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
+          <button type="button" class="relative ml-auto shrink-0 rounded-full bg-background p-1 text-muted-foreground hover:text-foreground ring-offset-background transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
             <span class="absolute -inset-1.5"></span>
             <span class="sr-only"><%= t(".view_notifications") %></span>
             <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">

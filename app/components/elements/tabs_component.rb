@@ -112,7 +112,7 @@ module Elements
       end
 
       def panel_classes(index)
-        classes = [ "flex-1 outline-none" ]
+        classes = [ "flex-1 outline-hidden" ]
         classes << "hidden" if index != @index_value
         classes.join(" ")
       end

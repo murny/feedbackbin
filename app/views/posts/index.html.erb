@@ -16,7 +16,7 @@
           <p class="text-muted-foreground"><%= t(".description") %></p>
         <% end %>
       </div>
-      <div class="flex-shrink-0">
+      <div class="shrink-0">
         <%= link_to t("posts.new.title"), new_post_path(category_id: @category&.id), class: "btn-primary" %>
       </div>
     </div>

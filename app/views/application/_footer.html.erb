@@ -2,7 +2,7 @@
 
 <footer class="bg-background border-t">
   <div class="mx-auto max-w-7xl px-8 py-8 md:flex md:items-center md:justify-between">
-    <div class="flex justify-center space-x-6 md:order-2">
+    <div class="flex justify-center gap-6 md:order-2">
       <%= link_to t(".about"), about_path, class: "text-muted-foreground hover:text-foreground transition-colors" %>
       <%= link_to t(".privacy"), privacy_path, class: "text-muted-foreground hover:text-foreground transition-colors" %>
       <%= link_to t(".terms"), terms_path, class: "text-muted-foreground hover:text-foreground transition-colors" %>
@@ -17,7 +17,7 @@
       </a>
     </div>
     <div class="mt-8 md:order-1 md:mt-0">
-      <p class="text-center text-xs leading-5 text-muted-foreground"><%== t(".copyright", year: Date.current.year) %></p>
+      <p class="text-center text-xs/5 text-muted-foreground"><%== t(".copyright", year: Date.current.year) %></p>
     </div>
   </div>
 </footer>
