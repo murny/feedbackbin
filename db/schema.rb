@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.2].define(version: 2024_05_17_075643) do
+ActiveRecord::Schema[8.2].define(version: 2025_11_20_003500) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -69,7 +69,6 @@ ActiveRecord::Schema[8.2].define(version: 2024_05_17_075643) do
   create_table "comments", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.bigint "creator_id", null: false
-    t.integer "likes_count", default: 0
     t.bigint "parent_id"
     t.bigint "post_id", null: false
     t.datetime "updated_at", null: false
@@ -125,9 +124,7 @@ ActiveRecord::Schema[8.2].define(version: 2024_05_17_075643) do
   create_table "posts", force: :cascade do |t|
     t.bigint "author_id", null: false
     t.integer "category_id", null: false
-    t.integer "comments_count", default: 0, null: false
     t.datetime "created_at", null: false
-    t.integer "likes_count", default: 0, null: false
     t.boolean "pinned", default: false, null: false
     t.integer "post_status_id", null: false
     t.string "title", null: false
