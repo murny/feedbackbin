@@ -1,0 +1,12 @@
+<div class="p-6 max-w-2xl">
+  <%= form_with model: User.new, url: "#" do |form| %>
+    <%= render ImageUploadPreviewComponent.new(
+          form: form,
+          field_name: :avatar,
+          preview_url: asset_path("default-avatar.svg"),
+          upload_button_text: "Upload Avatar",
+          size_hint: "Recommended size: 400x400px. JPG, PNG or GIF.",
+          remove_path: "#",
+          remove_confirmation: "Are you sure you want to remove your avatar?") %>
+  <% end %>
+</div>

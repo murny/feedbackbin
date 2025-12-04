@@ -4,15 +4,10 @@
   <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
     <div class="flex h-16 items-center justify-between">
       <div class="flex items-center gap-6">
-        <%= link_to (Current.organization ? Current.organization.logo_link_url : root_path), class: "shrink-0 flex items-center" do %>
-          <% if Current.organization %>
-            <%= organization_logo(Current.organization, class: "h-8 w-8") %>
-            <% if Current.organization.show_logo_and_name? %>
-              <span class="ml-2 text-lg font-bold text-primary hidden md:block"><%= Current.organization.name %></span>
-            <% end %>
-          <% else %>
-            <%= inline_svg_tag "mark.svg", class: "h-8 w-8 text-primary" %>
-            <span class="ml-2 text-lg font-bold text-primary hidden md:block"><%= t(".brand_name") %></span>
+        <%= link_to branded_logo_url, class: "shrink-0 flex items-center" do %>
+          <%= branded_logo(class: "h-8 w-8 text-primary") %>
+          <% if show_brand_name? %>
+            <span class="ml-2 text-lg font-bold text-primary hidden md:block"><%= brand_name %></span>
           <% end %>
         <% end %>
 

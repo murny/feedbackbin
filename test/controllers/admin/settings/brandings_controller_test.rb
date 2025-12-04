@@ -49,13 +49,13 @@ module Admin
       end
 
       # Enhanced branding tests
-      test "should update logo_display_mode" do
+      test "should update show_company_name" do
         patch admin_settings_branding_url, params: {
-          organization: { logo_display_mode: "logo_only" }
+          organization: { show_company_name: false }
         }
 
         assert_redirected_to admin_settings_branding_url
-        assert_predicate organizations(:feedbackbin).reload, :logo_only?
+        assert_not organizations(:feedbackbin).reload.show_company_name
       end
 
       test "should update logo_link" do

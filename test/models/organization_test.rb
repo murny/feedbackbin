@@ -80,16 +80,16 @@ class OrganizationTest < ActiveSupport::TestCase
   end
 
   # Branding tests
-  test "logo_display_mode defaults to logo_and_name" do
+  test "show_company_name defaults to true" do
     org = Organization.new(name: "Test Org", owner: users(:shane), default_post_status: post_statuses(:open))
 
-    assert_predicate org, :logo_and_name?
+    assert org.show_company_name
   end
 
-  test "logo_display_mode can be set to logo_only" do
-    @organization.logo_display_mode = :logo_only
+  test "show_company_name can be set to false" do
+    @organization.show_company_name = false
 
-    assert_predicate @organization, :logo_only?
+    assert_not @organization.show_company_name
   end
 
   test "validates logo_link as valid URL" do
@@ -99,7 +99,7 @@ class OrganizationTest < ActiveSupport::TestCase
 
     @organization.logo_link = "/posts"
 
-    assert_predicate @organization, :valid?
+    assert_not @organization.valid?
 
     @organization.logo_link = "not-a-url"
 
@@ -120,8 +120,9 @@ class OrganizationTest < ActiveSupport::TestCase
   test "favicon enforces file size limit" do
     @organization.favicon.attach(io: file_fixture("racecar.jpeg").open, filename: "favicon.jpg", content_type: "image/jpeg")
 
-    @organization.favicon.blob.stub :byte_size, 600.kilobytes do
+    @organization.favicon.blob.stub :byte_size, 2.megabytes do
       assert_not @organization.valid?
+      assert_includes @organization.errors[:favicon], "image over 500 KB"
     end
   end
 
@@ -129,29 +130,5 @@ class OrganizationTest < ActiveSupport::TestCase
     @organization.og_image.attach(io: file_fixture("racecar.jpeg").open, filename: "og-image.jpg", content_type: "image/jpeg")
 
     assert_predicate @organization.og_image, :attached?
-  end
-
-  test "show_logo_and_name? returns true when logo_and_name mode" do
-    @organization.logo_display_mode = :logo_and_name
-
-    assert_predicate @organization, :show_logo_and_name?
-  end
-
-  test "show_logo_only? returns true when logo_only mode" do
-    @organization.logo_display_mode = :logo_only
-
-    assert_predicate @organization, :show_logo_only?
-  end
-
-  test "logo_link_url returns logo_link if set" do
-    @organization.logo_link = "https://example.com"
-
-    assert_equal "https://example.com", @organization.logo_link_url
-  end
-
-  test "logo_link_url returns root path if not set" do
-    @organization.logo_link = nil
-
-    assert_equal "/", @organization.logo_link_url
   end
 end

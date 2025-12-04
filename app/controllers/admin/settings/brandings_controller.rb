@@ -4,12 +4,17 @@ module Admin
   module Settings
     class BrandingsController < Admin::BaseController
       def show
+        @organization = Current.organization
       end
 
       def update
-        if Current.organization.update(organization_params)
+        @organization = Current.organization
+
+        if @organization.update(organization_params)
           redirect_to admin_settings_branding_path, notice: t(".successfully_updated")
         else
+          # Reload to discard invalid attachments and show the actual persisted state
+          @organization.reload
           render :show, status: :unprocessable_entity
         end
       end
@@ -21,11 +26,11 @@ module Admin
             :name,
             :subdomain,
             :logo,
-            :logo_display_mode,
+            :show_company_name,
             :logo_link,
             :favicon,
             :og_image
-          ).compact
+          )
         end
     end
   end

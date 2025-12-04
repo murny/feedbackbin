@@ -12,7 +12,9 @@
 
     <%= render Elements::CardComponent.new do |c| %>
       <% c.with_body do %>
-        <%= form_with model: Current.organization, url: admin_settings_branding_path, method: :patch, multipart: true, class: "space-y-6" do |f| %>
+        <%= form_with model: @organization, url: admin_settings_branding_path, method: :patch, multipart: true, class: "space-y-6" do |f| %>
+            <%= render "error_messages", resource: @organization %>
+
             <div class="grid gap-6">
               <div class="grid gap-3">
                 <%= f.label :name, t(".name") %>
@@ -28,58 +30,33 @@
 
               <div class="grid gap-3">
                 <%= f.label :logo, t(".logo"), class: "text-sm font-medium" %>
-                <%= tag.div class: "flex items-start gap-x-4", data: { controller: "upload-preview", upload_preview_default_image_value: asset_path("default-logo.svg") } do %>
-                  <% if Current.organization.logo.attached? %>
-                    <%= image_tag Current.organization.logo.variant(resize_to_limit: [ 96, 96 ]),
-                          role: "presentation",
-                          class: "h-20 w-20 flex-none rounded-lg bg-muted object-cover border",
-                          data: { "upload-preview-target": "image" } %>
-                  <% else %>
-                    <%= image_tag "default-logo.svg",
-                          role: "presentation",
-                          class: "h-20 w-20 flex-none rounded-lg bg-muted object-cover border",
-                          data: { "upload-preview-target": "image" } %>
-                  <% end %>
-
-                  <div class="space-y-3 flex-1">
-                    <%= f.file_field :logo,
-                          accept: "image/*",
-                          data: { upload_preview_target: "input", action: "upload-preview#previewImage" },
-                          class: "hidden" %>
-
-                    <div class="flex flex-wrap items-center gap-2">
-                      <%= f.label :logo, class: "inline-flex items-center btn btn-secondary" do %>
-                        <%= lucide_icon "camera", class: "h-4 w-4 mr-2" %>
-                        <%= t(".upload_new_logo") %>
-                      <% end %>
-                    </div>
-
-                    <p class="text-xs text-muted-foreground">
-                      <%= t(".logo_size_hint") %>
-                    </p>
-                  </div>
-                <% end %>
+                <%= render ImageUploadPreviewComponent.new(
+                      form: f,
+                      field_name: :logo,
+                      preview_url: attachment_preview_url(@organization.logo,
+                                                          variant_options: { resize_to_limit: [ 96, 96 ] },
+                                                          default_url: "/icon.svg"),
+                      upload_button_text: t(".upload_new_logo"),
+                      size_hint: t(".logo_size_hint")) %>
               </div>
 
               <div class="grid gap-3">
-                <%= f.label :logo_display_mode, t(".logo_display_mode"), class: "text-sm font-medium" %>
+                <%= f.label :show_company_name, t(".logo_display"), class: "text-sm font-medium" %>
                 <div class="space-y-2">
                   <div class="flex items-center gap-2">
-                    <%= f.radio_button :logo_display_mode, "logo_and_name", class: "h-4 w-4" %>
-                    <%= f.label :logo_display_mode_logo_and_name, t(".logo_and_name"), class: "font-normal" %>
+                    <%= f.radio_button :show_company_name, true, class: "h-4 w-4" %>
+                    <%= f.label :show_company_name_true, t(".logo_and_name"), class: "font-normal" %>
                   </div>
                   <div class="flex items-center gap-2">
-                    <%= f.radio_button :logo_display_mode, "logo_only", class: "h-4 w-4" %>
-                    <%= f.label :logo_display_mode_logo_only, t(".logo_only"), class: "font-normal" %>
+                    <%= f.radio_button :show_company_name, false, class: "h-4 w-4" %>
+                    <%= f.label :show_company_name_false, t(".logo_only"), class: "font-normal" %>
                   </div>
                 </div>
               </div>
 
               <div class="grid gap-3">
                 <%= f.label :logo_link, t(".logo_link"), class: "text-sm font-medium" %>
-                <%= f.url_field :logo_link,
-                      placeholder: "https://",
-                      class: "w-full" %>
+                <%= f.url_field :logo_link, placeholder: "https://" %>
                 <p class="text-xs text-muted-foreground">
                   <%= t(".logo_link_hint") %>
                 </p>
@@ -87,72 +64,30 @@
 
               <div class="grid gap-3">
                 <%= f.label :favicon, t(".favicon"), class: "text-sm font-medium" %>
-                <%= tag.div class: "flex items-start gap-x-4", data: { controller: "upload-preview" } do %>
-                  <% if Current.organization.favicon.attached? %>
-                    <%= image_tag Current.organization.favicon.url,
-                          role: "presentation",
-                          class: "h-16 w-16 flex-none rounded border bg-muted object-cover",
-                          data: { "upload-preview-target": "image" } %>
-                  <% else %>
-                    <div class="h-16 w-16 rounded border bg-muted flex items-center justify-center"
-                         data-upload-preview-target="image">
-                      <%= lucide_icon "image", class: "h-6 w-6 text-muted-foreground" %>
-                    </div>
-                  <% end %>
-
-                  <div class="space-y-3 flex-1">
-                    <%= f.file_field :favicon,
-                          accept: "image/*",
-                          data: { upload_preview_target: "input", action: "upload-preview#previewImage" },
-                          class: "hidden" %>
-
-                    <div class="flex flex-wrap items-center gap-2">
-                      <%= f.label :favicon, class: "inline-flex items-center btn btn-secondary" do %>
-                        <%= lucide_icon "upload", class: "h-4 w-4 mr-2" %>
-                        <%= t(".upload_favicon") %>
-                      <% end %>
-                    </div>
-
-                    <p class="text-xs text-muted-foreground">
-                      <%= t(".favicon_hint") %>
-                    </p>
-                  </div>
-                <% end %>
+                <%= render ImageUploadPreviewComponent.new(
+                      form: f,
+                      field_name: :favicon,
+                      preview_url: attachment_preview_url(@organization.favicon,
+                                                          variant_options: { resize_to_limit: [ 96, 96 ] },
+                                                          default_url: "/icon.png"),
+                      upload_button_text: t(".upload_favicon"),
+                      size_hint: t(".favicon_hint"),
+                      image_class: "h-16 w-16 flex-none rounded border bg-muted object-cover") %>
               </div>
 
               <div class="grid gap-3">
                 <%= f.label :og_image, t(".og_image"), class: "text-sm font-medium" %>
-                <%= tag.div class: "flex items-start gap-x-4", data: { controller: "upload-preview" } do %>
-                  <% if Current.organization.og_image.attached? %>
-                    <%= image_tag Current.organization.og_image.variant(resize_to_limit: [ 400, 210 ]),
-                          role: "presentation",
-                          class: "h-32 w-auto rounded-lg border object-cover",
-                          data: { "upload-preview-target": "image" } %>
-                  <% else %>
-                    <div class="h-32 w-60 rounded-lg border bg-muted flex items-center justify-center"
-                         data-upload-preview-target="image">
-                      <%= lucide_icon "image", class: "h-8 w-8 text-muted-foreground" %>
-                    </div>
-                  <% end %>
-
-                  <div class="space-y-3 flex-1">
-                    <%= f.file_field :og_image,
-                          accept: "image/*",
-                          data: { upload_preview_target: "input", action: "upload-preview#previewImage" },
-                          class: "hidden" %>
-
-                    <div class="flex flex-wrap items-center gap-2">
-                      <%= f.label :og_image, class: "inline-flex items-center btn btn-secondary" do %>
-                        <%= lucide_icon "upload", class: "h-4 w-4 mr-2" %>
-                        <%= t(".upload_og_image") %>
-                      <% end %>
-                    </div>
-
-                    <p class="text-xs text-muted-foreground">
-                      <%= t(".og_image_hint") %>
-                    </p>
-                  </div>
-                <% end %>
+                <%= render ImageUploadPreviewComponent.new(
+                      form: f,
+                      field_name: :og_image,
+                      preview_url: attachment_preview_url(@organization.og_image,
+                                                          variant_options: { resize_to_limit: [ 400, 210 ] },
+                                                          default_url: "/icon.svg"),
+                      upload_button_text: t(".upload_og_image"),
+                      size_hint: t(".og_image_hint"),
+                      image_class: (@organization.og_image.attached? ?
+                                    "h-32 w-auto rounded-lg border object-cover" :
+                                    "h-32 w-auto rounded-lg border bg-muted object-contain p-4")) %>
               </div>
             </div>
 
