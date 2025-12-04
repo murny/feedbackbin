@@ -78,4 +78,57 @@ class OrganizationTest < ActiveSupport::TestCase
 
     assert_not @organization.owned_by?(other_user)
   end
+
+  # Branding tests
+  test "show_company_name defaults to true" do
+    org = Organization.new(name: "Test Org", owner: users(:shane), default_post_status: post_statuses(:open))
+
+    assert org.show_company_name
+  end
+
+  test "show_company_name can be set to false" do
+    @organization.show_company_name = false
+
+    assert_not @organization.show_company_name
+  end
+
+  test "validates logo_link as valid URL" do
+    @organization.logo_link = "https://example.com"
+
+    assert_predicate @organization, :valid?
+
+    @organization.logo_link = "/posts"
+
+    assert_not @organization.valid?
+
+    @organization.logo_link = "not-a-url"
+
+    assert_not @organization.valid?
+
+    @organization.logo_link = "javascript:alert('xss')"
+
+    assert_not @organization.valid?
+  end
+
+  test "favicon can be attached" do
+    @organization.favicon.attach(io: file_fixture("random.jpeg").open, filename: "favicon.jpg", content_type: "image/jpeg")
+
+    assert_predicate @organization.favicon, :attached?
+    assert_predicate @organization, :valid?
+  end
+
+  test "favicon enforces file size limit" do
+    @organization.favicon.attach(io: file_fixture("racecar.jpeg").open, filename: "favicon.jpg", content_type: "image/jpeg")
+
+    @organization.favicon.blob.stub :byte_size, 2.megabytes do
+      assert_not @organization.valid?
+      assert_includes @organization.errors[:favicon], "image over 500 KB"
+    end
+  end
+
+  test "og_image can be attached" do
+    @organization.og_image.attach(io: file_fixture("racecar.jpeg").open, filename: "og-image.jpg", content_type: "image/jpeg")
+
+    assert_predicate @organization.og_image, :attached?
+  end
 end

@@ -1,0 +1,35 @@
+<%= tag.div class: "flex items-start gap-x-4",
+            data: {
+              controller: "upload-preview",
+              upload_preview_default_image_value: preview_url
+            } do %>
+  <%= image_tag preview_url,
+        role: "presentation",
+        class: image_class,
+        data: { "upload-preview-target": "image" } %>
+
+  <div class="space-y-3 flex-1">
+    <%= form.file_field field_name,
+          accept: "image/*",
+          data: { upload_preview_target: "input", action: "upload-preview#previewImage" },
+          class: "hidden" %>
+
+    <div class="flex flex-wrap items-center gap-2">
+      <%= form.label field_name, class: button_classes do %>
+        <%= helpers.lucide_icon "camera" %>
+        <%= upload_button_text %>
+      <% end %>
+
+      <% if show_remove_button? %>
+        <%= render Elements::ButtonComponent.new(variant: :outline, size: :sm, href: remove_path, data: { "turbo-method": :delete, turbo_confirm: remove_confirmation }, class: "text-muted-foreground hover:text-destructive hover:border-destructive") do %>
+          <%= helpers.lucide_icon "trash-2" %>
+          <%= helpers.t("remove") %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <p class="text-xs text-muted-foreground">
+      <%= size_hint %>
+    </p>
+  </div>
+<% end %>
