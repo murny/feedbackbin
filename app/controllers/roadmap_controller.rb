@@ -30,7 +30,6 @@ class RoadmapController < ApplicationController
       posts = Post
         .where(post_status_id: statuses.pluck(:id))
         .includes(:author, :category)
-        .select(:id, :title, :likes_count, :category_id, :post_status_id, :author_id, :created_at)
 
       # Apply category filter if selected
       posts = posts.where(category_id: selected_category.id) if selected_category.present?
