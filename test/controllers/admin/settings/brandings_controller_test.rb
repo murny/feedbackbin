@@ -68,7 +68,7 @@ module Admin
       end
 
       test "should upload favicon" do
-        file = fixture_file_upload("random.jpeg", "image/png")
+        file = fixture_file_upload("random.jpeg", "image/jpeg")
 
         patch admin_settings_branding_url, params: { organization: { favicon: file } }
 

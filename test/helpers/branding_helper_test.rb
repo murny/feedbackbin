@@ -27,6 +27,12 @@ class BrandingHelperTest < ActionView::TestCase
     assert_equal @organization.name, brand_name
   end
 
+  test "brand_name returns translation when no organization" do
+    Current.stub :organization, nil do
+      assert_equal I18n.t("application.navbar.brand_name"), brand_name
+    end
+  end
+
   # show_brand_name? tests
   test "show_brand_name? returns true when organization wants to show name" do
     @organization.update(show_company_name: true)
@@ -38,6 +44,12 @@ class BrandingHelperTest < ActionView::TestCase
     @organization.update(show_company_name: false)
 
     assert_not show_brand_name?
+  end
+
+  test "show_brand_name? returns true when no organization" do
+    Current.stub :organization, nil do
+      assert_predicate self, :show_brand_name?
+    end
   end
 
   # organization_og_image_url tests

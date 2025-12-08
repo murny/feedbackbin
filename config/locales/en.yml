@@ -141,6 +141,7 @@ en:
           logo_display: Display
           logo_link: Logo link
           logo_link_hint: Where clicking the logo should navigate to (leave blank for homepage)
+          logo_link_placeholder: https://
           logo_only: Show logo only
           logo_size_hint: JPG, PNG up to 2MB. Recommended size 400x400px.
           name: Organization name
@@ -503,6 +504,8 @@ en:
         close_sidebar: Close sidebar
         open_sidebar: Open sidebar
       title: Admin
+    meta:
+      description: Share your feedback and ideas for %{name}
   likes:
     update:
       successfully_liked: You liked this %{resource}

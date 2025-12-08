@@ -4,12 +4,13 @@ module BrandingHelper
   # Generate Open Graph image URL for the organization
   # Falls back to logo, then to default icon
   def organization_og_image_url(organization)
+    return asset_url("/icon.png") unless organization
+
     if organization.og_image.attached?
       url_for(organization.og_image)
     elsif organization.logo.attached?
       url_for(organization.logo)
     else
-      # Return full URL to default icon
       asset_url("/icon.png")
     end
   end
@@ -20,16 +21,12 @@ module BrandingHelper
   # @param default_url [String] URL to use if attachment is not present
   # @return [String] The preview URL
   def attachment_preview_url(attachment, variant_options: nil, default_url: "/icon.svg")
-    # Check if attachment is attached AND persisted (has a blob saved to database)
-    # Unpersisted attachments (e.g., from failed validations) cannot generate signed URLs
-    if attachment.attached? && attachment.blob.persisted?
-      if variant_options
-        rails_representation_url(attachment.variant(variant_options))
-      else
-        url_for(attachment)
-      end
+    return default_url unless attachment&.attached? && attachment.blob.persisted?
+
+    if variant_options
+      rails_representation_url(attachment.variant(variant_options))
     else
-      default_url
+      url_for(attachment)
     end
   end
 
