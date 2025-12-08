@@ -61,6 +61,12 @@ module FormBuilders
       text_layout(attribute) { super(attribute, options.merge(default_opts)) } + attribute_error_message(attribute)
     end
 
+    def url_field(attribute, options = {})
+      default_opts = { class: classes_for_input(attribute, options) }
+
+      text_layout(attribute) { super(attribute, options.merge(default_opts)) } + attribute_error_message(attribute)
+    end
+
     def text_area(attribute, options = {})
       # Use existing input classes and add textarea-specific classes
       base_classes = classes_for_input(attribute, options)

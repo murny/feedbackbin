@@ -134,13 +134,25 @@ en:
       brandings:
         show:
           description: Customize your organization's appearance and branding
+          favicon: Favicon
+          favicon_hint: Recommended size 96×96px. Maximum 500KB.
           logo: Logo
+          logo_and_name: Show logo & company name
+          logo_display: Display
+          logo_link: Logo link
+          logo_link_hint: Where clicking the logo should navigate to (leave blank for homepage)
+          logo_link_placeholder: https://
+          logo_only: Show logo only
           logo_size_hint: JPG, PNG up to 2MB. Recommended size 400x400px.
           name: Organization name
+          og_image: Open Graph Image
+          og_image_hint: Used when sharing links on social media. Recommended size 1200×630px. Maximum 2MB.
           save_changes: Save changes
           subdomain: Subdomain
           title: Branding
+          upload_favicon: Upload Favicon
           upload_new_logo: Upload new logo
+          upload_og_image: Upload Image
         update:
           successfully_updated: Branding settings were successfully updated.
       categories:
@@ -492,6 +504,8 @@ en:
         close_sidebar: Close sidebar
         open_sidebar: Open sidebar
       title: Admin
+    meta:
+      description: Share your feedback and ideas for %{name}
   likes:
     update:
       successfully_liked: You liked this %{resource}
@@ -708,7 +722,6 @@ en:
         profile: Profile
         profile_description: This information will be displayed publicly so be careful what you share.
         public_avatar: Public avatar
-        remove_avatar: Remove avatar
         remove_avatar_confirm: Are you sure?
         update_profile: Update profile
         upload_new_avatar: Upload new avatar

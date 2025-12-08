@@ -33,31 +33,12 @@
 
               <div class="grid gap-4">
                 <!-- Avatar Upload -->
-                <%= tag.div class: "flex items-start gap-x-4", data: { controller: "upload-preview", upload_preview_default_image_value: asset_path("default-avatar.svg") } do %>
-                  <%= image_tag "default-avatar.svg",
-                        role: "presentation",
-                        alt: "",
-                        class: "h-20 w-20 flex-none rounded-lg bg-muted object-cover border",
-                        data: { "upload-preview-target": "image" } %>
-
-                  <div class="space-y-3 flex-1">
-                    <%= form.file_field :avatar,
-                          accept: "image/*",
-                          data: { upload_preview_target: "input", action: "upload-preview#previewImage" },
-                          class: "hidden" %>
-
-                    <div class="flex flex-wrap items-center gap-2">
-                      <%= form.label :avatar, class: "inline-flex items-center btn btn-secondary" do %>
-                        <%= lucide_icon "camera", class: "h-4 w-4 mr-2" %>
-                        <%= t(".upload_avatar") %>
-                      <% end %>
-                    </div>
-
-                    <p class="text-xs text-muted-foreground">
-                      <%= t(".avatar_size_hint") %>
-                    </p>
-                  </div>
-                <% end %>
+                <%= render ImageUploadPreviewComponent.new(
+                      form: form,
+                      field_name: :avatar,
+                      preview_url: asset_path("default-avatar.svg"),
+                      upload_button_text: t(".upload_avatar"),
+                      size_hint: t(".avatar_size_hint")) %>
 
                 <!-- User Details -->
                 <div class="grid gap-4">
@@ -129,31 +110,12 @@
                 <% end %>
 
                 <!-- Organization Logo -->
-                <%= tag.div class: "flex items-start gap-x-4", data: { controller: "upload-preview", upload_preview_default_image_value: asset_path("default-logo.svg") } do %>
-                  <%= image_tag "default-logo.svg",
-                        role: "presentation",
-                        alt: "",
-                        class: "h-20 w-20 flex-none rounded-lg bg-muted object-cover border",
-                        data: { "upload-preview-target": "image" } %>
-
-                  <div class="space-y-3 flex-1">
-                    <%= form.file_field :organization_logo,
-                          accept: "image/*",
-                          data: { upload_preview_target: "input", action: "upload-preview#previewImage" },
-                          class: "hidden" %>
-
-                    <div class="flex flex-wrap items-center gap-2">
-                      <%= form.label :organization_logo, class: "inline-flex items-center btn btn-secondary" do %>
-                        <%= lucide_icon "camera", class: "h-4 w-4 mr-2" %>
-                        <%= t(".upload_organization_logo") %>
-                      <% end %>
-                    </div>
-
-                    <p class="text-xs text-muted-foreground">
-                      <%= t(".logo_size_hint") %>
-                    </p>
-                  </div>
-                <% end %>
+                <%= render ImageUploadPreviewComponent.new(
+                      form: form,
+                      field_name: :organization_logo,
+                      preview_url: asset_path("default-logo.svg"),
+                      upload_button_text: t(".upload_organization_logo"),
+                      size_hint: t(".logo_size_hint")) %>
 
                 <!-- Category -->
                 <div class="grid gap-2">

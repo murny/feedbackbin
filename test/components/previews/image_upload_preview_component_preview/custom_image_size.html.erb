@@ -1,0 +1,39 @@
+<div class="p-6 space-y-8 max-w-2xl">
+  <div>
+    <h3 class="text-sm font-medium mb-4">Small Logo (64x64)</h3>
+    <%= form_with model: Organization.new, url: "#" do |form| %>
+      <%= render ImageUploadPreviewComponent.new(
+            form: form,
+            field_name: :logo,
+            preview_url: asset_path("default-logo.svg"),
+            upload_button_text: "Upload Logo",
+            size_hint: "Recommended size: 200x200px",
+            image_class: "h-16 w-16 flex-none rounded border bg-muted object-cover") %>
+    <% end %>
+  </div>
+
+  <div>
+    <h3 class="text-sm font-medium mb-4">Default Avatar (80x80)</h3>
+    <%= form_with model: User.new, url: "#" do |form| %>
+      <%= render ImageUploadPreviewComponent.new(
+            form: form,
+            field_name: :avatar,
+            preview_url: asset_path("default-avatar.svg"),
+            upload_button_text: "Upload Avatar",
+            size_hint: "Recommended size: 400x400px") %>
+    <% end %>
+  </div>
+
+  <div>
+    <h3 class="text-sm font-medium mb-4">Large Banner Image</h3>
+    <%= form_with model: Organization.new, url: "#" do |form| %>
+      <%= render ImageUploadPreviewComponent.new(
+            form: form,
+            field_name: :og_image,
+            preview_url: asset_path("default-logo.svg"),
+            upload_button_text: "Upload Banner",
+            size_hint: "Recommended size: 1200x630px",
+            image_class: "h-32 w-60 flex-none rounded-lg border bg-muted object-cover") %>
+    <% end %>
+  </div>
+</div>
