@@ -50,7 +50,7 @@ jobs:
     steps:
       # Checkout the repository code
       - name: Checkout code
-        uses: actions/checkout@v6.0.0
+        uses: actions/checkout@v6.0.1
 
       # Set up Docker Buildx for advanced build features
       # Enables BuildKit features like better caching and multi-platform builds
