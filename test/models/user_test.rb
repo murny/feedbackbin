@@ -5,6 +5,7 @@ require "test_helper"
 class UserTest < ActiveSupport::TestCase
   def setup
     @user = users(:one)
+    Current.organization = organizations(:feedbackbin)
   end
 
   test "valid user" do

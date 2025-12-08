@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class PostStatus < ApplicationRecord
+  include Broadcastable
+
   has_many :posts, dependent: :restrict_with_error
 
   validates :name, presence: true
@@ -12,13 +14,22 @@ class PostStatus < ApplicationRecord
   validates :show_on_roadmap, inclusion: { in: [ true, false ] }
 
   scope :ordered, -> { order(:position) }
-  scope :default, -> { Current.organization&.default_post_status }
 
   # Visibility scopes
   scope :visible_on_feedback, -> { where(show_on_feedback: true) }
   scope :visible_on_roadmap, -> { where(show_on_roadmap: true) }
 
+  # Class method to get the default post status for the current organization
+  def self.default
+    Current.organization&.default_post_status
+  end
+
   before_destroy :prevent_default_deletion
+
+  # Broadcast to all posts when status changes
+  def broadcast_targets
+    [:post_statuses]
+  end
 
   private
 

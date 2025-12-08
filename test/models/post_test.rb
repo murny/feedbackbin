@@ -5,6 +5,7 @@ require "test_helper"
 class PostTest < ActiveSupport::TestCase
   def setup
     @post = posts(:one)
+    Current.organization = organizations(:feedbackbin)
   end
 
   test "valid post" do
@@ -36,8 +37,9 @@ class PostTest < ActiveSupport::TestCase
   end
 
   test "invalid without a post_status" do
-    # Stub the default status to nil so we can test the validation
-    PostStatus.stub(:default, nil) do
+    # Stub the organization's default_post_status to nil so we can test the validation
+    org = Current.organization
+    org.stub(:default_post_status, nil) do
       @post.post_status = nil
 
       assert_not @post.valid?
@@ -54,7 +56,7 @@ class PostTest < ActiveSupport::TestCase
 
     # Default should be set automatically from organization's default
     assert_not_nil post.post_status
-    assert_equal PostStatus.default, post.post_status
+    assert_equal Current.organization.default_post_status, post.post_status
     assert_equal "Open", post.post_status.name
   end
 end

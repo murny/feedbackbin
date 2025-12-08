@@ -5,6 +5,7 @@ require "test_helper"
 class PostStatusTest < ActiveSupport::TestCase
   def setup
     @post_status = post_statuses(:complete)
+    Current.organization = organizations(:feedbackbin)
   end
 
   test "valid post_status" do

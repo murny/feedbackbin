@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.2].define(version: 2024_05_17_075643) do
+ActiveRecord::Schema[8.2].define(version: 2025_12_04_200256) do
   create_table "action_text_rich_texts", force: :cascade do |t|
     t.text "body"
     t.datetime "created_at", null: false
@@ -78,6 +78,24 @@ ActiveRecord::Schema[8.2].define(version: 2024_05_17_075643) do
     t.index ["post_id"], name: "index_comments_on_post_id"
   end
 
+  create_table "events", force: :cascade do |t|
+    t.string "action", null: false
+    t.datetime "created_at", null: false
+    t.integer "creator_id", null: false
+    t.integer "eventable_id", null: false
+    t.string "eventable_type", null: false
+    t.integer "organization_id", null: false
+    t.json "particulars", default: {}
+    t.datetime "updated_at", null: false
+    t.index ["action"], name: "index_events_on_action"
+    t.index ["creator_id", "created_at"], name: "index_events_on_creator_id_and_created_at"
+    t.index ["creator_id"], name: "index_events_on_creator_id"
+    t.index ["eventable_type", "eventable_id", "created_at"], name: "index_events_on_eventable_type_and_eventable_id_and_created_at"
+    t.index ["eventable_type", "eventable_id"], name: "index_events_on_eventable"
+    t.index ["organization_id", "created_at"], name: "index_events_on_organization_id_and_created_at"
+    t.index ["organization_id"], name: "index_events_on_organization_id"
+  end
+
   create_table "invitations", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email", null: false
@@ -104,8 +122,10 @@ ActiveRecord::Schema[8.2].define(version: 2024_05_17_075643) do
   create_table "organizations", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.integer "default_post_status_id", null: false
+    t.string "logo_link"
     t.string "name", null: false
     t.integer "owner_id", null: false
+    t.boolean "show_company_name", default: true, null: false
     t.string "subdomain"
     t.datetime "updated_at", null: false
     t.index ["default_post_status_id"], name: "index_organizations_on_default_post_status_id"
@@ -184,6 +204,8 @@ ActiveRecord::Schema[8.2].define(version: 2024_05_17_075643) do
   add_foreign_key "comments", "comments", column: "parent_id"
   add_foreign_key "comments", "posts"
   add_foreign_key "comments", "users", column: "creator_id"
+  add_foreign_key "events", "organizations"
+  add_foreign_key "events", "users", column: "creator_id"
   add_foreign_key "invitations", "users", column: "invited_by_id"
   add_foreign_key "likes", "users", column: "voter_id"
   add_foreign_key "organizations", "post_statuses", column: "default_post_status_id"

@@ -8,13 +8,13 @@ class User < ApplicationRecord
   include Mentionable
   include Searchable
   include Role
+  include Eventable
+  include User::Activatable
 
   has_secure_password
 
   to_param :username
 
-  scope :active, -> { where(active: true) }
-  scope :deactivated, -> { where(active: false) }
   scope :filtered_by, ->(query) { where("name like ?", "%#{query}%") }
   scope :ordered, -> { order(:name) }
 
@@ -45,8 +45,6 @@ class User < ApplicationRecord
   validates :avatar, resizable_image: true, max_file_size: 2.megabytes
   validates :bio, length: { maximum: 255 }
 
-  validate :organization_owner_cannot_be_deactivated, if: -> { active_changed? && organization_owner? }
-
   normalizes :email_address, with: ->(email) { email.strip.downcase }
   normalizes :username, with: ->(username) { username.squish }
   normalizes :name, with: ->(name) { name.squish }
@@ -65,43 +63,20 @@ class User < ApplicationRecord
     [ name, bio ].compact_blank.join(" – ")
   end
 
-  def deactivate
-    success = transaction do
-      if update(active: false)
-        sessions.delete_all
-        true
-      else
-        raise ActiveRecord::Rollback
-      end
-    end
-
-    return false unless success
-
-    close_remote_connections
-    true
-  end
-
-  def deactivated?
-    !active?
-  end
-
   def organization_owner?
     owned_organization.present?
   end
 
-  private
+  # Track events for user lifecycle (profile updates, activation changes)
+  after_update_commit -> { track_event(:profile_updated) }, if: -> { saved_change_to_name? || saved_change_to_bio? }
+  after_update_commit -> { track_event(:deactivated) }, if: -> { saved_change_to_active? && !active? }
+  after_update_commit -> { track_event(:activated) }, if: -> { saved_change_to_active? && active? }
 
-    def close_remote_connections
-      ActionCable.server.remote_connections.where(current_user: self).disconnect reconnect: false
-    end
+  private
 
     def anonymize_avatar_filename
       if avatar.attached?
         avatar.blob.filename = "avatar#{avatar.filename.extension_with_delimiter}"
       end
-    end
-
-    def organization_owner_cannot_be_deactivated
-      errors.add(:active, :organization_owner_cannot_be_deactivated)
     end
 end

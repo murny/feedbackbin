@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Invitation < ApplicationRecord
+  EXPIRATION_TIME = 30.days
+
   belongs_to :invited_by, class_name: "User"
 
   has_secure_token
@@ -11,6 +13,8 @@ class Invitation < ApplicationRecord
 
   validates :email, uniqueness: { message: :invited },
                     format: { with: URI::MailTo::EMAIL_REGEXP }
+
+  scope :expired, -> { where("created_at < ?", EXPIRATION_TIME.ago) }
 
   def save_and_send_invite
     save && send_invite
@@ -36,5 +40,10 @@ class Invitation < ApplicationRecord
 
   def to_param
     token
+  end
+
+  # Cleanup expired invitations
+  def self.cleanup_expired(older_than: EXPIRATION_TIME.ago)
+    where("created_at < ?", older_than).delete_all
   end
 end

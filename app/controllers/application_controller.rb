@@ -5,6 +5,7 @@ class ApplicationController < ActionController::Base
   include Authorization
   include Pagy::Method
   include SetLocale
+  include SetCurrentRequestDetails
   include Sortable
 
   before_action :ensure_first_run_completed

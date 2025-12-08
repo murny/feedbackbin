@@ -32,3 +32,13 @@ bot:
   password_digest: <%= password_digest %>
   bio: Hi I'm Beep Boop
   role: bot
+
+system:
+  username: system_feedbackbin
+  name: FeedbackBin System
+  email_address: system@feedbackbin.localhost
+  password_digest: <%= password_digest %>
+  bio: System user for automated actions
+  role: system
+  email_verified: true
+  active: false

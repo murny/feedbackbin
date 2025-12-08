@@ -4,10 +4,14 @@ puts "Creating organizations..."
 
 admin_user = User.find_by!(email_address: "shane.murnaghan@feedbackbin.com")
 
-Organization.find_or_create_by!(name: "FeedbackBin") do |org|
+organization = Organization.find_or_create_by!(name: "FeedbackBin") do |org|
   org.subdomain = "feedbackbin"
   org.default_post_status = PostStatus.ordered.first
   org.owner = admin_user
 end
 
-puts "✅ Seeded organizations"
+# Create system user for automated actions
+puts "Creating system user..."
+organization.system_user
+
+puts "✅ Seeded organizations and system users"

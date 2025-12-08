@@ -5,6 +5,7 @@ require "test_helper"
 class CommentTest < ActiveSupport::TestCase
   setup do
     @comment = comments(:one)
+    Current.organization = organizations(:feedbackbin)
   end
 
   test "valid comment" do
