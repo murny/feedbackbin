@@ -36,7 +36,7 @@ jobs:
     steps:
       # Checkout the repository to get Kamal configuration files
       - name: Checkout code
-        uses: actions/checkout@v6.0.0
+        uses: actions/checkout@v6.0.1
 
       # Set up Ruby environment for Kamal CLI
       # Kamal is a Ruby gem, so we need Ruby installed
