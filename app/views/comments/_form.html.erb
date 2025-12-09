@@ -7,7 +7,11 @@
         <%= render "error_messages", resource: form.object %>
 
         <%= form.hidden_field :post_id, value: post.id %>
-        <%= form.rich_text_area :body, id: "post_#{post.id}_new_comment_body", placeholder: "Write a comment..." %>
+        <div data-controller="local-save" data-local-save-key-value="<%= comment.new_record? ? "post_#{post.id}_new_comment_body" : "comment_#{comment.id}_body" %>">
+          <%= form.rich_textarea :body, id: "post_#{post.id}_new_comment_body", placeholder: "Write a comment...", data: { local_save_target: "input", action: "lexxy:change->local-save#save turbo:submit-end->local-save#submit" } do %>
+            <%= mentions_prompt %>
+          <% end %>
+        </div>
         <div class="mt-5 flex items-center gap-4 justify-end">
           <%= form.submit class: "btn btn-primary" %>
           <%= link_to "Cancel", comment, class: "btn btn-secondary" if form.object.persisted? %>

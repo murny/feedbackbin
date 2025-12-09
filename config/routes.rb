@@ -88,6 +88,11 @@ Rails.application.routes.draw do
   # Public invitation acceptance
   resources :invitations, only: [ :show ], param: :token
 
+  # Prompts for rich text editor
+  namespace :prompts do
+    resources :users, only: [ :index ]
+  end
+
   scope controller: :static do
     get :about
     get :terms

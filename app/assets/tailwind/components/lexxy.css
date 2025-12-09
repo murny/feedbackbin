@@ -1,0 +1,260 @@
+/*
+ * Lexxy Editor Styles
+ * Styles for the Lexxy rich text editor (Lexical-based)
+ */
+
+@layer components {
+  /* Editor Container
+  /* ------------------------------------------------------------------------ */
+
+  lexxy-editor {
+    @apply block relative overflow-visible;
+    @apply border border-input rounded-md bg-transparent shadow-xs;
+    @apply transition-[color,box-shadow];
+    @apply focus-within:ring-[3px] focus-within:ring-ring/50 focus-within:border-ring;
+
+    figure.node--selected {
+      &:has(img) {
+        img {
+          @apply ring-2 ring-ring ring-offset-2;
+        }
+      }
+
+      &:not(:has(img)) {
+        @apply ring-2 ring-ring ring-offset-2;
+      }
+    }
+  }
+
+  /* Placeholder styling when editor is empty */
+  .lexxy-editor--empty {
+    .lexxy-editor__content:not(:has(ul, ol))::before {
+      @apply text-muted-foreground cursor-text opacity-60 pointer-events-none absolute whitespace-pre-line;
+      content: attr(placeholder);
+    }
+  }
+
+  .lexxy-editor__content {
+    @apply px-3 py-2 outline-none;
+    min-block-size: 12rem;
+
+    /* Selection highlight */
+    ::selection {
+      @apply bg-primary/30;
+    }
+  }
+
+  .lexxy-editor--drag-over {
+    @apply bg-accent rounded outline-2 outline-dashed outline-accent-foreground;
+  }
+
+  /* Code Language Picker */
+  .lexxy-code-language-picker {
+    @apply appearance-none bg-background text-foreground text-xs font-medium;
+    @apply border border-input rounded-full cursor-pointer;
+    @apply leading-tight m-1 px-3 pr-6 text-left;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='m12 19.5c-.7 0-1.3-.3-1.7-.8l-9.8-11.1c-.7-.8-.6-1.9.2-2.6.8-.6 1.9-.6 2.5.2l8.6 9.8c0 .1.2.1.4 0l8.6-9.8c.7-.8 1.8-.9 2.6-.2s.9 1.8.2 2.6l-9.8 11.1c-.4.5-1.1.8-1.7.8z' fill='currentColor'/%3E%3C/svg%3E");
+    background-position: center right 0.75em;
+    background-repeat: no-repeat;
+    background-size: 0.5em;
+
+    option {
+      @apply bg-background text-foreground;
+    }
+  }
+
+  /* Toolbar
+  /* ------------------------------------------------------------------------ */
+
+  lexxy-toolbar {
+    --lexxy-toolbar-icon-size: 1em;
+
+    @apply bg-background text-foreground flex text-inherit m-0 p-1;
+    @apply border-b border-border sticky top-0 z-10;
+    max-inline-size: 100%;
+  }
+
+  .lexxy-editor__toolbar-button {
+    --toolbar-button-size: 2.5rem;
+
+    @apply appearance-none aspect-square bg-transparent border-none rounded-md cursor-pointer;
+    @apply grid text-inherit place-items-center;
+    block-size: var(--toolbar-button-size);
+
+    &:is(:focus, :hover) {
+      @apply bg-accent text-accent-foreground shadow-none;
+    }
+
+    &:is(:active),
+    &[aria-pressed="true"] {
+      @apply bg-accent;
+    }
+
+    svg {
+      @apply select-none fill-current;
+      -webkit-touch-callout: none;
+      block-size: var(--lexxy-toolbar-icon-size);
+      grid-area: 1/1;
+      inline-size: var(--lexxy-toolbar-icon-size);
+    }
+
+    @media (min-width: 640px) {
+      --toolbar-button-size: 2em;
+    }
+  }
+
+  .lexxy-editor__toolbar-overflow-menu {
+    @apply bg-card rounded-lg shadow-lg flex flex-wrap absolute p-1 z-10;
+    inset-inline-end: 0;
+  }
+
+  .lexxy-editor__toolbar-spacer {
+    @apply flex-1;
+  }
+
+  /* Dropdowns
+  /* ------------------------------------------------------------------------ */
+
+  .lexxy-editor__toolbar-dropdown-content {
+    --lexxy-dropdown-padding: 0.75rem;
+    --lexxy-dropdown-btn-size: 2rem;
+
+    @apply bg-card border border-border rounded-lg shadow-lg text-foreground text-sm absolute z-10;
+    padding: var(--lexxy-dropdown-padding);
+
+    button {
+      block-size: var(--lexxy-dropdown-btn-size);
+    }
+  }
+
+  .lexxy-editor__toolbar-dropdown-actions {
+    @apply flex text-xs flex-1 mt-3;
+    gap: var(--lexxy-dropdown-padding);
+
+    .btn {
+      @apply rounded-full w-full;
+    }
+
+    .btn[type="submit"] {
+      @apply bg-primary text-primary-foreground;
+    }
+
+    span {
+      @apply w-full;
+    }
+  }
+
+  lexxy-link-dropdown {
+    .input {
+      min-inline-size: 30ch;
+    }
+  }
+
+  lexxy-highlight-dropdown {
+    --gap: 0.5ch;
+
+    [data-button-group] {
+      @apply flex flex-row flex-wrap;
+      gap: var(--gap);
+
+      + & {
+        margin-block-start: var(--gap);
+      }
+    }
+  }
+
+  .lexxy-highlight-button {
+    @apply appearance-none bg-card border-none rounded-md font-medium grid relative outline-none;
+    inline-size: var(--lexxy-dropdown-btn-size);
+    place-content: center;
+
+    &:after {
+      content: "Aa";
+    }
+
+    &:hover,
+    &[aria-pressed="true"] {
+      @apply ring-2 ring-ring ring-offset-2;
+    }
+
+    &[aria-pressed="true"] {
+      @apply ring-primary;
+
+      &:after {
+        content: "\2713";
+      }
+    }
+  }
+
+  .lexxy-editor__toolbar-dropdown-reset {
+    @apply bg-card border border-input rounded-full w-full mt-3;
+
+    &[disabled] {
+      @apply hidden;
+    }
+  }
+
+  /* Prompt menu (@mentions, etc.)
+  /* ------------------------------------------------------------------------ */
+
+  lexxy-prompt {
+    @apply block;
+  }
+
+  .lexxy-prompt-menu {
+    --lexxy-prompt-avatar-size: 24px;
+    --lexxy-prompt-min-width: 20ch;
+    --lexxy-prompt-padding: 0.5ch;
+
+    @apply bg-popover text-popover-foreground rounded-lg shadow-lg border border-border;
+    @apply text-sm list-none m-0 z-50;
+    @apply max-h-52 overflow-auto;
+    min-inline-size: var(--lexxy-prompt-min-width);
+    padding: var(--lexxy-prompt-padding);
+  }
+
+  .lexxy-prompt-menu--visible {
+    @apply block;
+  }
+
+  .lexxy-prompt-menu__item {
+    @apply items-center rounded-md cursor-pointer flex whitespace-nowrap;
+    gap: var(--lexxy-prompt-padding);
+    padding: var(--lexxy-prompt-padding);
+
+    &:hover {
+      @apply bg-accent text-accent-foreground;
+    }
+
+    &[aria-selected] {
+      @apply bg-accent text-accent-foreground;
+    }
+
+    img {
+      @apply rounded-full flex-shrink-0 m-0 object-cover;
+      block-size: var(--lexxy-prompt-avatar-size);
+      inline-size: var(--lexxy-prompt-avatar-size);
+    }
+
+    + & {
+      @apply mt-0.5;
+    }
+
+    code {
+      @apply bg-muted rounded-sm text-sm px-1;
+    }
+  }
+
+  /* Empty state */
+  .lexxy-prompt-menu__item--empty {
+    @apply text-muted-foreground;
+    padding: var(--lexxy-prompt-padding);
+  }
+
+  /* Initials fallback in prompt menu */
+  .lexxy-prompt-menu__item span.flex {
+    @apply items-center justify-center rounded-full bg-muted text-muted-foreground text-xs font-medium;
+    block-size: var(--lexxy-prompt-avatar-size);
+    inline-size: var(--lexxy-prompt-avatar-size);
+  }
+}

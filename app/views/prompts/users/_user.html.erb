@@ -1,0 +1,18 @@
+<lexxy-prompt-item search="<%= user.name %>" sgid="<%= user.attachable_sgid %>">
+  <template type="menu">
+    <% if user.avatar.attached? %>
+      <%= image_tag fresh_user_avatar_path(user), alt: user.name, loading: "lazy" %>
+    <% else %>
+      <span class="flex items-center justify-center size-6 rounded-full bg-muted text-muted-foreground text-xs font-medium">
+        <%= user.name.split.map(&:first).join("").upcase[0, 2] %>
+      </span>
+    <% end %>
+    <%= user.name %>
+  </template>
+  <template type="editor">
+    <% if user.avatar.attached? %>
+      <%= image_tag fresh_user_avatar_path(user), alt: user.name, loading: "lazy" %>
+    <% end %>
+    <%= user.name.split.first %>
+  </template>
+</lexxy-prompt-item>

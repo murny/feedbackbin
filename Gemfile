@@ -26,6 +26,7 @@ gem "turbo-rails"
 gem "stimulus-rails"
 gem "importmap-rails"
 gem "tailwindcss-rails", "4.4.0"
+gem "lexxy"
 
 # API
 gem "jbuilder"

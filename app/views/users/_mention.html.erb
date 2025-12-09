@@ -1,0 +1,4 @@
+<% if user.avatar.attached? %>
+  <%= image_tag fresh_user_avatar_path(user), alt: user.name, loading: "lazy" %>
+<% end %>
+<span class="mention">@<%= user.name %></span>

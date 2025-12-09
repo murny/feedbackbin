@@ -17,3 +17,7 @@ export function throttle(fn, delay = 1000) {
     }
   }
 }
+
+export function nextFrame() {
+  return new Promise(requestAnimationFrame)
+}

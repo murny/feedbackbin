@@ -16,9 +16,11 @@
     <%= form.text_field :title, autofocus: true, placeholder: t(".title_placeholder") %>
   </div>
 
-  <div class="grid gap-3">
+  <div class="grid gap-3" data-controller="local-save" data-local-save-key-value="<%= post.new_record? ? 'post_new_body' : "post_#{post.id}_body" %>">
     <%= form.label :body %>
-    <%= form.rich_text_area :body, placeholder: t(".body_placeholder") %>
+    <%= form.rich_textarea :body, placeholder: t(".body_placeholder"), data: { local_save_target: "input", action: "lexxy:change->local-save#save turbo:submit-end->local-save#submit" } do %>
+      <%= mentions_prompt %>
+    <% end %>
   </div>
 
   <div class="flex justify-end gap-3 pt-2">

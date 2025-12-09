@@ -21,7 +21,9 @@ export default class extends Controller {
   }
 
   get #bodyContent() {
-    return this.#stripMentionAttachments(this.bodyTarget.querySelector(".trix-content"))
+    // Support both new rich-text-content and legacy trix-content classes
+    const contentElement = this.bodyTarget.querySelector(".rich-text-content") || this.bodyTarget.querySelector(".trix-content")
+    return this.#stripMentionAttachments(contentElement)
   }
 
   #stripMentionAttachments(node) {
