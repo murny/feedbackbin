@@ -6,6 +6,7 @@ class User < ApplicationRecord
   MAX_PASSWORD_LENGTH_ALLOWED = 72 # Comes from User::BCryptPassword::MAX_PASSWORD_LENGTH_ALLOWED
 
   include Mentionable
+  include Named
   include Searchable
   include Role
 
@@ -16,7 +17,7 @@ class User < ApplicationRecord
   scope :active, -> { where(active: true) }
   scope :deactivated, -> { where(active: false) }
   scope :filtered_by, ->(query) { where("name like ?", "%#{query}%") }
-  scope :ordered, -> { order(:name) }
+  scope :ordered, -> { alphabetically }
 
   has_many :posts, dependent: :destroy, foreign_key: :author_id, inverse_of: :author
   has_many :sessions, dependent: :destroy
@@ -55,10 +56,6 @@ class User < ApplicationRecord
 
   generates_token_for :email_verification, expires_in: 2.days do
     email_address
-  end
-
-  def initials
-    name.scan(/\b\w/).join
   end
 
   def title
