@@ -95,13 +95,16 @@ class InitialSchema < ActiveRecord::Migration[8.2]
     create_table "organizations", force: :cascade do |t|
       t.datetime "created_at", null: false
       t.integer "default_post_status_id", null: false
+      t.string "logo_link"
       t.string "name", null: false
       t.integer "owner_id", null: false
+      t.boolean "show_company_name", default: true, null: false
       t.string "subdomain"
       t.datetime "updated_at", null: false
       t.index [ "default_post_status_id" ], name: "index_organizations_on_default_post_status_id"
       t.index [ "owner_id" ], name: "index_organizations_on_owner_id"
     end
+
     create_table "post_statuses", force: :cascade do |t|
       t.string "color", null: false
       t.datetime "created_at", null: false

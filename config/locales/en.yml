@@ -2,9 +2,6 @@
 en:
   activerecord:
     errors:
-      messages:
-        image_format_not_supported: image format not supported
-        max_file_size_invalid: image over %{size}
       models:
         invitation:
           attributes:
@@ -428,6 +425,8 @@ en:
       more: More
   errors:
     messages:
+      file_size_too_large: exceeds maximum size of %{maximum}
+      invalid_content_type: file type is not supported
       not_saved:
         one: '1 error prohibited this %{resource} from being saved:'
         other: "%{count} errors prohibited this %{resource} from being saved:"

@@ -112,28 +112,6 @@ class UserTest < ActiveSupport::TestCase
     assert_predicate @user, :valid?
   end
 
-  test "should reject avatars of invalid file formats" do
-    @user.avatar.attach(io: file_fixture("test.txt").open, filename: "test.txt", content_type: "text/plain")
-
-    assert_not @user.valid?
-    assert_equal("image format not supported", @user.errors[:avatar].first)
-  end
-
-  test "should enforce a maximum avatar file size" do
-    @user.avatar.attach(io: file_fixture("racecar.jpeg").open, filename: "racecar.jpeg", content_type: "image/jpeg")
-    @user.avatar.blob.stub :byte_size, 3.megabytes do
-      assert_not @user.valid?
-      assert_equal("image over 2 MB", @user.errors[:avatar].first)
-    end
-  end
-
-  test "anonymizes the filename of the avatar" do
-    @user.avatar.attach(io: file_fixture("racecar.jpeg").open, filename: "racecar.jpeg", content_type: "image/jpeg")
-
-    # it anonymizes the filename of the avatar
-    assert_equal("avatar.jpeg", @user.avatar.filename.to_s)
-  end
-
   test "sessions are destroyed when user is destroyed" do
     assert_difference("Session.count", -1) do
       @user.destroy

@@ -4,6 +4,8 @@ class Organization < ApplicationRecord
   include Domainable
   include Searchable
 
+  ALLOWED_IMAGE_CONTENT_TYPES = %w[ image/jpeg image/png image/gif image/webp ].freeze
+
   # Attachments
   has_one_attached :logo
   has_one_attached :favicon
@@ -12,9 +14,9 @@ class Organization < ApplicationRecord
   belongs_to :default_post_status, class_name: "PostStatus"
   belongs_to :owner, class_name: "User"
 
-  validates :logo, resizable_image: true, max_file_size: 2.megabytes
-  validates :favicon, resizable_image: true, max_file_size: 500.kilobytes
-  validates :og_image, resizable_image: true, max_file_size: 2.megabytes
+  validates :logo, content_type: { in: ALLOWED_IMAGE_CONTENT_TYPES }, file_size: { maximum: 2.megabytes }
+  validates :favicon, content_type: { in: ALLOWED_IMAGE_CONTENT_TYPES }, file_size: { maximum: 500.kilobytes }
+  validates :og_image, content_type: { in: ALLOWED_IMAGE_CONTENT_TYPES }, file_size: { maximum: 2.megabytes }
   validates :logo_link, url: { allow_blank: true }
   validates :name, presence: true
   validate :owner_must_be_administrator
