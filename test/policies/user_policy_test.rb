@@ -41,7 +41,7 @@ class UserPolicyTest < ActiveSupport::TestCase
       name: "Admin Two",
       email_address: "admin2@feedbackbin.com",
       password: "password123456",
-      role: :administrator
+      role: :admin
     )
 
     # Admin cannot delete the owner

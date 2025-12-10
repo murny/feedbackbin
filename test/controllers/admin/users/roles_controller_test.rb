@@ -10,23 +10,23 @@ module Admin
         sign_in_as @admin
       end
 
-      test "should update user role to administrator" do
+      test "should update user role to admin" do
         user = users(:one)
 
         assert_predicate user, :member?, "User should start as member"
 
-        patch admin_user_role_path(user), params: { role: "administrator" }
+        patch admin_user_role_path(user), params: { role: "admin" }
 
         assert_redirected_to admin_user_path(user)
         assert_equal "User role has been updated", flash[:notice]
-        assert_predicate user.reload, :administrator?, "User should be administrator"
+        assert_predicate user.reload, :admin?, "User should be admin"
       end
 
       test "should update user role to member" do
         user = users(:one)
-        user.update!(role: :administrator)
+        user.update!(role: :admin)
 
-        assert_predicate user, :administrator?, "User should start as administrator"
+        assert_predicate user, :admin?, "User should start as admin"
 
         patch admin_user_role_path(user), params: { role: "member" }
 
@@ -66,7 +66,7 @@ module Admin
 
         assert_redirected_to admin_user_path(owner)
         assert_equal "Role cannot be changed for organization owner", flash[:alert]
-        assert_predicate owner.reload, :administrator?, "Owner should remain administrator"
+        assert_predicate owner.reload, :admin?, "Owner should remain admin"
       end
 
       test "should require admin for role management" do
@@ -74,7 +74,7 @@ module Admin
         sign_in_as users(:one)
 
         user = users(:two)
-        patch admin_user_role_path(user), params: { role: "administrator" }
+        patch admin_user_role_path(user), params: { role: "admin" }
 
         assert_redirected_to root_path
         assert_equal "You are not authorized to perform this action.", flash[:alert]

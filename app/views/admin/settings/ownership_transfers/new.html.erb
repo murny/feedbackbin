@@ -20,7 +20,7 @@
           <div class="mb-4">
             <%= f.label :new_owner_id, t(".new_owner"), class: "block text-sm font-medium mb-2" %>
             <%= f.select :new_owner_id,
-                options_from_collection_for_select(@administrators, :id, :name),
+                options_from_collection_for_select(@admins, :id, :name),
                 { prompt: t(".select_admin") },
                 class: "form-select w-full" %>
             <p class="text-sm text-muted-foreground mt-1">

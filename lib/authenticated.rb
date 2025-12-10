@@ -15,7 +15,7 @@ module Authenticated
   class AdminConstraint
     def matches?(request)
       if (session = Session.find_by(id: request.cookie_jar.signed[:session_id]))
-        session.user.administrator?
+        session.user.admin?
       else
         false
       end

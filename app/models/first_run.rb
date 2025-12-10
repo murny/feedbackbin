@@ -68,7 +68,7 @@ class FirstRun
         email_address: email_address,
         password: password,
         avatar: avatar,
-        role: :administrator
+        role: :admin
       }
     end
 

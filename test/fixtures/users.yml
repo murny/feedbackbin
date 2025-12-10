@@ -6,7 +6,7 @@ shane:
   email_verified: true
   password_digest: <%= password_digest %>
   super_admin: true
-  role: administrator
+  role: admin
 
 one:
   name: Jane Doe

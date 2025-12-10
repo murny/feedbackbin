@@ -54,15 +54,15 @@ class OrganizationTest < ActiveSupport::TestCase
     assert_equal "must exist", @organization.errors[:owner].first
   end
 
-  test "owner must be an administrator" do
+  test "owner must be an admin" do
     member = users(:one)
     @organization.owner = member
 
     assert_not @organization.valid?
-    assert_includes @organization.errors[:owner], "must be an administrator"
+    assert_includes @organization.errors[:owner], "must be an admin"
   end
 
-  test "owner can be an administrator" do
+  test "owner can be an admin" do
     admin = users(:shane)
     @organization.owner = admin
 

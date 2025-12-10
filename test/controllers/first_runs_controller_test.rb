@@ -19,7 +19,7 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
       name: "Test User",
       email_address: "new@feedbackbin.com",
       password: "secret123456",
-      role: :administrator
+      role: :admin
     )
     Organization.create!(
       name: "FeedbackBin",
@@ -59,7 +59,7 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
     assert_equal "Test Organization", organization.name
     assert_equal "Custom Category", Category.last.name
 
-    assert_predicate user, :administrator?
+    assert_predicate user, :admin?
 
     assert_equal PostStatus.default, organization.default_post_status
   end

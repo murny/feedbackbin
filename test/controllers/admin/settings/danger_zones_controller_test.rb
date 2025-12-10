@@ -57,7 +57,7 @@ module Admin
           name: "Admin User",
           email_address: "admin@feedbackbin.com",
           password: "secret123456",
-          role: :administrator
+          role: :admin
         )
         sign_in_as(admin)
 
@@ -73,7 +73,7 @@ module Admin
           name: "Admin User",
           email_address: "admin@feedbackbin.com",
           password: "secret123456",
-          role: :administrator
+          role: :admin
         )
         sign_in_as(admin)
 
