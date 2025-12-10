@@ -6,7 +6,6 @@ class FirstRun
   include ActiveModel::Validations
 
   # User attributes
-  attribute :username, :string
   attribute :name, :string
   attribute :email_address, :string
   attribute :password, :string
@@ -22,9 +21,7 @@ class FirstRun
   attribute :category_color, :string
 
   # User validations
-  validates :username, presence: true,
-            length: { minimum: 3, maximum: User::MAX_USERNAME_LENGTH },
-            format: { with: /\A[a-z0-9_]+\z/i }
+  validates :name, presence: true
   validates :email_address, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
   validates :password, presence: true, length: { minimum: User::MIN_PASSWORD_LENGTH_ALLOWED }
 
@@ -67,7 +64,6 @@ class FirstRun
 
     def user_attributes
       {
-        username: username,
         name: name,
         email_address: email_address,
         password: password,

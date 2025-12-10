@@ -10,7 +10,7 @@ class FirstRunTest < ActiveSupport::TestCase
   test "creating makes first user an administrator and sets up a new category and organization" do
     assert_difference [ "Category.count", "User.count", "Organization.count" ] do
       first_run = FirstRun.new(
-        username: "owner_example",
+        name: "Owner Example",
         email_address: "owner@example.com",
         password: "secret123456",
         organization_name: "Test Organization",
@@ -29,7 +29,7 @@ class FirstRunTest < ActiveSupport::TestCase
     first_run = FirstRun.new
 
     assert_not first_run.valid?
-    assert_includes first_run.errors[:username], "can't be blank"
+    assert_includes first_run.errors[:name], "can't be blank"
     assert_includes first_run.errors[:email_address], "can't be blank"
     assert_includes first_run.errors[:password], "can't be blank"
     assert_includes first_run.errors[:organization_name], "can't be blank"

@@ -11,45 +11,11 @@ class UserTest < ActiveSupport::TestCase
     assert_predicate @user, :valid?
   end
 
-  test "invalid without username" do
-    @user.username = nil
+  test "invalid without name" do
+    @user.name = nil
 
     assert_not @user.valid?
-    assert_equal(I18n.t("errors.messages.blank"), @user.errors[:username].first)
-  end
-
-  test "invalid if username contains non alphanumeric characters" do
-    @user.username = "user@name"
-
-    assert_not @user.valid?
-    assert_equal("can only contain letters, numbers, and underscores", @user.errors[:username].first)
-  end
-
-  test "invalid if username longer then 20 characters" do
-    @user.username = "coolusername1234567890"
-
-    assert_not @user.valid?
-    assert_equal("is too long (maximum is 20 characters)", @user.errors[:username].first)
-  end
-
-  test "invalid if username shorter then 3 characters" do
-    @user.username = "ab"
-
-    assert_not @user.valid?
-    assert_equal("is too short (minimum is 3 characters)", @user.errors[:username].first)
-  end
-
-  test "invalid if username taken already" do
-    @user.username = "Murny"
-
-    assert_not @user.valid?
-    assert_equal("has already been taken", @user.errors[:username].first)
-  end
-
-  test "username gets stripped when saved" do
-    @user.update!(username: " ExAmPlE_UsErNaMe ")
-
-    assert_equal "ExAmPlE_UsErNaMe", @user.username
+    assert_equal("can't be blank", @user.errors[:name].first)
   end
 
   test "name gets stripped when saved" do

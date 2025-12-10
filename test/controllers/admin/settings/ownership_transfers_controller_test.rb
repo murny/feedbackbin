@@ -9,7 +9,6 @@ module Admin
         @organization = organizations(:feedbackbin)
         @owner = users(:shane)
         @admin = User.create!(
-          username: "admin_two",
           name: "Admin Two",
           email_address: "admin2@feedbackbin.com",
           password: "secret123456",

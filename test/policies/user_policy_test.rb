@@ -38,7 +38,6 @@ class UserPolicyTest < ActiveSupport::TestCase
     assert_not_predicate UserPolicy.new(owner, owner), :destroy?
 
     admin = User.create!(
-      username: "admin_two",
       name: "Admin Two",
       email_address: "admin2@feedbackbin.com",
       password: "password123456",

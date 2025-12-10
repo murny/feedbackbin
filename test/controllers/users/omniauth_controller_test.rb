@@ -42,7 +42,6 @@ module Users
 
       assert_equal "harrypotter@hogwarts.com", user.email_address
       assert_equal "Harry Potter", user.name
-      assert_equal "HarryPotter", user.username
       assert_equal "developer", user.user_connected_accounts.last.provider_name
       assert_equal "12345", user.user_connected_accounts.last.provider_uid
     end
@@ -142,8 +141,7 @@ module Users
 
       assert_redirected_to sign_up_path(user: {
         email_address: nil,
-        name: "No email given",
-        username: "Noemailgiven"
+        name: "No email given"
       })
 
       assert_equal "We could not create an account for you. Please finish the registration process.", flash[:alert]

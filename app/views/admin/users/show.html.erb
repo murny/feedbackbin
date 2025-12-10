@@ -46,9 +46,6 @@
             <div class="space-y-2 text-sm">
               <div><strong><%= t(".name_label") %>:</strong> <%= @user.name %></div>
               <div><strong><%= t(".email_label") %>:</strong> <%= @user.email_address %></div>
-              <% if @user.username.present? %>
-                <div><strong><%= t(".username_label") %>:</strong> @<%= @user.username %></div>
-              <% end %>
               <div>
                 <strong><%= t(".joined_label") %>:</strong>
                 <%= @user.created_at.strftime("%B %d, %Y") %>

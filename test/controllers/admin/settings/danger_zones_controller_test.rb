@@ -54,7 +54,6 @@ module Admin
       test "non-owner admin cannot view danger zone" do
         # Create another admin who is not the owner
         admin = User.create!(
-          username: "admin_user",
           name: "Admin User",
           email_address: "admin@feedbackbin.com",
           password: "secret123456",
@@ -71,7 +70,6 @@ module Admin
       test "non-owner admin cannot delete organization" do
         # Create another admin who is not the owner
         admin = User.create!(
-          username: "admin_user",
           name: "Admin User",
           email_address: "admin@feedbackbin.com",
           password: "secret123456",

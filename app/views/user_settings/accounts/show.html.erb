@@ -4,37 +4,6 @@
   <%= render partial: "user_settings/header" %>
 
   <div class="mt-8 space-y-6">
-        <%# Username Section %>
-        <div class="card p-6">
-          <div class="space-y-6">
-            <div>
-              <h2 class="text-lg font-medium"><%= t(".username") %></h2>
-              <p class="text-sm text-muted-foreground"><%= t(".username_warning") %></p>
-            </div>
-
-            <%= form_with(model: @user,
-                  url: user_settings_account_path,
-                  method: :patch,
-                  data: { controller: "form", action: "keydown.enter->form#submit:prevent" }) do |form| %>
-              <div class="grid gap-4">
-                <div class="grid gap-2">
-                  <%= form.label :username, class: "text-sm font-medium" %>
-                  <%= form.text_field :username,
-                        required: true,
-                        autocomplete: "username",
-                        placeholder: "jane_doe",
-                        class: "w-full" %>
-                  <p class="text-xs text-muted-foreground"><%= t(".username_hint") %></p>
-                </div>
-              </div>
-
-              <div class="flex justify-end gap-3 pt-6">
-                <%= form.submit t(".update_username"), class: "btn" %>
-              </div>
-            <% end %>
-          </div>
-        </div>
-
         <%# Email Address Section %>
         <div class="card p-6">
           <div class="space-y-6">
