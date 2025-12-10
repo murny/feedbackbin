@@ -12,13 +12,13 @@ class User
       assert_predicate User.new, :member?
     end
 
-    test "administer?" do
-      @user.role = :administrator
+    test "admin?" do
+      @user.role = :admin
 
-      assert_predicate @user, :administrator?
+      assert_predicate @user, :admin?
 
-      assert_not User.new(role: :member).administrator?
-      assert_not User.new.administrator?
+      assert_not User.new(role: :member).admin?
+      assert_not User.new.admin?
     end
 
     test "Roles must be a valid role" do

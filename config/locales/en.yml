@@ -10,13 +10,13 @@ en:
         membership:
           attributes:
             role:
-              administrator_cannot_be_removed: administrator role cannot be removed for the organization owner
+              admin_cannot_be_removed: admin role cannot be removed for the organization owner
         organization:
           attributes:
             categories:
               must_have_at_least_one: must have at least one category
             owner:
-              must_be_administrator: must be an administrator
+              must_be_admin: must be an admin
             subdomain:
               format: must be at least 2 characters and alphanumeric
               reserved: "%{value} is reserved"
@@ -281,7 +281,7 @@ en:
       index:
         description: Manage all users on the platform
         filter_active: Active
-        filter_administrators: Administrators
+        filter_admins: Admins
         filter_all_roles: All Roles
         filter_all_status: All Status
         filter_bots: Bots

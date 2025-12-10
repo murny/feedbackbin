@@ -2,7 +2,7 @@
   <div class="flex items-center justify-between gap-4">
     <div class="flex flex-wrap gap-1">
       <%= render Elements::BadgeComponent.new(
-        variant: user.administrator? ? :default : :secondary
+        variant: user.admin? ? :default : :secondary
       ) do %>
         <%= user.role.humanize %>
       <% end %>

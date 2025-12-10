@@ -10,6 +10,6 @@ class Current < ActiveSupport::CurrentAttributes
   end
 
   def admin?
-    !!user&.administrator?
+    !!user&.admin?
   end
 end

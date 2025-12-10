@@ -7,7 +7,7 @@ module Admin
 
       def new
         @organization = Current.organization
-        @administrators = User.administrator.where.not(id: @organization.owner_id)
+        @admins = User.admin.where.not(id: @organization.owner_id)
       end
 
       def create
@@ -17,7 +17,7 @@ module Admin
         if @organization.update(owner: new_owner)
           redirect_to admin_settings_branding_path, notice: t(".success", name: new_owner.name)
         else
-          @administrators = User.administrator.where.not(id: @organization.owner_id)
+          @admins = User.admin.where.not(id: @organization.owner_id)
           flash.now[:alert] = t(".failure")
           render :new, status: :unprocessable_entity
         end

@@ -12,7 +12,7 @@ module Admin
           name: "Admin Two",
           email_address: "admin2@feedbackbin.com",
           password: "secret123456",
-          role: :administrator
+          role: :admin
         )
         sign_in_as(@owner)
       end

@@ -53,7 +53,7 @@ class OrganizationPolicyTest < ActiveSupport::TestCase
       name: "Admin Two",
       email_address: "admin2@feedbackbin.com",
       password: "password123456",
-      role: :administrator
+      role: :admin
     )
 
     assert_not_predicate OrganizationPolicy.new(other_admin, @organization), :destroy?
@@ -71,7 +71,7 @@ class OrganizationPolicyTest < ActiveSupport::TestCase
       name: "Admin Three",
       email_address: "admin3@feedbackbin.com",
       password: "password123456",
-      role: :administrator
+      role: :admin
     )
 
     assert_not_predicate OrganizationPolicy.new(other_admin, @organization), :transfer_ownership?

@@ -19,7 +19,7 @@ class Organization < ApplicationRecord
   validates :og_image, content_type: { in: ALLOWED_IMAGE_CONTENT_TYPES }, file_size: { maximum: 2.megabytes }
   validates :logo_link, url: { allow_blank: true }
   validates :name, presence: true
-  validate :owner_must_be_administrator
+  validate :owner_must_be_admin
 
   # Check if user is the owner
   def owned_by?(user)
@@ -28,9 +28,9 @@ class Organization < ApplicationRecord
 
   private
 
-    def owner_must_be_administrator
-      if owner && !owner.administrator?
-        errors.add(:owner, :must_be_administrator)
+    def owner_must_be_admin
+      if owner && !owner.admin?
+        errors.add(:owner, :must_be_admin)
       end
     end
 end
