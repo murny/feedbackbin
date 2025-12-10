@@ -21,6 +21,7 @@ class FirstRunTest < ActiveSupport::TestCase
       assert_predicate first_run.user, :administrator?
       assert_equal "Test Organization", first_run.organization.name
       assert_equal "Test Category", first_run.category.name
+      assert_equal "Owner Example", first_run.user.name
       assert_equal "owner@example.com", first_run.user.email_address
     end
   end
@@ -29,11 +30,11 @@ class FirstRunTest < ActiveSupport::TestCase
     first_run = FirstRun.new
 
     assert_not first_run.valid?
-    assert_includes first_run.errors[:name], "can't be blank"
-    assert_includes first_run.errors[:email_address], "can't be blank"
-    assert_includes first_run.errors[:password], "can't be blank"
-    assert_includes first_run.errors[:organization_name], "can't be blank"
-    assert_includes first_run.errors[:category_name], "can't be blank"
-    assert_includes first_run.errors[:category_color], "can't be blank"
+    assert_equal "can't be blank", first_run.errors[:name].first
+    assert_equal "can't be blank", first_run.errors[:email_address].first
+    assert_equal "can't be blank", first_run.errors[:password].first
+    assert_equal "can't be blank", first_run.errors[:organization_name].first
+    assert_equal "can't be blank", first_run.errors[:category_name].first
+    assert_equal "can't be blank", first_run.errors[:category_color].first
   end
 end
