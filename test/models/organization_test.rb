@@ -28,14 +28,14 @@ class OrganizationTest < ActiveSupport::TestCase
     @organization.logo.attach(io: file_fixture("test.txt").open, filename: "test.txt", content_type: "text/plain")
 
     assert_not @organization.valid?
-    assert_equal("image format not supported", @organization.errors[:logo].first)
+    assert_equal("file type is not supported", @organization.errors[:logo].first)
   end
 
   test "should enforce a maximum logo file size" do
     @organization.logo.attach(io: file_fixture("racecar.jpeg").open, filename: "racecar.jpeg", content_type: "image/jpeg")
     @organization.logo.blob.stub :byte_size, 3.megabytes do
       assert_not @organization.valid?
-      assert_equal("image over 2 MB", @organization.errors[:logo].first)
+      assert_equal("exceeds maximum size of 2 MB", @organization.errors[:logo].first)
     end
   end
 
@@ -122,7 +122,7 @@ class OrganizationTest < ActiveSupport::TestCase
 
     @organization.favicon.blob.stub :byte_size, 2.megabytes do
       assert_not @organization.valid?
-      assert_includes @organization.errors[:favicon], "image over 500 KB"
+      assert_includes @organization.errors[:favicon], "exceeds maximum size of 500 KB"
     end
   end
 

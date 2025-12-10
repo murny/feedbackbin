@@ -34,11 +34,11 @@ module FormBuilders
       <input leading_icon="true"
              class="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-hidden focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm pl-10"
              type="text"
-             name="user[username]"
-             id="user_username" />
+             name="user[name]"
+             id="user_name" />
     </div>)
 
-      assert_dom_equal expected, form.text_field(:username, leading_icon: true)
+      assert_dom_equal expected, form.text_field(:name, leading_icon: true)
     end
 
     test "text_field with classes returns custom styled text field with additional classes" do
@@ -48,22 +48,22 @@ module FormBuilders
       <input
         class="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-hidden focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm test-class"
         type="text"
-        name="user[username]"
-        id="user_username" />
+        name="user[name]"
+        id="user_name" />
     </div>)
 
-      assert_dom_equal expected, form.text_field(:username, class: "test-class")
+      assert_dom_equal expected, form.text_field(:name, class: "test-class")
     end
 
     test "text_field with errors returns custom styled text field with error classes" do
-      @form_object.errors.add(:username, "must be present")
-      @form_object.errors.add(:username, "must be unique")
-      @form_object.errors.add(:username, "must be at least three characters")
+      @form_object.errors.add(:name, "must be present")
+      @form_object.errors.add(:name, "must be at least 3 characters")
+      @form_object.errors.add(:name, "must be at most 255 characters")
 
       form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
-      field_html = form.text_field(:username)
+      field_html = form.text_field(:name)
 
-      assert_match(/Must be present, must be unique, and must be at least three characters/, field_html)
+      assert_match(/Must be present, must be at least 3 characters, and must be at most 255 characters/, field_html)
       assert_match(/aria-invalid:ring-destructive\/20/, field_html)
       assert_match(/aria-invalid:border-destructive/, field_html)
       assert_match(/text-destructive/, field_html)

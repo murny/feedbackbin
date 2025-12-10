@@ -43,22 +43,22 @@
                 <!-- User Details -->
                 <div class="grid gap-4">
                   <div class="grid gap-2">
-                    <%= form.label :email_address, class: "text-sm font-medium" %>
-                    <%= form.email_field :email_address,
+                    <%= form.label :name, class: "text-sm font-medium" %>
+                    <%= form.text_field :name,
                           required: true,
                           autofocus: true,
-                          autocomplete: "email",
-                          placeholder: t(".email_address_placeholder") %>
-                    <p class="text-xs text-muted-foreground"><%= t(".email_address_hint") %></p>
+                          autocomplete: "name",
+                          placeholder: t(".name_placeholder") %>
+                    <p class="text-xs text-muted-foreground"><%= t(".name_hint") %></p>
                   </div>
 
                   <div class="grid gap-2">
-                    <%= form.label :username, class: "text-sm font-medium" %>
-                    <%= form.text_field :username,
+                    <%= form.label :email_address, class: "text-sm font-medium" %>
+                    <%= form.email_field :email_address,
                           required: true,
-                          autocomplete: "username",
-                          placeholder: t(".username_placeholder") %>
-                    <p class="text-xs text-muted-foreground"><%= t(".username_hint") %></p>
+                          autocomplete: "email",
+                          placeholder: t(".email_address_placeholder") %>
+                    <p class="text-xs text-muted-foreground"><%= t(".email_address_hint") %></p>
                   </div>
 
                   <div class="grid gap-2">
@@ -68,15 +68,6 @@
                           autocomplete: "new-password",
                           placeholder: t(".password_placeholder") %>
                     <p class="text-xs text-muted-foreground"><%= t(".password_hint") %></p>
-                  </div>
-
-                  <div class="grid gap-2">
-                    <%= form.label :name, class: "text-sm font-medium" %>
-                    <%= form.text_field :name,
-                          required: false,
-                          autocomplete: "name",
-                          placeholder: t(".name_placeholder") %>
-                    <p class="text-xs text-muted-foreground"><%= t(".name_hint") %></p>
                   </div>
                 </div>
               </div>

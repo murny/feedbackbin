@@ -2,9 +2,6 @@
 en:
   activerecord:
     errors:
-      messages:
-        image_format_not_supported: image format not supported
-        max_file_size_invalid: image over %{size}
       models:
         invitation:
           attributes:
@@ -35,8 +32,6 @@ en:
               organization_owner_cannot_be_deactivated: organization owner cannot be deactivated
             role:
               organization_owner_cannot_change: cannot be changed for organization owner
-            username:
-              invalid: can only contain letters, numbers, and underscores
   admin:
     dashboard:
       show:
@@ -294,7 +289,7 @@ en:
         filter_members: Members
         heading: Users
         search_label: Search users
-        search_placeholder: Search by name, email, or username...
+        search_placeholder: Search by name or email...
         title: Users
       roles:
         update:
@@ -332,7 +327,6 @@ en:
         unverified_badge: Unverified
         update_button: Update
         user_info_title: User Information
-        username_label: Username
         verified_badge: Verified
         view_profile: View Profile
       users_list:
@@ -428,6 +422,8 @@ en:
       more: More
   errors:
     messages:
+      file_size_too_large: exceeds maximum size of %{maximum}
+      invalid_content_type: file type is not supported
       not_saved:
         one: '1 error prohibited this %{resource} from being saved:'
         other: "%{count} errors prohibited this %{resource} from being saved:"
@@ -449,7 +445,7 @@ en:
       email_address_placeholder: Enter your email address
       initial_category: Initial Category
       logo_size_hint: JPG, PNG up to 2MB. Recommended size 400x400px.
-      name_hint: Your full name (Optional)
+      name_hint: Your display name
       name_placeholder: Enter your name
       organization_name: Organization Name
       organization_name_placeholder: Enter organization name
@@ -463,8 +459,6 @@ en:
       title: Set up FeedbackBin
       upload_avatar: Upload Avatar
       upload_organization_logo: Upload Logo
-      username_hint: unique, no spaces, short
-      username_placeholder: Enter your username
   invitations:
     show:
       already_have_account: Already have an account?
@@ -649,13 +643,7 @@ en:
         resend_verification_email: Resend verification email
         unverified: Unverified
         update_email_address: Update email address
-        update_username: Update username
-        username: Username
-        username_hint: unique, no spaces, short
-        username_warning: Changing your username will break all previous mentions and links to your profile.
         verified: Verified
-      update:
-        account_updated: Your account has been updated.
     active_sessions:
       destroy:
         session_revoked: This session was successfully revoked
@@ -794,7 +782,7 @@ en:
         email_address_placeholder: Enter your email address
         login: Log in
         name: Name
-        name_hint: Your full name (Optional)
+        name_hint: Your display name
         name_placeholder: Enter your name
         or_continue_with: Or continue with
         password: Password
@@ -805,9 +793,6 @@ en:
         terms_agreement_html: By clicking continue, you agree to our %{terms_link} and %{privacy_link}.
         terms_of_service: Terms of Service
         title: Sign up
-        username: Username
-        username_hint: unique, no spaces, short
-        username_placeholder: Enter your username
     sessions:
       create:
         account_deactivated: Your account has been deactivated. Please contact support for assistance.

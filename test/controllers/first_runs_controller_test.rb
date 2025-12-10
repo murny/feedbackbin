@@ -16,7 +16,7 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
 
   test "new is not permitted when organization exist" do
     user = User.create!(
-      username: "test_user",
+      name: "Test User",
       email_address: "new@feedbackbin.com",
       password: "secret123456",
       role: :administrator
@@ -37,10 +37,9 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
       assert_difference "PostStatus.count", 5 do
         post first_run_url, params: {
           first_run: {
-            username: "new_person",
+            name: "New Person",
             email_address: "new@feedbackbin.com",
             password: "secret123456",
-            name: "New Person",
             organization_name: "Test Organization",
             category_name: "Custom Category",
             category_color: "#3b82f6"
@@ -71,7 +70,7 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
         first_run: {
           email_address: "new@feedbackbin.com",
           password: "secret123456"
-          # Missing: username, organization_name, category_name, category_color (required fields)
+          # Missing: name, organization_name, category_name, category_color (required fields)
         }
       }
     end

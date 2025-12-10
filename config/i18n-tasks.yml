@@ -121,8 +121,8 @@ search:
 
 ## Consider these keys used:
 ignore_unused:
-  - 'activerecord.errors.messages.*'
   - 'activerecord.errors.models.*'
+  - 'errors.messages.*'
   - 'pagy.*'
 # - 'activerecord.attributes.*'
 # - '{devise,kaminari,will_paginate}.*'

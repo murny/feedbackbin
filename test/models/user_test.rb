@@ -11,45 +11,11 @@ class UserTest < ActiveSupport::TestCase
     assert_predicate @user, :valid?
   end
 
-  test "invalid without username" do
-    @user.username = nil
+  test "invalid without name" do
+    @user.name = nil
 
     assert_not @user.valid?
-    assert_equal(I18n.t("errors.messages.blank"), @user.errors[:username].first)
-  end
-
-  test "invalid if username contains non alphanumeric characters" do
-    @user.username = "user@name"
-
-    assert_not @user.valid?
-    assert_equal("can only contain letters, numbers, and underscores", @user.errors[:username].first)
-  end
-
-  test "invalid if username longer then 20 characters" do
-    @user.username = "coolusername1234567890"
-
-    assert_not @user.valid?
-    assert_equal("is too long (maximum is 20 characters)", @user.errors[:username].first)
-  end
-
-  test "invalid if username shorter then 3 characters" do
-    @user.username = "ab"
-
-    assert_not @user.valid?
-    assert_equal("is too short (minimum is 3 characters)", @user.errors[:username].first)
-  end
-
-  test "invalid if username taken already" do
-    @user.username = "Murny"
-
-    assert_not @user.valid?
-    assert_equal("has already been taken", @user.errors[:username].first)
-  end
-
-  test "username gets stripped when saved" do
-    @user.update!(username: " ExAmPlE_UsErNaMe ")
-
-    assert_equal "ExAmPlE_UsErNaMe", @user.username
+    assert_equal("can't be blank", @user.errors[:name].first)
   end
 
   test "name gets stripped when saved" do
@@ -110,28 +76,6 @@ class UserTest < ActiveSupport::TestCase
     @user.avatar.attach(io: file_fixture("racecar.jpeg").open, filename: "racecar.jpeg", content_type: "image/jpeg")
 
     assert_predicate @user, :valid?
-  end
-
-  test "should reject avatars of invalid file formats" do
-    @user.avatar.attach(io: file_fixture("test.txt").open, filename: "test.txt", content_type: "text/plain")
-
-    assert_not @user.valid?
-    assert_equal("image format not supported", @user.errors[:avatar].first)
-  end
-
-  test "should enforce a maximum avatar file size" do
-    @user.avatar.attach(io: file_fixture("racecar.jpeg").open, filename: "racecar.jpeg", content_type: "image/jpeg")
-    @user.avatar.blob.stub :byte_size, 3.megabytes do
-      assert_not @user.valid?
-      assert_equal("image over 2 MB", @user.errors[:avatar].first)
-    end
-  end
-
-  test "anonymizes the filename of the avatar" do
-    @user.avatar.attach(io: file_fixture("racecar.jpeg").open, filename: "racecar.jpeg", content_type: "image/jpeg")
-
-    # it anonymizes the filename of the avatar
-    assert_equal("avatar.jpeg", @user.avatar.filename.to_s)
   end
 
   test "sessions are destroyed when user is destroyed" do

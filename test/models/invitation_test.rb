@@ -41,7 +41,6 @@ class InvitationTest < ActiveSupport::TestCase
 
   test "#accept!" do
     user = User.create!(
-      username: "newuser",
       email_address: @invitation.email,
       name: @invitation.name,
       password: "password123",

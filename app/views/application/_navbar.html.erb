@@ -93,7 +93,7 @@
 
               <% dropdown.with_item_label do %>
                 <p class="text-sm text-muted-foreground"><%= t(".signed_in_as") %></p>
-                <p class="truncate text-sm font-medium text-popover-foreground"><%= Current.user.username %></p>
+                <p class="truncate text-sm font-medium text-popover-foreground"><%= Current.user.name %></p>
               <% end %>
 
               <% dropdown.with_item_separator %>
@@ -180,8 +180,8 @@
             <%= image_tag fresh_user_avatar_path(Current.user), role: "presentation", class: "h-10 w-10 rounded-full", alt: "" %>
           </div>
           <div class="ml-3">
+            <div class="text-sm text-muted-foreground"><%= t(".signed_in_as") %></div>
             <div class="text-base font-medium text-foreground"><%= Current.user.name %></div>
-            <div class="text-sm font-medium text-muted-foreground"><%= Current.user.username %></div>
           </div>
           <button type="button" class="relative ml-auto shrink-0 rounded-full bg-background p-1 text-muted-foreground hover:text-foreground ring-offset-background transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
             <span class="absolute -inset-1.5"></span>

@@ -72,8 +72,7 @@ module Users
           # Store the user attributes in the query string to prefill the form
           redirect_to sign_up_path(user: {
             email_address: user.email_address,
-            name: user.name,
-            username: user.username
+            name: user.name
           }), alert: t("users.omniauth.create.finish_registration")
         end
       end
@@ -89,7 +88,6 @@ module Users
           email_address: auth.info.email,
           name: name,
           password: SecureRandom.base58,
-          username: username_creator(auth.info.nickname || name),
           email_verified: true
         }
       end
@@ -107,24 +105,6 @@ module Users
         else
           auth_info.name
         end
-      end
-
-      # Given a username from OAuth, generate a unique username for our application
-      def username_creator(username = nil)
-        username = "user_#{SecureRandom.hex[1..14]}" if username.blank?
-
-        # sanitize, remove any non alphanumeric/underscore characters
-        username = username.gsub(/[^0-9a-z_]/i, "")
-        # limit name to max username length
-        username = username[0, User::MAX_USERNAME_LENGTH]
-
-        # check if username avaiable?
-        while User.exists?(username: username)
-          # username is currently being used, so just generate a random username of "user_<random_number>" and try again
-          username = "user_#{SecureRandom.hex[1..14]}"
-        end
-
-        username
       end
   end
 end
