@@ -23,7 +23,7 @@ Rails.application.routes.draw do
   end
 
   namespace :user_settings do
-    resource :account, only: [ :show, :update ]
+    resource :account, only: [ :show ]
     resources :active_sessions, only: [ :index, :destroy ]
     resources :connected_accounts, only: [ :destroy ]
     resource :email, only: [ :update ]

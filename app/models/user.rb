@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  MAX_USERNAME_LENGTH = 20
   MIN_PASSWORD_LENGTH_ALLOWED = 10
   MAX_PASSWORD_LENGTH_ALLOWED = 72 # Comes from User::BCryptPassword::MAX_PASSWORD_LENGTH_ALLOWED
 
@@ -11,8 +10,6 @@ class User < ApplicationRecord
   include Role
 
   has_secure_password
-
-  to_param :username
 
   scope :active, -> { where(active: true) }
   scope :deactivated, -> { where(active: false) }
@@ -29,12 +26,7 @@ class User < ApplicationRecord
 
   enum :theme, { system: 0, light: 1, dark: 2 }, default: :system, prefix: true, validate: true
 
-  validates :username, presence: true,
-    length: { minimum: 3, maximum: MAX_USERNAME_LENGTH },
-    uniqueness: { case_sensitive: false },
-    format: {
-      with: /\A[a-z0-9_]+\z/i
-    }
+  validates :name, presence: true
 
   validates :email_address, presence: true,
     uniqueness: { case_sensitive: false },
@@ -46,7 +38,6 @@ class User < ApplicationRecord
   validate :organization_owner_cannot_be_deactivated, if: -> { active_changed? && organization_owner? }
 
   normalizes :email_address, with: ->(email) { email.strip.downcase }
-  normalizes :username, with: ->(username) { username.squish }
   normalizes :name, with: ->(name) { name.squish }
 
   generates_token_for :email_verification, expires_in: 2.days do

@@ -11,7 +11,6 @@ class User
         where(
           arel_table[:name].matches("%#{sanitize_sql_like(query.to_s)}%")
           .or(arel_table[:email_address].matches("%#{sanitize_sql_like(query.to_s)}%"))
-          .or(arel_table[:username].matches("%#{sanitize_sql_like(query.to_s)}%"))
         )
       end
     end

@@ -21,8 +21,7 @@ class AuthenticationTest < ApplicationSystemTestCase
   test "signing up" do
     visit sign_up_url
 
-    fill_in "Name", with: "Shane"
-    fill_in "Username", with: "shane_m"
+    fill_in "Name", with: "Shane M"
     fill_in "Email", with: "shane@email.com"
     fill_in "Password", with: "SecretPassword"
 

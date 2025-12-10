@@ -28,7 +28,7 @@ class FirstRunsController < ApplicationController
 
     def first_run_params
       params.expect(first_run: [
-        :username, :name, :avatar, :email_address, :password,
+        :name, :avatar, :email_address, :password,
         :organization_name, :organization_subdomain, :organization_logo,
         :category_name, :category_color
       ])

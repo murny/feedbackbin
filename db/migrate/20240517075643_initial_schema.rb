@@ -159,7 +159,7 @@ class InitialSchema < ActiveRecord::Migration[8.2]
       t.datetime "created_at", null: false
       t.string "email_address", null: false
       t.boolean "email_verified", default: false, null: false
-      t.string "name"
+      t.string "name", limit: 255, null: false
       t.string "password_digest", null: false
       t.string "preferred_language"
       t.integer "role", default: 0, null: false
@@ -167,9 +167,7 @@ class InitialSchema < ActiveRecord::Migration[8.2]
       t.integer "theme", default: 0, null: false
       t.string "time_zone"
       t.datetime "updated_at", null: false
-      t.string "username", null: false
       t.index [ "email_address" ], name: "index_users_on_email_address", unique: true
-      t.index [ "username" ], name: "index_users_on_username", unique: true
     end
 
     add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"

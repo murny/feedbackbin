@@ -50,7 +50,6 @@ class OrganizationPolicyTest < ActiveSupport::TestCase
 
     # Create another admin who is not the owner
     other_admin = User.create!(
-      username: "admin_two",
       name: "Admin Two",
       email_address: "admin2@feedbackbin.com",
       password: "password123456",
@@ -69,7 +68,6 @@ class OrganizationPolicyTest < ActiveSupport::TestCase
 
     # Create another admin who is not the owner
     other_admin = User.create!(
-      username: "admin_three",
       name: "Admin Three",
       email_address: "admin3@feedbackbin.com",
       password: "password123456",

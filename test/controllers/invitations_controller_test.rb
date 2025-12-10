@@ -19,7 +19,6 @@ class InvitationsControllerTest < ActionDispatch::IntegrationTest
       invited_by: users(:shane)
     )
     user = User.create!(
-      username: "testuser",
       email_address: invitation.email,
       name: invitation.name,
       password: "password123",

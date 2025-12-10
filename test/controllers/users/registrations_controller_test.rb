@@ -13,8 +13,7 @@ module Users
     test "should sign up" do
       assert_difference("User.count") do
         post users_registrations_url, params: { user: {
-          username: "new_user",
-          name: "New user",
+          name: "New User",
           email_address: "new_user@example.com",
           password: "password123456",
           password_confirmation: "password123456"

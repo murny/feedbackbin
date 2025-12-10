@@ -25,27 +25,21 @@
           <%= hidden_field_tag :invitation_token, params[:invitation_token] %>
 
           <div class="grid gap-3">
-            <%= form.label :email_address, t(".email"), class: "text-sm font-medium leading-none" %>
-            <%= form.email_field :email_address, required: true, autofocus: true, autocomplete: "email", placeholder: t(".email_address_placeholder") %>
-            <p class="text-muted-foreground text-sm"><%= t(".email_address_hint") %></p>
+            <%= form.label :name, t(".name"), class: "text-sm font-medium leading-none" %>
+            <%= form.text_field :name, required: true, autofocus: true, autocomplete: "name", placeholder: t(".name_placeholder") %>
+            <p class="text-muted-foreground text-sm"><%= t(".name_hint") %></p>
           </div>
 
           <div class="grid gap-3">
-            <%= form.label :username, t(".username"), class: "text-sm font-medium leading-none" %>
-            <%= form.text_field :username, required: true, autocomplete: "username", placeholder: t(".username_placeholder") %>
-            <p class="text-muted-foreground text-sm"><%= t(".username_hint") %></p>
+            <%= form.label :email_address, t(".email"), class: "text-sm font-medium leading-none" %>
+            <%= form.email_field :email_address, required: true, autocomplete: "email", placeholder: t(".email_address_placeholder") %>
+            <p class="text-muted-foreground text-sm"><%= t(".email_address_hint") %></p>
           </div>
 
           <div class="grid gap-3">
             <%= form.label :password, t(".password"), class: "text-sm font-medium leading-none" %>
             <%= form.password_field :password, required: true, autocomplete: "new-password", placeholder: t(".password_placeholder") %>
             <p class="text-muted-foreground text-sm"><%= t(".password_hint") %></p>
-          </div>
-
-          <div class="grid gap-3">
-            <%= form.label :name, t(".name"), class: "text-sm font-medium leading-none" %>
-            <%= form.text_field :name, required: false, autocomplete: "name", placeholder: t(".name_placeholder") %>
-            <p class="text-muted-foreground text-sm"><%= t(".name_hint") %></p>
           </div>
 
           <%= form.submit t(".create_account"), class: "btn w-full" %>
