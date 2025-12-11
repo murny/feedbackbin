@@ -66,7 +66,7 @@ module Admin
 
         assert_redirected_to admin_user_path(owner)
         assert_equal "Role cannot be changed for organization owner", flash[:alert]
-        assert_predicate owner.reload, :admin?, "Owner should remain admin"
+        assert_predicate owner.reload, :owner?, "Owner should remain owner"
       end
 
       test "should require admin for role management" do

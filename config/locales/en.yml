@@ -15,8 +15,6 @@ en:
           attributes:
             categories:
               must_have_at_least_one: must have at least one category
-            owner:
-              must_be_admin: must be an admin
             subdomain:
               format: must be at least 2 characters and alphanumeric
               reserved: "%{value} is reserved"
@@ -219,8 +217,8 @@ en:
           success: Ownership transferred to %{name}.
         new:
           new_owner: New Owner
-          new_owner_help: Only administrators can become owners.
-          select_admin: Select an administrator
+          new_owner_help: Select an admin to transfer ownership to.
+          select_admin: Select an admin
           title: Transfer Organization Ownership
           transfer_ownership: Transfer Ownership
           warning_message: Transferring ownership cannot be undone. The new owner will have full control of this organization.

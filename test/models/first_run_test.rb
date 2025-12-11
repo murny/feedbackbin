@@ -7,7 +7,7 @@ class FirstRunTest < ActiveSupport::TestCase
     Organization.destroy_all
   end
 
-  test "creating makes first user an admin and sets up a new category and organization" do
+  test "creating makes first user an owner and sets up a new category and organization" do
     assert_difference [ "Category.count", "User.count", "Organization.count" ] do
       first_run = FirstRun.new(
         name: "Owner Example",
@@ -18,7 +18,7 @@ class FirstRunTest < ActiveSupport::TestCase
         category_color: "#3b82f6"
       ).save!
 
-      assert_predicate first_run.user, :admin?
+      assert_predicate first_run.user, :owner?
       assert_equal "Test Organization", first_run.organization.name
       assert_equal "Test Category", first_run.category.name
       assert_equal "Owner Example", first_run.user.name

@@ -97,12 +97,10 @@ class InitialSchema < ActiveRecord::Migration[8.2]
       t.integer "default_post_status_id", null: false
       t.string "logo_link"
       t.string "name", null: false
-      t.integer "owner_id", null: false
       t.boolean "show_company_name", default: true, null: false
       t.string "subdomain"
       t.datetime "updated_at", null: false
       t.index [ "default_post_status_id" ], name: "index_organizations_on_default_post_status_id"
-      t.index [ "owner_id" ], name: "index_organizations_on_owner_id"
     end
 
     create_table "post_statuses", force: :cascade do |t|
@@ -162,7 +160,7 @@ class InitialSchema < ActiveRecord::Migration[8.2]
       t.string "name", limit: 255, null: false
       t.string "password_digest", null: false
       t.string "preferred_language"
-      t.integer "role", default: 0, null: false
+      t.string "role", default: "member", null: false
       t.boolean "super_admin", default: false, null: false
       t.integer "theme", default: 0, null: false
       t.string "time_zone"
@@ -178,7 +176,6 @@ class InitialSchema < ActiveRecord::Migration[8.2]
     add_foreign_key "invitations", "users", column: "invited_by_id"
     add_foreign_key "likes", "users", column: "voter_id"
     add_foreign_key "organizations", "post_statuses", column: "default_post_status_id"
-    add_foreign_key "organizations", "users", column: "owner_id"
     add_foreign_key "posts", "categories"
     add_foreign_key "posts", "post_statuses"
     add_foreign_key "posts", "users", column: "author_id"

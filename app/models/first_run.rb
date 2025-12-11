@@ -49,8 +49,7 @@ class FirstRun
 
       @user = User.create!(user_attributes)
       @organization = Organization.create!(organization_attributes.merge(
-        default_post_status: PostStatus.ordered.first,
-        owner: @user
+        default_post_status: PostStatus.ordered.first
       ))
       @category = Category.create!(category_attributes)
       self
@@ -68,7 +67,7 @@ class FirstRun
         email_address: email_address,
         password: password,
         avatar: avatar,
-        role: :admin
+        role: :owner
       }
     end
 

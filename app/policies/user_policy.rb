@@ -6,7 +6,7 @@ class UserPolicy < ApplicationPolicy
   end
 
   def destroy?
-    return false if record.organization_owner?
+    return false if record.owner?
 
     owned? || admin?
   end
