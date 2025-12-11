@@ -21,10 +21,10 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
       password: "secret123456",
       role: :owner
     )
-    PostStatus.create!(name: "Open", color: "#3b82f6", position: 1)
+    open_status = PostStatus.create!(name: "Open", color: "#3b82f6", position: 1)
     Organization.create!(
       name: "FeedbackBin",
-      default_post_status: PostStatus.first
+      default_post_status: open_status
     )
 
     get first_run_url

@@ -7,7 +7,7 @@ module Admin
 
       def new
         @organization = Current.organization
-        @admins = User.admin.where.not(role: :owner)
+        @admins = User.admin
       end
 
       def create
@@ -23,7 +23,7 @@ module Admin
 
         redirect_to admin_settings_branding_path, notice: t(".success", name: new_owner.name)
       rescue ActiveRecord::RecordInvalid
-        @admins = User.admin.where.not(role: :owner)
+        @admins = User.admin
         flash.now[:alert] = t(".failure")
         render :new, status: :unprocessable_entity
       end
