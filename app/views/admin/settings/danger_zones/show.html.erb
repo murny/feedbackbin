@@ -17,12 +17,12 @@
         <% c.with_header(title: t(".transfer_ownership_title"), description: t(".transfer_ownership_description")) %>
         <% c.with_body(class: "py-4") do %>
           <div class="flex items-center gap-3">
-            <%= image_tag fresh_user_avatar_path(Current.organization.owner),
+            <%= image_tag fresh_user_avatar_path(@owner),
                 class: "h-10 w-10 rounded-full" %>
 
             <div class="flex-1">
-              <p class="font-medium"><%= Current.organization.owner.name %></p>
-              <p class="text-sm text-muted-foreground"><%= Current.organization.owner.email_address %></p>
+              <p class="font-medium"><%= @owner.name %></p>
+              <p class="text-sm text-muted-foreground"><%= @owner.email_address %></p>
             </div>
 
             <%= render Elements::ButtonComponent.new(

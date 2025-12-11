@@ -52,13 +52,7 @@ module Admin
       end
 
       test "non-owner admin cannot view danger zone" do
-        # Create another admin who is not the owner
-        admin = User.create!(
-          name: "Admin User",
-          email_address: "admin@feedbackbin.com",
-          password: "secret123456",
-          role: :admin
-        )
+        admin = users(:admin)
         sign_in_as(admin)
 
         get admin_settings_danger_zone_url
@@ -68,13 +62,7 @@ module Admin
       end
 
       test "non-owner admin cannot delete organization" do
-        # Create another admin who is not the owner
-        admin = User.create!(
-          name: "Admin User",
-          email_address: "admin@feedbackbin.com",
-          password: "secret123456",
-          role: :admin
-        )
+        admin = users(:admin)
         sign_in_as(admin)
 
         assert_no_difference("Organization.count") do

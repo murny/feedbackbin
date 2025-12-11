@@ -36,8 +36,7 @@ class Organization
       original = Organization.create!(
         name: "test",
         subdomain: "test",
-        default_post_status: post_statuses(:open),
-        owner: users(:shane)
+        default_post_status: post_statuses(:open)
       )
       organization = original.dup
 

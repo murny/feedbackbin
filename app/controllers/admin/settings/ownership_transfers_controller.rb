@@ -7,20 +7,25 @@ module Admin
 
       def new
         @organization = Current.organization
-        @admins = User.admin.where.not(id: @organization.owner_id)
+        @admins = User.admin
       end
 
       def create
         @organization = Current.organization
         new_owner = User.find(params[:new_owner_id])
+        current_owner = User.owner.first
 
-        if @organization.update(owner: new_owner)
-          redirect_to admin_settings_branding_path, notice: t(".success", name: new_owner.name)
-        else
-          @admins = User.admin.where.not(id: @organization.owner_id)
-          flash.now[:alert] = t(".failure")
-          render :new, status: :unprocessable_entity
+        User.transaction do
+          # Use update_column to skip validation since this is the legitimate ownership transfer
+          current_owner.update_column(:role, "admin")
+          new_owner.update!(role: :owner)
         end
+
+        redirect_to admin_settings_branding_path, notice: t(".success", name: new_owner.name)
+      rescue ActiveRecord::RecordInvalid
+        @admins = User.admin
+        flash.now[:alert] = t(".failure")
+        render :new, status: :unprocessable_entity
       end
 
       private

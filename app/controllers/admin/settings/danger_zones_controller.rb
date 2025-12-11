@@ -6,6 +6,7 @@ module Admin
       before_action :ensure_owner
 
       def show
+        @owner = User.owner.first
       end
 
       def destroy
@@ -13,11 +14,13 @@ module Admin
         acknowledged = ActiveModel::Type::Boolean.new.cast(params.dig(:organization, :acknowledge))
 
         if name_confirmation != Current.organization.name
+          @owner = User.owner.first
           flash.now[:alert] = t(".name_confirmation_mismatch")
           return render :show, status: :unprocessable_entity
         end
 
         unless acknowledged
+          @owner = User.owner.first
           flash.now[:alert] = t(".acknowledgment_required")
           return render :show, status: :unprocessable_entity
         end

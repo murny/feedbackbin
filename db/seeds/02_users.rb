@@ -7,7 +7,7 @@ User.find_or_create_by!(email_address: "shane.murnaghan@feedbackbin.com") do |us
   user.password = "password123"
   user.super_admin = true
   user.email_verified = true
-  user.role = :admin
+  user.role = :owner
 end
 
 User.find_or_create_by!(email_address: "fake_user@example.com") do |user|

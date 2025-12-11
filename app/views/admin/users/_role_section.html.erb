@@ -6,7 +6,7 @@
       ) do %>
         <%= user.role.humanize %>
       <% end %>
-      <% if user.organization_owner? %>
+      <% if user.owner? %>
         <%= render Elements::BadgeComponent.new(variant: :default) do %>
           <%= t("admin.users.show.owner_badge") %>
         <% end %>

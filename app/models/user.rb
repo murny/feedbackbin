@@ -23,7 +23,6 @@ class User < ApplicationRecord
   has_many :likes, dependent: :destroy, foreign_key: :voter_id, inverse_of: :voter
   has_many :user_connected_accounts, dependent: :destroy
   has_many :invitations, dependent: :destroy, foreign_key: :invited_by_id, inverse_of: :invited_by
-  has_one :owned_organization, class_name: "Organization", foreign_key: :owner_id, inverse_of: :owner, dependent: :restrict_with_error
 
   enum :theme, { system: 0, light: 1, dark: 2 }, default: :system, prefix: true, validate: true
 
@@ -36,7 +35,7 @@ class User < ApplicationRecord
   validates :password, allow_nil: true, length: { minimum: MIN_PASSWORD_LENGTH_ALLOWED }
   validates :bio, length: { maximum: 255 }
 
-  validate :organization_owner_cannot_be_deactivated, if: -> { active_changed? && organization_owner? }
+  validate :organization_owner_cannot_be_deactivated, if: -> { active_changed? && owner? }
 
   normalizes :email_address, with: ->(email) { email.strip.downcase }
   normalizes :name, with: ->(name) { name.squish }
@@ -67,10 +66,6 @@ class User < ApplicationRecord
 
   def deactivated?
     !active?
-  end
-
-  def organization_owner?
-    owned_organization.present?
   end
 
   private

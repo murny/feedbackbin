@@ -32,7 +32,7 @@ class UserPolicyTest < ActiveSupport::TestCase
   test "organization owner cannot be destroyed" do
     owner = users(:shane)
 
-    assert_predicate owner, :organization_owner?
+    assert_predicate owner, :owner?
 
     # Owner cannot delete themselves
     assert_not_predicate UserPolicy.new(owner, owner), :destroy?

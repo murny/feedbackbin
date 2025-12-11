@@ -36,7 +36,13 @@ module Admin
         post admin_settings_ownership_transfer_url, params: { new_owner_id: @admin.id }
 
         assert_redirected_to admin_settings_branding_path
-        assert_equal @admin, @organization.reload.owner
+
+        @admin.reload
+        @owner.reload
+
+        assert_predicate @admin, :owner?
+        assert_predicate @owner, :admin?
+        assert_equal @admin, User.owner.first
         assert_equal "Ownership transferred to Admin Two.", flash[:notice]
       end
 

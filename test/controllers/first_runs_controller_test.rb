@@ -15,16 +15,16 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "new is not permitted when organization exist" do
-    user = User.create!(
+    User.create!(
       name: "Test User",
       email_address: "new@feedbackbin.com",
       password: "secret123456",
-      role: :admin
+      role: :owner
     )
+    open_status = PostStatus.create!(name: "Open", color: "#3b82f6", position: 1)
     Organization.create!(
       name: "FeedbackBin",
-      default_post_status: post_statuses(:open),
-      owner: user
+      default_post_status: open_status
     )
 
     get first_run_url
@@ -59,7 +59,7 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
     assert_equal "Test Organization", organization.name
     assert_equal "Custom Category", Category.last.name
 
-    assert_predicate user, :admin?
+    assert_predicate user, :owner?
 
     assert_equal PostStatus.default, organization.default_post_status
   end

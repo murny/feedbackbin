@@ -48,7 +48,7 @@ class ApplicationPolicy
   private
 
     def admin?
-      user&.admin?
+      user&.admin? || user&.owner?
     end
 
     class Scope

@@ -6,6 +6,13 @@ shane:
   email_verified: true
   password_digest: <%= password_digest %>
   super_admin: true
+  role: owner
+
+admin:
+  name: Admin User
+  email_address: admin@feedbackbin.com
+  email_verified: true
+  password_digest: <%= password_digest %>
   role: admin
 
 one:
