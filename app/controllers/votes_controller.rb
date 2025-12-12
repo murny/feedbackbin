@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
 class VotesController < ApplicationController
-  VOTEABLE_APPROVELIST = [ "Idea", "Comment" ].freeze
+  VOTEABLE_CLASSES = {
+    "Idea" => Idea,
+    "Comment" => Comment
+  }.freeze
 
   skip_after_action :verify_authorized
 
@@ -24,10 +27,9 @@ class VotesController < ApplicationController
   private
 
     def set_voteable
-      unless VOTEABLE_APPROVELIST.include?(params[:voteable_type])
-        return head :unprocessable_entity
-      end
+      klass = VOTEABLE_CLASSES[params[:voteable_type]]
+      return head :unprocessable_entity unless klass
 
-      @voteable = params[:voteable_type].safe_constantize.find(params[:voteable_id])
+      @voteable = klass.find(params[:voteable_id])
     end
 end
