@@ -1,0 +1,18 @@
+<% content_for :title, t(".title") %>
+
+<div class="container mx-auto max-w-4xl">
+  <%= render partial: "admin/settings/header" %>
+
+  <div class="mt-8">
+    <div class="mb-6">
+      <h2 class="text-lg font-medium"><%= t(".title") %></h2>
+      <p class="text-sm text-muted-foreground"><%= t(".description") %></p>
+    </div>
+
+    <%= render Elements::CardComponent.new do |c| %>
+      <% c.with_body do %>
+        <%= render "form", status: @status %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

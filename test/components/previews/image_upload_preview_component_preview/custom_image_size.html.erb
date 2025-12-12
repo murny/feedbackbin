@@ -1,7 +1,7 @@
 <div class="p-6 space-y-8 max-w-2xl">
   <div>
     <h3 class="text-sm font-medium mb-4">Small Logo (64x64)</h3>
-    <%= form_with model: Organization.new, url: "#" do |form| %>
+    <%= form_with model: Account.new, url: "#" do |form| %>
       <%= render ImageUploadPreviewComponent.new(
             form: form,
             field_name: :logo,
@@ -26,7 +26,7 @@
 
   <div>
     <h3 class="text-sm font-medium mb-4">Large Banner Image</h3>
-    <%= form_with model: Organization.new, url: "#" do |form| %>
+    <%= form_with model: Account.new, url: "#" do |form| %>
       <%= render ImageUploadPreviewComponent.new(
             form: form,
             field_name: :og_image,

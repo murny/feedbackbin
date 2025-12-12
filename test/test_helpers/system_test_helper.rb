@@ -11,6 +11,6 @@ module SystemTestHelper
 
     click_button "Sign in"
 
-    assert_selector "a", text: "New Post"
+    assert_selector "a", text: "New Feedback"
   end
 end

@@ -54,10 +54,10 @@ FeedbackBin is a powerful, self-hosted customer feedback management platform bui
 ## ✨ Features
 
 ### Core Functionality
-- **Feedback Management**: Create, organize, and track customer feedback posts
+- **Feedback Idea Management**: Create, organize, and track customer feedback ideas
 - **Threaded Comments**: Rich discussion system with nested comments
-- **Category Organization**: Logical grouping of feedback items
-- **Status Tracking**: Monitor feedback lifecycle with custom statuses
+- **Boards**: Logical grouping of feedback ideas
+- **Status Tracking**: Monitor feedback idea lifecycle with custom statuses
 - **User Management**: Role-based access control and user profiles
 
 ### Technical Features

@@ -1,0 +1,20 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: Wish this had dark mode!
+  author: shane
+  board: one
+  status: open
+
+two:
+  title: Love the site, can you implement downvotes?
+  author: one
+  board: one
+  status: open
+
+three:
+  title: Allow visitors to post without having to sign in
+  author: two
+  board: two
+  status: in_progress
+

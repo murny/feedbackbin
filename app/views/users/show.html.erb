@@ -1,9 +1,9 @@
-<!-- Back to feedback link -->
+<!-- Back to ideas link -->
 <div class="container mx-auto px-4 py-4">
   <div class="max-w-4xl mx-auto">
     <%= link_to root_path, class: "inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors" do %>
       <%= lucide_icon "chevron-left", class: "size-4" %>
-      <%= t(".back_to_feedback") %>
+      <%= t(".back_to_ideas") %>
     <% end %>
   </div>
 </div>
@@ -166,8 +166,8 @@
         <div class="mt-8">
           <div class="grid grid-cols-2 gap-6 sm:grid-cols-4">
             <div class="text-center">
-              <div class="text-3xl font-bold text-foreground"><%= @stats[:posts_count] %></div>
-              <div class="text-sm text-muted-foreground"><%= t(".stats_posts_created") %></div>
+              <div class="text-3xl font-bold text-foreground"><%= @stats[:ideas_count] %></div>
+              <div class="text-sm text-muted-foreground"><%= t(".stats_ideas_created") %></div>
             </div>
             <div class="text-center">
               <div class="text-3xl font-bold text-foreground"><%= @stats[:total_votes] %></div>
@@ -197,9 +197,9 @@
         <%= render Elements::TabsComponent.new(
           items: [
             {
-              value: "posts",
-              label: "#{t('.tabs_posts')} (#{@stats[:posts_count]})",
-              content: render("users/posts_tab", posts: @posts)
+              value: "ideas",
+              label: "#{t('.tabs_ideas')} (#{@stats[:ideas_count]})",
+              content: render("users/ideas_tab", ideas: @ideas)
             },
             {
               value: "comments",
@@ -208,8 +208,8 @@
             },
             {
               value: "likes",
-              label: "#{t('.tabs_likes')} (#{@likes.size})",
-              content: render("users/likes_tab", likes: @likes)
+              label: "#{t('.tabs_votes')} (#{@votes.size})",
+              content: render("users/votes_tab", votes: @votes)
             }
           ],
           index_value: 0

@@ -19,7 +19,7 @@ class CommentsController < ApplicationController
     respond_to do |format|
       if @comment.save
         flash.now[:notice] = t(".successfully_created")
-        format.html { redirect_to post_path(@comment.post) }
+        format.html { redirect_to idea_path(@comment.idea) }
         format.json { render :show, status: :created, location: @comment }
       else
         format.html { render :new, status: :unprocessable_entity }
@@ -52,7 +52,7 @@ class CommentsController < ApplicationController
     respond_to do |format|
       flash.now[:notice] = t(".successfully_destroyed")
       format.turbo_stream { }
-      format.html { redirect_to @comment.post, status: :see_other }
+      format.html { redirect_to @comment.idea, status: :see_other }
       format.json { head :no_content }
     end
   end
@@ -64,6 +64,6 @@ class CommentsController < ApplicationController
     end
 
     def comment_params
-      params.expect(comment: [ :body, :parent_id, :post_id ])
+      params.expect(comment: [ :body, :parent_id, :idea_id ])
     end
 end

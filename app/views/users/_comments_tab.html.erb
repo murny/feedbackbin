@@ -4,19 +4,19 @@
       <li class="card hover:shadow-xl hover:border-primary/20">
         <div class="px-4 md:px-6">
           <div class="flex gap-3 md:gap-4">
-            <%= render partial: "likes/like_button", locals: { likeable: comment } %>
+            <%= render partial: "votes/vote_button", locals: { voteable: comment } %>
             <div class="grow lg:flex items-center justify-between gap-5 lg:gap-6">
               <div>
                 <div class="mb-2">
                   <div class="flex items-center gap-2 mb-1">
                     <h2 class="flex-1">
                       <%= link_to comment_path(comment), class: "scroll-m-20 text-xl font-semibold tracking-tight hover:underline cursor-pointer line-clamp-2" do %>
-                        <span class="text-muted-foreground text-sm font-normal"><%= t(".comment_on") %></span> <%= comment.post.title %>
+                        <span class="text-muted-foreground text-sm font-normal"><%= t(".comment_on") %></span> <%= comment.idea.title %>
                       <% end %>
                     </h2>
-                    <% if comment.post.category %>
+                    <% if comment.idea.board %>
                       <%= render Elements::BadgeComponent.new(variant: :outline) do %>
-                        <%= comment.post.category.name %>
+                        <%= comment.idea.board.name %>
                       <% end %>
                     <% end %>
                   </div>

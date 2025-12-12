@@ -3,7 +3,7 @@
 namespace :super_admin do
   mount MissionControl::Jobs::Engine, at: "/jobs"
 
-  resources :organizations
+  resources :accounts
 
   root to: "dashboard#show"
 end

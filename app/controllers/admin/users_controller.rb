@@ -28,12 +28,12 @@ module Admin
     def show
       @user = User.with_attached_avatar.find(params[:id])
 
-      @recent_posts = @user.posts.order(created_at: :desc).limit(10)
+      @recent_ideas = @user.ideas.order(created_at: :desc).limit(10)
 
       # Activity stats
-      @total_posts = @user.posts.count
+      @total_ideas = @user.ideas.count
       @total_comments = @user.comments.count
-      @total_likes = @user.likes.count
+      @total_votes = @user.votes.count
 
       # Last session info
       @last_session = @user.sessions.order(last_active_at: :desc).first

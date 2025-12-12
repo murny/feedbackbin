@@ -10,7 +10,7 @@
           <th class="px-6 py-4 text-left font-semibold text-foreground"><%= t(".role_column") %></th>
           <th class="px-6 py-4 text-left font-semibold text-foreground"><%= t(".account_status_column") %></th>
           <th class="px-6 py-4 text-left font-semibold text-foreground"><%= t(".email_status_column") %></th>
-          <th class="px-6 py-4 text-left font-semibold text-foreground"><%= t(".posts_column") %></th>
+          <th class="px-6 py-4 text-left font-semibold text-foreground"><%= t(".ideas_column") %></th>
           <th class="px-6 py-4 text-left font-semibold text-foreground"><%= t(".joined_column") %></th>
           <th class="px-6 py-4 text-center font-semibold text-foreground"><%= t(".actions_column") %></th>
         </tr>
@@ -69,13 +69,13 @@
                 <% end %>
               </td>
               <td class="px-6 py-4">
-                <% posts_count = user.posts.count %>
-                <% if posts_count > 0 %>
+                <% ideas_count = user.ideas.count %>
+                <% if ideas_count > 0 %>
                   <span class="inline-flex items-center rounded-full bg-secondary px-2 py-1 text-xs font-medium text-secondary-foreground">
-                    <%= pluralize(posts_count, t(".post_singular"), t(".post_plural")) %>
+                    <%= pluralize(ideas_count, t(".idea_singular"), t(".idea_plural")) %>
                   </span>
                 <% else %>
-                  <span class="text-muted-foreground"><%= t(".no_posts") %></span>
+                  <span class="text-muted-foreground"><%= t(".no_ideas") %></span>
                 <% end %>
               </td>
               <td class="px-6 py-4 text-muted-foreground">

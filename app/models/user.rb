@@ -17,10 +17,10 @@ class User < ApplicationRecord
   scope :filtered_by, ->(query) { where("name like ?", "%#{query}%") }
   scope :ordered, -> { alphabetically }
 
-  has_many :posts, dependent: :destroy, foreign_key: :author_id, inverse_of: :author
+  has_many :ideas, dependent: :destroy, foreign_key: :author_id, inverse_of: :author
   has_many :sessions, dependent: :destroy
   has_many :comments, dependent: :destroy, foreign_key: :creator_id, inverse_of: :creator
-  has_many :likes, dependent: :destroy, foreign_key: :voter_id, inverse_of: :voter
+  has_many :votes, dependent: :destroy, foreign_key: :voter_id, inverse_of: :voter
   has_many :user_connected_accounts, dependent: :destroy
   has_many :invitations, dependent: :destroy, foreign_key: :invited_by_id, inverse_of: :invited_by
 
@@ -35,7 +35,7 @@ class User < ApplicationRecord
   validates :password, allow_nil: true, length: { minimum: MIN_PASSWORD_LENGTH_ALLOWED }
   validates :bio, length: { maximum: 255 }
 
-  validate :organization_owner_cannot_be_deactivated, if: -> { active_changed? && owner? }
+  validate :account_owner_cannot_be_deactivated, if: -> { active_changed? && owner? }
 
   normalizes :email_address, with: ->(email) { email.strip.downcase }
   normalizes :name, with: ->(name) { name.squish }
@@ -74,7 +74,7 @@ class User < ApplicationRecord
       ActionCable.server.remote_connections.where(current_user: self).disconnect reconnect: false
     end
 
-    def organization_owner_cannot_be_deactivated
-      errors.add(:active, :organization_owner_cannot_be_deactivated)
+    def account_owner_cannot_be_deactivated
+      errors.add(:active, :account_owner_cannot_be_deactivated)
     end
 end

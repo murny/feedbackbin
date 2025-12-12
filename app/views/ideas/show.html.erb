@@ -1,0 +1,128 @@
+<%= content_for :title, @idea.title %>
+<%= turbo_stream_from @idea %>
+
+<section class="container mx-auto px-4 sm:px-6 mt-6 md:mt-10">
+  <div class="max-w-5xl mx-auto space-y-6">
+    <div>
+      <%= link_to ideas_path, class: "inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground" do %>
+        <%= lucide_icon "chevron-left", class: "h-4 w-4" %>
+        <span><%= t(".back_to_ideas") %></span>
+      <% end %>
+    </div>
+
+    <%= render Elements::CardComponent.new do |c| %>
+      <% c.with_body(class: "p-4 md:p-6 lg:p-8") do %>
+        <div class="flex items-start gap-3 md:gap-4">
+        <div class="pt-1">
+          <%= render partial: "votes/vote_button", locals: { voteable: @idea } %>
+        </div>
+        <div class="grow">
+          <div class="flex items-center justify-between gap-2 mb-2">
+            <div class="flex items-center flex-wrap gap-2">
+            <% if @idea.board %>
+                <%= render Elements::BadgeComponent.new(
+                  variant: :outline,
+                  class: "gap-1.5 text-muted-foreground bg-muted/30 border-border"
+                ) do %>
+                  <span class="w-2 h-2 rounded-full shrink-0" style="background-color: <%= @idea.board.color %>;"></span>
+                  <span><%= @idea.board.name %></span>
+                <% end %>
+              <% end %>
+
+              <span id="idea-pinned-badge">
+                <% if @idea.pinned? %>
+                  <%= render Elements::BadgeComponent.new(variant: :secondary) do %>
+                    <%= lucide_icon "map-pin" %>
+                    <%= t(".pinned") %>
+                  <% end %>
+                <% end %>
+              </span>
+            </div>
+
+            <div class="flex items-center gap-2">
+              <%= render "ideas/status_badge", idea: @idea %>
+
+              <% if policy(@idea).pin? || policy(@idea).edit? || policy(@idea).destroy? %>
+                <%= render Elements::DropdownMenuComponent.new do |dropdown| %>
+                  <% dropdown.with_trigger(variant: :ghost, size: :icon, class: "text-muted-foreground") do %>
+                    <%= lucide_icon("ellipsis") %>
+                  <% end %>
+
+                  <% if policy(@idea).edit? %>
+                    <% dropdown.with_item_content(href: edit_idea_path(@idea)) do %>
+                      <%= t("edit") %>
+                    <% end %>
+                  <% end %>
+
+                  <% if policy(@idea).pin? %>
+                    <% if @idea.pinned? %>
+                      <% dropdown.with_item_content(
+                        id: "idea-pin-button",
+                        href: idea_pin_path(@idea),
+                        method: :delete
+                      ) do %>
+                        <%= t(".unpin") %>
+                      <% end %>
+                    <% else %>
+                      <% dropdown.with_item_content(
+                        id: "idea-pin-button",
+                        href: idea_pin_path(@idea),
+                        method: :post
+                      ) do %>
+                        <%= t(".pin") %>
+                      <% end %>
+                    <% end %>
+                  <% end %>
+
+                  <% if policy(@idea).destroy? %>
+                    <% dropdown.with_item_separator %>
+                    <% dropdown.with_item_content(
+                      href: @idea,
+                      method: :delete,
+                      form: { data: { turbo_confirm: t("are_you_sure") } },
+                      class: "text-destructive"
+                    ) do %>
+                      <%= t("delete") %>
+                    <% end %>
+                  <% end %>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+
+          <h1 class="text-2xl sm:text-3xl font-bold tracking-tight mb-2"><%= @idea.title %></h1>
+
+          <div class="flex items-center gap-2 text-sm mb-6">
+            <%= avatar_tag @idea.author, class: "rounded-full w-8 h-8" %>
+            <%= link_to @idea.author.name, @idea.author, class: "font-medium hover:underline" %>
+            <%= lucide_icon "dot" %>
+            <%= time_ago_with_tooltip @idea.created_at %>
+          </div>
+
+          <div class="prose max-w-none">
+            <%= @idea.body %>
+          </div>
+
+          <!-- Bottom: user actions -->
+          <div class="mt-6 flex flex-wrap items-center gap-2">
+            <%= render Elements::ButtonComponent.new(variant: :outline) do %>
+              <%= lucide_icon "eye" %>
+              <%= t(".watch") %>
+            <% end %>
+            <%= render Elements::ButtonComponent.new(variant: :outline) do %>
+              <%= lucide_icon "share" %>
+              <%= t(".share") %>
+            <% end %>
+          </div>
+        </div>
+        </div>
+      <% end %>
+    <% end %>
+
+    <%= render partial: "comments/comments", locals: {
+      comment: @comment,
+      idea: @idea,
+      top_level_comments: @top_level_comments
+    } %>
+  </div>
+</section>

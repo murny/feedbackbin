@@ -14,8 +14,8 @@ module Users
       assert_response :success
     end
 
-    test "new redirects to first run when no organizations exist" do
-      Organization.destroy_all
+    test "new redirects to first run when no accounts exist" do
+      Account.destroy_all
 
       get sign_in_url
 

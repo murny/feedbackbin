@@ -28,11 +28,11 @@ class User
       assert_equal("is not included in the list", @user.errors[:role].first)
     end
 
-    test "cannot change role for organization owner" do
+    test "cannot change role for account owner" do
       owner = users(:shane)
 
       assert_not owner.update(role: :member)
-      assert_equal "cannot be changed for organization owner", owner.errors[:role].first
+      assert_equal "cannot be changed for account owner", owner.errors[:role].first
     end
   end
 end

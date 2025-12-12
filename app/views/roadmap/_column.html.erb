@@ -1,4 +1,4 @@
-<%# locals: (status:, posts:) %>
+<%# locals: (status:, ideas:) %>
 
 <div class="shrink-0 w-80 lg:w-96">
   <!-- Column Header -->
@@ -9,20 +9,20 @@
       <%= status.name %>
     </h2>
     <span class="text-sm text-muted-foreground">
-      (<%= posts.size %>)
+      (<%= ideas.size %>)
     </span>
   </div>
 
-  <!-- Posts List -->
+  <!-- Ideas List -->
   <div class="space-y-3">
-    <% if posts.any? %>
-      <% posts.each do |post| %>
-        <%= render "post_card", post: post %>
+    <% if ideas.any? %>
+      <% ideas.each do |idea| %>
+        <%= render "idea_card", idea: idea %>
       <% end %>
     <% else %>
       <div class="text-center py-12 border-2 border-dashed border-border rounded-lg bg-muted/20">
         <%= lucide_icon "inbox", class: "h-10 w-10 mx-auto mb-3 text-muted-foreground opacity-50" %>
-        <p class="text-sm text-muted-foreground"><%= t(".no_posts") %></p>
+        <p class="text-sm text-muted-foreground"><%= t(".no_ideas") %></p>
       </div>
     <% end %>
   </div>

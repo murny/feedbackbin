@@ -1,0 +1,138 @@
+<%= content_for :title, t(".title") %>
+<%= turbo_stream_from :ideas %>
+
+<% if @boards.present? %>
+<section class="max-w-6xl mx-auto px-4 sm:px-6">
+  <div class="md:pr-6 lg:pr-10">
+
+    <div class="mb-8 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+      <div>
+        <% if @board %>
+          <h1 class="text-3xl font-bold mb-2"><%= @board.name %></h1>
+          <p class="text-muted-foreground"><%= @board.description %></p>
+        <% else %>
+          <%# TODO: The default title/description should be configurable for the account %>
+          <h1 class="text-3xl font-bold mb-2"><%= t(".title") %></h1>
+          <p class="text-muted-foreground"><%= t(".description") %></p>
+        <% end %>
+      </div>
+      <div class="shrink-0">
+        <%= link_to t("ideas.new.title"), new_idea_path(board_id: @board&.id), class: "btn-primary" %>
+      </div>
+    </div>
+
+    <%= turbo_frame_tag "ideas_content", target: "_top", data: {
+      turbo_action: "advance",
+      action: "turbo:frame-load->search#searchComplete"
+    } do %>
+      <div class="mb-6">
+        <!-- Filters -->
+        <div class="flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between mb-6">
+          <%= render "shared/board_filter",
+            path_helper: :ideas_path,
+            boards: @boards,
+            selected_board: @board,
+            turbo_frame: "ideas_content",
+            preserve_params: {
+              sort: params[:sort],
+              direction: params[:direction],
+              status_id: params[:status_id],
+              search: @search
+            } %>
+
+          <%= render "shared/search_filter",
+            path_helper: :ideas_path,
+            search_value: @search,
+            turbo_frame: "ideas_content",
+            placeholder: t(".search_placeholder"),
+            preserve_params: {
+              board_id: params[:board_id],
+              status_id: params[:status_id],
+              sort: params[:sort],
+              direction: params[:direction]
+            } %>
+        </div>
+      </div>
+
+      <!-- Status Filter Tabs -->
+      <div class="mb-6">
+        <div class="bg-muted text-muted-foreground inline-flex h-9 w-fit items-center justify-center rounded-lg p-[3px]">
+          <%= link_to t(".all_ideas"), ideas_path(**clean_params(board_id: params[:board_id], sort: params[:sort], direction: params[:direction], search: @search)),
+              class: "inline-flex h-[calc(100%-1px)] items-center justify-center rounded-md border border-transparent px-3 py-1 text-sm font-medium whitespace-nowrap transition-all duration-200 #{ params[:status_id].blank? ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground hover:bg-muted/50' }",
+              data: { turbo_frame: "ideas_content" } %>
+          <% @statuses.each do |status| %>
+            <%= link_to status.name, ideas_path(**clean_params(status_id: status.id, board_id: params[:board_id], sort: params[:sort], direction: params[:direction], search: @search)),
+                class: "inline-flex h-[calc(100%-1px)] items-center justify-center rounded-md border border-transparent px-3 py-1 text-sm font-medium whitespace-nowrap transition-all duration-200 #{ params[:status_id] == status.id.to_s ? 'bg-background text-foreground shadow-sm' : 'text-muted-foreground hover:text-foreground hover:bg-muted/50' }",
+                data: { turbo_frame: "ideas_content" } %>
+          <% end %>
+        </div>
+      </div>
+
+      <!-- Sort Options -->
+      <div class="mb-6">
+        <div class="flex items-center gap-2 text-sm">
+          <span class="text-muted-foreground font-medium"><%= t(".sort_by_label") %></span>
+          <div class="flex items-center gap-1 border border-border rounded-lg p-1 bg-background">
+            <%= ideas_sort_link text: t(".sort_latest"), sort_field: "created_at", direction: "desc", params: params, turbo_frame: "ideas_content" %>
+            <%= ideas_sort_link text: t(".sort_top"), sort_field: "votes_count", direction: "desc", params: params, turbo_frame: "ideas_content" %>
+            <%= ideas_sort_link text: t(".sort_most_commented"), sort_field: "comments_count", direction: "desc", params: params, turbo_frame: "ideas_content" %>
+          </div>
+        </div>
+      </div>
+
+      <%= tag.div id: ("ideas" if first_page?(@pagy.last)), class: "mb-12" do %>
+        <% if @ideas.empty? %>
+          <div class="card">
+            <div class="flex flex-col items-center justify-center text-center py-12 px-4 md:px-6">
+              <div class="flex h-20 w-20 items-center justify-center rounded-full bg-muted/50">
+                <%= lucide_icon "message-circle", class: "h-10 w-10 text-muted-foreground" %>
+              </div>
+              <h3 class="mt-6 text-lg font-semibold text-foreground"><%= t(".empty_idea_title") %></h3>
+              <p class="mt-2 text-sm text-muted-foreground max-w-sm">
+                <%= t(".empty_idea_description") %>
+              </p>
+              <div class="mt-6">
+                <%= render Elements::ButtonComponent.new(
+                  variant: :default,
+                  size: :default,
+                  href: new_idea_path(board_id: @board&.id),
+                  class: "gap-2",
+                  data: { turbo_frame: "_top" }
+                ) do %>
+                  <%= lucide_icon "plus", class: "h-4 w-4" %>
+                  <%= t("ideas.new.title") %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        <% else %>
+          <ul role="list" class="space-y-4">
+            <%= render partial: "ideas/idea", collection: @ideas, as: :idea %>
+          </ul>
+        <% end %>
+      <% end %>
+
+      <% if @pagy.last > 1 %>
+        <div class="flex items-center justify-between px-4 py-3 sm:px-6">
+          <%== pagy.info_tag %>
+          <%== pagy.series_nav(link_extra: 'data-turbo-frame="ideas_content"') %>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</section>
+<% else %>
+<section class="max-w-6xl mx-auto px-4 sm:px-6">
+  <div class="md:pr-6 lg:pr-10">
+    <div class="flex flex-col items-center justify-center text-center py-16">
+      <div class="flex h-20 w-20 items-center justify-center rounded-full bg-muted/50">
+        <%= lucide_icon "inbox", class: "h-10 w-10 text-muted-foreground" %>
+      </div>
+      <h3 class="mt-6 text-xl font-semibold text-foreground">We're not collecting ideas yet</h3>
+      <p class="mt-2 text-sm text-muted-foreground max-w-md">
+        An admin needs to finish setting up boards before ideas can be submitted.
+      </p>
+    </div>
+  </div>
+</section>
+<% end %>

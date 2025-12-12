@@ -12,16 +12,16 @@ carlos_user = User.find_by!(email_address: "carlos.rodriguez@freelance.dev")
 sarah_user = User.find_by!(email_address: "sarah.kim@startup.io")
 david_user = User.find_by!(email_address: "david.thompson@agency.com")
 
-# Find posts by title
-dark_mode_post = Post.find_by!(title: "Could you please add dark mode")
-mobile_app_post = Post.find_by!(title: "Mobile app support")
-accessibility_post = Post.find_by!(title: "Accessibility improvements needed")
+# Find ideas by title
+dark_mode_idea = Idea.find_by!(title: "Could you please add dark mode")
+mobile_app_idea = Idea.find_by!(title: "Mobile app support")
+accessibility_idea = Idea.find_by!(title: "Accessibility improvements needed")
 
 # Disable comment broadcasting to make seeding faster
 Comment.suppressing_turbo_broadcasts do
-  # Comments on FeedbackBin dark mode post
+  # Comments on FeedbackBin dark mode idea
   Comment.find_or_create_by!(
-    post: dark_mode_post,
+    idea: dark_mode_idea,
     creator: maya_user,
   ) do |comment|
     comment.body = "This is a great suggestion! Dark mode would definitely improve the user experience, especially for those late-night feedback sessions."
@@ -29,7 +29,7 @@ Comment.suppressing_turbo_broadcasts do
   end
 
   alex_dark_mode_comment = Comment.find_or_create_by!(
-    post: dark_mode_post,
+    idea: dark_mode_idea,
     creator: alex_user,
   ) do |comment|
     comment.body = "I second this! Most modern apps have dark mode now. It would also help with accessibility for users with light sensitivity."
@@ -38,7 +38,7 @@ Comment.suppressing_turbo_broadcasts do
 
   # Reply to Alex's comment
   Comment.find_or_create_by!(
-    post: dark_mode_post,
+    idea: dark_mode_idea,
     creator: admin_user,
     parent: alex_dark_mode_comment
   ) do |comment|
@@ -46,9 +46,9 @@ Comment.suppressing_turbo_broadcasts do
     comment.created_at = 10.days.ago
   end
 
-  # Another comment on dark mode post
+  # Another comment on dark mode idea
   carlos_dark_mode_comment = Comment.find_or_create_by!(
-    post: dark_mode_post,
+    idea: dark_mode_idea,
     creator: carlos_user,
   ) do |comment|
     comment.body = "Would love to see automatic theme switching based on system preferences too!"
@@ -57,7 +57,7 @@ Comment.suppressing_turbo_broadcasts do
 
   # Reply to Carlos's comment
   Comment.find_or_create_by!(
-    post: dark_mode_post,
+    idea: dark_mode_idea,
     creator: maya_user,
     parent: carlos_dark_mode_comment
   ) do |comment|
@@ -67,7 +67,7 @@ Comment.suppressing_turbo_broadcasts do
 
   # Reply to Maya's reply (nested conversation)
   Comment.find_or_create_by!(
-    post: dark_mode_post,
+    idea: dark_mode_idea,
     creator: sarah_user,
     parent: carlos_dark_mode_comment
   ) do |comment|
@@ -77,34 +77,34 @@ Comment.suppressing_turbo_broadcasts do
 
   # Another standalone comment
   Comment.find_or_create_by!(
-    post: dark_mode_post,
+    idea: dark_mode_idea,
     creator: jane_user,
   ) do |comment|
     comment.body = "This feature would be especially helpful for our night shift team members who are always reviewing feedback late at night."
     comment.created_at = 5.days.ago
   end
 
-  # Comments on mobile app post
+  # Comments on mobile app idea
   Comment.find_or_create_by!(
-    post: mobile_app_post,
+    idea: mobile_app_idea,
     creator: carlos_user,
   ) do |comment|
-    comment.body = "A mobile app would be fantastic! I'm often reviewing feedback while commuting and the mobile web experience could be better."
+    comment.body = "A mobile app would be fantastic! I'm often reviewing ideas while commuting and the mobile web experience could be better."
     comment.created_at = 13.days.ago
   end
 
-  # Comments on accessibility post
+  # Comments on accessibility idea
   Comment.find_or_create_by!(
-    post: accessibility_post,
+    idea: accessibility_idea,
     creator: sarah_user,
   ) do |comment|
     comment.body = "Thank you for bringing this up! Accessibility should be a priority. Would you be interested in helping us conduct a full accessibility audit?"
     comment.created_at = 6.days.ago
   end
 
-  # Additional comments on accessibility post
+  # Additional comments on accessibility idea
   Comment.find_or_create_by!(
-    post: accessibility_post,
+    idea: accessibility_idea,
     creator: alex_user,
   ) do |comment|
     comment.body = "I'd be happy to help with testing! I have experience with screen readers and can provide detailed feedback."
@@ -112,22 +112,22 @@ Comment.suppressing_turbo_broadcasts do
   end
 
   Comment.find_or_create_by!(
-    post: accessibility_post,
+    idea: accessibility_idea,
     creator: maya_user,
   ) do |comment|
     comment.body = "From a design perspective, we should also look at implementing focus indicators and ensuring proper heading hierarchy."
     comment.created_at = 4.days.ago
   end
 
-  # Find additional FeedbackBin posts for comments
-  slack_integration_post = Post.find_by!(title: "Slack integration for notifications")
-  public_api_post = Post.find_by!(title: "Public API for integrations")
-  analytics_dashboard_post = Post.find_by!(title: "Advanced analytics dashboard")
-  collaboration_features_post = Post.find_by!(title: "Better collaboration features")
+  # Find additional FeedbackBin ideas for comments
+  slack_integration_idea = Idea.find_by!(title: "Slack integration for notifications")
+  public_api_idea = Idea.find_by!(title: "Public API for integrations")
+  analytics_dashboard_idea = Idea.find_by!(title: "Advanced analytics dashboard")
+  collaboration_features_idea = Idea.find_by!(title: "Better collaboration features")
 
-  # Comments on Slack integration post
+  # Comments on Slack integration idea
   Comment.find_or_create_by!(
-    post: slack_integration_post,
+    idea: slack_integration_idea,
     creator: carlos_user,
   ) do |comment|
     comment.body = "This would be a game changer! We miss so many updates because we don't check the app frequently enough."
@@ -135,24 +135,24 @@ Comment.suppressing_turbo_broadcasts do
   end
 
   Comment.find_or_create_by!(
-    post: slack_integration_post,
+    idea: slack_integration_idea,
     creator: jane_user,
   ) do |comment|
-    comment.body = "Could we also get Slack commands for creating posts? Something like `/feedback [title] [description]` would be super convenient."
+    comment.body = "Could we also get Slack commands for creating ideas? Something like `/idea [title] [description]` would be super convenient."
     comment.created_at = 9.days.ago
   end
 
   Comment.find_or_create_by!(
-    post: slack_integration_post,
+    idea: slack_integration_idea,
     creator: sarah_user,
   ) do |comment|
     comment.body = "Teams integration would be great too for organizations using Microsoft's ecosystem!"
     comment.created_at = 8.days.ago
   end
 
-  # Comments on Public API post with threaded replies
+  # Comments on Public API idea with threaded replies
   david_api_comment = Comment.find_or_create_by!(
-    post: public_api_post,
+    idea: public_api_idea,
     creator: david_user,
   ) do |comment|
     comment.body = "This is exactly what we need! Are you planning REST API, GraphQL, or both? Also, what about rate limiting and authentication?"
@@ -161,7 +161,7 @@ Comment.suppressing_turbo_broadcasts do
 
   # Reply to David's API comment
   Comment.find_or_create_by!(
-    post: public_api_post,
+    idea: public_api_idea,
     creator: admin_user,
     parent: david_api_comment
   ) do |comment|
@@ -171,7 +171,7 @@ Comment.suppressing_turbo_broadcasts do
 
   # Another reply to David's comment
   Comment.find_or_create_by!(
-    post: public_api_post,
+    idea: public_api_idea,
     creator: carlos_user,
     parent: david_api_comment
   ) do |comment|
@@ -179,18 +179,18 @@ Comment.suppressing_turbo_broadcasts do
     comment.created_at = 15.minutes.ago
   end
 
-  # Additional standalone comment on API post
+  # Additional standalone comment on API idea
   Comment.find_or_create_by!(
-    post: public_api_post,
+    idea: public_api_idea,
     creator: maya_user,
   ) do |comment|
-    comment.body = "Webhook support would be amazing too! We'd love to trigger actions in our design tools when feedback status changes."
+    comment.body = "Webhook support would be amazing too! We'd love to trigger actions in our design tools when idea status changes."
     comment.created_at = 10.minutes.ago
   end
 
-  # Comments on analytics dashboard post
+  # Comments on analytics dashboard idea
   Comment.find_or_create_by!(
-    post: analytics_dashboard_post,
+    idea: analytics_dashboard_idea,
     creator: alex_user,
   ) do |comment|
     comment.body = "Love this idea! Sentiment analysis of feedback would also be valuable to understand user satisfaction trends."
@@ -198,27 +198,27 @@ Comment.suppressing_turbo_broadcasts do
   end
 
   Comment.find_or_create_by!(
-    post: analytics_dashboard_post,
+    idea: analytics_dashboard_idea,
     creator: jane_user,
   ) do |comment|
     comment.body = "Custom date ranges and the ability to filter by user segments would make this perfect for our quarterly reviews."
     comment.created_at = 3.hours.ago
   end
 
-  # Comments on collaboration features post
+  # Comments on collaboration features idea
   Comment.find_or_create_by!(
-    post: collaboration_features_post,
+    idea: collaboration_features_idea,
     creator: maya_user,
   ) do |comment|
-    comment.body = "The @mentions feature would be incredibly helpful! Right now we have to remember to manually notify team members about relevant feedback."
+    comment.body = "The @mentions feature would be incredibly helpful! Right now we have to remember to manually notify team members about relevant ideas."
     comment.created_at = 20.hours.ago
   end
 
   Comment.find_or_create_by!(
-    post: collaboration_features_post,
+    idea: collaboration_features_idea,
     creator: fake_user,
   ) do |comment|
-    comment.body = "Internal notes are a must-have! Sometimes we need to discuss implementation details that shouldn't be visible to the feedback author."
+    comment.body = "Internal notes are a must-have! Sometimes we need to discuss implementation details that shouldn't be visible to the idea author."
     comment.created_at = 18.hours.ago
   end
 end

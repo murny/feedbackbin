@@ -12,8 +12,8 @@
 
     <%= render Elements::CardComponent.new do |c| %>
       <% c.with_body do %>
-        <%= form_with model: @organization, url: admin_settings_branding_path, method: :patch, multipart: true, class: "space-y-6" do |f| %>
-            <%= render "error_messages", resource: @organization %>
+        <%= form_with model: @account, url: admin_settings_branding_path, method: :patch, multipart: true, class: "space-y-6" do |f| %>
+            <%= render "error_messages", resource: @account %>
 
             <div class="grid gap-6">
               <div class="grid gap-3">
@@ -33,7 +33,7 @@
                 <%= render ImageUploadPreviewComponent.new(
                       form: f,
                       field_name: :logo,
-                      preview_url: attachment_preview_url(@organization.logo,
+                      preview_url: attachment_preview_url(@account.logo,
                                                           variant_options: { resize_to_limit: [ 96, 96 ] },
                                                           default_url: "/icon.svg"),
                       upload_button_text: t(".upload_new_logo"),
@@ -67,7 +67,7 @@
                 <%= render ImageUploadPreviewComponent.new(
                       form: f,
                       field_name: :favicon,
-                      preview_url: attachment_preview_url(@organization.favicon,
+                      preview_url: attachment_preview_url(@account.favicon,
                                                           variant_options: { resize_to_limit: [ 96, 96 ] },
                                                           default_url: "/icon.png"),
                       upload_button_text: t(".upload_favicon"),
@@ -80,12 +80,12 @@
                 <%= render ImageUploadPreviewComponent.new(
                       form: f,
                       field_name: :og_image,
-                      preview_url: attachment_preview_url(@organization.og_image,
+                      preview_url: attachment_preview_url(@account.og_image,
                                                           variant_options: { resize_to_limit: [ 400, 210 ] },
                                                           default_url: "/icon.svg"),
                       upload_button_text: t(".upload_og_image"),
                       size_hint: t(".og_image_hint"),
-                      image_class: (@organization.og_image.attached? ?
+                      image_class: (@account.og_image.attached? ?
                                     "h-32 w-auto rounded-lg border object-cover" :
                                     "h-32 w-auto rounded-lg border bg-muted object-contain p-4")) %>
               </div>

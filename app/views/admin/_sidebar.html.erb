@@ -22,16 +22,16 @@
         </li>
         <li>
           <div class="text-xs font-semibold leading-6 text-muted-foreground">
-            <%= t("layouts.admin.navigation.feedback_section") %>
+            <%= t("layouts.admin.navigation.ideas_section") %>
           </div>
         </li>
         <li>
-          <%= active_link_to admin_posts_path,
+          <%= active_link_to admin_ideas_path,
                 class: "group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold transition-colors",
                 active_class: "bg-accent text-accent-foreground",
                 inactive_class: "text-muted-foreground hover:text-foreground hover:bg-accent" do %>
-            <%= lucide_icon "message-square", class: "h-6 w-6 shrink-0" %>
-            <%= t("layouts.admin.navigation.posts") %>
+            <%= lucide_icon "lightbulb", class: "h-6 w-6 shrink-0" %>
+            <%= t("layouts.admin.navigation.ideas") %>
           <% end %>
         </li>
         <li>

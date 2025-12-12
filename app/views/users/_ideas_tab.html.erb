@@ -1,0 +1,14 @@
+<% if ideas.any? %>
+  <ul class="space-y-6">
+    <% ideas.each do |idea| %>
+      <%= render partial: "ideas/idea", locals: { idea: idea } %>
+    <% end %>
+  </ul>
+<% else %>
+  <div class="text-center py-12 text-muted-foreground">
+    <div class="mb-4">
+      <%= lucide_icon "lightbulb", class: "mx-auto h-12 w-12 text-muted-foreground/50" %>
+    </div>
+    <p class="text-sm"><%= t(".empty_ideas") %></p>
+  </div>
+<% end %>

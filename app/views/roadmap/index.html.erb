@@ -14,10 +14,10 @@
     <!-- Filters -->
     <div class="mb-6">
       <div class="flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between mb-6">
-        <%= render "shared/category_filter",
+        <%= render "shared/board_filter",
           path_helper: :roadmap_path,
-          categories: @categories,
-          selected_category: @selected_category,
+          boards: @boards,
+          selected_board: @selected_board,
           turbo_frame: "roadmap_content",
           preserve_params: {
             sort: params[:sort],
@@ -31,7 +31,7 @@
           turbo_frame: "roadmap_content",
           placeholder: t(".search_placeholder"),
           preserve_params: {
-            category_id: params[:category_id],
+            board_id: params[:board_id],
             sort: params[:sort],
             direction: params[:direction]
           } %>
@@ -42,9 +42,9 @@
     <div class="flex items-center gap-2 text-sm mb-6">
       <span class="text-muted-foreground font-medium"><%= t(".sort_by_label") %></span>
       <div class="flex items-center gap-1 border border-border rounded-lg p-1 bg-background">
-        <%= posts_sort_link text: t(".sort_latest"), sort_field: "created_at", direction: "desc", params: params, path_helper: :roadmap_path, turbo_frame: "roadmap_content" %>
-        <%= posts_sort_link text: t(".sort_top"), sort_field: "likes_count", direction: "desc", params: params, path_helper: :roadmap_path, turbo_frame: "roadmap_content" %>
-        <%= posts_sort_link text: t(".sort_most_commented"), sort_field: "comments_count", direction: "desc", params: params, path_helper: :roadmap_path, turbo_frame: "roadmap_content" %>
+        <%= ideas_sort_link text: t(".sort_latest"), sort_field: "created_at", direction: "desc", params: params, path_helper: :roadmap_path, turbo_frame: "roadmap_content" %>
+        <%= ideas_sort_link text: t(".sort_top"), sort_field: "votes_count", direction: "desc", params: params, path_helper: :roadmap_path, turbo_frame: "roadmap_content" %>
+        <%= ideas_sort_link text: t(".sort_most_commented"), sort_field: "comments_count", direction: "desc", params: params, path_helper: :roadmap_path, turbo_frame: "roadmap_content" %>
       </div>
     </div>
 
@@ -59,8 +59,8 @@
     <% else %>
       <!-- Kanban Board -->
       <div class="<%= roadmap_grid_classes(@column_count) %>">
-        <% @roadmap_data.each do |status, posts| %>
-          <%= render "column", status: status, posts: posts %>
+        <% @roadmap_data.each do |status, ideas| %>
+          <%= render "column", status: status, ideas: ideas %>
         <% end %>
       </div>
     <% end %>

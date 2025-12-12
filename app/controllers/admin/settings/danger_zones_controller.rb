@@ -10,10 +10,10 @@ module Admin
       end
 
       def destroy
-        name_confirmation = params.dig(:organization, :name).to_s.strip
-        acknowledged = ActiveModel::Type::Boolean.new.cast(params.dig(:organization, :acknowledge))
+        name_confirmation = params.dig(:account, :name).to_s.strip
+        acknowledged = ActiveModel::Type::Boolean.new.cast(params.dig(:account, :acknowledge))
 
-        if name_confirmation != Current.organization.name
+        if name_confirmation != Current.account.name
           @owner = User.owner.first
           flash.now[:alert] = t(".name_confirmation_mismatch")
           return render :show, status: :unprocessable_entity
@@ -25,8 +25,8 @@ module Admin
           return render :show, status: :unprocessable_entity
         end
 
-        Organization.transaction do
-          Current.organization.destroy!
+        Account.transaction do
+          Current.account.destroy!
         end
 
         reset_session
@@ -38,7 +38,7 @@ module Admin
       private
 
         def ensure_owner
-          authorize Current.organization, :destroy?
+          authorize Current.account, :destroy?
         end
     end
   end

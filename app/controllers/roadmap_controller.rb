@@ -6,47 +6,47 @@ class RoadmapController < ApplicationController
   # GET /roadmap
   def index
     authorize :roadmap, :index?
-    @categories = Category.ordered
+    @boards = Board.ordered
 
-    if params[:category_id].present?
-      @selected_category = @categories.find_by(id: params[:category_id])
+    if params[:board_id].present?
+      @selected_board = @boards.find_by(id: params[:board_id])
     else
-      @selected_category = nil
+      @selected_board = nil
     end
 
     @search = params[:search]
 
-    @roadmap_data = roadmap_data(@selected_category, @search)
+    @roadmap_data = roadmap_data(@selected_board, @search)
     @column_count = @roadmap_data.size
   end
 
   private
 
-    def roadmap_data(selected_category, search_query)
-      # Get only post statuses visible on roadmap, ordered by position
-      statuses = PostStatus.visible_on_roadmap.ordered
+    def roadmap_data(selected_board, search_query)
+      # Get only statuses visible on roadmap, ordered by position
+      statuses = Status.visible_on_roadmap.ordered
 
-      # Start with all posts for visible statuses
-      posts = Post
-        .where(post_status_id: statuses.pluck(:id))
-        .includes(:author, :category)
-        .select(:id, :title, :likes_count, :category_id, :post_status_id, :author_id, :created_at)
+      # Start with all ideas for visible statuses
+      ideas = Idea
+        .where(status_id: statuses.pluck(:id))
+        .includes(:author, :board)
+        .select(:id, :title, :votes_count, :board_id, :status_id, :author_id, :created_at)
 
-      # Apply category filter if selected
-      posts = posts.where(category_id: selected_category.id) if selected_category.present?
+      # Apply board filter if selected
+      ideas = ideas.where(board_id: selected_board.id) if selected_board.present?
 
-      # Apply search filter using Post.search method
-      posts = posts.search(search_query)
+      # Apply search filter using Idea.search method
+      ideas = ideas.search(search_query)
 
-      # Apply sorting using the same pattern as posts index
-      posts = posts.sort_by_params(sort_column(Post), sort_direction)
+      # Apply sorting using the same pattern as ideas index
+      ideas = ideas.sort_by_params(sort_column(Idea), sort_direction)
 
-      # Group posts by status in Ruby
-      posts_by_status = posts.group_by(&:post_status_id)
+      # Group ideas by status in Ruby
+      ideas_by_status = ideas.group_by(&:status_id)
 
-      # Build hash of status => posts
+      # Build hash of status => ideas
       statuses.each_with_object({}) do |status, hash|
-        hash[status] = posts_by_status[status.id] || []
+        hash[status] = ideas_by_status[status.id] || []
       end
     end
 end

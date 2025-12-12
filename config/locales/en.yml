@@ -3,6 +3,13 @@ en:
   activerecord:
     errors:
       models:
+        account:
+          attributes:
+            boards:
+              must_have_at_least_one: must have at least one board
+            subdomain:
+              format: must be at least 2 characters and alphanumeric
+              reserved: "%{value} is reserved"
         invitation:
           attributes:
             email:
@@ -10,26 +17,19 @@ en:
         membership:
           attributes:
             role:
-              admin_cannot_be_removed: admin role cannot be removed for the organization owner
-        organization:
-          attributes:
-            categories:
-              must_have_at_least_one: must have at least one category
-            subdomain:
-              format: must be at least 2 characters and alphanumeric
-              reserved: "%{value} is reserved"
-        post_status:
+              admin_cannot_be_removed: admin role cannot be removed for the account owner
+        status:
           attributes:
             base:
               cannot_delete_default: Cannot delete the default status. Reassign default to another status first.
               restrict_dependent_destroy:
-                has_many: Cannot delete this status because posts are still using it. Please reassign or delete those posts first.
+                has_many: Cannot delete this status because ideas are still using it. Please reassign or delete those ideas first.
         user:
           attributes:
             active:
-              organization_owner_cannot_be_deactivated: organization owner cannot be deactivated
+              account_owner_cannot_be_deactivated: account owner cannot be deactivated
             role:
-              organization_owner_cannot_change: cannot be changed for organization owner
+              account_owner_cannot_change: cannot be changed for account owner
   admin:
     dashboard:
       show:
@@ -38,25 +38,55 @@ en:
         recent_comments:
           ago: ago
           commented: commented on
-          no_comments_description: When users add comments to posts, you'll see them here.
+          no_comments_description: When users add comments to feedback, you'll see them here.
           no_comments_title: No recent comments
           title: Recent Comments
-        recent_posts:
+        recent_ideas:
           ago: ago
           by_author: by %{author}
-          in_category: in %{category}
-          no_posts_description: Get started by creating your first post.
-          no_posts_title: No posts yet
-          title: Recent Posts
-          view_all: View all posts
+          in_board: in %{board}
+          no_ideas_description: Get started by creating your first idea.
+          no_ideas_title: No ideas yet
+          title: Recent Ideas
+          view_all: View all ideas
         stats:
           admins: Admins
           this_month: This month
           title: Overview
           total_comments: Total Comments
-          total_posts: Total Posts
+          total_ideas: Total Ideas
           total_users: Total Users
-        title: "%{organization_name} Admin"
+        title: "%{account_name} Admin"
+    ideas:
+      ideas_list:
+        actions_column: Actions
+        ago: ago
+        author_column: Author
+        created_column: Created
+        engagement_column: Engagement
+        idea_column: Idea
+        no_ideas_empty: No ideas have been created yet.
+        no_ideas_search: Try adjusting your search criteria.
+        no_ideas_title: No ideas found
+        view_button: View
+      index:
+        description: View all ideas from users
+        heading: Ideas
+        search_label: Search ideas
+        search_placeholder: Search by title or content...
+        title: Ideas
+      show:
+        ago: ago
+        back_button: Back to Ideas
+        comments_label: Comments
+        comments_title: Comments
+        created_label: Created
+        description: Idea details and engagement
+        engagement_title: Engagement
+        idea_info_title: Idea Information
+        no_comments: No comments yet
+        recent_comments_title: Recent Comments
+        votes_label: Votes
     invitations:
       create:
         successfully_sent: Invitation has been sent successfully.
@@ -93,40 +123,44 @@ en:
         title: Invite New User
       resend:
         resent: Invitation resent to %{email}
-    posts:
-      index:
-        description: View all feedback posts from users
-        heading: Posts
-        search_label: Search posts
-        search_placeholder: Search by title or content...
-        title: Posts
-      posts_list:
-        actions_column: Actions
-        ago: ago
-        author_column: Author
-        created_column: Created
-        engagement_column: Engagement
-        no_posts_empty: No posts have been created yet.
-        no_posts_search: Try adjusting your search criteria.
-        no_posts_title: No posts found
-        post_column: Post
-        view_button: View
-      show:
-        ago: ago
-        back_button: Back to Posts
-        comments_label: Comments
-        comments_title: Comments
-        created_label: Created
-        description: Post details and engagement
-        engagement_title: Engagement
-        likes_label: Likes
-        no_comments: No comments yet
-        post_info_title: Post Information
-        recent_comments_title: Recent Comments
     settings:
+      boards:
+        create:
+          successfully_created: Board was successfully created.
+        destroy:
+          successfully_destroyed: Board was successfully deleted.
+        edit:
+          description: Update the details of this board
+          title: Edit Board
+        form:
+          color_hint: Choose a color to help identify this board
+          color_label: Color
+          create_board: Create Board
+          description_hint: Help users understand what type of feedback belongs in this board (maximum 500 characters)
+          description_label: Description
+          description_placeholder: e.g., Share your ideas and help us improve our product
+          name_label: Name
+          name_placeholder: e.g., Feature Requests
+          preview_label: Preview
+          save_changes: Save changes
+        index:
+          create_first_board: Create First Board
+          description: Manage boards to organize ideas into logical groups
+          ideas_count:
+            one: "%{count} idea"
+            other: "%{count} ideas"
+          new_board: New Board
+          no_boards_description: Boards help you organize ideas into logical groups.
+          no_boards_title: No boards
+          title: Boards
+        new:
+          description: Create a new board to organize your feedback
+          title: New Board
+        update:
+          successfully_updated: Board was successfully updated.
       brandings:
         show:
-          description: Customize your organization's appearance and branding
+          description: Customize your account's appearance and branding
           favicon: Favicon
           favicon_hint: Recommended size 96×96px. Maximum 500KB.
           logo: Logo
@@ -137,7 +171,7 @@ en:
           logo_link_placeholder: https://
           logo_only: Show logo only
           logo_size_hint: JPG, PNG up to 2MB. Recommended size 400x400px.
-          name: Organization name
+          name: Account name
           og_image: Open Graph Image
           og_image_hint: Used when sharing links on social media. Recommended size 1200×630px. Maximum 2MB.
           save_changes: Save changes
@@ -148,68 +182,34 @@ en:
           upload_og_image: Upload Image
         update:
           successfully_updated: Branding settings were successfully updated.
-      categories:
-        create:
-          successfully_created: Category was successfully created.
-        destroy:
-          successfully_destroyed: Category was successfully deleted.
-        edit:
-          description: Update the details of this category
-          title: Edit Category
-        form:
-          color_hint: Choose a color to help identify this category
-          color_label: Color
-          create_category: Create Category
-          description_hint: Help users understand what type of feedback belongs in this category (maximum 500 characters)
-          description_label: Description
-          description_placeholder: e.g., Share your ideas and help us improve our product
-          name_label: Name
-          name_placeholder: e.g., Feature Requests
-          preview_label: Preview
-          save_changes: Save changes
-        index:
-          create_first_category: Create First Category
-          description: Manage categories to organize feedback into logical groups
-          new_category: New Category
-          no_categories_description: Categories help you organize feedback into logical groups.
-          no_categories_title: No categories
-          posts_count:
-            one: "%{count} post"
-            other: "%{count} posts"
-          title: Categories
-        new:
-          description: Create a new category to organize your feedback
-          title: New Category
-        update:
-          successfully_updated: Category was successfully updated.
       danger_zones:
         destroy:
           acknowledgment_required: You must acknowledge this action to proceed.
-          name_confirmation_mismatch: Organization name does not match.
-          success: Organization has been successfully deleted.
+          name_confirmation_mismatch: Account name does not match.
+          success: Account has been successfully deleted.
         show:
-          acknowledge: I acknowledge that all of the organization data will be deleted and want to proceed.
-          confirmation_description_html: You are about to delete your organization <strong>%{name}</strong>. This will permanently delete all your data.
-          confirmation_label: Organization Deletion
-          delete_button: Delete Organization
-          delete_description: Remove all data associated with your organization from our servers.
-          delete_title: Delete Organization
+          acknowledge: I acknowledge that all of the account data will be deleted and want to proceed.
+          confirmation_description_html: You are about to delete your account <strong>%{name}</strong>. This will permanently delete all your data.
+          confirmation_label: Account Deletion
+          delete_button: Delete Account
+          delete_description: Remove all data associated with your account from our servers.
+          delete_title: Delete Account
           description: Please be careful when performing destructive actions.
-          enter_name: Enter organization name
-          page_description: Irreversible and destructive actions for your organization
-          subtitle: These settings are critical to your organization.
+          enter_name: Enter account name
+          page_description: Irreversible and destructive actions for your account
+          subtitle: These settings are critical to your account.
           title: Danger Zone
           transfer_ownership_button: Transfer Ownership
-          transfer_ownership_description: The owner has ultimate control over this organization. Transferring ownership is permanent and cannot be undone.
-          transfer_ownership_title: Transfer Organization Ownership
+          transfer_ownership_description: The owner has ultimate control over this account. Transferring ownership is permanent and cannot be undone.
+          transfer_ownership_title: Transfer Account Ownership
           turbo_confirm: Are you sure? This action cannot be undone.
       header:
-        description: Manage your organization settings
+        description: Manage your account settings
         navigation:
-          categories: Categories
+          boards: Boards
           danger_zone: Danger Zone
           general: General
-          post_statuses: Post Statuses
+          statuses: Statuses
         title: Settings
       ownership_transfers:
         create:
@@ -219,18 +219,18 @@ en:
           new_owner: New Owner
           new_owner_help: Select an admin to transfer ownership to.
           select_admin: Select an admin
-          title: Transfer Organization Ownership
+          title: Transfer Account Ownership
           transfer_ownership: Transfer Ownership
-          warning_message: Transferring ownership cannot be undone. The new owner will have full control of this organization.
+          warning_message: Transferring ownership cannot be undone. The new owner will have full control of this account.
           warning_title: Warning
-      post_statuses:
+      statuses:
         create:
-          successfully_created: Post status was successfully created.
+          successfully_created: Status was successfully created.
         destroy:
-          successfully_destroyed: Post status was successfully deleted.
+          successfully_destroyed: Status was successfully deleted.
         edit:
-          description: Update the details of this post status
-          title: Edit Post Status
+          description: Update the details of this status
+          title: Edit Status
         form:
           color_hint: Choose a color for this status badge
           color_label: Color
@@ -242,34 +242,34 @@ en:
           position_placeholder: '1'
           preview_label: Preview
           save_changes: Save changes
-          set_as_default_hint: New posts will automatically be assigned this status
-          set_as_default_label: Set as default status for new posts
-          show_on_feedback_hint: When enabled, posts with this status will appear on the main feedback page by default
-          show_on_feedback_label: Show on feedback page
-          show_on_roadmap_hint: When enabled, posts with this status will appear on the roadmap
+          set_as_default_hint: New ideas will automatically be assigned this status
+          set_as_default_label: Set as default status for new ideas
+          show_on_idea_hint: When enabled, ideas with this status will appear on the main ideas page by default
+          show_on_idea_label: Show on ideas page
+          show_on_roadmap_hint: When enabled, ideas with this status will appear on the roadmap
           show_on_roadmap_label: Show on roadmap
           visibility_label: Visibility Settings
         index:
           create_first_status: Create First Status
           default_badge: Default
-          description: Manage post statuses to organize and track feedback
-          feedback_badge: Feedback
+          description: Manage statuses to organize and track ideas
+          idea_badge: Ideas
+          ideas_count:
+            one: "%{count} idea"
+            other: "%{count} ideas"
           new_status: New Status
-          no_statuses_description: Post statuses help you organize and communicate the progress of feedback.
-          no_statuses_title: No post statuses
+          no_statuses_description: Statuses help you organize and communicate the progress of ideas.
+          no_statuses_title: No statuses
           position_label: Position
-          posts_count:
-            one: "%{count} post"
-            other: "%{count} posts"
           roadmap_badge: Roadmap
-          title: Post Statuses
-          visible_on_feedback: Visible on feedback page
+          title: Statuses
+          visible_on_idea: Visible on ideas page
           visible_on_roadmap: Visible on roadmap
         new:
           description: Create a new status to organize your feedback
-          title: New Post Status
+          title: New Status
         update:
-          successfully_updated: Post status was successfully updated.
+          successfully_updated: Status was successfully updated.
     users:
       activations:
         create:
@@ -311,22 +311,22 @@ en:
         email_verification_label: Email Verification
         joined_label: Joined
         last_sign_in: Last Sign In
-        like_plural: likes
-        like_singular: like
         name_label: Name
         never_signed_in: Never signed in
-        no_posts: No posts created yet
+        no_ideas: No ideas created yet
         owner_badge: Owner
-        recent_posts_title: Recent Posts
+        recent_ideas_title: Recent Ideas
         role_label: Role
         total_comments: Comments
-        total_likes: Likes
-        total_posts: Posts
+        total_ideas: Ideas
+        total_votes: Votes
         unverified_badge: Unverified
         update_button: Update
         user_info_title: User Information
         verified_badge: Verified
         view_profile: View Profile
+        vote_plural: votes
+        vote_singular: vote
       users_list:
         account_status_column: Account Status
         actions_column: Actions
@@ -334,15 +334,15 @@ en:
         ago: ago
         deactivated_badge: Deactivated
         email_status_column: Email Status
+        idea_plural: ideas
+        idea_singular: idea
+        ideas_column: Ideas
         joined_column: Joined
-        no_posts: No posts
+        no_ideas: No ideas
         no_users_empty: No users have joined yet.
         no_users_search: Try adjusting your search criteria.
         no_users_title: No users found
         owner_badge: Owner
-        post_plural: posts
-        post_singular: post
-        posts_column: Posts
         role_column: Role
         unverified_badge: Unverified
         user_column: User
@@ -369,7 +369,7 @@ en:
       brand_name: FeedbackBin
       links:
         admin_dashboard: Admin Dashboard
-        feedback: Feedback
+        ideas: Ideas
         letter_opener: Letter opener
         mission_control_jobs: Mission control jobs
         roadmap: Roadmap
@@ -387,8 +387,8 @@ en:
       signed_in_as: Signed in as
       view_notifications: View notifications
   are_you_sure: Are you sure?
+  board: Board
   cancel: Cancel
-  category: Category
   changelogs:
     index:
       description: New updates and improvements to %{name}
@@ -427,36 +427,73 @@ en:
         other: "%{count} errors prohibited this %{resource} from being saved:"
   first_runs:
     create:
-      organization_created: Your account and organization have been created successfully.
+      account_created: Your account has been created successfully.
     show:
+      account_name: Account Name
+      account_name_placeholder: Enter account name
       account_setup: Account Setup
-      account_setup_description: Create your personal account to get started.
+      account_setup_description: Configure your account details and branding.
+      account_setup_section: Account Setup
+      account_subdomain: Subdomain
       avatar_size_hint: JPG, PNG up to 2MB. Recommended size 400x400px.
-      category_color: Category Color
-      category_color_hint: Choose a color for the category
-      category_hint: Start with one category to organize feedback.
-      category_placeholder: Enter category name
-      category_preview: Preview
-      create_account_and_organization: Create Account & Organization
-      description: Let's get you set up with your account and organization.
+      board_color: Board Color
+      board_color_hint: Choose a color for the board
+      board_hint: Start with one board to organize feedback.
+      board_placeholder: Enter board name
+      board_preview: Preview
+      create_account: Create Account
+      description: Let's get you set up with your account.
       email_address_hint: Never shown to the public
       email_address_placeholder: Enter your email address
-      initial_category: Initial Category
+      initial_board: Initial Board
       logo_size_hint: JPG, PNG up to 2MB. Recommended size 400x400px.
       name_hint: Your display name
       name_placeholder: Enter your name
-      organization_name: Organization Name
-      organization_name_placeholder: Enter organization name
-      organization_setup: Organization Setup
-      organization_setup_description: Configure your organization details and branding.
-      organization_subdomain: Subdomain
       password_hint: "(at least 10 characters)"
       password_placeholder: Enter your password
       subdomain_hint: This will be part of your URL (e.g., yourname.feedbackbin.com)
       subdomain_placeholder: Enter subdomain
       title: Set up FeedbackBin
+      upload_account_logo: Upload Logo
       upload_avatar: Upload Avatar
-      upload_organization_logo: Upload Logo
+  ideas:
+    create:
+      successfully_created: Idea was successfully created.
+    destroy:
+      successfully_destroyed: Idea was successfully destroyed.
+    edit:
+      title: Edit Idea
+    form:
+      body_placeholder: Add your description here...
+      title_placeholder: Add a title
+    idea:
+      pinned: Pinned
+      total_comments: Total comments
+    index:
+      all_ideas: All Ideas
+      description: Share your ideas and help us improve our product
+      empty_idea_description: Get started by sharing your first suggestion or idea with the community.
+      empty_idea_title: No ideas yet
+      search_placeholder: Search ideas...
+      sort_by_label: Sort by
+      sort_latest: Latest
+      sort_most_commented: Most Commented
+      sort_top: Top
+      title: Customer Ideas
+    new:
+      title: New Idea
+    show:
+      back_to_ideas: Back to ideas
+      pin: Pin
+      pinned: Pinned
+      share: Share
+      unpin: Unpin
+      watch: Watch
+    statuses:
+      update:
+        success: Status has been updated.
+    update:
+      successfully_updated: Idea was successfully updated.
   invitations:
     show:
       already_have_account: Already have an account?
@@ -472,10 +509,10 @@ en:
       accept_invitation: Accept Invitation
       description: You've been invited to collaborate on customer feedback and help shape the product roadmap.
       greeting: Hi %{name},
-      invited_by: "%{inviter_name} has invited you to join %{organization_name}"
+      invited_by: "%{inviter_name} has invited you to join %{account_name}"
       questions: Questions? Reply to this email and we'll be happy to help.
-      signature: The %{organization_name} team
-      subject: You've been invited to join %{organization_name}
+      signature: The %{account_name} team
+      subject: You've been invited to join %{account_name}
   layouts:
     admin:
       badges:
@@ -485,10 +522,10 @@ en:
         back_to_dashboard: Back to Dashboard
         changelog: Changelog
         dashboard: Dashboard
-        feedback_section: Feedback
+        ideas: Ideas
+        ideas_section: Ideas
         invitations: Invitations
         management_section: Management
-        posts: Posts
         roadmap: Roadmap
         settings: Settings
         users: Users
@@ -498,10 +535,6 @@ en:
       title: Admin
     meta:
       description: Share your feedback and ideas for %{name}
-  likes:
-    update:
-      successfully_liked: You liked this %{resource}
-      successfully_unliked: You unliked this %{resource}
   oauth:
     sign_in_with: Sign in with %{provider}
   pagy:
@@ -523,87 +556,49 @@ en:
     items_selector_js: Show %{items_input} %{item_name} per page
     next: "&gt;"
     prev: "&lt;"
-  posts:
-    create:
-      successfully_created: Post was successfully created.
-    destroy:
-      successfully_destroyed: Post was successfully destroyed.
-    edit:
-      title: Edit Post
-    form:
-      body_placeholder: Add your description here...
-      title_placeholder: Add a title
-    index:
-      all_posts: All Posts
-      description: Share your ideas and help us improve our product
-      empty_feedback_description: Get started by sharing your first suggestion or idea with the community.
-      empty_feedback_title: No feedback yet
-      search_placeholder: Search feedback...
-      sort_by_label: Sort by
-      sort_latest: Latest
-      sort_most_commented: Most Commented
-      sort_top: Top
-      title: Customer Feedback
-    new:
-      title: New Post
-    post:
-      pinned: Pinned
-      total_comments: Total comments
-    show:
-      back_to_feedback: Back to feedback
-      pin: Pin
-      pinned: Pinned
-      share: Share
-      unpin: Unpin
-      watch: Watch
-    statuses:
-      update:
-        success: Post status has been updated.
-    update:
-      successfully_updated: Post was successfully updated.
   remove: Remove
   report: Report
   roadmap:
     column:
-      no_posts: No posts in this status
+      no_ideas: No ideas in this status
+    idea_card:
+      ago: ago
     index:
       clear_filters: Clear Filters
       description: Track features being planned, in progress, and completed
       no_results_description: Try adjusting your filters to see more results
-      no_results_title: No posts found
+      no_results_title: No ideas found
       search_placeholder: Search roadmap...
       sort_by_label: Sort by
       sort_latest: Latest
       sort_most_commented: Most Commented
       sort_top: Top
       title: Roadmap
-    post_card:
-      ago: ago
-  select_category: Select a category
+  select_board: Select a board
   shared:
-    category_filter:
-      all_categories: All Categories
-      category_label: Category
+    board_filter:
+      all_boards: All Boards
+      board_label: Board
   something_went_wrong: Something went wrong, please try again.
   super_admin:
-    base:
-      unauthorized: You are not authorized to access this page.
-    organizations:
-      organizations_list:
+    accounts:
+      accounts_list:
+        account: Account
         actions: Actions
         created: Created
-        no_organizations_found: No organizations found
-        no_organizations_yet: No organizations have been created yet.
-        organization: Organization
+        no_accounts_found: No accounts found
+        no_accounts_yet: No accounts have been created yet.
         subdomain: Subdomain
         try_adjusting_search: Try adjusting your search criteria.
         view_button: View
       show:
-        back_button: Back to Organizations
+        account_information: Account Information
+        back_button: Back to Accounts
         created: Created
-        description: Organization details and activity
-        organization_information: Organization Information
+        description: Account details and activity
         subdomain: Subdomain
+    base:
+      unauthorized: You are not authorized to access this page.
   themes:
     dark: Dark
     light: Light
@@ -722,17 +717,15 @@ en:
       empty_comments: No comments yet.
       reply_to: Reply to
     destroy:
-      account_deleted: Your account has been deleted.
+      user_deleted: Your account has been deleted.
     email_verifications:
       create:
         email_verification_sent: We've sent you an email with a link to verify your email address
       invalid_token: That email verification link is invalid or has expired
       show:
         email_verified: Thank you for verifying your email address
-    likes_tab:
-      comment_on: Comment on
-      empty_likes: No likes yet.
-      liked: Liked
+    ideas_tab:
+      empty_ideas: No ideas yet.
     omniauth:
       create:
         already_connected: This %{provider} account is already connected to your account.
@@ -764,8 +757,6 @@ en:
         password_has_been_reset: Password has been reset.
         password_is_invalid: Password is invalid.
         passwords_did_not_match: Passwords did not match.
-    posts_tab:
-      empty_posts: No posts yet.
     registrations:
       create:
         rate_limited: Please try again later.
@@ -820,7 +811,7 @@ en:
       achievements_early_adopter: Early Adopter
       achievements_helpful: Helpful
       achievements_top_contributor: Top Contributor
-      back_to_feedback: Back to feedback
+      back_to_ideas: Back to ideas
       details: Details
       edit_profile: Edit Profile
       github: GitHub
@@ -832,10 +823,18 @@ en:
       role: Role
       stats_comments: Comments
       stats_helpful_votes_received: Helpful Votes Received
-      stats_posts_created: Posts Created
+      stats_ideas_created: Ideas Created
       stats_total_votes_received: Total Votes Received
       tabs_comments: Comments
-      tabs_likes: Likes
-      tabs_posts: Posts
+      tabs_ideas: Ideas
+      tabs_votes: Votes
       twitter: Twitter
       website: Website
+    votes_tab:
+      comment_on: Comment on
+      empty_votes: No votes yet.
+      voted: Voted
+  votes:
+    update:
+      successfully_unvoted: You removed your vote from this %{resource}
+      successfully_voted: You voted for this %{resource}

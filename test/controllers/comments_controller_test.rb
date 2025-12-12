@@ -5,7 +5,7 @@ require "test_helper"
 class CommentsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @user = users(:one)
-    @post = posts(:one)
+    @idea = ideas(:one)
     @comment = comments(:one)
   end
 
@@ -27,11 +27,11 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     sign_in_as @user
 
     assert_difference "Comment.count" do
-      post comments_url, params: { comment: { post_id: @post.id, body: "Hello, world!" } }
+      post comments_url, params: { comment: { idea_id: @idea.id, body: "Hello, world!" } }
     end
 
     assert_response :redirect
-    assert_redirected_to post_url(@post), notice: "Comment was successfully created."
+    assert_redirected_to idea_url(@idea), notice: "Comment was successfully created."
 
     assert_equal "Hello, world!", Comment.last.body.to_plain_text
     assert_equal @user, Comment.last.creator
@@ -39,7 +39,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
 
   test "should not create comment if not authenticated" do
     assert_no_difference "Comment.count" do
-      post comments_url, params: { comment: { post_id: @post.id, body: "Hello, world!" } }
+      post comments_url, params: { comment: { idea_id: @idea.id, body: "Hello, world!" } }
     end
 
     assert_response :redirect
@@ -67,6 +67,6 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :redirect
-    assert_redirected_to post_url(@comment.post), notice: "Comment was successfully destroyed."
+    assert_redirected_to idea_url(@comment.idea), notice: "Comment was successfully destroyed."
   end
 end

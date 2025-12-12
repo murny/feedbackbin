@@ -44,10 +44,10 @@ Rails.application.routes.draw do
     route_for :user_avatar, user, v: user.updated_at.to_fs(:number)
   end
 
-  resource :like, only: [ :update ]
+  resource :vote, only: [ :update ]
 
-  resources :posts do
-    scope module: :posts do
+  resources :ideas do
+    scope module: :ideas do
       resource :pin, only: [ :create, :destroy ]
       resource :status, only: [ :update ]
     end
@@ -67,7 +67,7 @@ Rails.application.routes.draw do
         resource :activation, only: [ :create, :destroy ]
       end
     end
-    resources :posts, only: [ :index, :show ]
+    resources :ideas, only: [ :index, :show ]
     resources :invitations, only: [ :index, :new, :create, :destroy ] do
       member do
         post :resend
@@ -76,8 +76,8 @@ Rails.application.routes.draw do
 
     namespace :settings do
       resource :branding, only: [ :show, :update ]
-      resources :post_statuses
-      resources :categories
+      resources :statuses
+      resources :boards
       resource :danger_zone, only: [ :show, :destroy ]
       resource :ownership_transfer, only: [ :new, :create ]
 
@@ -111,5 +111,5 @@ Rails.application.routes.draw do
     mount Lookbook::Engine, at: "/lookbook"
   end
 
-  root "posts#index"
+  root "ideas#index"
 end

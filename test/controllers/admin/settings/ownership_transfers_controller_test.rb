@@ -6,7 +6,7 @@ module Admin
   module Settings
     class OwnershipTransfersControllerTest < ActionDispatch::IntegrationTest
       setup do
-        @organization = organizations(:feedbackbin)
+        @account = accounts(:feedbackbin)
         @owner = users(:shane)
         @admin = User.create!(
           name: "Admin Two",

@@ -1,0 +1,43 @@
+<% content_for :title, t(".title") %>
+
+<div class="space-y-8">
+  <!-- Header Section -->
+  <div class="space-y-1">
+    <h1 class="text-3xl font-bold tracking-tight text-foreground">
+      <%= t(".heading") %>
+    </h1>
+    <p class="text-muted-foreground">
+      <%= t(".description") %>
+    </p>
+  </div>
+
+  <!-- Search Section -->
+  <div class="w-full max-w-md"
+       data-controller="search"
+       data-search-delay-value="300"
+       data-search-loading-class="opacity-75"
+       data-search-filtering-class="ring-2 ring-primary">
+    <%= form_with url: admin_ideas_path, method: :get,
+        data: {
+          turbo_frame: "ideas_content",
+          search_target: "form"
+        } do |form| %>
+      <%= form.label :search, t(".search_label"), class: "sr-only" %>
+      <%= form.search_field :search,
+          placeholder: t(".search_placeholder"),
+          value: params[:search],
+          autocomplete: "off",
+          class: "w-full px-4 py-2 border border-input bg-background rounded-md text-sm focus:outline-hidden focus:ring-2 focus:ring-ring focus:border-ring transition-colors",
+          data: {
+            search_target: "input",
+            action: "input->search#search"
+          } %>
+    <% end %>
+  </div>
+
+  <!-- Ideas Content -->
+  <%= turbo_frame_tag "ideas_content",
+      data: { action: "turbo:frame-load->search#searchComplete" } do %>
+    <%= render "ideas_list", ideas: @ideas, pagy: @pagy %>
+  <% end %>
+</div>

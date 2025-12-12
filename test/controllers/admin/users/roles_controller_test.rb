@@ -59,13 +59,13 @@ module Admin
         assert_predicate user.reload, :member?, "User should remain member"
       end
 
-      test "should not update organization owner role" do
+      test "should not update account owner role" do
         owner = users(:shane)
 
         patch admin_user_role_path(owner), params: { role: "member" }
 
         assert_redirected_to admin_user_path(owner)
-        assert_equal "Role cannot be changed for organization owner", flash[:alert]
+        assert_equal "Role cannot be changed for account owner", flash[:alert]
         assert_predicate owner.reload, :owner?, "Owner should remain owner"
       end
 

@@ -1,0 +1,16 @@
+<%= turbo_stream.update "idea-pin-button" do %>
+  <%= render Elements::DropdownMenuComponent::ItemComponent.new(
+    id: "idea-pin-button",
+    href: idea_pin_path(@idea),
+    method: :delete
+  ) do %>
+    <%= t("ideas.show.unpin") %>
+  <% end %>
+<% end %>
+
+<%= turbo_stream.update "idea-pinned-badge" do %>
+  <%= render Elements::BadgeComponent.new(variant: :secondary) do %>
+    <%= lucide_icon "map-pin" %>
+    <%= t("ideas.show.pinned") %>
+  <% end %>
+<% end %>

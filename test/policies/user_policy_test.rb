@@ -29,7 +29,7 @@ class UserPolicyTest < ActiveSupport::TestCase
     assert_predicate UserPolicy.new(@admin_user, @target_user), :destroy?
   end
 
-  test "organization owner cannot be destroyed" do
+  test "account owner cannot be destroyed" do
     owner = users(:shane)
 
     assert_predicate owner, :owner?

@@ -4,27 +4,27 @@ require "test_helper"
 
 class FirstRunsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    Organization.destroy_all
-    PostStatus.destroy_all
+    Account.destroy_all
+    Status.destroy_all
   end
 
-  test "new is permitted when no organizations exist" do
+  test "new is permitted when no accounts exist" do
     get first_run_url
 
     assert_response :success
   end
 
-  test "new is not permitted when organization exist" do
+  test "new is not permitted when account exist" do
     User.create!(
       name: "Test User",
       email_address: "new@feedbackbin.com",
       password: "secret123456",
       role: :owner
     )
-    open_status = PostStatus.create!(name: "Open", color: "#3b82f6", position: 1)
-    Organization.create!(
+    open_status = Status.create!(name: "Open", color: "#3b82f6", position: 1)
+    Account.create!(
       name: "FeedbackBin",
-      default_post_status: open_status
+      default_status: open_status
     )
 
     get first_run_url
@@ -33,16 +33,16 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "create with all parameters" do
-    assert_difference [ "User.count", "Organization.count", "Category.count" ], 1 do
-      assert_difference "PostStatus.count", 5 do
+    assert_difference [ "User.count", "Account.count", "Board.count" ], 1 do
+      assert_difference "Status.count", 5 do
         post first_run_url, params: {
           first_run: {
             name: "New Person",
             email_address: "new@feedbackbin.com",
             password: "secret123456",
-            organization_name: "Test Organization",
-            category_name: "Custom Category",
-            category_color: "#3b82f6"
+            account_name: "Test Account",
+            board_name: "Custom Board",
+            board_color: "#3b82f6"
           }
         }
       end
@@ -51,26 +51,26 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to root_url
 
     user = User.last
-    organization = Organization.last
+    account = Account.last
 
     assert_equal user.sessions.last.id, parsed_cookies.signed[:session_id]
     assert_equal "new@feedbackbin.com", user.email_address
 
-    assert_equal "Test Organization", organization.name
-    assert_equal "Custom Category", Category.last.name
+    assert_equal "Test Account", account.name
+    assert_equal "Custom Board", Board.last.name
 
     assert_predicate user, :owner?
 
-    assert_equal PostStatus.default, organization.default_post_status
+    assert_equal Status.default, account.default_status
   end
 
   test "create fails with missing information" do
-    assert_no_difference [ "User.count", "Organization.count", "Category.count", "PostStatus.count" ] do
+    assert_no_difference [ "User.count", "Account.count", "Board.count", "Status.count" ] do
       post first_run_url, params: {
         first_run: {
           email_address: "new@feedbackbin.com",
           password: "secret123456"
-          # Missing: name, organization_name, category_name, category_color (required fields)
+          # Missing: name, account_name, board_name, board_color (required fields)
         }
       }
     end
