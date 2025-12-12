@@ -11,7 +11,7 @@
   <rect x="20" y="90" width="180" height="280" fill="#FFFFFF" stroke="#E2E8F0" rx="8"/>
   <text x="110" y="115" text-anchor="middle" fill="#1F2937" font-family="Inter, sans-serif" font-size="14" font-weight="600">Categories</text>
 
-  <!-- Category Items -->
+  <!-- Board Items -->
   <rect x="40" y="130" width="140" height="30" fill="#EFF6FF" stroke="#DBEAFE" rx="6"/>
   <circle cx="55" cy="145" r="6" fill="#3B82F6"/>
   <text x="70" y="150" fill="#1F2937" font-family="Inter, sans-serif" font-size="12">Feature Requests</text>

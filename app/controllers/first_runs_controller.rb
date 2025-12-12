@@ -14,7 +14,7 @@ class FirstRunsController < ApplicationController
   def create
     @first_run = FirstRun.new(first_run_params).save!
     start_new_session_for @first_run.user
-    redirect_to root_path, notice: t(".organization_created")
+    redirect_to root_path, notice: t(".account_created")
   rescue ActiveModel::ValidationError => e
     @first_run = e.model
     render :show, status: :unprocessable_entity
@@ -23,14 +23,14 @@ class FirstRunsController < ApplicationController
   private
 
     def prevent_repeats
-      redirect_to root_path if Organization.any?
+      redirect_to root_path if Account.any?
     end
 
     def first_run_params
       params.expect(first_run: [
         :name, :avatar, :email_address, :password,
-        :organization_name, :organization_subdomain, :organization_logo,
-        :category_name, :category_color
+        :account_name, :account_subdomain, :account_logo,
+        :board_name, :board_color
       ])
     end
 end

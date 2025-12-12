@@ -100,49 +100,49 @@
     <% c.with_body do %>
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
       <div class="p-4 border border-border rounded-lg">
-        <div class="text-2xl font-bold text-foreground"><%= @total_posts %></div>
-        <div class="text-sm text-muted-foreground"><%= t(".total_posts") %></div>
+        <div class="text-2xl font-bold text-foreground"><%= @total_ideas %></div>
+        <div class="text-sm text-muted-foreground"><%= t(".total_ideas") %></div>
       </div>
       <div class="p-4 border border-border rounded-lg">
         <div class="text-2xl font-bold text-foreground"><%= @total_comments %></div>
         <div class="text-sm text-muted-foreground"><%= t(".total_comments") %></div>
       </div>
       <div class="p-4 border border-border rounded-lg">
-        <div class="text-2xl font-bold text-foreground"><%= @total_likes %></div>
-        <div class="text-sm text-muted-foreground"><%= t(".total_likes") %></div>
+        <div class="text-2xl font-bold text-foreground"><%= @total_votes %></div>
+        <div class="text-sm text-muted-foreground"><%= t(".total_votes") %></div>
       </div>
       </div>
     <% end %>
   <% end %>
 
-  <!-- Recent Posts -->
+  <!-- Recent Ideas -->
   <%= render Elements::CardComponent.new do |c| %>
-    <% c.with_header(title: t(".recent_posts_title")) %>
+    <% c.with_header(title: t(".recent_ideas_title")) %>
     <% c.with_body do %>
-    <% if @recent_posts.any? %>
+    <% if @recent_ideas.any? %>
       <div class="space-y-4">
-        <% @recent_posts.each do |post| %>
+        <% @recent_ideas.each do |idea| %>
           <div class="flex items-start gap-3 p-3 rounded-lg hover:bg-muted/50 transition-colors">
             <div class="min-w-0 flex-1">
-              <div class="font-medium text-foreground truncate"><%= post.title %></div>
+              <div class="font-medium text-foreground truncate"><%= idea.title %></div>
               <div class="text-sm text-muted-foreground">
-                <%= time_ago_in_words(post.created_at) %> <%= t(".ago") %>
+                <%= time_ago_in_words(idea.created_at) %> <%= t(".ago") %>
               </div>
-              <% if post.category %>
+              <% if idea.board %>
                 <%= render Elements::BadgeComponent.new(variant: :outline) do %>
-                  <%= post.category.name %>
+                  <%= idea.board.name %>
                 <% end %>
               <% end %>
             </div>
             <div class="text-xs text-muted-foreground">
-              <%= pluralize(post.likes_count, t(".like_singular"), t(".like_plural")) %> • <%= pluralize(post.comments_count, t(".comment_singular"), t(".comment_plural")) %>
+              <%= pluralize(idea.votes_count, t(".vote_singular"), t(".vote_plural")) %> • <%= pluralize(idea.comments_count, t(".comment_singular"), t(".comment_plural")) %>
             </div>
           </div>
         <% end %>
       </div>
     <% else %>
       <div class="text-center py-8 text-muted-foreground">
-        <%= t(".no_posts") %>
+        <%= t(".no_ideas") %>
       </div>
     <% end %>
     <% end %>

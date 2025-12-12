@@ -4,11 +4,11 @@ class InvitationsMailer < ApplicationMailer
   def invite
     @invitation = params.fetch(:invitation)
     @invited_by = @invitation.invited_by
-    @organization = Current.organization
+    @account = Current.account
 
     mail(
       to: @invitation.email,
-      subject: t(".subject", organization_name: @organization.name)
+      subject: t(".subject", account_name: @account.name)
     )
   end
 end

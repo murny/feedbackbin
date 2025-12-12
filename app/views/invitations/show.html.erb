@@ -3,8 +3,8 @@
 <div class="flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
   <div class="flex w-full max-w-md flex-col gap-6">
     <%= link_to root_path, class: "flex items-center gap-2 self-center font-medium" do %>
-      <%= organization_logo(Current.organization, class: "h-8 w-8") %>
-      <span class="font-bold text-primary text-2xl"><%= Current.organization.name %></span>
+      <%= account_logo(Current.account, class: "h-8 w-8") %>
+      <span class="font-bold text-primary text-2xl"><%= Current.account.name %></span>
     <% end %>
 
     <div class="card flex flex-col gap-6 py-8">

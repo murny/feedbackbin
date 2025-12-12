@@ -2,13 +2,13 @@
 #   record: name_of_fixture (ClassOfFixture)
 #   name: content
 #   body: <p>In a <i>million</i> stars!</p>
-post_body_one:
-  record: one (Post)
+idea_body_one:
+  record: one (Idea)
   name: body
   body: <p>Really wished there was dark mode for this website!</p>
 
-post_body_two:
-  record: two (Post)
+idea_body_two:
+  record: two (Idea)
   name: body
   body: <p>Can we upvotes?</p>
 

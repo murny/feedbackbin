@@ -1,0 +1,12 @@
+<%= content_for :title, t(".title") %>
+
+<div class="container mx-auto max-w-3xl p-4 sm:p-6">
+  <div class="flex items-center justify-between mb-4">
+    <h1 class="text-xl font-semibold"><%= t(".title") %></h1>
+    <%= button_to t("delete"), @idea, method: :delete, class: "btn btn-destructive", form: { data: { turbo_confirm: t("are_you_sure") } } %>
+  </div>
+
+  <div class="card p-6">
+    <%= render "form", idea: @idea %>
+  </div>
+</div>

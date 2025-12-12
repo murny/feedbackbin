@@ -9,61 +9,61 @@ class RoadmapControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
-  test "displays only roadmap-visible post statuses" do
+  test "displays only roadmap-visible statuses" do
     get roadmap_url
 
     assert_response :success
     # Only statuses with show_on_roadmap: true should appear
-    PostStatus.visible_on_roadmap.each do |status|
+    Status.visible_on_roadmap.each do |status|
       # Each roadmap-visible status should appear as a heading in the page
       assert_select "h2", text: status.name
     end
 
     # Statuses NOT visible on roadmap should not appear
-    PostStatus.where(show_on_roadmap: false).each do |status|
+    Status.where(show_on_roadmap: false).each do |status|
       assert_select "h2", { text: status.name, count: 0 }
     end
   end
 
-  test "displays posts in their status columns" do
-    planned_status = post_statuses(:planned)
-    post = posts(:one)
-    post.update!(post_status: planned_status, title: "Unique Test Post Title")
+  test "displays ideas in their status columns" do
+    planned_status = statuses(:planned)
+    idea = ideas(:one)
+    idea.update!(status: planned_status, title: "Unique Test Idea Title")
 
     get roadmap_url
 
     assert_response :success
     # Verify the status name appears
     assert_match(/#{Regexp.escape(planned_status.name)}/, response.body)
-    # Verify the post title appears
-    assert_match(/#{Regexp.escape(post.title)}/, response.body)
+    # Verify the idea title appears
+    assert_match(/#{Regexp.escape(idea.title)}/, response.body)
   end
 
-  test "displays posts ordered by created_at desc" do
-    status = post_statuses(:planned)  # Use a roadmap-visible status
+  test "displays ideas ordered by created_at desc" do
+    status = statuses(:planned)  # Use a roadmap-visible status
 
-    # Update existing posts to have specific timestamps and titles
-    old_post = posts(:one)
-    old_post.update!(
-      post_status: status,
-      title: "Older Post",
+    # Update existing ideas to have specific timestamps and titles
+    old_idea = ideas(:one)
+    old_idea.update!(
+      status: status,
+      title: "Older Idea",
       created_at: 2.days.ago
     )
 
-    new_post = posts(:two)
-    new_post.update!(
-      post_status: status,
-      title: "Newer Post",
+    new_idea = ideas(:two)
+    new_idea.update!(
+      status: status,
+      title: "Newer Idea",
       created_at: 1.day.ago
     )
 
     get roadmap_url
 
     assert_response :success
-    # Verify both posts appear
-    assert_match(/Newer Post/, response.body)
-    assert_match(/Older Post/, response.body)
-    # Newer post should appear before older post in HTML
-    assert_operator response.body.index("Newer Post"), :<, response.body.index("Older Post")
+    # Verify both ideas appear
+    assert_match(/Newer Idea/, response.body)
+    assert_match(/Older Idea/, response.body)
+    # Newer idea should appear before older idea in HTML
+    assert_operator response.body.index("Newer Idea"), :<, response.body.index("Older Idea")
   end
 end

@@ -1,0 +1,13 @@
+<%= turbo_stream.update "idea-pin-button" do %>
+  <%= render Elements::DropdownMenuComponent::ItemComponent.new(
+    id: "idea-pin-button",
+    href: idea_pin_path(@idea),
+    method: :post
+  ) do %>
+    <%= t("ideas.show.pin") %>
+  <% end %>
+<% end %>
+
+<%= turbo_stream.update "idea-pinned-badge" do %>
+  <%# Empty - removes the badge when unpinned %>
+<% end %>

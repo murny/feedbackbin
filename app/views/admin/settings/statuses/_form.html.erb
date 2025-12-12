@@ -1,0 +1,69 @@
+<%# locals: (status:) %>
+
+<%= form_with model: status, url: status.persisted? ? admin_settings_status_path(status) : admin_settings_statuses_path, method: status.persisted? ? :patch : :post, class: "space-y-6", data: { controller: "badge-preview" } do |f| %>
+  <div class="grid gap-6">
+    <div class="grid gap-3">
+      <%= f.label :name, t(".name_label") %>
+      <%= f.text_field :name, placeholder: t(".name_placeholder"), data: { badge_preview_target: "nameInput", action: "input->badge-preview#updatePreview" } %>
+    </div>
+
+    <div class="grid gap-3">
+      <%= f.label :color, t(".color_label") %>
+      <div class="flex items-center gap-3">
+        <%= f.color_field :color, class: "h-10 w-20 rounded-md border border-input cursor-pointer", data: { badge_preview_target: "colorInput", action: "input->badge-preview#updatePreview" } %>
+        <span class="text-sm text-muted-foreground"><%= t(".color_hint") %></span>
+      </div>
+    </div>
+
+    <div class="grid gap-3">
+      <%= f.label :position, t(".position_label") %>
+      <%= f.number_field :position, min: 1, placeholder: t(".position_placeholder") %>
+      <p class="text-xs text-muted-foreground"><%= t(".position_hint") %></p>
+    </div>
+
+    <div class="grid gap-3">
+      <label class="text-sm font-medium"><%= t(".visibility_label") %></label>
+      <div class="space-y-3 border rounded-lg p-4 bg-muted/30">
+        <div class="flex items-center gap-2">
+          <%= f.check_box :show_on_idea,
+                class: "h-4 w-4 rounded border-input text-primary focus:ring-primary" %>
+          <%= f.label :show_on_idea, t(".show_on_idea_label"), class: "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" %>
+        </div>
+        <p class="text-xs text-muted-foreground ml-6"><%= t(".show_on_idea_hint") %></p>
+
+        <div class="flex items-center gap-2">
+          <%= f.check_box :show_on_roadmap,
+                class: "h-4 w-4 rounded border-input text-primary focus:ring-primary" %>
+          <%= f.label :show_on_roadmap, t(".show_on_roadmap_label"), class: "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" %>
+        </div>
+        <p class="text-xs text-muted-foreground ml-6"><%= t(".show_on_roadmap_hint") %></p>
+      </div>
+    </div>
+
+    <% if status.persisted? %>
+      <div class="grid gap-3">
+        <div class="flex items-center gap-2">
+          <%= f.check_box :set_as_default,
+                checked: status == Current.account.default_status,
+                class: "h-4 w-4 rounded border-input text-primary focus:ring-primary" %>
+          <%= f.label :set_as_default, t(".set_as_default_label"), class: "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" %>
+        </div>
+        <p class="text-xs text-muted-foreground"><%= t(".set_as_default_hint") %></p>
+      </div>
+    <% end %>
+
+    <div class="rounded-lg border border-border bg-muted/50 p-4">
+      <h4 class="text-sm font-medium mb-2"><%= t(".preview_label") %></h4>
+      <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold text-white" style="background-color: <%= status.color %>;" data-badge-preview-target="previewColor">
+        <span data-badge-preview-target="previewName"><%= status.name %></span>
+      </span>
+    </div>
+  </div>
+
+  <div class="mt-8 flex items-center justify-end gap-3">
+    <%= link_to t("cancel"), admin_settings_statuses_path, class: "btn btn-secondary" %>
+    <%= render Elements::ButtonComponent.new(type: :submit, variant: :default) do %>
+      <%= status.persisted? ? t(".save_changes") : t(".create_status") %>
+    <% end %>
+  </div>
+<% end %>

@@ -1,0 +1,33 @@
+<%# locals: (idea:) %>
+
+<%= form_with(model: idea, class: "grid gap-6") do |form| %>
+  <%= render "error_messages", resource: form.object %>
+
+  <div class="grid gap-3">
+    <%= form.label :board_id, t("board") %>
+    <%= form.select :board_id,
+        options_from_collection_for_select(@boards, :id, :name, idea.board_id),
+        { prompt: t("select_board") },
+        { class: "select" } %>
+  </div>
+
+  <div class="grid gap-3">
+    <%= form.label :title %>
+    <%= form.text_field :title, autofocus: true, placeholder: t(".title_placeholder") %>
+  </div>
+
+  <div class="grid gap-3">
+    <%= form.label :body %>
+    <%= form.rich_text_area :body, placeholder: t(".body_placeholder") %>
+  </div>
+
+  <div class="flex justify-end gap-3 pt-2">
+    <% if form.object.new_record? %>
+      <%= link_to t("cancel"), ideas_path, class: "btn btn-secondary" %>
+    <% else %>
+      <%= link_to t("cancel"), idea_path(@idea), class: "btn btn-secondary" %>
+    <% end %>
+
+    <%= form.submit class: "btn" %>
+  </div>
+<% end %>

@@ -41,7 +41,7 @@
       <%= render Elements::CardComponent.new do |c| %>
         <% c.with_header(title: t(".delete_title"), description: t(".delete_description")) %>
         <% c.with_body do %>
-            <%= form_with model: Current.organization, url: admin_settings_danger_zone_path, method: :delete, class: "space-y-4" do |form| %>
+            <%= form_with model: Current.account, url: admin_settings_danger_zone_path, method: :delete, class: "space-y-4" do |form| %>
             <%= render "error_messages", resource: form.object %>
 
             <div class="space-y-2">
@@ -49,20 +49,20 @@
                 <%= t(".confirmation_label") %>
               </label>
               <p class="text-sm text-muted-foreground">
-                <%= t(".confirmation_description_html", name: Current.organization.name) %>
+                <%= t(".confirmation_description_html", name: Current.account.name) %>
               </p>
             </div>
 
             <div class="space-y-2">
-              <label class="block text-sm font-medium text-foreground" for="organization_name">
+              <label class="block text-sm font-medium text-foreground" for="account_name">
                 <%= t(".enter_name") %>
               </label>
-              <%= form.text_field :name, value: nil, placeholder: Current.organization.name, autocomplete: "off", class: "form-input w-full", required: true %>
+              <%= form.text_field :name, value: nil, placeholder: Current.account.name, autocomplete: "off", class: "form-input w-full", required: true %>
             </div>
 
             <div class="flex items-start gap-3">
               <%= form.check_box :acknowledge, { required: true, class: "form-checkbox mt-1" }, true, false %>
-              <label class="text-sm text-muted-foreground" for="organization_acknowledge">
+              <label class="text-sm text-muted-foreground" for="account_acknowledge">
                 <%= t(".acknowledge") %>
               </label>
             </div>

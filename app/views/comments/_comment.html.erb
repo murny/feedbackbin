@@ -5,7 +5,7 @@
     <div class="p-4 lg:p-6 mb-6 text-base bg-card border border-border rounded-lg">
       <div class="flex">
         <div class="mr-4">
-          <%= render partial: "likes/like_button", locals: { likeable: comment } %>
+          <%= render partial: "votes/vote_button", locals: { voteable: comment } %>
         </div>
         <div class="w-full">
           <div class="flex justify-between items-center mb-2 w-full">

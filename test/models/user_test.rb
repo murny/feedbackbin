@@ -93,12 +93,12 @@ class UserTest < ActiveSupport::TestCase
     assert_not @user.active
   end
 
-  test "cannot deactivate organization owner" do
+  test "cannot deactivate account owner" do
     owner = users(:shane)
 
     assert_not owner.deactivate
     assert owner.reload.active
-    assert_equal "organization owner cannot be deactivated", owner.errors[:active].first
+    assert_equal "account owner cannot be deactivated", owner.errors[:active].first
   end
 
   test "deactivate clears all user sessions" do

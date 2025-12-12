@@ -1,0 +1,5 @@
+<%= turbo_stream.update "flash_toast", partial: "flash_toast" %>
+
+<%= turbo_stream.update dom_id(@voteable, :vote_button) do %>
+  <%= render "votes/vote_button", voteable: @voteable %>
+<% end %>

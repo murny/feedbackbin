@@ -1,0 +1,125 @@
+<%# locals: (ideas:, pagy:) %>
+
+<%= render Elements::CardComponent.new(class: "overflow-hidden") do |c| %>
+  <% c.with_body(class: "p-0") do %>
+    <div class="overflow-x-auto">
+    <table class="w-full text-sm">
+      <thead class="border-b border-border">
+        <tr class="bg-muted/50">
+          <th class="px-6 py-4 text-left font-semibold text-foreground"><%= t(".idea_column") %></th>
+          <th class="px-6 py-4 text-left font-semibold text-foreground"><%= t(".author_column") %></th>
+          <th class="px-6 py-4 text-left font-semibold text-foreground"><%= t(".engagement_column") %></th>
+          <th class="px-6 py-4 text-left font-semibold text-foreground"><%= t(".created_column") %></th>
+          <th class="px-6 py-4 text-center font-semibold text-foreground"><%= t(".actions_column") %></th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-border">
+        <% if ideas.any? %>
+          <% ideas.each do |idea| %>
+            <tr class="hover:bg-muted/25 transition-colors">
+              <td class="px-6 py-4">
+                <div class="min-w-0 max-w-xs">
+                  <div class="font-medium text-foreground truncate mb-1">
+                    <%= idea.title %>
+                  </div>
+                  <% if idea.board %>
+                    <%= render Elements::BadgeComponent.new(variant: :secondary) do %>
+                      <%= idea.board.name %>
+                    <% end %>
+                  <% end %>
+                  <% if idea.status %>
+                    <%= render Elements::BadgeComponent.new(
+                      variant: :outline,
+                      class: "ml-2"
+                    ) do %>
+                      <%= idea.status.name %>
+                    <% end %>
+                  <% end %>
+                </div>
+              </td>
+              <td class="px-6 py-4">
+                <div class="flex items-center gap-3">
+                  <%= render Elements::AvatarComponent.new(
+                    src: idea.author.avatar.attached? ? url_for(idea.author.avatar) : nil,
+                    alt: idea.author.name,
+                    size: :sm,
+                    fallback: idea.author.name[0, 2].upcase
+                  ) %>
+                  <div class="min-w-0">
+                    <div class="font-medium text-foreground truncate">
+                      <%= idea.author.name %>
+                    </div>
+                    <div class="text-xs text-muted-foreground truncate">
+                      <%= idea.author.email_address %>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4">
+                <div class="flex items-center gap-4 text-xs text-muted-foreground">
+                  <div class="flex items-center gap-1">
+                    <%= lucide_icon "heart", class: "size-3" %>
+                    <span><%= idea.votes_count %></span>
+                  </div>
+                  <div class="flex items-center gap-1">
+                    <%= lucide_icon "message-square", class: "size-3" %>
+                    <span><%= idea.comments_count %></span>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4 text-muted-foreground">
+                <div class="text-sm">
+                  <%= idea.created_at.strftime("%b %d, %Y") %>
+                </div>
+                <div class="text-xs">
+                  <%= time_ago_in_words(idea.created_at) %> <%= t(".ago") %>
+                </div>
+              </td>
+              <td class="px-6 py-4 text-center">
+                <%= render Elements::ButtonComponent.new(
+                  href: admin_idea_path(idea),
+                  variant: :outline,
+                  size: :sm,
+                  data: { turbo_frame: "_top" }
+                ) do %>
+                  <%= t(".view_button") %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        <% else %>
+          <tr>
+            <td colspan="5" class="px-6 py-12 text-center">
+              <div class="mx-auto size-12 bg-muted rounded-full flex items-center justify-center mb-4">
+                <%= lucide_icon "message-square", class: "size-6 text-muted-foreground" %>
+              </div>
+              <h3 class="text-sm font-medium text-foreground mb-2"><%= t(".no_ideas_title") %></h3>
+              <p class="text-sm text-muted-foreground">
+                <% if params[:search].present? %>
+                  <%= t(".no_ideas_search") %>
+                <% else %>
+                  <%= t(".no_ideas_empty") %>
+                <% end %>
+              </p>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    </div>
+  <% end %>
+<% end %>
+
+<!-- Pagination -->
+<div class="mt-8">
+  <%= tag.div id: ("ideas" if first_page?(pagy.last)), class: "space-y-4" do %>
+    <div class="text-center text-sm text-muted-foreground">
+      <%== pagy.info_tag %>
+    </div>
+    <% if pagy.last > 1 %>
+      <div class="flex justify-center">
+        <%== pagy.series_nav(link_extra: 'data-turbo-frame="ideas_content"') %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

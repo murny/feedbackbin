@@ -5,8 +5,8 @@ module Admin
     def show
       @stats = Rails.cache.fetch("dashboard_stats", expires_in: 1.hour) do
         {
-          total_posts: Post.count,
-          posts_this_month: Post.where(created_at: Time.current.beginning_of_month..Time.current).count,
+          total_ideas: Idea.count,
+          ideas_this_month: Idea.where(created_at: Time.current.beginning_of_month..Time.current).count,
           total_users: User.count,
           admin_users: User.admin.count,
           total_comments: Comment.count,
@@ -14,9 +14,9 @@ module Admin
         }
       end
 
-      @recent_posts = Rails.cache.fetch("dashboard_recent_posts", expires_in: 10.minutes) do
-        Post.all
-            .includes(:author, :category, :post_status)
+      @recent_ideas = Rails.cache.fetch("dashboard_recent_ideas", expires_in: 10.minutes) do
+        Idea.all
+            .includes(:author, :board, :status)
             .order(created_at: :desc)
             .limit(5)
             .to_a
@@ -24,7 +24,7 @@ module Admin
 
       @recent_comments = Rails.cache.fetch("dashboard_recent_comments", expires_in: 10.minutes) do
         Comment.all
-               .includes(:creator, :post)
+               .includes(:creator, :idea)
                .order(created_at: :desc)
                .limit(5)
                .to_a

@@ -35,7 +35,7 @@ module Admin
         assert_predicate user.reload, :active?, "User should be active"
       end
 
-      test "should not deactivate organization owner" do
+      test "should not deactivate account owner" do
         owner = users(:shane)
 
         assert_predicate owner, :active?, "Owner should start as active"
@@ -43,7 +43,7 @@ module Admin
         delete admin_user_activation_path(owner)
 
         assert_redirected_to admin_user_path(owner)
-        assert_equal "Active organization owner cannot be deactivated", flash[:alert]
+        assert_equal "Active account owner cannot be deactivated", flash[:alert]
         assert_predicate owner.reload, :active?, "Owner should remain active"
       end
 

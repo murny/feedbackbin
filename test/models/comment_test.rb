@@ -18,11 +18,11 @@ class CommentTest < ActiveSupport::TestCase
     assert_equal "can't be blank", @comment.errors[:body].first
   end
 
-  test "invalid without post" do
-    @comment.post = nil
+  test "invalid without idea" do
+    @comment.idea = nil
 
     assert_not @comment.valid?
-    assert_equal "must exist", @comment.errors[:post].first
+    assert_equal "must exist", @comment.errors[:idea].first
   end
 
   test "invalid without creator" do
@@ -33,12 +33,12 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   test "should be able to create a reply to a comment" do
-    @reply = Comment.create(body: "Hello, world!", post: @comment.post, parent: @comment, creator: users(:shane))
+    @reply = Comment.create(body: "Hello, world!", idea: @comment.idea, parent: @comment, creator: users(:shane))
 
     assert_predicate @reply, :valid?
 
     assert_equal @comment, @reply.parent
-    assert_equal @comment.post, @reply.post
+    assert_equal @comment.idea, @reply.idea
     assert_equal 1, @comment.replies.count
     assert_equal @reply, @comment.replies.first
   end

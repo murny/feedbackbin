@@ -1,4 +1,0 @@
-feedbackbin:
-  name: "FeedbackBin"
-  subdomain: "feedbackbin"
-  default_post_status: open

@@ -20,6 +20,6 @@ class ApplicationController < ActionController::Base
   private
 
     def ensure_first_run_completed
-      redirect_to first_run_path if Organization.none?
+      redirect_to first_run_path if Account.none?
     end
 end

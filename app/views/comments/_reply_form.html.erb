@@ -12,7 +12,7 @@
         <%= form_with model: comment, class: "my-4 w-full" do |form| %>
           <%= render "error_messages", resource: form.object %>
 
-          <%= form.hidden_field :post_id, value: parent.post.id %>
+          <%= form.hidden_field :idea_id, value: parent.idea.id %>
           <%= form.hidden_field :parent_id, value: parent.id %>
 
           <%= form.rich_text_area :body, id: "comment_#{parent.id}_new_reply_body", row: 1, placeholder: "Write a reply..." %>

@@ -1,0 +1,91 @@
+<%# locals: (accounts:, pagy:) %>
+
+<%= render Elements::CardComponent.new(class: "overflow-hidden") do |c| %>
+  <% c.with_body(class: "p-0") do %>
+    <div class="overflow-x-auto">
+    <table class="w-full text-sm">
+      <thead class="border-b border-border">
+        <tr class="bg-muted/50">
+          <th class="px-6 py-4 text-left font-semibold text-foreground"><%= t(".account") %></th>
+          <th class="px-6 py-4 text-left font-semibold text-foreground"><%= t(".subdomain") %></th>
+          <th class="px-6 py-4 text-left font-semibold text-foreground"><%= t(".created") %></th>
+          <th class="px-6 py-4 text-center font-semibold text-foreground"><%= t(".actions") %></th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-border">
+        <% if accounts.any? %>
+          <% accounts.each do |account| %>
+            <tr class="hover:bg-muted/25 transition-colors">
+              <td class="px-6 py-4">
+                <div class="flex items-center gap-3">
+                  <div class="shrink-0">
+                    <%= account_logo(account, size: :sm) %>
+                  </div>
+                  <div class="min-w-0">
+                    <div class="font-medium text-foreground truncate">
+                      <%= account.name %>
+                    </div>
+                  </div>
+                </div>
+              </td>
+              <td class="px-6 py-4">
+                <div class="text-sm text-muted-foreground">
+                  <%= account.subdomain %>
+                </div>
+              </td>
+              <td class="px-6 py-4 text-muted-foreground">
+                <div class="text-sm">
+                  <%= account.created_at.strftime("%b %d, %Y") %>
+                </div>
+                <div class="text-xs">
+                  <%= time_ago_in_words(account.created_at) %> ago
+                </div>
+              </td>
+              <td class="px-6 py-4 text-center">
+                <%= render Elements::ButtonComponent.new(
+                  href: super_admin_account_path(account),
+                  variant: :outline,
+                  size: :sm,
+                  data: { turbo_frame: "_top" }
+                ) do %>
+                  <%= t(".view_button") %>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        <% else %>
+          <tr>
+            <td colspan="4" class="px-6 py-12 text-center">
+              <div class="mx-auto size-12 bg-muted rounded-full flex items-center justify-center mb-4">
+                <%= lucide_icon "building.svg", class: "size-6 text-muted-foreground" %>
+              </div>
+              <h3 class="text-sm font-medium text-foreground mb-2"><%= t(".no_accounts_found") %></h3>
+              <p class="text-sm text-muted-foreground">
+                <% if params[:search].present? %>
+                  <%= t(".try_adjusting_search") %>
+                <% else %>
+                  <%= t(".no_accounts_yet") %>
+                <% end %>
+              </p>
+            </td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+    </div>
+  <% end %>
+<% end %>
+
+<!-- Pagination -->
+<div class="mt-8">
+  <%= tag.div id: ("accounts" if first_page?(pagy.last)), class: "space-y-4" do %>
+    <div class="text-center text-sm text-muted-foreground">
+      <%== pagy.info_tag %>
+    </div>
+    <% if pagy.last > 1 %>
+      <div class="flex justify-center">
+        <%== pagy.series_nav(link_extra: 'data-turbo-frame="accounts_content"') %>
+      </div>
+    <% end %>
+  <% end %>
+</div>

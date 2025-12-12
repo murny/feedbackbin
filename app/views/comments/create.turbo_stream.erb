@@ -1,8 +1,8 @@
 <% if @comment.persisted? %>
   <%= turbo_stream.update "flash_toast", partial: "flash_toast" %>
 
-  <%= turbo_stream.update "post_#{@comment.post.id}_comment_count" do %>
-    <%= t('comments.comments.comments_title_with_count', comment_count: @comment.post.comments_count) %>
+  <%= turbo_stream.update "idea_#{@comment.idea.id}_comment_count" do %>
+    <%= t('comments.comments.comments_title_with_count', comment_count: @comment.idea.comments_count) %>
   <% end %>
 
   <% if @comment.parent %>
@@ -14,11 +14,11 @@
       <%= render partial: "comments/reply", locals: {comment: @comment} %>
     <% end %>
   <% else %>
-    <%= turbo_stream.replace "post_comment_form" do %>
-        <%= render partial: "comments/form", locals: {post: @comment.post, comment: Comment.new} %>
+    <%= turbo_stream.replace "idea_comment_form" do %>
+        <%= render partial: "comments/form", locals: {idea: @comment.idea, comment: Comment.new} %>
     <% end %>
 
-    <%= turbo_stream.append "post_#{@comment.post.id}_comments" do %>
+    <%= turbo_stream.append "idea_#{@comment.idea.id}_comments" do %>
       <%= render partial: "comments/comment", locals: {comment: @comment} %>
     <% end %>
   <% end %>
@@ -28,8 +28,8 @@
       <%= render partial: "comments/reply_form", locals: {parent: @comment.parent, comment: @comment, show_form: true} %>
     <% end %>
   <% else %>
-    <%= turbo_stream.replace "post_comment_form" do %>
-      <%= render partial: "comments/form", locals: {post: @comment.post, comment: @comment} %>
+    <%= turbo_stream.replace "idea_comment_form" do %>
+      <%= render partial: "comments/form", locals: {idea: @comment.idea, comment: @comment} %>
     <% end %>
   <% end%>
 <% end %>

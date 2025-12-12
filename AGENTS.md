@@ -38,18 +38,17 @@ FeedbackBin is a customer feedback management platform built with Ruby on Rails 
 
 ### Core Domain Models
 - **User**: Authentication, profiles, and user management with OAuth support
-- **Organization**: Multi-tenant structure where users belong to organizations
-- **Post**: Feedback items created by users within organizations
-- **Comment**: Threaded discussions on feedback posts
-- **Category**: Organization of feedback into logical groups
-- **PostStatus**: Status tracking for feedback lifecycle
-- **Membership**: User-organization relationships with role-based permissions
+- **Account**: Multi-tenant structure where users belong to accounts
+- **Idea**: Feedback items created by users within accounts
+- **Comment**: Threaded discussions on feedback ideas
+- **Boards**: Organization of feedback ideas into logical groups
+- **Status**: Status tracking for feedback ideas lifecycle
 
 ### Key Rails Features Used
 - **Hotwire/Turbo**: SPA-like interactions without JavaScript frameworks
 - **Stimulus.js**: Minimal JavaScript controllers for enhanced interactions
 - **ActiveStorage**: File uploads (avatars, logos)
-- **ActionText**: Rich text content for posts and comments
+- **ActionText**: Rich text content for ideas and comments
 - **Solid Queue**: Background job processing
 - **Solid Cache**: Application caching
 - **Solid Cable**: WebSocket connections
@@ -133,9 +132,9 @@ Example:
 
 ```yml
 en:
-  posts:
+  ideas:
     index:
-      title: Posts
+      title: Ideas
 ```
 
 ### Turbo/Hotwire Usage

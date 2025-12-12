@@ -14,7 +14,7 @@
       <% if @comment.parent %>
         <%= render partial: "comments/reply_form", locals: {parent: @comment.parent, comment: @comment, show_form: true} %>
       <% else %>
-        <%= render partial: "comments/form", locals: { post: @comment.post, comment: @comment } %>
+        <%= render partial: "comments/form", locals: { idea: @comment.idea, comment: @comment } %>
       <% end %>
     <% end %>
   <% end %>

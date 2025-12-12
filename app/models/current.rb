@@ -5,8 +5,8 @@ class Current < ActiveSupport::CurrentAttributes
 
   delegate :user, to: :session, allow_nil: true
 
-  def organization
-    Organization.first
+  def account
+    Account.first
   end
 
   def admin?

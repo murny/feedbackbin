@@ -6,14 +6,14 @@ module Admin
       before_action :ensure_owner
 
       def new
-        @organization = Current.organization
+        @account = Current.account
         @admins = User.admin
       end
 
       def create
-        @organization = Current.organization
+        @account = Current.account
         new_owner = User.find(params[:new_owner_id])
-        current_owner = User.owner.first
+        current_owner = User.owner.first!
 
         User.transaction do
           # Use update_column to skip validation since this is the legitimate ownership transfer
@@ -31,7 +31,7 @@ module Admin
       private
 
         def ensure_owner
-          authorize Current.organization, :transfer_ownership?
+          authorize Current.account, :transfer_ownership?
         end
     end
   end
