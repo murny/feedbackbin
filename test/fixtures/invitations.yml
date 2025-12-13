@@ -1,4 +1,5 @@
 one:
+  account: feedbackbin
   invited_by: shane
   token: <%= Invitation.generate_unique_secure_token %>
   name: Invited User

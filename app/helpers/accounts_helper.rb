@@ -2,6 +2,8 @@
 
 module AccountsHelper
   def account_logo(account, size: :default, **options)
+    return inline_svg_tag("mark.svg", class: options[:class] || "h-8 w-8") if account.nil?
+
     render Elements::AvatarComponent.new(
       src: account.logo.attached? ? url_for(account.logo) : nil,
       alt: account.name,

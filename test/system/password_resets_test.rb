@@ -8,7 +8,7 @@ class PasswordResetsTest < ApplicationSystemTestCase
   end
 
   test "updating password" do
-    visit edit_users_password_reset_url(token: @user.password_reset_token)
+    visit edit_users_password_reset_url(token: @user.identity.generate_token_for(:password_reset))
 
     fill_in "New password", with: "Secret6*4*2*"
     fill_in "Confirm new password", with: "Secret6*4*2*"

@@ -1,10 +1,17 @@
 # frozen_string_literal: true
 
 require "test_helper"
+require "ostruct"
 
 class StatusTest < ActiveSupport::TestCase
   def setup
     @status = statuses(:complete)
+    @account = accounts(:feedbackbin)
+    Current.session = OpenStruct.new(current_account: @account)
+  end
+
+  def teardown
+    Current.reset
   end
 
   test "valid status" do

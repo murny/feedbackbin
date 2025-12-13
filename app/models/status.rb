@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Status < ApplicationRecord
+  belongs_to :account, default: -> { Current.account }
   has_many :ideas, dependent: :restrict_with_error
 
   validates :name, presence: true
@@ -12,7 +13,10 @@ class Status < ApplicationRecord
   validates :show_on_roadmap, inclusion: { in: [ true, false ] }
 
   scope :ordered, -> { order(:position) }
-  scope :default, -> { Current.account&.default_status }
+
+  def self.default
+    Current.account&.default_status
+  end
 
   # Visibility scopes
   scope :visible_on_idea, -> { where(show_on_idea: true) }
@@ -23,7 +27,7 @@ class Status < ApplicationRecord
   private
 
     def prevent_default_deletion
-      if self == Status.default
+      if account&.default_status_id == id
         errors.add(:base, :cannot_delete_default)
         throw(:abort)
       end

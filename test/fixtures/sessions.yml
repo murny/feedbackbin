@@ -1,11 +1,13 @@
 shane_chrome:
-  user: shane
+  identity: shane_identity
+  current_account: feedbackbin
   ip_address: "192.168.1.1"
   user_agent: "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/129.0.0.0 Safari/537.36"
   last_active_at: <%= 2.hours.ago %>
 
 one_firefox:
-  user: one
+  identity: one_identity
+  current_account: feedbackbin
   ip_address: "192.168.1.2"
   user_agent: "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0"
   last_active_at: <%= 2.days.ago %>

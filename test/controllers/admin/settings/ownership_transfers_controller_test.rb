@@ -8,12 +8,8 @@ module Admin
       setup do
         @account = accounts(:feedbackbin)
         @owner = users(:shane)
-        @admin = User.create!(
-          name: "Admin Two",
-          email_address: "admin2@feedbackbin.com",
-          password: "secret123456",
-          role: :admin
-        )
+        identity = Identity.create!(email_address: "admin2@feedbackbin.com", password: "secret123456")
+        @admin = User.create!(name: "Admin Two", identity: identity, account: @account, role: :admin, email_verified: true)
         sign_in_as(@owner)
       end
 

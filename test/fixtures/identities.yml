@@ -1,0 +1,26 @@
+<% password_digest = BCrypt::Password.create("secret123456", cost: 1) %>
+
+shane_identity:
+  email_address: shane.murnaghan@feedbackbin.com
+  password_digest: <%= password_digest %>
+  super_admin: true
+
+admin_identity:
+  email_address: admin@feedbackbin.com
+  password_digest: <%= password_digest %>
+  super_admin: false
+
+one_identity:
+  email_address: jane.doe@feedbackbin.com
+  password_digest: <%= password_digest %>
+  super_admin: false
+
+two_identity:
+  email_address: john.smith@feedbackbin.com
+  password_digest: <%= password_digest %>
+  super_admin: false
+
+bot_identity:
+  email_address: beep.boop@feedbackbin.com
+  password_digest: <%= password_digest %>
+  super_admin: false

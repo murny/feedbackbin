@@ -15,17 +15,12 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "new is not permitted when account exist" do
-    User.create!(
-      name: "Test User",
-      email_address: "new@feedbackbin.com",
-      password: "secret123456",
-      role: :owner
-    )
-    open_status = Status.create!(name: "Open", color: "#3b82f6", position: 1)
-    Account.create!(
-      name: "FeedbackBin",
-      default_status: open_status
-    )
+    account = Account.create!(name: "FeedbackBin")
+    open_status = Status.create!(name: "Open", color: "#3b82f6", position: 1, account: account)
+    account.update!(default_status: open_status)
+
+    identity = Identity.create!(email_address: "new@feedbackbin.com", password: "secret123456", super_admin: true)
+    User.create!(name: "Test User", identity: identity, account: account, role: :owner, email_verified: true)
 
     get first_run_url
 
@@ -60,6 +55,8 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
     assert_equal "Custom Board", Board.last.name
 
     assert_predicate user, :owner?
+
+    Current.account = account
 
     assert_equal Status.default, account.default_status
   end

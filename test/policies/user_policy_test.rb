@@ -37,12 +37,8 @@ class UserPolicyTest < ActiveSupport::TestCase
     # Owner cannot delete themselves
     assert_not_predicate UserPolicy.new(owner, owner), :destroy?
 
-    admin = User.create!(
-      name: "Admin Two",
-      email_address: "admin2@feedbackbin.com",
-      password: "password123456",
-      role: :admin
-    )
+    identity = Identity.create!(email_address: "admin2@feedbackbin.com", password: "password123456")
+    admin = User.create!(name: "Admin Two", identity: identity, account: accounts(:feedbackbin), role: :admin, email_verified: true)
 
     # Admin cannot delete the owner
     assert_not_predicate UserPolicy.new(admin, owner), :destroy?

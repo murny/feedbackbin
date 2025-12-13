@@ -4,13 +4,13 @@ module UserSettings
   class PasswordsController < ApplicationController
     skip_after_action :verify_authorized
 
-    before_action :set_user
+    before_action :set_identity
 
     def show
     end
 
     def update
-      if @user.update(user_params)
+      if @identity.update(identity_params)
         redirect_to user_settings_password_path, notice: t(".password_changed")
       else
         render :show, status: :unprocessable_entity
@@ -19,12 +19,12 @@ module UserSettings
 
     private
 
-      def user_params
-        params.expect(user: [ :password, :password_confirmation, :password_challenge ])
+      def identity_params
+        params.expect(identity: [ :password, :password_confirmation, :password_challenge ])
       end
 
-      def set_user
-        @user = Current.user
+      def set_identity
+        @identity = Current.identity
       end
   end
 end

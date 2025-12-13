@@ -13,7 +13,7 @@ class FirstRunsController < ApplicationController
 
   def create
     @first_run = FirstRun.new(first_run_params).save!
-    start_new_session_for @first_run.user
+    start_new_session_for @first_run.identity, account: @first_run.account
     redirect_to root_path, notice: t(".account_created")
   rescue ActiveModel::ValidationError => e
     @first_run = e.model

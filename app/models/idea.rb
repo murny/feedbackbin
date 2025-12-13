@@ -9,6 +9,7 @@ class Idea < ApplicationRecord
 
   to_param :title
 
+  belongs_to :account, default: -> { Current.account }
   belongs_to :author, class_name: "User", default: -> { Current.user }
   belongs_to :board
   belongs_to :status, default: -> { Status.default }

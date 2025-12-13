@@ -27,11 +27,31 @@ module Authentication
     def resume_session
       Current.session ||= begin
         session = find_session_by_cookie
-        if session&.user&.active?
-          session.resume(user_agent: request.user_agent, ip_address: request.remote_ip)
-          session
+        if session&.identity
+          # Check if identity has an active user for the current account
+          if session.current_account && session.user&.active?
+            session.resume(user_agent: request.user_agent, ip_address: request.remote_ip)
+            session
+          elsif session.current_account.nil? && session.identity.accounts.any?
+            # Auto-select first account if none set
+            first_active_user = session.identity.users.active.first
+            if first_active_user
+              session.update!(current_account: first_active_user.account)
+              session.resume(user_agent: request.user_agent, ip_address: request.remote_ip)
+              session
+            else
+              cookies.delete(:session_id)
+              nil
+            end
+          elsif session.current_account.nil? && session.identity.accounts.none?
+            # Identity is authenticated but has no account memberships yet (e.g. just signed up).
+            session.resume(user_agent: request.user_agent, ip_address: request.remote_ip)
+            session
+          else
+            cookies.delete(:session_id)
+            nil
+          end
         else
-          # Clear the session cookie if it exists but user is deactivated or session is invalid
           cookies.delete(:session_id) if session
           nil
         end
@@ -51,8 +71,15 @@ module Authentication
       session.delete(:return_to_after_authenticating) || root_path
     end
 
-    def start_new_session_for(user)
-      user.sessions.create!(user_agent: request.user_agent, ip_address: request.remote_ip).tap do |session|
+    def start_new_session_for(identity, account: nil)
+      # Default to first active user's account if not specified
+      account ||= identity.users.active.first&.account
+
+      identity.sessions.create!(
+        user_agent: request.user_agent,
+        ip_address: request.remote_ip,
+        current_account: account
+      ).tap do |session|
         Current.session = session
         cookies.signed.permanent[:session_id] = { value: session.id, httponly: true, same_site: :lax }
       end

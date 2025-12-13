@@ -2,25 +2,30 @@
 
 puts "Creating comments..."
 
-# Find users by email address
-admin_user = User.find_by!(email_address: "shane.murnaghan@feedbackbin.com")
-fake_user = User.find_by!(email_address: "fake_user@example.com")
-jane_user = User.find_by!(email_address: "jane_doe@example.com")
-alex_user = User.find_by!(email_address: "alex.chen@techcorp.com")
-maya_user = User.find_by!(email_address: "maya.patel@designstudio.co")
-carlos_user = User.find_by!(email_address: "carlos.rodriguez@freelance.dev")
-sarah_user = User.find_by!(email_address: "sarah.kim@startup.io")
-david_user = User.find_by!(email_address: "david.thompson@agency.com")
+# Account context
+account = Account.find_by!(name: "FeedbackBin")
+Current.account = account
+
+# Find users (memberships) by identity email
+admin_user = Identity.find_by!(email_address: "shane.murnaghan@feedbackbin.com").user_for(account)
+fake_user = Identity.find_by!(email_address: "fake_user@example.com").user_for(account)
+jane_user = Identity.find_by!(email_address: "jane_doe@example.com").user_for(account)
+alex_user = Identity.find_by!(email_address: "alex.chen@techcorp.com").user_for(account)
+maya_user = Identity.find_by!(email_address: "maya.patel@designstudio.co").user_for(account)
+carlos_user = Identity.find_by!(email_address: "carlos.rodriguez@freelance.dev").user_for(account)
+sarah_user = Identity.find_by!(email_address: "sarah.kim@startup.io").user_for(account)
+david_user = Identity.find_by!(email_address: "david.thompson@agency.com").user_for(account)
 
 # Find ideas by title
-dark_mode_idea = Idea.find_by!(title: "Could you please add dark mode")
-mobile_app_idea = Idea.find_by!(title: "Mobile app support")
-accessibility_idea = Idea.find_by!(title: "Accessibility improvements needed")
+dark_mode_idea = Idea.find_by!(account: account, title: "Could you please add dark mode")
+mobile_app_idea = Idea.find_by!(account: account, title: "Mobile app support")
+accessibility_idea = Idea.find_by!(account: account, title: "Accessibility improvements needed")
 
 # Disable comment broadcasting to make seeding faster
 Comment.suppressing_turbo_broadcasts do
   # Comments on FeedbackBin dark mode idea
   Comment.find_or_create_by!(
+    account: account,
     idea: dark_mode_idea,
     creator: maya_user,
   ) do |comment|
@@ -29,6 +34,7 @@ Comment.suppressing_turbo_broadcasts do
   end
 
   alex_dark_mode_comment = Comment.find_or_create_by!(
+    account: account,
     idea: dark_mode_idea,
     creator: alex_user,
   ) do |comment|
@@ -38,6 +44,7 @@ Comment.suppressing_turbo_broadcasts do
 
   # Reply to Alex's comment
   Comment.find_or_create_by!(
+    account: account,
     idea: dark_mode_idea,
     creator: admin_user,
     parent: alex_dark_mode_comment
@@ -48,6 +55,7 @@ Comment.suppressing_turbo_broadcasts do
 
   # Another comment on dark mode idea
   carlos_dark_mode_comment = Comment.find_or_create_by!(
+    account: account,
     idea: dark_mode_idea,
     creator: carlos_user,
   ) do |comment|
@@ -57,6 +65,7 @@ Comment.suppressing_turbo_broadcasts do
 
   # Reply to Carlos's comment
   Comment.find_or_create_by!(
+    account: account,
     idea: dark_mode_idea,
     creator: maya_user,
     parent: carlos_dark_mode_comment
@@ -67,6 +76,7 @@ Comment.suppressing_turbo_broadcasts do
 
   # Reply to Maya's reply (nested conversation)
   Comment.find_or_create_by!(
+    account: account,
     idea: dark_mode_idea,
     creator: sarah_user,
     parent: carlos_dark_mode_comment
@@ -77,6 +87,7 @@ Comment.suppressing_turbo_broadcasts do
 
   # Another standalone comment
   Comment.find_or_create_by!(
+    account: account,
     idea: dark_mode_idea,
     creator: jane_user,
   ) do |comment|
@@ -86,6 +97,7 @@ Comment.suppressing_turbo_broadcasts do
 
   # Comments on mobile app idea
   Comment.find_or_create_by!(
+    account: account,
     idea: mobile_app_idea,
     creator: carlos_user,
   ) do |comment|
@@ -95,6 +107,7 @@ Comment.suppressing_turbo_broadcasts do
 
   # Comments on accessibility idea
   Comment.find_or_create_by!(
+    account: account,
     idea: accessibility_idea,
     creator: sarah_user,
   ) do |comment|
@@ -104,6 +117,7 @@ Comment.suppressing_turbo_broadcasts do
 
   # Additional comments on accessibility idea
   Comment.find_or_create_by!(
+    account: account,
     idea: accessibility_idea,
     creator: alex_user,
   ) do |comment|
@@ -112,6 +126,7 @@ Comment.suppressing_turbo_broadcasts do
   end
 
   Comment.find_or_create_by!(
+    account: account,
     idea: accessibility_idea,
     creator: maya_user,
   ) do |comment|
@@ -120,13 +135,14 @@ Comment.suppressing_turbo_broadcasts do
   end
 
   # Find additional FeedbackBin ideas for comments
-  slack_integration_idea = Idea.find_by!(title: "Slack integration for notifications")
-  public_api_idea = Idea.find_by!(title: "Public API for integrations")
-  analytics_dashboard_idea = Idea.find_by!(title: "Advanced analytics dashboard")
-  collaboration_features_idea = Idea.find_by!(title: "Better collaboration features")
+  slack_integration_idea = Idea.find_by!(account: account, title: "Slack integration for notifications")
+  public_api_idea = Idea.find_by!(account: account, title: "Public API for integrations")
+  analytics_dashboard_idea = Idea.find_by!(account: account, title: "Advanced analytics dashboard")
+  collaboration_features_idea = Idea.find_by!(account: account, title: "Better collaboration features")
 
   # Comments on Slack integration idea
   Comment.find_or_create_by!(
+    account: account,
     idea: slack_integration_idea,
     creator: carlos_user,
   ) do |comment|
@@ -135,6 +151,7 @@ Comment.suppressing_turbo_broadcasts do
   end
 
   Comment.find_or_create_by!(
+    account: account,
     idea: slack_integration_idea,
     creator: jane_user,
   ) do |comment|
@@ -143,6 +160,7 @@ Comment.suppressing_turbo_broadcasts do
   end
 
   Comment.find_or_create_by!(
+    account: account,
     idea: slack_integration_idea,
     creator: sarah_user,
   ) do |comment|
@@ -152,6 +170,7 @@ Comment.suppressing_turbo_broadcasts do
 
   # Comments on Public API idea with threaded replies
   david_api_comment = Comment.find_or_create_by!(
+    account: account,
     idea: public_api_idea,
     creator: david_user,
   ) do |comment|
@@ -161,6 +180,7 @@ Comment.suppressing_turbo_broadcasts do
 
   # Reply to David's API comment
   Comment.find_or_create_by!(
+    account: account,
     idea: public_api_idea,
     creator: admin_user,
     parent: david_api_comment
@@ -171,6 +191,7 @@ Comment.suppressing_turbo_broadcasts do
 
   # Another reply to David's comment
   Comment.find_or_create_by!(
+    account: account,
     idea: public_api_idea,
     creator: carlos_user,
     parent: david_api_comment
@@ -181,6 +202,7 @@ Comment.suppressing_turbo_broadcasts do
 
   # Additional standalone comment on API idea
   Comment.find_or_create_by!(
+    account: account,
     idea: public_api_idea,
     creator: maya_user,
   ) do |comment|
@@ -190,6 +212,7 @@ Comment.suppressing_turbo_broadcasts do
 
   # Comments on analytics dashboard idea
   Comment.find_or_create_by!(
+    account: account,
     idea: analytics_dashboard_idea,
     creator: alex_user,
   ) do |comment|
@@ -198,6 +221,7 @@ Comment.suppressing_turbo_broadcasts do
   end
 
   Comment.find_or_create_by!(
+    account: account,
     idea: analytics_dashboard_idea,
     creator: jane_user,
   ) do |comment|
@@ -207,6 +231,7 @@ Comment.suppressing_turbo_broadcasts do
 
   # Comments on collaboration features idea
   Comment.find_or_create_by!(
+    account: account,
     idea: collaboration_features_idea,
     creator: maya_user,
   ) do |comment|
@@ -215,6 +240,7 @@ Comment.suppressing_turbo_broadcasts do
   end
 
   Comment.find_or_create_by!(
+    account: account,
     idea: collaboration_features_idea,
     creator: fake_user,
   ) do |comment|

@@ -36,7 +36,7 @@ module Admin
       @total_votes = @user.votes.count
 
       # Last session info
-      @last_session = @user.sessions.order(last_active_at: :desc).first
+      @last_session = @user.identity.sessions.where(current_account: @user.account).order(last_active_at: :desc).first
     end
   end
 end

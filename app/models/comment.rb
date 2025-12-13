@@ -3,6 +3,7 @@
 class Comment < ApplicationRecord
   include Voteable
 
+  belongs_to :account, default: -> { Current.account }
   belongs_to :creator, class_name: "User", default: -> { Current.user }
   belongs_to :idea, counter_cache: true, touch: true
 

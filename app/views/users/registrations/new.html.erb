@@ -20,13 +20,13 @@
           <span class="bg-card text-muted-foreground relative z-10 px-2"><%= t(".or_continue_with") %></span>
         </div>
 
-        <%= form_with model: @user, url: users_registrations_path, class: "grid gap-6" do |form| %>
-          <%= render "error_messages", resource: @user %>
+        <%= form_with model: @identity, url: users_registrations_path, class: "grid gap-6" do |form| %>
+          <%= render "error_messages", resource: @identity %>
           <%= hidden_field_tag :invitation_token, params[:invitation_token] %>
 
           <div class="grid gap-3">
-            <%= form.label :name, t(".name"), class: "text-sm font-medium leading-none" %>
-            <%= form.text_field :name, required: true, autofocus: true, autocomplete: "name", placeholder: t(".name_placeholder") %>
+            <%= label_tag "user[name]", t(".name"), class: "text-sm font-medium leading-none" %>
+            <%= text_field_tag "user[name]", @user_name, required: true, autofocus: true, autocomplete: "name", placeholder: t(".name_placeholder") %>
             <p class="text-muted-foreground text-sm"><%= t(".name_hint") %></p>
           </div>
 

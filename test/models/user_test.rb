@@ -24,45 +24,8 @@ class UserTest < ActiveSupport::TestCase
     assert_equal "John Doe", @user.name
   end
 
-  test "invalid without email address" do
-    @user.email_address = nil
-
-    assert_not @user.valid?
-    assert_equal(I18n.t("errors.messages.blank"), @user.errors[:email_address].first)
-  end
-
-  test "invalid if email address taken already" do
-    @user.email_address = "shane.murnaghan@feedbackbin.com"
-
-    assert_not @user.valid?
-    assert_equal("has already been taken", @user.errors[:email_address].first)
-  end
-
-  test "invalid if email address not a valid email address" do
-    @user.email_address = "bad_email_address_here"
-
-    assert_not @user.valid?
-    assert_equal("is invalid", @user.errors[:email_address].first)
-  end
-
-  test "email address gets downcased and stripped when saved" do
-    @user.update!(email_address: " John.Doe@example.com ")
-
-    assert_equal "john.doe@example.com", @user.email_address
-  end
-
-  test "invalid if using very long password" do
-    @user.password = "secret" * 15
-
-    assert_not @user.valid?
-    assert_equal "is too long", @user.errors[:password].first
-  end
-
-  test "invalid if password is too short" do
-    @user.password = "short"
-
-    assert_not @user.valid?
-    assert_equal("is too short (minimum is 10 characters)", @user.errors[:password].first)
+  test "delegates email_address to identity" do
+    assert_equal @user.identity.email_address, @user.email_address
   end
 
   test "invalid when bio is too large" do
@@ -78,7 +41,7 @@ class UserTest < ActiveSupport::TestCase
     assert_predicate @user, :valid?
   end
 
-  test "sessions are destroyed when user is destroyed" do
+  test "destroying a membership revokes sessions scoped to that account" do
     assert_difference("Session.count", -1) do
       @user.destroy
     end
@@ -103,7 +66,7 @@ class UserTest < ActiveSupport::TestCase
 
   test "deactivate clears all user sessions" do
     # Create additional session
-    @user.sessions.create!(user_agent: "test", ip_address: "127.0.0.1")
+    @user.identity.sessions.create!(user_agent: "test", ip_address: "127.0.0.1", current_account: @user.account)
 
     assert_equal 2, @user.sessions.count
 

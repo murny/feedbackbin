@@ -3,6 +3,7 @@
 class Changelog < ApplicationRecord
   TYPES = %w[new fix improvement update]
 
+  belongs_to :account, default: -> { Current.account }
   has_rich_text :description
 
   validates :kind, presence: true, inclusion: { in: TYPES }

@@ -1,16 +1,21 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  MIN_PASSWORD_LENGTH_ALLOWED = 10
-  MAX_PASSWORD_LENGTH_ALLOWED = 72 # Comes from User::BCryptPassword::MAX_PASSWORD_LENGTH_ALLOWED
-
   include Avatar
   include Mentionable
   include Named
   include Searchable
   include Role
 
-  has_secure_password
+  belongs_to :identity
+  belongs_to :account
+
+  # Delegate authentication-related methods to identity
+  delegate :email_address, to: :identity, allow_nil: true
+  delegate :sessions, to: :identity, allow_nil: true
+  delegate :connected_accounts, to: :identity, allow_nil: true
+
+  # NOTE: Auth/session/token logic lives on Identity.
 
   scope :active, -> { where(active: true) }
   scope :deactivated, -> { where(active: false) }
@@ -18,31 +23,21 @@ class User < ApplicationRecord
   scope :ordered, -> { alphabetically }
 
   has_many :ideas, dependent: :destroy, foreign_key: :author_id, inverse_of: :author
-  has_many :sessions, dependent: :destroy
   has_many :comments, dependent: :destroy, foreign_key: :creator_id, inverse_of: :creator
   has_many :votes, dependent: :destroy, foreign_key: :voter_id, inverse_of: :voter
-  has_many :user_connected_accounts, dependent: :destroy
   has_many :invitations, dependent: :destroy, foreign_key: :invited_by_id, inverse_of: :invited_by
 
   enum :theme, { system: 0, light: 1, dark: 2 }, default: :system, prefix: true, validate: true
 
   validates :name, presence: true
-
-  validates :email_address, presence: true,
-    uniqueness: { case_sensitive: false },
-    format: { with: URI::MailTo::EMAIL_REGEXP }
-
-  validates :password, allow_nil: true, length: { minimum: MIN_PASSWORD_LENGTH_ALLOWED }
+  validates :identity_id, uniqueness: { scope: :account_id }
   validates :bio, length: { maximum: 255 }
 
   validate :account_owner_cannot_be_deactivated, if: -> { active_changed? && owner? }
 
-  normalizes :email_address, with: ->(email) { email.strip.downcase }
   normalizes :name, with: ->(name) { name.squish }
 
-  generates_token_for :email_verification, expires_in: 2.days do
-    email_address
-  end
+  before_destroy :revoke_account_sessions
 
   def title
     [ name, bio ].compact_blank.join(" – ")
@@ -51,7 +46,6 @@ class User < ApplicationRecord
   def deactivate
     success = transaction do
       if update(active: false)
-        sessions.delete_all
         true
       else
         raise ActiveRecord::Rollback
@@ -60,6 +54,7 @@ class User < ApplicationRecord
 
     return false unless success
 
+    revoke_account_sessions
     close_remote_connections
     true
   end
@@ -68,7 +63,15 @@ class User < ApplicationRecord
     !active?
   end
 
+  def super_admin?
+    identity.super_admin?
+  end
+
   private
+
+    def revoke_account_sessions
+      identity&.sessions&.where(current_account: account)&.destroy_all
+    end
 
     def close_remote_connections
       ActionCable.server.remote_connections.where(current_user: self).disconnect reconnect: false
