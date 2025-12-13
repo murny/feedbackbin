@@ -2,71 +2,99 @@
 
 puts "Creating users..."
 
-User.find_or_create_by!(email_address: "shane.murnaghan@feedbackbin.com") do |user|
-  user.name = "Shane Murnaghan"
-  user.password = "password123"
-  user.super_admin = true
-  user.email_verified = true
-  user.role = :owner
+account = Account.find_by!(name: "FeedbackBin")
+Current.account = account
+
+def seed_identity_and_membership!(account:, email:, name:, password: "password123", role: :member, super_admin: false, email_verified: true, **user_attrs)
+  identity = Identity.find_or_initialize_by(email_address: email)
+  identity.password = password if identity.new_record?
+  identity.super_admin = super_admin
+  identity.save! if identity.changed? || identity.new_record?
+
+  user = User.find_or_initialize_by(identity: identity, account: account)
+  user.name = name
+  user.role = role
+  user.email_verified = email_verified
+  user.assign_attributes(user_attrs)
+  user.save!
+
+  user
 end
 
-User.find_or_create_by!(email_address: "fake_user@example.com") do |user|
-  user.name = "Fake User"
-  user.password = "password123"
-  user.email_verified = true
-end
+seed_identity_and_membership!(
+  account: account,
+  email: "shane.murnaghan@feedbackbin.com",
+  name: "Shane Murnaghan",
+  role: :owner,
+  super_admin: true,
+  email_verified: true
+)
 
-User.find_or_create_by!(email_address: "jane_doe@example.com") do |user|
-  user.name = "Jane Doe"
-  user.password = "password123"
-  user.email_verified = true
-  user.role = :admin
-end
+seed_identity_and_membership!(
+  account: account,
+  email: "fake_user@example.com",
+  name: "Fake User",
+  role: :member,
+  email_verified: true
+)
+
+seed_identity_and_membership!(
+  account: account,
+  email: "jane_doe@example.com",
+  name: "Jane Doe",
+  role: :admin,
+  email_verified: true
+)
 
 # Additional creative users with detailed profiles
-User.find_or_create_by!(email_address: "alex.chen@techcorp.com") do |user|
-  user.name = "Alex Chen"
-  user.password = "password123"
-  user.bio = "Product manager passionate about user experience. Coffee enthusiast and weekend rock climber."
-  user.preferred_language = "en"
-  user.time_zone = "America/Los_Angeles"
-  user.email_verified = true
-end
+seed_identity_and_membership!(
+  account: account,
+  email: "alex.chen@techcorp.com",
+  name: "Alex Chen",
+  bio: "Product manager passionate about user experience. Coffee enthusiast and weekend rock climber.",
+  preferred_language: "en",
+  time_zone: "America/Los_Angeles",
+  email_verified: true
+)
 
-User.find_or_create_by!(email_address: "maya.patel@designstudio.co") do |user|
-  user.name = "Maya Patel"
-  user.password = "password123"
-  user.bio = "UX Designer with 8 years experience. Love creating intuitive interfaces that users actually enjoy."
-  user.preferred_language = "en"
-  user.time_zone = "America/New_York"
-  user.email_verified = true
-end
+seed_identity_and_membership!(
+  account: account,
+  email: "maya.patel@designstudio.co",
+  name: "Maya Patel",
+  bio: "UX Designer with 8 years experience. Love creating intuitive interfaces that users actually enjoy.",
+  preferred_language: "en",
+  time_zone: "America/New_York",
+  email_verified: true
+)
 
-User.find_or_create_by!(email_address: "carlos.rodriguez@freelance.dev") do |user|
-  user.name = "Carlos Rodriguez"
-  user.password = "password123"
-  user.bio = "Full-stack developer and digital nomad. Currently coding from Barcelona 🇪🇸"
-  user.preferred_language = "es"
-  user.time_zone = "Europe/Madrid"
-  user.email_verified = true
-end
+seed_identity_and_membership!(
+  account: account,
+  email: "carlos.rodriguez@freelance.dev",
+  name: "Carlos Rodriguez",
+  bio: "Full-stack developer and digital nomad. Currently coding from Barcelona 🇪🇸",
+  preferred_language: "es",
+  time_zone: "Europe/Madrid",
+  email_verified: true
+)
 
-User.find_or_create_by!(email_address: "sarah.kim@startup.io") do |user|
-  user.name = "Sarah Kim"
-  user.password = "password123"
-  user.bio = "Marketing director turned product owner. Obsessed with data-driven decisions and user feedback loops."
-  user.preferred_language = "en"
-  user.time_zone = "America/Chicago"
-  user.email_verified = true
-end
+seed_identity_and_membership!(
+  account: account,
+  email: "sarah.kim@startup.io",
+  name: "Sarah Kim",
+  bio: "Marketing director turned product owner. Obsessed with data-driven decisions and user feedback loops.",
+  preferred_language: "en",
+  time_zone: "America/Chicago",
+  email_verified: true
+)
 
-User.find_or_create_by!(email_address: "david.thompson@agency.com") do |user|
-  user.name = "David Thompson"
-  user.password = "password123"
-  user.bio = "Creative director with a knack for spotting design inconsistencies. Advocate for accessibility in digital products."
-  user.preferred_language = "en"
-  user.time_zone = "America/New_York"
-  user.email_verified = true
-end
+seed_identity_and_membership!(
+  account: account,
+  email: "david.thompson@agency.com",
+  name: "David Thompson",
+  bio: "Creative director with a knack for spotting design inconsistencies. Advocate for accessibility in digital products.",
+  preferred_language: "en",
+  time_zone: "America/New_York",
+  email_verified: true
+)
 
 puts "✅ Seeded users"

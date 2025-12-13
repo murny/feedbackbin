@@ -1,0 +1,36 @@
+<% content_for(:title) { t(".title") } %>
+
+<div class="container mx-auto max-w-lg py-12">
+  <div class="card p-6 space-y-6">
+    <div class="space-y-2">
+      <h1 class="text-xl font-semibold"><%= t(".heading") %></h1>
+      <p class="text-sm text-muted-foreground"><%= t(".description") %></p>
+    </div>
+
+    <%= form_with model: @account, url: account_path, class: "space-y-4" do |form| %>
+      <%= render "users/error_messages", resource: @account %>
+
+      <div class="grid gap-2">
+        <%= label_tag "user[name]", t(".your_name"), class: "text-sm font-medium" %>
+        <%= text_field_tag "user[name]", nil, required: true, autocomplete: "name", class: "w-full" %>
+      </div>
+
+      <div class="grid gap-2">
+        <%= form.label :name, t(".account_name"), class: "text-sm font-medium" %>
+        <%= form.text_field :name, required: true, autocomplete: "organization", class: "w-full" %>
+      </div>
+
+      <% if Rails.application.config.multi_tenant %>
+        <div class="grid gap-2">
+          <%= form.label :subdomain, t(".subdomain"), class: "text-sm font-medium" %>
+          <%= form.text_field :subdomain, required: true, autocomplete: "off", class: "w-full" %>
+          <p class="text-xs text-muted-foreground"><%= t(".subdomain_hint") %></p>
+        </div>
+      <% end %>
+
+      <div class="flex justify-end gap-3 pt-2">
+        <%= form.submit t(".create_account"), class: "btn" %>
+      </div>
+    <% end %>
+  </div>
+</div>

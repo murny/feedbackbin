@@ -1,11 +1,9 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 shane_google:
-  user: shane
+  identity: shane_identity
   provider_name: google
   provider_uid: 1234567890
 
 one_facebook:
-  user: one
+  identity: one_identity
   provider_name: facebook
   provider_uid: 1234567890

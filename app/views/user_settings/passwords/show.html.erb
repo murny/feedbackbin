@@ -11,7 +11,7 @@
           <p class="text-sm text-muted-foreground"><%= t(".change_password_description") %></p>
         </div>
 
-        <%= form_with(model: @user,
+        <%= form_with(model: @identity,
               url: user_settings_password_path,
               method: :patch,
               data: { controller: "form", action: "keydown.enter->form#submit:prevent" }) do |form| %>

@@ -22,6 +22,12 @@ Rails.application.routes.draw do
     resources :registrations, only: [ :create ]
   end
 
+  # Account switching
+  resource :account_switch, only: [ :update ]
+
+  # Account creation/joining for identities with no memberships yet
+  resource :account, only: %i[new create]
+
   namespace :user_settings do
     resource :account, only: [ :show ]
     resources :active_sessions, only: [ :index, :destroy ]

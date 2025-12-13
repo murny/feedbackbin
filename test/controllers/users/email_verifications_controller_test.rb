@@ -7,12 +7,13 @@ module Users
     setup do
       @user = users(:shane)
       @user.update!(email_verified: false)
+      @identity = @user.identity
     end
 
     test "should send a verification email" do
       sign_in_as(@user)
 
-      assert_enqueued_email_with UserMailer, :email_verification, args: [ @user ] do
+      assert_enqueued_email_with IdentityMailer, :email_verification, args: [ @identity ] do
         post users_email_verification_url
       end
 
@@ -21,16 +22,17 @@ module Users
     end
 
     test "should verify email" do
-      token = @user.generate_token_for(:email_verification)
+      token = @identity.generate_token_for(:email_verification)
 
       get users_email_verification_url(token: token, email_address: @user.email_address)
 
       assert_redirected_to root_url
       assert_equal "Thank you for verifying your email address", flash[:notice]
+      assert_predicate @user.reload, :email_verified?
     end
 
     test "should not verify email with expired token" do
-      token = @user.generate_token_for(:email_verification)
+      token = @identity.generate_token_for(:email_verification)
 
       travel 3.days
 

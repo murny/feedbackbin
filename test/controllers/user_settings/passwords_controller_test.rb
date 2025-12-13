@@ -15,7 +15,7 @@ module UserSettings
     end
 
     test "should be able to update password" do
-      patch user_settings_password_url, params: { user: {
+      patch user_settings_password_url, params: { identity: {
         password: "password123", password_confirmation: "password123", password_challenge: "secret123456"
       } }
 

@@ -7,7 +7,8 @@ module UserSettings
     def show
       @user = Current.user
       # TODO: Need to make this a hash with id and provider_name to simplify the view code and prevent repeated calls to the database
-      @user_connected_accounts = Current.user.user_connected_accounts.order(provider_name: :asc, created_at: :desc)
+      @identity = Current.identity
+      @user_connected_accounts = Current.identity.connected_accounts.order(provider_name: :asc, created_at: :desc)
     end
   end
 end

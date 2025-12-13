@@ -5,10 +5,12 @@ class FirstRun
   include ActiveModel::Attributes
   include ActiveModel::Validations
 
-  # User attributes
-  attribute :name, :string
+  # Identity attributes (authentication)
   attribute :email_address, :string
   attribute :password, :string
+
+  # User attributes (membership)
+  attribute :name, :string
   attribute :avatar
 
   # Account attributes
@@ -20,10 +22,12 @@ class FirstRun
   attribute :board_name, :string
   attribute :board_color, :string
 
+  # Identity validations
+  validates :email_address, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
+  validates :password, presence: true, length: { minimum: Identity::MIN_PASSWORD_LENGTH_ALLOWED }
+
   # User validations
   validates :name, presence: true
-  validates :email_address, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :password, presence: true, length: { minimum: User::MIN_PASSWORD_LENGTH_ALLOWED }
 
   # Account validations
   validates :account_name, presence: true
@@ -33,25 +37,42 @@ class FirstRun
   validates :board_name, presence: true
   validates :board_color, presence: true, format: { with: /\A#[0-9a-f]{6}\z/i }
 
-  attr_reader :account, :user, :board
+  attr_reader :account, :identity, :user, :board
 
   def save!
     raise ActiveModel::ValidationError.new(self) unless valid?
 
     ApplicationRecord.transaction do
-      Status.create!([
-        { name: "Open", color: "#3b82f6", position: 1 },
-        { name: "Planned", color: "#8b5cf6", position: 2 },
-        { name: "In Progress", color: "#f59e0b", position: 3 },
-        { name: "Complete", color: "#10b981", position: 4 },
-        { name: "Closed", color: "#ef4444", position: 5 }
-      ])
+      # Create account first so we can associate statuses to it
+      @account = Account.create!(account_attributes)
 
-      @user = User.create!(user_attributes)
-      @account = Account.create!(account_attributes.merge(
-        default_status: Status.ordered.first
+      # Create statuses for the new account
+      statuses = [
+        Status.new(name: "Open", color: "#3b82f6", position: 1, account: @account),
+        Status.new(name: "Planned", color: "#8b5cf6", position: 2, account: @account),
+        Status.new(name: "In Progress", color: "#f59e0b", position: 3, account: @account),
+        Status.new(name: "Complete", color: "#10b981", position: 4, account: @account),
+        Status.new(name: "Closed", color: "#ef4444", position: 5, account: @account)
+      ]
+
+      # Save all statuses
+      statuses.each(&:save!)
+
+      # Set default status now that statuses exist
+      @account.update!(default_status: statuses.first)
+
+      # Create identity (authentication)
+      @identity = Identity.create!(identity_attributes)
+
+      # Create user (membership) linking identity to account
+      @user = User.create!(user_attributes.merge(
+        identity: @identity,
+        account: @account
       ))
-      @board = Board.create!(board_attributes)
+
+      # Create board with account
+      @board = Board.create!(board_attributes.merge(account: @account))
+
       self
     end
   rescue ActiveRecord::RecordInvalid => e
@@ -61,13 +82,20 @@ class FirstRun
 
   private
 
+    def identity_attributes
+      {
+        email_address: email_address,
+        password: password,
+        super_admin: true
+      }
+    end
+
     def user_attributes
       {
         name: name,
-        email_address: email_address,
-        password: password,
         avatar: avatar,
-        role: :owner
+        role: :owner,
+        email_verified: true
       }
     end
 
@@ -88,6 +116,10 @@ class FirstRun
 
     def copy_validation_errors(record)
       case record
+      when Identity
+        record.errors.each do |error|
+          errors.add(error.attribute, error.message)
+        end
       when User
         record.errors.each do |error|
           errors.add(error.attribute, error.message)

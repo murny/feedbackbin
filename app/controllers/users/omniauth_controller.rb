@@ -8,30 +8,19 @@ module Users
     def create
       return redirect_to root_path, alert: t("something_went_wrong") if auth.nil?
 
-      user_connected_account = UserConnectedAccount.find_by(user_connected_account_params)
+      connected_account = IdentityConnectedAccount.find_by(connected_account_params)
 
-      if user_connected_account.present?
-        handle_previously_connected_user_account(user_connected_account)
+      if connected_account.present?
+        handle_previously_connected_account(connected_account)
       elsif authenticated?
-        # User is signed in and hasn't connected this account before, so let's connect it
-        if Current.user.user_connected_accounts.create(user_connected_account_params)
-          redirect_to user_settings_account_path, notice: t(".connected_successfully", provider: auth.provider)
-        else
-          # Couldn't connect the account for some reason
-          redirect_to user_settings_account_path, alert: t("something_went_wrong")
-        end
-
-      elsif (user = User.find_by(email_address: auth.info.email))
-        # User exists but hasn't connected this account before, so let's connect it
-        if user.user_connected_accounts.create(user_connected_account_params)
-          start_new_session_for(user)
-          redirect_to after_authentication_url, notice: t(".signed_in_successfully")
-        else
-          # Couldn't connect the account for some reason
-          redirect_to root_path, alert: t("something_went_wrong")
-        end
+        # User is signed in, connect this OAuth to their identity
+        connect_to_current_identity
+      elsif (identity = Identity.find_by(email_address: auth.info.email))
+        # Identity exists, connect OAuth and sign in
+        connect_and_sign_in(identity)
       else
-        create_user
+        # New identity via OAuth
+        create_identity_from_oauth
       end
     end
 
@@ -41,38 +30,53 @@ module Users
 
     private
 
-      def handle_previously_connected_user_account(user_connected_account)
-        # Account has already been connected before
+      def handle_previously_connected_account(connected_account)
         if authenticated?
-          if user_connected_account.user_id != Current.user.id
-            # User is signed in, but this account is connected to another user
+          if connected_account.identity_id != Current.identity.id
             redirect_to root_path, alert: t("users.omniauth.create.connected_to_another_account", provider: auth.provider)
           else
-            # User is already signed in and has connected this account before
             redirect_to user_settings_account_path, notice: t("users.omniauth.create.already_connected", provider: auth.provider)
           end
         else
-          # User has connected this account before, but isn't signed in
-          start_new_session_for(user_connected_account.user)
-          redirect_to after_authentication_url, notice: t("users.omniauth.create.signed_in_successfully")
+          identity = connected_account.identity
+          if identity.accounts.any?
+            start_new_session_for(identity)
+            redirect_to after_authentication_url, notice: t("users.omniauth.create.signed_in_successfully")
+          else
+            start_new_session_for(identity)
+            redirect_to new_account_path, notice: t("users.omniauth.handle_previously_connected_account.create_or_join_account")
+          end
         end
       end
 
-      def create_user
-        # We've never seen this user before, so let's sign them up
-        user = User.new(user_params)
-        user.user_connected_accounts.build(user_connected_account_params)
-
-        if user.save
-          start_new_session_for(user)
-          redirect_to after_authentication_url, notice: t("users.omniauth.create.signed_in_successfully")
+      def connect_to_current_identity
+        if Current.identity.connected_accounts.create(connected_account_params)
+          redirect_to user_settings_account_path, notice: t("users.omniauth.connect_to_current_identity.connected_successfully", provider: auth.provider)
         else
-          # TODO: should we support this edge case?
-          # User couldn't be saved for some reason, so let's redirect them to the registration page
-          # Store the user attributes in the query string to prefill the form
-          redirect_to sign_up_path(user: {
-            email_address: user.email_address,
-            name: user.name
+          redirect_to user_settings_account_path, alert: t("something_went_wrong")
+        end
+      end
+
+      def connect_and_sign_in(identity)
+        if identity.connected_accounts.create(connected_account_params)
+          start_new_session_for(identity)
+          redirect_to after_authentication_url, notice: t("users.omniauth.connect_and_sign_in.signed_in_successfully")
+        else
+          redirect_to root_path, alert: t("something_went_wrong")
+        end
+      end
+
+      def create_identity_from_oauth
+        identity = Identity.new(identity_params)
+        identity.connected_accounts.build(connected_account_params)
+
+        if identity.save
+          start_new_session_for(identity)
+          # New OAuth user needs to create/join an account
+          redirect_to new_account_path, notice: t("users.omniauth.create_identity_from_oauth.create_or_join_account")
+        else
+          redirect_to sign_up_path(identity: {
+            email_address: identity.email_address
           }), alert: t("users.omniauth.create.finish_registration")
         end
       end
@@ -81,30 +85,18 @@ module Users
         @auth ||= request.env["omniauth.auth"]
       end
 
-      def user_params
-        name = name_creator(auth.info)
-
+      def identity_params
         {
           email_address: auth.info.email,
-          name: name,
-          password: SecureRandom.base58,
-          email_verified: true
+          password: SecureRandom.base58
         }
       end
 
-      def user_connected_account_params
+      def connected_account_params
         {
           provider_name: auth.provider,
           provider_uid: auth.uid
         }
-      end
-
-      def name_creator(auth_info)
-        if auth_info.first_name && auth_info.last_name
-          "#{auth_info.first_name} #{auth_info.last_name}"
-        else
-          auth_info.name
-        end
       end
   end
 end

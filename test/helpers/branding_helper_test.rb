@@ -13,18 +13,24 @@ class BrandingHelperTest < ActionView::TestCase
   test "branded_logo_url returns account logo_link when set" do
     @account.update(logo_link: "https://example.com")
 
-    assert_equal "https://example.com", branded_logo_url
+    Current.stub :account, @account do
+      assert_equal "https://example.com", branded_logo_url
+    end
   end
 
   test "branded_logo_url returns root_path when account has no logo_link" do
     @account.update(logo_link: nil)
 
-    assert_equal root_path, branded_logo_url
+    Current.stub :account, @account do
+      assert_equal root_path, branded_logo_url
+    end
   end
 
   # brand_name tests
   test "brand_name returns account name" do
-    assert_equal @account.name, brand_name
+    Current.stub :account, @account do
+      assert_equal @account.name, brand_name
+    end
   end
 
   test "brand_name returns translation when no account" do
@@ -37,13 +43,17 @@ class BrandingHelperTest < ActionView::TestCase
   test "show_brand_name? returns true when account wants to show name" do
     @account.update(show_company_name: true)
 
-    assert_predicate self, :show_brand_name?
+    Current.stub :account, @account do
+      assert_predicate self, :show_brand_name?
+    end
   end
 
   test "show_brand_name? returns false when account wants logo only" do
     @account.update(show_company_name: false)
 
-    assert_not show_brand_name?
+    Current.stub :account, @account do
+      assert_not show_brand_name?
+    end
   end
 
   test "show_brand_name? returns true when no account" do

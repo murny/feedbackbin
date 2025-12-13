@@ -43,7 +43,7 @@ class AccountTest < ActiveSupport::TestCase
     @account.default_status = nil
 
     assert_not @account.valid?
-    assert_equal "must exist", @account.errors[:default_status].first
+    assert_equal "can't be blank", @account.errors[:default_status].first
   end
 
 

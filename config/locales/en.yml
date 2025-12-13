@@ -1,5 +1,21 @@
 ---
 en:
+  account_switches:
+    update:
+      account_not_found: Account not found or you don't have access.
+      switched_to: Switched to %{account_name}.
+  accounts:
+    create:
+      created_successfully: Account created. Welcome, %{name}!
+    new:
+      account_name: Account name
+      create_account: Create account
+      description: Create an account to start using FeedbackBin.
+      heading: Create your account
+      subdomain: Subdomain
+      subdomain_hint: This will be used for your account URL.
+      title: Create account
+      your_name: Your name
   activerecord:
     errors:
       models:
@@ -494,6 +510,11 @@ en:
         success: Status has been updated.
     update:
       successfully_updated: Idea was successfully updated.
+  identity_mailer:
+    email_verification:
+      verify_your_email: Verify your email
+    password_reset:
+      reset_your_password: Reset your password
   invitations:
     show:
       already_have_account: Already have an account?
@@ -607,11 +628,6 @@ en:
     toast:
       dismiss: Dismiss
   unauthorized: You are not authorized to perform this action.
-  user_mailer:
-    email_verification:
-      verify_your_email: Verify your email
-    password_reset:
-      reset_your_password: Reset your password
   user_settings:
     accounts:
       show:
@@ -727,12 +743,19 @@ en:
     ideas_tab:
       empty_ideas: No ideas yet.
     omniauth:
+      connect_and_sign_in:
+        signed_in_successfully: You have signed in successfully.
+      connect_to_current_identity:
+        connected_successfully: You have connected your %{provider} account successfully.
       create:
         already_connected: This %{provider} account is already connected to your account.
-        connected_successfully: You have connected your %{provider} account successfully.
         connected_to_another_account: This %{provider} account is already connected to another account.
         finish_registration: We could not create an account for you. Please finish the registration process.
         signed_in_successfully: You have signed in successfully.
+      create_identity_from_oauth:
+        create_or_join_account: Create or join an account to get started.
+      handle_previously_connected_account:
+        create_or_join_account: Create or join an account to get started.
     password_resets:
       create:
         password_reset_instructions_sent: Password reset instructions sent (if user with that email address exists).
@@ -785,6 +808,7 @@ en:
     sessions:
       create:
         account_deactivated: Your account has been deactivated. Please contact support for assistance.
+        create_or_join_account: Create or join an account to get started.
         invalid_credentials: Try another email address or password.
         rate_limited: Please try again later.
         signed_in_successfully: You have signed in successfully.

@@ -5,11 +5,11 @@ module UserSettings
     skip_after_action :verify_authorized
 
     def index
-      @sessions = Current.user.sessions.order(created_at: :desc)
+      @sessions = Current.identity.sessions.order(created_at: :desc)
     end
 
     def destroy
-      session = Current.user.sessions.find(params[:id])
+      session = Current.identity.sessions.find(params[:id])
       session.destroy
 
       redirect_to user_settings_active_sessions_path, notice: t(".session_revoked")

@@ -8,43 +8,51 @@ module Users
     rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to sign_up_path, alert: t("users.registrations.create.rate_limited") }
 
     def new
-      @user = User.new
+      @identity = Identity.new
       @invitation = Invitation.find_by(token: params[:invitation_token]) if params[:invitation_token]
 
       if @invitation
         # Pre-fill form with invitation data
-        @user.email_address = @invitation.email
-        @user.name = @invitation.name
+        @identity.email_address = @invitation.email
+        @user_name = @invitation.name
       end
     end
 
     def create
-      @user = User.new(user_params)
-      @user.role = :member # Always create as member
-
-      # Check for invitation
       @invitation = Invitation.find_by(token: params[:invitation_token]) if params[:invitation_token]
 
-      if @user.save
-        # Auto-verify email for invited users
-        if @invitation
-          @invitation.accept!(@user)
+      Identity.transaction do
+        @identity = Identity.new(identity_params)
+
+        if @identity.save
+          if @invitation
+            # Create user in the invited account
+            user = @identity.users.create!(
+              account: @invitation.account,
+              name: params[:user][:name],
+              role: :member,
+              email_verified: true
+            )
+            @invitation.accept!(user)
+            start_new_session_for(@identity, account: @invitation.account)
+          else
+            # For new signups without invitation, send verification email
+            # Note: User will need to create/join an account after verification
+            IdentityMailer.email_verification(@identity).deliver_later
+            start_new_session_for(@identity)
+          end
+
+          redirect_to root_path, notice: t(".signed_up_successfully")
         else
-          UserMailer.email_verification(@user).deliver_later
+          render :new, status: :unprocessable_entity
         end
-
-        start_new_session_for(@user)
-
-        redirect_to root_path, notice: t(".signed_up_successfully")
-      else
-        render :new, status: :unprocessable_entity
       end
     end
 
     private
 
-      def user_params
-        params.expect(user: [ :name, :email_address, :password, :password_confirmation ])
+      def identity_params
+        params.expect(identity: [ :email_address, :password, :password_confirmation ])
       end
   end
 end

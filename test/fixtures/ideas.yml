@@ -1,18 +1,19 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
 one:
+  account: feedbackbin
   title: Wish this had dark mode!
   author: shane
   board: one
   status: open
 
 two:
+  account: feedbackbin
   title: Love the site, can you implement downvotes?
   author: one
   board: one
   status: open
 
 three:
+  account: feedbackbin
   title: Allow visitors to post without having to sign in
   author: two
   board: two

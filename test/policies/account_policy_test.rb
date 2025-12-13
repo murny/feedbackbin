@@ -55,10 +55,14 @@ class AccountPolicyTest < ActiveSupport::TestCase
     assert_not_predicate AccountPolicy.new(@user, @account), :destroy?
 
     # Create another admin who is not the owner
+    other_identity = Identity.create!(
+      email_address: "admin2@feedbackbin.com",
+      password: "password123456"
+    )
     other_admin = User.create!(
       name: "Admin Two",
-      email_address: "admin2@feedbackbin.com",
-      password: "password123456",
+      identity: other_identity,
+      account: @account,
       role: :admin
     )
 
@@ -75,10 +79,14 @@ class AccountPolicyTest < ActiveSupport::TestCase
     assert_not_predicate AccountPolicy.new(@user, @account), :transfer_ownership?
 
     # Create another admin who is not the owner
+    other_identity = Identity.create!(
+      email_address: "admin3@feedbackbin.com",
+      password: "password123456"
+    )
     other_admin = User.create!(
       name: "Admin Three",
-      email_address: "admin3@feedbackbin.com",
-      password: "password123456",
+      identity: other_identity,
+      account: @account,
       role: :admin
     )
 

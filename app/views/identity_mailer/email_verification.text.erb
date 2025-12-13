@@ -1,0 +1,8 @@
+Hey there,
+
+This is to confirm that <%= @identity.email_address %> is the email you want to use on your account. If you ever lose your password, that's where we'll email a reset link.
+
+You must hit the link below to confirm that you received this email.
+<%= users_email_verification_url(token: @token) %>
+
+

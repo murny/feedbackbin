@@ -14,7 +14,7 @@ module UserSettings
     private
 
       def set_user_connected_account
-        @user_connected_account = Current.user.user_connected_accounts.find(params[:id])
+        @user_connected_account = Current.identity.connected_accounts.find(params[:id])
       end
   end
 end

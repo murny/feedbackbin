@@ -2,55 +2,55 @@
 
 require "test_helper"
 
-class UserConnectedAccountTest < ActiveSupport::TestCase
+class IdentityConnectedAccountTest < ActiveSupport::TestCase
   setup do
-    @user_connected_account = user_connected_accounts(:shane_google)
+    @connected_account = identity_connected_accounts(:shane_google)
   end
 
-  test "valid user_connected_account" do
-    assert_predicate @user_connected_account, :valid?
+  test "valid identity_connected_account" do
+    assert_predicate @connected_account, :valid?
   end
 
   test "invalid without provider_name" do
-    @user_connected_account.provider_name = nil
+    @connected_account.provider_name = nil
 
-    assert_not_predicate @user_connected_account, :valid?
-    assert_equal "can't be blank", @user_connected_account.errors[:provider_name].first
+    assert_not_predicate @connected_account, :valid?
+    assert_equal "can't be blank", @connected_account.errors[:provider_name].first
   end
 
   test "invalid without provider_uid" do
-    @user_connected_account.provider_uid = nil
+    @connected_account.provider_uid = nil
 
-    assert_not_predicate @user_connected_account, :valid?
-    assert_equal "can't be blank", @user_connected_account.errors[:provider_uid].first
+    assert_not_predicate @connected_account, :valid?
+    assert_equal "can't be blank", @connected_account.errors[:provider_uid].first
   end
 
-  test "invalid without user" do
-    @user_connected_account.user = nil
+  test "invalid without identity" do
+    @connected_account.identity = nil
 
-    assert_not_predicate @user_connected_account, :valid?
-    assert_equal "must exist", @user_connected_account.errors[:user].first
+    assert_not_predicate @connected_account, :valid?
+    assert_equal "must exist", @connected_account.errors[:identity].first
   end
 
   test "invalid if provider_uid taken already for provider_name" do
-    user_connected_account = UserConnectedAccount.new(
-      provider_name: @user_connected_account.provider_name,
-      provider_uid: @user_connected_account.provider_uid,
-      user: users(:one)
+    connected_account = IdentityConnectedAccount.new(
+      provider_name: @connected_account.provider_name,
+      provider_uid: @connected_account.provider_uid,
+      identity: identities(:one_identity)
     )
 
-    assert_not_predicate user_connected_account, :valid?
-    assert_equal "has already been taken", user_connected_account.errors[:provider_uid].first
+    assert_not_predicate connected_account, :valid?
+    assert_equal "has already been taken", connected_account.errors[:provider_uid].first
   end
 
-  test "invalid if user already has connected account for provider_name" do
-    user_connected_account = UserConnectedAccount.new(
-      provider_name: @user_connected_account.provider_name,
+  test "invalid if identity already has connected account for provider_name" do
+    connected_account = IdentityConnectedAccount.new(
+      provider_name: @connected_account.provider_name,
       provider_uid: "new_uid",
-      user: @user_connected_account.user
+      identity: @connected_account.identity
     )
 
-    assert_not_predicate user_connected_account, :valid?
-    assert_equal "has already been taken", user_connected_account.errors[:user].first
+    assert_not_predicate connected_account, :valid?
+    assert_equal "has already been taken", connected_account.errors[:identity].first
   end
 end

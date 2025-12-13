@@ -2,26 +2,34 @@
 
 puts "Creating ideas..."
 
-# Find boards
-customer_feedback = Board.find_by!(name: "Customer Feedback")
-bug_reports = Board.find_by!(name: "Bug Reports")
-feature_requests = Board.find_by!(name: "Feature Requests")
-ui_ux = Board.find_by!(name: "UI/UX Feedback")
+# Account context
+account = Account.find_by!(name: "FeedbackBin")
+Current.account = account
 
-# Find users by email
-admin_user = User.find_by!(email_address: "shane.murnaghan@feedbackbin.com")
-jane_user = User.find_by!(email_address: "jane_doe@example.com")
-alex_user = User.find_by!(email_address: "alex.chen@techcorp.com")
-maya_user = User.find_by!(email_address: "maya.patel@designstudio.co")
-carlos_user = User.find_by!(email_address: "carlos.rodriguez@freelance.dev")
-sarah_user = User.find_by!(email_address: "sarah.kim@startup.io")
-david_user = User.find_by!(email_address: "david.thompson@agency.com")
+# Find boards
+customer_feedback = Board.find_by!(account: account, name: "Customer Feedback")
+bug_reports = Board.find_by!(account: account, name: "Bug Reports")
+feature_requests = Board.find_by!(account: account, name: "Feature Requests")
+ui_ux = Board.find_by!(account: account, name: "UI/UX Feedback")
+
+# Find users (memberships) by identity email
+admin_user = Identity.find_by!(email_address: "shane.murnaghan@feedbackbin.com").user_for(account)
+jane_user = Identity.find_by!(email_address: "jane_doe@example.com").user_for(account)
+alex_user = Identity.find_by!(email_address: "alex.chen@techcorp.com").user_for(account)
+maya_user = Identity.find_by!(email_address: "maya.patel@designstudio.co").user_for(account)
+carlos_user = Identity.find_by!(email_address: "carlos.rodriguez@freelance.dev").user_for(account)
+sarah_user = Identity.find_by!(email_address: "sarah.kim@startup.io").user_for(account)
+david_user = Identity.find_by!(email_address: "david.thompson@agency.com").user_for(account)
+
+default_status = account.default_status
 
 # Disable idea broadcasting to make seeding faster
 Idea.suppressing_turbo_broadcasts do
   Idea.find_or_create_by!(
+    account: account,
     board: customer_feedback,
     author: admin_user,
+    status: default_status,
     title: "Could you please add dark mode"
   ) do |idea|
     idea.body = "I would love to see dark mode on this site, please give support for it"
@@ -29,8 +37,10 @@ Idea.suppressing_turbo_broadcasts do
   end
 
   Idea.find_or_create_by!(
+    account: account,
     board: customer_feedback,
     author: admin_user,
+    status: default_status,
     title: "Multiple boards"
   ) do |idea|
     idea.body = "I would like to be able to create multiple boards, is this possible?"
@@ -38,8 +48,10 @@ Idea.suppressing_turbo_broadcasts do
   end
 
   Idea.find_or_create_by!(
+    account: account,
     board: feature_requests,
     author: maya_user,
+    status: default_status,
     title: "Mobile app support"
   ) do |idea|
     idea.body = "As a UX designer, I'd love to see a dedicated mobile app. The responsive web version is good, but a native app "\
@@ -49,8 +61,10 @@ Idea.suppressing_turbo_broadcasts do
   end
 
   Idea.find_or_create_by!(
+    account: account,
     board: feature_requests,
     author: alex_user,
+    status: default_status,
     title: "Slack integration for notifications"
   ) do |idea|
     idea.body = "Our team lives in Slack and it would be incredibly helpful to get notifications there when new ideas are "\
@@ -60,8 +74,10 @@ Idea.suppressing_turbo_broadcasts do
   end
 
   Idea.find_or_create_by!(
+    account: account,
     board: bug_reports,
     author: carlos_user,
+    status: default_status,
     title: "Search functionality not working with special characters"
   ) do |idea|
     idea.body = "I've noticed that when searching for ideas containing special characters like @ or #, the search returns no "\
@@ -71,8 +87,10 @@ Idea.suppressing_turbo_broadcasts do
   end
 
   Idea.find_or_create_by!(
+    account: account,
     board: ui_ux,
     author: david_user,
+    status: default_status,
     title: "Accessibility improvements needed"
   ) do |idea|
     idea.body = "As someone who cares deeply about digital accessibility, I've noticed several areas where this platform "\
@@ -83,8 +101,10 @@ Idea.suppressing_turbo_broadcasts do
   end
 
   Idea.find_or_create_by!(
+    account: account,
     board: feature_requests,
     author: sarah_user,
+    status: default_status,
     title: "Advanced analytics dashboard"
   ) do |idea|
     idea.body = "As a product owner, I need better insights into our feedback data. It would be amazing to have:\n\n- "\
@@ -95,8 +115,10 @@ Idea.suppressing_turbo_broadcasts do
   end
 
   Idea.find_or_create_by!(
+    account: account,
     board: feature_requests,
     author: jane_user,
+    status: default_status,
     title: "Better collaboration features"
   ) do |idea|
     idea.body = "I think we need better ways to collaborate on ideas. Some ideas:\n\n- Ability to assign ideas to "\
@@ -106,8 +128,10 @@ Idea.suppressing_turbo_broadcasts do
   end
 
   Idea.find_or_create_by!(
+    account: account,
     board: ui_ux,
     author: maya_user,
+    status: default_status,
     title: "More customization options for brands"
   ) do |idea|
     idea.body = "Our clients want their feedback portals to match their brand identity. We need:\n\n- Custom color schemes "\
@@ -118,8 +142,10 @@ Idea.suppressing_turbo_broadcasts do
   end
 
   Idea.find_or_create_by!(
+    account: account,
     board: bug_reports,
     author: carlos_user,
+    status: default_status,
     title: "Page load times are slow with large datasets"
   ) do |idea|
     idea.body = "I've been testing with accounts that have 1000+ ideas, and the performance degrades "\
@@ -130,8 +156,10 @@ Idea.suppressing_turbo_broadcasts do
   end
 
   Idea.find_or_create_by!(
+    account: account,
     board: feature_requests,
     author: alex_user,
+    status: default_status,
     title: "Public API for integrations"
   ) do |idea|
     idea.body = "We'd love to integrate FeedbackBin with our existing product management tools like Jira, Linear, and "\

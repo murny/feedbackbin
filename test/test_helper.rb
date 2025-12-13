@@ -26,6 +26,16 @@ module ActiveSupport
     # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
     fixtures :all
 
+    setup do
+      # Fizzy-style default tenant context for tests.
+      # Individual tests can override/stub Current.account as needed.
+      Current.account = accounts(:feedbackbin)
+    end
+
+    teardown do
+      Current.reset
+    end
+
     # Add more helper methods to be used by all tests here...
     include SessionTestHelper
   end

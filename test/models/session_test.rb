@@ -12,15 +12,15 @@ class SessionTest < ActiveSupport::TestCase
   end
 
   test "invalid without user" do
-    @session.user = nil
+    @session.identity = nil
 
     assert_not @session.valid?
-    assert_equal "must exist", @session.errors[:user].first
+    assert_equal "must exist", @session.errors[:identity].first
   end
 
   test "before create sets last active at" do
-    user = users(:one)
-    session = user.sessions.create!(user_agent: "Mozilla/5.0", ip_address: "127.0.0.1")
+    identity = identities(:one_identity)
+    session = identity.sessions.create!(user_agent: "Mozilla/5.0", ip_address: "127.0.0.1", current_account: accounts(:feedbackbin))
 
     assert_not_nil session.last_active_at
   end

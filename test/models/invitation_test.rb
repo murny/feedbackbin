@@ -40,12 +40,8 @@ class InvitationTest < ActiveSupport::TestCase
   end
 
   test "#accept!" do
-    user = User.create!(
-      email_address: @invitation.email,
-      name: @invitation.name,
-      password: "password123",
-      password_confirmation: "password123"
-    )
+    identity = Identity.create!(email_address: @invitation.email, password: "password123", password_confirmation: "password123")
+    user = User.create!(identity: identity, account: @invitation.account, name: @invitation.name, role: :member, email_verified: false)
 
     assert_difference "Invitation.count", -1 do
       @invitation.accept!(user)

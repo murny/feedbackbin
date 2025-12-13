@@ -12,7 +12,7 @@
               <p class="text-sm text-muted-foreground"><%= t(".email_address_hint") %></p>
             </div>
 
-            <%= form_with(model: @user,
+            <%= form_with(model: @identity,
                   url: user_settings_email_path,
                   method: :patch,
                   data: { controller: "form", action: "keydown.enter->form#submit:prevent" }) do |form| %>

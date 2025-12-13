@@ -12,12 +12,20 @@ module Users
     end
 
     def create
-      if (user = User.authenticate_by(params.permit(:email_address, :password)))
-        if user.active?
-          start_new_session_for user
-          redirect_to after_authentication_url, notice: t(".signed_in_successfully")
+      if (identity = Identity.authenticate_by(params.permit(:email_address, :password)))
+        if identity.accounts.any?
+          # Check if identity has at least one active user
+          active_user = identity.users.active.first
+          if active_user
+            start_new_session_for(identity, account: active_user.account)
+            redirect_to after_authentication_url, notice: t(".signed_in_successfully")
+          else
+            redirect_to sign_in_path, alert: t(".account_deactivated")
+          end
         else
-          redirect_to sign_in_path, alert: t(".account_deactivated")
+          # Identity exists but has no account memberships
+          start_new_session_for(identity)
+          redirect_to new_account_path, notice: t(".create_or_join_account")
         end
       else
         redirect_to sign_in_path, alert: t(".invalid_credentials")

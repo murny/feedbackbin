@@ -8,6 +8,7 @@ class InvitationsController < ApplicationController
 
   def show
     @invitation = Invitation.find_by!(token: params[:token])
+    Current.account = @invitation.account
   rescue ActiveRecord::RecordNotFound
     redirect_to root_path, alert: t(".not_found")
   end
