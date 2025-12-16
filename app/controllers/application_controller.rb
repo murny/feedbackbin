@@ -3,6 +3,7 @@
 class ApplicationController < ActionController::Base
   include Authentication
   include Authorization
+  include CurrentRequest
   include Pagy::Method
   include SetLocale
   include Sortable
