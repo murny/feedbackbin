@@ -35,8 +35,7 @@ class Account
     test "validates uniqueness of subdomain when present" do
       original = Account.create!(
         name: "test",
-        subdomain: "test",
-        default_status: statuses(:open)
+        subdomain: "test"
       )
       account = original.dup
 

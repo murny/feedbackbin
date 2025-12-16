@@ -1,11 +1,13 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
+  account: feedbackbin
   name: Feature Requests
   description: Feature Requests
   color: "#3b82f6"
 
 two:
+  account: feedbackbin
   name: Bug Reports
   description: Bug Reports
   color: "#ef4444"

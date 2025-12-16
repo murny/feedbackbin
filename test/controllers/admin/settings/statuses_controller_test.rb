@@ -7,7 +7,7 @@ module Admin
     class StatusesControllerTest < ActionDispatch::IntegrationTest
       setup do
         @admin = users(:shane)
-        @status = statuses(:open)
+        @status = statuses(:planned)
         @account = accounts(:feedbackbin)
         sign_in_as @admin
       end
@@ -81,18 +81,6 @@ module Admin
         assert_equal "#00ff00", @status.color
       end
 
-      test "should set status as default when checkbox is checked" do
-        new_status = statuses(:planned)
-
-        patch admin_settings_status_url(new_status), params: {
-          status: {
-            set_as_default: "1"
-          }
-        }
-
-        assert_equal new_status, @account.reload.default_status
-      end
-
       test "should destroy status without ideas" do
         # Create a new status with no ideas
         status_to_delete = Status.create!(
@@ -108,32 +96,24 @@ module Admin
         assert_redirected_to admin_settings_statuses_path
       end
 
-      test "should not destroy default status" do
-        default_status = @account.default_status
-
-        # Ensure default status has zero ideas to validate the default-protection error specifically
-        default_status.ideas.destroy_all
-
-        assert_no_difference "Status.count" do
-          delete admin_settings_status_url(default_status)
-        end
-
-        assert_redirected_to admin_settings_statuses_path
-        assert_equal "Cannot delete the default status. Reassign default to another status first.", flash[:alert]
-      end
-
-      test "should not destroy status with ideas" do
-        # Use in_progress status which has ideas but is not default
+      test "should destroy status and nullify ideas using it" do
+        # Use in_progress status which has ideas
         status_with_ideas = statuses(:in_progress)
+        idea = ideas(:three)
 
-        assert_predicate status_with_ideas.ideas, :any?
+        assert_equal status_with_ideas, idea.status
 
-        assert_no_difference "Status.count" do
+        assert_difference "Status.count", -1 do
           delete admin_settings_status_url(status_with_ideas)
         end
 
         assert_redirected_to admin_settings_statuses_path
-        assert_equal "Cannot delete this status because ideas are still using it. Please reassign or delete those ideas first.", flash[:alert]
+
+        # Idea should now have nil status (which means "Open")
+        idea.reload
+
+        assert_nil idea.status
+        assert_predicate idea, :open?
       end
     end
   end

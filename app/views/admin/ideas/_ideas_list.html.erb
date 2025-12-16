@@ -27,13 +27,11 @@
                       <%= idea.board.name %>
                     <% end %>
                   <% end %>
-                  <% if idea.status %>
-                    <%= render Elements::BadgeComponent.new(
-                      variant: :outline,
-                      class: "ml-2"
-                    ) do %>
-                      <%= idea.status.name %>
-                    <% end %>
+                  <%= render Elements::BadgeComponent.new(
+                    variant: :outline,
+                    class: "ml-2"
+                  ) do %>
+                    <%= idea.status_name %>
                   <% end %>
                 </div>
               </td>

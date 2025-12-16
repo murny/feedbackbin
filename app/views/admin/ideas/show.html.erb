@@ -47,10 +47,8 @@
                 <%= @idea.board.name %>
               <% end %>
             <% end %>
-            <% if @idea.status %>
-              <%= render Elements::BadgeComponent.new(variant: :outline) do %>
-                <%= @idea.status.name %>
-              <% end %>
+            <%= render Elements::BadgeComponent.new(variant: :outline) do %>
+              <%= @idea.status_name %>
             <% end %>
           </div>
 

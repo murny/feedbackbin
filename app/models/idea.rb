@@ -9,9 +9,10 @@ class Idea < ApplicationRecord
 
   to_param :title
 
+  belongs_to :account, default: -> { Current.account }
   belongs_to :author, class_name: "User", default: -> { Current.user }
   belongs_to :board
-  belongs_to :status, default: -> { Status.default }
+  belongs_to :status, optional: true
 
   has_many :comments, dependent: :destroy
 
@@ -20,4 +21,20 @@ class Idea < ApplicationRecord
   validates :title, presence: true
 
   scope :ordered_with_pinned, -> { order(pinned: :desc, created_at: :desc) }
+  scope :open, -> { where.missing(:status) }
+  scope :with_status, -> { where.associated(:status) }
+
+  # Returns the status name, or "Open" if no status assigned
+  def status_name
+    status&.name || I18n.t("ideas.default_status")
+  end
+
+  # Returns the status color, or a default color if no status assigned
+  def status_color
+    status&.color || "#3b82f6"
+  end
+
+  def open?
+    status.nil?
+  end
 end

@@ -40,18 +40,6 @@
       </div>
     </div>
 
-    <% if status.persisted? %>
-      <div class="grid gap-3">
-        <div class="flex items-center gap-2">
-          <%= f.check_box :set_as_default,
-                checked: status == Current.account.default_status,
-                class: "h-4 w-4 rounded border-input text-primary focus:ring-primary" %>
-          <%= f.label :set_as_default, t(".set_as_default_label"), class: "text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70" %>
-        </div>
-        <p class="text-xs text-muted-foreground"><%= t(".set_as_default_hint") %></p>
-      </div>
-    <% end %>
-
     <div class="rounded-lg border border-border bg-muted/50 p-4">
       <h4 class="text-sm font-medium mb-2"><%= t(".preview_label") %></h4>
       <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-semibold text-white" style="background-color: <%= status.color %>;" data-badge-preview-target="previewColor">

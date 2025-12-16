@@ -2,13 +2,6 @@
 
 puts "Creating statuses..."
 
-Status.find_or_create_by!(name: "Open") do |status|
-  status.color = "#3b82f6"  # Blue
-  status.position = 1
-  status.show_on_idea = true
-  status.show_on_roadmap = false
-end
-
 Status.find_or_create_by!(name: "Planned") do |status|
   status.color = "#8b5cf6"  # Purple
   status.position = 2

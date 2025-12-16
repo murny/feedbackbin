@@ -39,18 +39,20 @@ class FirstRun
     raise ActiveModel::ValidationError.new(self) unless valid?
 
     ApplicationRecord.transaction do
+      @user = User.create!(user_attributes)
+      @account = Account.create!(account_attributes)
+
+      # Set Current.account so Status and Board can use it
+      Current.account = @account
+
+      # Create default statuses (nil status = "Open", so we start with workflow statuses)
       Status.create!([
-        { name: "Open", color: "#3b82f6", position: 1 },
-        { name: "Planned", color: "#8b5cf6", position: 2 },
-        { name: "In Progress", color: "#f59e0b", position: 3 },
-        { name: "Complete", color: "#10b981", position: 4 },
-        { name: "Closed", color: "#ef4444", position: 5 }
+        { name: "Planned", color: "#8b5cf6", position: 1 },
+        { name: "In Progress", color: "#f59e0b", position: 2 },
+        { name: "Complete", color: "#10b981", position: 3 },
+        { name: "Closed", color: "#ef4444", position: 4 }
       ])
 
-      @user = User.create!(user_attributes)
-      @account = Account.create!(account_attributes.merge(
-        default_status: Status.ordered.first
-      ))
       @board = Board.create!(board_attributes)
       self
     end

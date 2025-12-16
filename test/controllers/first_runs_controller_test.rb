@@ -5,7 +5,6 @@ require "test_helper"
 class FirstRunsControllerTest < ActionDispatch::IntegrationTest
   setup do
     Account.destroy_all
-    Status.destroy_all
   end
 
   test "new is permitted when no accounts exist" do
@@ -21,11 +20,7 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
       password: "secret123456",
       role: :owner
     )
-    open_status = Status.create!(name: "Open", color: "#3b82f6", position: 1)
-    Account.create!(
-      name: "FeedbackBin",
-      default_status: open_status
-    )
+    Account.create!(name: "FeedbackBin")
 
     get first_run_url
 
@@ -34,7 +29,7 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
 
   test "create with all parameters" do
     assert_difference [ "User.count", "Account.count", "Board.count" ], 1 do
-      assert_difference "Status.count", 5 do
+      assert_difference "Status.count", 4 do
         post first_run_url, params: {
           first_run: {
             name: "New Person",
@@ -60,8 +55,6 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
     assert_equal "Custom Board", Board.last.name
 
     assert_predicate user, :owner?
-
-    assert_equal Status.default, account.default_status
   end
 
   test "create fails with missing information" do

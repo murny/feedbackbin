@@ -39,14 +39,6 @@ class AccountTest < ActiveSupport::TestCase
     end
   end
 
-  test "account must have a default status" do
-    @account.default_status = nil
-
-    assert_not @account.valid?
-    assert_equal "must exist", @account.errors[:default_status].first
-  end
-
-
   test "owned_by? returns true for user with owner role" do
     owner = users(:shane)
 
@@ -61,7 +53,7 @@ class AccountTest < ActiveSupport::TestCase
 
   # Branding tests
   test "show_company_name defaults to true" do
-    account = Account.new(name: "Test Org", default_status: statuses(:open))
+    account = Account.new(name: "Test Org")
 
     assert account.show_company_name
   end

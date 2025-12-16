@@ -16,13 +16,11 @@
                 <%= t(".pinned") %>
               <% end %>
             <% end %>
-            <% if idea.status.present? %>
-              <%= render Elements::BadgeComponent.new(
-                class: "text-white font-medium",
-                style: "background-color: #{idea.status.color};"
-              ) do %>
-                <%= idea.status.name %>
-              <% end %>
+            <%= render Elements::BadgeComponent.new(
+              class: "text-white font-medium",
+              style: "background-color: #{idea.status_color};"
+            ) do %>
+              <%= idea.status_name %>
             <% end %>
           </div>
         </div>
