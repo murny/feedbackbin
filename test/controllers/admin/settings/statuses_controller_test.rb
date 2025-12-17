@@ -109,6 +109,7 @@ module Admin
         end
 
         assert_redirected_to admin_settings_statuses_path
+        assert_equal "Status was successfully deleted.", flash[:notice]
 
         # Idea should now have nil status (which means "Open")
         idea.reload
