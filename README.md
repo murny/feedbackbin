@@ -159,27 +159,6 @@ bin/jobs
 
 ## ⚙️ Configuration
 
-### Multi-Tenant Mode
-
-FeedbackBin supports both single-tenant and multi-tenant deployments:
-
-#### Single-Tenant Mode (Default)**
-- One organization per instance
-- Subdomains are optional
-- Simpler setup for dedicated installations
-
-#### Multi-Tenant Mode**
-- Multiple organizations with unique subdomains
-- Subdomain-based routing
-- Enable by setting environment variable:
-
-```bash
-# Enable multi-tenant mode
-MULTI_TENANT=true
-```
-
-In multi-tenant mode, each organization must have a unique subdomain. In single-tenant mode (default), subdomains are optional.
-
 ### Credentials
 Use Rails encrypted credentials for sensitive configuration:
 

@@ -94,6 +94,7 @@ module Admin
         end
 
         assert_redirected_to admin_settings_statuses_path
+        assert_equal "Status was successfully deleted.", flash[:notice]
       end
 
       test "should destroy status and nullify ideas using it" do

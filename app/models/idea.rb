@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Idea < ApplicationRecord
+  DEFAULT_STATUS_COLOR = "#3b82f6"
+
   include ModelSortable
   include Voteable
   include Searchable
@@ -31,7 +33,7 @@ class Idea < ApplicationRecord
 
   # Returns the status color, or a default color if no status assigned
   def status_color
-    status&.color || "#3b82f6"
+    status&.color || DEFAULT_STATUS_COLOR
   end
 
   def open?

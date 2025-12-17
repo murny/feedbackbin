@@ -13,7 +13,6 @@ class FirstRun
 
   # Account attributes
   attribute :account_name, :string
-  attribute :account_subdomain, :string
   attribute :account_logo
 
   # Board attribute
@@ -27,7 +26,6 @@ class FirstRun
 
   # Account validations
   validates :account_name, presence: true
-  validates :account_subdomain, presence: true, if: -> { Rails.application.config.multi_tenant }
 
   # Board validations
   validates :board_name, presence: true
@@ -42,18 +40,17 @@ class FirstRun
       @user = User.create!(user_attributes)
       @account = Account.create!(account_attributes)
 
-      # Set Current.account so Status and Board can use it
       Current.account = @account
 
       # Create default statuses (nil status = "Open", so we start with workflow statuses)
       Status.create!([
-        { name: "Planned", color: "#8b5cf6", position: 1 },
-        { name: "In Progress", color: "#f59e0b", position: 2 },
-        { name: "Complete", color: "#10b981", position: 3 },
-        { name: "Closed", color: "#ef4444", position: 4 }
+        { name: "Planned", color: "#8b5cf6", position: 1, account: @account },
+        { name: "In Progress", color: "#f59e0b", position: 2, account: @account },
+        { name: "Complete", color: "#10b981", position: 3, account: @account },
+        { name: "Closed", color: "#ef4444", position: 4, account: @account }
       ])
 
-      @board = Board.create!(board_attributes)
+      @board = Board.create!(board_attributes.merge(account: @account))
       self
     end
   rescue ActiveRecord::RecordInvalid => e
@@ -76,7 +73,6 @@ class FirstRun
     def account_attributes
       {
         name: account_name,
-        subdomain: account_subdomain,
         logo: account_logo
       }
     end
@@ -97,7 +93,6 @@ class FirstRun
       when Account
         attribute_mapping = {
           name: :account_name,
-          subdomain: :account_subdomain,
           logo: :account_logo
         }
         record.errors.each do |error|

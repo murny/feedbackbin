@@ -8,7 +8,6 @@ class InitialSchema < ActiveRecord::Migration[8.2]
       t.string "logo_link"
       t.string "name", null: false
       t.boolean "show_company_name", default: true, null: false
-      t.string "subdomain"
       t.datetime "updated_at", null: false
       t.index [ "default_status_id" ], name: "index_accounts_on_default_status_id"
     end

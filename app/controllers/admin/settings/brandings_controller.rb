@@ -24,7 +24,6 @@ module Admin
         def account_params
           params.require(:account).permit(
             :name,
-            :subdomain,
             :logo,
             :show_company_name,
             :logo_link,

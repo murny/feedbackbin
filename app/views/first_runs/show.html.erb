@@ -88,18 +88,6 @@
                         placeholder: t(".account_name_placeholder") %>
                 </div>
 
-                <% if Rails.application.config.multi_tenant %>
-                  <div class="grid gap-2">
-                    <%= form.label :account_subdomain, t(".account_subdomain"), class: "text-sm font-medium" %>
-                    <%= form.text_field :account_subdomain,
-                          required: true,
-                          autocapitalize: "off",
-                          spellcheck: false,
-                          placeholder: t(".subdomain_placeholder") %>
-                    <p class="text-xs text-muted-foreground"><%= t(".subdomain_hint") %></p>
-                  </div>
-                <% end %>
-
                 <!-- Account Logo -->
                 <%= render ImageUploadPreviewComponent.new(
                       form: form,

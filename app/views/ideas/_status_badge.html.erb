@@ -19,7 +19,7 @@
         params: { status_id: nil },
         class: idea.open? ? "bg-accent" : nil
       ) do %>
-        <span class="w-3 h-3 rounded-full shrink-0" style="background-color: #3b82f6;"></span>
+        <span class="w-3 h-3 rounded-full shrink-0" style="background-color: <%= Idea::DEFAULT_STATUS_COLOR %>;"></span>
         <span><%= t("ideas.default_status") %></span>
         <% if idea.open? %>
           <span class="ml-auto">

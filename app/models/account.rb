@@ -1,7 +1,6 @@
 # frozen_string_literal: true
 
 class Account < ApplicationRecord
-  include Domainable
   include Searchable
 
   ALLOWED_IMAGE_CONTENT_TYPES = %w[ image/jpeg image/png image/gif image/webp ].freeze
