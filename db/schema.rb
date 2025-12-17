@@ -10,13 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.2].define(version: 2025_12_16_192357) do
+ActiveRecord::Schema[8.2].define(version: 2024_05_17_075643) do
   create_table "accounts", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "logo_link"
     t.string "name", null: false
     t.boolean "show_company_name", default: true, null: false
-    t.string "subdomain"
     t.datetime "updated_at", null: false
   end
 

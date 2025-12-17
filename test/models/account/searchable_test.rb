@@ -38,7 +38,6 @@ class Account::SearchableTest < ActiveSupport::TestCase
     # Test that we can search for accounts with special characters in names
     special_org = Account.create!(
       name: "Test[Special 50%_Off]Account",
-      subdomain: "specialtest"
     )
 
     results = Account.search("Special")

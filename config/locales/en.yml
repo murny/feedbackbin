@@ -7,9 +7,6 @@ en:
           attributes:
             boards:
               must_have_at_least_one: must have at least one board
-            subdomain:
-              format: must be at least 2 characters and alphanumeric
-              reserved: "%{value} is reserved"
         invitation:
           attributes:
             email:
@@ -175,7 +172,6 @@ en:
           og_image: Open Graph Image
           og_image_hint: Used when sharing links on social media. Recommended size 1200×630px. Maximum 2MB.
           save_changes: Save changes
-          subdomain: Subdomain
           title: Branding
           upload_favicon: Upload Favicon
           upload_new_logo: Upload new logo
@@ -431,7 +427,6 @@ en:
       account_setup: Account Setup
       account_setup_description: Configure your account details and branding.
       account_setup_section: Account Setup
-      account_subdomain: Subdomain
       avatar_size_hint: JPG, PNG up to 2MB. Recommended size 400x400px.
       board_color: Board Color
       board_color_hint: Choose a color for the board
@@ -448,8 +443,6 @@ en:
       name_placeholder: Enter your name
       password_hint: "(at least 10 characters)"
       password_placeholder: Enter your password
-      subdomain_hint: This will be part of your URL (e.g., yourname.feedbackbin.com)
-      subdomain_placeholder: Enter subdomain
       title: Set up FeedbackBin
       upload_account_logo: Upload Logo
       upload_avatar: Upload Avatar
@@ -586,7 +579,6 @@ en:
         created: Created
         no_accounts_found: No accounts found
         no_accounts_yet: No accounts have been created yet.
-        subdomain: Subdomain
         try_adjusting_search: Try adjusting your search criteria.
         view_button: View
       show:
@@ -594,7 +586,6 @@ en:
         back_button: Back to Accounts
         created: Created
         description: Account details and activity
-        subdomain: Subdomain
     base:
       unauthorized: You are not authorized to access this page.
   themes:

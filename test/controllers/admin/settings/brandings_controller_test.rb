@@ -18,8 +18,7 @@ module Admin
       test "should update branding" do
         patch admin_settings_branding_url, params: {
           account: {
-            name: "New Name",
-            subdomain: "newsub"
+            name: "New Name"
           }
         }
 
