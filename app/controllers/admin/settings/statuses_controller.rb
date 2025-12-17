@@ -27,12 +27,6 @@ module Admin
       end
 
       def update
-        # TODO: updating of default status should get moved to a more specific action
-        # Handle default status assignment (this affects Account, not Status)
-        if params.dig(:status, :set_as_default) == "1"
-          Current.account.update!(default_status: @status)
-        end
-
         if @status.update(status_params)
           redirect_to admin_settings_statuses_path, notice: t(".successfully_updated")
         else

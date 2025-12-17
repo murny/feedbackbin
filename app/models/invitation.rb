@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class Invitation < ApplicationRecord
+  belongs_to :account, default: -> { Current.account }
   belongs_to :invited_by, class_name: "User"
 
   has_secure_token
@@ -9,7 +10,7 @@ class Invitation < ApplicationRecord
   validates :name, presence: true
   validates :invited_by, presence: true
 
-  validates :email, uniqueness: { message: :invited },
+  validates :email, uniqueness: { scope: :account_id, message: :invited },
                     format: { with: URI::MailTo::EMAIL_REGEXP }
 
   def save_and_send_invite

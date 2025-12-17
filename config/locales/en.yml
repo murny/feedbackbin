@@ -242,8 +242,6 @@ en:
           position_placeholder: '1'
           preview_label: Preview
           save_changes: Save changes
-          set_as_default_hint: New ideas will automatically be assigned this status
-          set_as_default_label: Set as default status for new ideas
           show_on_idea_hint: When enabled, ideas with this status will appear on the main ideas page by default
           show_on_idea_label: Show on ideas page
           show_on_roadmap_hint: When enabled, ideas with this status will appear on the roadmap
@@ -251,7 +249,6 @@ en:
           visibility_label: Visibility Settings
         index:
           create_first_status: Create First Status
-          default_badge: Default
           description: Manage statuses to organize and track ideas
           idea_badge: Ideas
           ideas_count:
@@ -459,6 +456,7 @@ en:
   ideas:
     create:
       successfully_created: Idea was successfully created.
+    default_status: Open
     destroy:
       successfully_destroyed: Idea was successfully destroyed.
     edit:

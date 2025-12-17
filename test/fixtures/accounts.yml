@@ -1,4 +1,3 @@
 feedbackbin:
   name: "FeedbackBin"
   subdomain: "feedbackbin"
-  default_status: open

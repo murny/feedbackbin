@@ -35,26 +35,39 @@ class IdeaTest < ActiveSupport::TestCase
     assert_equal "must exist", @idea.errors[:board].first
   end
 
-  test "invalid without a status" do
-    # Stub the default status to nil so we can test the validation
-    Status.stub(:default, nil) do
-      @idea.status = nil
+  test "valid without a status (nil means Open)" do
+    @idea.status = nil
 
-      assert_not @idea.valid?
-      assert_equal "must exist", @idea.errors[:status].first
-    end
+    assert_predicate @idea, :valid?
+    assert_predicate @idea, :open?
+    assert_equal "Open", @idea.status_name
   end
 
-  test "new idea gets default status automatically" do
-    idea = Idea.create(
+  test "new idea without status is Open by default" do
+    idea = Idea.create!(
       title: "Test",
       author: users(:shane),
       board: boards(:one)
     )
 
-    # Default should be set automatically from account's default
+    # nil status means "Open"
+    assert_nil idea.status
+    assert_predicate idea, :open?
+    assert_equal "Open", idea.status_name
+    assert_equal "#3b82f6", idea.status_color
+  end
+
+  test "idea with status uses that status" do
+    idea = Idea.create!(
+      title: "Test",
+      author: users(:shane),
+      board: boards(:one),
+      status: statuses(:planned)
+    )
+
     assert_not_nil idea.status
-    assert_equal Status.default, idea.status
-    assert_equal "Open", idea.status.name
+    assert_not idea.open?
+    assert_equal "Planned", idea.status_name
+    assert_equal statuses(:planned).color, idea.status_color
   end
 end

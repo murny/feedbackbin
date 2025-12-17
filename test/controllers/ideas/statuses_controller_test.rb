@@ -5,16 +5,16 @@ require "test_helper"
 module Ideas
   class StatusesControllerTest < ActionDispatch::IntegrationTest
     setup do
-      @idea = ideas(:one)
+      @idea = ideas(:two) # Has complete status
       @admin_user = users(:shane)
+      @complete_status = statuses(:complete)
       @planned_status = statuses(:planned)
-      @open_status = statuses(:open)
     end
 
     test "should update idea status when user is admin" do
       sign_in_as(@admin_user)
 
-      assert_equal @open_status, @idea.status
+      assert_equal @complete_status, @idea.status
 
       patch idea_status_path(@idea), params: { status_id: @planned_status.id }
 
@@ -27,7 +27,7 @@ module Ideas
       patch idea_status_path(@idea), params: { status_id: @planned_status.id }
 
       assert_response :redirect
-      assert_equal @open_status, @idea.reload.status
+      assert_equal @complete_status, @idea.reload.status
     end
 
     test "should deny non-admin user from updating status" do
@@ -37,7 +37,7 @@ module Ideas
       patch idea_status_path(@idea), params: { status_id: @planned_status.id }
 
       assert_response :redirect
-      assert_equal @open_status, @idea.reload.status
+      assert_equal @complete_status, @idea.reload.status
     end
   end
 end
