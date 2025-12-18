@@ -22,7 +22,7 @@ class User
     end
 
     test "Roles must be a valid role" do
-      @user.role = :super_admin
+      @user.role = :invalid_role
 
       assert_not @user.valid?
       assert_equal("is not included in the list", @user.errors[:role].first)

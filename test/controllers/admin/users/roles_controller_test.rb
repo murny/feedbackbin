@@ -52,7 +52,7 @@ module Admin
 
         assert_predicate user, :member?, "User should start as member"
 
-        patch admin_user_role_path(user), params: { role: "super_admin" }
+        patch admin_user_role_path(user), params: { role: "invalid_role" }
 
         assert_redirected_to admin_user_path(user)
         assert_equal I18n.t("admin.users.roles.update.invalid_role"), flash[:alert]

@@ -94,8 +94,8 @@ Rails.application.routes.draw do
     get :privacy
   end
 
-  authenticated :super_admin do
-    draw :super_admin
+  authenticated :staff do
+    draw :staff
   end
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.

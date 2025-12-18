@@ -367,7 +367,7 @@ en:
         mission_control_jobs: Mission control jobs
         roadmap: Roadmap
         settings: Settings
-        super_admin: Super Admin
+        staff: Staff
         whats_new: What's new?
         your_profile: Your profile
       open_main_menu: Open main menu
@@ -571,7 +571,7 @@ en:
       all_boards: All Boards
       board_label: Board
   something_went_wrong: Something went wrong, please try again.
-  super_admin:
+  staff:
     accounts:
       accounts_list:
         account: Account

@@ -1,7 +1,7 @@
 <nav class="sticky top-16 hidden max-h-[calc(100dvh-(--spacing(16)))] w-48 shrink-0 overflow-y-auto pt-12 pb-16 lg:block">
   <ul role="list" class="p-2">
     <li>
-      <%= active_link_to super_admin_root_path,
+      <%= active_link_to staff_root_path,
             class: "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-foreground",
             active_class: "bg-secondary",
             inactive_class: "hover:bg-secondary" do %>
@@ -10,7 +10,7 @@
       <% end %>
     </li>
     <li class="mt-6">
-      <%= active_link_to super_admin_accounts_path,
+      <%= active_link_to staff_accounts_path,
             class: "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-foreground",
             active_class: "bg-secondary",
             inactive_class: "hover:bg-secondary" do %>
