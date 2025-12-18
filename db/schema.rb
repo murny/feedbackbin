@@ -188,7 +188,6 @@ ActiveRecord::Schema[8.2].define(version: 2024_05_17_075643) do
     t.bigint "voter_id", null: false
     t.index ["account_id"], name: "index_votes_on_account_id"
     t.index ["voteable_type", "voteable_id", "voter_id"], name: "index_votes_on_voteable_type_and_voteable_id_and_voter_id", unique: true
-    t.index ["voteable_type", "voteable_id"], name: "index_likes_on_likeable"
     t.index ["voter_id"], name: "index_votes_on_voter_id"
   end
 
@@ -201,8 +200,6 @@ ActiveRecord::Schema[8.2].define(version: 2024_05_17_075643) do
   add_foreign_key "comments", "comments", column: "parent_id"
   add_foreign_key "comments", "ideas"
   add_foreign_key "comments", "users", column: "creator_id"
-  add_foreign_key "comments", "users", column: "creator_id"
-  add_foreign_key "ideas", "accounts"
   add_foreign_key "ideas", "accounts"
   add_foreign_key "ideas", "boards"
   add_foreign_key "ideas", "statuses"
