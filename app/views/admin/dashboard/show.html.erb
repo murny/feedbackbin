@@ -124,7 +124,7 @@
                           <%= link_to idea.title, idea_path(idea), class: "hover:text-primary transition-colors" %>
                         </p>
                         <p class="text-sm text-muted-foreground">
-                          <%= t(".recent_ideas.by_author", author: idea.author.name) %>
+                          <%= t(".recent_ideas.by_creator", creator: idea.creator.name) %>
                           <% if idea.board %>
                             • <%= t(".recent_ideas.in_board", board: idea.board.name) %>
                           <% end %>

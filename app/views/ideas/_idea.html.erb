@@ -36,9 +36,9 @@
           <% end %>
         </div>
         <div class="mt-1 flex items-center gap-x-2 text-xs/5">
-          <%= avatar_tag idea.author, class: "rounded-full w-8 h-8" %>
+          <%= avatar_tag idea.creator, class: "rounded-full w-8 h-8" %>
           <p>
-            <%= link_to idea.author.name, idea.author, class: "hover:underline" %>
+            <%= link_to idea.creator.name, idea.creator, class: "hover:underline" %>
           </p>
           <%= lucide_icon "dot" %>
           <p>

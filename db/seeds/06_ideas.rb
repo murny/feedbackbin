@@ -21,7 +21,7 @@ david_user = User.find_by!(email_address: "david.thompson@agency.com")
 Idea.suppressing_turbo_broadcasts do
   Idea.find_or_create_by!(
     board: customer_feedback,
-    author: admin_user,
+    creator: admin_user,
     title: "Could you please add dark mode"
   ) do |idea|
     idea.body = "I would love to see dark mode on this site, please give support for it"
@@ -30,7 +30,7 @@ Idea.suppressing_turbo_broadcasts do
 
   Idea.find_or_create_by!(
     board: customer_feedback,
-    author: admin_user,
+    creator: admin_user,
     title: "Multiple boards"
   ) do |idea|
     idea.body = "I would like to be able to create multiple boards, is this possible?"
@@ -39,7 +39,7 @@ Idea.suppressing_turbo_broadcasts do
 
   Idea.find_or_create_by!(
     board: feature_requests,
-    author: maya_user,
+    creator: maya_user,
     title: "Mobile app support"
   ) do |idea|
     idea.body = "As a UX designer, I'd love to see a dedicated mobile app. The responsive web version is good, but a native app "\
@@ -50,7 +50,7 @@ Idea.suppressing_turbo_broadcasts do
 
   Idea.find_or_create_by!(
     board: feature_requests,
-    author: alex_user,
+    creator: alex_user,
     title: "Slack integration for notifications"
   ) do |idea|
     idea.body = "Our team lives in Slack and it would be incredibly helpful to get notifications there when new ideas are "\
@@ -61,7 +61,7 @@ Idea.suppressing_turbo_broadcasts do
 
   Idea.find_or_create_by!(
     board: bug_reports,
-    author: carlos_user,
+    creator: carlos_user,
     title: "Search functionality not working with special characters"
   ) do |idea|
     idea.body = "I've noticed that when searching for ideas containing special characters like @ or #, the search returns no "\
@@ -72,7 +72,7 @@ Idea.suppressing_turbo_broadcasts do
 
   Idea.find_or_create_by!(
     board: ui_ux,
-    author: david_user,
+    creator: david_user,
     title: "Accessibility improvements needed"
   ) do |idea|
     idea.body = "As someone who cares deeply about digital accessibility, I've noticed several areas where this platform "\
@@ -84,7 +84,7 @@ Idea.suppressing_turbo_broadcasts do
 
   Idea.find_or_create_by!(
     board: feature_requests,
-    author: sarah_user,
+    creator: sarah_user,
     title: "Advanced analytics dashboard"
   ) do |idea|
     idea.body = "As a product owner, I need better insights into our feedback data. It would be amazing to have:\n\n- "\
@@ -96,7 +96,7 @@ Idea.suppressing_turbo_broadcasts do
 
   Idea.find_or_create_by!(
     board: feature_requests,
-    author: jane_user,
+    creator: jane_user,
     title: "Better collaboration features"
   ) do |idea|
     idea.body = "I think we need better ways to collaborate on ideas. Some ideas:\n\n- Ability to assign ideas to "\
@@ -107,7 +107,7 @@ Idea.suppressing_turbo_broadcasts do
 
   Idea.find_or_create_by!(
     board: ui_ux,
-    author: maya_user,
+    creator: maya_user,
     title: "More customization options for brands"
   ) do |idea|
     idea.body = "Our clients want their feedback portals to match their brand identity. We need:\n\n- Custom color schemes "\
@@ -119,7 +119,7 @@ Idea.suppressing_turbo_broadcasts do
 
   Idea.find_or_create_by!(
     board: bug_reports,
-    author: carlos_user,
+    creator: carlos_user,
     title: "Page load times are slow with large datasets"
   ) do |idea|
     idea.body = "I've been testing with accounts that have 1000+ ideas, and the performance degrades "\
@@ -131,7 +131,7 @@ Idea.suppressing_turbo_broadcasts do
 
   Idea.find_or_create_by!(
     board: feature_requests,
-    author: alex_user,
+    creator: alex_user,
     title: "Public API for integrations"
   ) do |idea|
     idea.body = "We'd love to integrate FeedbackBin with our existing product management tools like Jira, Linear, and "\

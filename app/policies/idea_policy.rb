@@ -50,7 +50,7 @@ class IdeaPolicy < ApplicationPolicy
   private
 
     def owned?
-      record && user && record.author == user
+      record && user && record.creator == user
     end
 
     class Scope < ApplicationPolicy::Scope

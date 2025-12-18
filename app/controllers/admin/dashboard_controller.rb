@@ -16,7 +16,7 @@ module Admin
 
       @recent_ideas = Rails.cache.fetch("dashboard_recent_ideas", expires_in: 10.minutes) do
         Idea.all
-            .includes(:author, :board, :status)
+            .includes(:creator, :board, :status)
             .order(created_at: :desc)
             .limit(5)
             .to_a

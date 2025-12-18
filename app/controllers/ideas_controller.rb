@@ -10,7 +10,7 @@ class IdeasController < ApplicationController
   def index
     authorize Idea
 
-    ideas = Idea.includes(:author, :board, :status)
+    ideas = Idea.includes(:creator, :board, :status)
     @statuses = Status.ordered
     @search = params[:search]
 
