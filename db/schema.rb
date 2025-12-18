@@ -208,6 +208,7 @@ ActiveRecord::Schema[8.2].define(version: 2024_05_17_075643) do
   add_foreign_key "invitations", "users", column: "invited_by_id"
   add_foreign_key "sessions", "users"
   add_foreign_key "statuses", "accounts"
+  add_foreign_key "users", "accounts"
   add_foreign_key "user_connected_accounts", "users"
   add_foreign_key "votes", "accounts"
   add_foreign_key "votes", "users", column: "voter_id"

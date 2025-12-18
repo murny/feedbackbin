@@ -199,6 +199,7 @@ class InitialSchema < ActiveRecord::Migration[8.2]
     add_foreign_key "invitations", "users", column: "invited_by_id"
     add_foreign_key "sessions", "users"
     add_foreign_key "statuses", "accounts"
+    add_foreign_key "users", "accounts"
     add_foreign_key "user_connected_accounts", "users"
     add_foreign_key "votes", "accounts"
     add_foreign_key "votes", "users", column: "voter_id"
