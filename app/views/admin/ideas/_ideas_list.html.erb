@@ -7,7 +7,7 @@
       <thead class="border-b border-border">
         <tr class="bg-muted/50">
           <th class="px-6 py-4 text-left font-semibold text-foreground"><%= t(".idea_column") %></th>
-          <th class="px-6 py-4 text-left font-semibold text-foreground"><%= t(".author_column") %></th>
+          <th class="px-6 py-4 text-left font-semibold text-foreground"><%= t(".creator_column") %></th>
           <th class="px-6 py-4 text-left font-semibold text-foreground"><%= t(".engagement_column") %></th>
           <th class="px-6 py-4 text-left font-semibold text-foreground"><%= t(".created_column") %></th>
           <th class="px-6 py-4 text-center font-semibold text-foreground"><%= t(".actions_column") %></th>
@@ -38,17 +38,17 @@
               <td class="px-6 py-4">
                 <div class="flex items-center gap-3">
                   <%= render Elements::AvatarComponent.new(
-                    src: idea.author.avatar.attached? ? url_for(idea.author.avatar) : nil,
-                    alt: idea.author.name,
+                    src: idea.creator.avatar.attached? ? url_for(idea.creator.avatar) : nil,
+                    alt: idea.creator.name,
                     size: :sm,
-                    fallback: idea.author.name[0, 2].upcase
+                    fallback: idea.creator.name[0, 2].upcase
                   ) %>
                   <div class="min-w-0">
                     <div class="font-medium text-foreground truncate">
-                      <%= idea.author.name %>
+                      <%= idea.creator.name %>
                     </div>
                     <div class="text-xs text-muted-foreground truncate">
-                      <%= idea.author.email_address %>
+                      <%= idea.creator.email_address %>
                     </div>
                   </div>
                 </div>

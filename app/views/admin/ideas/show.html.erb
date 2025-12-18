@@ -30,14 +30,14 @@
 
           <div class="flex items-center gap-4 mb-4">
             <%= render Elements::AvatarComponent.new(
-              src: @idea.author.avatar.attached? ? url_for(@idea.author.avatar) : nil,
-              alt: @idea.author.name,
+              src: @idea.creator.avatar.attached? ? url_for(@idea.creator.avatar) : nil,
+              alt: @idea.creator.name,
               size: :sm,
-              fallback: @idea.author.name[0, 2].upcase
+              fallback: @idea.creator.name[0, 2].upcase
             ) %>
             <div>
-              <div class="font-medium text-foreground"><%= @idea.author.name %></div>
-              <div class="text-sm text-muted-foreground"><%= @idea.author.email_address %></div>
+              <div class="font-medium text-foreground"><%= @idea.creator.name %></div>
+              <div class="text-sm text-muted-foreground"><%= @idea.creator.email_address %></div>
             </div>
           </div>
 

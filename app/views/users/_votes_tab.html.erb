@@ -30,11 +30,7 @@
                   </div>
                   <div class="mt-1 flex items-center gap-x-2 text-xs/5">
                     <p>
-                      <% if vote.voteable_type == "Idea" %>
-                        <%= link_to vote.voteable.author.name, vote.voteable.author, class: "hover:underline" %>
-                      <% else %>
-                        <%= link_to vote.voteable.creator.name, vote.voteable.creator, class: "hover:underline" %>
-                      <% end %>
+                      <%= link_to vote.voteable.creator.name, vote.voteable.creator, class: "hover:underline" %>
                     </p>
                     <%= lucide_icon "dot" %>
                     <p>

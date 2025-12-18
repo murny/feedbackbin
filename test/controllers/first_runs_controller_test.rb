@@ -14,13 +14,14 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "new is not permitted when account exist" do
+    account = Account.create!(name: "FeedbackBin")
     User.create!(
       name: "Test User",
       email_address: "new@feedbackbin.com",
       password: "secret123456",
-      role: :owner
+      role: :owner,
+      account: account
     )
-    Account.create!(name: "FeedbackBin")
 
     get first_run_url
 

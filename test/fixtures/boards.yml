@@ -2,12 +2,14 @@
 
 one:
   account: feedbackbin
+  creator: shane
   name: Feature Requests
   description: Feature Requests
   color: "#3b82f6"
 
 two:
   account: feedbackbin
+  creator: shane
   name: Bug Reports
   description: Bug Reports
   color: "#ef4444"

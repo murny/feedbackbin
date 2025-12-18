@@ -3,7 +3,7 @@
 module Admin
   class IdeasController < Admin::BaseController
     def index
-      ideas = Idea.includes(:author, :board)
+      ideas = Idea.includes(:creator, :board)
                 .search(params[:search])
                 .order(created_at: :desc)
 
@@ -20,7 +20,7 @@ module Admin
               :board,
               :status,
               :rich_text_body,
-              author: { avatar_attachment: :blob }).find(params.expect(:id))
+              creator: { avatar_attachment: :blob }).find(params.expect(:id))
 
       @recent_comments = @idea.comments.includes(:rich_text_body, creator: { avatar_attachment: :blob }).limit(5).order(created_at: :desc)
     end

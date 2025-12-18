@@ -17,7 +17,10 @@ class User < ApplicationRecord
   scope :filtered_by, ->(query) { where("name like ?", "%#{query}%") }
   scope :ordered, -> { alphabetically }
 
-  has_many :ideas, dependent: :destroy, foreign_key: :author_id, inverse_of: :author
+  belongs_to :account, default: -> { Current.account }
+
+  has_many :ideas, dependent: :destroy, foreign_key: :creator_id, inverse_of: :creator
+  has_many :boards, dependent: :destroy, foreign_key: :creator_id, inverse_of: :creator
   has_many :sessions, dependent: :destroy
   has_many :comments, dependent: :destroy, foreign_key: :creator_id, inverse_of: :creator
   has_many :votes, dependent: :destroy, foreign_key: :voter_id, inverse_of: :voter

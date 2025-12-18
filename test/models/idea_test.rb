@@ -18,13 +18,13 @@ class IdeaTest < ActiveSupport::TestCase
     assert_equal "can't be blank", @idea.errors[:title].first
   end
 
-  test "invalid without a author" do
+  test "invalid without a creator" do
     # Stub the default current user to nil so we can test the validation
     Current.stub(:user, nil) do
-      @idea.author = nil
+      @idea.creator = nil
 
       assert_not @idea.valid?
-      assert_equal "must exist", @idea.errors[:author].first
+      assert_equal "must exist", @idea.errors[:creator].first
     end
   end
 
@@ -46,7 +46,7 @@ class IdeaTest < ActiveSupport::TestCase
   test "new idea without status is Open by default" do
     idea = Idea.create!(
       title: "Test",
-      author: users(:shane),
+      creator: users(:shane),
       board: boards(:one)
     )
 
@@ -60,7 +60,7 @@ class IdeaTest < ActiveSupport::TestCase
   test "idea with status uses that status" do
     idea = Idea.create!(
       title: "Test",
-      author: users(:shane),
+      creator: users(:shane),
       board: boards(:one),
       status: statuses(:planned)
     )

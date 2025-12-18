@@ -3,6 +3,7 @@
 class Board < ApplicationRecord
   # Associations
   belongs_to :account, default: -> { Current.account }
+  belongs_to :creator, class_name: "User", default: -> { Current.user }
   has_many :ideas, dependent: :restrict_with_error
 
   # Validations

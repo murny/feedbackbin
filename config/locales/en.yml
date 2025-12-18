@@ -40,7 +40,7 @@ en:
           title: Recent Comments
         recent_ideas:
           ago: ago
-          by_author: by %{author}
+          by_creator: by %{creator}
           in_board: in %{board}
           no_ideas_description: Get started by creating your first idea.
           no_ideas_title: No ideas yet
@@ -58,8 +58,8 @@ en:
       ideas_list:
         actions_column: Actions
         ago: ago
-        author_column: Author
         created_column: Created
+        creator_column: Creator
         engagement_column: Engagement
         idea_column: Idea
         no_ideas_empty: No ideas have been created yet.

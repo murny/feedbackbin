@@ -19,7 +19,7 @@ class BoardTest < ActiveSupport::TestCase
   end
 
   test "invalid if name taken" do
-    duplicate = Board.new(name: @board.name, color: "#3b82f6")
+    duplicate = Board.new(name: @board.name, color: "#3b82f6", creator: users(:shane))
 
     assert_not duplicate.valid?
     assert_equal "has already been taken", duplicate.errors[:name].first
@@ -56,8 +56,8 @@ class BoardTest < ActiveSupport::TestCase
 
   # Scopes
   test "ordered scope returns boards alphabetically" do
-    Board.create!(name: "Zebra", color: "#3b82f6")
-    Board.create!(name: "Alpha", color: "#10b981")
+    Board.create!(name: "Zebra", color: "#3b82f6", creator: users(:shane))
+    Board.create!(name: "Alpha", color: "#10b981", creator: users(:shane))
 
     ordered = Board.ordered
 
@@ -72,7 +72,7 @@ class BoardTest < ActiveSupport::TestCase
     Idea.create!(
       title: "Test Idea",
       board: board,
-      author: users(:one),
+      creator: users(:one),
       status: statuses(:planned)
     )
 

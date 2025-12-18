@@ -37,10 +37,10 @@ class FirstRun
     raise ActiveModel::ValidationError.new(self) unless valid?
 
     ApplicationRecord.transaction do
-      @user = User.create!(user_attributes)
       @account = Account.create!(account_attributes)
-
       Current.account = @account
+
+      @user = User.create!(user_attributes.merge(account: @account))
 
       # Create default statuses (nil status = "Open", so we start with workflow statuses)
       Status.create!([
@@ -50,7 +50,8 @@ class FirstRun
         { name: "Closed", color: "#ef4444", position: 4, account: @account }
       ])
 
-      @board = Board.create!(board_attributes.merge(account: @account))
+      # Create board (requires account and creator)
+      @board = Board.create!(board_attributes.merge(account: @account, creator: @user))
       self
     end
   rescue ActiveRecord::RecordInvalid => e

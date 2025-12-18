@@ -112,7 +112,7 @@ module Admin
         Idea.create!(
           title: "Test Idea",
           board: @board,
-          author: @admin,
+          creator: @admin,
           status: statuses(:planned)
         )
 

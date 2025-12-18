@@ -1,6 +1,7 @@
 <% password_digest = BCrypt::Password.create("secret123456", cost: 1) %>
 
 shane:
+  account: feedbackbin
   name: Shane
   email_address: shane.murnaghan@feedbackbin.com
   email_verified: true
@@ -9,6 +10,7 @@ shane:
   role: owner
 
 admin:
+  account: feedbackbin
   name: Admin User
   email_address: admin@feedbackbin.com
   email_verified: true
@@ -16,6 +18,7 @@ admin:
   role: admin
 
 one:
+  account: feedbackbin
   name: Jane Doe
   email_address: jane.doe@feedbackbin.com
   password_digest: <%= password_digest %>
@@ -23,6 +26,7 @@ one:
   role: member
 
 two:
+  account: feedbackbin
   name: John Smith
   email_address: john.smith@feedbackbin.com
   password_digest: <%= password_digest %>
@@ -30,6 +34,7 @@ two:
   role: member
 
 bot:
+  account: feedbackbin
   name: Beep Boop
   email_address: beep.boop@feedbackbin.com
   password_digest: <%= password_digest %>

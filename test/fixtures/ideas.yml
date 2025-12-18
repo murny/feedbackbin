@@ -4,20 +4,20 @@
 one:
   account: feedbackbin
   title: Wish this had dark mode!
-  author: shane
+  creator: shane
   board: one
 
 two:
   account: feedbackbin
   title: Love the site, can you implement downvotes?
-  author: one
+  creator: one
   board: one
   status: complete
 
 three:
   account: feedbackbin
   title: Allow visitors to post without having to sign in
-  author: two
+  creator: two
   board: two
   status: in_progress
 
