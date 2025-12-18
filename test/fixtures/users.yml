@@ -5,7 +5,7 @@ shane:
   email_address: shane.murnaghan@feedbackbin.com
   email_verified: true
   password_digest: <%= password_digest %>
-  super_admin: true
+  staff: true
   role: owner
 
 admin:

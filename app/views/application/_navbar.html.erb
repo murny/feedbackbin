@@ -121,7 +121,7 @@
                   <%= t(".links.letter_opener") %>
                 <% end %>
 
-                <% dropdown.with_item_content(href: super_admin_mission_control_jobs_path) do %>
+                <% dropdown.with_item_content(href: staff_mission_control_jobs_path) do %>
                   <%= t(".links.mission_control_jobs") %>
                 <% end %>
               <% end %>
@@ -135,11 +135,11 @@
                 <%= t(".sign_out") %>
               <% end %>
 
-              <% if Current.user.super_admin? %>
+              <% if Current.user.staff? %>
                 <% dropdown.with_item_separator %>
 
-                <% dropdown.with_item_content(href: super_admin_root_path) do %>
-                  <%= t(".links.super_admin") %>
+                <% dropdown.with_item_content(href: staff_root_path) do %>
+                  <%= t(".links.staff") %>
                 <% end %>
               <% end %>
             <% end %>

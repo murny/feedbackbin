@@ -5,7 +5,7 @@ puts "Creating users..."
 User.find_or_create_by!(email_address: "shane.murnaghan@feedbackbin.com") do |user|
   user.name = "Shane Murnaghan"
   user.password = "password123"
-  user.super_admin = true
+  user.staff = true
   user.email_verified = true
   user.role = :owner
 end

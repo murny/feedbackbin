@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-module SuperAdmin
-  class AccountsController < SuperAdmin::BaseController
+module Staff
+  class AccountsController < Staff::BaseController
     def index
       accounts = Account.search(params[:search])
                         .order(created_at: :desc)
