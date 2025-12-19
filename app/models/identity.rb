@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
 class Identity < ApplicationRecord
-  MIN_PASSWORD_LENGTH_ALLOWED = 10
-  MAX_PASSWORD_LENGTH_ALLOWED = 72
+  MIN_PASSWORD_LENGTH = 10
+  MAX_PASSWORD_LENGTH = 72
 
   include Joinable, Transferable
 
@@ -18,14 +18,7 @@ class Identity < ApplicationRecord
 
   has_secure_password validations: false, reset_token: { expires_in: 20.minutes }
 
-  attr_accessor :password_challenge
-
-  validates :password,
-            presence: true,
-            confirmation: true,
-            length: { minimum: MIN_PASSWORD_LENGTH_ALLOWED, maximum: MAX_PASSWORD_LENGTH_ALLOWED },
-            if: -> { password.present? || password_digest_changed? }
-
+  validates :password, confirmation: true, length: { minimum: MIN_PASSWORD_LENGTH, maximum: MAX_PASSWORD_LENGTH }, if: -> { password.present? }
   validate :password_challenge_is_valid, if: -> { password_challenge.present? }
 
   validates :email_address, presence: true,
@@ -59,7 +52,7 @@ class Identity < ApplicationRecord
     end
 
     def password_challenge_is_valid
-      original_digest = password_digest_was || password_digest
-      errors.add(:password_challenge, :invalid) unless BCrypt::Password.new(original_digest).is_password?(password_challenge)
+      digest_was = password_digest_was if respond_to?(:password_digest_was)
+      errors.add(:password_challenge) unless digest_was.present? && BCrypt::Password.new(digest_was).is_password?(password_challenge)
     end
 end

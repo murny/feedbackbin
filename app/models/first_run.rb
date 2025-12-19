@@ -67,7 +67,6 @@ class FirstRun
       {
         name: name,
         avatar: avatar,
-
         role: :owner
       }
     end
