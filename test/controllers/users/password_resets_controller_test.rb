@@ -16,7 +16,7 @@ module Users
     end
 
     test "should get edit" do
-      get edit_users_password_reset_url(token: @identity.generate_token_for(:password_reset))
+      get edit_users_password_reset_url(token: @identity.password_reset_token)
 
       assert_response :success
     end
@@ -51,7 +51,7 @@ module Users
     end
 
     test "should update password" do
-      patch users_password_reset_url(token: @identity.generate_token_for(:password_reset)), params: {
+      patch users_password_reset_url(token: @identity.password_reset_token), params: {
         password: "Secret1*2*3*",
         password_confirmation: "Secret1*2*3*"
       }
@@ -61,7 +61,7 @@ module Users
     end
 
     test "should not update password when password confirmation does not match" do
-      patch users_password_reset_url(token: @identity.generate_token_for(:password_reset)), params: {
+      patch users_password_reset_url(token: @identity.password_reset_token), params: {
         password: "Secret1*2*3*",
         password_confirmation: "password"
       }
@@ -71,7 +71,7 @@ module Users
     end
 
     test "should not update password with expired token" do
-      token = @identity.generate_token_for(:password_reset)
+      token = @identity.password_reset_token
 
       travel 21.minutes
 
@@ -85,7 +85,7 @@ module Users
     end
 
     test "should not update password when password is too short" do
-      patch users_password_reset_url(token: @identity.generate_token_for(:password_reset)), params: {
+      patch users_password_reset_url(token: @identity.password_reset_token), params: {
         password: "short",
         password_confirmation: "short"
       }

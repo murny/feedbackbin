@@ -9,7 +9,7 @@ class IdentityMailer < ApplicationMailer
 
   def password_reset(identity)
     @identity = identity
-    @token = @identity.generate_token_for(:password_reset)
+    @token = @identity.password_reset_token
     mail subject: t(".reset_your_password"), to: identity.email_address
   end
 end

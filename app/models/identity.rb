@@ -16,7 +16,7 @@ class Identity < ApplicationRecord
 
   before_destroy :deactivate_users, prepend: true
 
-  has_secure_password validations: false
+  has_secure_password validations: false, reset_token: { expires_in: 20.minutes }
 
   attr_accessor :password_challenge
 
@@ -33,10 +33,6 @@ class Identity < ApplicationRecord
             format: { with: URI::MailTo::EMAIL_REGEXP }
 
   normalizes :email_address, with: ->(value) { value.strip.downcase.presence }
-
-  generates_token_for :password_reset, expires_in: 20.minutes do
-    password_salt&.last(10)
-  end
 
   generates_token_for :email_verification, expires_in: 2.days do
     email_address
