@@ -29,19 +29,12 @@ module Authentication
         session = find_session_by_cookie
         return nil unless session
 
-        # Restore account context first, then set session (which derives identity -> user)
-        if (account_id = cookies.signed[:account_id])
-          Current.account = Account.find_by(id: account_id)
-        end
-
         # Check if identity has an active user in the current account
-        if Current.account && session.identity.users.active.exists?(account: Current.account)
+        if session.identity.users.active.exists?(account: Current.account)
           session.resume(user_agent: request.user_agent, ip_address: request.remote_ip)
           session
         else
-          # Clear cookies if session is invalid or user is deactivated
           cookies.delete(:session_id)
-          cookies.delete(:account_id)
           nil
         end
       end
@@ -74,6 +67,5 @@ module Authentication
     def terminate_session
       Current.session.destroy
       cookies.delete(:session_id)
-      cookies.delete(:account_id)
     end
 end

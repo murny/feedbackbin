@@ -77,6 +77,22 @@ else
     voteable.votes.find_or_create_by!(voter:)
   end
 
+  def create_status(name, color:, position:, show_on_idea: true, show_on_roadmap: true)
+    Status.find_or_create_by!(name:) do |status|
+      status.color = color
+      status.position = position
+      status.show_on_idea = show_on_idea
+      status.show_on_roadmap = show_on_roadmap
+    end
+  end
+
+  def seed_default_statuses
+    create_status("Planned", color: "#8b5cf6", position: 1, show_on_idea: true, show_on_roadmap: true)
+    create_status("In Progress", color: "#f59e0b", position: 2, show_on_idea: true, show_on_roadmap: true)
+    create_status("Complete", color: "#10b981", position: 3, show_on_idea: false, show_on_roadmap: true)
+    create_status("Closed", color: "#ef4444", position: 4, show_on_idea: false, show_on_roadmap: false)
+  end
+
   puts "🌱 Seeding accounts..."
 
   seed_account("feedbackbin")

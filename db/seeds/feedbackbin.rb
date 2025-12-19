@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 create_tenant "FeedbackBin"
+seed_default_statuses
 
 shane = find_or_create_user "Shane Murnaghan", "shane@example.com"
 jane = find_or_create_user "Jane Doe", "jane@example.com"
