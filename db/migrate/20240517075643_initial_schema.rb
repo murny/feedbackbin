@@ -117,7 +117,7 @@ class InitialSchema < ActiveRecord::Migration[8.2]
 
     create_table "identity_connected_accounts", force: :cascade do |t|
       t.datetime "created_at", null: false
-      t.integer "identity_id", null: false
+      t.bigint "identity_id", null: false
       t.string "provider_name", null: false
       t.string "provider_uid", null: false
       t.datetime "updated_at", null: false

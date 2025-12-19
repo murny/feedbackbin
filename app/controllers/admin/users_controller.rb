@@ -26,7 +26,7 @@ module Admin
     end
 
     def show
-      @user = User.with_attached_avatar.find(params[:id])
+      @user = User.with_attached_avatar.includes(:identity).find(params[:id])
 
       @recent_ideas = @user.ideas.order(created_at: :desc).limit(10)
 

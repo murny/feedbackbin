@@ -52,6 +52,8 @@ class Identity < ApplicationRecord
     end
 
     def password_challenge_is_valid
+      return if new_record?
+
       digest_was = password_digest_was if respond_to?(:password_digest_was)
       errors.add(:password_challenge) unless digest_was.present? && BCrypt::Password.new(digest_was).is_password?(password_challenge)
     end
