@@ -7,7 +7,7 @@ class Idea < ApplicationRecord
   include Voteable
   include Searchable
 
-  has_rich_text :body
+  has_rich_text :description
 
   to_param :title
 

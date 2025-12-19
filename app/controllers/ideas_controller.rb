@@ -10,7 +10,7 @@ class IdeasController < ApplicationController
   def index
     authorize Idea
 
-    ideas = Idea.includes(:creator, :board, :status)
+    ideas = Current.account.ideas.includes(:creator, :board, :status)
     @statuses = Status.ordered
     @search = params[:search]
 
@@ -28,8 +28,10 @@ class IdeasController < ApplicationController
     if params[:status_id].present?
       ideas = ideas.where(status_id: params[:status_id])
     else
-      # By default, only show ideas with statuses visible on idea page
-      ideas = ideas.joins(:status).merge(Status.visible_on_idea)
+      # By default, only show ideas with statuses visible on idea page OR open ideas (no status)
+      ideas = ideas.left_outer_joins(:status).where(statuses: { show_on_idea: true }).or(
+        ideas.left_outer_joins(:status).where(status_id: nil)
+      )
     end
 
     # Order with pinned ideas first
@@ -123,6 +125,6 @@ class IdeasController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def idea_params
-      params.expect(idea: [ :title, :body, :board_id ])
+      params.expect(idea: [ :title, :description, :board_id ])
     end
 end

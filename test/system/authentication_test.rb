@@ -10,7 +10,7 @@ class AuthenticationTest < ApplicationSystemTestCase
   test "signing in" do
     visit sign_in_url
 
-    fill_in "Email", with: @user.email_address
+    fill_in "Email", with: @user.identity.email_address
     fill_in "Password", with: "secret123456"
 
     click_button "Sign in"

@@ -5,7 +5,7 @@ require "test_helper"
 module UserSettings
   class PasswordsControllerTest < ActionDispatch::IntegrationTest
     setup do
-      sign_in_as(users(:one))
+      sign_in_as(users(:jane))
     end
 
     test "should get show" do
@@ -15,8 +15,8 @@ module UserSettings
     end
 
     test "should be able to update password" do
-      patch user_settings_password_url, params: { user: {
-        password: "password123", password_confirmation: "password123", password_challenge: "secret123456"
+      patch user_settings_password_url, params: { identity: {
+        password: "password123456", password_confirmation: "password123456", password_challenge: "secret123456"
       } }
 
       assert_redirected_to user_settings_password_url

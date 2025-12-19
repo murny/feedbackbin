@@ -455,7 +455,7 @@ en:
     edit:
       title: Edit Idea
     form:
-      body_placeholder: Add your description here...
+      description_placeholder: Add your description here...
       title_placeholder: Add a title
     idea:
       pinned: Pinned
@@ -485,6 +485,11 @@ en:
         success: Status has been updated.
     update:
       successfully_updated: Idea was successfully updated.
+  identity_mailer:
+    email_verification:
+      verify_your_email: Verify your email
+    password_reset:
+      reset_your_password: Reset your password
   invitations:
     show:
       already_have_account: Already have an account?
@@ -596,11 +601,6 @@ en:
     toast:
       dismiss: Dismiss
   unauthorized: You are not authorized to perform this action.
-  user_mailer:
-    email_verification:
-      verify_your_email: Verify your email
-    password_reset:
-      reset_your_password: Reset your password
   user_settings:
     accounts:
       show:

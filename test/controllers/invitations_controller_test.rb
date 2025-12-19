@@ -18,11 +18,15 @@ class InvitationsControllerTest < ActionDispatch::IntegrationTest
       name: "Test User",
       invited_by: users(:shane)
     )
-    user = User.create!(
+    identity = Identity.create!(
       email_address: invitation.email,
+      password: "password123456",
+      password_confirmation: "password123456"
+    )
+    user = User.create!(
+      identity: identity,
       name: invitation.name,
-      password: "password123",
-      password_confirmation: "password123"
+      account: accounts(:feedbackbin)
     )
     token = invitation.token
     invitation.accept!(user) # Deletes the invitation

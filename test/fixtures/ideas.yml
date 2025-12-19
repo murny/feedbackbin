@@ -10,14 +10,14 @@ one:
 two:
   account: feedbackbin
   title: Love the site, can you implement downvotes?
-  creator: one
+  creator: jane
   board: one
   status: complete
 
 three:
   account: feedbackbin
   title: Allow visitors to post without having to sign in
-  creator: two
+  creator: john
   board: two
   status: in_progress
 

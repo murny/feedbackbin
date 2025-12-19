@@ -21,7 +21,7 @@ class ChangelogsControllerTest < ActionDispatch::IntegrationTest
   test "should mark as read if authenticated" do
     freeze_time
 
-    user = users(:one)
+    user = users(:jane)
     sign_in_as(user)
 
     get changelogs_url

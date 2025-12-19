@@ -8,7 +8,7 @@ class Idea
       def search(query)
         return all if query.blank?
 
-        left_joins(:rich_text_body)
+        left_joins(:rich_text_description)
         .where(
           arel_table[:title].matches("%#{sanitize_sql_like(query.to_s)}%")
           .or(ActionText::RichText.arel_table[:body].matches("%#{sanitize_sql_like(query.to_s)}%"))

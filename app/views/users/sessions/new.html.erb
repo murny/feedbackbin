@@ -40,8 +40,8 @@
                   required: true,
                   autocomplete: "current-password",
                   placeholder: t(".password_placeholder"),
-                  minlength: User::MIN_PASSWORD_LENGTH_ALLOWED,
-                  maxlength: User::MAX_PASSWORD_LENGTH_ALLOWED %>
+                  minlength: Identity::MIN_PASSWORD_LENGTH,
+                  maxlength: Identity::MAX_PASSWORD_LENGTH %>
           </div>
 
           <%= form.submit t(".sign_in"), class: "btn w-full" %>

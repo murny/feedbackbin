@@ -8,7 +8,7 @@ class FirstRunTest < ActiveSupport::TestCase
   end
 
   test "creating makes first user an owner and sets up a new board and account" do
-    assert_difference [ "Board.count", "User.count", "Account.count" ] do
+    assert_difference [ "Board.count", "User.count", "Account.count", "Identity.count" ] do
       first_run = FirstRun.new(
         name: "Owner Example",
         email_address: "owner@example.com",
@@ -22,7 +22,7 @@ class FirstRunTest < ActiveSupport::TestCase
       assert_equal "Test Account", first_run.account.name
       assert_equal "Test Board", first_run.board.name
       assert_equal "Owner Example", first_run.user.name
-      assert_equal "owner@example.com", first_run.user.email_address
+      assert_equal "owner@example.com", first_run.user.identity.email_address
     end
   end
 

@@ -20,7 +20,7 @@ class IdeasTest < ApplicationSystemTestCase
   #   visit ideas_url
   #   click_link "New Idea"
 
-  #   fill_in_rich_text_area "Body", with: @idea.body
+  #   fill_in_rich_text_area "Body", with: @idea.description
   #   fill_in "Title", with: @idea.title
   #   click_button "Create Idea"
 
@@ -36,7 +36,7 @@ class IdeasTest < ApplicationSystemTestCase
   #   # Now click the Edit link within the dropdown
   #   click_link "Edit"
 
-  #   fill_in_rich_text_area "Body", with: @idea.body
+  #   fill_in_rich_text_area "Body", with: @idea.description
   #   fill_in "Title", with: "Updated title goes here"
   #   click_button "Update Idea"
 

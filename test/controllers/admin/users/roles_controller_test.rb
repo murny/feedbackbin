@@ -11,7 +11,7 @@ module Admin
       end
 
       test "should update user role to admin" do
-        user = users(:one)
+        user = users(:jane)
 
         assert_predicate user, :member?, "User should start as member"
 
@@ -23,7 +23,7 @@ module Admin
       end
 
       test "should update user role to member" do
-        user = users(:one)
+        user = users(:jane)
         user.update!(role: :admin)
 
         assert_predicate user, :admin?, "User should start as admin"
@@ -36,7 +36,7 @@ module Admin
       end
 
       test "should update user role to bot" do
-        user = users(:one)
+        user = users(:jane)
 
         assert_predicate user, :member?, "User should start as member"
 
@@ -48,7 +48,7 @@ module Admin
       end
 
       test "should reject invalid role param" do
-        user = users(:one)
+        user = users(:jane)
 
         assert_predicate user, :member?, "User should start as member"
 
@@ -71,9 +71,9 @@ module Admin
 
       test "should require admin for role management" do
         sign_out
-        sign_in_as users(:one)
+        sign_in_as users(:jane)
 
-        user = users(:two)
+        user = users(:john)
         patch admin_user_role_path(user), params: { role: "admin" }
 
         assert_redirected_to root_path

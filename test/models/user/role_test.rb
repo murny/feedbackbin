@@ -5,7 +5,7 @@ require "test_helper"
 class User
   class RoleTest < ActiveSupport::TestCase
     setup do
-      @user = users(:one)
+      @user = users(:jane)
     end
 
     test "creating new users makes them members by default" do

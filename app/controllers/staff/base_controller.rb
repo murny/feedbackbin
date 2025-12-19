@@ -11,7 +11,7 @@ module Staff
     private
 
       def require_staff
-        redirect_to root_path, alert: t("staff.base.unauthorized") unless Current.user.staff?
+        redirect_to root_path, alert: t("staff.base.unauthorized") unless Current.identity.staff?
       end
   end
 end

@@ -27,12 +27,14 @@ module Authentication
     def resume_session
       Current.session ||= begin
         session = find_session_by_cookie
-        if session&.user&.active?
+        return nil unless session
+
+        # Check if identity has an active user in the current account
+        if session.identity.users.active.exists?(account: Current.account)
           session.resume(user_agent: request.user_agent, ip_address: request.remote_ip)
           session
         else
-          # Clear the session cookie if it exists but user is deactivated or session is invalid
-          cookies.delete(:session_id) if session
+          cookies.delete(:session_id)
           nil
         end
       end
@@ -51,11 +53,15 @@ module Authentication
       session.delete(:return_to_after_authenticating) || root_path
     end
 
-    def start_new_session_for(user)
-      user.sessions.create!(user_agent: request.user_agent, ip_address: request.remote_ip).tap do |session|
-        Current.session = session
-        cookies.signed.permanent[:session_id] = { value: session.id, httponly: true, same_site: :lax }
+    def start_new_session_for(identity)
+      identity.sessions.create!(user_agent: request.user_agent, ip_address: request.remote_ip).tap do |session|
+        set_current_session session
       end
+    end
+
+    def set_current_session(session)
+      Current.session = session
+      cookies.signed.permanent[:session_id] = { value: session.id, httponly: true, same_site: :lax }
     end
 
     def terminate_session

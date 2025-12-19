@@ -32,7 +32,7 @@
                       <%= user.name %>
                     </div>
                     <div class="text-sm text-muted-foreground truncate">
-                      <%= user.email_address %>
+                      <%= user&.identity&.email_address %>
                     </div>
                   </div>
                 </div>
@@ -63,9 +63,9 @@
               <!-- Email Status Column -->
               <td class="px-6 py-4">
                 <%= render Elements::BadgeComponent.new(
-                  variant: user.email_verified? ? :default : :outline
+                  variant: user&.identity&.email_verified? ? :default : :outline
                 ) do %>
-                  <%= user.email_verified? ? t(".verified_badge") : t(".unverified_badge") %>
+                  <%= user&.identity&.email_verified? ? t(".verified_badge") : t(".unverified_badge") %>
                 <% end %>
               </td>
               <td class="px-6 py-4">

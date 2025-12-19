@@ -45,7 +45,7 @@
             <h4 class="text-sm font-medium text-foreground mb-2"><%= t(".basic_info_title") %></h4>
             <div class="space-y-2 text-sm">
               <div><strong><%= t(".name_label") %>:</strong> <%= @user.name %></div>
-              <div><strong><%= t(".email_label") %>:</strong> <%= @user.email_address %></div>
+              <div><strong><%= t(".email_label") %>:</strong> <%= @user&.identity&.email_address %></div>
               <div>
                 <strong><%= t(".joined_label") %>:</strong>
                 <%= @user.created_at.strftime("%B %d, %Y") %>
@@ -82,9 +82,9 @@
             <div>
               <h4 class="text-sm font-medium text-foreground mb-3"><%= t(".email_verification_label") %></h4>
               <%= render Elements::BadgeComponent.new(
-                variant: @user.email_verified? ? :default : :outline
+                variant: @user.identity.email_verified? ? :default : :outline
               ) do %>
-                <%= @user.email_verified? ? t(".verified_badge") : t(".unverified_badge") %>
+                <%= @user.identity.email_verified? ? t(".verified_badge") : t(".unverified_badge") %>
               <% end %>
             </div>
           </div>

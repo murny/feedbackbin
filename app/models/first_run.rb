@@ -22,7 +22,7 @@ class FirstRun
   # User validations
   validates :name, presence: true
   validates :email_address, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :password, presence: true, length: { minimum: User::MIN_PASSWORD_LENGTH_ALLOWED }
+  validates :password, presence: true, length: { minimum: Identity::MIN_PASSWORD_LENGTH, maximum: Identity::MAX_PASSWORD_LENGTH }
 
   # Account validations
   validates :account_name, presence: true
@@ -31,7 +31,7 @@ class FirstRun
   validates :board_name, presence: true
   validates :board_color, presence: true, format: { with: /\A#[0-9a-f]{6}\z/i }
 
-  attr_reader :account, :user, :board
+  attr_reader :account, :user, :board, :identity
 
   def save!
     raise ActiveModel::ValidationError.new(self) unless valid?
@@ -40,7 +40,9 @@ class FirstRun
       @account = Account.create!(account_attributes)
       Current.account = @account
 
-      @user = User.create!(user_attributes.merge(account: @account))
+      @identity = Identity.create!(identity_attributes.merge(email_address: email_address, password: password))
+
+      @user = User.create!(user_attributes.merge(account: @account, identity: @identity))
 
       # Create default statuses (nil status = "Open", so we start with workflow statuses)
       Status.create!([
@@ -64,8 +66,6 @@ class FirstRun
     def user_attributes
       {
         name: name,
-        email_address: email_address,
-        password: password,
         avatar: avatar,
         role: :owner
       }
@@ -85,8 +85,23 @@ class FirstRun
       }
     end
 
+    def identity_attributes
+      {
+        email_verified: true
+      }
+    end
+
     def copy_validation_errors(record)
       case record
+      when Identity
+        attribute_mapping = {
+          email_address: :email_address,
+          password: :password
+        }
+        record.errors.each do |error|
+          attr_name = attribute_mapping[error.attribute] || error.attribute
+          errors.add(attr_name, error.message)
+        end
       when User
         record.errors.each do |error|
           errors.add(error.attribute, error.message)

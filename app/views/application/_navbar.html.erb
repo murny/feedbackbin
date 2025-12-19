@@ -135,7 +135,7 @@
                 <%= t(".sign_out") %>
               <% end %>
 
-              <% if Current.user.staff? %>
+              <% if Current.identity.staff? %>
                 <% dropdown.with_item_separator %>
 
                 <% dropdown.with_item_content(href: staff_root_path) do %>

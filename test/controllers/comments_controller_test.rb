@@ -4,7 +4,7 @@ require "test_helper"
 
 class CommentsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @user = users(:one)
+    @user = users(:jane)
     @idea = ideas(:one)
     @comment = comments(:one)
   end

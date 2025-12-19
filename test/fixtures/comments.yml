@@ -1,6 +1,6 @@
 one:
   account: feedbackbin
-  creator: one
+  creator: jane
   idea: one
 
 two:
@@ -10,6 +10,6 @@ two:
 
 reply_one:
   account: feedbackbin
-  creator: one
+  creator: jane
   idea: one
   parent: two

@@ -19,7 +19,7 @@ module Admin
       @idea = Idea.includes(
               :board,
               :status,
-              :rich_text_body,
+              :rich_text_description,
               creator: { avatar_attachment: :blob }).find(params.expect(:id))
 
       @recent_comments = @idea.comments.includes(:rich_text_body, creator: { avatar_attachment: :blob }).limit(5).order(created_at: :desc)

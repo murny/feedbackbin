@@ -1,42 +1,37 @@
-<% password_digest = BCrypt::Password.create("secret123456", cost: 1) %>
 
 shane:
   account: feedbackbin
+  identity: shane
   name: Shane
-  email_address: shane.murnaghan@feedbackbin.com
-  email_verified: true
-  password_digest: <%= password_digest %>
-  staff: true
   role: owner
+  verified_at: <%= Time.current.to_fs(:db) %>
 
 admin:
   account: feedbackbin
+  identity: admin
   name: Admin User
-  email_address: admin@feedbackbin.com
-  email_verified: true
-  password_digest: <%= password_digest %>
   role: admin
 
-one:
+jane:
   account: feedbackbin
+  identity: jane
   name: Jane Doe
-  email_address: jane.doe@feedbackbin.com
-  password_digest: <%= password_digest %>
   bio: Hi I'm Jane Doe
   role: member
 
-two:
+john:
   account: feedbackbin
+  identity: john
   name: John Smith
-  email_address: john.smith@feedbackbin.com
-  password_digest: <%= password_digest %>
   bio: Hi I'm John Smith
   role: member
 
-bot:
+system:
+  name: System
+  role: system
   account: feedbackbin
+
+bot:
   name: Beep Boop
-  email_address: beep.boop@feedbackbin.com
-  password_digest: <%= password_digest %>
-  bio: Hi I'm Beep Boop
   role: bot
+  account: feedbackbin

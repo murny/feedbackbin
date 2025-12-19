@@ -22,7 +22,7 @@
 
             <div class="flex-1">
               <p class="font-medium"><%= @owner.name %></p>
-              <p class="text-sm text-muted-foreground"><%= @owner.email_address %></p>
+              <p class="text-sm text-muted-foreground"><%= @owner.identity.email_address %></p>
             </div>
 
             <%= render Elements::ButtonComponent.new(

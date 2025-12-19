@@ -8,8 +8,13 @@ module FormBuilders
     include ActionView::Helpers::FormHelper
     include LucideRails::RailsHelper
 
+    class FormObject
+      include ActiveModel::Model
+      attr_accessor :name, :email_address, :created_at, :password, :bio, :active
+    end
+
     setup do
-      @form_object = User.new
+      @form_object = FormObject.new
     end
 
     test "text_field returns custom styled text field" do
@@ -156,7 +161,7 @@ module FormBuilders
 
       expected = %(<input name="user[active]" type="hidden" value="0" />
     <input class="h-4 w-4 rounded border-input bg-background text-primary focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-           type="checkbox" value="1" checked="checked" name="user[active]" id="user_active" />)
+           type="checkbox" value="1" name="user[active]" id="user_active" />)
 
       assert_dom_equal expected, form.check_box(:active)
     end

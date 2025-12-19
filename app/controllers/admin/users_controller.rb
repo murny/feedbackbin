@@ -26,7 +26,7 @@ module Admin
     end
 
     def show
-      @user = User.with_attached_avatar.find(params[:id])
+      @user = User.with_attached_avatar.includes(:identity).find(params.expect(:id))
 
       @recent_ideas = @user.ideas.order(created_at: :desc).limit(10)
 
@@ -36,7 +36,7 @@ module Admin
       @total_votes = @user.votes.count
 
       # Last session info
-      @last_session = @user.sessions.order(last_active_at: :desc).first
+      @last_session = @user.identity&.sessions&.order(last_active_at: :desc)&.first
     end
   end
 end

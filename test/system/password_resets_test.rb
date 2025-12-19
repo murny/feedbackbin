@@ -4,11 +4,11 @@ require "application_system_test_case"
 
 class PasswordResetsTest < ApplicationSystemTestCase
   setup do
-    @user = users(:shane)
+    @identity = identities(:shane)
   end
 
   test "updating password" do
-    visit edit_users_password_reset_url(token: @user.password_reset_token)
+    visit edit_users_password_reset_url(token: @identity.password_reset_token)
 
     fill_in "New password", with: "Secret6*4*2*"
     fill_in "Confirm new password", with: "Secret6*4*2*"

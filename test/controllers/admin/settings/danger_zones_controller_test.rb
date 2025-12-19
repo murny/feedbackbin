@@ -44,7 +44,7 @@ module Admin
       end
 
       test "non-admin cannot access" do
-        sign_in_as users(:two)
+        sign_in_as users(:john)
         get admin_settings_danger_zone_url
 
         assert_response :redirect
