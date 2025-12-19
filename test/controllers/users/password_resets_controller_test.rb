@@ -6,6 +6,7 @@ module Users
   class PasswordResetsControllerTest < ActionDispatch::IntegrationTest
     setup do
       @user = users(:shane)
+      @identity = @user.identity
     end
 
     test "should get new" do
@@ -15,14 +16,14 @@ module Users
     end
 
     test "should get edit" do
-      get edit_users_password_reset_url(token: @user.password_reset_token)
+      get edit_users_password_reset_url(token: @identity.generate_token_for(:password_reset))
 
       assert_response :success
     end
 
     test "should send a password reset email" do
-      assert_enqueued_email_with UserMailer, :password_reset, args: [ @user ] do
-        post users_password_resets_url, params: { email_address: @user.email_address }
+      assert_enqueued_email_with IdentityMailer, :password_reset, args: [ @identity ] do
+        post users_password_resets_url, params: { email_address: @identity.email_address }
       end
 
       assert_redirected_to sign_in_url
@@ -39,10 +40,10 @@ module Users
     end
 
     test "should not send a password reset email to an unverified email" do
-      @user.update!(email_verified: false)
+      @identity.update!(email_verified: false)
 
       assert_no_enqueued_emails do
-        post users_password_resets_url, params: { email_address: @user.email_address }
+        post users_password_resets_url, params: { email_address: @identity.email_address }
       end
 
       assert_redirected_to sign_in_url
@@ -50,7 +51,7 @@ module Users
     end
 
     test "should update password" do
-      patch users_password_reset_url(token: @user.password_reset_token), params: {
+      patch users_password_reset_url(token: @identity.generate_token_for(:password_reset)), params: {
         password: "Secret1*2*3*",
         password_confirmation: "Secret1*2*3*"
       }
@@ -60,7 +61,7 @@ module Users
     end
 
     test "should not update password when password confirmation does not match" do
-      patch users_password_reset_url(token: @user.password_reset_token), params: {
+      patch users_password_reset_url(token: @identity.generate_token_for(:password_reset)), params: {
         password: "Secret1*2*3*",
         password_confirmation: "password"
       }
@@ -70,9 +71,9 @@ module Users
     end
 
     test "should not update password with expired token" do
-      token = @user.password_reset_token
+      token = @identity.generate_token_for(:password_reset)
 
-      travel 16.minutes
+      travel 21.minutes
 
       patch users_password_reset_url(token: token), params: {
         password: "Secret1*2*3*",
@@ -84,7 +85,7 @@ module Users
     end
 
     test "should not update password when password is too short" do
-      patch users_password_reset_url(token: @user.password_reset_token), params: {
+      patch users_password_reset_url(token: @identity.generate_token_for(:password_reset)), params: {
         password: "short",
         password_confirmation: "short"
       }

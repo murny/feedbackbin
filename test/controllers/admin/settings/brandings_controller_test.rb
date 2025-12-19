@@ -39,7 +39,7 @@ module Admin
       end
 
       test "should not allow non-admin" do
-        sign_in_as users(:two)
+        sign_in_as users(:john)
 
         patch admin_settings_branding_url, params: { account: { name: "New Name" } }
 

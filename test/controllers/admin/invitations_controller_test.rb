@@ -16,7 +16,7 @@ module Admin
     end
 
     test "should not get index if not an admin" do
-      sign_in_as users(:two)
+      sign_in_as users(:john)
 
       get admin_invitations_url
 
@@ -31,7 +31,7 @@ module Admin
     end
 
     test "should not get new if not an admin" do
-      sign_in_as users(:two)
+      sign_in_as users(:john)
 
       get new_admin_invitation_url
 
@@ -59,7 +59,7 @@ module Admin
     end
 
     test "non-admin cannot create" do
-      sign_in_as users(:two)
+      sign_in_as users(:john)
 
       post admin_invitations_url, params: { invitation: { email: "x@example.com", name: "X" } }
 
@@ -81,7 +81,7 @@ module Admin
     end
 
     test "non-admin cannot resend" do
-      sign_in_as users(:two)
+      sign_in_as users(:john)
       invitation = invitations(:one)
 
       post resend_admin_invitation_url(invitation.token)
@@ -108,7 +108,7 @@ module Admin
     end
 
     test "non-admin cannot destroy" do
-      sign_in_as users(:two)
+      sign_in_as users(:john)
       invitation = invitations(:one)
 
       delete admin_invitation_url(invitation.token)

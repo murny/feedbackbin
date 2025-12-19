@@ -9,42 +9,56 @@ module Users
 
     def new
       @user = User.new
+      @identity = Identity.new
       @invitation = Invitation.find_by(token: params[:invitation_token]) if params[:invitation_token]
 
       if @invitation
         # Pre-fill form with invitation data
-        @user.email_address = @invitation.email
+        @identity.email_address = @invitation.email
         @user.name = @invitation.name
       end
     end
 
     def create
-      @user = User.new(user_params)
-      @user.role = :member # Always create as member
-
-      # Check for invitation
       @invitation = Invitation.find_by(token: params[:invitation_token]) if params[:invitation_token]
 
-      if @user.save
+      ActiveRecord::Base.transaction do
+        @identity = Identity.new(identity_params)
+        @identity.save!
+
+        # Set account context - use invitation's account or first account for self-registration
+        Current.account = @invitation&.account || Account.first
+
+        @user = User.new(user_params)
+        @user.identity = @identity
+        @user.role = :member
+        @user.save!
+
         # Auto-verify email for invited users
         if @invitation
           @invitation.accept!(@user)
         else
-          UserMailer.email_verification(@user).deliver_later
+          IdentityMailer.email_verification(@identity).deliver_later
         end
 
-        start_new_session_for(@user)
-
-        redirect_to root_path, notice: t(".signed_up_successfully")
-      else
-        render :new, status: :unprocessable_entity
+        start_new_session_for(@identity)
       end
+
+      redirect_to root_path, notice: t(".signed_up_successfully")
+    rescue ActiveRecord::RecordInvalid
+      @identity ||= Identity.new(identity_params)
+      @user ||= User.new(user_params)
+      render :new, status: :unprocessable_entity
     end
 
     private
 
       def user_params
-        params.expect(user: [ :name, :email_address, :password, :password_confirmation ])
+        params.expect(user: [ :name ])
+      end
+
+      def identity_params
+        params.expect(user: [ :email_address, :password, :password_confirmation ])
       end
   end
 end

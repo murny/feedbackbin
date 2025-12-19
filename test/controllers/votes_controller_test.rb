@@ -5,7 +5,7 @@ require "test_helper"
 class VotesControllerTest < ActionDispatch::IntegrationTest
   test "should update voteable" do
     idea = ideas(:one)
-    user = users(:one)
+    user = users(:jane)
 
     sign_in_as user
 
@@ -24,7 +24,7 @@ class VotesControllerTest < ActionDispatch::IntegrationTest
 
   test "should not update voteable if voteable is not an approved voteable" do
     board = boards(:one)
-    user = users(:one)
+    user = users(:jane)
 
     sign_in_as user
 

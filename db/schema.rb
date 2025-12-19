@@ -13,10 +13,12 @@
 ActiveRecord::Schema[8.2].define(version: 2024_05_17_075643) do
   create_table "accounts", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.bigint "external_account_id"
     t.string "logo_link"
     t.string "name", null: false
     t.boolean "show_company_name", default: true, null: false
     t.datetime "updated_at", null: false
+    t.index ["external_account_id"], name: "index_accounts_on_external_account_id", unique: true
   end
 
   create_table "action_text_rich_texts", force: :cascade do |t|
@@ -112,6 +114,27 @@ ActiveRecord::Schema[8.2].define(version: 2024_05_17_075643) do
     t.index ["status_id"], name: "index_ideas_on_status_id"
   end
 
+  create_table "identities", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.string "email_address", null: false
+    t.boolean "email_verified", default: false, null: false
+    t.string "password_digest"
+    t.boolean "staff", default: false, null: false
+    t.datetime "updated_at", null: false
+    t.index ["email_address"], name: "index_identities_on_email_address", unique: true
+  end
+
+  create_table "identity_connected_accounts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.integer "identity_id", null: false
+    t.string "provider_name", null: false
+    t.string "provider_uid", null: false
+    t.datetime "updated_at", null: false
+    t.index ["identity_id"], name: "index_identity_connected_accounts_on_identity_id"
+    t.index ["provider_name", "identity_id"], name: "idx_id_connected_accounts_on_provider_name_and_identity_id", unique: true
+    t.index ["provider_name", "provider_uid"], name: "idx_id_connected_accounts_on_provider_name_and_provider_uid", unique: true
+  end
+
   create_table "invitations", force: :cascade do |t|
     t.bigint "account_id", null: false
     t.datetime "created_at", null: false
@@ -128,12 +151,12 @@ ActiveRecord::Schema[8.2].define(version: 2024_05_17_075643) do
 
   create_table "sessions", force: :cascade do |t|
     t.datetime "created_at", null: false
+    t.bigint "identity_id", null: false
     t.string "ip_address"
     t.datetime "last_active_at", null: false
     t.datetime "updated_at", null: false
     t.string "user_agent"
-    t.bigint "user_id", null: false
-    t.index ["user_id"], name: "index_sessions_on_user_id"
+    t.index ["identity_id"], name: "index_sessions_on_identity_id"
   end
 
   create_table "statuses", force: :cascade do |t|
@@ -148,35 +171,23 @@ ActiveRecord::Schema[8.2].define(version: 2024_05_17_075643) do
     t.index ["account_id"], name: "index_statuses_on_account_id"
   end
 
-  create_table "user_connected_accounts", force: :cascade do |t|
-    t.datetime "created_at", null: false
-    t.string "provider_name", null: false
-    t.string "provider_uid", null: false
-    t.datetime "updated_at", null: false
-    t.integer "user_id", null: false
-    t.index ["provider_name", "provider_uid"], name: "index_user_connected_accounts_on_provider_name_and_provider_uid", unique: true
-    t.index ["provider_name", "user_id"], name: "index_user_connected_accounts_on_provider_name_and_user_id", unique: true
-    t.index ["user_id"], name: "index_user_connected_accounts_on_user_id"
-  end
-
   create_table "users", force: :cascade do |t|
     t.bigint "account_id", null: false
     t.boolean "active", default: true, null: false
     t.text "bio"
     t.datetime "changelogs_read_at"
     t.datetime "created_at", null: false
-    t.string "email_address", null: false
-    t.boolean "email_verified", default: false, null: false
+    t.bigint "identity_id"
     t.string "name", limit: 255, null: false
-    t.string "password_digest", null: false
     t.string "preferred_language"
     t.string "role", default: "member", null: false
-    t.boolean "staff", default: false, null: false
     t.integer "theme", default: 0, null: false
     t.string "time_zone"
     t.datetime "updated_at", null: false
-    t.index ["account_id"], name: "index_users_on_account_id"
-    t.index ["email_address"], name: "index_users_on_email_address", unique: true
+    t.datetime "verified_at"
+    t.index [ "account_id", "identity_id" ], name: "index_users_on_account_id_and_identity_id", unique: true
+    t.index [ "account_id", "role" ], name: "index_users_on_account_id_and_role"
+    t.index [ "identity_id" ], name: "index_users_on_identity_id"
   end
 
   create_table "votes", force: :cascade do |t|
@@ -204,12 +215,13 @@ ActiveRecord::Schema[8.2].define(version: 2024_05_17_075643) do
   add_foreign_key "ideas", "boards"
   add_foreign_key "ideas", "statuses"
   add_foreign_key "ideas", "users", column: "creator_id"
+  add_foreign_key "identity_connected_accounts", "identities"
   add_foreign_key "invitations", "accounts"
   add_foreign_key "invitations", "users", column: "invited_by_id"
-  add_foreign_key "sessions", "users"
+  add_foreign_key "sessions", "identities"
   add_foreign_key "statuses", "accounts"
   add_foreign_key "users", "accounts"
-  add_foreign_key "user_connected_accounts", "users"
+  add_foreign_key "users", "identities"
   add_foreign_key "votes", "accounts"
   add_foreign_key "votes", "users", column: "voter_id"
 end

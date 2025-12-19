@@ -15,12 +15,15 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
 
   test "new is not permitted when account exist" do
     account = Account.create!(name: "FeedbackBin")
+    identity = Identity.create!(
+      email_address: "new@feedbackbin.com",
+      password: "secret123456"
+    )
     User.create!(
       name: "Test User",
-      email_address: "new@feedbackbin.com",
-      password: "secret123456",
       role: :owner,
-      account: account
+      account: account,
+      identity: identity
     )
 
     get first_run_url
@@ -29,7 +32,7 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "create with all parameters" do
-    assert_difference [ "User.count", "Account.count", "Board.count" ], 1 do
+    assert_difference [ "User.count", "Account.count", "Board.count", "Identity.count" ], 1 do
       assert_difference "Status.count", 4 do
         post first_run_url, params: {
           first_run: {
@@ -49,7 +52,7 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
     user = User.last
     account = Account.last
 
-    assert_equal user.sessions.last.id, parsed_cookies.signed[:session_id]
+    assert_equal user.identity.sessions.last.id, parsed_cookies.signed[:session_id]
     assert_equal "new@feedbackbin.com", user.email_address
 
     assert_equal "Test Account", account.name

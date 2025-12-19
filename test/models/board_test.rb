@@ -72,7 +72,7 @@ class BoardTest < ActiveSupport::TestCase
     Idea.create!(
       title: "Test Idea",
       board: board,
-      creator: users(:one),
+      creator: users(:jane),
       status: statuses(:planned)
     )
 

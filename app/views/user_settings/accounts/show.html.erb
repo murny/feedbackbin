@@ -12,7 +12,7 @@
               <p class="text-sm text-muted-foreground"><%= t(".email_address_hint") %></p>
             </div>
 
-            <%= form_with(model: @user,
+            <%= form_with(model: @identity, scope: :identity,
                   url: user_settings_email_path,
                   method: :patch,
                   data: { controller: "form", action: "keydown.enter->form#submit:prevent" }) do |form| %>
@@ -91,7 +91,7 @@
                     <%= inline_svg_tag "icons/brand/#{provider}.svg", class: "h-5 w-5" %>
                     <div>
                       <span class="text-sm font-medium"><%= OmniAuth::Utils.camelize(provider) %></span>
-                      <% if (connected_account = @user_connected_accounts.find_by(provider_name: provider)) %>
+                      <% if (connected_account = @identity_connected_accounts.find_by(provider_name: provider)) %>
                         <p class="text-xs text-muted-foreground"><%= t(".connected_account_label") %></p>
                       <% else %>
                         <p class="text-xs text-muted-foreground"><%= t(".not_connected") %></p>
@@ -99,7 +99,7 @@
                     </div>
                   </div>
                   <div class="shrink-0">
-                    <% if (connected_account = @user_connected_accounts.find_by(provider_name: provider)) %>
+                    <% if (connected_account = @identity_connected_accounts.find_by(provider_name: provider)) %>
                       <%= button_to t(".disconnect"), user_settings_connected_account_path(connected_account),
                             method: :delete,
                             class: "btn btn-destructive btn-sm",

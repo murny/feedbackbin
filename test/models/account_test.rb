@@ -46,7 +46,7 @@ class AccountTest < ActiveSupport::TestCase
   end
 
   test "owned_by? returns false for non-owner" do
-    other_user = users(:one)
+    other_user = users(:jane)
 
     assert_not @account.owned_by?(other_user)
   end

@@ -19,7 +19,7 @@ module Admin
       end
 
       test "should not get index if not an admin" do
-        sign_in_as users(:two)
+        sign_in_as users(:john)
 
         get admin_settings_statuses_url
 

@@ -31,7 +31,7 @@ module Admin
     end
 
     test "should show user" do
-      user = users(:one)
+      user = users(:jane)
       get admin_user_path(user)
 
       assert_response :success

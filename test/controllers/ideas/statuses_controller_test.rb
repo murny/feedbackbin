@@ -31,7 +31,7 @@ module Ideas
     end
 
     test "should deny non-admin user from updating status" do
-      non_admin = users(:one)
+      non_admin = users(:jane)
       sign_in_as(non_admin)
 
       patch idea_status_path(@idea), params: { status_id: @planned_status.id }

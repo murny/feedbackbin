@@ -49,7 +49,7 @@ end
 ```ruby
 class UsersControllerTest < ActionDispatch::IntegrationTest
   setup do
-    @user = users(:one)
+    @user = users(:jane)
   end
   
   test "should get index" do

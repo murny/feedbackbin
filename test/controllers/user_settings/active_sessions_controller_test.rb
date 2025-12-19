@@ -5,7 +5,7 @@ require "test_helper"
 module UserSettings
   class ActiveSessionsControllerTest < ActionDispatch::IntegrationTest
     setup do
-      @user = users(:one)
+      @user = users(:jane)
       sign_in_as(@user)
     end
 
@@ -16,7 +16,7 @@ module UserSettings
     end
 
     test "should be able to delete session" do
-      session = @user.sessions.create(user_agent: "Test", ip_address: "192.168.1.1")
+      session = @user.identity.sessions.create!(user_agent: "Test", ip_address: "192.168.1.1")
 
       delete user_settings_active_session_url(session)
 

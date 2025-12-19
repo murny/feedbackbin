@@ -6,9 +6,9 @@ class IdeaPolicyTest < ActiveSupport::TestCase
   setup do
     # idea two is owned by user one (who is a regular user)
     @idea = ideas(:two)
-    @idea_owner = users(:one)      # regular user (owner of idea two)
+    @idea_owner = users(:jane)      # regular user (owner of idea two)
     @admin_user = users(:shane)    # admin user
-    @regular_user = users(:two)    # regular member user
+    @regular_user = users(:john)    # regular member user
   end
 
   test "idea index viewable by all" do

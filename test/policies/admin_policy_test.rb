@@ -4,7 +4,7 @@ require "test_helper"
 
 class AdminPolicyTest < ActiveSupport::TestCase
   def setup
-    @regular_user = users(:two)  # member role
+    @regular_user = users(:john)  # member role
     @admin_user = users(:shane)  # admin role
   end
 

@@ -12,9 +12,8 @@ module Users
     end
 
     def create
-      if (user = User.authenticate_by(params.permit(:email_address, :password)))
-        if user.active?
-          start_new_session_for user
+      if (identity = Identity.authenticate_by(params.permit(:email_address, :password)))
+        if start_new_session_for(identity)
           redirect_to after_authentication_url, notice: t(".signed_in_successfully")
         else
           redirect_to sign_in_path, alert: t(".account_deactivated")

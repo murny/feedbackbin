@@ -6,7 +6,7 @@ class VoteableTest < ActiveSupport::TestCase
   # This test is using the Comment model as the test subject for testing the Voteable concern
 
   setup do
-    @user = users(:one)
+    @user = users(:jane)
     @comment = comments(:one)
   end
 

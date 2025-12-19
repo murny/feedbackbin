@@ -11,7 +11,7 @@ module Staff
     end
 
     test "should not get show as non admin user" do
-      sign_in_as users(:one)
+      sign_in_as users(:jane)
 
       get staff_root_url
 

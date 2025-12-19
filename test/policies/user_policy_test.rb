@@ -4,9 +4,9 @@ require "test_helper"
 
 class UserPolicyTest < ActiveSupport::TestCase
   setup do
-    @target_user = users(:one)      # regular user
+    @target_user = users(:jane)      # regular user
     @admin_user = users(:shane)       # admin user
-    @regular_user = users(:two)     # regular member user
+    @regular_user = users(:john)     # regular member user
   end
 
   test "user show viewable by all" do
@@ -37,10 +37,14 @@ class UserPolicyTest < ActiveSupport::TestCase
     # Owner cannot delete themselves
     assert_not_predicate UserPolicy.new(owner, owner), :destroy?
 
+    admin_identity = Identity.create!(
+      email_address: "admin2@feedbackbin.com",
+      password: "password123456"
+    )
     admin = User.create!(
       name: "Admin Two",
-      email_address: "admin2@feedbackbin.com",
-      password: "password123456",
+      identity: admin_identity,
+      account: owner.account,
       role: :admin
     )
 

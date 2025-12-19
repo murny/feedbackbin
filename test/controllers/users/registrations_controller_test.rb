@@ -11,7 +11,7 @@ module Users
     end
 
     test "should sign up" do
-      assert_difference("User.count") do
+      assert_difference [ "User.count", "Identity.count" ] do
         post users_registrations_url, params: { user: {
           name: "New User",
           email_address: "new_user@example.com",
@@ -20,14 +20,14 @@ module Users
         } }
       end
 
-      assert_enqueued_email_with UserMailer, :email_verification, args: [ User.last ]
+      assert_enqueued_email_with IdentityMailer, :email_verification, args: [ Identity.last ]
 
       assert_redirected_to root_url
       assert_equal "Welcome! You have signed up successfully.", flash[:notice]
     end
 
     test "should not sign up with invalid data" do
-      assert_no_difference("User.count") do
+      assert_no_difference [ "User.count", "Identity.count" ] do
         assert_no_enqueued_emails do
           post users_registrations_url, params: { user: {
             name: "Jane Doe",

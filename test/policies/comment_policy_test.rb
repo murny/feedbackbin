@@ -6,9 +6,9 @@ class CommentPolicyTest < ActiveSupport::TestCase
   setup do
     # comment one is owned by user one (who is not an admin)
     @comment = comments(:one)
-    @comment_owner = users(:one)   # regular user (owner of comment one)
+    @comment_owner = users(:jane)   # regular user (owner of comment one)
     @admin_user = users(:shane)      # admin user
-    @regular_user = users(:two)    # regular member user
+    @regular_user = users(:john)    # regular member user
   end
 
   test "comment show viewable by all" do

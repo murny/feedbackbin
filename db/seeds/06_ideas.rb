@@ -9,13 +9,15 @@ feature_requests = Board.find_by!(name: "Feature Requests")
 ui_ux = Board.find_by!(name: "UI/UX Feedback")
 
 # Find users by email
-admin_user = User.find_by!(email_address: "shane.murnaghan@feedbackbin.com")
-jane_user = User.find_by!(email_address: "jane_doe@example.com")
-alex_user = User.find_by!(email_address: "alex.chen@techcorp.com")
-maya_user = User.find_by!(email_address: "maya.patel@designstudio.co")
-carlos_user = User.find_by!(email_address: "carlos.rodriguez@freelance.dev")
-sarah_user = User.find_by!(email_address: "sarah.kim@startup.io")
-david_user = User.find_by!(email_address: "david.thompson@agency.com")
+account = Account.find_by!(name: "FeedbackBin")
+
+admin_user = account.users.identity.find_by!(email_address: "shane.murnaghan@feedbackbin.com")
+jane_user = account.users.identity.find_by!(email_address: "jane_doe@example.com")
+alex_user = account.users.identity.find_by!(email_address: "alex.chen@techcorp.com")
+maya_user = account.users.identity.find_by!(email_address: "maya.patel@designstudio.co")
+carlos_user = account.users.identity.find_by!(email_address: "carlos.rodriguez@freelance.dev")
+sarah_user = account.users.identity.find_by!(email_address: "sarah.kim@startup.io")
+david_user = account.users.identity.find_by!(email_address: "david.thompson@agency.com")
 
 # Disable idea broadcasting to make seeding faster
 Idea.suppressing_turbo_broadcasts do

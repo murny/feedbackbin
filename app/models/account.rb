@@ -25,6 +25,17 @@ class Account < ApplicationRecord
   validates :logo_link, url: { allow_blank: true }
   validates :name, presence: true
 
+  def self.create_with_owner(account:, owner:)
+    create!(**account).tap do |account|
+      account.users.create!(role: :system, name: "System")
+      account.users.create!(**owner.reverse_merge(role: :owner, verified_at: Time.current))
+    end
+  end
+
+  def system_user
+    users.find_by!(role: :system)
+  end
+
   # Check if user is the owner
   def owned_by?(user)
     user&.owner?

@@ -27,12 +27,21 @@ module Authentication
     def resume_session
       Current.session ||= begin
         session = find_session_by_cookie
-        if session&.user&.active?
+        return nil unless session
+
+        # Restore account context first, then set session (which derives identity -> user)
+        if (account_id = cookies.signed[:account_id])
+          Current.account = Account.find_by(id: account_id)
+        end
+
+        # Check if identity has an active user in the current account
+        if Current.account && session.identity.users.active.exists?(account: Current.account)
           session.resume(user_agent: request.user_agent, ip_address: request.remote_ip)
           session
         else
-          # Clear the session cookie if it exists but user is deactivated or session is invalid
-          cookies.delete(:session_id) if session
+          # Clear cookies if session is invalid or user is deactivated
+          cookies.delete(:session_id)
+          cookies.delete(:account_id)
           nil
         end
       end
@@ -51,15 +60,23 @@ module Authentication
       session.delete(:return_to_after_authenticating) || root_path
     end
 
-    def start_new_session_for(user)
-      user.sessions.create!(user_agent: request.user_agent, ip_address: request.remote_ip).tap do |session|
+    def start_new_session_for(identity)
+      # Determine which account to use - for now, use the first active user's account
+      # TODO: If identity has multiple accounts, redirect to account selection
+      user = identity.users.active.first
+      return nil unless user
+
+      Current.account = user.account
+      identity.sessions.create!(user_agent: request.user_agent, ip_address: request.remote_ip).tap do |session|
         Current.session = session
         cookies.signed.permanent[:session_id] = { value: session.id, httponly: true, same_site: :lax }
+        cookies.signed.permanent[:account_id] = { value: user.account_id, httponly: true, same_site: :lax }
       end
     end
 
     def terminate_session
       Current.session.destroy
       cookies.delete(:session_id)
+      cookies.delete(:account_id)
     end
 end

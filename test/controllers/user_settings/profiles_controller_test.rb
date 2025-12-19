@@ -5,7 +5,7 @@ require "test_helper"
 module UserSettings
   class ProfilesControllerTest < ActionDispatch::IntegrationTest
     setup do
-      sign_in_as(users(:one))
+      sign_in_as(users(:jane))
     end
 
     test "should get show" do

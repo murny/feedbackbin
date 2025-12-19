@@ -8,9 +8,11 @@ class User
       def search(query)
         return all if query.blank?
 
-        where(
-          arel_table[:name].matches("%#{sanitize_sql_like(query.to_s)}%")
-          .or(arel_table[:email_address].matches("%#{sanitize_sql_like(query.to_s)}%"))
+        sanitized_query = "%#{sanitize_sql_like(query.to_s)}%"
+
+        left_joins(:identity).where(
+          arel_table[:name].matches(sanitized_query)
+          .or(Identity.arel_table[:email_address].matches(sanitized_query))
         )
       end
     end

@@ -40,18 +40,20 @@ class InvitationTest < ActiveSupport::TestCase
   end
 
   test "#accept!" do
-    user = User.create!(
+    identity = Identity.create!(
       email_address: @invitation.email,
+      password: "password1234"
+    )
+    user = User.create!(
       name: @invitation.name,
-      password: "password123",
-      password_confirmation: "password123"
+      identity: identity
     )
 
     assert_difference "Invitation.count", -1 do
       @invitation.accept!(user)
     end
 
-    assert_predicate user.reload, :email_verified?
+    assert_predicate user.identity.reload, :email_verified?
   end
 
   test "#reject!" do

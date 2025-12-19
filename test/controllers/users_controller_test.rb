@@ -4,16 +4,16 @@ require "test_helper"
 
 class UsersControllerTest < ActionDispatch::IntegrationTest
   test "should get show" do
-    get user_url(users(:one))
+    get user_url(users(:jane))
 
     assert_response :success
   end
 
   test "should be able to delete user" do
-    sign_in_as(users(:one))
+    sign_in_as(users(:jane))
 
     assert_difference("User.count", -1) do
-      delete user_url(users(:one))
+      delete user_url(users(:jane))
     end
 
     assert_redirected_to root_url

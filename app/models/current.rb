@@ -1,17 +1,34 @@
 # frozen_string_literal: true
 
 class Current < ActiveSupport::CurrentAttributes
-  attribute :session
-  attribute :account
+  attribute :session, :user, :identity, :account
   attribute :http_method, :request_id, :user_agent, :ip_address, :referrer
 
-  delegate :user, to: :session, allow_nil: true
+  def session=(value)
+    super(value)
 
-  def account
-    Account.first
+    if value.present?
+      self.identity = session.identity
+    end
+  end
+
+  def identity=(identity)
+    super(identity)
+
+    if identity.present?
+      self.user = identity.users.find_by(account: account)
+    end
+  end
+
+  def with_account(value, &)
+    with(account: value, &)
+  end
+
+  def without_account(&)
+    with(account: nil, &)
   end
 
   def admin?
-    !!user&.admin?
+    user&.admin? || user&.owner?
   end
 end
