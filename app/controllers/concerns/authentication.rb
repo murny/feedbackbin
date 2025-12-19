@@ -61,17 +61,14 @@ module Authentication
     end
 
     def start_new_session_for(identity)
-      # Determine which account to use - for now, use the first active user's account
-      # TODO: If identity has multiple accounts, redirect to account selection
-      user = identity.users.active.first
-      return nil unless user
-
-      Current.account = user.account
       identity.sessions.create!(user_agent: request.user_agent, ip_address: request.remote_ip).tap do |session|
-        Current.session = session
-        cookies.signed.permanent[:session_id] = { value: session.id, httponly: true, same_site: :lax }
-        cookies.signed.permanent[:account_id] = { value: user.account_id, httponly: true, same_site: :lax }
+        set_current_session session
       end
+    end
+
+    def set_current_session(session)
+      Current.session = session
+      cookies.signed.permanent[:session_id] = { value: session.id, httponly: true, same_site: :lax }
     end
 
     def terminate_session

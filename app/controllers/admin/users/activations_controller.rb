@@ -26,17 +26,10 @@ module Admin
       # DELETE /admin/users/:user_id/activation
       def destroy
         @user.deactivate
+
         respond_to do |format|
           format.html { redirect_to admin_user_path(@user), notice: t(".success") }
           format.turbo_stream { flash.now[:notice] = t(".success") }
-        end
-      rescue ActiveRecord::RecordInvalid
-        respond_to do |format|
-          format.html { redirect_to admin_user_path(@user), alert: @user.errors.full_messages.to_sentence }
-          format.turbo_stream do
-            flash.now[:alert] = @user.errors.full_messages.to_sentence
-            render :destroy, status: :unprocessable_entity
-          end
         end
       end
 
