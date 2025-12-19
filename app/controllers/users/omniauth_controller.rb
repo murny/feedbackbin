@@ -60,23 +60,20 @@ module Users
 
       def create_identity_and_user
         # We've never seen this identity before, so let's sign them up
-        ActiveRecord::Base.transaction do
-          identity = Identity.new(identity_params)
-          identity.identity_connected_accounts.build(identity_connected_account_params)
+        identity = Identity.new(identity_params)
+        identity.identity_connected_accounts.build(identity_connected_account_params)
 
-          if identity.save
-            # Set account context for self-registration via OAuth
-            Current.account = Account.first
-            user = User.create!(user_params.merge(identity: identity))
-            start_new_session_for(identity)
-            redirect_to after_authentication_url, notice: t("users.omniauth.create.signed_in_successfully")
-          else
-            # Identity couldn't be saved for some reason, redirect to registration
-            redirect_to sign_up_path(user: {
-              email_address: auth.info.email,
-              name: name_creator(auth.info)
-            }), alert: t("users.omniauth.create.finish_registration")
-          end
+        user = User.new(user_params.merge(identity: identity))
+
+        if identity.save && user.save
+          start_new_session_for(identity)
+          redirect_to after_authentication_url, notice: t("users.omniauth.create.signed_in_successfully")
+        else
+          # Identity or User couldn't be saved for some reason, redirect to registration
+          redirect_to sign_up_path(user: {
+            email_address: auth.info.email,
+            name: name_creator(auth.info)
+          }), alert: t("users.omniauth.create.finish_registration")
         end
       end
 
