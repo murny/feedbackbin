@@ -4,7 +4,6 @@ require "application_system_test_case"
 
 class PasswordResetsTest < ApplicationSystemTestCase
   setup do
-    @user = users(:shane)
     @identity = identities(:shane)
   end
 
