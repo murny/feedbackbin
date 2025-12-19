@@ -40,7 +40,7 @@ module Users
 
       user = User.last
 
-      assert_equal "harrypotter@hogwarts.com", user.email_address
+      assert_equal "harrypotter@hogwarts.com", user.identity.email_address
       assert_equal "Harry Potter", user.name
       assert_equal "developer", user.identity.identity_connected_accounts.last.provider_name
       assert_equal "12345", user.identity.identity_connected_accounts.last.provider_uid
@@ -55,7 +55,7 @@ module Users
         provider: "developer",
         uid: "54321",
         info: {
-          email: user.email_address
+          email: user.identity.email_address
         }
       )
 
@@ -77,7 +77,7 @@ module Users
         provider: "developer",
         uid: "11111",
         info: {
-          email: user.email_address
+          email: user.identity.email_address
         }
       )
 

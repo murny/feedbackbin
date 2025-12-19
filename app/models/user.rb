@@ -7,8 +7,6 @@ class User < ApplicationRecord
   include Searchable
   include Role
 
-  delegate :staff?, :email_address, :email_verified?, to: :identity, allow_nil: true
-
   scope :active, -> { where(active: true) }
   scope :deactivated, -> { where(active: false) }
   scope :filtered_by, ->(query) { where("name like ?", "%#{query}%") }

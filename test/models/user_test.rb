@@ -48,10 +48,11 @@ class UserTest < ActiveSupport::TestCase
   test "cannot deactivate account owner" do
     owner = users(:shane)
 
-    assert_raises ActiveRecord::RecordInvalid, "account owner cannot be deactivated" do
+    error = assert_raises ActiveRecord::RecordInvalid do
       owner.deactivate
     end
 
+    assert_equal "Validation failed: Active account owner cannot be deactivated", error.message
     assert_predicate owner.reload, :active?
   end
 

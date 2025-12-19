@@ -22,7 +22,7 @@
                   <%= form.email_field :email_address, required: true, autocomplete: "email", placeholder: t(".email_address_placeholder"), class: "w-full" %>
                   <div class="flex items-center justify-between">
                     <p class="text-xs text-muted-foreground"><%= t(".email_address_hint") %></p>
-                    <% if @user.email_verified? %>
+                    <% if @user.identity.email_verified? %>
                       <div class="flex items-center gap-1 text-green-600">
                         <%= lucide_icon "circle-check", class: "h-4 w-4" %>
                         <span class="text-xs font-medium"><%= t(".verified") %></span>
@@ -49,7 +49,7 @@
           </div>
         </div>
 
-        <% unless @user.email_verified? %>
+        <% unless @user.identity.email_verified? %>
           <%# Email Verification Warning %>
           <div class="card p-6 border-yellow-200 bg-yellow-50 dark:bg-yellow-900/20 dark:border-yellow-800">
             <div class="flex">
