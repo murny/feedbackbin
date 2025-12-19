@@ -1,0 +1,73 @@
+{
+  "ignored_warnings": [
+    {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "423d048c9b2a867b501bea1e5d38e7b106540162f1f4d3e4eb86f4d6cba84e12",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/views/admin/users/show.html.erb",
+      "line": 22,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(action => Elements::ButtonComponent.new(:href => user_path(User.with_attached_avatar.includes(:identity).find(params.expect(:id))), :variant => :outline), { :locals => ({ :\"elements::buttoncomponent\" => Elements::ButtonComponent.new(:href => user_path(User.with_attached_avatar.includes(:identity).find(params.expect(:id))), :variant => :outline) }) })",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Admin::UsersController",
+          "method": "show",
+          "line": 40,
+          "file": "app/controllers/admin/users_controller.rb",
+          "rendered": {
+            "name": "admin/users/show",
+            "file": "app/views/admin/users/show.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "admin/users/show"
+      },
+      "user_input": "params.expect(:id)",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
+      "fingerprint": "fe8063803bbdd3ea1a3d5a2718c1f0206e2e2c535d41db204a90a87a883f6b1c",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/views/admin/users/show.html.erb",
+      "line": 39,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(action => Elements::AvatarComponent.new(:src => (if User.with_attached_avatar.includes(:identity).find(params.expect(:id)).avatar.attached? then\n  url_for(User.with_attached_avatar.includes(:identity).find(params.expect(:id)).avatar)\nelse\n  nil\nend), :alt => User.with_attached_avatar.includes(:identity).find(params.expect(:id)).name, :size => :xl, :fallback => User.with_attached_avatar.includes(:identity).find(params.expect(:id)).name[0, 2].upcase), { :locals => ({ :\"elements::avatarcomponent\" => Elements::AvatarComponent.new(:src => (if User.with_attached_avatar.includes(:identity).find(params.expect(:id)).avatar.attached? then\n  url_for(User.with_attached_avatar.includes(:identity).find(params.expect(:id)).avatar)\nelse\n  nil\nend), :alt => User.with_attached_avatar.includes(:identity).find(params.expect(:id)).name, :size => :xl, :fallback => User.with_attached_avatar.includes(:identity).find(params.expect(:id)).name[0, 2].upcase) }) })",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "Admin::UsersController",
+          "method": "show",
+          "line": 40,
+          "file": "app/controllers/admin/users_controller.rb",
+          "rendered": {
+            "name": "admin/users/show",
+            "file": "app/views/admin/users/show.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "admin/users/show"
+      },
+      "user_input": "params.expect(:id)",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": ""
+    }
+  ],
+  "brakeman_version": "7.1.1"
+}
