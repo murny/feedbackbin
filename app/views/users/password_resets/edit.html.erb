@@ -22,8 +22,8 @@
                                     autofocus: true,
                                     autocomplete: "new-password",
                                     placeholder: t(".new_password_placeholder"),
-                                    minlength: Identity::MIN_PASSWORD_LENGTH_ALLOWED,
-                                    maxlength: Identity::MAX_PASSWORD_LENGTH_ALLOWED %>
+                                    minlength: Identity::MIN_PASSWORD_LENGTH,
+                                    maxlength: Identity::MAX_PASSWORD_LENGTH %>
           </div>
 
           <div class="grid gap-3">
@@ -32,8 +32,8 @@
                                     required: true,
                                     autocomplete: "new-password",
                                     placeholder: t(".confirm_new_password_placeholder"),
-                                    minlength: Identity::MIN_PASSWORD_LENGTH_ALLOWED,
-                                    maxlength: Identity::MAX_PASSWORD_LENGTH_ALLOWED %>
+                                    minlength: Identity::MIN_PASSWORD_LENGTH,
+                                    maxlength: Identity::MAX_PASSWORD_LENGTH %>
           </div>
 
           <%= form.submit t(".update_password"), class: "btn w-full" %>

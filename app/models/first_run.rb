@@ -22,7 +22,7 @@ class FirstRun
   # User validations
   validates :name, presence: true
   validates :email_address, presence: true, format: { with: URI::MailTo::EMAIL_REGEXP }
-  validates :password, presence: true, length: { minimum: Identity::MIN_PASSWORD_LENGTH_ALLOWED, maximum: Identity::MAX_PASSWORD_LENGTH_ALLOWED }
+  validates :password, presence: true, length: { minimum: Identity::MIN_PASSWORD_LENGTH, maximum: Identity::MAX_PASSWORD_LENGTH }
 
   # Account validations
   validates :account_name, presence: true
