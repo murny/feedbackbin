@@ -40,7 +40,7 @@
                     <p><%= t(".voted") %> <%= local_datetime_tag vote.created_at, style: :relative %></p>
                   </div>
                   <p class="mt-2 text-muted-foreground text-sm">
-                    <%= truncate(strip_tags(vote.voteable.body.to_s), length: 140) %>
+                    <%= truncate(strip_tags(vote.voteable.content_text.to_s), length: 140) %>
                   </p>
                 </div>
               </div>

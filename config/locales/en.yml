@@ -455,7 +455,7 @@ en:
     edit:
       title: Edit Idea
     form:
-      body_placeholder: Add your description here...
+      description_placeholder: Add your description here...
       title_placeholder: Add a title
     idea:
       pinned: Pinned

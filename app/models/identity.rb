@@ -2,7 +2,7 @@
 
 class Identity < ApplicationRecord
   MIN_PASSWORD_LENGTH_ALLOWED = 10
-  MAX_PASSWORD_LENGTH_ALLOWED = 72 # Comes from User::BCryptPassword::MAX_PASSWORD_LENGTH_ALLOWED
+  MAX_PASSWORD_LENGTH_ALLOWED = 72
 
   include Joinable, Transferable
 

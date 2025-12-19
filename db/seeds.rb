@@ -54,12 +54,27 @@ else
     Current.session = user.identity.sessions.create
   end
 
-  def create_board(name, creator: Current.user)
-    Board.find_or_create_by!(name:, creator:)
+  def create_board(name, color: "#6366f1", creator: Current.user)
+    Board.find_or_create_by!(name:) do |board|
+      board.color = color
+      board.creator = creator
+    end
   end
 
   def create_idea(title, board:, description: nil, creator: Current.user)
     board.ideas.create!(title:, description:, creator:)
+  end
+
+  def create_comment(idea, body, creator: Current.user)
+    idea.comments.create!(body:, creator:)
+  end
+
+  def create_reply(comment, body, creator: Current.user)
+    comment.replies.create!(body:, idea: comment.idea, creator:)
+  end
+
+  def upvote(voteable, voter: Current.user)
+    voteable.votes.find_or_create_by!(voter:)
   end
 
   puts "🌱 Seeding accounts..."

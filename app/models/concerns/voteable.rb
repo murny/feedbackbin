@@ -19,4 +19,9 @@ module Voteable
   def unvote(voter)
     votes.where(voter: voter).destroy_all
   end
+
+  # Returns the main content text for display (description for Ideas, body for Comments)
+  def content_text
+    respond_to?(:description) ? description : body
+  end
 end
