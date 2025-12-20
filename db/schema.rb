@@ -10,10 +10,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.2].define(version: 2024_05_17_075643) do
+ActiveRecord::Schema[8.2].define(version: 2025_12_20_003343) do
   create_table "accounts", force: :cascade do |t|
     t.datetime "created_at", null: false
-    t.bigint "external_account_id"
+    t.bigint "external_account_id", null: false
     t.string "logo_link"
     t.string "name", null: false
     t.boolean "show_company_name", default: true, null: false
@@ -185,9 +185,9 @@ ActiveRecord::Schema[8.2].define(version: 2024_05_17_075643) do
     t.string "time_zone"
     t.datetime "updated_at", null: false
     t.datetime "verified_at"
-    t.index [ "account_id", "identity_id" ], name: "index_users_on_account_id_and_identity_id", unique: true
-    t.index [ "account_id", "role" ], name: "index_users_on_account_id_and_role"
-    t.index [ "identity_id" ], name: "index_users_on_identity_id"
+    t.index ["account_id", "identity_id"], name: "index_users_on_account_id_and_identity_id", unique: true
+    t.index ["account_id", "role"], name: "index_users_on_account_id_and_role"
+    t.index ["identity_id"], name: "index_users_on_identity_id"
   end
 
   create_table "votes", force: :cascade do |t|

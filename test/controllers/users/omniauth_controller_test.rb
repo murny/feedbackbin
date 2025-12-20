@@ -6,17 +6,21 @@ module Users
   class OmniauthControllerTest < ActionDispatch::IntegrationTest
     setup do
       OmniAuth.config.test_mode = true
+      # Omniauth controller uses disallow_account_scope
+      integration_session.default_url_options[:script_name] = ""
     end
 
     test "should handle previously connected identity account" do
       identity_connected_account = identity_connected_accounts(:shane_google)
+      user = identity_connected_account.identity.users.first
 
       OmniAuth.config.add_mock(:google, uid: identity_connected_account.provider_uid,
         info: { email: "shane.murnaghan@feedbackbin.com", name: "Shane Murnaghan", nickname: "murny" })
 
       get "/auth/google/callback"
 
-      assert_redirected_to root_path
+      # After login, redirects to user's account
+      assert_redirected_to root_url(script_name: user.account.slug)
       assert_equal "You have signed in successfully.", flash[:notice]
     end
 
@@ -32,13 +36,14 @@ module Users
       assert_difference "IdentityConnectedAccount.count" do
         assert_difference [ "User.count", "Identity.count" ] do
           get "/auth/developer/callback"
-
-          assert_redirected_to root_path
-          assert_equal "You have signed in successfully.", flash[:notice]
         end
       end
 
       user = User.last
+
+      # After registration/login, redirects to user's account
+      assert_redirected_to root_url(script_name: user.account.slug)
+      assert_equal "You have signed in successfully.", flash[:notice]
 
       assert_equal "harrypotter@hogwarts.com", user.identity.email_address
       assert_equal "Harry Potter", user.name
@@ -50,6 +55,8 @@ module Users
       user = users(:shane)
 
       sign_in_as user
+      # After sign_in_as, set script_name back to empty for disallow_account_scope controller
+      integration_session.default_url_options[:script_name] = ""
 
       OmniAuth.config.mock_auth[:developer] = OmniAuth::AuthHash.new(
         provider: "developer",
@@ -62,7 +69,7 @@ module Users
       assert_difference "IdentityConnectedAccount.count" do
         get "/auth/developer/callback"
 
-        assert_redirected_to user_settings_account_url
+        assert_redirected_to user_settings_account_url(script_name: user.account.slug)
         assert_equal "You have connected your developer account successfully.", flash[:notice]
       end
 
@@ -84,7 +91,8 @@ module Users
       assert_difference "IdentityConnectedAccount.count" do
         get "/auth/developer/callback"
 
-        assert_redirected_to root_path
+        # After login, redirects to user's account
+        assert_redirected_to root_url(script_name: user.account.slug)
         assert_equal "You have signed in successfully.", flash[:notice]
       end
 
@@ -100,6 +108,9 @@ module Users
       assert_not_equal connected_account.identity, user.identity
 
       sign_in_as user
+      # After sign_in_as, set script_name back to empty for disallow_account_scope controller
+      integration_session.default_url_options[:script_name] = ""
+
       OmniAuth.config.add_mock(
         :google,
         uid: connected_account.provider_uid,
@@ -110,7 +121,8 @@ module Users
         get "/auth/google/callback"
       end
 
-      assert_redirected_to root_path
+      # Redirects to user's account even on error
+      assert_redirected_to root_url(script_name: user.account.slug)
       assert_equal "This google account is already connected to another account.", flash[:alert]
     end
 
@@ -119,6 +131,8 @@ module Users
       user = connected_account.identity.users.first
 
       sign_in_as user
+      # After sign_in_as, set script_name back to empty for disallow_account_scope controller
+      integration_session.default_url_options[:script_name] = ""
 
       OmniAuth.config.add_mock(
         :google,
@@ -128,7 +142,7 @@ module Users
 
       get "/auth/google/callback"
 
-      assert_redirected_to user_settings_account_path
+      assert_redirected_to user_settings_account_url(script_name: user.account.slug)
       assert_equal "This google account is already connected to your account.", flash[:notice]
     end
 

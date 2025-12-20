@@ -8,6 +8,9 @@ require_relative "../config/environment"
 require "rails/test_help"
 require "minitest/mock"
 
+# Load support files
+Dir[Rails.root.join("test/support/**/*.rb")].each { |f| require f }
+
 module ActiveSupport
   class TestCase
     # Run tests in parallel with specified workers
@@ -36,5 +39,41 @@ module ActiveSupport
     teardown do
       Current.clear_all
     end
+
+    # Helper to get the script_name for current account
+    def account_script_name
+      Current.account&.slug || ""
+    end
+  end
+end
+
+class ActionDispatch::IntegrationTest
+  # Set up integration session with account script_name for URL generation and routing
+  setup do
+    if Current.account.present?
+      integration_session.default_url_options[:script_name] = Current.account.slug
+    end
+  end
+
+  # Helper for making requests with account scope
+  def with_account(account)
+    original_account = Current.account
+    Current.account = account
+    integration_session.default_url_options[:script_name] = account&.slug || ""
+    yield
+  ensure
+    Current.account = original_account
+    integration_session.default_url_options[:script_name] = original_account&.slug || ""
+  end
+
+  # Helper for making requests without account scope
+  def without_account
+    original_account = Current.account
+    Current.account = nil
+    integration_session.default_url_options[:script_name] = ""
+    yield
+  ensure
+    Current.account = original_account
+    integration_session.default_url_options[:script_name] = original_account&.slug || ""
   end
 end

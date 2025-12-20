@@ -3,6 +3,18 @@
 require "test_helper"
 
 class IdeasSortHelperTest < ActionView::TestCase
+  setup do
+    @account = accounts(:feedbackbin)
+    Current.account = @account
+    # Set controller default_url_options for account scope
+    @controller.class.default_url_options[:script_name] = @account.slug
+  end
+
+  teardown do
+    Current.reset
+    @controller.class.default_url_options.delete(:script_name)
+  end
+
   test "sort_active_state returns true for latest when no sort params" do
     test_params = ActionController::Parameters.new({ direction: nil })
 
@@ -59,7 +71,7 @@ class IdeasSortHelperTest < ActionView::TestCase
 
     link = ideas_sort_link(text: "Latest", sort_field: "created_at", direction: "desc", params: test_params, path_helper: :roadmap_path)
 
-    assert_includes link, 'href="/roadmap?direction=desc&amp;sort=created_at"'
+    assert_includes link, "href=\"#{@account.slug}/roadmap?direction=desc&amp;sort=created_at\""
     assert_includes link, "Latest"
   end
 
@@ -71,7 +83,7 @@ class IdeasSortHelperTest < ActionView::TestCase
 
     link = ideas_sort_link(text: "Latest", sort_field: "created_at", direction: "desc", params: test_params)
 
-    assert_includes link, 'href="/ideas?direction=desc&amp;sort=created_at"'
+    assert_includes link, "href=\"#{@account.slug}/ideas?direction=desc&amp;sort=created_at\""
     assert_includes link, "Latest"
   end
 

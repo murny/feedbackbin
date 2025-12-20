@@ -26,7 +26,7 @@ module SetLocale
     end
 
     def locale_from_user
-      return unless authenticated?
+      return unless authenticated? && Current.user.present?
       permit_locale(Current.user.preferred_language)
     end
 

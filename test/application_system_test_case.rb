@@ -17,4 +17,9 @@ class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
   else
     driven_by :selenium, using: :headless_chrome, screen_size: [ 1400, 1400 ]
   end
+
+  # Default account for system tests
+  def default_account
+    @default_account ||= accounts(:feedbackbin)
+  end
 end

@@ -6,6 +6,8 @@ module Users
   class SessionsControllerTest < ActionDispatch::IntegrationTest
     setup do
       @user = users(:shane)
+      # Sessions controller uses disallow_account_scope - test without account prefix
+      integration_session.default_url_options[:script_name] = ""
     end
 
     test "should get new" do
@@ -25,7 +27,8 @@ module Users
     test "should sign in" do
       post users_session_url, params: { email_address: @user.identity.email_address, password: "secret123456" }
 
-      assert_redirected_to root_url
+      # After sign in, redirects to user's first account
+      assert_redirected_to root_url(script_name: @user.account.slug)
       assert_equal "You have signed in successfully.", flash[:notice]
       assert cookies[:session_id]
     end

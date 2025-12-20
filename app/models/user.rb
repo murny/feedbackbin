@@ -1,11 +1,7 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  include Avatar
-  include Mentionable
-  include Named
-  include Searchable
-  include Role
+  include Avatar, Mentionable, Named, Role, Searchable
 
   scope :active, -> { where(active: true) }
   scope :deactivated, -> { where(active: false) }

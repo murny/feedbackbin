@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class FirstRunsController < ApplicationController
+  disallow_account_scope
   allow_unauthenticated_access
   skip_before_action :ensure_first_run_completed
   skip_after_action :verify_authorized
@@ -14,7 +15,7 @@ class FirstRunsController < ApplicationController
   def create
     @first_run = FirstRun.new(first_run_params).save!
     start_new_session_for @first_run.identity
-    redirect_to root_path, notice: t(".account_created")
+    redirect_to root_url(script_name: @first_run.account.slug), notice: t(".account_created")
   rescue ActiveModel::ValidationError => e
     @first_run = e.model
     render :show, status: :unprocessable_entity
@@ -23,7 +24,10 @@ class FirstRunsController < ApplicationController
   private
 
     def prevent_repeats
-      redirect_to root_path if Account.any?
+      if Account.any?
+        account = Account.first
+        redirect_to root_url(script_name: account.slug)
+      end
     end
 
     def first_run_params

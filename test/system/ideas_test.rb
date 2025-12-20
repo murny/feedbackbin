@@ -3,12 +3,13 @@
 require "application_system_test_case"
 
 class IdeasTest < ApplicationSystemTestCase
-  # setup do
-  #   @idea = ideas(:one)
-  # end
+  setup do
+    @account = accounts(:feedbackbin)
+  end
 
   test "visiting the index" do
-    visit root_url
+    # Visit account-scoped root URL
+    visit root_url(script_name: @account.slug)
 
     assert_selector "a", text: "New Idea"
   end

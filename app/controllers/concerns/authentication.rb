@@ -9,15 +9,23 @@ module Authentication
   end
 
   class_methods do
+    # Allow both authenticated and unauthenticated access
     def allow_unauthenticated_access(**options)
       skip_before_action :require_authentication, **options
+      before_action :resume_session, **options
+    end
+
+    # Only allow unauthenticated access - redirect authenticated users away
+    def require_unauthenticated_access(**options)
+      allow_unauthenticated_access(**options)
+      before_action :redirect_authenticated_user, **options
     end
   end
 
   private
 
     def authenticated?
-      resume_session
+      Current.session.present?
     end
 
     def require_authentication
@@ -29,15 +37,13 @@ module Authentication
         session = find_session_by_cookie
         return nil unless session
 
-        # Check if identity has an active user in the current account
-        if session.identity.users.active.exists?(account: Current.account)
-          session.resume(user_agent: request.user_agent, ip_address: request.remote_ip)
-          session
-        else
-          cookies.delete(:session_id)
-          nil
-        end
+        session.resume(user_agent: request.user_agent, ip_address: request.remote_ip)
+        session
       end
+    end
+
+    def redirect_authenticated_user
+      redirect_to after_authentication_url if authenticated?
     end
 
     def find_session_by_cookie
@@ -50,7 +56,16 @@ module Authentication
     end
 
     def after_authentication_url
-      session.delete(:return_to_after_authenticating) || root_path
+      url = session.delete(:return_to_after_authenticating)
+      return url if url.present?
+
+      # Redirect to user's first accessible account
+      if Current.identity.present?
+        user = Current.identity.users.active.first
+        return root_url(script_name: user.account.slug) if user
+      end
+
+      root_path
     end
 
     def start_new_session_for(identity)
