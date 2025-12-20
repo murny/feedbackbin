@@ -2,6 +2,7 @@
 layout: default
 title: "Open-source customer feedback management platform"
 description: "Collect, organize, and act on user feedback to build better products. Self-hosted and fully customizable."
+image: /assets/images/feedbackbin-logo.png
 ---
 
 <section class="hero">
@@ -23,7 +24,7 @@ description: "Collect, organize, and act on user feedback to build better produc
         </a>
         <a href="https://discord.gg/haaK7FCZB6" class="btn btn-secondary btn-lg">
           Join Discord
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 1rem; height: 1rem;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon">
             <path d="m9 18 6-6-6-6"/>
           </svg>
         </a>
@@ -34,8 +35,8 @@ description: "Collect, organize, and act on user feedback to build better produc
       <div class="screenshot-wallpaper">
         <div class="screenshot-noise"></div>
         <div class="screenshot-frame">
-          <img src="{{ "/assets/images/placeholder-application.png" | relative_url }}" alt="FeedbackBin Dashboard" loading="lazy" class="screenshot-light">
-          <img src="{{ "/assets/images/placeholder-application-dark.png" | relative_url }}" alt="FeedbackBin Dashboard" loading="lazy" class="screenshot-dark">
+          <img src="{{ "/assets/images/placeholder-application.webp" | relative_url }}" alt="FeedbackBin Dashboard" loading="lazy" class="screenshot-light">
+          <img src="{{ "/assets/images/placeholder-application-dark.webp" | relative_url }}" alt="FeedbackBin Dashboard" loading="lazy" class="screenshot-dark">
         </div>
       </div>
     </div>
@@ -192,7 +193,7 @@ description: "Collect, organize, and act on user feedback to build better produc
         </a>
         <a href="https://discord.gg/haaK7FCZB6" class="btn btn-secondary btn-lg">
           Join Discord
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 1rem; height: 1rem;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="icon">
             <path d="m9 18 6-6-6-6"/>
           </svg>
         </a>

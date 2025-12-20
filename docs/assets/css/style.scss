@@ -891,3 +891,27 @@ section {
 .page-content li {
   margin-bottom: 0.5rem;
 }
+
+/* Error/404 page styles */
+.error-hero {
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+}
+
+.error-code {
+  font-size: 5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  opacity: 0.2;
+}
+
+.error-title {
+  font-size: 2rem;
+}
+
+/* Icon utility classes */
+.icon {
+  width: 1rem;
+  height: 1rem;
+}
