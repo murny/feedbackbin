@@ -1,24 +1,26 @@
 ---
 permalink: /404.html
 layout: default
+title: Page not found
+description: "Page not found. The page you're looking for doesn't exist or has been moved. Return to the homepage to continue browsing."
 ---
 
-<div class="min-h-dvh flex items-center justify-center py-16">
-  <div class="container text-center">
-    <div class="max-w-2xl mx-auto">
-      <h1 class="text-2xl font-semibold mb-4">Page not found</h1>
-      <span class="text-8xl font-bold text-primary mb-8 block">404</span>
-      <p class="text-muted-foreground text-lg mb-8">
-        The requested page could not be found.
+<section class="hero error-hero">
+  <div class="container">
+    <div class="hero-content">
+      <p class="error-code">404</p>
+      <h1 class="error-title">Page not found</h1>
+      <p class="hero-subtitle">
+        The page you're looking for doesn't exist or has been moved.
       </p>
-      <div class="flex justify-center gap-4">
-        <a href="{{ "/" | relative_url }}" class="btn btn-primary">
-          Go Home
+      <div class="hero-cta">
+        <a href="{{ "/" | relative_url }}" class="btn btn-primary btn-lg">
+          Go home
         </a>
-        <a href="{{ "/docs" | relative_url }}" class="btn btn-secondary">
-          View Documentation
+        <a href="https://github.com/{{ site.github_repository }}" class="btn btn-secondary btn-lg">
+          View on GitHub
         </a>
       </div>
     </div>
   </div>
-</div>
+</section>
