@@ -7,16 +7,12 @@ module SessionTestHelper
 
   def sign_in_as(user)
     Current.session = user.identity.sessions.create!
-
-    ActionDispatch::TestRequest.create.cookie_jar.tap do |cookie_jar|
-      cookie_jar.signed[:session_id] = Current.session.id
-      cookies[:session_id] = cookie_jar[:session_id]
-    end
+    cookies[:session_token] = Current.session.signed_id
   end
 
   def sign_out
     Current.session&.destroy!
     Current.reset
-    cookies.delete(:session_id)
+    cookies.delete(:session_token)
   end
 end

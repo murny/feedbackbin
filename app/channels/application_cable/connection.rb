@@ -18,7 +18,7 @@ module ApplicationCable
       end
 
       def find_session_by_cookie
-        Session.find_by(id: cookies.signed[:session_id])
+        Session.find_signed(cookies[:session_token])
       end
   end
 end

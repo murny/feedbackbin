@@ -30,7 +30,7 @@ module Users
       # After sign in, redirects to user's first account
       assert_redirected_to root_url(script_name: @user.account.slug)
       assert_equal "You have signed in successfully.", flash[:notice]
-      assert cookies[:session_id]
+      assert cookies[:session_token]
     end
 
     test "should not sign in with wrong credentials" do
@@ -38,7 +38,7 @@ module Users
 
       assert_redirected_to sign_in_url
       assert_equal "Try another email address or password.", flash[:alert]
-      assert_nil cookies[:session_id]
+      assert_nil cookies[:session_token]
     end
 
     test "should not sign in when account is deactivated" do
@@ -50,7 +50,7 @@ module Users
 
       assert_redirected_to sign_in_url
       assert_equal "Your account has been deactivated. Please contact support for assistance.", flash[:alert]
-      assert_nil cookies[:session_id]
+      assert_nil cookies[:session_token]
     end
 
     test "should sign out" do
@@ -60,7 +60,7 @@ module Users
 
       assert_redirected_to sign_in_url
       assert_equal "You have signed out successfully.", flash[:notice]
-      assert_empty cookies[:session_id]
+      assert_empty cookies[:session_token]
     end
   end
 end
