@@ -5,6 +5,8 @@ module Authentication
 
   included do
     before_action :require_authentication
+    before_action :require_account
+
     helper_method :authenticated?
   end
 
@@ -20,6 +22,13 @@ module Authentication
       allow_unauthenticated_access(**options)
       before_action :redirect_authenticated_user, **options
     end
+
+    # Skip account requirement for controllers/actions that work without account scope
+    # Used for auth pages (sign_in, sign_up, etc.) that should work globally
+    def disallow_account_scope(**options)
+      skip_before_action :require_account, **options
+      before_action :redirect_if_account_scope, **options
+    end
   end
 
   private
@@ -27,6 +36,8 @@ module Authentication
     def authenticated?
       Current.session.present?
     end
+
+    # Authentication
 
     def require_authentication
       resume_session || request_authentication
@@ -42,10 +53,6 @@ module Authentication
       end
     end
 
-    def redirect_authenticated_user
-      redirect_to after_authentication_url if authenticated?
-    end
-
     def find_session_by_cookie
       Session.find_signed(cookies[:session_token])
     end
@@ -55,18 +62,31 @@ module Authentication
       redirect_to sign_in_path
     end
 
-    def after_authentication_url
-      url = session.delete(:return_to_after_authenticating)
-      return url if url.present?
-
-      # Redirect to user's first accessible account
-      if Current.identity.present?
-        user = Current.identity.users.active.first
-        return root_url(script_name: user.account.slug) if user
-      end
-
-      root_path
+    def redirect_authenticated_user
+      redirect_to after_authentication_url if authenticated?
     end
+
+    # Account scoping
+
+    def require_account
+      redirect_to_account_selection unless Current.account.present?
+    end
+
+    def redirect_if_account_scope
+      return unless Current.account.present?
+
+      redirect_to url_for(script_name: nil), allow_other_host: true
+    end
+
+    def redirect_to_account_selection
+      if (url = default_account_url)
+        redirect_to url, allow_other_host: true
+      else
+        redirect_to sign_in_path(script_name: nil), allow_other_host: true
+      end
+    end
+
+    # Session management
 
     def start_new_session_for(identity)
       identity.sessions.create!(user_agent: request.user_agent, ip_address: request.remote_ip).tap do |session|
@@ -82,5 +102,18 @@ module Authentication
     def terminate_session
       Current.session.destroy
       cookies.delete(:session_token)
+    end
+
+    # URL helpers
+
+    def after_authentication_url
+      session.delete(:return_to_after_authenticating) || default_account_url || root_path
+    end
+
+    def default_account_url
+      return nil unless Current.identity.present?
+
+      user = Current.identity.users.active.first
+      root_url(script_name: user.account.slug) if user
     end
 end
