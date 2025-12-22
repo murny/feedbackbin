@@ -44,7 +44,7 @@ module AccountSlug
           # Rewrite SCRIPT_NAME and PATH_INFO for Rails routing
           env["SCRIPT_NAME"] = AccountSlug.encode(external_account_id)
           env["PATH_INFO"] = remaining_path
-          env["feedbackbin.account"] = account
+          env["feedbackbin.external_account_id"] = external_account_id
 
           Current.with_account(account) { @app.call(env) }
         else
