@@ -5,23 +5,20 @@ module ApplicationCable
     identified_by :current_user
 
     def connect
-      set_current_account
       set_current_user || reject_unauthorized_connection
     end
 
     private
-
-      def set_current_account
-        # Account is set by middleware and stored in env
-        if (account = env["feedbackbin.account"])
+      def set_current_user
+        if session = find_session_by_cookie
+          account = env["feedbackbin.account"]
           Current.account = account
+          self.current_user = session.identity.users.find_by!(account: account) if account
         end
       end
 
-      def set_current_user
-        if (session = Session.find_by(id: cookies.signed[:session_id]))
-          self.current_user = session.user
-        end
+      def find_session_by_cookie
+        Session.find_by(id: cookies.signed[:session_id])
       end
   end
 end
