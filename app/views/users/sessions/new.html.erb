@@ -20,7 +20,7 @@
           <span class="bg-card text-muted-foreground relative z-10 px-2"><%= t(".or_continue_with") %></span>
         </div>
 
-        <%= form_with url: users_session_path, class: "grid gap-6" do |form| %>
+        <%= form_with url: session_path, class: "grid gap-6" do |form| %>
           <div class="grid gap-3">
             <%= form.label :email_address, t(".email"), class: "text-sm font-medium leading-none" %>
             <%= form.email_field :email_address,

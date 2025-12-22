@@ -8,7 +8,6 @@ module Users
 
     rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to sign_in_path, alert: t("users.sessions.create.rate_limited") }
 
-
     def new
     end
 
@@ -29,7 +28,5 @@ module Users
       terminate_session
       redirect_back(fallback_location: sign_in_path, notice: t(".signed_out_successfully"))
     end
-
-    private
   end
 end

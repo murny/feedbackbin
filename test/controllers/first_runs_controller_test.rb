@@ -55,7 +55,8 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
 
     user = User.last
 
-    assert_equal user.identity.sessions.last, Session.find_signed(cookies[:session_token])
+    assert cookies[:session_token]
+    assert_equal 1, user.identity.sessions.count
     assert_equal "new@feedbackbin.com", user.identity.email_address
 
     assert_equal "Test Account", account.name

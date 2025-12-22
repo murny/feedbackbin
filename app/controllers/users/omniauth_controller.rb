@@ -15,12 +15,11 @@ module Users
         handle_previously_connected_identity_account(identity_connected_account)
       elsif authenticated?
         # User is signed in and hasn't connected this account before, so let's connect it
-        user = Current.identity.users.first
         if Current.identity.identity_connected_accounts.create(identity_connected_account_params)
-          redirect_to user_settings_account_url(script_name: user&.account&.slug), notice: t(".connected_successfully", provider: auth.provider)
+          redirect_to session_menu_path, notice: t(".connected_successfully", provider: auth.provider)
         else
           # Couldn't connect the account for some reason
-          redirect_to user_settings_account_url(script_name: user&.account&.slug), alert: t("something_went_wrong")
+          redirect_to session_menu_path, alert: t("something_went_wrong")
         end
 
       elsif (identity = Identity.find_by(email_address: auth.info.email))
@@ -46,13 +45,12 @@ module Users
       def handle_previously_connected_identity_account(identity_connected_account)
         # Account has already been connected before
         if authenticated?
-          user = Current.identity.users.first
           if identity_connected_account.identity_id != Current.identity.id
             # User is signed in, but this account is connected to another identity
-            redirect_to root_url(script_name: user&.account&.slug), alert: t("users.omniauth.create.connected_to_another_account", provider: auth.provider)
+            redirect_to session_menu_path, alert: t("users.omniauth.create.connected_to_another_account", provider: auth.provider)
           else
             # User is already signed in and has connected this account before
-            redirect_to user_settings_account_url(script_name: user&.account&.slug), notice: t("users.omniauth.create.already_connected", provider: auth.provider)
+            redirect_to session_menu_path, notice: t("users.omniauth.create.already_connected", provider: auth.provider)
           end
         else
           # Identity has connected this account before, but isn't signed in

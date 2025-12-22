@@ -21,8 +21,8 @@ module Users
         post users_email_verification_url
       end
 
-      # Redirects to account-scoped root
-      assert_redirected_to root_url(script_name: @user.account.slug)
+      # Redirects to session menu which will redirect to user's account
+      assert_redirected_to session_menu_url
       assert_equal "We've sent you an email with a link to verify your email address", flash[:notice]
     end
 
@@ -31,8 +31,8 @@ module Users
 
       get users_email_verification_url(token: token, email_address: @identity.email_address)
 
-      # Redirects to account-scoped root
-      assert_redirected_to root_url(script_name: @user.account.slug)
+      # Redirects to session menu which will redirect to user's account
+      assert_redirected_to session_menu_url
       assert_equal "Thank you for verifying your email address", flash[:notice]
     end
 
@@ -43,8 +43,8 @@ module Users
 
       get users_email_verification_url(token: token, email_address: @identity.email_address)
 
-      # Redirects to account-scoped root
-      assert_redirected_to root_url(script_name: @user.account.slug)
+      # Redirects to sign in when not authenticated (token expired)
+      assert_redirected_to sign_in_url
       assert_equal "That email verification link is invalid or has expired", flash[:alert]
     end
   end

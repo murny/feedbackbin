@@ -12,15 +12,14 @@ module Users
 
     test "should handle previously connected identity account" do
       identity_connected_account = identity_connected_accounts(:shane_google)
-      user = identity_connected_account.identity.users.first
 
       OmniAuth.config.add_mock(:google, uid: identity_connected_account.provider_uid,
         info: { email: "shane.murnaghan@feedbackbin.com", name: "Shane Murnaghan", nickname: "murny" })
 
       get "/auth/google/callback"
 
-      # After login, redirects to user's account
-      assert_redirected_to root_url(script_name: user.account.slug)
+      # After login, redirects to session menu which will redirect to user's account
+      assert_redirected_to session_menu_url
       assert_equal "You have signed in successfully.", flash[:notice]
     end
 
@@ -41,8 +40,8 @@ module Users
 
       user = User.last
 
-      # After registration/login, redirects to user's account
-      assert_redirected_to root_url(script_name: user.account.slug)
+      # After registration/login, redirects to session menu which will redirect to user's account
+      assert_redirected_to session_menu_url
       assert_equal "You have signed in successfully.", flash[:notice]
 
       assert_equal "harrypotter@hogwarts.com", user.identity.email_address
@@ -69,7 +68,8 @@ module Users
       assert_difference "IdentityConnectedAccount.count" do
         get "/auth/developer/callback"
 
-        assert_redirected_to user_settings_account_url(script_name: user.account.slug)
+        # Redirects to session menu which will redirect to user's account
+        assert_redirected_to session_menu_url
         assert_equal "You have connected your developer account successfully.", flash[:notice]
       end
 
@@ -91,8 +91,8 @@ module Users
       assert_difference "IdentityConnectedAccount.count" do
         get "/auth/developer/callback"
 
-        # After login, redirects to user's account
-        assert_redirected_to root_url(script_name: user.account.slug)
+        # After login, redirects to session menu which will redirect to user's account
+        assert_redirected_to session_menu_url
         assert_equal "You have signed in successfully.", flash[:notice]
       end
 
@@ -121,8 +121,8 @@ module Users
         get "/auth/google/callback"
       end
 
-      # Redirects to user's account even on error
-      assert_redirected_to root_url(script_name: user.account.slug)
+      # Redirects to session menu which will redirect to user's account
+      assert_redirected_to session_menu_url
       assert_equal "This google account is already connected to another account.", flash[:alert]
     end
 
@@ -142,7 +142,8 @@ module Users
 
       get "/auth/google/callback"
 
-      assert_redirected_to user_settings_account_url(script_name: user.account.slug)
+      # Redirects to session menu which will redirect to user's account
+      assert_redirected_to session_menu_url
       assert_equal "This google account is already connected to your account.", flash[:notice]
     end
 

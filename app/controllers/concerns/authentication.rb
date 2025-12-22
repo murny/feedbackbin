@@ -4,8 +4,8 @@ module Authentication
   extend ActiveSupport::Concern
 
   included do
-    before_action :require_authentication
     before_action :require_account
+    before_action :require_authentication
 
     helper_method :authenticated?
   end
@@ -37,6 +37,20 @@ module Authentication
       Current.session.present?
     end
 
+    # Account scoping
+
+    def require_account
+      unless Current.account.present?
+        redirect_to session_menu_path(script_name: nil)
+      end
+    end
+
+    def redirect_if_account_scope
+      return unless Current.account.present?
+
+      redirect_to url_for(script_name: nil), allow_other_host: true
+    end
+
     # Authentication
 
     def require_authentication
@@ -54,7 +68,7 @@ module Authentication
     end
 
     def find_session_by_cookie
-      Session.find_signed(cookies[:session_token])
+      Session.find_signed(cookies.signed[:session_token])
     end
 
     def request_authentication
@@ -64,26 +78,6 @@ module Authentication
 
     def redirect_authenticated_user
       redirect_to after_authentication_url if authenticated?
-    end
-
-    # Account scoping
-
-    def require_account
-      redirect_to_account_selection unless Current.account.present?
-    end
-
-    def redirect_if_account_scope
-      return unless Current.account.present?
-
-      redirect_to url_for(script_name: nil), allow_other_host: true
-    end
-
-    def redirect_to_account_selection
-      if (url = default_account_url)
-        redirect_to url, allow_other_host: true
-      else
-        redirect_to sign_in_path(script_name: nil), allow_other_host: true
-      end
     end
 
     # Session management
@@ -96,7 +90,7 @@ module Authentication
 
     def set_current_session(session)
       Current.session = session
-      cookies.permanent[:session_token] = { value: session.signed_id, httponly: true, same_site: :lax }
+      cookies.signed.permanent[:session_token] = { value: session.signed_id, httponly: true, same_site: :lax }
     end
 
     def terminate_session
@@ -107,13 +101,6 @@ module Authentication
     # URL helpers
 
     def after_authentication_url
-      session.delete(:return_to_after_authenticating) || default_account_url || root_path
-    end
-
-    def default_account_url
-      return nil unless Current.identity.present?
-
-      user = Current.identity.users.active.first
-      root_url(script_name: user.account.slug) if user
+      session.delete(:return_to_after_authenticating) || session_menu_path
     end
 end

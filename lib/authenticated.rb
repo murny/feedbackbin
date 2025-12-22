@@ -4,7 +4,7 @@
 module Authenticated
   class StaffConstraint
     def matches?(request)
-      if (session = Session.find_signed(request.cookie_jar[:session_token]))
+      if (session = Session.find_signed(request.cookie_jar.signed[:session_token]))
         session.identity.staff?
       else
         false
@@ -14,7 +14,7 @@ module Authenticated
 
   class AdminConstraint
     def matches?(request)
-      if (session = Session.find_signed(request.cookie_jar[:session_token]))
+      if (session = Session.find_signed(request.cookie_jar.signed[:session_token]))
         session.identity.users.find_by(account: Current.account).admin?
       else
         false
@@ -24,7 +24,7 @@ module Authenticated
 
   class UserConstraint
     def matches?(request)
-      if (session = Session.find_signed(request.cookie_jar[:session_token]))
+      if (session = Session.find_signed(request.cookie_jar.signed[:session_token]))
         session.identity
       else
         false
