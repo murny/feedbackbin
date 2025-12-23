@@ -44,8 +44,8 @@
   <%= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
 
   <% if Current.account&.favicon&.attached? %>
-    <%= favicon_link_tag rails_representation_url(Current.account.favicon.variant(resize_to_limit: [96, 96], format: :png)), type: "image/png" %>
-    <link rel="apple-touch-icon" href="<%= rails_representation_url(Current.account.favicon.variant(resize_to_limit: [180, 180], format: :png)) %>">
+    <%= favicon_link_tag rails_representation_url(Current.account.favicon.variant(resize_to_limit: [ 96, 96 ], format: :png)), type: "image/png" %>
+    <link rel="apple-touch-icon" href="<%= rails_representation_url(Current.account.favicon.variant(resize_to_limit: [ 180, 180 ], format: :png)) %>">
   <% else %>
     <link rel="icon" href="/icon.png" type="image/png">
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
