@@ -20,12 +20,11 @@ class IdeaTest < ActiveSupport::TestCase
 
   test "invalid without a creator" do
     # Stub the default current user to nil so we can test the validation
-    Current.stub(:user, nil) do
-      @idea.creator = nil
+    Current.stubs(:user).returns(nil)
+    @idea.creator = nil
 
-      assert_not @idea.valid?
-      assert_equal "must exist", @idea.errors[:creator].first
-    end
+    assert_not @idea.valid?
+    assert_equal "must exist", @idea.errors[:creator].first
   end
 
   test "invalid without a board" do

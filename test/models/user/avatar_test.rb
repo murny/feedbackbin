@@ -43,9 +43,9 @@ class User::AvatarTest < ActiveSupport::TestCase
   test "rejects avatars exceeding maximum file size" do
     @user.avatar.attach(io: File.open(file_fixture("racecar.jpeg")), filename: "racecar.jpeg", content_type: "image/jpeg")
 
-    @user.avatar.blob.stub :byte_size, 3.megabytes do
-      assert_not @user.valid?
-      assert_equal("exceeds maximum size of 2 MB", @user.errors[:avatar].first)
-    end
+    @user.avatar.blob.stubs(:byte_size).returns(3.megabytes)
+
+    assert_not @user.valid?
+    assert_equal("exceeds maximum size of 2 MB", @user.errors[:avatar].first)
   end
 end
