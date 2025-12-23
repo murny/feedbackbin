@@ -34,24 +34,24 @@ module AccountSlug
     end
 
     def call(env)
-      path_info = env["PATH_INFO"]
-      external_account_id, remaining_path = AccountSlug.extract(path_info)
+      request = ActionDispatch::Request.new(env)
 
-      if external_account_id
-        account = Account.find_by(external_account_id: external_account_id)
+      # Check if account prefix is already in SCRIPT_NAME (e.g., ActionCable reconnection)
+      if request.script_name.present? && (match = SLUG_PATTERN.match(request.script_name))
+        env["feedbackbin.external_account_id"] = match[1].to_i
+      elsif (match = SLUG_PATTERN.match(request.path_info))
+        # Normal case: extract account prefix from PATH_INFO and move to SCRIPT_NAME
+        external_account_id = match[1].to_i
+        remaining_path = match[2].presence || "/"
 
-        if account
-          # Rewrite SCRIPT_NAME and PATH_INFO for Rails routing
-          env["SCRIPT_NAME"] = AccountSlug.encode(external_account_id)
-          env["PATH_INFO"] = remaining_path
-          env["feedbackbin.external_account_id"] = external_account_id
+        request.engine_script_name = request.script_name = AccountSlug.encode(external_account_id)
+        request.path_info = remaining_path
+        env["feedbackbin.external_account_id"] = external_account_id
+      end
 
-          Current.with_account(account) { @app.call(env) }
-        else
-          # Unknown account - let controller handle redirect to account selection
-          # This provides better UX than a 404
-          Current.without_account { @app.call(env) }
-        end
+      if env["feedbackbin.external_account_id"]
+        account = Account.find_by(external_account_id: env["feedbackbin.external_account_id"])
+        Current.with_account(account) { @app.call(env) }
       else
         Current.without_account { @app.call(env) }
       end

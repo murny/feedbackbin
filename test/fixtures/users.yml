@@ -35,3 +35,10 @@ bot:
   name: Beep Boop
   role: bot
   account: feedbackbin
+
+acme_admin:
+  account: acme
+  identity: acme_admin
+  name: Acme Admin
+  role: owner
+  verified_at: <%= Time.current.to_fs(:db) %>

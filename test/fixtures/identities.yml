@@ -20,3 +20,8 @@ john:
   email_address: john.smith@feedbackbin.com
   email_verified: true
   password_digest: <%= password_digest %>
+
+acme_admin:
+  email_address: admin@acme.com
+  email_verified: true
+  password_digest: <%= password_digest %>

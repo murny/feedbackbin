@@ -1,0 +1,54 @@
+<%# locals: () %>
+
+<head>
+  <title><%= content_for(:title) || t("application.default_title") %></title>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="view-transition" content="same-origin">
+  <meta name="color-scheme" content="light dark">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="application-name" content="FeedbackBin">
+
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= tag.meta name: "current-user-id", content: Current.user.id if Current.user %>
+
+  <% turbo_refreshes_with method: :morph, scroll: :preserve %>
+
+  <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
+  <%= javascript_importmap_tags %>
+
+  <%= tenanted_action_cable_meta_tag %>
+
+  <%= yield :head %>
+
+  <% if Current.account %>
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="<%= request.original_url %>">
+    <meta property="og:title" content="<%= content_for(:title) || Current.account.name %>">
+    <meta property="og:description" content="<%= t("layouts.meta.description", name: Current.account.name) %>">
+    <meta property="og:image" content="<%= account_og_image_url(Current.account) %>">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="<%= request.original_url %>">
+    <meta name="twitter:title" content="<%= content_for(:title) || Current.account.name %>">
+    <meta name="twitter:description" content="<%= t("layouts.meta.description", name: Current.account.name) %>">
+    <meta name="twitter:image" content="<%= account_og_image_url(Current.account) %>">
+  <% end %>
+
+  <%= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
+
+  <% if Current.account&.favicon&.attached? %>
+    <%= favicon_link_tag rails_representation_url(Current.account.favicon.variant(resize_to_limit: [96, 96], format: :png)), type: "image/png" %>
+    <link rel="apple-touch-icon" href="<%= rails_representation_url(Current.account.favicon.variant(resize_to_limit: [180, 180], format: :png)) %>">
+  <% else %>
+    <link rel="icon" href="/icon.png" type="image/png">
+    <link rel="icon" href="/icon.svg" type="image/svg+xml">
+    <link rel="apple-touch-icon" href="/icon.png">
+  <% end %>
+</head>
