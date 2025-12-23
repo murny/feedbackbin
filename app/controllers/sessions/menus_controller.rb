@@ -2,6 +2,7 @@
 
 class Sessions::MenusController < ApplicationController
   disallow_account_scope
+  skip_after_action :verify_authorized
 
   def show
     @accounts = Current.identity.accounts
