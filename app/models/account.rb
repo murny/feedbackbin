@@ -52,7 +52,6 @@ class Account < ApplicationRecord
   private
 
     def assign_external_account_id
-      max_id = Account.maximum(:external_account_id) || 0
-      self.external_account_id = [ max_id + 1, 1_000_000 ].max
+      self.external_account_id = ExternalIdSequence.next
     end
 end
