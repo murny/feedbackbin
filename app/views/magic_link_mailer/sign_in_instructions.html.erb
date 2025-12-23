@@ -1,0 +1,11 @@
+<% if @magic_link.for_sign_in? %>
+  <h1><%= t(".sign_in_title") %></h1>
+  <p><%= t(".sign_in_instructions") %></p>
+<% else %>
+  <h1><%= t(".sign_up_title") %></h1>
+  <p><%= t(".sign_up_instructions") %></p>
+<% end %>
+
+<p><strong style="font-size: 24px; letter-spacing: 2px;"><%= @magic_link.code %></strong></p>
+
+<p><%= t(".expiration_notice", time: distance_of_time_in_words(MagicLink::EXPIRATION_TIME)) %></p>

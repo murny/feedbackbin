@@ -1,0 +1,19 @@
+# frozen_string_literal: true
+
+valid:
+  identity: jane
+  code: ABC123
+  purpose: 0
+  expires_at: <%= 15.minutes.from_now %>
+
+expired:
+  identity: jane
+  code: XYZ789
+  purpose: 0
+  expires_at: <%= 1.hour.ago %>
+
+sign_up:
+  identity: jane
+  code: DEF456
+  purpose: 1
+  expires_at: <%= 15.minutes.from_now %>
