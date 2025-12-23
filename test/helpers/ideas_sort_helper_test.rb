@@ -3,7 +3,6 @@
 require "test_helper"
 
 class IdeasSortHelperTest < ActionView::TestCase
-
   test "sort_active_state returns true for latest when no sort params" do
     test_params = ActionController::Parameters.new({ direction: nil })
 
