@@ -6,7 +6,7 @@ module Users
   class OmniauthControllerTest < ActionDispatch::IntegrationTest
     setup do
       OmniAuth.config.test_mode = true
-      # Omniauth controller uses disallow_account_scope
+      # OmniAuth controller uses disallow_account_scope - run all tests untenanted
       integration_session.default_url_options[:script_name] = ""
     end
 
@@ -23,7 +23,9 @@ module Users
       assert_equal "You have signed in successfully.", flash[:notice]
     end
 
-    test "can register and login with a social account" do
+    test "can register and login with a social account within account context" do
+      account = accounts(:feedbackbin)
+
       OmniAuth.config.mock_auth[:developer] = OmniAuth::AuthHash.new(
         provider: "developer",
         uid: "12345",
@@ -34,7 +36,8 @@ module Users
       )
       assert_difference "IdentityConnectedAccount.count" do
         assert_difference [ "User.count", "Identity.count" ] do
-          get "/auth/developer/callback"
+          # OAuth registration requires account context from origin
+          get "/auth/developer/callback", env: { "omniauth.origin" => "/#{account.external_account_id}/sign-in" }
         end
       end
 
@@ -46,16 +49,57 @@ module Users
 
       assert_equal "harrypotter@hogwarts.com", user.identity.email_address
       assert_equal "Harry Potter", user.name
+      assert_equal account, user.account
       assert_equal "developer", user.identity.identity_connected_accounts.last.provider_name
       assert_equal "12345", user.identity.identity_connected_accounts.last.provider_uid
     end
 
+    test "redirects to sign up when registering via oauth without account context" do
+      OmniAuth.config.mock_auth[:developer] = OmniAuth::AuthHash.new(
+        provider: "developer",
+        uid: "12345",
+        info: {
+          email: "harrypotter@hogwarts.com",
+          name: "Harry Potter"
+        }
+      )
+
+      assert_no_difference [ "User.count", "Identity.count" ] do
+        get "/auth/developer/callback"
+      end
+
+      assert_redirected_to sign_up_path(user: {
+        email_address: "harrypotter@hogwarts.com",
+        name: "Harry Potter"
+      })
+      assert_equal "We could not create an account for you. Please finish the registration process.", flash[:alert]
+    end
+
+    test "creates user in correct account based on oauth origin" do
+      target_account = accounts(:feedbackbin)
+
+      OmniAuth.config.mock_auth[:developer] = OmniAuth::AuthHash.new(
+        provider: "developer",
+        uid: "99999",
+        info: {
+          email: "newuser@example.com",
+          name: "New User"
+        }
+      )
+
+      assert_difference [ "User.count", "Identity.count" ] do
+        # Set origin via env - in real OAuth flow, OmniAuth sets this from the referer
+        get "/auth/developer/callback", env: { "omniauth.origin" => "/#{target_account.external_account_id}/sign-in" }
+      end
+
+      user = User.last
+
+      assert_equal target_account, user.account, "User should be created in account from OAuth origin"
+    end
+
     test "can connect to a social account when signed in" do
       user = users(:shane)
-
       sign_in_as user
-      # After sign_in_as, set script_name back to empty for disallow_account_scope controller
-      integration_session.default_url_options[:script_name] = ""
 
       OmniAuth.config.mock_auth[:developer] = OmniAuth::AuthHash.new(
         provider: "developer",
@@ -108,8 +152,6 @@ module Users
       assert_not_equal connected_account.identity, user.identity
 
       sign_in_as user
-      # After sign_in_as, set script_name back to empty for disallow_account_scope controller
-      integration_session.default_url_options[:script_name] = ""
 
       OmniAuth.config.add_mock(
         :google,
@@ -131,8 +173,6 @@ module Users
       user = connected_account.identity.users.first
 
       sign_in_as user
-      # After sign_in_as, set script_name back to empty for disallow_account_scope controller
-      integration_session.default_url_options[:script_name] = ""
 
       OmniAuth.config.add_mock(
         :google,

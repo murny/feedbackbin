@@ -55,25 +55,25 @@ class ActionDispatch::IntegrationTest
     end
   end
 
-  # Helper for making requests with account scope
-  def with_account(account)
-    original_account = Current.account
-    Current.account = account
-    integration_session.default_url_options[:script_name] = account&.slug || ""
-    yield
-  ensure
-    Current.account = original_account
-    integration_session.default_url_options[:script_name] = original_account&.slug || ""
-  end
-
-  # Helper for making requests without account scope
-  def without_account
-    original_account = Current.account
-    Current.account = nil
+  # Helper for making requests without account scope (for disallow_account_scope controllers)
+  def untenanted
+    original_script_name = integration_session.default_url_options[:script_name]
     integration_session.default_url_options[:script_name] = ""
     yield
   ensure
-    Current.account = original_account
-    integration_session.default_url_options[:script_name] = original_account&.slug || ""
+    integration_session.default_url_options[:script_name] = original_script_name
+  end
+end
+
+class ActionView::TestCase
+  # Set up controller default_url_options with account script_name for helper tests
+  setup do
+    if Current.account.present?
+      @controller.class.default_url_options[:script_name] = Current.account.slug
+    end
+  end
+
+  teardown do
+    @controller.class.default_url_options.delete(:script_name)
   end
 end

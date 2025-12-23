@@ -60,9 +60,21 @@ module Users
       end
 
       def create_identity_and_user
-        # We've never seen this identity before, so let's sign them up
-        # Set account context for self-registration (use first account)
-        Current.account = Account.first
+        # We've never seen this identity before, so let's sign them up.
+        # OAuth callbacks operate outside account scope (disallow_account_scope),
+        # so we extract the account from the OAuth origin URL (where the user came from).
+        # Registration via OAuth only allowed within an account context.
+        account = account_from_origin
+
+        unless account
+          redirect_to sign_up_path(user: {
+            email_address: auth.info.email,
+            name: name_creator(auth.info)
+          }), alert: t("users.omniauth.create.finish_registration")
+          return
+        end
+
+        Current.account = account
 
         identity = Identity.new(identity_params)
         identity.identity_connected_accounts.build(identity_connected_account_params)
@@ -113,6 +125,19 @@ module Users
         else
           auth_info.name
         end
+      end
+
+      def account_from_origin
+        origin = request.env["omniauth.origin"]
+        return nil unless origin
+
+        path = URI.parse(origin).path
+        external_account_id, _ = AccountSlug.extract(path)
+        return nil unless external_account_id
+
+        Account.find_by(external_account_id: external_account_id)
+      rescue URI::InvalidURIError
+        nil
       end
   end
 end
