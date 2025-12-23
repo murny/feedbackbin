@@ -20,12 +20,14 @@ class Current < ActiveSupport::CurrentAttributes
     end
   end
 
-  def with_account(value, &)
-    with(account: value, &)
-  end
+  class << self
+    def with_account(value, &)
+      with(account: value, &)
+    end
 
-  def without_account(&)
-    with(account: nil, &)
+    def without_account(&)
+      with(account: nil, &)
+    end
   end
 
   def admin?

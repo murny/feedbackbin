@@ -59,7 +59,7 @@ class IdeasSortHelperTest < ActionView::TestCase
 
     link = ideas_sort_link(text: "Latest", sort_field: "created_at", direction: "desc", params: test_params, path_helper: :roadmap_path)
 
-    assert_includes link, 'href="/roadmap?direction=desc&amp;sort=created_at"'
+    assert_includes link, "href=\"#{Current.account.slug}/roadmap?direction=desc&amp;sort=created_at\""
     assert_includes link, "Latest"
   end
 
@@ -71,7 +71,7 @@ class IdeasSortHelperTest < ActionView::TestCase
 
     link = ideas_sort_link(text: "Latest", sort_field: "created_at", direction: "desc", params: test_params)
 
-    assert_includes link, 'href="/ideas?direction=desc&amp;sort=created_at"'
+    assert_includes link, "href=\"#{Current.account.slug}/ideas?direction=desc&amp;sort=created_at\""
     assert_includes link, "Latest"
   end
 

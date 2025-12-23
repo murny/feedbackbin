@@ -8,7 +8,8 @@ class AuthenticationTest < ApplicationSystemTestCase
   end
 
   test "signing in" do
-    visit sign_in_url
+    # Auth pages use global URLs (no account scope)
+    visit sign_in_url(script_name: nil)
 
     fill_in "Email", with: @user.identity.email_address
     fill_in "Password", with: "secret123456"
@@ -19,7 +20,8 @@ class AuthenticationTest < ApplicationSystemTestCase
   end
 
   test "signing up" do
-    visit sign_up_url
+    # Auth pages use global URLs (no account scope)
+    visit sign_up_url(script_name: nil)
 
     fill_in "Name", with: "Shane M"
     fill_in "Email", with: "shane@email.com"

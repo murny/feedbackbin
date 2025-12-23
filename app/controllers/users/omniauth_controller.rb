@@ -2,6 +2,7 @@
 
 module Users
   class OmniauthController < ApplicationController
+    disallow_account_scope
     allow_unauthenticated_access only: %i[create failure]
     skip_after_action :verify_authorized
 
@@ -15,10 +16,10 @@ module Users
       elsif authenticated?
         # User is signed in and hasn't connected this account before, so let's connect it
         if Current.identity.identity_connected_accounts.create(identity_connected_account_params)
-          redirect_to user_settings_account_path, notice: t(".connected_successfully", provider: auth.provider)
+          redirect_to session_menu_path, notice: t(".connected_successfully", provider: auth.provider)
         else
           # Couldn't connect the account for some reason
-          redirect_to user_settings_account_path, alert: t("something_went_wrong")
+          redirect_to session_menu_path, alert: t("something_went_wrong")
         end
 
       elsif (identity = Identity.find_by(email_address: auth.info.email))
@@ -46,10 +47,10 @@ module Users
         if authenticated?
           if identity_connected_account.identity_id != Current.identity.id
             # User is signed in, but this account is connected to another identity
-            redirect_to root_path, alert: t("users.omniauth.create.connected_to_another_account", provider: auth.provider)
+            redirect_to session_menu_path, alert: t("users.omniauth.create.connected_to_another_account", provider: auth.provider)
           else
             # User is already signed in and has connected this account before
-            redirect_to user_settings_account_path, notice: t("users.omniauth.create.already_connected", provider: auth.provider)
+            redirect_to session_menu_path, notice: t("users.omniauth.create.already_connected", provider: auth.provider)
           end
         else
           # Identity has connected this account before, but isn't signed in
@@ -59,7 +60,22 @@ module Users
       end
 
       def create_identity_and_user
-        # We've never seen this identity before, so let's sign them up
+        # We've never seen this identity before, so let's sign them up.
+        # OAuth callbacks operate outside account scope (disallow_account_scope),
+        # so we extract the account from the OAuth origin URL (where the user came from).
+        # Registration via OAuth only allowed within an account context.
+        account = account_from_origin
+
+        unless account
+          redirect_to sign_up_path(user: {
+            email_address: auth.info.email,
+            name: name_creator(auth.info)
+          }), alert: t("users.omniauth.create.finish_registration")
+          return
+        end
+
+        Current.account = account
+
         identity = Identity.new(identity_params)
         identity.identity_connected_accounts.build(identity_connected_account_params)
 
@@ -109,6 +125,19 @@ module Users
         else
           auth_info.name
         end
+      end
+
+      def account_from_origin
+        origin = request.env["omniauth.origin"]
+        return nil unless origin
+
+        path = URI.parse(origin).path
+        external_account_id, _ = AccountSlug.extract(path)
+        return nil unless external_account_id
+
+        Account.find_by(external_account_id: external_account_id)
+      rescue URI::InvalidURIError
+        nil
       end
   end
 end

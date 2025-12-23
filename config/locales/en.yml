@@ -571,6 +571,14 @@ en:
       sort_top: Top
       title: Roadmap
   select_board: Select a board
+  sessions:
+    menus:
+      show:
+        brand_name: FeedbackBin
+        choose_account_to_continue: Choose an account to continue
+        select_account: Select Account
+        sign_out: Sign out
+        signed_in_as: Signed in as %{email}
   shared:
     board_filter:
       all_boards: All Boards

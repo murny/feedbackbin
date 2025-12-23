@@ -2,7 +2,8 @@
 
 module Users
   class RegistrationsController < ApplicationController
-    allow_unauthenticated_access
+    disallow_account_scope
+    require_unauthenticated_access
     skip_after_action :verify_authorized
 
     rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to sign_up_path, alert: t("users.registrations.create.rate_limited") }
@@ -44,7 +45,7 @@ module Users
         start_new_session_for(@identity)
       end
 
-      redirect_to root_path, notice: t(".signed_up_successfully")
+      redirect_to root_url(script_name: @user.account.slug), notice: t(".signed_up_successfully")
     rescue ActiveRecord::RecordInvalid
       @identity ||= Identity.new(identity_params)
       @user ||= User.new(user_params)

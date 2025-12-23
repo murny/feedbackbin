@@ -5,6 +5,8 @@ require "test_helper"
 class FirstRunsControllerTest < ActionDispatch::IntegrationTest
   setup do
     Account.destroy_all
+    # First run controller works without account scope
+    integration_session.default_url_options[:script_name] = ""
   end
 
   test "new is permitted when no accounts exist" do
@@ -28,7 +30,7 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
 
     get first_run_url
 
-    assert_redirected_to root_url
+    assert_redirected_to root_url(script_name: account.slug)
   end
 
   test "create with all parameters" do
@@ -47,12 +49,14 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
       end
     end
 
-    assert_redirected_to root_url
-
-    user = User.last
     account = Account.last
 
-    assert_equal user.identity.sessions.last.id, parsed_cookies.signed[:session_id]
+    assert_redirected_to root_url(script_name: account.slug)
+
+    user = User.last
+
+    assert cookies[:session_token]
+    assert_equal 1, user.identity.sessions.count
     assert_equal "new@feedbackbin.com", user.identity.email_address
 
     assert_equal "Test Account", account.name

@@ -5,6 +5,9 @@ class Account < ApplicationRecord
 
   ALLOWED_IMAGE_CONTENT_TYPES = %w[ image/jpeg image/png image/gif image/webp ].freeze
 
+  # Generate external_account_id before create if not set
+  before_create :assign_external_account_id, unless: :external_account_id?
+
   # Attachments
   has_one_attached :logo
   has_one_attached :favicon
@@ -40,4 +43,15 @@ class Account < ApplicationRecord
   def owned_by?(user)
     user&.owner?
   end
+
+  # Returns the path prefix slug for this account (e.g., "/1234567")
+  def slug
+    AccountSlug.encode(external_account_id)
+  end
+
+  private
+
+    def assign_external_account_id
+      self.external_account_id = ExternalIdSequence.next
+    end
 end

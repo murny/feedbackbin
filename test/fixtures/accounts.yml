@@ -1,2 +1,7 @@
 feedbackbin:
   name: "FeedbackBin"
+  external_account_id: 1000001
+
+acme:
+  name: "Acme Corp"
+  external_account_id: 1000002

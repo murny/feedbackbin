@@ -46,7 +46,7 @@ module Admin
 
         assert_predicate @admin, :owner?
         assert_predicate @owner, :admin?
-        assert_equal @admin, User.owner.first
+        assert_equal @admin, @account.users.owner.first
         assert_equal "Ownership transferred to Admin Two.", flash[:notice]
       end
 

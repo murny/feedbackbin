@@ -17,9 +17,14 @@ Rails.application.routes.draw do
 
   namespace :users do
     resources :password_resets, param: :token, only: [ :new, :create, :edit, :update ]
-    resource :session, only: [ :create, :destroy ]
     resource :email_verification, only: [ :show, :create ]
     resources :registrations, only: [ :create ]
+  end
+
+  resource :session, only: [ :create, :destroy ], controller: "users/sessions" do
+    scope module: :sessions do
+      resource :menu, only: [ :show ]
+    end
   end
 
   namespace :user_settings do

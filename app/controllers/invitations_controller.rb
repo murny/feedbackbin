@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 class InvitationsController < ApplicationController
+  disallow_account_scope
   allow_unauthenticated_access
   skip_after_action :verify_authorized
 

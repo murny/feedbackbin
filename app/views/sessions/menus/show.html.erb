@@ -1,0 +1,39 @@
+<% content_for(:title) { t(".select_account") } %>
+
+<div class="flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
+  <div class="flex w-full max-w-sm flex-col gap-6">
+    <%= link_to root_path, class: "flex items-center gap-2 self-center font-medium" do %>
+      <%= inline_svg_tag "mark.svg", class: "h-8 w-8 text-blue-500" %>
+      <span class="font-bold text-blue-500"><%= t(".brand_name") %></span>
+    <% end %>
+
+    <div class="card flex flex-col gap-6 py-6">
+      <header class="px-6 text-center space-y-1.5">
+        <h1 class="font-semibold text-xl"><%= t(".select_account") %></h1>
+        <p class="text-muted-foreground text-sm"><%= t(".choose_account_to_continue") %></p>
+      </header>
+
+      <div class="px-6 grid gap-3">
+        <% @accounts.each do |account| %>
+          <%= link_to root_url(script_name: account.slug),
+                class: "flex items-center gap-3 p-3 rounded-lg border border-border hover:bg-accent transition-colors",
+                data: { turbo: false } do %>
+            <div class="flex-1">
+              <div class="font-medium"><%= account.name %></div>
+            </div>
+            <%= lucide_icon "chevron-right", class: "h-5 w-5 text-muted-foreground" %>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="px-6 pt-3 border-t border-border">
+        <p class="text-center text-sm text-muted-foreground">
+          <%= t(".signed_in_as", email: Current.identity.email_address) %>
+        </p>
+        <%= button_to t(".sign_out"), session_path,
+              method: :delete,
+              class: "btn btn-outline w-full mt-3" %>
+      </div>
+    </div>
+  </div>
+</div>
