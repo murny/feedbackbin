@@ -28,9 +28,9 @@ class BrandingHelperTest < ActionView::TestCase
   end
 
   test "brand_name returns translation when no account" do
-    Current.stub :account, nil do
-      assert_equal I18n.t("application.navbar.brand_name"), brand_name
-    end
+    Current.stubs(:account).returns(nil)
+
+    assert_equal I18n.t("application.navbar.brand_name"), brand_name
   end
 
   # show_brand_name? tests
@@ -47,9 +47,9 @@ class BrandingHelperTest < ActionView::TestCase
   end
 
   test "show_brand_name? returns true when no account" do
-    Current.stub :account, nil do
-      assert_predicate self, :show_brand_name?
-    end
+    Current.stubs(:account).returns(nil)
+
+    assert_predicate self, :show_brand_name?
   end
 
   # account_og_image_url tests
@@ -114,10 +114,9 @@ class BrandingHelperTest < ActionView::TestCase
     )
 
     # Stub the blob to appear unpersisted
-    @account.logo.blob.stub :persisted?, false do
-      url = attachment_preview_url(@account.logo, default_url: "/default.svg")
+    @account.logo.blob.stubs(:persisted?).returns(false)
+    url = attachment_preview_url(@account.logo, default_url: "/default.svg")
 
-      assert_equal "/default.svg", url
-    end
+    assert_equal "/default.svg", url
   end
 end

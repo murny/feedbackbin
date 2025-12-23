@@ -33,10 +33,10 @@ class AccountTest < ActiveSupport::TestCase
 
   test "should enforce a maximum logo file size" do
     @account.logo.attach(io: file_fixture("racecar.jpeg").open, filename: "racecar.jpeg", content_type: "image/jpeg")
-    @account.logo.blob.stub :byte_size, 3.megabytes do
-      assert_not @account.valid?
-      assert_equal("exceeds maximum size of 2 MB", @account.errors[:logo].first)
-    end
+    @account.logo.blob.stubs(:byte_size).returns(3.megabytes)
+
+    assert_not @account.valid?
+    assert_equal("exceeds maximum size of 2 MB", @account.errors[:logo].first)
   end
 
   test "owned_by? returns true for user with owner role" do
@@ -92,10 +92,10 @@ class AccountTest < ActiveSupport::TestCase
   test "favicon enforces file size limit" do
     @account.favicon.attach(io: file_fixture("racecar.jpeg").open, filename: "favicon.jpg", content_type: "image/jpeg")
 
-    @account.favicon.blob.stub :byte_size, 2.megabytes do
-      assert_not @account.valid?
-      assert_includes @account.errors[:favicon], "exceeds maximum size of 500 KB"
-    end
+    @account.favicon.blob.stubs(:byte_size).returns(2.megabytes)
+
+    assert_not @account.valid?
+    assert_includes @account.errors[:favicon], "exceeds maximum size of 500 KB"
   end
 
   test "og_image can be attached" do

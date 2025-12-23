@@ -6,7 +6,7 @@ require "simplecov" if ENV["COVERAGE"]
 
 require_relative "../config/environment"
 require "rails/test_help"
-require "minitest/mock"
+require "mocha/minitest"
 
 # Load support files
 Dir[Rails.root.join("test/support/**/*.rb")].each { |f| require f }
