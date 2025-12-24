@@ -10,6 +10,8 @@ Rails.application.routes.draw do
   # authentification
   get "sign_in", to: "users/sessions#new"
   get "sign_up", to: "users/registrations#new"
+  get "magic_sign_in", to: "users/magic_sessions#new"
+  post "magic_session", to: "users/magic_sessions#create"
 
   get "/auth/failure", to: "users/omniauth#failure"
   get "/auth/:provider/callback", to: "users/omniauth#create"
@@ -24,6 +26,7 @@ Rails.application.routes.draw do
   resource :session, only: [ :create, :destroy ], controller: "users/sessions" do
     scope module: :sessions do
       resource :menu, only: [ :show ]
+      resource :magic_link, only: [ :show, :create ]
     end
   end
 
