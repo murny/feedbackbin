@@ -24,7 +24,7 @@ module Users
       end
 
       assert_redirected_to session_magic_link_url
-      assert cookies[:pending_authentication_token].present?
+      assert_predicate cookies[:pending_authentication_token], :present?
     end
 
     test "create with non-existing email redirects to magic link page" do
@@ -34,7 +34,7 @@ module Users
       end
 
       assert_redirected_to session_magic_link_url
-      assert cookies[:pending_authentication_token].present?
+      assert_predicate cookies[:pending_authentication_token], :present?
     end
 
     test "new redirects authenticated users" do
@@ -51,14 +51,14 @@ module Users
       post magic_session_url(format: :json), params: { email_address: @identity.email_address }
 
       assert_response :created
-      assert @response.parsed_body["pending_authentication_token"].present?
+      assert_predicate @response.parsed_body["pending_authentication_token"], :present?
     end
 
     test "create via JSON with non-existing email" do
       post magic_session_url(format: :json), params: { email_address: "nonexistent@example.com" }
 
       assert_response :created
-      assert @response.parsed_body["pending_authentication_token"].present?
+      assert_predicate @response.parsed_body["pending_authentication_token"], :present?
     end
   end
 end

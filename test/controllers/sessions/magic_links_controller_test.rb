@@ -30,7 +30,7 @@ class Sessions::MagicLinksControllerTest < ActionDispatch::IntegrationTest
     post session_magic_link_url, params: { code: magic_link.code }
 
     assert_response :redirect
-    assert cookies[:session_token].present?
+    assert_predicate cookies[:session_token], :present?
     assert_not MagicLink.exists?(magic_link.id), "Magic link should be consumed"
   end
 
@@ -41,7 +41,7 @@ class Sessions::MagicLinksControllerTest < ActionDispatch::IntegrationTest
     post session_magic_link_url, params: { code: magic_link.code }
 
     assert_redirected_to sign_up_path
-    assert cookies[:session_token].present?
+    assert_predicate cookies[:session_token], :present?
   end
 
   test "create with cross-user code fails" do
@@ -60,7 +60,7 @@ class Sessions::MagicLinksControllerTest < ActionDispatch::IntegrationTest
     post session_magic_link_url, params: { code: "INVALID" }
 
     assert_redirected_to session_magic_link_path
-    assert flash[:alert].present?
+    assert_predicate flash[:alert], :present?
   end
 
   test "create with expired code fails" do
@@ -83,7 +83,7 @@ class Sessions::MagicLinksControllerTest < ActionDispatch::IntegrationTest
     post session_magic_link_url(format: :json), params: { code: magic_link.code }
 
     assert_response :success
-    assert @response.parsed_body["session_token"].present?
+    assert_predicate @response.parsed_body["session_token"], :present?
   end
 
   test "create via JSON without pending_authentication_token" do

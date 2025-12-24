@@ -7,9 +7,9 @@ class MagicLinkTest < ActiveSupport::TestCase
     identity = identities(:jane)
     magic_link = MagicLink.create!(identity: identity)
 
-    assert magic_link.code.present?
+    assert_predicate magic_link.code, :present?
     assert_equal MagicLink::CODE_LENGTH, magic_link.code.length
-    assert magic_link.expires_at.present?
+    assert_predicate magic_link.expires_at, :present?
     assert_in_delta MagicLink::EXPIRATION_TIME.from_now, magic_link.expires_at, 1.second
   end
 
@@ -65,10 +65,10 @@ class MagicLinkTest < ActiveSupport::TestCase
     sign_in_link = magic_links(:valid)
     sign_up_link = magic_links(:sign_up)
 
-    assert sign_in_link.for_sign_in?
+    assert_predicate sign_in_link, :for_sign_in?
     assert_not sign_in_link.for_sign_up?
 
-    assert sign_up_link.for_sign_up?
+    assert_predicate sign_up_link, :for_sign_up?
     assert_not sign_up_link.for_sign_in?
   end
 end
