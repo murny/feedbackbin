@@ -6,6 +6,7 @@ class Idea < ApplicationRecord
   include ModelSortable
   include Voteable
   include Searchable
+  include Eventable
 
   has_rich_text :description
 
@@ -38,5 +39,33 @@ class Idea < ApplicationRecord
 
   def open?
     status.nil?
+  end
+
+  # Event tracking callbacks
+  after_create_commit :track_creation
+  after_update :track_status_change, if: :saved_change_to_status_id?
+  after_update :track_board_change, if: :saved_change_to_board_id?
+  after_update :track_title_change, if: :saved_change_to_title?
+
+  private
+
+  def track_creation
+    track_event(:created)
+  end
+
+  def track_status_change
+    old_status = status_id_before_last_save.present? ? Status.find(status_id_before_last_save).name : "Open"
+    new_status = status_name
+    track_event(:status_changed, particulars: { old_status: old_status, new_status: new_status })
+  end
+
+  def track_board_change
+    old_board = Board.find(board_id_before_last_save).name
+    new_board = board.name
+    track_event(:board_changed, particulars: { old_board: old_board, new_board: new_board })
+  end
+
+  def track_title_change
+    track_event(:title_changed, particulars: { old_title: title_before_last_save, new_title: title })
   end
 end
