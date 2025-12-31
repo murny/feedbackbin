@@ -888,6 +888,18 @@ en:
       comment_on: Comment on
       empty_votes: No votes yet.
       voted: Voted
+  notifications:
+    index:
+      all_caught_up: You're all caught up!
+      heading: Notifications
+      mark_all_read: Mark all as read
+      no_notifications: No notifications yet
+      title: Notifications
+    mark_all_read:
+      all_marked_as_read: All notifications marked as read
+    update:
+      marked_as_read: Notification marked as read
+      marked_as_unread: Notification marked as unread
   votes:
     update:
       successfully_unvoted: You removed your vote from this %{resource}

@@ -2,6 +2,7 @@
 
 class Event < ApplicationRecord
   include Event::Particulars
+  include Notifiable
 
   belongs_to :account, default: -> { board.account }
   belongs_to :board
