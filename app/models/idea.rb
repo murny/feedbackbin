@@ -41,6 +41,12 @@ class Idea < ApplicationRecord
     status.nil?
   end
 
+  # Called by Event after creation (via Eventable concern)
+  # Creates system comments for visible audit trail
+  def event_was_created(event)
+    create_system_comment_for(event)
+  end
+
   # Event tracking callbacks
   after_create_commit :track_creation
   after_update :track_status_change, if: :saved_change_to_status_id?
@@ -67,5 +73,9 @@ class Idea < ApplicationRecord
 
   def track_title_change
     track_event(:title_changed, particulars: { old_title: title_before_last_save, new_title: title })
+  end
+
+  def create_system_comment_for(event)
+    Idea::SystemCommenter.new(self, event).comment
   end
 end
