@@ -831,6 +831,17 @@ en:
       comment_on: Comment on
       empty_votes: No votes yet.
       voted: Voted
+  events:
+    actions:
+      changed_status: changed the status of
+      changed_title: changed the title
+      commented_on: commented on
+      created: created
+      moved: moved
+    from: from
+    to: to
+    unknown_item: unknown item
+    you: You
   votes:
     update:
       successfully_unvoted: You removed your vote from this %{resource}
