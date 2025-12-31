@@ -263,6 +263,52 @@ en:
           title: New Status
         update:
           successfully_updated: Status was successfully updated.
+      webhooks:
+        activate:
+          successfully_activated: Webhook was successfully activated.
+        create:
+          successfully_created: Webhook was successfully created.
+        deactivate:
+          successfully_deactivated: Webhook was successfully deactivated.
+        destroy:
+          successfully_destroyed: Webhook was successfully deleted.
+        edit:
+          description: Update the details of this webhook
+          title: Edit Webhook
+        form:
+          all_boards: All boards
+          board_hint: Optionally limit this webhook to events from a specific board
+          board_label: Board (Optional)
+          create_webhook: Create Webhook
+          description_hint: Optional notes about this webhook
+          description_label: Description
+          description_placeholder: e.g., Sends notifications to our Slack channel
+          name_hint: A friendly name to identify this webhook
+          name_label: Name
+          name_placeholder: e.g., Slack Notifications
+          save_changes: Save changes
+          signing_secret_hint: Use this secret to verify webhook signatures (HMAC-SHA256)
+          signing_secret_label: Signing Secret
+          subscribed_actions_hint: Select which event types should trigger this webhook
+          subscribed_actions_label: Subscribed Events
+          url_hint: The endpoint where webhook payloads will be sent
+          url_label: Webhook URL
+          url_placeholder: https://hooks.example.com/webhook
+        index:
+          activate: Activate
+          active_badge: Active
+          deactivate: Deactivate
+          description: Configure webhooks to receive real-time event notifications
+          inactive_badge: Inactive
+          new_webhook: New Webhook
+          no_webhooks_description: Webhooks allow your systems to receive real-time notifications when events occur.
+          no_webhooks_title: No webhooks configured
+          title: Webhooks
+        new:
+          description: Create a webhook to receive event notifications
+          title: New Webhook
+        update:
+          successfully_updated: Webhook was successfully updated.
     users:
       activations:
         create:

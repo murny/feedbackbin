@@ -9,6 +9,12 @@ class Event < ApplicationRecord
   belongs_to :creator, class_name: "User"
   belongs_to :eventable, polymorphic: true
 
+  has_many :webhook_deliveries, class_name: "Webhook::Delivery", dependent: :destroy
+
+  # Callbacks
+  after_create -> { eventable.event_was_created(self) if eventable.respond_to?(:event_was_created) }
+  after_create_commit :dispatch_webhooks
+
   # Make action queryable like: event.action.idea_published?
   def action
     super.inquiry
@@ -19,6 +25,10 @@ class Event < ApplicationRecord
     Event::Description.new(self, user)
   end
 
-  # Hook that gets called after event creation, allowing eventables to respond
-  after_create -> { eventable.event_was_created(self) if eventable.respond_to?(:event_was_created) }
+  private
+
+  # Dispatch webhooks for this event
+  def dispatch_webhooks
+    Webhook::DispatchJob.perform_later(self)
+  end
 end
