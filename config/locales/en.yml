@@ -581,8 +581,8 @@ en:
   select_board: Select a board
   sessions:
     magic_links:
+      enter_email_address: Enter your email address to sign in.
       create:
-        enter_email_address: Enter your email address to sign in.
         signed_in_successfully: You have signed in successfully.
         something_went_wrong: Something went wrong. Please try again.
         try_another_code: Invalid or expired code. Try another code.
@@ -594,7 +594,6 @@ en:
         code_placeholder: "••••••"
         code_sent_to_html: Code sent to %{email}
         enter_code_instructions: Enter the 6-character verification code we sent to your email
-        enter_email_address: Enter your email address to sign in.
         verification_code: Verification code
         verify_code: Verify code
         your_code: Your code

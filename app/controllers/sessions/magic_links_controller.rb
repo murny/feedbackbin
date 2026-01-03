@@ -29,8 +29,8 @@ class Sessions::MagicLinksController < ApplicationController
     def ensure_that_email_address_pending_authentication_exists
       unless email_address_pending_authentication.present?
         respond_to do |format|
-          format.html { redirect_to sign_in_path, alert: t(".enter_email_address") }
-          format.json { render json: { message: t(".enter_email_address") }, status: :unauthorized }
+          format.html { redirect_to magic_sign_in_path, alert: t("sessions.magic_links.enter_email_address") }
+          format.json { render json: { message: t("sessions.magic_links.enter_email_address") }, status: :unauthorized }
         end
       end
     end
@@ -61,7 +61,7 @@ class Sessions::MagicLinksController < ApplicationController
       clear_pending_authentication_token
 
       respond_to do |format|
-        format.html { redirect_to sign_in_path, alert: t(".something_went_wrong") }
+        format.html { redirect_to magic_sign_in_path, alert: t(".something_went_wrong") }
         format.json { render json: { message: t(".something_went_wrong") }, status: :unauthorized }
       end
     end
