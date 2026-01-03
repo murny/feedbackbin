@@ -531,6 +531,14 @@ en:
       title: Admin
     meta:
       description: Share your feedback and ideas for %{name}
+  magic_link_mailer:
+    sign_in_instructions:
+      expiration_notice: This code will work for %{time}.
+      sign_in_instructions: Please enter this 6-character verification code on the FeedbackBin sign-in page
+      sign_in_title: FeedbackBin verification code
+      sign_up_instructions: Please enter this 6-character verification code on the FeedbackBin sign-up page to create your new account
+      sign_up_title: Welcome to FeedbackBin!
+      subject: Your FeedbackBin code is %{code}
   oauth:
     sign_in_with: Sign in with %{provider}
   pagy:
@@ -572,6 +580,24 @@ en:
       title: Roadmap
   select_board: Select a board
   sessions:
+    magic_links:
+      create:
+        enter_email_address: Enter your email address to sign in.
+        signed_in_successfully: You have signed in successfully.
+        something_went_wrong: Something went wrong. Please try again.
+        try_another_code: Invalid or expired code. Try another code.
+        rate_limited: Too many attempts. Try again in 15 minutes.
+      show:
+        brand_name: FeedbackBin
+        check_your_email: Check your email
+        code_expires_in: Expires in %{time}
+        code_placeholder: "••••••"
+        code_sent_to_html: Code sent to %{email}
+        enter_code_instructions: Enter the 6-character verification code we sent to your email
+        enter_email_address: Enter your email address to sign in.
+        verification_code: Verification code
+        verify_code: Verify code
+        your_code: Your code
     menus:
       show:
         brand_name: FeedbackBin
@@ -723,6 +749,22 @@ en:
         email_verified: Thank you for verifying your email address
     ideas_tab:
       empty_ideas: No ideas yet.
+    magic_sessions:
+      new:
+        brand_name: FeedbackBin
+        email: Email
+        email_placeholder: Enter your email address
+        prefer_password: Prefer password?
+        privacy_policy: Privacy Policy
+        send_magic_link: Send magic link
+        sign_in_with_magic_link: Sign in with magic link
+        sign_in_with_password: Sign in with password
+        subtitle: We'll email you a verification code
+        terms_agreement_html: By clicking continue, you agree to our %{terms_link} and %{privacy_link}.
+        terms_of_service: Terms of Service
+        title: Sign in with magic link
+      rate_limit_exceeded:
+        rate_limited: Please try again later.
     omniauth:
       create:
         already_connected: This %{provider} account is already connected to your account.
@@ -799,6 +841,7 @@ en:
         password_placeholder: Enter your password
         privacy_policy: Privacy Policy
         sign_in: Sign in
+        sign_in_with_magic_link: Sign in with magic link
         sign_up: Sign up
         terms_agreement_html: By clicking continue, you agree to our %{terms_link} and %{privacy_link}.
         terms_of_service: Terms of Service
