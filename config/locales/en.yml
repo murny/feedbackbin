@@ -581,12 +581,16 @@ en:
   select_board: Select a board
   sessions:
     magic_links:
-      enter_email_address: Enter your email address to sign in.
-      create:
-        signed_in_successfully: You have signed in successfully.
+      email_address_mismatch:
         something_went_wrong: Something went wrong. Please try again.
+      ensure_that_email_address_pending_authentication_exists:
+        enter_email_address: Enter your email address to sign in.
+      invalid_code:
         try_another_code: Invalid or expired code. Try another code.
+      rate_limit_exceeded:
         rate_limited: Too many attempts. Try again in 15 minutes.
+      sign_in:
+        signed_in_successfully: You have signed in successfully.
       show:
         brand_name: FeedbackBin
         check_your_email: Check your email
