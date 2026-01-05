@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.2].define(version: 2025_12_23_203137) do
+ActiveRecord::Schema[8.2].define(version: 2025_12_23_230203) do
   create_table "account_external_id_sequences", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -156,6 +156,18 @@ ActiveRecord::Schema[8.2].define(version: 2025_12_23_203137) do
     t.index ["token"], name: "index_invitations_on_token", unique: true
   end
 
+  create_table "magic_links", force: :cascade do |t|
+    t.string "code", null: false
+    t.datetime "created_at", null: false
+    t.datetime "expires_at", null: false
+    t.integer "identity_id", null: false
+    t.integer "purpose", default: 0, null: false
+    t.datetime "updated_at", null: false
+    t.index ["code"], name: "index_magic_links_on_code", unique: true
+    t.index ["expires_at"], name: "index_magic_links_on_expires_at"
+    t.index ["identity_id"], name: "index_magic_links_on_identity_id"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.bigint "identity_id", null: false
@@ -225,6 +237,7 @@ ActiveRecord::Schema[8.2].define(version: 2025_12_23_203137) do
   add_foreign_key "identity_connected_accounts", "identities"
   add_foreign_key "invitations", "accounts"
   add_foreign_key "invitations", "users", column: "invited_by_id"
+  add_foreign_key "magic_links", "identities"
   add_foreign_key "sessions", "identities"
   add_foreign_key "statuses", "accounts"
   add_foreign_key "users", "accounts"

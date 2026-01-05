@@ -7,8 +7,8 @@ class Identity < ApplicationRecord
   include Joinable, Transferable
 
   # has_many :access_tokens, dependent: :destroy
-  # has_many :magic_links, dependent: :destroy
-  #
+  has_many :magic_links, dependent: :destroy
+
   has_many :identity_connected_accounts, dependent: :destroy
   has_many :sessions, dependent: :destroy
   has_many :users, dependent: :nullify
@@ -37,13 +37,13 @@ class Identity < ApplicationRecord
   #   end
   # end
 
-  # def send_magic_link(**attributes)
-  #   attributes[:purpose] = attributes.delete(:for) if attributes.key?(:for)
+  def send_magic_link(**attributes)
+    attributes[:purpose] = attributes.delete(:for) if attributes.key?(:for)
 
-  #   magic_links.create!(attributes).tap do |magic_link|
-  #     MagicLinkMailer.sign_in_instructions(magic_link).deliver_later
-  #   end
-  # end
+    magic_links.create!(attributes).tap do |magic_link|
+      MagicLinkMailer.sign_in_instructions(magic_link).deliver_later
+    end
+  end
 
   private
     def deactivate_users

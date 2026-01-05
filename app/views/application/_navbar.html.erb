@@ -44,16 +44,18 @@
           </div>
         </div>
       </div>
-      <div class="flex items-center">
-        <div class="shrink-0">
-          <%= link_to changelogs_path,
-                      class: [ "relative inline-flex items-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
-                      unread_changelogs_class(Current.user) ] do %>
-          <%= lucide_icon "megaphone", class: "h-6 w-6" %>
-          <span class="hidden md:block"><%= t(".links.whats_new") %></span>
-          <% end %>
+      <% if Current.user %>
+        <div class="flex items-center">
+          <div class="shrink-0">
+            <%= link_to changelogs_path,
+                        class: [ "relative inline-flex items-center gap-x-1.5 rounded-md px-3 py-2 text-sm font-medium ring-offset-background transition-colors hover:bg-accent hover:text-accent-foreground focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2",
+                        unread_changelogs_class(Current.user) ] do %>
+            <%= lucide_icon "megaphone", class: "h-6 w-6" %>
+            <span class="hidden md:block"><%= t(".links.whats_new") %></span>
+            <% end %>
+          </div>
         </div>
-      </div>
+      <% end %>
       <div class="flex items-center md:hidden">
         <!-- Mobile menu button -->
         <button type="button"
@@ -73,7 +75,7 @@
         </button>
       </div>
       <div class="hidden md:ml-4 md:flex md:shrink-0 md:items-center">
-        <% if authenticated? %>
+        <% if authenticated? && Current.user %>
           <button type="button" class="relative rounded-full bg-background p-1 text-muted-foreground hover:text-foreground ring-offset-background transition-colors focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2">
             <span class="absolute -inset-1.5"></span>
             <span class="sr-only"><%= t(".view_notifications") %></span>
@@ -174,7 +176,7 @@
             inactive_class: "text-foreground hover:bg-accent hover:text-accent-foreground" %>
     </div>
     <div class="border-t border-border pb-3 pt-4">
-      <% if authenticated? %>
+      <% if authenticated? && Current.user %>
         <div class="flex items-center px-5 sm:px-6">
           <div class="shrink-0">
             <%= image_tag fresh_user_avatar_path(Current.user), role: "presentation", class: "h-10 w-10 rounded-full", alt: "" %>
