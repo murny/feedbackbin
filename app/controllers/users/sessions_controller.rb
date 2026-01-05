@@ -2,7 +2,7 @@
 
 module Users
   class SessionsController < ApplicationController
-    disallow_account_scope except: %i[destroy]
+    disallow_account_scope
     require_unauthenticated_access only: %i[new create]
     skip_after_action :verify_authorized
 
@@ -26,7 +26,7 @@ module Users
 
     def destroy
       terminate_session
-      redirect_back(fallback_location: sign_in_path, notice: t(".signed_out_successfully"))
+      redirect_to sign_in_path, notice: t(".signed_out_successfully")
     end
   end
 end

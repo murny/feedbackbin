@@ -29,8 +29,8 @@ class Sessions::MagicLinksController < ApplicationController
     def ensure_that_email_address_pending_authentication_exists
       unless email_address_pending_authentication.present?
         respond_to do |format|
-          format.html { redirect_to sign_in_path, alert: t(".enter_email_address") }
-          format.json { render json: { message: t(".enter_email_address") }, status: :unauthorized }
+          format.html { redirect_to magic_sign_in_path, alert: t("sessions.magic_links.ensure_that_email_address_pending_authentication_exists.enter_email_address") }
+          format.json { render json: { message: t("sessions.magic_links.ensure_that_email_address_pending_authentication_exists.enter_email_address") }, status: :unauthorized }
         end
       end
     end
@@ -52,7 +52,7 @@ class Sessions::MagicLinksController < ApplicationController
       start_new_session_for magic_link.identity
 
       respond_to do |format|
-        format.html { redirect_to after_sign_in_url(magic_link), notice: t(".signed_in_successfully") }
+        format.html { redirect_to after_sign_in_url(magic_link), notice: t("sessions.magic_links.sign_in.signed_in_successfully") }
         format.json { render json: { session_token: cookies.signed[:session_token] } }
       end
     end
@@ -61,15 +61,15 @@ class Sessions::MagicLinksController < ApplicationController
       clear_pending_authentication_token
 
       respond_to do |format|
-        format.html { redirect_to sign_in_path, alert: t(".something_went_wrong") }
-        format.json { render json: { message: t(".something_went_wrong") }, status: :unauthorized }
+        format.html { redirect_to magic_sign_in_path, alert: t("sessions.magic_links.email_address_mismatch.something_went_wrong") }
+        format.json { render json: { message: t("sessions.magic_links.email_address_mismatch.something_went_wrong") }, status: :unauthorized }
       end
     end
 
     def invalid_code
       respond_to do |format|
-        format.html { redirect_to session_magic_link_path, flash: { shake: true, alert: t(".try_another_code") } }
-        format.json { render json: { message: t(".try_another_code") }, status: :unauthorized }
+        format.html { redirect_to session_magic_link_path, flash: { shake: true, alert: t("sessions.magic_links.invalid_code.try_another_code") } }
+        format.json { render json: { message: t("sessions.magic_links.invalid_code.try_another_code") }, status: :unauthorized }
       end
     end
 
@@ -83,8 +83,8 @@ class Sessions::MagicLinksController < ApplicationController
 
     def rate_limit_exceeded
       respond_to do |format|
-        format.html { redirect_to session_magic_link_path, alert: t(".rate_limited") }
-        format.json { render json: { message: t(".rate_limited") }, status: :too_many_requests }
+        format.html { redirect_to session_magic_link_path, alert: t("sessions.magic_links.rate_limit_exceeded.rate_limited") }
+        format.json { render json: { message: t("sessions.magic_links.rate_limit_exceeded.rate_limited") }, status: :too_many_requests }
       end
     end
 end

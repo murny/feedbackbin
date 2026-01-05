@@ -12,7 +12,7 @@ class Sessions::MagicLinksControllerTest < ActionDispatch::IntegrationTest
   test "show redirects without pending authentication" do
     get session_magic_link_url
 
-    assert_redirected_to sign_in_path
+    assert_redirected_to magic_sign_in_path
     assert_equal "Enter your email address to sign in.", flash[:alert]
   end
 
@@ -51,7 +51,7 @@ class Sessions::MagicLinksControllerTest < ActionDispatch::IntegrationTest
     post magic_session_url, params: { email_address: @identity.email_address }
     post session_magic_link_url, params: { code: magic_link.code }
 
-    assert_redirected_to sign_in_path
+    assert_redirected_to magic_sign_in_path
     assert_nil cookies[:session_token]
   end
 
