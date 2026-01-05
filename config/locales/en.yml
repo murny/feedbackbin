@@ -14,13 +14,16 @@ en:
         membership:
           attributes:
             role:
-              admin_cannot_be_removed: admin role cannot be removed for the account owner
+              admin_cannot_be_removed: admin role cannot be removed for the account
+                owner
         status:
           attributes:
             base:
-              cannot_delete_default: Cannot delete the default status. Reassign default to another status first.
+              cannot_delete_default: Cannot delete the default status. Reassign default
+                to another status first.
               restrict_dependent_destroy:
-                has_many: Cannot delete this status because ideas are still using it. Please reassign or delete those ideas first.
+                has_many: Cannot delete this status because ideas are still using
+                  it. Please reassign or delete those ideas first.
         user:
           attributes:
             active:
@@ -35,7 +38,8 @@ en:
         recent_comments:
           ago: ago
           commented: commented on
-          no_comments_description: When users add comments to feedback, you'll see them here.
+          no_comments_description: When users add comments to feedback, you'll see
+            them here.
           no_comments_title: No recent comments
           title: Recent Comments
         recent_ideas:
@@ -101,7 +105,8 @@ en:
         cancel_invitation: Cancel invitation
         copy_invitation_link: Copy invitation link
         invited_by: Invited by
-        no_invitations_description: No pending invitations. Invite someone to get started!
+        no_invitations_description: No pending invitations. Invite someone to get
+          started!
         no_invitations_title: No invitations
         resend: Resend
         resend_confirm: Are you sure you want to resend this invitation?
@@ -112,7 +117,8 @@ en:
         email: Email Address
         email_hint: We'll send them an invitation email
         email_placeholder: user@example.com
-        member_role_note: New users will be invited as Members. You can promote them to Admin after they join.
+        member_role_note: New users will be invited as Members. You can promote them
+          to Admin after they join.
         name: Name
         name_hint: What should we call them?
         name_placeholder: John Doe
@@ -133,9 +139,11 @@ en:
           color_hint: Choose a color to help identify this board
           color_label: Color
           create_board: Create Board
-          description_hint: Help users understand what type of feedback belongs in this board (maximum 500 characters)
+          description_hint: Help users understand what type of feedback belongs in
+            this board (maximum 500 characters)
           description_label: Description
-          description_placeholder: e.g., Share your ideas and help us improve our product
+          description_placeholder: e.g., Share your ideas and help us improve our
+            product
           name_label: Name
           name_placeholder: e.g., Feature Requests
           preview_label: Preview
@@ -164,13 +172,15 @@ en:
           logo_and_name: Show logo & company name
           logo_display: Display
           logo_link: Logo link
-          logo_link_hint: Where clicking the logo should navigate to (leave blank for homepage)
+          logo_link_hint: Where clicking the logo should navigate to (leave blank
+            for homepage)
           logo_link_placeholder: https://
           logo_only: Show logo only
           logo_size_hint: JPG, PNG up to 2MB. Recommended size 400x400px.
           name: Account name
           og_image: Open Graph Image
-          og_image_hint: Used when sharing links on social media. Recommended size 1200×630px. Maximum 2MB.
+          og_image_hint: Used when sharing links on social media. Recommended size
+            1200×630px. Maximum 2MB.
           save_changes: Save changes
           title: Branding
           upload_favicon: Upload Favicon
@@ -184,11 +194,14 @@ en:
           name_confirmation_mismatch: Account name does not match.
           success: Account has been successfully deleted.
         show:
-          acknowledge: I acknowledge that all of the account data will be deleted and want to proceed.
-          confirmation_description_html: You are about to delete your account <strong>%{name}</strong>. This will permanently delete all your data.
+          acknowledge: I acknowledge that all of the account data will be deleted
+            and want to proceed.
+          confirmation_description_html: You are about to delete your account <strong>%{name}</strong>.
+            This will permanently delete all your data.
           confirmation_label: Account Deletion
           delete_button: Delete Account
-          delete_description: Remove all data associated with your account from our servers.
+          delete_description: Remove all data associated with your account from our
+            servers.
           delete_title: Delete Account
           description: Please be careful when performing destructive actions.
           enter_name: Enter account name
@@ -196,7 +209,8 @@ en:
           subtitle: These settings are critical to your account.
           title: Danger Zone
           transfer_ownership_button: Transfer Ownership
-          transfer_ownership_description: The owner has ultimate control over this account. Transferring ownership is permanent and cannot be undone.
+          transfer_ownership_description: The owner has ultimate control over this
+            account. Transferring ownership is permanent and cannot be undone.
           transfer_ownership_title: Transfer Account Ownership
           turbo_confirm: Are you sure? This action cannot be undone.
       header:
@@ -217,7 +231,8 @@ en:
           select_admin: Select an admin
           title: Transfer Account Ownership
           transfer_ownership: Transfer Ownership
-          warning_message: Transferring ownership cannot be undone. The new owner will have full control of this account.
+          warning_message: Transferring ownership cannot be undone. The new owner
+            will have full control of this account.
           warning_title: Warning
       statuses:
         create:
@@ -238,9 +253,11 @@ en:
           position_placeholder: '1'
           preview_label: Preview
           save_changes: Save changes
-          show_on_idea_hint: When enabled, ideas with this status will appear on the main ideas page by default
+          show_on_idea_hint: When enabled, ideas with this status will appear on the
+            main ideas page by default
           show_on_idea_label: Show on ideas page
-          show_on_roadmap_hint: When enabled, ideas with this status will appear on the roadmap
+          show_on_roadmap_hint: When enabled, ideas with this status will appear on
+            the roadmap
           show_on_roadmap_label: Show on roadmap
           visibility_label: Visibility Settings
         index:
@@ -251,7 +268,8 @@ en:
             one: "%{count} idea"
             other: "%{count} ideas"
           new_status: New Status
-          no_statuses_description: Statuses help you organize and communicate the progress of ideas.
+          no_statuses_description: Statuses help you organize and communicate the
+            progress of ideas.
           no_statuses_title: No statuses
           position_label: Position
           roadmap_badge: Roadmap
@@ -296,7 +314,8 @@ en:
         basic_info_title: Basic Information
         comment_plural: comments
         comment_singular: comment
-        deactivate_confirm: Are you sure you want to deactivate this user? They will be logged out and unable to sign in.
+        deactivate_confirm: Are you sure you want to deactivate this user? They will
+          be logged out and unable to sign in.
         deactivate_user: Deactivate User
         deactivated_badge: Deactivated
         description: User profile and activity details
@@ -385,7 +404,8 @@ en:
   changelogs:
     index:
       description: New updates and improvements to %{name}
-      empty_description: Check back later for the latest updates and improvements to our platform.
+      empty_description: Check back later for the latest updates and improvements
+        to our platform.
       empty_placeholder: Exciting stuff coming very soon!
       title: What's New
     show:
@@ -463,7 +483,8 @@ en:
     index:
       all_ideas: All Ideas
       description: Share your ideas and help us improve our product
-      empty_idea_description: Get started by sharing your first suggestion or idea with the community.
+      empty_idea_description: Get started by sharing your first suggestion or idea
+        with the community.
       empty_idea_title: No ideas yet
       search_placeholder: Search ideas...
       sort_by_label: Sort by
@@ -495,15 +516,18 @@ en:
       already_have_account: Already have an account?
       create_account: Create Your Account
       heading: You've been invited!
-      invited_by_html: "%{inviter_name} has invited you to collaborate on customer feedback and help shape the product roadmap."
+      invited_by_html: "%{inviter_name} has invited you to collaborate on customer
+        feedback and help shape the product roadmap."
       not_found: This invitation link is invalid or has already been used.
-      rate_limited: You have exceeded the maximum number of attempts. Please try again later.
+      rate_limited: You have exceeded the maximum number of attempts. Please try again
+        later.
       sign_in: Sign in
       title: You're Invited!
   invitations_mailer:
     invite:
       accept_invitation: Accept Invitation
-      description: You've been invited to collaborate on customer feedback and help shape the product roadmap.
+      description: You've been invited to collaborate on customer feedback and help
+        shape the product roadmap.
       greeting: Hi %{name},
       invited_by: "%{inviter_name} has invited you to join %{account_name}"
       questions: Questions? Reply to this email and we'll be happy to help.
@@ -534,9 +558,11 @@ en:
   magic_link_mailer:
     sign_in_instructions:
       expiration_notice: This code will work for %{time}.
-      sign_in_instructions: Please enter this 6-character verification code on the FeedbackBin sign-in page
+      sign_in_instructions: Please enter this 6-character verification code on the
+        FeedbackBin sign-in page
       sign_in_title: FeedbackBin verification code
-      sign_up_instructions: Please enter this 6-character verification code on the FeedbackBin sign-up page to create your new account
+      sign_up_instructions: Please enter this 6-character verification code on the
+        FeedbackBin sign-up page to create your new account
       sign_up_title: Welcome to FeedbackBin!
       subject: Your FeedbackBin code is %{code}
   oauth:
@@ -589,18 +615,19 @@ en:
         try_another_code: Invalid or expired code. Try another code.
       rate_limit_exceeded:
         rate_limited: Too many attempts. Try again in 15 minutes.
-      sign_in:
-        signed_in_successfully: You have signed in successfully.
       show:
         brand_name: FeedbackBin
         check_your_email: Check your email
         code_expires_in: Expires in %{time}
         code_placeholder: "••••••"
         code_sent_to_html: Code sent to %{email}
-        enter_code_instructions: Enter the 6-character verification code we sent to your email
+        enter_code_instructions: Enter the 6-character verification code we sent to
+          your email
         verification_code: Verification code
         verify_code: Verify code
         your_code: Your code
+      sign_in:
+        signed_in_successfully: You have signed in successfully.
     menus:
       show:
         brand_name: FeedbackBin
@@ -644,11 +671,14 @@ en:
         connect: Connect
         connected_account_label: Connected
         connected_accounts: Connected Accounts
-        connected_accounts_description: Connecting your social media accounts makes logging in easier.
+        connected_accounts_description: Connecting your social media accounts makes
+          logging in easier.
         current_password: Current Password
         delete_account: Delete account
         delete_account_confirm: Are you sure?
-        delete_account_description: No longer want to use our service? You can delete your account here. This action is not reversible. All information related to this account will be deleted permanently.
+        delete_account_description: No longer want to use our service? You can delete
+          your account here. This action is not reversible. All information related
+          to this account will be deleted permanently.
         delete_my_account: Yes, delete my account
         disconnect: Disconnect
         disconnect_confirm: Are you sure you want to disconnect this account?
@@ -656,7 +686,8 @@ en:
         email_address_hint: Never shown to the public
         email_address_placeholder: Enter your email address
         email_not_verified: Email address not verified
-        email_verification_description: Please verify your email address to secure your account and receive important notifications.
+        email_verification_description: Please verify your email address to secure
+          your account and receive important notifications.
         not_connected: Not connected
         redirecting: Redirecting...
         resend_verification_email: Resend verification email
@@ -668,13 +699,15 @@ en:
         session_revoked: This session was successfully revoked
       index:
         active_devices_sessions: Active Devices & Sessions
-        active_sessions_description: This is a list of devices that have logged into your account. Revoke any sessions that you do not recognize.
+        active_sessions_description: This is a list of devices that have logged into
+          your account. Revoke any sessions that you do not recognize.
         are_you_sure: Are you sure? The device will be signed out.
         browser_platform_separator: 'on'
         current_session: Current session
         last_accessed: Last accessed
         no_active_sessions: No active sessions
-        no_active_sessions_description: You don't have any active sessions at the moment.
+        no_active_sessions_description: You don't have any active sessions at the
+          moment.
         revoke: Revoke
         signed_in: Signed in
         this_is_your_current_session: This is your current session
@@ -700,10 +733,12 @@ en:
     passwords:
       show:
         change_password: Change password
-        change_password_description: Change your password or recover your current one.
+        change_password_description: Change your password or recover your current
+          one.
         confirm_password: Confirm password
         current_password: Current password
-        current_password_hint: You must provide your current password in order to change it.
+        current_password_hint: You must provide your current password in order to
+          change it.
         forgot_my_password: I forgot my password
         new_password: New password
         save_password: Save password
@@ -720,14 +755,17 @@ en:
       update:
         updated_successfully: Your preferences have been updated.
     profiles:
-      avatar_updated: Your avatar has been updated. It may take up to 30 minutes to update everywhere.
+      avatar_updated: Your avatar has been updated. It may take up to 30 minutes to
+        update everywhere.
       profile_updated: Your profile has been updated.
       show:
-        avatar_size_hint: The ideal image size is 192 x 192 pixels. The maximum file size allowed is 1 MB.
+        avatar_size_hint: The ideal image size is 192 x 192 pixels. The maximum file
+          size allowed is 1 MB.
         back_to_profile: Back to profile
         bio_hint: Tell us about yourself in fewer than 255 characters.
         profile: Profile
-        profile_description: This information will be displayed publicly so be careful what you share.
+        profile_description: This information will be displayed publicly so be careful
+          what you share.
         public_avatar: Public avatar
         remove_avatar_confirm: Are you sure?
         update_profile: Update profile
@@ -746,7 +784,8 @@ en:
       user_deleted: Your account has been deleted.
     email_verifications:
       create:
-        email_verification_sent: We've sent you an email with a link to verify your email address
+        email_verification_sent: We've sent you an email with a link to verify your
+          email address
       invalid_token: That email verification link is invalid or has expired
       show:
         email_verified: Thank you for verifying your email address
@@ -763,7 +802,8 @@ en:
         sign_in_with_magic_link: Sign in with magic link
         sign_in_with_password: Sign in with password
         subtitle: We'll email you a verification code
-        terms_agreement_html: By clicking continue, you agree to our %{terms_link} and %{privacy_link}.
+        terms_agreement_html: By clicking continue, you agree to our %{terms_link}
+          and %{privacy_link}.
         terms_of_service: Terms of Service
         title: Sign in with magic link
       rate_limit_exceeded:
@@ -772,12 +812,15 @@ en:
       create:
         already_connected: This %{provider} account is already connected to your account.
         connected_successfully: You have connected your %{provider} account successfully.
-        connected_to_another_account: This %{provider} account is already connected to another account.
-        finish_registration: We could not create an account for you. Please finish the registration process.
+        connected_to_another_account: This %{provider} account is already connected
+          to another account.
+        finish_registration: We could not create an account for you. Please finish
+          the registration process.
         signed_in_successfully: You have signed in successfully.
     password_resets:
       create:
-        password_reset_instructions_sent: Password reset instructions sent (if user with that email address exists).
+        password_reset_instructions_sent: Password reset instructions sent (if user
+          with that email address exists).
         rate_limited: Please try again later.
       edit:
         confirm_new_password: Confirm new password
@@ -821,12 +864,14 @@ en:
         password_placeholder: Enter your password
         privacy_policy: Privacy Policy
         signup_with_social: Sign up with your Google or Facebook account
-        terms_agreement_html: By clicking continue, you agree to our %{terms_link} and %{privacy_link}.
+        terms_agreement_html: By clicking continue, you agree to our %{terms_link}
+          and %{privacy_link}.
         terms_of_service: Terms of Service
         title: Sign up
     sessions:
       create:
-        account_deactivated: Your account has been deactivated. Please contact support for assistance.
+        account_deactivated: Your account has been deactivated. Please contact support
+          for assistance.
         invalid_credentials: Try another email address or password.
         rate_limited: Please try again later.
         signed_in_successfully: You have signed in successfully.
@@ -846,7 +891,8 @@ en:
         sign_in: Sign in
         sign_in_with_magic_link: Sign in with magic link
         sign_up: Sign up
-        terms_agreement_html: By clicking continue, you agree to our %{terms_link} and %{privacy_link}.
+        terms_agreement_html: By clicking continue, you agree to our %{terms_link}
+          and %{privacy_link}.
         terms_of_service: Terms of Service
         welcome_back: Welcome back
     show:
