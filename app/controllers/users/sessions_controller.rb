@@ -26,7 +26,7 @@ module Users
 
     def destroy
       terminate_session
-      redirect_back(fallback_location: sign_in_path, notice: t(".signed_out_successfully"))
+      redirect_to sign_in_path, notice: t(".signed_out_successfully")
     end
   end
 end

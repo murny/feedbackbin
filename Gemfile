@@ -34,11 +34,11 @@ gem "jbuilder"
 gem "pagy", "~> 43.2"
 gem "inline_svg"
 gem "lucide-rails"
-gem "tailwind_merge", "~> 1.3.1"
+gem "tailwind_merge", "~> 1.3.2"
 gem "view_component"
 
 # Authentication & Authorization
-gem "bcrypt", "~> 3.1.7"
+gem "bcrypt", "~> 3.1.21"
 gem "omniauth"
 gem "omniauth-rails_csrf_protection"
 gem "omniauth-google-oauth2"
