@@ -20,11 +20,6 @@ class Comment < ApplicationRecord
   # Event tracking
   after_create_commit :track_creation
 
-  # Comments get their board context from their idea
-  def board
-    idea.board
-  end
-
   # TODO: Validation for parent_id parent is an Idea (no more than 1 level of nesting of comments)
   #
   # TODO: Add turbo stream broadcasts?
