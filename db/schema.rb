@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.2].define(version: 2025_12_23_230203) do
+ActiveRecord::Schema[8.2].define(version: 2025_12_30_201800) do
   create_table "account_external_id_sequences", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -101,6 +101,24 @@ ActiveRecord::Schema[8.2].define(version: 2025_12_23_230203) do
     t.index ["creator_id"], name: "index_comments_on_creator_id"
     t.index ["idea_id"], name: "index_comments_on_idea_id"
     t.index ["parent_id"], name: "index_comments_on_parent_id"
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.string "action", null: false
+    t.bigint "board_id", null: false
+    t.datetime "created_at", null: false
+    t.bigint "creator_id", null: false
+    t.bigint "eventable_id", null: false
+    t.string "eventable_type", null: false
+    t.json "particulars", default: {}
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_events_on_account_id"
+    t.index ["action"], name: "index_events_on_action"
+    t.index ["board_id", "action", "created_at"], name: "index_events_on_board_id_and_action_and_created_at"
+    t.index ["board_id"], name: "index_events_on_board_id"
+    t.index ["creator_id"], name: "index_events_on_creator_id"
+    t.index ["eventable_type", "eventable_id"], name: "index_events_on_eventable_type_and_eventable_id"
   end
 
   create_table "ideas", force: :cascade do |t|
@@ -230,6 +248,9 @@ ActiveRecord::Schema[8.2].define(version: 2025_12_23_230203) do
   add_foreign_key "comments", "comments", column: "parent_id"
   add_foreign_key "comments", "ideas"
   add_foreign_key "comments", "users", column: "creator_id"
+  add_foreign_key "events", "accounts"
+  add_foreign_key "events", "boards"
+  add_foreign_key "events", "users", column: "creator_id"
   add_foreign_key "ideas", "accounts"
   add_foreign_key "ideas", "boards"
   add_foreign_key "ideas", "statuses"

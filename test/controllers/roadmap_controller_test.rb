@@ -26,6 +26,8 @@ class RoadmapControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "displays ideas in their status columns" do
+    sign_in_as users(:shane)
+
     planned_status = statuses(:planned)
     idea = ideas(:one)
     idea.update!(status: planned_status, title: "Unique Test Idea Title")
@@ -40,6 +42,8 @@ class RoadmapControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "displays ideas ordered by created_at desc" do
+    sign_in_as users(:shane)
+
     status = statuses(:planned)  # Use a roadmap-visible status
 
     # Update existing ideas to have specific timestamps and titles

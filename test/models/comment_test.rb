@@ -4,6 +4,7 @@ require "test_helper"
 
 class CommentTest < ActiveSupport::TestCase
   setup do
+    Current.session = sessions(:shane_chrome)
     @comment = comments(:one)
   end
 
@@ -26,6 +27,8 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   test "invalid without creator" do
+    # Stub the default current user to nil so we can test the validation
+    Current.stubs(:user).returns(nil)
     @comment.creator = nil
 
     assert_not @comment.valid?

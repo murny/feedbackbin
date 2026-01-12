@@ -31,7 +31,7 @@ class Comment < ApplicationRecord
 
   private
 
-  def track_creation
-    track_event(:created, board: idea.board)
-  end
+    def track_creation
+      track_event(:created, board: idea.board)
+    end
 end
