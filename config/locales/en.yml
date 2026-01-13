@@ -425,7 +425,6 @@ en:
       commented_on: commented on
       created: created
       moved: moved
-    from: from
     to: to
     unknown_item: unknown item
     was: was
