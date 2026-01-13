@@ -36,7 +36,8 @@ class Notifier
   def notify
     return [] unless should_notify?
 
-    recipients.uniq.map do |recipient|
+    # Processing recipients in order avoids deadlocks if notifications overlap
+    recipients.uniq.sort_by(&:id).map do |recipient|
       Notification.create!(
         user: recipient,
         source: source,
@@ -53,9 +54,9 @@ class Notifier
     []
   end
 
-  # Override in subclasses to conditionally prevent notifications
+  # Don't notify if creator is a system user
   # @return [Boolean] Whether notifications should be sent
   def should_notify?
-    true
+    !creator.system?
   end
 end

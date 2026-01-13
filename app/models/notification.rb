@@ -11,6 +11,7 @@
 #     source: comment_created_event
 #   )
 class Notification < ApplicationRecord
+  belongs_to :account, default: -> { user.account }
   belongs_to :user
   belongs_to :creator, class_name: "User"
   belongs_to :source, polymorphic: true  # Event (for now)
@@ -24,18 +25,22 @@ class Notification < ApplicationRecord
   scope :read, -> { where.not(read_at: nil) }
   scope :recent, -> { order(created_at: :desc) }
 
-  # Broadcast notification count updates to user
-  after_create_commit :broadcast_unread_count
-  after_update_commit :broadcast_unread_count, if: :saved_change_to_read_at?
+  # Broadcast notification to user's notification list
+  after_create_commit :broadcast_unread
+  after_destroy_commit :broadcast_read
 
   # Mark notification as read
   def mark_as_read!
-    update!(read_at: Time.current) unless read?
+    return if read?
+    update!(read_at: Time.current)
+    broadcast_read
   end
 
   # Mark notification as unread
   def mark_as_unread!
-    update!(read_at: nil) if read?
+    return unless read?
+    update!(read_at: nil)
+    broadcast_unread
   end
 
   # Check if notification is read
@@ -60,12 +65,11 @@ class Notification < ApplicationRecord
 
   private
 
-  def broadcast_unread_count
-    broadcast_update_to(
-      [user, :notifications],
-      target: "unread_notifications_count",
-      partial: "notifications/unread_count",
-      locals: { count: user.notifications.unread.count }
-    )
+  def broadcast_unread
+    broadcast_prepend_later_to user, :notifications, target: "notifications"
+  end
+
+  def broadcast_read
+    broadcast_remove_to user, :notifications
   end
 end

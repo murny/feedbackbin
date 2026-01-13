@@ -1,0 +1,29 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+# Shane watching his own idea
+shane_watching_one:
+  account: feedbackbin
+  user: shane
+  idea: one
+  watching: true
+
+# Jane watching her own idea
+jane_watching_two:
+  account: feedbackbin
+  user: jane
+  idea: two
+  watching: true
+
+# John watching his own idea
+john_watching_three:
+  account: feedbackbin
+  user: john
+  idea: three
+  watching: true
+
+# Jane also watches Shane's idea
+jane_watching_one:
+  account: feedbackbin
+  user: jane
+  idea: one
+  watching: true

@@ -3,18 +3,15 @@
 # CommentEventNotifier determines who should be notified for Comment-related events.
 #
 # Notification rules:
-# - comment_created: Notify:
-#   1. The idea creator (if they didn't write the comment)
-#   2. Other users who have commented on this idea (excluding current commenter)
+# - comment_created: Notify all idea watchers (excluding the commenter)
 #
 # Note: Users never get notified for their own actions
 class Notifier::CommentEventNotifier < Notifier
+  delegate :creator, to: :source
+
   private
 
-  delegate :comment, to: :source, prefix: false
-  alias_method :comment, :eventable
-
-  def eventable
+  def comment
     source.eventable
   end
 
@@ -26,30 +23,10 @@ class Notifier::CommentEventNotifier < Notifier
   def recipients
     case source.action.to_s
     when "comment_created"
-      # Collect all potential recipients
-      potential_recipients = []
-
-      # 1. Notify idea creator if they didn't write the comment
-      potential_recipients << idea.creator unless idea.creator == creator
-
-      # 2. Notify other commenters on this idea (except current commenter)
-      other_commenters = idea.comments
-        .where.not(creator_id: creator.id)
-        .includes(:creator)
-        .map(&:creator)
-        .uniq
-
-      potential_recipients.concat(other_commenters)
-
-      # Return unique recipients, excluding the comment creator
-      potential_recipients.uniq.reject { |u| u == creator }
+      # Notify all idea watchers except the person who made the comment
+      idea.watchers.where.not(id: creator.id).to_a
     else
       []
     end
-  end
-
-  # Don't notify if there's no creator
-  def should_notify?
-    creator.present?
   end
 end

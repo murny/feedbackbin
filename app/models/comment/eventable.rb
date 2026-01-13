@@ -21,6 +21,7 @@ module Comment::Eventable
     end
 
     def track_creation
+      idea.watch_by(creator) if should_track_event?
       track_event(:created, board: idea.board, creator: creator)
     end
 end
