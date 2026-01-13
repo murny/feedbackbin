@@ -17,7 +17,6 @@ class Comment < ApplicationRecord
 
   scope :ordered, -> { order(created_at: :asc) }
 
-
   # TODO: Validation for parent_id parent is an Idea (no more than 1 level of nesting of comments)
   #
   # TODO: Add turbo stream broadcasts?

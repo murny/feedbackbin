@@ -39,8 +39,6 @@ class Event::DescriptionTest < ActiveSupport::TestCase
   test "generates description for title changed event" do
     description = events(:idea_title_changed).description_for(users(:shane))
 
-    # Fizzy pattern: "creator renamed idea_title (was: old_title)"
-    # idea_title is the current title, old_title comes from particulars
     assert_includes description.to_plain_text, I18n.t("events.actions.changed_title")
     assert_includes description.to_plain_text, I18n.t("events.was")
     assert_includes description.to_plain_text, "Old Title"
@@ -111,7 +109,6 @@ class Event::DescriptionTest < ActiveSupport::TestCase
 
     description = event.description_for(users(:shane))
 
-    # Fizzy pattern: old_title is shown in parentheses and must be escaped
     assert_includes description.to_html, "&lt;b&gt;"
     assert_not_includes description.to_html, "<b>old"
   end
