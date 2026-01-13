@@ -45,4 +45,16 @@ class CommentTest < ActiveSupport::TestCase
     assert_equal 1, @comment.replies.count
     assert_equal @reply, @comment.replies.first
   end
+
+  test "creates event when regular user creates comment" do
+    assert_difference "Event.count", 1 do
+      Comment.create!(body: "User comment", idea: ideas(:one), creator: users(:shane))
+    end
+  end
+
+  test "does not create event when system user creates comment" do
+    assert_no_difference "Event.count" do
+      Comment.create!(body: "System comment", idea: ideas(:one), creator: users(:system))
+    end
+  end
 end

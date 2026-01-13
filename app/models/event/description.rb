@@ -67,7 +67,6 @@ class Event::Description
       %(#{creator_part} #{I18n.t('events.actions.changed_title')} #{I18n.t('events.from')} "#{h old_title}" #{I18n.t('events.to')} "#{h new_title}")
     end
 
-    # Creator name (always use actual name in plain text for notifications/webhooks)
     def creator_name
       h(creator.name)
     end
