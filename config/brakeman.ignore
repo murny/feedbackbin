@@ -35,6 +35,29 @@
       "note": ""
     },
     {
+      "warning_type": "Remote Code Execution",
+      "warning_code": 24,
+      "fingerprint": "5c16e636471556e64d4b4c10e363e5d92ae183805d8ab32fad50a83f30e5973c",
+      "check_name": "UnsafeReflection",
+      "message": "Unsafe reflection method `safe_constantize` called on model attribute",
+      "file": "app/models/notifier.rb",
+      "line": 23,
+      "link": "https://brakemanscanner.org/docs/warning_types/remote_code_execution/",
+      "code": "\"Notifier::#{Event.eventable.class.name}EventNotifier\".safe_constantize",
+      "render_path": null,
+      "location": {
+        "type": "method",
+        "class": "Notifier",
+        "method": "Notifier.for"
+      },
+      "user_input": "Event.eventable.class",
+      "confidence": "Medium",
+      "cwe_id": [
+        470
+      ],
+      "note": ""
+    },
+    {
       "warning_type": "Dynamic Render Path",
       "warning_code": 15,
       "fingerprint": "fe8063803bbdd3ea1a3d5a2718c1f0206e2e2c535d41db204a90a87a883f6b1c",
@@ -69,5 +92,5 @@
       "note": ""
     }
   ],
-  "brakeman_version": "7.1.1"
+  "brakeman_version": "7.1.2"
 }

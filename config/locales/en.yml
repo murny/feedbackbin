@@ -550,6 +550,17 @@ en:
       sign_up_instructions: Please enter this 6-character verification code on the FeedbackBin sign-up page to create your new account
       sign_up_title: Welcome to FeedbackBin!
       subject: Your FeedbackBin code is %{code}
+  notifications:
+    index:
+      all_caught_up: You're all caught up!
+      heading: Notifications
+      mark_all_read: Mark all as read
+      no_notifications: No notifications yet
+    mark_all_read:
+      all_marked_as_read: All notifications marked as read
+    update:
+      marked_as_read: Notification marked as read
+      marked_as_unread: Notification marked as unread
   oauth:
     sign_in_with: Sign in with %{provider}
   pagy:
@@ -888,18 +899,6 @@ en:
       comment_on: Comment on
       empty_votes: No votes yet.
       voted: Voted
-  notifications:
-    index:
-      all_caught_up: You're all caught up!
-      heading: Notifications
-      mark_all_read: Mark all as read
-      no_notifications: No notifications yet
-      title: Notifications
-    mark_all_read:
-      all_marked_as_read: All notifications marked as read
-    update:
-      marked_as_read: Notification marked as read
-      marked_as_unread: Notification marked as unread
   votes:
     update:
       successfully_unvoted: You removed your vote from this %{resource}

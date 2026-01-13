@@ -48,15 +48,15 @@ class Notifier
 
   protected
 
-  # Override in subclasses to determine who should be notified
-  # @return [Array<User>] Users who should receive notifications
-  def recipients
-    []
-  end
+    # Override in subclasses to determine who should be notified
+    # @return [Array<User>] Users who should receive notifications
+    def recipients
+      []
+    end
 
-  # Don't notify if creator is a system user
-  # @return [Boolean] Whether notifications should be sent
-  def should_notify?
-    !creator.system?
-  end
+    # Don't notify if creator is a system user
+    # @return [Boolean] Whether notifications should be sent
+    def should_notify?
+      !creator.system?
+    end
 end

@@ -11,22 +11,22 @@ class Notifier::CommentEventNotifier < Notifier
 
   private
 
-  def comment
-    source.eventable
-  end
-
-  def idea
-    comment.idea
-  end
-
-  # Determine recipients for comment events
-  def recipients
-    case source.action.to_s
-    when "comment_created"
-      # Notify all idea watchers except the person who made the comment
-      idea.watchers.where.not(id: creator.id).to_a
-    else
-      []
+    def comment
+      source.eventable
     end
-  end
+
+    def idea
+      comment.idea
+    end
+
+    # Determine recipients for comment events
+    def recipients
+      case source.action.to_s
+      when "comment_created"
+        # Notify all idea watchers except the person who made the comment
+        idea.watchers.where.not(id: creator.id).to_a
+      else
+        []
+      end
+    end
 end

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateNotifications < ActiveRecord::Migration[8.2]
   def change
     create_table :notifications do |t|
@@ -11,9 +13,9 @@ class CreateNotifications < ActiveRecord::Migration[8.2]
 
     add_index :notifications, :user_id
     add_index :notifications, :creator_id
-    add_index :notifications, [:source_type, :source_id]
-    add_index :notifications, [:user_id, :read_at]
-    add_index :notifications, [:user_id, :created_at]
+    add_index :notifications, [ :source_type, :source_id ]
+    add_index :notifications, [ :user_id, :read_at ]
+    add_index :notifications, [ :user_id, :created_at ]
 
     add_foreign_key :notifications, :users, column: :user_id
     add_foreign_key :notifications, :users, column: :creator_id

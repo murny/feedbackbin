@@ -29,8 +29,8 @@ module Notifiable
 
   private
 
-  # Asynchronously create notifications via background job
-  def notify_recipients_later
-    NotifyRecipientsJob.perform_later(self)
-  end
+    # Asynchronously create notifications via background job
+    def notify_recipients_later
+      NotifyRecipientsJob.perform_later(self)
+    end
 end
