@@ -9,6 +9,9 @@
 #   description.to_html         # => "You published <strong>Feature Request</strong>"
 #   description.to_plain_text   # => "You published Feature Request"
 class Event::Description
+  include ActionView::Helpers::TagHelper
+  include ERB::Util
+
   attr_reader :event, :viewer
 
   def initialize(event, viewer)
@@ -23,7 +26,7 @@ class Event::Description
 
   # Generate plain text description for notifications, webhooks, etc.
   def to_plain_text
-    to_sentence(creator_name, idea_title)
+    to_sentence(creator_name, quoted(idea_title))
   end
 
   private
@@ -36,29 +39,44 @@ class Event::Description
       when "idea_created"
         "#{creator_part} #{I18n.t('events.actions.created')} #{subject_part}"
       when "idea_status_changed"
-        "#{creator_part} #{I18n.t('events.actions.changed_status')} #{subject_part} #{I18n.t('events.to')} #{status_tag}"
+        status_changed_sentence(creator_part, subject_part)
       when "idea_board_changed"
-        "#{creator_part} #{I18n.t('events.actions.moved')} #{subject_part} #{I18n.t('events.to')} #{board_tag}"
+        board_changed_sentence(creator_part, subject_part)
       when "idea_title_changed"
-        "#{creator_part} #{I18n.t('events.actions.changed_title')} #{I18n.t('events.from')} \"#{event.old_title}\" #{I18n.t('events.to')} \"#{event.new_title}\""
+        title_changed_sentence(creator_part, subject_part)
       when "comment_created"
         "#{creator_part} #{I18n.t('events.actions.commented_on')} #{subject_part}"
       else
-        "#{creator_part} #{action.to_s.split('_').last} #{subject_part}"
+        "#{creator_part} #{h action.to_s.split('_').last} #{subject_part}"
       end
     end
 
-    # Creator name or "You" for the viewer
-    def creator_name
-      creator == viewer ? I18n.t("events.you") : creator.name
+    def status_changed_sentence(creator_part, subject_part)
+      new_status = event.respond_to?(:new_status) ? event.new_status : eventable.try(:status_name)
+      "#{creator_part} #{I18n.t('events.actions.changed_status')} #{subject_part} #{I18n.t('events.to')} #{tag.strong h(new_status)}"
     end
 
-    # HTML tag for creator (linked or "You")
+    def board_changed_sentence(creator_part, subject_part)
+      new_board = event.respond_to?(:new_board) ? event.new_board : eventable.try(:board)&.name
+      "#{creator_part} #{I18n.t('events.actions.moved')} #{subject_part} #{I18n.t('events.to')} #{tag.strong h(new_board)}"
+    end
+
+    def title_changed_sentence(creator_part, subject_part)
+      old_title = event.respond_to?(:old_title) ? event.old_title : nil
+      new_title = event.respond_to?(:new_title) ? event.new_title : nil
+      %(#{creator_part} #{I18n.t('events.actions.changed_title')} #{I18n.t('events.from')} "#{h old_title}" #{I18n.t('events.to')} "#{h new_title}")
+    end
+
+    # Creator name (always use actual name in plain text for notifications/webhooks)
+    def creator_name
+      h(creator.name)
+    end
+
+    # HTML tag for creator (uses tag helper for auto-escaping)
     def creator_tag
-      if creator == viewer
-        "<strong>#{I18n.t('events.you')}</strong>"
-      else
-        "<strong>#{creator.name}</strong>"
+      tag.strong data: { creator_id: creator.id } do
+        tag.span(I18n.t("events.you"), data: { only_visible_to_you: true }) +
+        tag.span(creator.name, data: { only_visible_to_others: true })
       end
     end
 
@@ -74,30 +92,12 @@ class Event::Description
       end
     end
 
-    # HTML tag for idea title
+    # HTML tag for idea title (uses tag helper for auto-escaping)
     def idea_title_tag
-      "<strong>#{idea_title}</strong>"
+      tag.strong idea_title
     end
 
-    # Status name from particulars or current status
-    def status_tag
-      if event.respond_to?(:new_status)
-        "<strong>#{event.new_status}</strong>"
-      elsif eventable.respond_to?(:status)
-        "<strong>#{eventable.status_name}</strong>"
-      else
-        ""
-      end
-    end
-
-    # Board name from particulars or current board
-    def board_tag
-      if event.respond_to?(:new_board)
-        "<strong>#{event.new_board}</strong>"
-      elsif eventable.respond_to?(:board)
-        "<strong>#{eventable.board.name}</strong>"
-      else
-        ""
-      end
+    def quoted(text)
+      %("#{h text}")
     end
 end
