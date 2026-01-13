@@ -5,6 +5,7 @@ class Board < ApplicationRecord
   belongs_to :account, default: -> { Current.account }
   belongs_to :creator, class_name: "User", default: -> { Current.user }
   has_many :ideas, dependent: :restrict_with_error
+  has_many :events, dependent: :destroy
 
   # Validations
   validates :name, presence: true, uniqueness: { scope: :account_id, case_sensitive: false }

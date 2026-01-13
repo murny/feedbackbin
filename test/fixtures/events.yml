@@ -1,0 +1,47 @@
+# Events fixtures for testing event descriptions and tracking
+
+idea_created:
+  account: feedbackbin
+  board: one
+  creator: shane
+  eventable: one (Idea)
+  action: idea_created
+  particulars: {}
+
+idea_status_changed:
+  account: feedbackbin
+  board: one
+  creator: shane
+  eventable: one (Idea)
+  action: idea_status_changed
+  particulars:
+    old_status: Open
+    new_status: In Progress
+
+idea_title_changed:
+  account: feedbackbin
+  board: one
+  creator: shane
+  eventable: one (Idea)
+  action: idea_title_changed
+  particulars:
+    old_title: Old Title
+    new_title: New Title
+
+idea_board_changed:
+  account: feedbackbin
+  board: two
+  creator: shane
+  eventable: one (Idea)
+  action: idea_board_changed
+  particulars:
+    old_board: Feature Requests
+    new_board: Bug Reports
+
+comment_created:
+  account: feedbackbin
+  board: one
+  creator: jane
+  eventable: one (Comment)
+  action: comment_created
+  particulars: {}

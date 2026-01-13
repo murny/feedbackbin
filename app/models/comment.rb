@@ -2,6 +2,7 @@
 
 class Comment < ApplicationRecord
   include Voteable
+  include Comment::Eventable
 
   belongs_to :account, default: -> { Current.account }
   belongs_to :creator, class_name: "User", default: -> { Current.user }

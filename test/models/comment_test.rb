@@ -4,6 +4,7 @@ require "test_helper"
 
 class CommentTest < ActiveSupport::TestCase
   setup do
+    Current.session = sessions(:shane_chrome)
     @comment = comments(:one)
   end
 
@@ -26,6 +27,8 @@ class CommentTest < ActiveSupport::TestCase
   end
 
   test "invalid without creator" do
+    # Stub the default current user to nil so we can test the validation
+    Current.stubs(:user).returns(nil)
     @comment.creator = nil
 
     assert_not @comment.valid?
@@ -41,5 +44,17 @@ class CommentTest < ActiveSupport::TestCase
     assert_equal @comment.idea, @reply.idea
     assert_equal 1, @comment.replies.count
     assert_equal @reply, @comment.replies.first
+  end
+
+  test "creates event when regular user creates comment" do
+    assert_difference "Event.count", 1 do
+      Comment.create!(body: "User comment", idea: ideas(:one), creator: users(:shane))
+    end
+  end
+
+  test "does not create event when system user creates comment" do
+    assert_no_difference "Event.count" do
+      Comment.create!(body: "System comment", idea: ideas(:one), creator: users(:system))
+    end
   end
 end
