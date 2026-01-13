@@ -54,18 +54,16 @@ class Idea < ApplicationRecord
     end
 
     def track_status_change
-      old_status = status_id_before_last_save.present? ? Status.find(status_id_before_last_save).name : "Open"
-      new_status = status_name
-      track_event(:status_changed, particulars: { old_status: old_status, new_status: new_status })
+      old_status = Status.find_by(id: status_id_before_last_save)&.name || I18n.t("ideas.default_status")
+      track_event(:status_changed, old_status: old_status, new_status: status_name)
     end
 
     def track_board_change
-      old_board = Board.find(board_id_before_last_save).name
-      new_board = board.name
-      track_event(:board_changed, particulars: { old_board: old_board, new_board: new_board })
+      old_board = Board.find_by(id: board_id_before_last_save)&.name || I18n.t("events.unknown_item")
+      track_event(:board_changed, old_board: old_board, new_board: board.name)
     end
 
     def track_title_change
-      track_event(:title_changed, particulars: { old_title: title_before_last_save, new_title: title })
+      track_event(:title_changed, old_title: title_before_last_save, new_title: title)
     end
 end
