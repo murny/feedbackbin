@@ -6,97 +6,86 @@
 # Example usage:
 #   event = Event.find(123)
 #   description = event.description_for(current_user)
-#   description.to_html         # => "You published <strong>Feature Request</strong>"
-#   description.to_plain_text   # => "You published Feature Request"
+#   description.to_html         # => "<strong>You</strong> created <strong>Feature Request</strong>"
+#   description.to_plain_text   # => "Shane created \"Feature Request\""
 class Event::Description
   include ActionView::Helpers::TagHelper
   include ERB::Util
 
-  attr_reader :event, :viewer
+  attr_reader :event, :user
 
-  def initialize(event, viewer)
+  def initialize(event, user)
     @event = event
-    @viewer = viewer
+    @user = user
   end
 
-  # Generate HTML description for display
   def to_html
     to_sentence(creator_tag, idea_title_tag).html_safe
   end
 
-  # Generate plain text description for notifications, webhooks, etc.
   def to_plain_text
-    to_sentence(creator_name, quoted(idea_title))
+    to_sentence(creator_name, quoted(idea.title))
   end
 
   private
 
-    delegate :creator, :eventable, :action, to: :event
-
-    # Build a sentence from creator and subject
-    def to_sentence(creator_part, subject_part)
-      case action.to_s
-      when "idea_created"
-        "#{creator_part} #{I18n.t('events.actions.created')} #{subject_part}"
-      when "idea_status_changed"
-        status_changed_sentence(creator_part, subject_part)
-      when "idea_board_changed"
-        board_changed_sentence(creator_part, subject_part)
-      when "idea_title_changed"
-        title_changed_sentence(creator_part, subject_part)
-      when "comment_created"
-        "#{creator_part} #{I18n.t('events.actions.commented_on')} #{subject_part}"
+    def to_sentence(creator, idea_title)
+      if event.action.comment_created?
+        comment_sentence(creator, idea_title)
       else
-        "#{creator_part} #{h action.to_s.split('_').last} #{subject_part}"
+        action_sentence(creator, idea_title)
       end
     end
 
-    def status_changed_sentence(creator_part, subject_part)
-      new_status = event.respond_to?(:new_status) ? event.new_status : eventable.try(:status_name)
-      "#{creator_part} #{I18n.t('events.actions.changed_status')} #{subject_part} #{I18n.t('events.to')} #{tag.strong h(new_status)}"
+    def creator_tag
+      tag.strong data: { creator_id: event.creator.id } do
+        tag.span(I18n.t("events.you"), data: { only_visible_to_you: true }) +
+        tag.span(event.creator.name, data: { only_visible_to_others: true })
+      end
     end
 
-    def board_changed_sentence(creator_part, subject_part)
-      new_board = event.respond_to?(:new_board) ? event.new_board : eventable.try(:board)&.name
-      "#{creator_part} #{I18n.t('events.actions.moved')} #{subject_part} #{I18n.t('events.to')} #{tag.strong h(new_board)}"
-    end
-
-    def title_changed_sentence(creator_part, subject_part)
-      old_title = event.respond_to?(:old_title) ? event.old_title : nil
-      new_title = event.respond_to?(:new_title) ? event.new_title : nil
-      %(#{creator_part} #{I18n.t('events.actions.changed_title')} #{I18n.t('events.from')} "#{h old_title}" #{I18n.t('events.to')} "#{h new_title}")
+    def idea_title_tag
+      tag.strong idea.title
     end
 
     def creator_name
-      h(creator.name)
-    end
-
-    # HTML tag for creator (uses tag helper for auto-escaping)
-    def creator_tag
-      tag.strong data: { creator_id: creator.id } do
-        tag.span(I18n.t("events.you"), data: { only_visible_to_you: true }) +
-        tag.span(creator.name, data: { only_visible_to_others: true })
-      end
-    end
-
-    # Get the idea title (works for both Idea and Comment events)
-    def idea_title
-      case eventable
-      when Idea
-        eventable.title
-      when Comment
-        eventable.idea.title
-      else
-        I18n.t("events.unknown_item")
-      end
-    end
-
-    # HTML tag for idea title (uses tag helper for auto-escaping)
-    def idea_title_tag
-      tag.strong idea_title
+      h(event.creator.name)
     end
 
     def quoted(text)
       %("#{h text}")
+    end
+
+    def idea
+      @idea ||= event.action.comment_created? ? event.eventable.idea : event.eventable
+    end
+
+    def comment_sentence(creator, idea_title)
+      "#{creator} #{I18n.t('events.actions.commented_on')} #{idea_title}"
+    end
+
+    def action_sentence(creator, idea_title)
+      case event.action
+      when "idea_created"
+        "#{creator} #{I18n.t('events.actions.created')} #{idea_title}"
+      when "idea_status_changed"
+        status_changed_sentence(creator, idea_title)
+      when "idea_board_changed"
+        moved_sentence(creator, idea_title)
+      when "idea_title_changed"
+        renamed_sentence(creator, idea_title)
+      end
+    end
+
+    def status_changed_sentence(creator, idea_title)
+      %(#{creator} #{I18n.t('events.actions.changed_status')} #{idea_title} #{I18n.t('events.to')} "#{h event.new_status}")
+    end
+
+    def moved_sentence(creator, idea_title)
+      %(#{creator} #{I18n.t('events.actions.moved')} #{idea_title} #{I18n.t('events.to')} "#{h event.new_board}")
+    end
+
+    def renamed_sentence(creator, idea_title)
+      %(#{creator} #{I18n.t('events.actions.changed_title')} #{idea_title} (#{I18n.t('events.was')}: "#{h event.old_title}"))
     end
 end

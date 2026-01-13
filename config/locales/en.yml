@@ -421,13 +421,14 @@ en:
   events:
     actions:
       changed_status: changed the status of
-      changed_title: changed the title
+      changed_title: renamed
       commented_on: commented on
       created: created
       moved: moved
     from: from
     to: to
     unknown_item: unknown item
+    was: was
     you: You
   first_runs:
     create:
