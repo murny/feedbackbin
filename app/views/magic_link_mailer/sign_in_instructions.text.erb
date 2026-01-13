@@ -1,0 +1,9 @@
+<% if @magic_link.for_sign_in? %>
+<%= t(".sign_in_instructions") %>
+<% else %>
+<%= t(".sign_up_instructions") %>
+<% end %>
+
+<%= @magic_link.code %>
+
+<%= t(".expiration_notice", time: distance_of_time_in_words(MagicLink::EXPIRATION_TIME)) %>

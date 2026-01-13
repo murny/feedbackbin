@@ -132,7 +132,7 @@
   .btn-icon-outline,
   .btn-sm-icon-outline,
   .btn-lg-icon-outline {
-    @apply border bg-background shadow-xs dark:bg-input/30 dark:border-input;
+    @apply border bg-background text-foreground shadow-xs dark:bg-input/30 dark:border-input;
     &:hover,
     &[aria-pressed='true'] {
       @apply bg-accent text-accent-foreground dark:bg-accent/50;

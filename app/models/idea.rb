@@ -6,7 +6,7 @@ class Idea < ApplicationRecord
   include ModelSortable
   include Voteable
   include Searchable
-  include Eventable
+  include Idea::Eventable
 
   has_rich_text :description
 

@@ -51,14 +51,14 @@ module Eventable
 
   private
 
-  # Override in including class to conditionally track events
-  def should_track_event?
-    true
-  end
+    # Override in including class to conditionally track events
+    def should_track_event?
+      true
+    end
 
-  # Get the prefix for event actions based on model name
-  # e.g., Idea -> "idea", Comment -> "comment"
-  def eventable_prefix
-    self.class.name.demodulize.underscore
-  end
+    # Get the prefix for event actions based on model name
+    # e.g., Idea -> "idea", Comment -> "comment"
+    def eventable_prefix
+      self.class.name.demodulize.underscore
+    end
 end

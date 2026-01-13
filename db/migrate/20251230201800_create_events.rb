@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateEvents < ActiveRecord::Migration[8.2]
   def change
     create_table :events do |t|
@@ -15,8 +17,8 @@ class CreateEvents < ActiveRecord::Migration[8.2]
     add_index :events, :board_id
     add_index :events, :creator_id
     add_index :events, :action
-    add_index :events, [:eventable_type, :eventable_id]
-    add_index :events, [:board_id, :action, :created_at]
+    add_index :events, [ :eventable_type, :eventable_id ]
+    add_index :events, [ :board_id, :action, :created_at ]
 
     add_foreign_key :events, :accounts
     add_foreign_key :events, :boards

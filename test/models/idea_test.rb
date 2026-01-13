@@ -4,6 +4,7 @@ require "test_helper"
 
 class IdeaTest < ActiveSupport::TestCase
   def setup
+    Current.session = sessions(:shane_chrome)
     @idea = ideas(:one)
   end
 

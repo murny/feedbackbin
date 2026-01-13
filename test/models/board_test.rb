@@ -4,6 +4,7 @@ require "test_helper"
 
 class BoardTest < ActiveSupport::TestCase
   setup do
+    Current.session = sessions(:shane_chrome)
     @board = boards(:one)
   end
 
