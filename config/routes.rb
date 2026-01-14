@@ -54,6 +54,15 @@ Rails.application.routes.draw do
 
   resource :vote, only: [ :update ]
 
+  resources :notifications, only: [ :index ] do
+    scope module: :notifications do
+      resource :reading, only: [ :create, :destroy ]
+      collection do
+        resource :bulk_reading, only: [ :create ]
+      end
+    end
+  end
+
   resources :ideas do
     scope module: :ideas do
       resource :pin, only: [ :create, :destroy ]

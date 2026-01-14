@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class User < ApplicationRecord
-  include Avatar, Mentionable, Named, Role, Searchable
+  include Avatar, Mentionable, Named, Role, Searchable, Watcher
 
   scope :active, -> { where(active: true) }
   scope :deactivated, -> { where(active: false) }
@@ -16,6 +16,7 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy, foreign_key: :creator_id, inverse_of: :creator
   has_many :votes, dependent: :destroy, foreign_key: :voter_id, inverse_of: :voter
   has_many :invitations, dependent: :destroy, foreign_key: :invited_by_id, inverse_of: :invited_by
+  has_many :notifications, dependent: :destroy
 
   enum :theme, { system: 0, light: 1, dark: 2 }, default: :system, prefix: true, validate: true
 

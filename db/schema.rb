@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.2].define(version: 2025_12_30_201800) do
+ActiveRecord::Schema[8.2].define(version: 2026_01_13_190905) do
   create_table "account_external_id_sequences", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -186,6 +186,23 @@ ActiveRecord::Schema[8.2].define(version: 2025_12_30_201800) do
     t.index ["identity_id"], name: "index_magic_links_on_identity_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.integer "account_id", null: false
+    t.datetime "created_at", null: false
+    t.bigint "creator_id", null: false
+    t.datetime "read_at"
+    t.bigint "source_id", null: false
+    t.string "source_type", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["account_id"], name: "index_notifications_on_account_id"
+    t.index ["creator_id"], name: "index_notifications_on_creator_id"
+    t.index ["source_type", "source_id"], name: "index_notifications_on_source_type_and_source_id"
+    t.index ["user_id", "created_at"], name: "index_notifications_on_user_id_and_created_at"
+    t.index ["user_id", "read_at"], name: "index_notifications_on_user_id_and_read_at"
+    t.index ["user_id"], name: "index_notifications_on_user_id"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.bigint "identity_id", null: false
@@ -239,6 +256,19 @@ ActiveRecord::Schema[8.2].define(version: 2025_12_30_201800) do
     t.index ["voter_id"], name: "index_votes_on_voter_id"
   end
 
+  create_table "watches", force: :cascade do |t|
+    t.integer "account_id", null: false
+    t.datetime "created_at", null: false
+    t.integer "idea_id", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.boolean "watching", default: true, null: false
+    t.index ["account_id"], name: "index_watches_on_account_id"
+    t.index ["idea_id"], name: "index_watches_on_idea_id"
+    t.index ["user_id", "idea_id"], name: "index_watches_on_user_id_and_idea_id", unique: true
+    t.index ["user_id"], name: "index_watches_on_user_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "boards", "accounts"
@@ -259,10 +289,16 @@ ActiveRecord::Schema[8.2].define(version: 2025_12_30_201800) do
   add_foreign_key "invitations", "accounts"
   add_foreign_key "invitations", "users", column: "invited_by_id"
   add_foreign_key "magic_links", "identities"
+  add_foreign_key "notifications", "accounts"
+  add_foreign_key "notifications", "users"
+  add_foreign_key "notifications", "users", column: "creator_id"
   add_foreign_key "sessions", "identities"
   add_foreign_key "statuses", "accounts"
   add_foreign_key "users", "accounts"
   add_foreign_key "users", "identities"
   add_foreign_key "votes", "accounts"
   add_foreign_key "votes", "users", column: "voter_id"
+  add_foreign_key "watches", "accounts"
+  add_foreign_key "watches", "ideas"
+  add_foreign_key "watches", "users"
 end

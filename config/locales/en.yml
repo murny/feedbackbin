@@ -550,6 +550,19 @@ en:
       sign_up_instructions: Please enter this 6-character verification code on the FeedbackBin sign-up page to create your new account
       sign_up_title: Welcome to FeedbackBin!
       subject: Your FeedbackBin code is %{code}
+  notifications:
+    ago: ago
+    index:
+      all_caught_up: You're all caught up!
+      heading: Notifications
+      mark_all_read: Mark all as read
+      no_notifications: No notifications yet
+      read: Read
+      unread: Unread
+    mark_read: Mark read
+    mark_unread: Mark unread
+    unread: Unread
+    view: View
   oauth:
     sign_in_with: Sign in with %{provider}
   pagy:

@@ -150,3 +150,9 @@ Database schema is managed through standard Rails migrations in `db/migrate/`. T
 - Queue database: Background jobs
 - Cable database: WebSocket connections
 
+## Tools
+
+### Chrome MCP (Local Dev)
+URL: http://localhost:3000 Login: shane@example.com (passwordless magic link auth - check rails console for link)
+
+Use Chrome MCP tools to interact with the running dev app for UI testing and debugging.
