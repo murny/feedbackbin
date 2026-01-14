@@ -1,34 +1,36 @@
-<div class="flex items-start gap-4 p-4 border border-border rounded-lg <%= "bg-muted/50" unless notification.read? %>">
-  <div class="flex-1">
-    <div class="flex items-start justify-between gap-2">
-      <div class="flex-1">
-        <p class="text-sm">
-          <%= notification.description_for(Current.user).to_html %>
-        </p>
-        <p class="text-xs text-muted-foreground mt-1">
-          <%= time_ago_in_words(notification.created_at) %> ago
-        </p>
-      </div>
+<%= turbo_frame_tag notification do %>
+  <div class="flex items-start gap-4 p-4 border border-border rounded-lg <%= "bg-muted/50" unless notification.read? %>">
+    <div class="flex-1">
+      <div class="flex items-start justify-between gap-2">
+        <div class="flex-1">
+          <p class="text-sm">
+            <%= notification.description_for(Current.user).to_html %>
+          </p>
+          <p class="text-xs text-muted-foreground mt-1">
+            <%= time_ago_in_words(notification.created_at) %> <%= t("notifications.ago") %>
+          </p>
+        </div>
 
-      <div class="flex items-center gap-2">
-        <% unless notification.read? %>
-          <span class="inline-block w-2 h-2 bg-primary rounded-full" title="Unread"></span>
-        <% end %>
-
-        <%= link_to notification.url, class: "text-sm text-primary hover:underline" do %>
-          View
-        <% end %>
-
-        <% if notification.read? %>
-          <%= button_to notification_path(notification, read: false), method: :patch, class: "text-xs text-muted-foreground hover:text-foreground" do %>
-            Mark unread
+        <div class="flex items-center gap-2">
+          <% unless notification.read? %>
+            <span class="inline-block w-2 h-2 bg-primary rounded-full" title="<%= t("notifications.unread") %>"></span>
           <% end %>
-        <% else %>
-          <%= button_to notification_path(notification, read: true), method: :patch, class: "text-xs text-muted-foreground hover:text-foreground" do %>
-            Mark read
+
+          <%= link_to notification.url, class: "text-sm text-primary hover:underline" do %>
+            <%= t("notifications.view") %>
           <% end %>
-        <% end %>
+
+          <% if notification.read? %>
+            <%= button_to notification_reading_path(notification), method: :delete, class: "text-xs text-muted-foreground hover:text-foreground" do %>
+              <%= t("notifications.mark_unread") %>
+            <% end %>
+          <% else %>
+            <%= button_to notification_reading_path(notification), method: :post, class: "text-xs text-muted-foreground hover:text-foreground" do %>
+              <%= t("notifications.mark_read") %>
+            <% end %>
+          <% end %>
+        </div>
       </div>
     </div>
   </div>
-</div>
+<% end %>

@@ -54,9 +54,12 @@ Rails.application.routes.draw do
 
   resource :vote, only: [ :update ]
 
-  resources :notifications, only: [ :index, :update ] do
-    collection do
-      post :mark_all_read
+  resources :notifications, only: [ :index ] do
+    scope module: :notifications do
+      resource :reading, only: [ :create, :destroy ]
+      collection do
+        resource :bulk_reading, only: [ :create ]
+      end
     end
   end
 

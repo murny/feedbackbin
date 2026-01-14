@@ -551,16 +551,18 @@ en:
       sign_up_title: Welcome to FeedbackBin!
       subject: Your FeedbackBin code is %{code}
   notifications:
+    ago: ago
     index:
       all_caught_up: You're all caught up!
       heading: Notifications
       mark_all_read: Mark all as read
       no_notifications: No notifications yet
-    mark_all_read:
-      all_marked_as_read: All notifications marked as read
-    update:
-      marked_as_read: Notification marked as read
-      marked_as_unread: Notification marked as unread
+      read: Read
+      unread: Unread
+    mark_read: Mark read
+    mark_unread: Mark unread
+    unread: Unread
+    view: View
   oauth:
     sign_in_with: Sign in with %{provider}
   pagy:

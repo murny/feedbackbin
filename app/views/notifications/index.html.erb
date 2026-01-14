@@ -1,21 +1,29 @@
 <div class="container mx-auto px-4 py-8">
   <div class="flex items-center justify-between mb-6">
     <h1 class="text-3xl font-bold"><%= t(".heading") %></h1>
-    <% if @unread_count > 0 %>
-      <%= button_to t(".mark_all_read"), mark_all_read_notifications_path, class: "px-4 py-2 text-sm bg-primary text-primary-foreground rounded-md hover:bg-primary/90" %>
+    <% if @unread.any? %>
+      <%= button_to t(".mark_all_read"), bulk_reading_path, class: "px-4 py-2 text-sm bg-primary text-primary-foreground rounded-md hover:bg-primary/90" %>
     <% end %>
   </div>
 
-  <div id="unread_notifications_count" class="hidden">
-    <%= render "unread_count", count: @unread_count %>
-  </div>
+  <% if @unread.any? || @read.any? %>
+    <% if @unread.any? %>
+      <h2 class="text-lg font-semibold mb-3"><%= t(".unread") %></h2>
+      <div id="notifications" class="space-y-2 mb-8">
+        <% @unread.each do |notification| %>
+          <%= render "notification", notification: notification %>
+        <% end %>
+      </div>
+    <% end %>
 
-  <% if @notifications.any? %>
-    <div class="space-y-2">
-      <% @notifications.each do |notification| %>
-        <%= render "notification", notification: notification %>
-      <% end %>
-    </div>
+    <% if @read.any? %>
+      <h2 class="text-lg font-semibold mb-3 text-muted-foreground"><%= t(".read") %></h2>
+      <div class="space-y-2">
+        <% @read.each do |notification| %>
+          <%= render "notification", notification: notification %>
+        <% end %>
+      </div>
+    <% end %>
   <% else %>
     <div class="text-center py-12">
       <p class="text-muted-foreground text-lg"><%= t(".all_caught_up") %></p>

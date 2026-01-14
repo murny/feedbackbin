@@ -22,23 +22,26 @@ class Notification < ApplicationRecord
 
   # Scopes
   scope :unread, -> { where(read_at: nil) }
-  scope :read, -> { where.not(read_at: nil) }
-  scope :recent, -> { order(created_at: :desc) }
+  scope :ordered, -> { order(read_at: :desc, created_at: :desc) }
+  scope :preloaded, -> { preload(:creator, :account, source: [ :board, :creator, { eventable: [ :board ] } ]) }
 
   # Broadcast notification to user's notification list
   after_create_commit :broadcast_unread
   after_destroy_commit :broadcast_read
 
+  # Mark all notifications as read
+  def self.read_all
+    all.each { |notification| notification.read }
+  end
+
   # Mark notification as read
-  def mark_as_read!
-    return if read?
+  def read
     update!(read_at: Time.current)
     broadcast_read
   end
 
   # Mark notification as unread
-  def mark_as_unread!
-    return unless read?
+  def unread
     update!(read_at: nil)
     broadcast_unread
   end
