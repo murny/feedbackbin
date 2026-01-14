@@ -264,12 +264,13 @@ en:
         update:
           successfully_updated: Status was successfully updated.
       webhooks:
-        activate:
-          successfully_activated: Webhook was successfully activated.
+        activations:
+          create:
+            successfully_activated: Webhook was successfully activated.
+          destroy:
+            successfully_deactivated: Webhook was successfully deactivated.
         create:
           successfully_created: Webhook was successfully created.
-        deactivate:
-          successfully_deactivated: Webhook was successfully deactivated.
         destroy:
           successfully_destroyed: Webhook was successfully deleted.
         edit:

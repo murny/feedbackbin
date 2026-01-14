@@ -96,9 +96,8 @@ Rails.application.routes.draw do
       resources :statuses
       resources :boards
       resources :webhooks do
-        member do
-          post :activate
-          post :deactivate
+        scope module: :webhooks do
+          resource :activation, only: [ :create, :destroy ]
         end
       end
       resource :danger_zone, only: [ :show, :destroy ]

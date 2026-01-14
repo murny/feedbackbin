@@ -11,9 +11,9 @@
       </div>
       <div class="flex items-center gap-2">
         <% if @webhook.active? %>
-          <%= button_to t(".deactivate"), deactivate_admin_settings_webhook_path(@webhook), method: :post, class: "btn btn-secondary" %>
+          <%= button_to t(".deactivate"), admin_settings_webhook_activation_path(@webhook), method: :delete, class: "btn btn-secondary" %>
         <% else %>
-          <%= button_to t(".activate"), activate_admin_settings_webhook_path(@webhook), method: :post, class: "btn btn-primary" %>
+          <%= button_to t(".activate"), admin_settings_webhook_activation_path(@webhook), method: :post, class: "btn btn-primary" %>
         <% end %>
         <%= link_to edit_admin_settings_webhook_path(@webhook), class: "btn btn-secondary" do %>
           <%= lucide_icon "pencil", class: "h-4 w-4 mr-1" %>

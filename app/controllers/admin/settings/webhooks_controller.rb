@@ -3,7 +3,7 @@
 module Admin
   module Settings
     class WebhooksController < Admin::BaseController
-      before_action :set_webhook, only: [ :show, :edit, :update, :destroy, :activate, :deactivate ]
+      before_action :set_webhook, only: [ :show, :edit, :update, :destroy ]
 
       def index
         @webhooks = Current.account.webhooks.includes(:board).order(created_at: :desc)
@@ -48,16 +48,6 @@ module Admin
         else
           redirect_to admin_settings_webhooks_path, alert: @webhook.errors.full_messages.to_sentence
         end
-      end
-
-      def activate
-        @webhook.activate
-        redirect_to admin_settings_webhook_path(@webhook), notice: t(".successfully_activated")
-      end
-
-      def deactivate
-        @webhook.deactivate
-        redirect_to admin_settings_webhook_path(@webhook), notice: t(".successfully_deactivated")
       end
 
       private
