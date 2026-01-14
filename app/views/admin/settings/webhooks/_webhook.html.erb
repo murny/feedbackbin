@@ -1,0 +1,44 @@
+<%# locals: (webhook:) %>
+
+<li class="flex items-center justify-between gap-x-6 py-5 px-6">
+  <div class="flex items-center gap-x-4 min-w-0">
+    <div class="min-w-0 flex-auto">
+      <p class="text-sm font-semibold leading-6 text-foreground">
+        <%= link_to webhook.name, admin_settings_webhook_path(webhook), class: "hover:underline" %>
+      </p>
+      <p class="mt-1 text-xs/5 text-muted-foreground truncate">
+        <%= webhook.url %>
+      </p>
+      <div class="mt-1 flex items-center gap-x-2 text-xs/5 text-muted-foreground">
+        <% if webhook.board.present? %>
+          <%= render Elements::BadgeComponent.new(variant: :outline, class: "text-xs") do %>
+            <%= webhook.board.name %>
+          <% end %>
+        <% end %>
+        <% if webhook.active? %>
+          <%= render Elements::BadgeComponent.new(variant: :default, class: "text-xs bg-green-500") do %>
+            <%= t("admin.settings.webhooks.index.active_badge") %>
+          <% end %>
+        <% else %>
+          <%= render Elements::BadgeComponent.new(variant: :secondary, class: "text-xs") do %>
+            <%= t("admin.settings.webhooks.index.inactive_badge") %>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <div class="flex items-center gap-x-4">
+    <div class="flex gap-2">
+      <%= link_to edit_admin_settings_webhook_path(webhook), class: "text-sm text-muted-foreground hover:text-foreground" do %>
+        <%= lucide_icon "pencil", class: "h-5 w-5" %>
+        <span class="sr-only"><%= t("edit") %></span>
+      <% end %>
+      <%= link_to admin_settings_webhook_path(webhook),
+            class: "text-sm text-destructive hover:text-destructive/80",
+            data: { "turbo-method": :delete, turbo_confirm: t("are_you_sure") } do %>
+        <%= lucide_icon "trash-2", class: "h-5 w-5" %>
+        <span class="sr-only"><%= t("delete") %></span>
+      <% end %>
+    </div>
+  </div>
+</li>

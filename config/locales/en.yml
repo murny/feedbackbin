@@ -287,17 +287,15 @@ en:
           name_label: Name
           name_placeholder: e.g., Slack Notifications
           save_changes: Save changes
-          signing_secret_hint: Use this secret to verify webhook signatures (HMAC-SHA256)
-          signing_secret_label: Signing Secret
           subscribed_actions_hint: Select which event types should trigger this webhook
           subscribed_actions_label: Subscribed Events
           url_hint: The endpoint where webhook payloads will be sent
           url_label: Webhook URL
+          url_not_editable: The URL cannot be changed after creation for security reasons.
+          url_pattern_title: Must be an http:// or https:// URL
           url_placeholder: https://hooks.example.com/webhook
         index:
-          activate: Activate
           active_badge: Active
-          deactivate: Deactivate
           description: Configure webhooks to receive real-time event notifications
           inactive_badge: Inactive
           new_webhook: New Webhook
@@ -307,6 +305,23 @@ en:
         new:
           description: Create a webhook to receive event notifications
           title: New Webhook
+        show:
+          activate: Activate
+          active_badge: Active
+          board_scope: Board Scope
+          board_scope_hint: This webhook only triggers for events in this board.
+          deactivate: Deactivate
+          delete_webhook: Delete Webhook
+          inactive_badge: Inactive
+          no_deliveries: This webhook hasn't been triggered yet.
+          no_subscribed_events: This webhook isn't subscribed to any events. It will never trigger.
+          recent_deliveries: Recent Deliveries
+          signing_secret_hint: We'll send a X-Webhook-Signature header with each request. You can generate an HMAC using SHA256 of the request body with this secret to verify that the request came from us.
+          signing_secret_label: Signing Secret
+          status: Status
+          status_active: This webhook is active and will receive event notifications.
+          status_inactive: This webhook is inactive and will not receive event notifications.
+          subscribed_events: Subscribed Events
         update:
           successfully_updated: Webhook was successfully updated.
     users:

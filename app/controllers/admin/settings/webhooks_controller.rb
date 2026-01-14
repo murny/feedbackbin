@@ -3,10 +3,13 @@
 module Admin
   module Settings
     class WebhooksController < Admin::BaseController
-      before_action :set_webhook, only: [ :edit, :update, :destroy, :activate, :deactivate ]
+      before_action :set_webhook, only: [ :show, :edit, :update, :destroy, :activate, :deactivate ]
 
       def index
         @webhooks = Current.account.webhooks.includes(:board).order(created_at: :desc)
+      end
+
+      def show
       end
 
       def new
@@ -18,7 +21,7 @@ module Admin
         @webhook = Webhook.new(webhook_params)
 
         if @webhook.save
-          redirect_to admin_settings_webhooks_path, notice: t(".successfully_created")
+          redirect_to admin_settings_webhook_path(@webhook), notice: t(".successfully_created")
         else
           @boards = Board.ordered
           render :new, status: :unprocessable_entity
@@ -30,8 +33,9 @@ module Admin
       end
 
       def update
-        if @webhook.update(webhook_params)
-          redirect_to admin_settings_webhooks_path, notice: t(".successfully_updated")
+        # URL cannot be changed after creation (security best practice, following Fizzy)
+        if @webhook.update(webhook_params.except(:url))
+          redirect_to admin_settings_webhook_path(@webhook), notice: t(".successfully_updated")
         else
           @boards = Board.ordered
           render :edit, status: :unprocessable_entity
@@ -48,12 +52,12 @@ module Admin
 
       def activate
         @webhook.activate
-        redirect_to admin_settings_webhooks_path, notice: t(".successfully_activated")
+        redirect_to admin_settings_webhook_path(@webhook), notice: t(".successfully_activated")
       end
 
       def deactivate
         @webhook.deactivate
-        redirect_to admin_settings_webhooks_path, notice: t(".successfully_deactivated")
+        redirect_to admin_settings_webhook_path(@webhook), notice: t(".successfully_deactivated")
       end
 
       private

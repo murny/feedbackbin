@@ -1,0 +1,40 @@
+<% content_for :title, t(".title") %>
+
+<div class="container mx-auto max-w-4xl">
+  <%= render partial: "admin/settings/header" %>
+
+  <div class="mt-8">
+    <div class="flex items-center justify-between mb-6">
+      <div>
+        <h2 class="text-lg font-medium"><%= t(".title") %></h2>
+        <p class="text-sm text-muted-foreground"><%= t(".description") %></p>
+      </div>
+      <div class="whitespace-nowrap">
+        <%= link_to t(".new_webhook"), new_admin_settings_webhook_path, class: "btn btn-primary" %>
+      </div>
+    </div>
+
+    <% if @webhooks.any? %>
+      <%= render Elements::CardComponent.new do |c| %>
+        <% c.with_body(class: "p-0") do %>
+          <ul role="list" class="divide-y divide-border">
+          <% @webhooks.each do |webhook| %>
+            <%= render "webhook", webhook: webhook %>
+          <% end %>
+          </ul>
+        <% end %>
+      <% end %>
+    <% else %>
+      <%= render Elements::CardComponent.new do |c| %>
+        <% c.with_body(class: "p-8 text-center") do %>
+          <%= lucide_icon "webhook", class: "mx-auto h-12 w-12 text-muted-foreground" %>
+          <h3 class="mt-4 text-lg font-semibold text-foreground"><%= t(".no_webhooks_title") %></h3>
+          <p class="mt-2 text-sm text-muted-foreground"><%= t(".no_webhooks_description") %></p>
+          <div class="mt-6">
+            <%= link_to t(".new_webhook"), new_admin_settings_webhook_path, class: "btn btn-primary" %>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+  </div>
+</div>
