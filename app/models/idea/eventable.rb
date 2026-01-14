@@ -15,7 +15,7 @@ module Idea::Eventable
   # Called by Event after creation (via Eventable concern)
   # Creates system comments for visible audit trail
   def event_was_created(event)
-    Idea::SystemCommenter.new(self, event).comment
+    Idea::Eventable::SystemCommenter.new(self, event).comment
   end
 
   private

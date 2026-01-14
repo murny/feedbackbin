@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-# Idea::SystemCommenter creates system comments for idea events.
+# Idea::Eventable::SystemCommenter creates system comments for idea events.
 # These comments appear in the comment thread to provide a visible audit trail.
 #
 # Follows Fizzy's pattern of creating human-readable system comments for events.
@@ -8,7 +8,7 @@
 # Example:
 #   SystemCommenter.new(idea, event).comment
 #   # Creates: "Alice changed the status from Open to In Progress"
-class Idea::SystemCommenter
+class Idea::Eventable::SystemCommenter
   include ERB::Util
 
   attr_reader :idea, :event
@@ -35,13 +35,13 @@ class Idea::SystemCommenter
     def comment_body
       case event.action.to_s
       when "idea_created"
-        nil  # Don't create system comment for creation (the idea itself is the record)
+        nil # Don't create system comment for creation (the idea itself is the record)
       when "idea_status_changed"
-        "#{creator_name} <strong>changed the status</strong> from "# {old_status}" to "#{new_status}""
+        %(#{creator_name} <strong>changed the status</strong> from "#{old_status}" to "#{new_status}")
       when "idea_board_changed"
-        "#{creator_name} <strong>moved</strong> this from "# {old_board}" to "#{new_board}""
+        %(#{creator_name} <strong>moved</strong> this from "#{old_board}" to "#{new_board}")
       when "idea_title_changed"
-        "#{creator_name} <strong>changed the title</strong> from "# {old_title}" to "#{new_title}""
+        %(#{creator_name} <strong>changed the title</strong> from "#{old_title}" to "#{new_title}")
       end
     end
 
