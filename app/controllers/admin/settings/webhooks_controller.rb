@@ -14,22 +14,22 @@ module Admin
 
       def new
         @webhook = Webhook.new
-        @boards = Board.ordered
+        @boards = Current.account.boards.ordered
       end
 
       def create
-        @webhook = Webhook.new(webhook_params)
+        @webhook = Current.account.webhooks.build(webhook_params)
 
         if @webhook.save
           redirect_to admin_settings_webhook_path(@webhook), notice: t(".successfully_created")
         else
-          @boards = Board.ordered
+          @boards = Current.account.boards.ordered
           render :new, status: :unprocessable_entity
         end
       end
 
       def edit
-        @boards = Board.ordered
+        @boards = Current.account.boards.ordered
       end
 
       def update
@@ -37,7 +37,7 @@ module Admin
         if @webhook.update(webhook_params.except(:url))
           redirect_to admin_settings_webhook_path(@webhook), notice: t(".successfully_updated")
         else
-          @boards = Board.ordered
+          @boards = Current.account.boards.ordered
           render :edit, status: :unprocessable_entity
         end
       end

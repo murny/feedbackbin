@@ -14,9 +14,6 @@
     <div>
       <p class="text-sm font-medium">
         <%= delivery.state.humanize %>
-        <% if delivery.response["code"].present? %>
-          <span class="text-muted-foreground">(HTTP <%= delivery.response["code"] %>)</span>
-        <% end %>
       </p>
       <p class="text-xs text-muted-foreground">
         <%= webhook_action_label(delivery.event.action) %>
