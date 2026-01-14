@@ -195,6 +195,34 @@ class Webhook::DeliveryTest < ActiveSupport::TestCase
     assert_not delivery.succeeded?
   end
 
+  test "stale scope returns deliveries older than retention period" do
+    webhook = webhooks(:active)
+    event = events(:idea_created)
+
+    fresh_delivery = Webhook::Delivery.create!(webhook: webhook, event: event)
+    stale_delivery = Webhook::Delivery.create!(webhook: webhook, event: event)
+    stale_delivery.update_column(:created_at, 31.days.ago)
+
+    assert_includes Webhook::Delivery.stale, stale_delivery
+    assert_not_includes Webhook::Delivery.stale, fresh_delivery
+  end
+
+  test "cleanup deletes stale deliveries" do
+    webhook = webhooks(:active)
+    event = events(:idea_created)
+
+    fresh_delivery = Webhook::Delivery.create!(webhook: webhook, event: event)
+    stale_delivery = Webhook::Delivery.create!(webhook: webhook, event: event)
+    stale_delivery.update_column(:created_at, 31.days.ago)
+
+    assert_difference "Webhook::Delivery.count", -1 do
+      Webhook::Delivery.cleanup
+    end
+
+    assert Webhook::Delivery.exists?(fresh_delivery.id)
+    assert_not Webhook::Delivery.exists?(stale_delivery.id)
+  end
+
   private
 
     def stub_dns_resolution(*ips)

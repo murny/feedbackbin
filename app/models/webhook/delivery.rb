@@ -20,6 +20,8 @@ class Webhook::Delivery < ApplicationRecord
   include Rails.application.routes.url_helpers
 
   ENDPOINT_TIMEOUT = 7.seconds
+  RETENTION_PERIOD = 30.days
+  CLEANUP_BATCH_SIZE = 1000
 
   self.table_name = "webhook_deliveries"
 
@@ -34,8 +36,19 @@ class Webhook::Delivery < ApplicationRecord
     errored: "errored"
   }, prefix: true
 
+  scope :stale, -> { where(created_at: ...RETENTION_PERIOD.ago) }
+
   # Automatically deliver webhook after creation
   after_create_commit :deliver_later
+
+  # Delete old delivery records in batches to avoid locking
+  def self.cleanup(batch_size: CLEANUP_BATCH_SIZE)
+    loop do
+      deleted = stale.limit(batch_size).delete_all
+      break if deleted < batch_size
+      sleep(0.1) # Small delay between batches
+    end
+  end
 
   # Deliver the webhook synchronously
   def deliver
