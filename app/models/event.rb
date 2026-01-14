@@ -27,8 +27,8 @@ class Event < ApplicationRecord
 
   private
 
-  # Dispatch webhooks for this event
-  def dispatch_webhooks
-    Webhook::DispatchJob.perform_later(self)
-  end
+    # Dispatch webhooks for this event
+    def dispatch_webhooks
+      Webhook::DispatchJob.perform_later(self)
+    end
 end

@@ -60,12 +60,12 @@ class Webhook < ApplicationRecord
 
   private
 
-  def subscribed_actions_are_permitted
-    return if subscribed_actions.blank?
+    def subscribed_actions_are_permitted
+      return if subscribed_actions.blank?
 
-    invalid_actions = subscribed_actions - PERMITTED_ACTIONS
-    if invalid_actions.any?
-      errors.add(:subscribed_actions, "contains invalid actions: #{invalid_actions.join(', ')}")
+      invalid_actions = subscribed_actions - PERMITTED_ACTIONS
+      if invalid_actions.any?
+        errors.add(:subscribed_actions, "contains invalid actions: #{invalid_actions.join(', ')}")
+      end
     end
-  end
 end

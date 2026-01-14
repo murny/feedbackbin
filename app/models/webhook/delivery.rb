@@ -97,35 +97,35 @@ class Webhook::Delivery < ApplicationRecord
 
   private
 
-  # Generate the webhook payload (JSON)
-  def payload
-    {
-      event: {
-        id: event.id,
-        action: event.action,
-        created_at: event.created_at.utc.iso8601,
-        eventable_type: event.eventable_type,
-        eventable_id: event.eventable_id,
-        creator: {
-          id: event.creator.id,
-          name: event.creator.name
-        },
-        board: {
-          id: event.board.id,
-          name: event.board.name
-        },
-        particulars: event.particulars
-      }
-    }.to_json
-  end
+    # Generate the webhook payload (JSON)
+    def payload
+      {
+        event: {
+          id: event.id,
+          action: event.action,
+          created_at: event.created_at.utc.iso8601,
+          eventable_type: event.eventable_type,
+          eventable_id: event.eventable_id,
+          creator: {
+            id: event.creator.id,
+            name: event.creator.name
+          },
+          board: {
+            id: event.board.id,
+            name: event.board.name
+          },
+          particulars: event.particulars
+        }
+      }.to_json
+    end
 
-  # Generate HMAC-SHA256 signature for the payload
-  def signature
-    OpenSSL::HMAC.hexdigest("SHA256", webhook.signing_secret, payload)
-  end
+    # Generate HMAC-SHA256 signature for the payload
+    def signature
+      OpenSSL::HMAC.hexdigest("SHA256", webhook.signing_secret, payload)
+    end
 
-  # Enqueue delivery job
-  def deliver_later
-    Webhook::DeliveryJob.perform_later(self)
-  end
+    # Enqueue delivery job
+    def deliver_later
+      Webhook::DeliveryJob.perform_later(self)
+    end
 end

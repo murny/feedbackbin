@@ -58,13 +58,13 @@ module Admin
 
       private
 
-      def set_webhook
-        @webhook = Current.account.webhooks.find(params[:id])
-      end
+        def set_webhook
+          @webhook = Current.account.webhooks.find(params[:id])
+        end
 
-      def webhook_params
-        params.require(:webhook).permit(:name, :url, :board_id, :description, subscribed_actions: [])
-      end
+        def webhook_params
+          params.require(:webhook).permit(:name, :url, :board_id, :description, subscribed_actions: [])
+        end
     end
   end
 end

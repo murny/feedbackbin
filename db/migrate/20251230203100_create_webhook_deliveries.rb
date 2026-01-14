@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class CreateWebhookDeliveries < ActiveRecord::Migration[8.2]
   def change
     create_table :webhook_deliveries do |t|
@@ -12,8 +14,8 @@ class CreateWebhookDeliveries < ActiveRecord::Migration[8.2]
     add_index :webhook_deliveries, :webhook_id
     add_index :webhook_deliveries, :event_id
     add_index :webhook_deliveries, :state
-    add_index :webhook_deliveries, [:webhook_id, :state]
-    add_index :webhook_deliveries, [:webhook_id, :created_at]
+    add_index :webhook_deliveries, [ :webhook_id, :state ]
+    add_index :webhook_deliveries, [ :webhook_id, :created_at ]
 
     add_foreign_key :webhook_deliveries, :webhooks
     add_foreign_key :webhook_deliveries, :events
