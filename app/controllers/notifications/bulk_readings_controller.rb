@@ -7,9 +7,20 @@ class Notifications::BulkReadingsController < ApplicationController
     Current.user.notifications.unread.read_all
 
     respond_to do |format|
-      format.html { redirect_to notifications_path }
-      format.turbo_stream
+      format.html do
+        if from_tray?
+          head :ok
+        else
+          redirect_to notifications_path
+        end
+      end
       format.json { head :no_content }
     end
   end
+
+  private
+
+    def from_tray?
+      params[:from_tray]
+    end
 end
