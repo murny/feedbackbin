@@ -27,17 +27,24 @@ class Webhook < ApplicationRecord
     comment_created
   ].freeze
 
+  # Slack incoming webhook URL pattern
+  SLACK_WEBHOOK_URL_REGEX = %r{//hooks\.slack\.com/services/T[^/]+/B[^/]+/[^/]+\z}i
+
   has_secure_token :signing_secret
 
   belongs_to :account, default: -> { Current.account }
   belongs_to :board, optional: true
 
   has_many :deliveries, class_name: "Webhook::Delivery", dependent: :destroy
+  has_one :delinquency_tracker, class_name: "Webhook::DelinquencyTracker", dependent: :destroy
+
+  after_create :create_delinquency_tracker!
+
+  normalizes :subscribed_actions, with: ->(value) { Array.wrap(value).map(&:to_s).uniq & PERMITTED_ACTIONS }
 
   validates :name, presence: true
   validates :url, presence: true, format: { with: URI::DEFAULT_PARSER.make_regexp(%w[http https]), message: "must be a valid HTTP(S) URL" }
   validates :subscribed_actions, presence: true
-  validate :subscribed_actions_are_permitted
 
   # Scopes
   scope :active, -> { where(active: true) }
@@ -58,14 +65,8 @@ class Webhook < ApplicationRecord
     subscribed_actions.include?(action.to_s)
   end
 
-  private
-
-    def subscribed_actions_are_permitted
-      return if subscribed_actions.blank?
-
-      invalid_actions = subscribed_actions - PERMITTED_ACTIONS
-      if invalid_actions.any?
-        errors.add(:subscribed_actions, "contains invalid actions: #{invalid_actions.join(', ')}")
-      end
-    end
+  # Check if webhook URL is a Slack incoming webhook
+  def for_slack?
+    url.match?(SLACK_WEBHOOK_URL_REGEX)
+  end
 end

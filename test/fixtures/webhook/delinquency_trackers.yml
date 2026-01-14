@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+active_webhook_tracker:
+  account: feedbackbin
+  webhook: active
+  consecutive_failures_count: 1
+  first_failure_at: <%= 1.hour.ago %>
+
+inactive_webhook_tracker:
+  account: feedbackbin
+  webhook: inactive
+  consecutive_failures_count: 1
+  first_failure_at: <%= 1.hour.ago %>
+
+slack_webhook_tracker:
+  account: feedbackbin
+  webhook: slack
+  consecutive_failures_count: 0
+  first_failure_at: null

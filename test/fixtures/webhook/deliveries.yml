@@ -1,0 +1,41 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+successfully_completed:
+  webhook: active
+  event: idea_created
+  state: completed
+  request: <%= { headers: {} }.to_json %>
+  response: <%= { code: 200, headers: {} }.to_json %>
+  created_at: <%= 1.week.ago %>
+
+unsuccessfully_completed:
+  webhook: active
+  event: idea_status_changed
+  state: completed
+  request: <%= { headers: {} }.to_json %>
+  response: <%= { code: 422, headers: {} }.to_json %>
+  created_at: <%= 1.week.ago + 1.hour %>
+
+errored:
+  webhook: active
+  event: idea_title_changed
+  state: errored
+  request: <%= { headers: {} }.to_json %>
+  response: <%= { error: "destination_unreachable" }.to_json %>
+  created_at: <%= 1.week.ago %>
+
+pending:
+  webhook: active
+  event: comment_created
+  state: pending
+  request: null
+  response: null
+  created_at: <%= 2.days.ago %>
+
+in_progress:
+  webhook: active
+  event: idea_board_changed
+  state: in_progress
+  request: null
+  response: null
+  created_at: <%= 1.day.ago %>

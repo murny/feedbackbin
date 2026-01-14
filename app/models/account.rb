@@ -13,15 +13,19 @@ class Account < ApplicationRecord
   has_one_attached :favicon
   has_one_attached :og_image
 
+  has_many :webhook_delinquency_trackers, class_name: "Webhook::DelinquencyTracker", dependent: :destroy
+  has_many :webhooks, dependent: :destroy
+  has_many :watches, dependent: :destroy
+  has_many :notifications, dependent: :destroy
+  has_many :events, dependent: :destroy
   has_many :votes, dependent: :destroy
   has_many :comments, dependent: :destroy
+  has_many :invitations, dependent: :destroy
+  has_many :changelogs, dependent: :destroy
   has_many :ideas, dependent: :destroy
   has_many :boards, dependent: :destroy
-  has_many :changelogs, dependent: :destroy
-  has_many :invitations, dependent: :destroy
   has_many :statuses, dependent: :destroy
   has_many :users, dependent: :destroy
-  has_many :webhooks, dependent: :destroy
 
   validates :logo, content_type: { in: ALLOWED_IMAGE_CONTENT_TYPES }, file_size: { maximum: 2.megabytes }
   validates :favicon, content_type: { in: ALLOWED_IMAGE_CONTENT_TYPES }, file_size: { maximum: 500.kilobytes }

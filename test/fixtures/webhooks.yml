@@ -1,0 +1,28 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+active:
+  account: feedbackbin
+  board: one
+  active: true
+  name: Production API
+  url: https://api.example.com/webhooks
+  signing_secret: <%= SecureRandom.base58(24) %>
+  subscribed_actions: <%= %w[idea_created idea_status_changed comment_created].to_json %>
+
+inactive:
+  account: feedbackbin
+  board: two
+  active: false
+  name: Test Webhook
+  url: https://test.example.com/webhooks
+  signing_secret: <%= SecureRandom.base58(24) %>
+  subscribed_actions: <%= %w[idea_created comment_created].to_json %>
+
+slack:
+  account: feedbackbin
+  board: one
+  active: true
+  name: Slack Notifications
+  url: https://hooks.slack.com/services/T12345678/B12345678/abcdefghijklmnopqrstuvwx
+  signing_secret: <%= SecureRandom.base58(24) %>
+  subscribed_actions: <%= %w[idea_created idea_status_changed].to_json %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.2].define(version: 2026_01_13_190905) do
+ActiveRecord::Schema[8.2].define(version: 2026_01_14_014215) do
   create_table "account_external_id_sequences", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -269,6 +269,17 @@ ActiveRecord::Schema[8.2].define(version: 2026_01_13_190905) do
     t.index ["user_id"], name: "index_watches_on_user_id"
   end
 
+  create_table "webhook_delinquency_trackers", force: :cascade do |t|
+    t.integer "account_id", null: false
+    t.integer "consecutive_failures_count", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "first_failure_at"
+    t.datetime "updated_at", null: false
+    t.integer "webhook_id", null: false
+    t.index ["account_id"], name: "index_webhook_delinquency_trackers_on_account_id"
+    t.index ["webhook_id"], name: "index_webhook_delinquency_trackers_on_webhook_id"
+  end
+
   create_table "webhook_deliveries", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.bigint "event_id", null: false
@@ -333,6 +344,8 @@ ActiveRecord::Schema[8.2].define(version: 2026_01_13_190905) do
   add_foreign_key "watches", "accounts"
   add_foreign_key "watches", "ideas"
   add_foreign_key "watches", "users"
+  add_foreign_key "webhook_delinquency_trackers", "accounts"
+  add_foreign_key "webhook_delinquency_trackers", "webhooks"
   add_foreign_key "webhook_deliveries", "events"
   add_foreign_key "webhook_deliveries", "webhooks"
   add_foreign_key "webhooks", "accounts"
