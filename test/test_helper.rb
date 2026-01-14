@@ -7,6 +7,10 @@ require "simplecov" if ENV["COVERAGE"]
 require_relative "../config/environment"
 require "rails/test_help"
 require "mocha/minitest"
+require "webmock/minitest"
+
+# Allow localhost connections for system tests (Selenium/Capybara)
+WebMock.disable_net_connect!(allow_localhost: true)
 
 # Load support files
 Dir[Rails.root.join("test/support/**/*.rb")].each { |f| require f }

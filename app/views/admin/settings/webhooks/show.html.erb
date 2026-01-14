@@ -1,0 +1,118 @@
+<% content_for :title, @webhook.name %>
+
+<div class="container mx-auto max-w-4xl">
+  <%= render partial: "admin/settings/header" %>
+
+  <div class="mt-8">
+    <div class="flex items-center justify-between mb-6">
+      <div>
+        <h2 class="text-lg font-medium"><%= @webhook.name %></h2>
+        <p class="text-sm text-muted-foreground font-mono"><%= @webhook.url %></p>
+      </div>
+      <div class="flex items-center gap-2">
+        <% if @webhook.active? %>
+          <%= button_to t(".deactivate"), admin_settings_webhook_activation_path(@webhook), method: :delete, class: "btn btn-secondary" %>
+        <% else %>
+          <%= button_to t(".activate"), admin_settings_webhook_activation_path(@webhook), method: :post, class: "btn btn-primary" %>
+        <% end %>
+        <%= link_to edit_admin_settings_webhook_path(@webhook), class: "btn btn-secondary" do %>
+          <%= lucide_icon "pencil", class: "h-4 w-4 mr-1" %>
+          <%= t("edit") %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="space-y-6">
+      <%# Status %>
+      <%= render Elements::CardComponent.new do |c| %>
+        <% c.with_body do %>
+          <div class="flex items-center justify-between">
+            <div>
+              <h3 class="text-sm font-medium"><%= t(".status") %></h3>
+              <p class="text-sm text-muted-foreground mt-1">
+                <% if @webhook.active? %>
+                  <%= t(".status_active") %>
+                <% else %>
+                  <%= t(".status_inactive") %>
+                <% end %>
+              </p>
+            </div>
+            <% if @webhook.active? %>
+              <%= render Elements::BadgeComponent.new(variant: :default, class: "bg-green-500") do %>
+                <%= t(".active_badge") %>
+              <% end %>
+            <% else %>
+              <%= render Elements::BadgeComponent.new(variant: :secondary) do %>
+                <%= t(".inactive_badge") %>
+              <% end %>
+            <% end %>
+          </div>
+        <% end %>
+      <% end %>
+
+      <%# Signing Secret %>
+      <%= render Elements::CardComponent.new do |c| %>
+        <% c.with_body do %>
+          <h3 class="text-sm font-medium mb-2"><%= t(".signing_secret_label") %></h3>
+          <code class="block bg-muted px-3 py-2 rounded-md text-sm font-mono break-all"><%= @webhook.signing_secret %></code>
+          <p class="text-xs text-muted-foreground mt-2"><%= t(".signing_secret_hint") %></p>
+        <% end %>
+      <% end %>
+
+      <%# Board Scope %>
+      <% if @webhook.board.present? %>
+        <%= render Elements::CardComponent.new do |c| %>
+          <% c.with_body do %>
+            <h3 class="text-sm font-medium mb-2"><%= t(".board_scope") %></h3>
+            <p class="text-sm"><%= @webhook.board.name %></p>
+            <p class="text-xs text-muted-foreground mt-1"><%= t(".board_scope_hint") %></p>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <%# Subscribed Events %>
+      <%= render Elements::CardComponent.new do |c| %>
+        <% c.with_body do %>
+          <h3 class="text-sm font-medium mb-2"><%= t(".subscribed_events") %></h3>
+          <% if @webhook.subscribed_actions.empty? %>
+            <p class="text-sm text-muted-foreground"><%= t(".no_subscribed_events") %></p>
+          <% else %>
+            <ul class="space-y-1">
+              <% @webhook.subscribed_actions.each do |action| %>
+                <li class="text-sm flex items-center gap-2">
+                  <%= lucide_icon "check", class: "h-4 w-4 text-green-500" %>
+                  <%= webhook_action_label(action) %>
+                </li>
+              <% end %>
+            </ul>
+          <% end %>
+        <% end %>
+      <% end %>
+
+      <%# Recent Deliveries %>
+      <%= render Elements::CardComponent.new do |c| %>
+        <% c.with_body do %>
+          <h3 class="text-sm font-medium mb-2"><%= t(".recent_deliveries") %></h3>
+          <% if @webhook.deliveries.empty? %>
+            <p class="text-sm text-muted-foreground"><%= t(".no_deliveries") %></p>
+          <% else %>
+            <ul class="divide-y divide-border">
+              <% @webhook.deliveries.order(created_at: :desc).limit(20).each do |delivery| %>
+                <%= render "delivery", delivery: delivery %>
+              <% end %>
+            </ul>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="mt-8 pt-6 border-t border-border">
+      <%= link_to admin_settings_webhook_path(@webhook),
+            class: "text-sm text-destructive hover:text-destructive/80",
+            data: { "turbo-method": :delete, turbo_confirm: t("are_you_sure") } do %>
+        <%= lucide_icon "trash-2", class: "h-4 w-4 inline mr-1" %>
+        <%= t(".delete_webhook") %>
+      <% end %>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,26 @@
+<%# locals: (delivery:) %>
+
+<li id="<%= dom_id(delivery) %>" class="py-3 flex items-center justify-between">
+  <div class="flex items-center gap-3">
+    <% if delivery.succeeded? %>
+      <%= lucide_icon "check-circle", class: "h-5 w-5 text-green-500" %>
+    <% elsif delivery.errored? %>
+      <%= lucide_icon "x-circle", class: "h-5 w-5 text-destructive" %>
+    <% elsif delivery.in_progress? %>
+      <%= lucide_icon "loader", class: "h-5 w-5 text-muted-foreground animate-spin" %>
+    <% else %>
+      <%= lucide_icon "clock", class: "h-5 w-5 text-muted-foreground" %>
+    <% end %>
+    <div>
+      <p class="text-sm font-medium">
+        <%= delivery.state.humanize %>
+      </p>
+      <p class="text-xs text-muted-foreground">
+        <%= webhook_action_label(delivery.event.action) %>
+      </p>
+    </div>
+  </div>
+  <div class="text-xs text-muted-foreground">
+    <%= time_ago_in_words(delivery.created_at) %> <%= t("notifications.ago") %>
+  </div>
+</li>

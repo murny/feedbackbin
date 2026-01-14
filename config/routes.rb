@@ -95,6 +95,11 @@ Rails.application.routes.draw do
       resource :branding, only: [ :show, :update ]
       resources :statuses
       resources :boards
+      resources :webhooks do
+        scope module: :webhooks do
+          resource :activation, only: [ :create, :destroy ]
+        end
+      end
       resource :danger_zone, only: [ :show, :destroy ]
       resource :ownership_transfer, only: [ :new, :create ]
 

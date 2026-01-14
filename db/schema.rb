@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.2].define(version: 2026_01_13_190905) do
+ActiveRecord::Schema[8.2].define(version: 2026_01_14_014215) do
   create_table "account_external_id_sequences", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -269,6 +269,49 @@ ActiveRecord::Schema[8.2].define(version: 2026_01_13_190905) do
     t.index ["user_id"], name: "index_watches_on_user_id"
   end
 
+  create_table "webhook_delinquency_trackers", force: :cascade do |t|
+    t.integer "account_id", null: false
+    t.integer "consecutive_failures_count", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "first_failure_at"
+    t.datetime "updated_at", null: false
+    t.integer "webhook_id", null: false
+    t.index ["account_id"], name: "index_webhook_delinquency_trackers_on_account_id"
+    t.index ["webhook_id"], name: "index_webhook_delinquency_trackers_on_webhook_id"
+  end
+
+  create_table "webhook_deliveries", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.bigint "event_id", null: false
+    t.json "request", default: {}
+    t.json "response", default: {}
+    t.string "state", default: "pending", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "webhook_id", null: false
+    t.index ["event_id"], name: "index_webhook_deliveries_on_event_id"
+    t.index ["state"], name: "index_webhook_deliveries_on_state"
+    t.index ["webhook_id", "created_at"], name: "index_webhook_deliveries_on_webhook_id_and_created_at"
+    t.index ["webhook_id", "state"], name: "index_webhook_deliveries_on_webhook_id_and_state"
+    t.index ["webhook_id"], name: "index_webhook_deliveries_on_webhook_id"
+  end
+
+  create_table "webhooks", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.boolean "active", default: true, null: false
+    t.bigint "board_id"
+    t.datetime "created_at", null: false
+    t.text "description"
+    t.string "name", null: false
+    t.string "signing_secret", null: false
+    t.json "subscribed_actions", default: []
+    t.datetime "updated_at", null: false
+    t.string "url", null: false
+    t.index ["account_id", "active"], name: "index_webhooks_on_account_id_and_active"
+    t.index ["account_id"], name: "index_webhooks_on_account_id"
+    t.index ["active"], name: "index_webhooks_on_active"
+    t.index ["board_id"], name: "index_webhooks_on_board_id"
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "boards", "accounts"
@@ -301,4 +344,10 @@ ActiveRecord::Schema[8.2].define(version: 2026_01_13_190905) do
   add_foreign_key "watches", "accounts"
   add_foreign_key "watches", "ideas"
   add_foreign_key "watches", "users"
+  add_foreign_key "webhook_delinquency_trackers", "accounts"
+  add_foreign_key "webhook_delinquency_trackers", "webhooks"
+  add_foreign_key "webhook_deliveries", "events"
+  add_foreign_key "webhook_deliveries", "webhooks"
+  add_foreign_key "webhooks", "accounts"
+  add_foreign_key "webhooks", "boards"
 end
