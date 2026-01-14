@@ -5,15 +5,15 @@ module SessionTestHelper
     ActionDispatch::Cookies::CookieJar.build(request, cookies.to_hash)
   end
 
-  def sign_in_as(user_or_identity)
+  def sign_in_as(identity)
     cookies.delete :session_token
 
-    identity = if user_or_identity.is_a?(User)
-      user_or_identity.identity
-    elsif user_or_identity.is_a?(Identity)
-      user_or_identity
-    else
-      identities(user_or_identity)
+    if identity.is_a?(User)
+      user = identity
+      identity = user.identity
+      raise "User is not associated with an identity" unless identity
+    elsif !identity.is_a?(Identity)
+      identity = identities(identity)
     end
 
     Current.session = identity.sessions.create!

@@ -4,30 +4,36 @@ require "test_helper"
 
 class Notifications::BulkReadingsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    sign_in_as users(:shane)
+    sign_in_as :shane
   end
 
   test "create marks all unread notifications as read" do
-    notification = notifications(:shane_comment_notification)
+    assert_changes -> { notifications(:shane_comment_notification).reload.read? }, from: false, to: true do
+      assert_changes -> { notifications(:shane_idea_notification).reload.read? }, from: false, to: true do
+        post bulk_reading_path
+      end
+    end
+  end
 
-    assert_not notification.read?
-
+  test "create redirects to notifications path when not from tray" do
     post bulk_reading_path
 
     assert_redirected_to notifications_path
+  end
 
-    assert_predicate notification.reload, :read?
+  test "create returns ok when from tray" do
+    post bulk_reading_path, params: { from_tray: true }
+
+    assert_response :ok
   end
 
   test "create as JSON" do
-    notification = notifications(:shane_comment_notification)
-
-    assert_not notification.read?
-
-    post bulk_reading_path, as: :json
+    assert_changes -> { notifications(:shane_comment_notification).reload.read? }, from: false, to: true do
+      assert_changes -> { notifications(:shane_idea_notification).reload.read? }, from: false, to: true do
+        post bulk_reading_path, as: :json
+      end
+    end
 
     assert_response :no_content
-
-    assert_predicate notification.reload, :read?
   end
 end

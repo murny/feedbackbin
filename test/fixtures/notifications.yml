@@ -6,7 +6,6 @@ shane_comment_notification:
   user: shane
   creator: john
   source: comment_created (Event)
-  read_at: null
 
 # Read notification for Shane
 shane_idea_notification:
@@ -14,4 +13,3 @@ shane_idea_notification:
   user: shane
   creator: john
   source: idea_status_changed (Event)
-  read_at: <%= Time.current.to_fs(:db) %>
