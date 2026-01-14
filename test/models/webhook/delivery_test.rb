@@ -5,6 +5,12 @@ require "test_helper"
 class Webhook::DeliveryTest < ActiveSupport::TestCase
   include ActiveJob::TestHelper
 
+  PUBLIC_TEST_IP = "93.184.216.34" # example.com's real IP, used as a public IP stand-in
+
+  setup do
+    stub_dns_resolution(PUBLIC_TEST_IP)
+  end
+
   test "create" do
     webhook = webhooks(:active)
     event = events(:idea_created)
@@ -97,12 +103,11 @@ class Webhook::DeliveryTest < ActiveSupport::TestCase
     tracker = delivery.webhook.delinquency_tracker
 
     assert_difference -> { tracker.reload.consecutive_failures_count }, 1 do
-      assert_raises(Net::OpenTimeout) do
-        delivery.deliver
-      end
+      delivery.deliver
     end
 
-    assert_equal "errored", delivery.state
+    assert_equal "completed", delivery.state
+    assert_equal "connection_timeout", delivery.response["error"]
     assert_not delivery.succeeded?
   end
 
@@ -110,12 +115,22 @@ class Webhook::DeliveryTest < ActiveSupport::TestCase
     delivery = webhook_deliveries(:pending)
     stub_request(:post, delivery.webhook.url).to_raise(Errno::ECONNREFUSED)
 
-    assert_raises(Errno::ECONNREFUSED) do
-      delivery.deliver
-    end
+    delivery.deliver
 
-    assert_equal "errored", delivery.state
-    assert_predicate delivery.response["error"], :present?
+    assert_equal "completed", delivery.state
+    assert_equal "destination_unreachable", delivery.response["error"]
+    assert_not delivery.succeeded?
+  end
+
+  test "deliver when SSL error occurs" do
+    delivery = webhook_deliveries(:pending)
+    stub_request(:post, delivery.webhook.url).to_raise(OpenSSL::SSL::SSLError)
+
+    delivery.deliver
+
+    assert_equal "completed", delivery.state
+    assert_equal "failed_tls", delivery.response["error"]
+    assert_not delivery.succeeded?
   end
 
   test "deliver with slack webhook format" do
@@ -157,4 +172,62 @@ class Webhook::DeliveryTest < ActiveSupport::TestCase
     assert_requested request_stub
     assert_predicate delivery, :succeeded?
   end
+
+  test "deliver blocks private IP addresses" do
+    stub_dns_resolution("192.168.1.1")
+
+    delivery = webhook_deliveries(:pending)
+    delivery.deliver
+
+    assert_equal "completed", delivery.state
+    assert_equal "private_uri", delivery.response["error"]
+    assert_not delivery.succeeded?
+  end
+
+  test "deliver blocks link-local addresses (AWS metadata endpoint)" do
+    stub_dns_resolution("169.254.169.254")
+
+    delivery = webhook_deliveries(:pending)
+    delivery.deliver
+
+    assert_equal "completed", delivery.state
+    assert_equal "private_uri", delivery.response["error"]
+    assert_not delivery.succeeded?
+  end
+
+  test "stale scope returns deliveries older than retention period" do
+    webhook = webhooks(:active)
+    event = events(:idea_created)
+
+    fresh_delivery = Webhook::Delivery.create!(webhook: webhook, event: event)
+    stale_delivery = Webhook::Delivery.create!(webhook: webhook, event: event)
+    stale_delivery.update_column(:created_at, 31.days.ago)
+
+    assert_includes Webhook::Delivery.stale, stale_delivery
+    assert_not_includes Webhook::Delivery.stale, fresh_delivery
+  end
+
+  test "cleanup deletes stale deliveries" do
+    webhook = webhooks(:active)
+    event = events(:idea_created)
+
+    fresh_delivery = Webhook::Delivery.create!(webhook: webhook, event: event)
+    stale_delivery = Webhook::Delivery.create!(webhook: webhook, event: event)
+    stale_delivery.update_column(:created_at, 31.days.ago)
+
+    assert_difference "Webhook::Delivery.count", -1 do
+      Webhook::Delivery.cleanup
+    end
+
+    assert Webhook::Delivery.exists?(fresh_delivery.id)
+    assert_not Webhook::Delivery.exists?(stale_delivery.id)
+  end
+
+  private
+
+    def stub_dns_resolution(*ips)
+      dns_mock = mock("dns")
+      dns_mock.stubs(:each_address).multiple_yields(*ips)
+      Resolv::DNS.stubs(:open).yields(dns_mock)
+    end
 end
