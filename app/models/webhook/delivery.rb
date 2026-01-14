@@ -6,14 +6,20 @@ require "openssl"
 # Webhook::Delivery represents a single webhook delivery attempt.
 # It handles:
 # - Payload generation and signing (HMAC-SHA256)
-# - HTTP request execution
+# - HTTP request execution with SSRF protection
 # - Response tracking
 # - Error handling
 #
 # State machine:
 #   pending -> in_progress -> completed (or errored)
+#
+# Security:
+#   - SSRF protection blocks requests to private/internal IPs
+#   - DNS resolution is pinned to prevent rebinding attacks
 class Webhook::Delivery < ApplicationRecord
   include Rails.application.routes.url_helpers
+
+  ENDPOINT_TIMEOUT = 7.seconds
 
   self.table_name = "webhook_deliveries"
 
@@ -35,55 +41,14 @@ class Webhook::Delivery < ApplicationRecord
   def deliver
     state_in_progress!
 
-    # Build the request
-    uri = URI.parse(webhook.url)
-    http = Net::HTTP.new(uri.host, uri.port)
-    http.use_ssl = (uri.scheme == "https")
-    http.open_timeout = 5
-    http.read_timeout = 7
-    http.write_timeout = 5
-
-    # Create request
-    request = Net::HTTP::Post.new(uri.request_uri)
-    request["Content-Type"] = "application/json"
-    request["User-Agent"] = "FeedbackBin-Webhook/1.0"
-    request["X-Webhook-Signature"] = signature
-    request["X-Webhook-Timestamp"] = event.created_at.utc.iso8601
-    request.body = payload
-
-    # Store request data
-    self.request = {
-      headers: {
-        "Content-Type" => "application/json",
-        "User-Agent" => "FeedbackBin-Webhook/1.0",
-        "X-Webhook-Signature" => signature,
-        "X-Webhook-Timestamp" => event.created_at.utc.iso8601
-      },
-      body: payload,
-      url: webhook.url
-    }
-
-    # Execute request
-    response = http.request(request)
-
-    # Store response data
-    self.response = {
-      code: response.code.to_i,
-      body: response.body&.slice(0, 1000), # Limit to 1KB
-      headers: response.to_hash.slice("content-type", "content-length")
-    }
-
-    state_completed!
+    self.request = { headers: headers, body: payload, url: webhook.url }
+    self.response = perform_request
+    self.state = :completed
     save!
 
     webhook.delinquency_tracker.record_delivery_of(self)
   rescue => error
-    # Store error details
-    self.response = {
-      error: error.class.name,
-      message: error.message
-    }
-
+    self.response = { error: error.class.name, message: error.message }
     state_errored!
     save!
 
@@ -93,7 +58,7 @@ class Webhook::Delivery < ApplicationRecord
 
   # Check if delivery succeeded
   def succeeded?
-    state_completed? && response.present? && response["code"]&.between?(200, 299)
+    state_completed? && response.present? && response["error"].blank? && response["code"]&.between?(200, 299)
   end
 
   # Check if delivery failed
@@ -102,6 +67,60 @@ class Webhook::Delivery < ApplicationRecord
   end
 
   private
+
+    # Execute the HTTP request with SSRF protection
+    def perform_request
+      if resolved_ip.nil?
+        { error: "private_uri" }
+      else
+        request = Net::HTTP::Post.new(uri.request_uri, headers)
+        request.body = payload
+
+        response = http.request(request)
+
+        { code: response.code.to_i, body: response.body&.slice(0, 1000) }
+      end
+    rescue Resolv::ResolvTimeout, Resolv::ResolvError, SocketError
+      { error: "dns_lookup_failed" }
+    rescue Net::OpenTimeout, Net::ReadTimeout, Errno::ETIMEDOUT
+      { error: "connection_timeout" }
+    rescue Errno::ECONNREFUSED, Errno::EHOSTUNREACH, Errno::ECONNRESET
+      { error: "destination_unreachable" }
+    rescue OpenSSL::SSL::SSLError
+      { error: "failed_tls" }
+    end
+
+    # Resolve and cache the public IP for the webhook URL
+    # Returns nil if the hostname resolves to a private/blocked IP
+    def resolved_ip
+      return @resolved_ip if defined?(@resolved_ip)
+      @resolved_ip = SsrfProtection.resolve_public_ip(uri.host)
+    end
+
+    # Parse and cache the webhook URL
+    def uri
+      @uri ||= URI(webhook.url)
+    end
+
+    # Build HTTP client with pinned IP to prevent DNS rebinding
+    def http
+      Net::HTTP.new(uri.host, uri.port).tap do |http|
+        http.ipaddr = resolved_ip
+        http.use_ssl = (uri.scheme == "https")
+        http.open_timeout = ENDPOINT_TIMEOUT
+        http.read_timeout = ENDPOINT_TIMEOUT
+      end
+    end
+
+    # HTTP headers for the webhook request
+    def headers
+      {
+        "Content-Type" => "application/json",
+        "User-Agent" => "FeedbackBin-Webhook/1.0",
+        "X-Webhook-Signature" => signature,
+        "X-Webhook-Timestamp" => event.created_at.utc.iso8601
+      }
+    end
 
     # Generate the webhook payload (JSON)
     def payload
