@@ -2,9 +2,16 @@
 
 class InitialSchema < ActiveRecord::Migration[8.2]
   def change
+    create_table "account_external_id_sequences", force: :cascade do |t|
+      t.datetime "created_at", null: false
+      t.datetime "updated_at", null: false
+      t.bigint "value", default: 0, null: false
+      t.index [ "value" ], name: "index_account_external_id_sequences_on_value", unique: true
+    end
+
     create_table "accounts", force: :cascade do |t|
       t.datetime "created_at", null: false
-      t.bigint "external_account_id"
+      t.bigint "external_account_id", null: false
       t.string "logo_link"
       t.string "name", null: false
       t.boolean "show_company_name", default: true, null: false
@@ -13,26 +20,31 @@ class InitialSchema < ActiveRecord::Migration[8.2]
     end
 
     create_table "action_text_rich_texts", force: :cascade do |t|
+      t.bigint "account_id", null: false
       t.text "body"
       t.datetime "created_at", null: false
       t.string "name", null: false
       t.bigint "record_id", null: false
       t.string "record_type", null: false
       t.datetime "updated_at", null: false
+      t.index [ "account_id" ], name: "index_action_text_rich_texts_on_account_id"
       t.index [ "record_type", "record_id", "name" ], name: "index_action_text_rich_texts_uniqueness", unique: true
     end
 
     create_table "active_storage_attachments", force: :cascade do |t|
+      t.bigint "account_id", null: false
       t.bigint "blob_id", null: false
       t.datetime "created_at", null: false
       t.string "name", null: false
       t.bigint "record_id", null: false
       t.string "record_type", null: false
+      t.index [ "account_id" ], name: "index_active_storage_attachments_on_account_id"
       t.index [ "blob_id" ], name: "index_active_storage_attachments_on_blob_id"
       t.index [ "record_type", "record_id", "name", "blob_id" ], name: "index_active_storage_attachments_uniqueness", unique: true
     end
 
     create_table "active_storage_blobs", force: :cascade do |t|
+      t.bigint "account_id", null: false
       t.bigint "byte_size", null: false
       t.string "checksum"
       t.string "content_type"
@@ -41,12 +53,15 @@ class InitialSchema < ActiveRecord::Migration[8.2]
       t.string "key", null: false
       t.text "metadata"
       t.string "service_name", null: false
+      t.index [ "account_id" ], name: "index_active_storage_blobs_on_account_id"
       t.index [ "key" ], name: "index_active_storage_blobs_on_key", unique: true
     end
 
     create_table "active_storage_variant_records", force: :cascade do |t|
+      t.bigint "account_id", null: false
       t.bigint "blob_id", null: false
       t.string "variation_digest", null: false
+      t.index [ "account_id" ], name: "index_active_storage_variant_records_on_account_id"
       t.index [ "blob_id", "variation_digest" ], name: "index_active_storage_variant_records_uniqueness", unique: true
     end
 
@@ -85,6 +100,24 @@ class InitialSchema < ActiveRecord::Migration[8.2]
       t.index [ "creator_id" ], name: "index_comments_on_creator_id"
       t.index [ "idea_id" ], name: "index_comments_on_idea_id"
       t.index [ "parent_id" ], name: "index_comments_on_parent_id"
+    end
+
+    create_table "events", force: :cascade do |t|
+      t.bigint "account_id", null: false
+      t.string "action", null: false
+      t.bigint "board_id", null: false
+      t.datetime "created_at", null: false
+      t.bigint "creator_id", null: false
+      t.bigint "eventable_id", null: false
+      t.string "eventable_type", null: false
+      t.json "particulars", default: {}
+      t.datetime "updated_at", null: false
+      t.index [ "account_id" ], name: "index_events_on_account_id"
+      t.index [ "action" ], name: "index_events_on_action"
+      t.index [ "board_id", "action", "created_at" ], name: "index_events_on_board_id_and_action_and_created_at"
+      t.index [ "board_id" ], name: "index_events_on_board_id"
+      t.index [ "creator_id" ], name: "index_events_on_creator_id"
+      t.index [ "eventable_type", "eventable_id" ], name: "index_events_on_eventable_type_and_eventable_id"
     end
 
     create_table "ideas", force: :cascade do |t|
@@ -140,6 +173,35 @@ class InitialSchema < ActiveRecord::Migration[8.2]
       t.index [ "token" ], name: "index_invitations_on_token", unique: true
     end
 
+    create_table "magic_links", force: :cascade do |t|
+      t.string "code", null: false
+      t.datetime "created_at", null: false
+      t.datetime "expires_at", null: false
+      t.integer "identity_id", null: false
+      t.integer "purpose", default: 0, null: false
+      t.datetime "updated_at", null: false
+      t.index [ "code" ], name: "index_magic_links_on_code", unique: true
+      t.index [ "expires_at" ], name: "index_magic_links_on_expires_at"
+      t.index [ "identity_id" ], name: "index_magic_links_on_identity_id"
+    end
+
+    create_table "notifications", force: :cascade do |t|
+      t.integer "account_id", null: false
+      t.datetime "created_at", null: false
+      t.bigint "creator_id", null: false
+      t.datetime "read_at"
+      t.bigint "source_id", null: false
+      t.string "source_type", null: false
+      t.datetime "updated_at", null: false
+      t.bigint "user_id", null: false
+      t.index [ "account_id" ], name: "index_notifications_on_account_id"
+      t.index [ "creator_id" ], name: "index_notifications_on_creator_id"
+      t.index [ "source_type", "source_id" ], name: "index_notifications_on_source_type_and_source_id"
+      t.index [ "user_id", "created_at" ], name: "index_notifications_on_user_id_and_created_at"
+      t.index [ "user_id", "read_at" ], name: "index_notifications_on_user_id_and_read_at"
+      t.index [ "user_id" ], name: "index_notifications_on_user_id"
+    end
+
     create_table "sessions", force: :cascade do |t|
       t.datetime "created_at", null: false
       t.bigint "identity_id", null: false
@@ -193,27 +255,62 @@ class InitialSchema < ActiveRecord::Migration[8.2]
       t.index [ "voter_id" ], name: "index_votes_on_voter_id"
     end
 
-    add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-    add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-    add_foreign_key "boards", "accounts"
-    add_foreign_key "boards", "users", column: "creator_id"
-    add_foreign_key "changelogs", "accounts"
-    add_foreign_key "comments", "accounts"
-    add_foreign_key "comments", "comments", column: "parent_id"
-    add_foreign_key "comments", "ideas"
-    add_foreign_key "comments", "users", column: "creator_id"
-    add_foreign_key "ideas", "accounts"
-    add_foreign_key "ideas", "boards"
-    add_foreign_key "ideas", "statuses"
-    add_foreign_key "ideas", "users", column: "creator_id"
-    add_foreign_key "identity_connected_accounts", "identities"
-    add_foreign_key "invitations", "accounts"
-    add_foreign_key "invitations", "users", column: "invited_by_id"
-    add_foreign_key "sessions", "identities"
-    add_foreign_key "statuses", "accounts"
-    add_foreign_key "users", "accounts"
-    add_foreign_key "users", "identities"
-    add_foreign_key "votes", "accounts"
-    add_foreign_key "votes", "users", column: "voter_id"
+    create_table "watches", force: :cascade do |t|
+      t.integer "account_id", null: false
+      t.datetime "created_at", null: false
+      t.integer "idea_id", null: false
+      t.datetime "updated_at", null: false
+      t.integer "user_id", null: false
+      t.boolean "watching", default: true, null: false
+      t.index [ "account_id" ], name: "index_watches_on_account_id"
+      t.index [ "idea_id" ], name: "index_watches_on_idea_id"
+      t.index [ "user_id", "idea_id" ], name: "index_watches_on_user_id_and_idea_id", unique: true
+      t.index [ "user_id" ], name: "index_watches_on_user_id"
+    end
+
+    create_table "webhook_delinquency_trackers", force: :cascade do |t|
+      t.integer "account_id", null: false
+      t.integer "consecutive_failures_count", default: 0
+      t.datetime "created_at", null: false
+      t.datetime "first_failure_at"
+      t.datetime "updated_at", null: false
+      t.integer "webhook_id", null: false
+      t.index [ "account_id" ], name: "index_webhook_delinquency_trackers_on_account_id"
+      t.index [ "webhook_id" ], name: "index_webhook_delinquency_trackers_on_webhook_id"
+    end
+
+    create_table "webhook_deliveries", force: :cascade do |t|
+      t.bigint "account_id", null: false
+      t.datetime "created_at", null: false
+      t.bigint "event_id", null: false
+      t.json "request", default: {}
+      t.json "response", default: {}
+      t.string "state", default: "pending", null: false
+      t.datetime "updated_at", null: false
+      t.bigint "webhook_id", null: false
+      t.index [ "account_id" ], name: "index_webhook_deliveries_on_account_id"
+      t.index [ "event_id" ], name: "index_webhook_deliveries_on_event_id"
+      t.index [ "state" ], name: "index_webhook_deliveries_on_state"
+      t.index [ "webhook_id", "created_at" ], name: "index_webhook_deliveries_on_webhook_id_and_created_at"
+      t.index [ "webhook_id", "state" ], name: "index_webhook_deliveries_on_webhook_id_and_state"
+      t.index [ "webhook_id" ], name: "index_webhook_deliveries_on_webhook_id"
+    end
+
+    create_table "webhooks", force: :cascade do |t|
+      t.bigint "account_id", null: false
+      t.boolean "active", default: true, null: false
+      t.bigint "board_id"
+      t.datetime "created_at", null: false
+      t.text "description"
+      t.string "name", null: false
+      t.string "signing_secret", null: false
+      t.json "subscribed_actions", default: []
+      t.datetime "updated_at", null: false
+      t.string "url", null: false
+      t.index [ "account_id", "active" ], name: "index_webhooks_on_account_id_and_active"
+      t.index [ "account_id" ], name: "index_webhooks_on_account_id"
+      t.index [ "active" ], name: "index_webhooks_on_active"
+      t.index [ "board_id" ], name: "index_webhooks_on_board_id"
+    end
   end
 end

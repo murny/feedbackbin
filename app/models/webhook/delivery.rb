@@ -25,6 +25,7 @@ class Webhook::Delivery < ApplicationRecord
 
   self.table_name = "webhook_deliveries"
 
+  belongs_to :account, default: -> { webhook.account }
   belongs_to :webhook
   belongs_to :event
 

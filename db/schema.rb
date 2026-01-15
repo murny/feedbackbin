@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.2].define(version: 2026_01_14_014215) do
+ActiveRecord::Schema[8.2].define(version: 2024_05_17_075643) do
   create_table "account_external_id_sequences", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -29,26 +29,31 @@ ActiveRecord::Schema[8.2].define(version: 2026_01_14_014215) do
   end
 
   create_table "action_text_rich_texts", force: :cascade do |t|
+    t.bigint "account_id", null: false
     t.text "body"
     t.datetime "created_at", null: false
     t.string "name", null: false
     t.bigint "record_id", null: false
     t.string "record_type", null: false
     t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_action_text_rich_texts_on_account_id"
     t.index ["record_type", "record_id", "name"], name: "index_action_text_rich_texts_uniqueness", unique: true
   end
 
   create_table "active_storage_attachments", force: :cascade do |t|
+    t.bigint "account_id", null: false
     t.bigint "blob_id", null: false
     t.datetime "created_at", null: false
     t.string "name", null: false
     t.bigint "record_id", null: false
     t.string "record_type", null: false
+    t.index ["account_id"], name: "index_active_storage_attachments_on_account_id"
     t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
     t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
   end
 
   create_table "active_storage_blobs", force: :cascade do |t|
+    t.bigint "account_id", null: false
     t.bigint "byte_size", null: false
     t.string "checksum"
     t.string "content_type"
@@ -57,12 +62,15 @@ ActiveRecord::Schema[8.2].define(version: 2026_01_14_014215) do
     t.string "key", null: false
     t.text "metadata"
     t.string "service_name", null: false
+    t.index ["account_id"], name: "index_active_storage_blobs_on_account_id"
     t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
   end
 
   create_table "active_storage_variant_records", force: :cascade do |t|
+    t.bigint "account_id", null: false
     t.bigint "blob_id", null: false
     t.string "variation_digest", null: false
+    t.index ["account_id"], name: "index_active_storage_variant_records_on_account_id"
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
@@ -281,6 +289,7 @@ ActiveRecord::Schema[8.2].define(version: 2026_01_14_014215) do
   end
 
   create_table "webhook_deliveries", force: :cascade do |t|
+    t.bigint "account_id", null: false
     t.datetime "created_at", null: false
     t.bigint "event_id", null: false
     t.json "request", default: {}
@@ -288,6 +297,7 @@ ActiveRecord::Schema[8.2].define(version: 2026_01_14_014215) do
     t.string "state", default: "pending", null: false
     t.datetime "updated_at", null: false
     t.bigint "webhook_id", null: false
+    t.index ["account_id"], name: "index_webhook_deliveries_on_account_id"
     t.index ["event_id"], name: "index_webhook_deliveries_on_event_id"
     t.index ["state"], name: "index_webhook_deliveries_on_state"
     t.index ["webhook_id", "created_at"], name: "index_webhook_deliveries_on_webhook_id_and_created_at"
@@ -311,43 +321,4 @@ ActiveRecord::Schema[8.2].define(version: 2026_01_14_014215) do
     t.index ["active"], name: "index_webhooks_on_active"
     t.index ["board_id"], name: "index_webhooks_on_board_id"
   end
-
-  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
-  add_foreign_key "boards", "accounts"
-  add_foreign_key "boards", "users", column: "creator_id"
-  add_foreign_key "changelogs", "accounts"
-  add_foreign_key "comments", "accounts"
-  add_foreign_key "comments", "comments", column: "parent_id"
-  add_foreign_key "comments", "ideas"
-  add_foreign_key "comments", "users", column: "creator_id"
-  add_foreign_key "events", "accounts"
-  add_foreign_key "events", "boards"
-  add_foreign_key "events", "users", column: "creator_id"
-  add_foreign_key "ideas", "accounts"
-  add_foreign_key "ideas", "boards"
-  add_foreign_key "ideas", "statuses"
-  add_foreign_key "ideas", "users", column: "creator_id"
-  add_foreign_key "identity_connected_accounts", "identities"
-  add_foreign_key "invitations", "accounts"
-  add_foreign_key "invitations", "users", column: "invited_by_id"
-  add_foreign_key "magic_links", "identities"
-  add_foreign_key "notifications", "accounts"
-  add_foreign_key "notifications", "users"
-  add_foreign_key "notifications", "users", column: "creator_id"
-  add_foreign_key "sessions", "identities"
-  add_foreign_key "statuses", "accounts"
-  add_foreign_key "users", "accounts"
-  add_foreign_key "users", "identities"
-  add_foreign_key "votes", "accounts"
-  add_foreign_key "votes", "users", column: "voter_id"
-  add_foreign_key "watches", "accounts"
-  add_foreign_key "watches", "ideas"
-  add_foreign_key "watches", "users"
-  add_foreign_key "webhook_delinquency_trackers", "accounts"
-  add_foreign_key "webhook_delinquency_trackers", "webhooks"
-  add_foreign_key "webhook_deliveries", "events"
-  add_foreign_key "webhook_deliveries", "webhooks"
-  add_foreign_key "webhooks", "accounts"
-  add_foreign_key "webhooks", "boards"
 end

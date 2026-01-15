@@ -3,36 +3,43 @@
 #   name: content
 #   body: <p>In a <i>million</i> stars!</p>
 idea_body_one:
+  account: feedbackbin
   record: one (Idea)
   name: body
   body: <p>Really wished there was dark mode for this website!</p>
 
 idea_body_two:
+  account: feedbackbin
   record: two (Idea)
   name: body
   body: <p>Can we upvotes?</p>
 
 comment_body_one:
+  account: feedbackbin
   record: one (Comment)
   name: body
   body: <p>Thanks for the suggestion! What if we did X instead?</p>
 
 comment_body_two:
+  account: feedbackbin
   record: two (Comment)
   name: body
   body: <p>Would be great if we added this other feature as well for this</p>
 
 reply_body_one:
+  account: feedbackbin
   record: reply_one (Comment)
   name: body
   body: <p>Great idea!</p>
 
 changelog_body_one:
+  account: feedbackbin
   record: one (Changelog)
   name: description
   body: <p>Added dark mode to the website!</p>
 
 changelog_body_two:
+  account: feedbackbin
   record: two (Changelog)
   name: description
   body: <p>Added upvotes to the website!</p>

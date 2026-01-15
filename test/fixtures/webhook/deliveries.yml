@@ -1,6 +1,7 @@
 # Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 successfully_completed:
+  account: feedbackbin
   webhook: active
   event: idea_created
   state: completed
@@ -9,6 +10,7 @@ successfully_completed:
   created_at: <%= 1.week.ago %>
 
 unsuccessfully_completed:
+  account: feedbackbin
   webhook: active
   event: idea_status_changed
   state: completed
@@ -17,6 +19,7 @@ unsuccessfully_completed:
   created_at: <%= 1.week.ago + 1.hour %>
 
 errored:
+  account: feedbackbin
   webhook: active
   event: idea_title_changed
   state: errored
@@ -25,6 +28,7 @@ errored:
   created_at: <%= 1.week.ago %>
 
 pending:
+  account: feedbackbin
   webhook: active
   event: comment_created
   state: pending
@@ -33,6 +37,7 @@ pending:
   created_at: <%= 2.days.ago %>
 
 in_progress:
+  account: feedbackbin
   webhook: active
   event: idea_board_changed
   state: in_progress
