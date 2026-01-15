@@ -12,8 +12,10 @@ module Idea::Eventable
     after_update :track_title_change, if: :saved_change_to_title?
   end
 
+  # Called by Event after creation (via Eventable concern)
+  # Creates system comments for visible audit trail
   def event_was_created(event)
-    # Future: could create system comments, update activity timestamps, etc.
+    Idea::Eventable::SystemCommenter.new(self, event).comment
   end
 
   private
