@@ -49,6 +49,11 @@ class Account < ApplicationRecord
     user&.owner?
   end
 
+  # Allow `record.account` to work when record IS an Account (e.g., for attachments)
+  def account
+    self
+  end
+
   # Returns the path prefix slug for this account (e.g., "/1234567")
   def slug
     AccountSlug.encode(external_account_id)

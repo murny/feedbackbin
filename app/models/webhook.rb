@@ -18,7 +18,8 @@
 class Webhook < ApplicationRecord
   include Webhook::Triggerable
 
-  # All possible event actions that can be subscribed to
+  SLACK_WEBHOOK_URL_REGEX = %r{//hooks\.slack\.com/services/T[^/]+/B[^/]+/[^/]+\z}i
+
   PERMITTED_ACTIONS = %w[
     idea_created
     idea_status_changed
@@ -27,16 +28,16 @@ class Webhook < ApplicationRecord
     comment_created
   ].freeze
 
-  # Slack incoming webhook URL pattern
-  SLACK_WEBHOOK_URL_REGEX = %r{//hooks\.slack\.com/services/T[^/]+/B[^/]+/[^/]+\z}i
-
   has_secure_token :signing_secret
 
-  belongs_to :account, default: -> { Current.account }
-  belongs_to :board, optional: true
+  has_many :deliveries, dependent: :delete_all
+  has_one :delinquency_tracker, dependent: :delete
 
-  has_many :deliveries, class_name: "Webhook::Delivery", dependent: :destroy
-  has_one :delinquency_tracker, class_name: "Webhook::DelinquencyTracker", dependent: :destroy
+  belongs_to :account, default: -> { board.account }
+  belongs_to :board
+
+  scope :ordered, -> { order(name: :asc, id: :desc) }
+  scope :active, -> { where(active: true) }
 
   after_create :create_delinquency_tracker!
 
@@ -46,18 +47,14 @@ class Webhook < ApplicationRecord
   validates :url, presence: true, format: { with: URI::DEFAULT_PARSER.make_regexp(%w[http https]), message: "must be a valid HTTP(S) URL" }
   validates :subscribed_actions, presence: true
 
-  # Scopes
-  scope :active, -> { where(active: true) }
-  scope :inactive, -> { where(active: false) }
-
   # Activate the webhook
   def activate
-    update(active: true)
+    update!(active: true) unless active?
   end
 
   # Deactivate the webhook
   def deactivate
-    update(active: false)
+    update!(active: false)
   end
 
   # Check if webhook is subscribed to a specific action
