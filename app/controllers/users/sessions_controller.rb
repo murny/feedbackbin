@@ -2,7 +2,8 @@
 
 module Users
   class SessionsController < ApplicationController
-    disallow_account_scope
+    disallow_account_scope except: :destroy
+    skip_before_action :require_account, only: :destroy
     require_unauthenticated_access only: %i[new create]
     skip_after_action :verify_authorized
 
