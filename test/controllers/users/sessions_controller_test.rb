@@ -16,12 +16,12 @@ module Users
       assert_response :success
     end
 
-    test "new redirects to first run when no accounts exist" do
+    test "new redirects to signup when no accounts exist" do
       Account.destroy_all
 
       get sign_in_url
 
-      assert_redirected_to first_run_url
+      assert_redirected_to signup_url
     end
 
     test "should sign in" do

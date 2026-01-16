@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
   include SetLocale
   include Sortable
 
-  before_action :ensure_first_run_completed
+  before_action :ensure_signup_completed
 
   stale_when_importmap_changes
   allow_browser versions: :modern
@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
 
   private
 
-    def ensure_first_run_completed
-      redirect_to first_run_path if Account.none?
+    def ensure_signup_completed
+      redirect_to signup_path if Account.none?
     end
 end

@@ -2,15 +2,16 @@
 
 require "test_helper"
 
-class FirstRunsControllerTest < ActionDispatch::IntegrationTest
+class SignupsControllerTest < ActionDispatch::IntegrationTest
   setup do
-    Account.destroy_all
-    # First run controller works without account scope
+    Identity.delete_all
+    Account.delete_all
+    # Signup controller works without account scope
     integration_session.default_url_options[:script_name] = ""
   end
 
   test "new is permitted when no accounts exist" do
-    get first_run_url
+    get signup_url
 
     assert_response :success
   end
@@ -28,24 +29,26 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
       identity: identity
     )
 
-    get first_run_url
+    get signup_url
 
     assert_redirected_to root_url(script_name: account.slug)
   end
 
   test "create with all parameters" do
-    assert_difference [ "User.count", "Account.count", "Board.count", "Identity.count" ], 1 do
-      assert_difference "Status.count", 4 do
-        post first_run_url, params: {
-          first_run: {
-            name: "New Person",
-            email_address: "new@feedbackbin.com",
-            password: "secret123456",
-            account_name: "Test Account",
-            board_name: "Custom Board",
-            board_color: "#3b82f6"
-          }
-        }
+    assert_difference [ "Account.count", "Board.count", "Identity.count" ], 1 do
+      assert_difference "User.count", 2 do  # system user + owner
+        assert_difference "Status.count", 4 do
+          assert_difference "Idea.count", 3 do  # template ideas
+            post signup_url, params: {
+              signup: {
+                name: "New Person",
+                email_address: "new@feedbackbin.com",
+                password: "secret123456",
+                account_name: "Test Account"
+              }
+            }
+          end
+        end
       end
     end
 
@@ -53,25 +56,22 @@ class FirstRunsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to root_url(script_name: account.slug)
 
-    user = User.last
+    user = account.users.find_by!(role: :owner)
 
     assert cookies[:session_token]
     assert_equal 1, user.identity.sessions.count
     assert_equal "new@feedbackbin.com", user.identity.email_address
-
     assert_equal "Test Account", account.name
-    assert_equal "Custom Board", Board.last.name
-
     assert_predicate user, :owner?
   end
 
   test "create fails with missing information" do
     assert_no_difference [ "User.count", "Account.count", "Board.count", "Status.count" ] do
-      post first_run_url, params: {
-        first_run: {
+      post signup_url, params: {
+        signup: {
           email_address: "new@feedbackbin.com",
           password: "secret123456"
-          # Missing: name, account_name, board_name, board_color (required fields)
+          # Missing: name, account_name (required fields)
         }
       }
     end

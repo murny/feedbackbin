@@ -13,15 +13,15 @@
 
     <%= render Elements::CardComponent.new do |c| %>
       <% c.with_body do %>
-        <%= form_with(model: @first_run,
-                      url: first_run_path,
+        <%= form_with(model: @signup,
+                      url: signup_path,
                       class: "space-y-6",
                       data: {
-                        controller: "form badge-preview",
+                        controller: "form",
                         action: "keydown.enter->form#submit:prevent"
                       }
                      ) do |form| %>
-          <%= render "error_messages", resource: @first_run %>
+          <%= render "error_messages", resource: @signup %>
 
           <div class="space-y-8">
             <!-- User Account Section -->
@@ -95,37 +95,6 @@
                       preview_url: asset_path("default-logo.svg"),
                       upload_button_text: t(".upload_account_logo"),
                       size_hint: t(".logo_size_hint")) %>
-
-                <!-- Board -->
-                <div class="grid gap-2">
-                  <%= form.label :board_name, t(".initial_board"), class: "text-sm font-medium" %>
-                  <%= form.text_field :board_name,
-                        placeholder: t(".board_placeholder"),
-                        data: { badge_preview_target: "nameInput", action: "input->badge-preview#updatePreview" } %>
-                  <p class="text-xs text-muted-foreground"><%= t(".board_hint") %></p>
-                </div>
-
-                <div class="grid gap-2">
-                  <%= form.label :board_color, t(".board_color"), class: "text-sm font-medium" %>
-                  <div class="flex items-center gap-3">
-                    <%= form.color_field :board_color,
-                          value: @first_run.board_color,
-                          class: "h-10 w-20 rounded-md border border-input cursor-pointer",
-                          data: { badge_preview_target: "colorInput", action: "input->badge-preview#updatePreview" } %>
-                    <span class="text-sm text-muted-foreground"><%= t(".board_color_hint") %></span>
-                  </div>
-                </div>
-
-                <div class="rounded-lg border border-border bg-muted/50 p-4">
-                  <h4 class="text-sm font-medium mb-2"><%= t(".board_preview") %></h4>
-                  <%= render Elements::BadgeComponent.new(
-                    variant: :outline,
-                    class: "gap-1.5 text-muted-foreground bg-muted/30 border-border"
-                  ) do %>
-                    <span class="w-2 h-2 rounded-full shrink-0" style="background-color: <%= @first_run.board_color %>;" data-badge-preview-target="previewColor"></span>
-                    <span data-badge-preview-target="previewName"><%= @first_run.board_name %></span>
-                  <% end %>
-                </div>
               </div>
             </div>
           </div>
