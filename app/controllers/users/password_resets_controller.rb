@@ -2,6 +2,8 @@
 
 module Users
   class PasswordResetsController < ApplicationController
+    layout "auth"
+
     disallow_account_scope
     require_unauthenticated_access
     skip_after_action :verify_authorized

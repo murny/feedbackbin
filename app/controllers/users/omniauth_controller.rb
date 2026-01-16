@@ -67,10 +67,7 @@ module Users
         account = account_from_origin
 
         unless account
-          redirect_to sign_up_path(user: {
-            email_address: auth.info.email,
-            name: name_creator(auth.info)
-          }), alert: t("users.omniauth.create.finish_registration")
+          redirect_to signup_path, alert: t("users.omniauth.create.finish_registration")
           return
         end
 
@@ -83,13 +80,10 @@ module Users
 
         if identity.save && user.save
           start_new_session_for(identity)
-          redirect_to after_authentication_url, notice: t("users.omniauth.create.signed_in_successfully")
+          redirect_to root_url(script_name: account.slug), notice: t("users.omniauth.create.signed_in_successfully")
         else
           # Identity or User couldn't be saved for some reason, redirect to registration
-          redirect_to sign_up_path(user: {
-            email_address: auth.info.email,
-            name: name_creator(auth.info)
-          }), alert: t("users.omniauth.create.finish_registration")
+          redirect_to users_sign_up_path(script_name: account.slug), alert: t("users.omniauth.create.finish_registration")
         end
       end
 

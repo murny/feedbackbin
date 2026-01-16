@@ -40,7 +40,7 @@ class Sessions::MagicLinksControllerTest < ActionDispatch::IntegrationTest
     post magic_session_url, params: { email_address: @identity.email_address }
     post session_magic_link_url, params: { code: magic_link.code }
 
-    assert_redirected_to sign_up_path
+    assert_redirected_to signup_path
     assert_predicate cookies[:session_token], :present?
   end
 

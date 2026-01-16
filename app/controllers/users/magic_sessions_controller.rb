@@ -2,6 +2,8 @@
 
 module Users
   class MagicSessionsController < ApplicationController
+    layout "auth"
+
     include Authentication::ViaMagicLink
 
     disallow_account_scope

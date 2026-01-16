@@ -24,7 +24,7 @@ module Authentication
     end
 
     # Skip account requirement for controllers/actions that work without account scope
-    # Used for auth pages (sign_in, sign_up, etc.) that should work globally
+    # Used for auth pages (sign_in, signup, etc.) that should work globally
     def disallow_account_scope(**options)
       skip_before_action :require_account, **options
       before_action :redirect_if_account_scope, **options
@@ -73,7 +73,7 @@ module Authentication
 
     def request_authentication
       session[:return_to_after_authenticating] = request.url
-      redirect_to sign_in_path
+      redirect_to sign_in_path_for_context
     end
 
     def redirect_authenticated_user
@@ -100,7 +100,30 @@ module Authentication
 
     # URL helpers
 
+    # Returns the appropriate sign in path based on context.
+    # If in a tenant context, returns the tenanted sign in path.
+    # Otherwise, returns the global sign in path.
+    def sign_in_path_for_context
+      if Current.account.present?
+        users_sign_in_path
+      else
+        sign_in_path(script_name: nil)
+      end
+    end
+
+    # Returns the URL to redirect to after authentication.
+    # If there's a stored return URL, uses that.
+    # If in tenant context, returns tenant root.
+    # Otherwise, returns the session menu.
     def after_authentication_url
-      session.delete(:return_to_after_authenticating) || session_menu_path
+      session.delete(:return_to_after_authenticating) || default_after_authentication_url
+    end
+
+    def default_after_authentication_url
+      if Current.account.present?
+        root_path
+      else
+        session_menu_path(script_name: nil)
+      end
     end
 end

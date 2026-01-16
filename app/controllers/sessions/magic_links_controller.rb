@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Sessions::MagicLinksController < ApplicationController
+  layout "auth"
+
   include Authentication::ViaMagicLink
 
   disallow_account_scope
@@ -75,7 +77,7 @@ class Sessions::MagicLinksController < ApplicationController
 
     def after_sign_in_url(magic_link)
       if magic_link.for_sign_up?
-        sign_up_path
+        signup_path
       else
         after_authentication_url
       end
