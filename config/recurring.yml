@@ -14,6 +14,6 @@ production:
     command: "SolidQueue::Job.clear_finished_in_batches(sleep_between_batches: 0.3)"
     schedule: every hour at minute 12
 
-  cleanup_stale_webhook_deliveries:
+  cleanup_webhook_deliveries:
     command: "Webhook::Delivery.cleanup"
     schedule: every day at 3am

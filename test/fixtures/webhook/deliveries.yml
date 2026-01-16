@@ -7,7 +7,7 @@ successfully_completed:
   state: completed
   request: <%= { headers: {} }.to_json %>
   response: <%= { code: 200, headers: {} }.to_json %>
-  created_at: <%= 1.week.ago %>
+  created_at: <%= 5.days.ago %>
 
 unsuccessfully_completed:
   account: feedbackbin
@@ -16,7 +16,7 @@ unsuccessfully_completed:
   state: completed
   request: <%= { headers: {} }.to_json %>
   response: <%= { code: 422, headers: {} }.to_json %>
-  created_at: <%= 1.week.ago + 1.hour %>
+  created_at: <%= 6.days.ago + 1.hour %>
 
 errored:
   account: feedbackbin
@@ -25,7 +25,7 @@ errored:
   state: errored
   request: <%= { headers: {} }.to_json %>
   response: <%= { error: "destination_unreachable" }.to_json %>
-  created_at: <%= 1.week.ago %>
+  created_at: <%= 5.days.ago %>
 
 pending:
   account: feedbackbin

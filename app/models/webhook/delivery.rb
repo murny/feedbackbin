@@ -1,27 +1,10 @@
 # frozen_string_literal: true
 
-require "net/http"
-require "openssl"
-
-# Webhook::Delivery represents a single webhook delivery attempt.
-# It handles:
-# - Payload generation and signing (HMAC-SHA256)
-# - HTTP request execution with SSRF protection
-# - Response tracking
-# - Error handling
-#
-# State machine:
-#   pending -> in_progress -> completed (or errored)
-#
-# Security:
-#   - SSRF protection blocks requests to private/internal IPs
-#   - DNS resolution is pinned to prevent rebinding attacks
 class Webhook::Delivery < ApplicationRecord
   include Rails.application.routes.url_helpers
 
   ENDPOINT_TIMEOUT = 7.seconds
-  RETENTION_PERIOD = 30.days
-  CLEANUP_BATCH_SIZE = 1000
+  STALE_THRESHOLD = 7.days
 
   self.table_name = "webhook_deliveries"
 
@@ -37,18 +20,13 @@ class Webhook::Delivery < ApplicationRecord
     errored: "errored"
   }, prefix: true
 
-  scope :stale, -> { where(created_at: ...RETENTION_PERIOD.ago) }
+  scope :stale, -> { where(created_at: ..STALE_THRESHOLD.ago) }
 
   # Automatically deliver webhook after creation
   after_create_commit :deliver_later
 
-  # Delete old delivery records in batches to avoid locking
-  def self.cleanup(batch_size: CLEANUP_BATCH_SIZE)
-    loop do
-      deleted = stale.limit(batch_size).delete_all
-      break if deleted < batch_size
-      sleep(0.1) # Small delay between batches
-    end
+  def self.cleanup
+    stale.in_batches.delete_all
   end
 
   # Deliver the webhook synchronously

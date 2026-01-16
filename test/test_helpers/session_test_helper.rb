@@ -40,4 +40,12 @@ module SessionTestHelper
       Current.session = old_session
     end
   end
+
+  def with_multi_tenant_mode(enabled)
+    previous = Account.multi_tenant
+    Account.multi_tenant = enabled
+    yield
+  ensure
+    Account.multi_tenant = previous
+  end
 end

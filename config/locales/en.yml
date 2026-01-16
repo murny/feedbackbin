@@ -491,34 +491,6 @@ en:
     unknown_item: unknown item
     was: was
     you: You
-  first_runs:
-    create:
-      account_created: Your account has been created successfully.
-    show:
-      account_name: Account Name
-      account_name_placeholder: Enter account name
-      account_setup: Account Setup
-      account_setup_description: Configure your account details and branding.
-      account_setup_section: Account Setup
-      avatar_size_hint: JPG, PNG up to 2MB. Recommended size 400x400px.
-      board_color: Board Color
-      board_color_hint: Choose a color for the board
-      board_hint: Start with one board to organize feedback.
-      board_placeholder: Enter board name
-      board_preview: Preview
-      create_account: Create Account
-      description: Let's get you set up with your account.
-      email_address_hint: Never shown to the public
-      email_address_placeholder: Enter your email address
-      initial_board: Initial Board
-      logo_size_hint: JPG, PNG up to 2MB. Recommended size 400x400px.
-      name_hint: Your display name
-      name_placeholder: Enter your name
-      password_hint: "(at least 10 characters)"
-      password_placeholder: Enter your password
-      title: Set up FeedbackBin
-      upload_account_logo: Upload Logo
-      upload_avatar: Upload Avatar
   ideas:
     create:
       successfully_created: Idea was successfully created.
@@ -698,6 +670,28 @@ en:
     board_filter:
       all_boards: All Boards
       board_label: Board
+  signups:
+    create:
+      account_created: Your account has been created successfully.
+    show:
+      account_name: Account Name
+      account_name_placeholder: Enter account name
+      account_setup: Account Setup
+      account_setup_description: Configure your account details and branding.
+      account_setup_section: Account Setup
+      avatar_size_hint: JPG, PNG up to 2MB. Recommended size 400x400px.
+      create_account: Create Account
+      description: Let's get you set up with your account.
+      email_address_hint: Never shown to the public
+      email_address_placeholder: Enter your email address
+      logo_size_hint: JPG, PNG up to 2MB. Recommended size 400x400px.
+      name_hint: Your display name
+      name_placeholder: Enter your name
+      password_hint: "(at least 10 characters)"
+      password_placeholder: Enter your password
+      title: Set up FeedbackBin
+      upload_account_logo: Upload Logo
+      upload_avatar: Upload Avatar
   something_went_wrong: Something went wrong, please try again.
   staff:
     accounts:
