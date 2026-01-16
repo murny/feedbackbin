@@ -20,7 +20,7 @@ class Webhook::Delivery < ApplicationRecord
     errored: "errored"
   }, prefix: true
 
-  scope :stale, -> { where(created_at: ...STALE_THRESHOLD.ago) }
+  scope :stale, -> { where(created_at: ..STALE_THRESHOLD.ago) }
 
   # Automatically deliver webhook after creation
   after_create_commit :deliver_later

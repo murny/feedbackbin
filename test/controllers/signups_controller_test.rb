@@ -3,36 +3,11 @@
 require "test_helper"
 
 class SignupsControllerTest < ActionDispatch::IntegrationTest
-  setup do
-    Identity.delete_all
-    Account.delete_all
-  end
-
-  test "new is permitted when no accounts exist" do
+  test "new" do
     untenanted do
       get signup_url
 
       assert_response :success
-    end
-  end
-
-  test "new is not permitted when account exist" do
-    account = Account.create!(name: "FeedbackBin")
-    identity = Identity.create!(
-      email_address: "new@feedbackbin.com",
-      password: "secret123456"
-    )
-    User.create!(
-      name: "Test User",
-      role: :owner,
-      account: account,
-      identity: identity
-    )
-
-    untenanted do
-      get signup_url
-
-      assert_redirected_to root_url(script_name: account.slug)
     end
   end
 
@@ -82,6 +57,16 @@ class SignupsControllerTest < ActionDispatch::IntegrationTest
       end
 
       assert_response :unprocessable_entity
+    end
+  end
+
+  test "redirects to sign in when not accepting signups (single-tenant with existing account)" do
+    with_multi_tenant_mode(false) do
+      untenanted do
+        get signup_url
+
+        assert_redirected_to sign_in_url
+      end
     end
   end
 end

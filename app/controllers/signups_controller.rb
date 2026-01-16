@@ -6,7 +6,7 @@ class SignupsController < ApplicationController
   skip_before_action :ensure_signup_completed
   skip_after_action :verify_authorized
 
-  before_action :prevent_repeats
+  before_action :require_accepting_signups
 
   def show
     @signup = Signup.new
@@ -23,11 +23,8 @@ class SignupsController < ApplicationController
 
   private
 
-    def prevent_repeats
-      if Account.any?
-        account = Account.first
-        redirect_to root_url(script_name: account.slug)
-      end
+    def require_accepting_signups
+      redirect_to sign_in_url unless Account.accepting_signups?
     end
 
     def signup_params
