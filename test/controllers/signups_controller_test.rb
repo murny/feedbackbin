@@ -6,14 +6,14 @@ class SignupsControllerTest < ActionDispatch::IntegrationTest
   setup do
     Identity.delete_all
     Account.delete_all
-    # Signup controller works without account scope
-    integration_session.default_url_options[:script_name] = ""
   end
 
   test "new is permitted when no accounts exist" do
-    get signup_url
+    untenanted do
+      get signup_url
 
-    assert_response :success
+      assert_response :success
+    end
   end
 
   test "new is not permitted when account exist" do
@@ -29,53 +29,59 @@ class SignupsControllerTest < ActionDispatch::IntegrationTest
       identity: identity
     )
 
-    get signup_url
+    untenanted do
+      get signup_url
 
-    assert_redirected_to root_url(script_name: account.slug)
+      assert_redirected_to root_url(script_name: account.slug)
+    end
   end
 
   test "create with all parameters" do
-    assert_difference [ "Account.count", "Board.count", "Identity.count" ], 1 do
-      assert_difference "User.count", 2 do  # system user + owner
-        assert_difference "Status.count", 4 do
-          assert_difference "Idea.count", 3 do  # template ideas
-            post signup_url, params: {
-              signup: {
-                name: "New Person",
-                email_address: "new@feedbackbin.com",
-                password: "secret123456",
-                account_name: "Test Account"
+    untenanted do
+      assert_difference [ "Account.count", "Board.count", "Identity.count" ], 1 do
+        assert_difference "User.count", 2 do  # system user + owner
+          assert_difference "Status.count", 4 do
+            assert_difference "Idea.count", 3 do  # template ideas
+              post signup_url, params: {
+                signup: {
+                  name: "New Person",
+                  email_address: "new@feedbackbin.com",
+                  password: "secret123456",
+                  account_name: "Test Account"
+                }
               }
-            }
+            end
           end
         end
       end
+
+      account = Account.last
+
+      assert_redirected_to root_url(script_name: account.slug)
+
+      user = account.users.find_by!(role: :owner)
+
+      assert cookies[:session_token]
+      assert_equal 1, user.identity.sessions.count
+      assert_equal "new@feedbackbin.com", user.identity.email_address
+      assert_equal "Test Account", account.name
+      assert_predicate user, :owner?
     end
-
-    account = Account.last
-
-    assert_redirected_to root_url(script_name: account.slug)
-
-    user = account.users.find_by!(role: :owner)
-
-    assert cookies[:session_token]
-    assert_equal 1, user.identity.sessions.count
-    assert_equal "new@feedbackbin.com", user.identity.email_address
-    assert_equal "Test Account", account.name
-    assert_predicate user, :owner?
   end
 
   test "create fails with missing information" do
-    assert_no_difference [ "User.count", "Account.count", "Board.count", "Status.count" ] do
-      post signup_url, params: {
-        signup: {
-          email_address: "new@feedbackbin.com",
-          password: "secret123456"
-          # Missing: name, account_name (required fields)
+    untenanted do
+      assert_no_difference [ "User.count", "Account.count", "Board.count", "Status.count" ] do
+        post signup_url, params: {
+          signup: {
+            email_address: "new@feedbackbin.com",
+            password: "secret123456"
+            # Missing: name, account_name (required fields)
+          }
         }
-      }
-    end
+      end
 
-    assert_response :unprocessable_entity
+      assert_response :unprocessable_entity
+    end
   end
 end

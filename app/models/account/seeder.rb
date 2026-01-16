@@ -78,7 +78,7 @@ class Account::Seeder
     end
 
     def create_status_tutorial_idea(board)
-      planned = account.statuses.find_by(name: "Planned")
+      planned = account.statuses.find_by!(name: "Planned")
 
       board.ideas.create!(
         creator: creator,

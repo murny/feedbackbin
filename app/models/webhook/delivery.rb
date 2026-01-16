@@ -26,7 +26,7 @@ class Webhook::Delivery < ApplicationRecord
   after_create_commit :deliver_later
 
   def self.cleanup
-    stale.delete_all
+    stale.in_batches.delete_all
   end
 
   # Deliver the webhook synchronously

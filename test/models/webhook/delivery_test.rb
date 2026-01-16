@@ -201,7 +201,7 @@ class Webhook::DeliveryTest < ActiveSupport::TestCase
 
     fresh_delivery = Webhook::Delivery.create!(webhook: webhook, event: event)
     stale_delivery = Webhook::Delivery.create!(webhook: webhook, event: event)
-    stale_delivery.update_column(:created_at, 31.days.ago)
+    stale_delivery.update_column(:created_at, 8.days.ago)
 
     assert_includes Webhook::Delivery.stale, stale_delivery
     assert_not_includes Webhook::Delivery.stale, fresh_delivery
