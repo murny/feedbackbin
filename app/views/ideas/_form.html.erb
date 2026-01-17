@@ -18,7 +18,9 @@
 
   <div class="grid gap-3">
     <%= form.label :description %>
-    <%= form.rich_text_area :description, placeholder: t(".description_placeholder") %>
+    <%= form.rich_text_area :description, placeholder: t(".description_placeholder") do %>
+      <%= rich_text_prompts %>
+    <% end %>
   </div>
 
   <div class="flex justify-end gap-3 pt-2">

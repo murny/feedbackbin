@@ -63,6 +63,10 @@ Rails.application.routes.draw do
     end
   end
 
+  namespace :prompts do
+    resources :users, only: [ :index ]
+  end
+
   resources :ideas do
     scope module: :ideas do
       resource :pin, only: [ :create, :destroy ]

@@ -30,6 +30,9 @@ gem "tailwindcss-rails", "4.4.0"
 # API
 gem "jbuilder"
 
+# Rich Text Editor
+gem "lexxy", github: "basecamp/lexxy"
+
 # View
 gem "pagy", "~> 43.2"
 gem "inline_svg"

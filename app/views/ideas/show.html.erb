@@ -99,7 +99,7 @@
             <%= time_ago_with_tooltip @idea.created_at %>
           </div>
 
-          <div class="prose max-w-none">
+          <div class="prose max-w-none" data-controller="syntax-highlight">
             <%= @idea.description %>
           </div>
 
