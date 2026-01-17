@@ -1,14 +1,16 @@
 # frozen_string_literal: true
 
 module Users
+  # Magic link request controller - works in both tenanted and untenanted contexts.
+  # Sends magic link email for passwordless authentication.
   class MagicSessionsController < ApplicationController
-    layout "auth"
-
     include Authentication::ViaMagicLink
 
-    disallow_account_scope
+    skip_before_action :require_account
     require_unauthenticated_access
     skip_after_action :verify_authorized
+
+    layout :determine_layout
 
     rate_limit to: 10, within: 3.minutes, only: :create, with: -> { rate_limit_exceeded }
 
@@ -38,6 +40,10 @@ module Users
           format.html { redirect_to magic_sign_in_path, alert: t(".rate_limited") }
           format.json { render json: { message: t(".rate_limited") }, status: :too_many_requests }
         end
+      end
+
+      def determine_layout
+        Current.account.present? ? "application" : "auth"
       end
   end
 end

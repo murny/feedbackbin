@@ -43,10 +43,10 @@ Rails.application.routes.draw do
   # =============================================================================
 
   # Tenanted sign in/up for participating in a specific account
-  namespace :users do
-    get "sign_in", to: "sessions#new", as: :sign_in
-    resource :session, only: [ :create ]
+  get "sign_in", to: "sessions#new", as: :users_sign_in
+  post "session", to: "sessions#create", as: :users_session
 
+  namespace :users do
     get "sign_up", to: "registrations#new", as: :sign_up
     resources :registrations, only: [ :create ]
   end

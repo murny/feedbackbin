@@ -688,6 +688,7 @@ en:
       password_placeholder: Enter your password
       privacy_policy: Privacy Policy
       sign_in: Sign in
+      sign_in_to_participate: Sign in to participate in %{account_name}
       sign_in_with_magic_link: Sign in with magic link
       sign_up: Sign up
       terms_agreement_html: By clicking continue, you agree to our %{terms_link} and %{privacy_link}.
@@ -931,28 +932,6 @@ en:
         terms_agreement_html: By clicking continue, you agree to our %{terms_link} and %{privacy_link}.
         terms_of_service: Terms of Service
         title: Sign up
-    sessions:
-      create:
-        account_deactivated: Your account has been deactivated. Please contact support for assistance.
-        invalid_credentials: Try another email address or password.
-        rate_limited: Please try again later.
-        signed_in_successfully: You have signed in successfully.
-      new:
-        email: Email
-        email_address_placeholder: Enter your email address
-        forgot_your_password: Forgot your password?
-        need_an_account: Need an account?
-        or_continue_with: Or continue with
-        password: Password
-        password_placeholder: Enter your password
-        privacy_policy: Privacy Policy
-        sign_in: Sign in
-        sign_in_to_participate: Sign in to participate in %{account_name}
-        sign_in_with_magic_link: Sign in with magic link
-        sign_up: Sign up
-        terms_agreement_html: By clicking continue, you agree to our %{terms_link} and %{privacy_link}.
-        terms_of_service: Terms of Service
-        welcome_back: Welcome back
     show:
       achievements: Achievements
       achievements_early_adopter: Early Adopter

@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
 module Users
+  # Password reset controller - works in both tenanted and untenanted contexts.
+  # Resets Identity password (Identity-level operation).
   class PasswordResetsController < ApplicationController
-    layout "auth"
-
-    disallow_account_scope
+    skip_before_action :require_account
     require_unauthenticated_access
     skip_after_action :verify_authorized
+
+    layout :determine_layout
 
     rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to new_users_password_reset_path, alert: t("users.password_resets.create.rate_limited") }
 
@@ -23,12 +25,12 @@ module Users
         IdentityMailer.password_reset(identity).deliver_later
       end
 
-      redirect_to sign_in_path, notice: t(".password_reset_instructions_sent")
+      redirect_to sign_in_path_for_context, notice: t(".password_reset_instructions_sent")
     end
 
     def update
       if @identity.update(params.permit(:password, :password_confirmation))
-        redirect_to sign_in_path, notice: t(".password_has_been_reset")
+        redirect_to sign_in_path_for_context, notice: t(".password_has_been_reset")
       else
         error_message = if @identity.errors[:password_confirmation].any?
           t(".passwords_did_not_match")
@@ -46,6 +48,10 @@ module Users
         @identity = Identity.find_by_password_reset_token!(params[:token])
       rescue ActiveSupport::MessageVerifier::InvalidSignature
         redirect_to new_users_password_reset_path, alert: t("users.password_resets.password_reset_link_is_invalid")
+      end
+
+      def determine_layout
+        Current.account.present? ? "application" : "auth"
       end
   end
 end

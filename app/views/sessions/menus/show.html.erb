@@ -30,7 +30,7 @@
         <p class="text-center text-sm text-muted-foreground">
           <%= t(".signed_in_as", email: Current.identity.email_address) %>
         </p>
-        <%= button_to t(".sign_out"), session_path,
+        <%= button_to t(".sign_out"), session_url(script_name: ""),
               method: :delete,
               class: "btn btn-outline w-full mt-3" %>
       </div>

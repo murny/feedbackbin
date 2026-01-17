@@ -126,4 +126,71 @@ class Sessions::MagicLinksControllerTest < ActionDispatch::IntegrationTest
     assert_response :unauthorized
     assert_equal "Enter your email address to sign in.", @response.parsed_body["message"]
   end
+
+  # Tenant context preservation tests
+
+  test "preserves tenant context through magic link flow" do
+    account = accounts(:feedbackbin)
+    magic_link = @identity.send_magic_link
+
+    # Request magic link from tenant context
+    tenanted(account) do
+      post magic_session_url, params: { email_address: @identity.email_address }
+    end
+
+    # Verify code from untenanted context (session preserves account context)
+    untenanted do
+      post session_magic_link_url, params: { code: magic_link.code }
+    end
+
+    # Should redirect back to the tenant
+    assert_redirected_to root_url(script_name: account.slug)
+    assert_predicate cookies[:session_token], :present?
+  end
+
+  test "creates user for account when signing in via magic link from tenant context" do
+    account = accounts(:feedbackbin)
+    new_identity = Identity.create!(email_address: "newuser@example.com", password: "password123")
+    magic_link = new_identity.send_magic_link
+
+    # Request magic link from tenant context
+    tenanted(account) do
+      post magic_session_url, params: { email_address: new_identity.email_address }
+    end
+
+    # Verify code - should create user for the account
+    untenanted do
+      assert_difference "account.users.count", 1 do
+        post session_magic_link_url, params: { code: magic_link.code }
+      end
+    end
+
+    # User should be created for the account
+    user = account.users.find_by(identity: new_identity)
+
+    assert_not_nil user
+    assert_equal :member, user.role.to_sym
+  end
+
+  test "does not create duplicate user when signing in via magic link from tenant context" do
+    account = accounts(:feedbackbin)
+    magic_link = @identity.send_magic_link
+
+    # User already exists in this account
+    assert account.users.exists?(identity: @identity)
+
+    # Request magic link from tenant context
+    tenanted(account) do
+      post magic_session_url, params: { email_address: @identity.email_address }
+    end
+
+    # Verify code - should not create duplicate user
+    untenanted do
+      assert_no_difference "account.users.count" do
+        post session_magic_link_url, params: { code: magic_link.code }
+      end
+    end
+
+    assert_redirected_to root_url(script_name: account.slug)
+  end
 end

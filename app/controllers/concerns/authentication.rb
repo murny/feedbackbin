@@ -7,7 +7,7 @@ module Authentication
     before_action :require_account
     before_action :require_authentication
 
-    helper_method :authenticated?
+    helper_method :authenticated?, :sign_in_path_for_context
   end
 
   class_methods do
