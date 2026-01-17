@@ -8,7 +8,7 @@ class User
       "users/mention"
     end
 
-    def to_trix_content_attachment_partial_path
+    def to_rich_text_content_attachment_partial_path
       "users/mention"
     end
 

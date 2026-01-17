@@ -16,7 +16,7 @@
     <%= link_to changelog.title, changelog_path(changelog), class: "hover:underline" %>
   </h2>
 
-  <div class="prose prose-sm max-w-none text-muted-foreground leading-relaxed">
+  <div class="prose prose-sm max-w-none text-muted-foreground leading-relaxed" data-controller="syntax-highlight">
     <%= changelog.description %>
   </div>
 </div>
