@@ -1,0 +1,18 @@
+<%# locals: (tag:, idea:, removable: false) %>
+<% tagging = idea.taggings.find { |t| t.tag_id == tag.id } if removable %>
+
+<%= render Elements::BadgeComponent.new(
+  variant: :secondary,
+  class: "gap-1.5 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-900 dark:text-yellow-200 hover:bg-yellow-200 dark:hover:bg-yellow-900/50 transition-colors",
+  id: dom_id(tag, :tag_for_idea)
+) do %>
+  <span class="font-medium"><%= tag.hashtag %></span>
+  <% if removable && tagging %>
+    <%= button_to idea_tagging_path(idea, tagging),
+      method: :delete,
+      class: "ml-0.5 hover:text-destructive transition-colors",
+      form: { data: { turbo: true } } do %>
+      <%= lucide_icon "x", class: "h-3 w-3" %>
+    <% end %>
+  <% end %>
+<% end %>

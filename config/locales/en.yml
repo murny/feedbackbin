@@ -1004,3 +1004,14 @@ en:
       comment_on: Comment on
       empty_votes: No votes yet.
       voted: Voted
+  taggings:
+    create:
+      successfully_tagged: Tag was successfully added.
+    destroy:
+      successfully_untagged: Tag was successfully removed.
+  tags:
+    tagging_menu:
+      manage_tags: Manage Tags
+      add_or_search_tags: Add or search tags
+      tag_placeholder: "Type to search or create..."
+      keyboard_hint: "Press Enter to create a new tag"

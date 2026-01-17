@@ -98,8 +98,10 @@ Rails.application.routes.draw do
         resource :vote, only: [ :update ], module: :comments
       end
     end
+    resources :taggings, only: [ :create, :destroy ]
   end
   resources :changelogs, only: [ :index, :show ]
+  resources :tags, only: [ :index, :create ]
 
   # Roadmap
   get "roadmap", to: "roadmap#index"
