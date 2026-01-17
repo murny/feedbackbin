@@ -7,9 +7,13 @@
         <%= render "error_messages", resource: form.object %>
 
         <%= form.hidden_field :idea_id, value: idea.id %>
+<<<<<<< Updated upstream
         <%= form.rich_text_area :body, id: "idea_#{idea.id}_new_comment_body", placeholder: "Write a comment..." do %>
           <%= rich_text_prompts %>
         <% end %>
+=======
+        <%= form.rich_text_area :body, id: "idea_#{idea.id}_new_comment_body", placeholder: t(".comment_placeholder") %>
+>>>>>>> Stashed changes
         <div class="mt-5 flex items-center gap-4 justify-end">
           <%= form.submit class: "btn btn-primary" %>
           <%= link_to "Cancel", comment, class: "btn btn-secondary" if form.object.persisted? %>

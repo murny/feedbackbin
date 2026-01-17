@@ -15,9 +15,13 @@
           <%= form.hidden_field :idea_id, value: parent.idea.id %>
           <%= form.hidden_field :parent_id, value: parent.id %>
 
+<<<<<<< Updated upstream
           <%= form.rich_text_area :body, id: "comment_#{parent.id}_new_reply_body", row: 1, placeholder: "Write a reply..." do %>
             <%= rich_text_prompts %>
           <% end %>
+=======
+          <%= form.rich_text_area :body, id: "comment_#{parent.id}_new_reply_body", row: 1, placeholder: t('comments.reply_form.reply_placeholder') %>
+>>>>>>> Stashed changes
           <div class="mt-5 flex items-center gap-4 justify-end">
             <% if form.object.persisted? %>
               <%= form.submit "Update Reply", class: "btn btn-primary" %>
