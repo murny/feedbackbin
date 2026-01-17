@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html class="h-full bg-background overscroll-none font-sans antialiased">
+  <%= render "shared/head" %>
+
+  <%= tag.body class: "h-full flex flex-col",
+        data: {
+          controller: "local-time theme-application",
+          theme_application_preference_value: "system"
+        } do %>
+    <%= render "flash" %>
+    <main class="flex-1">
+      <%= yield %>
+    </main>
+  <% end %>
+</html>

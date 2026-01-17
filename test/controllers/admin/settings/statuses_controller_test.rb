@@ -24,7 +24,7 @@ module Admin
         get admin_settings_statuses_url
 
         assert_response :redirect
-        assert_equal I18n.t("unauthorized"), flash[:alert]
+        assert_equal I18n.t("authorization.unauthorized"), flash[:alert]
       end
 
       test "should get new" do

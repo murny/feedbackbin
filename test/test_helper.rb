@@ -62,10 +62,25 @@ class ActionDispatch::IntegrationTest
   # Helper for making requests without account scope (for disallow_account_scope controllers)
   def untenanted
     original_script_name = integration_session.default_url_options[:script_name]
+    original_account = Current.account
     integration_session.default_url_options[:script_name] = ""
+    Current.account = nil
     yield
   ensure
     integration_session.default_url_options[:script_name] = original_script_name
+    Current.account = original_account
+  end
+
+  # Helper for making requests with a specific account context
+  def tenanted(account)
+    original_script_name = integration_session.default_url_options[:script_name]
+    original_account = Current.account
+    integration_session.default_url_options[:script_name] = account.slug
+    Current.account = account
+    yield
+  ensure
+    integration_session.default_url_options[:script_name] = original_script_name
+    Current.account = original_account
   end
 end
 

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Sessions::MenusController < ApplicationController
+  layout "auth"
+
   disallow_account_scope
   skip_after_action :verify_authorized
 

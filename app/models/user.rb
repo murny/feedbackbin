@@ -30,8 +30,8 @@ class User < ApplicationRecord
 
   def deactivate
     transaction do
-      # TODO: what happens to the identity if we reactivate the user?
-      update!(active: false, identity: nil)
+      # Keep identity link so we can detect deactivated users on sign-in attempts
+      update!(active: false)
       close_remote_connections
     end
   end

@@ -28,10 +28,10 @@ module Authentication::ViaMagicLink
     def redirect_to_session_magic_link(magic_link, return_to: nil)
       serve_development_magic_link(magic_link)
       set_pending_authentication_token(magic_link)
-      session[:return_to_after_authenticating] = return_to if return_to
+      store_authentication_context(return_to: return_to)
 
       respond_to do |format|
-        format.html { redirect_to session_magic_link_url(script_name: nil) }
+        format.html { redirect_to session_magic_link_path }
         format.json { render json: { pending_authentication_token: pending_authentication_token }, status: :created }
       end
     end
@@ -50,6 +50,19 @@ module Authentication::ViaMagicLink
         same_site: :lax,
         expires: magic_link.expires_at
       }
+    end
+
+    # Store authentication context (account and return URL) for restoration after magic link verification
+    def store_authentication_context(return_to: nil)
+      session[:return_to_after_authenticating] = return_to if return_to
+      session[:authentication_account_id] = Current.account&.external_account_id
+    end
+
+    # Restore account context stored during magic link request
+    def restore_authentication_context
+      if (external_account_id = session.delete(:authentication_account_id))
+        Account.find_by(external_account_id: external_account_id)
+      end
     end
 
     def email_address_pending_authentication

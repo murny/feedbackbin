@@ -1,8 +1,13 @@
 # frozen_string_literal: true
 
+# Untenanted controller for creating a new Account (tenant).
+# This creates both the Account and the owner Identity/User.
+# For registering as a User within an existing Account, see Users::RegistrationsController.
 class SignupsController < ApplicationController
+  layout "auth"
+
   disallow_account_scope
-  allow_unauthenticated_access
+  require_unauthenticated_access
   skip_before_action :ensure_signup_completed
   skip_after_action :verify_authorized
 
@@ -24,7 +29,7 @@ class SignupsController < ApplicationController
   private
 
     def require_accepting_signups
-      redirect_to sign_in_url unless Account.accepting_signups?
+      redirect_to sign_in_path(script_name: nil) unless Account.accepting_signups?
     end
 
     def signup_params
