@@ -19,6 +19,8 @@ class Idea < ApplicationRecord
   belongs_to :status, optional: true
 
   has_many :comments, dependent: :destroy
+  has_many :taggings, dependent: :destroy
+  has_many :tags, through: :taggings
 
   broadcasts_refreshes
 

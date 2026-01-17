@@ -72,9 +72,11 @@ Rails.application.routes.draw do
       resource :pin, only: [ :create, :destroy ]
       resource :status, only: [ :update ]
     end
+    resources :taggings, only: [ :create, :destroy ]
   end
   resources :comments, except: [ :index, :new ]
   resources :changelogs, only: [ :index, :show ]
+  resources :tags, only: [ :index, :create ]
 
   # Roadmap
   get "roadmap", to: "roadmap#index"
