@@ -148,7 +148,7 @@
           </div>
         <% else %>
           <%= link_to t(".sign_up"), users_sign_up_path, class: "btn btn-secondary" %>
-          <%= link_to t(".sign_in"), users_sign_in_path, class: "ml-2 btn btn-primary" %>
+          <%= link_to t(".sign_in"), sign_in_path, class: "ml-2 btn btn-primary" %>
         <% end %>
       </div>
     </div>
@@ -213,7 +213,7 @@
         </div>
       <% else %>
         <div class="px-2 pt-2 pb-3 space-y-1">
-          <%= link_to t(".sign_in"), users_sign_in_path, class: "block rounded-md px-3 py-2 text-base font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors" %>
+          <%= link_to t(".sign_in"), sign_in_path, class: "block rounded-md px-3 py-2 text-base font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors" %>
           <%= link_to t(".sign_up"), users_sign_up_path, class: "block rounded-md px-3 py-2 text-base font-medium text-muted-foreground hover:bg-accent hover:text-accent-foreground transition-colors" %>
         </div>
       <% end %>

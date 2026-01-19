@@ -6,14 +6,15 @@ Rails.application.routes.draw do
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # =============================================================================
-  # Untenanted Routes - Global/Identity-level authentication
-  # These routes work WITHOUT an account context (script_name: nil)
+  # Authentication Routes
+  # These routes work in both tenanted and untenanted contexts via AccountSlug
+  # middleware which moves /:account_id prefix to SCRIPT_NAME.
   # =============================================================================
 
-  # Account creation (tenant signup)
+  # Account creation (untenanted only - disallow_account_scope)
   resource :signup, only: %i[show create]
 
-  # Global sign in (Identity authentication)
+  # Session management
   get "sign_in", to: "sessions#new"
   resource :session, only: [ :create, :destroy ] do
     scope module: :sessions do
@@ -26,29 +27,17 @@ Rails.application.routes.draw do
   get "magic_sign_in", to: "users/magic_sessions#new"
   post "magic_session", to: "users/magic_sessions#create"
 
-  # OAuth callbacks (untenanted)
+  # OAuth callbacks (untenanted only - disallow_account_scope)
   get "/auth/failure", to: "users/omniauth#failure"
   get "/auth/:provider/callback", to: "users/omniauth#create"
   post "/auth/:provider/callback", to: "users/omniauth#create"
 
-  # Password resets and email verification (untenanted)
-  namespace :users do
-    resources :password_resets, param: :token, only: [ :new, :create, :edit, :update ]
-    resource :email_verification, only: [ :show, :create ]
-  end
-
-  # =============================================================================
-  # Tenanted Routes - User-level authentication within an account
-  # These routes work WITH an account context (via /:account_slug prefix)
-  # =============================================================================
-
-  # Tenanted sign in/up for participating in a specific account
-  get "sign_in", to: "sessions#new", as: :users_sign_in
-  post "session", to: "sessions#create", as: :users_session
-
+  # User registration (tenanted context for joining an account)
   namespace :users do
     get "sign_up", to: "registrations#new", as: :sign_up
     resources :registrations, only: [ :create ]
+    resources :password_resets, param: :token, only: [ :new, :create, :edit, :update ]
+    resource :email_verification, only: [ :show, :create ]
   end
 
   # =============================================================================
@@ -82,7 +71,7 @@ Rails.application.routes.draw do
   end
 
   # =============================================================================
-  # Core Application Resources (tenanted)
+  # Core Application Resources (require account context)
   # =============================================================================
 
   resource :vote, only: [ :update ]
@@ -109,7 +98,7 @@ Rails.application.routes.draw do
   get "roadmap", to: "roadmap#index"
 
   # =============================================================================
-  # Admin Routes (tenanted)
+  # Admin Routes (require account context)
   # =============================================================================
 
   namespace :admin do
@@ -145,7 +134,7 @@ Rails.application.routes.draw do
   end
 
   # =============================================================================
-  # Invitations (tenanted, public access)
+  # Invitations (public access, but require account context)
   # =============================================================================
 
   resources :invitations, only: [ :show ], param: :token

@@ -11,7 +11,7 @@ class TenantedSessionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should get new" do
     tenanted(@account) do
-      get users_sign_in_url
+      get sign_in_url
 
       assert_response :success
       assert_select "h1", text: /Welcome back/
@@ -20,7 +20,7 @@ class TenantedSessionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should sign in existing user" do
     tenanted(@account) do
-      post users_session_url, params: { email_address: @user.identity.email_address, password: "secret123456" }
+      post session_url, params: { email_address: @user.identity.email_address, password: "secret123456" }
 
       # After sign in, redirects to account root
       assert_redirected_to root_path
@@ -35,7 +35,7 @@ class TenantedSessionsControllerTest < ActionDispatch::IntegrationTest
 
     tenanted(new_account) do
       assert_difference "User.count" do
-        post users_session_url, params: { email_address: @user.identity.email_address, password: "secret123456" }
+        post session_url, params: { email_address: @user.identity.email_address, password: "secret123456" }
       end
 
       assert_redirected_to root_path
@@ -51,9 +51,9 @@ class TenantedSessionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should not sign in with wrong credentials" do
     tenanted(@account) do
-      post users_session_url, params: { email_address: @user.identity.email_address, password: "SecretWrong1*3" }
+      post session_url, params: { email_address: @user.identity.email_address, password: "SecretWrong1*3" }
 
-      assert_redirected_to users_sign_in_url
+      assert_redirected_to sign_in_url
       assert_equal "Try another email address or password.", flash[:alert]
       assert_nil cookies[:session_token]
     end
@@ -65,9 +65,9 @@ class TenantedSessionsControllerTest < ActionDispatch::IntegrationTest
     regular_user.deactivate
 
     tenanted(@account) do
-      post users_session_url, params: { email_address: email_address, password: "secret123456" }
+      post session_url, params: { email_address: email_address, password: "secret123456" }
 
-      assert_redirected_to users_sign_in_url
+      assert_redirected_to sign_in_url
       assert_equal "Your account has been deactivated. Please contact support for assistance.", flash[:alert]
       assert_nil cookies[:session_token]
     end
@@ -77,7 +77,7 @@ class TenantedSessionsControllerTest < ActionDispatch::IntegrationTest
     tenanted(@account) do
       sign_in_as(@user)
 
-      get users_sign_in_url
+      get sign_in_url
 
       assert_redirected_to root_path
     end
@@ -85,7 +85,7 @@ class TenantedSessionsControllerTest < ActionDispatch::IntegrationTest
 
   test "should show account branding" do
     tenanted(@account) do
-      get users_sign_in_url
+      get sign_in_url
 
       assert_response :success
       assert_select "span", text: @account.name

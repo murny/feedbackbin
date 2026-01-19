@@ -43,7 +43,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     end
 
     assert_response :redirect
-    assert_redirected_to users_sign_in_url
+    assert_redirected_to sign_in_url
   end
 
   test "should update comment if authenticated" do

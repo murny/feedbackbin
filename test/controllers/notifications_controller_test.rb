@@ -19,6 +19,6 @@ class NotificationsControllerTest < ActionDispatch::IntegrationTest
     sign_out
     get notifications_path
 
-    assert_redirected_to users_sign_in_path
+    assert_redirected_to sign_in_path
   end
 end

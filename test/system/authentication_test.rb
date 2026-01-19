@@ -36,7 +36,7 @@ class AuthenticationTest < ApplicationSystemTestCase
 
   test "signing in to account" do
     # Tenanted sign-in page
-    visit users_sign_in_url(script_name: @account.slug)
+    visit sign_in_url(script_name: @account.slug)
 
     fill_in "Email", with: @user.identity.email_address
     fill_in "Password", with: "secret123456"

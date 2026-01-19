@@ -93,7 +93,7 @@ class IdeasControllerTest < ActionDispatch::IntegrationTest
     tenanted(accounts(:feedbackbin)) do
       get new_idea_url
 
-      assert_redirected_to users_sign_in_url
+      assert_redirected_to sign_in_url
     end
   end
 end

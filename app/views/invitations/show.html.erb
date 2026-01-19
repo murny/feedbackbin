@@ -37,7 +37,7 @@
       <div class="px-6 text-center">
         <p class="text-sm text-muted-foreground">
           <%= t(".already_have_account") %>
-          <%= link_to t(".sign_in"), users_sign_in_path(script_name: @invitation.account.slug), class: "text-primary hover:underline underline-offset-4 font-medium" %>
+          <%= link_to t(".sign_in"), sign_in_path(script_name: @invitation.account.slug), class: "text-primary hover:underline underline-offset-4 font-medium" %>
         </p>
       </div>
     </div>

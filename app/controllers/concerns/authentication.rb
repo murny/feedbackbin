@@ -7,7 +7,7 @@ module Authentication
     before_action :require_account
     before_action :require_authentication
 
-    helper_method :authenticated?, :sign_in_path_for_context
+    helper_method :authenticated?
   end
 
   class_methods do
@@ -73,7 +73,7 @@ module Authentication
 
     def request_authentication
       session[:return_to_after_authenticating] = request.url
-      redirect_to sign_in_path_for_context
+      redirect_to sign_in_path
     end
 
     def redirect_authenticated_user
@@ -96,19 +96,6 @@ module Authentication
     def terminate_session
       Current.session.destroy
       cookies.delete(:session_token)
-    end
-
-    # URL helpers
-
-    # Returns the appropriate sign in path based on context.
-    # If in a tenant context, returns the tenanted sign in path.
-    # Otherwise, returns the global sign in path.
-    def sign_in_path_for_context
-      if Current.account.present?
-        users_sign_in_path
-      else
-        sign_in_path(script_name: nil)
-      end
     end
 
     # Returns the URL to redirect to after authentication.

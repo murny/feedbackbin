@@ -25,12 +25,12 @@ module Users
         IdentityMailer.password_reset(identity).deliver_later
       end
 
-      redirect_to sign_in_path_for_context, notice: t(".password_reset_instructions_sent")
+      redirect_to sign_in_path, notice: t(".password_reset_instructions_sent")
     end
 
     def update
       if @identity.update(params.permit(:password, :password_confirmation))
-        redirect_to sign_in_path_for_context, notice: t(".password_has_been_reset")
+        redirect_to sign_in_path, notice: t(".password_has_been_reset")
       else
         error_message = if @identity.errors[:password_confirmation].any?
           t(".passwords_did_not_match")

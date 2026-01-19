@@ -12,7 +12,7 @@ class SessionsController < ApplicationController
 
   layout :determine_layout
 
-  rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to sign_in_path_for_context, alert: t("sessions.create.rate_limited") }
+  rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to sign_in_path, alert: t("sessions.create.rate_limited") }
 
   def new
   end
@@ -21,7 +21,7 @@ class SessionsController < ApplicationController
     if (identity = Identity.authenticate_by(params.permit(:email_address, :password)))
       handle_successful_authentication(identity)
     else
-      redirect_to sign_in_path_for_context, alert: t(".invalid_credentials")
+      redirect_to sign_in_path, alert: t(".invalid_credentials")
     end
   end
 
@@ -47,7 +47,7 @@ class SessionsController < ApplicationController
         # Identity exists but no user for this account - create one
         create_user_for_account(identity)
       elsif !user.active?
-        redirect_to sign_in_path_for_context, alert: t("sessions.create.account_deactivated")
+        redirect_to sign_in_path, alert: t("sessions.create.account_deactivated")
         return
       end
 
@@ -57,7 +57,7 @@ class SessionsController < ApplicationController
 
     def handle_untenanted_authentication(identity)
       if identity.users.active.none?
-        redirect_to sign_in_path_for_context, alert: t("sessions.create.account_deactivated")
+        redirect_to sign_in_path, alert: t("sessions.create.account_deactivated")
       else
         start_new_session_for(identity)
         redirect_to after_authentication_url, notice: t("sessions.create.signed_in_successfully")

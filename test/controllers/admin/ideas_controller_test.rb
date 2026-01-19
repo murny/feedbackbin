@@ -42,7 +42,7 @@ module Admin
       sign_out
       get admin_ideas_path
 
-      assert_redirected_to users_sign_in_path
+      assert_redirected_to sign_in_path
     end
   end
 end
