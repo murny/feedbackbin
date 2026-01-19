@@ -15,7 +15,7 @@
           <%= form.hidden_field :idea_id, value: parent.idea.id %>
           <%= form.hidden_field :parent_id, value: parent.id %>
 
-          <%= form.rich_text_area :body, id: "comment_#{parent.id}_new_reply_body", row: 1, placeholder: t('.reply_placeholder') %>
+          <%= form.rich_text_area :body, id: "comment_#{parent.id}_new_reply_body", row: 1, placeholder: t('.reply_placeholder') do %>
             <%= rich_text_prompts %>
           <% end %>
 
