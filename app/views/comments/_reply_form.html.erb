@@ -15,9 +15,11 @@
           <%= form.hidden_field :idea_id, value: parent.idea.id %>
           <%= form.hidden_field :parent_id, value: parent.id %>
 
-          <%= form.rich_text_area :body, id: "comment_#{parent.id}_new_reply_body", row: 1, placeholder: t(".reply_placeholder") do %>
-            <%= rich_text_prompts %>
-          <% end %>
+          <div class="bg-card border border-input rounded-md overflow-hidden focus-within:border-ring focus-within:ring-2 focus-within:ring-ring/50">
+            <%= form.rich_text_area :body, id: "comment_#{parent.id}_new_reply_body", row: 1, placeholder: t(".reply_placeholder") do %>
+              <%= rich_text_prompts %>
+            <% end %>
+          </div>
 
           <div class="mt-5 flex items-center gap-4 justify-end">
             <% if form.object.persisted? %>
