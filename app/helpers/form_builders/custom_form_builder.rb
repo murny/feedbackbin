@@ -78,7 +78,7 @@ module FormBuilders
     end
 
     def rich_text_area(attribute, options = {})
-      default_opts = { class: "rich-text-content #{options[:class]}" }
+      default_opts = { class: [ "rich-text-content", options[:class] ].compact.join(" ") }
 
       text_layout(attribute) { super(attribute, options.merge(default_opts)) } + attribute_error_message(attribute)
     end
