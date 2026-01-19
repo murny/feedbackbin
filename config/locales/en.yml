@@ -651,8 +651,7 @@ en:
     magic_links:
       email_address_mismatch:
         something_went_wrong: Something went wrong. Please try again.
-      ensure_that_email_address_pending_authentication_exists:
-        enter_email_address: Enter your email address to sign in.
+      enter_email_address: Enter your email address to sign in.
       invalid_code:
         try_another_code: Invalid or expired code. Try another code.
       rate_limit_exceeded:
@@ -673,6 +672,9 @@ en:
       show:
         brand_name: FeedbackBin
         choose_account_to_continue: Choose an account to continue
+        create_account: Create Account
+        no_accounts: No Accounts
+        no_accounts_description: You don't have any accounts yet.
         select_account: Select Account
         sign_out: Sign out
         signed_in_as: Signed in as %{email}

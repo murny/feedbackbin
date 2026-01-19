@@ -6,6 +6,7 @@ module Users
   # For creating a new Account (tenant), see SignupsController.
   class RegistrationsController < ApplicationController
     allow_unauthenticated_access
+    skip_before_action :ensure_account_user
     before_action :redirect_authenticated_user, only: %i[new create]
     skip_after_action :verify_authorized
 

@@ -6,6 +6,7 @@ module Authentication
   included do
     before_action :require_account
     before_action :require_authentication
+    before_action :ensure_account_user
 
     helper_method :authenticated?
   end
@@ -14,7 +15,9 @@ module Authentication
     # Allow both authenticated and unauthenticated access
     def allow_unauthenticated_access(**options)
       skip_before_action :require_authentication, **options
+      skip_before_action :ensure_account_user, **options
       before_action :resume_session, **options
+      before_action :ensure_account_user, **options
     end
 
     # Only allow unauthenticated access - redirect authenticated users away
@@ -112,5 +115,44 @@ module Authentication
       else
         session_menu_path(script_name: nil)
       end
+    end
+
+    # Store the return_to URL from params in the session.
+    # Only stores URLs that belong to this application to prevent open redirects.
+    def store_return_to_url
+      return unless params[:return_to].present?
+
+      uri = URI.parse(params[:return_to])
+      return unless uri.host.nil? || uri.host == request.host || uri.host.end_with?(".#{request.host}")
+
+      session[:return_to_after_authenticating] = params[:return_to]
+    rescue URI::InvalidURIError
+      # Ignore invalid URLs
+    end
+
+    # Account user provisioning
+    # Creates a user for the current account if authenticated identity doesn't have one.
+    # Checks that existing users are active.
+
+    def ensure_account_user
+      return unless Current.account.present? && authenticated?
+
+      identity = Current.session.identity
+      user = Current.account.users.find_by(identity: identity)
+
+      if user.nil?
+        provision_user_for_account(identity)
+      elsif !user.active?
+        terminate_session
+        redirect_to sign_in_path, alert: t("sessions.create.account_deactivated")
+      end
+    end
+
+    def provision_user_for_account(identity)
+      identity.users.create!(
+        account: Current.account,
+        name: identity.email_address.split("@").first.titleize,
+        role: :member
+      )
     end
 end

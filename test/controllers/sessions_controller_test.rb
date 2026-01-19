@@ -47,8 +47,9 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
-  test "should not sign in when all user accounts are deactivated" do
-    # Deactivate all users for this identity
+  test "signs in even when all user accounts are deactivated" do
+    # With untenanted auth, sign-in succeeds at identity level.
+    # Deactivation is checked when entering a specific tenant.
     regular_user = users(:jane)
     email_address = regular_user.identity.email_address
     regular_user.identity.users.each(&:deactivate)
@@ -56,9 +57,9 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     untenanted do
       post session_url, params: { email_address: email_address, password: "secret123456" }
 
-      assert_redirected_to sign_in_url
-      assert_equal "Your account has been deactivated. Please contact support for assistance.", flash[:alert]
-      assert_nil cookies[:session_token]
+      # Sign in succeeds - redirects to session menu
+      assert_redirected_to session_menu_url(script_name: nil)
+      assert_predicate cookies[:session_token], :present?
     end
   end
 

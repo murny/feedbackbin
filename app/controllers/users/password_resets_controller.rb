@@ -1,14 +1,14 @@
 # frozen_string_literal: true
 
 module Users
-  # Password reset controller - works in both tenanted and untenanted contexts.
-  # Resets Identity password (Identity-level operation).
+  # Password reset controller - Identity-level operation (untenanted).
   class PasswordResetsController < ApplicationController
-    skip_before_action :require_account
+    disallow_account_scope
     require_unauthenticated_access
+
     skip_after_action :verify_authorized
 
-    layout :determine_layout
+    layout "auth"
 
     rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to new_users_password_reset_path, alert: t("users.password_resets.create.rate_limited") }
 
@@ -48,10 +48,6 @@ module Users
         @identity = Identity.find_by_password_reset_token!(params[:token])
       rescue ActiveSupport::MessageVerifier::InvalidSignature
         redirect_to new_users_password_reset_path, alert: t("users.password_resets.password_reset_link_is_invalid")
-      end
-
-      def determine_layout
-        Current.account.present? ? "application" : "auth"
       end
   end
 end

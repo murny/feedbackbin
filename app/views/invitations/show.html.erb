@@ -21,7 +21,7 @@
         </div>
 
         <div class="pt-4">
-          <%= link_to users_sign_up_path(invitation_token: @invitation.token, script_name: @invitation.account.slug), class: "btn btn-primary w-full" do %>
+          <%= link_to users_sign_up_path(invitation_token: @invitation.token), class: "btn btn-primary w-full" do %>
             <%= lucide_icon "user-plus", class: "mr-2 h-4 w-4" %>
             <%= t(".create_account") %>
           <% end %>
@@ -37,7 +37,7 @@
       <div class="px-6 text-center">
         <p class="text-sm text-muted-foreground">
           <%= t(".already_have_account") %>
-          <%= link_to t(".sign_in"), sign_in_path(script_name: @invitation.account.slug), class: "text-primary hover:underline underline-offset-4 font-medium" %>
+          <%= link_to t(".sign_in"), sign_in_path(script_name: nil, return_to: root_url(script_name: @invitation.account.slug)), class: "text-primary hover:underline underline-offset-4 font-medium" %>
         </p>
       </div>
     </div>
