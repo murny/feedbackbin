@@ -58,4 +58,8 @@ Rails.application.configure do
 
   # Enable multi-tenant mode for tests
   config.x.multi_tenant.enabled = true
+
+  # Disable automatic waiting for turbo cable stream sources to connect after visit.
+  # The test Action Cable adapter doesn't establish real WebSocket connections.
+  config.turbo.test_connect_after_actions = []
 end
