@@ -123,6 +123,11 @@ module Authentication
       return unless params[:return_to].present?
 
       uri = URI.parse(params[:return_to])
+
+      # Only allow nil scheme (relative path) or http/https
+      return unless uri.scheme.nil? || uri.scheme.downcase.in?(%w[http https])
+
+      # Only allow nil host (relative path), exact host match, or subdomain of request host
       return unless uri.host.nil? || uri.host == request.host || uri.host.end_with?(".#{request.host}")
 
       session[:return_to_after_authenticating] = params[:return_to]
@@ -141,7 +146,7 @@ module Authentication
       user = Current.account.users.find_by(identity: identity)
 
       if user.nil?
-        provision_user_for_account(identity)
+        Current.user = provision_user_for_account(identity)
       elsif !user.active?
         terminate_session
         redirect_to sign_in_path, alert: t("sessions.create.account_deactivated")

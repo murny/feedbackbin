@@ -57,14 +57,13 @@ module Users
         if existing_identity
           # Verify password matches for existing identity
           unless existing_identity.authenticate(identity_params[:password])
-            raise ActiveRecord::RecordInvalid.new(Identity.new.tap { |i|
-              i.errors.add(:password, :invalid)
-            })
+            @identity = existing_identity.tap { |i| i.errors.add(:password, :invalid) }
+            raise ActiveRecord::RecordInvalid.new(@identity)
           end
           existing_identity
         else
           @new_identity = true
-          Identity.create!(identity_params)
+          @identity = Identity.create!(identity_params)
         end
       end
 
@@ -73,17 +72,15 @@ module Users
         existing_user = @identity.users.find_by(account: Current.account)
         if existing_user
           if existing_user.active?
-            raise ActiveRecord::RecordInvalid.new(User.new.tap { |u|
-              u.errors.add(:base, :already_registered)
-            })
+            @user = User.new.tap { |u| u.errors.add(:base, :already_registered) }
+            raise ActiveRecord::RecordInvalid.new(@user)
           else
-            raise ActiveRecord::RecordInvalid.new(User.new.tap { |u|
-              u.errors.add(:base, :account_deactivated)
-            })
+            @user = User.new.tap { |u| u.errors.add(:base, :account_deactivated) }
+            raise ActiveRecord::RecordInvalid.new(@user)
           end
         end
 
-        User.create!(
+        @user = User.create!(
           user_params.merge(
             identity: @identity,
             account: Current.account,

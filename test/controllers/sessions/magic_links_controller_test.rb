@@ -131,15 +131,16 @@ class Sessions::MagicLinksControllerTest < ActionDispatch::IntegrationTest
 
   test "preserves return URL through magic link flow" do
     magic_link = @identity.send_magic_link
+    return_url = "/dashboard"
 
     # Simulate coming from a protected page by setting return_to
     untenanted do
-      post magic_session_url, params: { email_address: @identity.email_address }
+      post magic_session_url, params: { email_address: @identity.email_address, return_to: return_url }
       post session_magic_link_url, params: { code: magic_link.code }
     end
 
-    # Should redirect to session menu (default for untenanted)
-    assert_redirected_to session_menu_url(script_name: nil)
+    # Should redirect to the preserved return URL
+    assert_redirected_to return_url
     assert_predicate cookies[:session_token], :present?
   end
 

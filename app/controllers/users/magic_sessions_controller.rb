@@ -20,6 +20,8 @@ module Users
     end
 
     def create
+      store_return_to_url
+
       if (identity = Identity.find_by(email_address: email_address))
         redirect_to_session_magic_link identity.send_magic_link
       else
