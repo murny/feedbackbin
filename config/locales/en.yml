@@ -442,6 +442,9 @@ en:
       signed_in_as: Signed in as
       view_notifications: View notifications
   are_you_sure: Are you sure?
+  authorization:
+    join_to_participate: Join this account to participate. Sign up to continue.
+    unauthorized: You are not authorized to perform this action.
   board: Board
   cancel: Cancel
   changelogs:
@@ -641,11 +644,17 @@ en:
       title: Roadmap
   select_board: Select a board
   sessions:
+    create:
+      account_deactivated: Your account has been deactivated. Please contact support for assistance.
+      invalid_credentials: Try another email address or password.
+      rate_limited: Please try again later.
+      signed_in_successfully: You have signed in successfully.
+    destroy:
+      signed_out_successfully: You have signed out successfully.
     magic_links:
       email_address_mismatch:
         something_went_wrong: Something went wrong. Please try again.
-      ensure_that_email_address_pending_authentication_exists:
-        enter_email_address: Enter your email address to sign in.
+      enter_email_address: Enter your email address to sign in.
       invalid_code:
         try_another_code: Invalid or expired code. Try another code.
       rate_limit_exceeded:
@@ -666,9 +675,30 @@ en:
       show:
         brand_name: FeedbackBin
         choose_account_to_continue: Choose an account to continue
+        create_account: Create Account
+        no_accounts: No Accounts
+        no_accounts_description: You don't have any accounts yet.
         select_account: Select Account
         sign_out: Sign out
         signed_in_as: Signed in as %{email}
+    new:
+      brand_name: FeedbackBin
+      email: Email
+      email_address_placeholder: Enter your email address
+      forgot_your_password: Forgot your password?
+      login_with_social: Login with your Google or Facebook account
+      need_an_account: Need an account?
+      or_continue_with: Or continue with
+      password: Password
+      password_placeholder: Enter your password
+      privacy_policy: Privacy Policy
+      sign_in: Sign in
+      sign_in_to_participate: Sign in to participate in %{account_name}
+      sign_in_with_magic_link: Sign in with magic link
+      sign_up: Sign up
+      terms_agreement_html: By clicking continue, you agree to our %{terms_link} and %{privacy_link}.
+      terms_of_service: Terms of Service
+      welcome_back: Welcome back
   shared:
     board_filter:
       all_boards: All Boards
@@ -720,7 +750,6 @@ en:
   ui:
     toast:
       dismiss: Dismiss
-  unauthorized: You are not authorized to perform this action.
   user_settings:
     accounts:
       show:
@@ -883,17 +912,19 @@ en:
         password_is_invalid: Password is invalid.
         passwords_did_not_match: Passwords did not match.
     registrations:
+      account_deactivated: Your account has been deactivated for this organization.
       create:
         rate_limited: Please try again later.
         signed_up_successfully: Welcome! You have signed up successfully.
+      joined_account: You've joined %{account_name}. Welcome!
       new:
         already_have_an_account: Already have an account?
-        brand_name: FeedbackBin
         create_account: Create account
         create_your_account: Create your account
         email: Email
         email_address_hint: Never shown to the public
         email_address_placeholder: Enter your email address
+        join_account: Sign up to participate in %{account_name}
         login: Log in
         name: Name
         name_hint: Your display name
@@ -903,35 +934,9 @@ en:
         password_hint: "(at least 10 characters)"
         password_placeholder: Enter your password
         privacy_policy: Privacy Policy
-        signup_with_social: Sign up with your Google or Facebook account
         terms_agreement_html: By clicking continue, you agree to our %{terms_link} and %{privacy_link}.
         terms_of_service: Terms of Service
         title: Sign up
-    sessions:
-      create:
-        account_deactivated: Your account has been deactivated. Please contact support for assistance.
-        invalid_credentials: Try another email address or password.
-        rate_limited: Please try again later.
-        signed_in_successfully: You have signed in successfully.
-      destroy:
-        signed_out_successfully: You have signed out successfully.
-      new:
-        brand_name: FeedbackBin
-        email: Email
-        email_address_placeholder: Enter your email address
-        forgot_your_password: Forgot your password?
-        login_with_social: Login with your Google or Facebook account
-        need_an_account: Need an account?
-        or_continue_with: Or continue with
-        password: Password
-        password_placeholder: Enter your password
-        privacy_policy: Privacy Policy
-        sign_in: Sign in
-        sign_in_with_magic_link: Sign in with magic link
-        sign_up: Sign up
-        terms_agreement_html: By clicking continue, you agree to our %{terms_link} and %{privacy_link}.
-        terms_of_service: Terms of Service
-        welcome_back: Welcome back
     show:
       achievements: Achievements
       achievements_early_adopter: Early Adopter

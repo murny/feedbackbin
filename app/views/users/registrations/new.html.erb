@@ -3,14 +3,14 @@
 <div class="flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
   <div class="flex w-full max-w-sm flex-col gap-6">
     <%= link_to root_path, class: "flex items-center gap-2 self-center font-medium" do %>
-      <%= inline_svg_tag "mark.svg", class: "h-8 w-8 text-blue-500" %>
-      <span class="font-bold text-blue-500"><%= t(".brand_name") %></span>
+      <%= account_logo(Current.account, class: "h-8 w-8") %>
+      <span class="font-bold text-primary text-xl"><%= Current.account.name %></span>
     <% end %>
 
     <div class="card flex flex-col gap-6 py-6">
       <header class="px-6 text-center space-y-1.5">
         <h1 class="font-semibold text-xl"><%= t(".create_your_account") %></h1>
-        <p class="text-muted-foreground text-sm"><%= t(".signup_with_social") %></p>
+        <p class="text-muted-foreground text-sm"><%= t(".join_account", account_name: Current.account.name) %></p>
       </header>
 
       <div class="px-6 grid gap-6">
@@ -54,8 +54,8 @@
 
     <p class="text-muted-foreground text-center text-xs text-balance">
       <%= t(".terms_agreement_html",
-            terms_link: link_to(t(".terms_of_service"), terms_path, class: "hover:text-primary underline underline-offset-4"),
-            privacy_link: link_to(t(".privacy_policy"), privacy_path, class: "hover:text-primary underline underline-offset-4")) %>
+            terms_link: link_to(t(".terms_of_service"), terms_path(script_name: nil), class: "hover:text-primary underline underline-offset-4"),
+            privacy_link: link_to(t(".privacy_policy"), privacy_path(script_name: nil), class: "hover:text-primary underline underline-offset-4")) %>
     </p>
   </div>
 </div>

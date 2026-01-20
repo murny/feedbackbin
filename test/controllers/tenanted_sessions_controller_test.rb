@@ -1,0 +1,83 @@
+# frozen_string_literal: true
+
+require "test_helper"
+
+# Tests for session/authentication behavior when entering tenant scope.
+# With untenanted auth, sign-in redirects away from tenant context,
+# and user provisioning happens when entering tenant via ensure_account_user.
+class TenantedSessionsControllerTest < ActionDispatch::IntegrationTest
+  setup do
+    @account = accounts(:feedbackbin)
+    @user = users(:shane)
+  end
+
+  test "sign in page redirects to untenanted when accessed from tenant context" do
+    tenanted(@account) do
+      get sign_in_url
+
+      # disallow_account_scope redirects to untenanted version
+      assert_redirected_to sign_in_url(script_name: nil)
+    end
+  end
+
+  test "authenticated user entering tenant creates user if needed" do
+    new_account = Account.create!(name: "New Test Account")
+
+    # Sign in without tenant context
+    untenanted do
+      post session_url, params: { email_address: @user.identity.email_address, password: "secret123456" }
+    end
+
+    # Now enter the new tenant - should create user via ensure_account_user
+    tenanted(new_account) do
+      assert_difference "User.count" do
+        get root_url
+      end
+
+      assert_response :success
+
+      # User should be created for the new account
+      new_user = @user.identity.users.find_by(account: new_account)
+
+      assert_not_nil new_user
+      assert_equal "member", new_user.role
+    end
+  end
+
+  test "authenticated user with deactivated account is blocked when entering tenant" do
+    regular_user = users(:jane)
+    regular_user.deactivate
+
+    # Sign in without tenant context
+    untenanted do
+      post session_url, params: { email_address: regular_user.identity.email_address, password: "secret123456" }
+
+      assert_predicate cookies[:session_token], :present?
+    end
+
+    # Try to enter the tenant - should be blocked by ensure_account_user
+    tenanted(@account) do
+      get root_url
+
+      assert_redirected_to sign_in_url
+      assert_equal "Your account has been deactivated. Please contact support for assistance.", flash[:alert]
+      assert_empty cookies[:session_token].to_s # Session terminated
+    end
+  end
+
+  test "authenticated user entering tenant with existing active user succeeds" do
+    # Sign in without tenant context
+    untenanted do
+      post session_url, params: { email_address: @user.identity.email_address, password: "secret123456" }
+    end
+
+    # Enter the tenant - user already exists, should succeed
+    tenanted(@account) do
+      assert_no_difference "User.count" do
+        get root_url
+      end
+
+      assert_response :success
+    end
+  end
+end

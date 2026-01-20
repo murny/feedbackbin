@@ -43,8 +43,8 @@ module Users
 
       user = User.last
 
-      # After registration/login, redirects to session menu which will redirect to user's account
-      assert_redirected_to session_menu_url
+      # After registration/login with account context, redirects to account root
+      assert_redirected_to root_url(script_name: account.slug)
       assert_equal "You have signed in successfully.", flash[:notice]
 
       assert_equal "harrypotter@hogwarts.com", user.identity.email_address
@@ -68,10 +68,7 @@ module Users
         get "/auth/developer/callback"
       end
 
-      assert_redirected_to sign_up_path(user: {
-        email_address: "harrypotter@hogwarts.com",
-        name: "Harry Potter"
-      })
+      assert_redirected_to signup_path
       assert_equal "We could not create an account for you. Please finish the registration process.", flash[:alert]
     end
 
@@ -194,10 +191,7 @@ module Users
         get "/auth/developer/callback"
       end
 
-      assert_redirected_to sign_up_path(user: {
-        email_address: nil,
-        name: "No email given"
-      })
+      assert_redirected_to signup_path
 
       assert_equal "We could not create an account for you. Please finish the registration process.", flash[:alert]
     end

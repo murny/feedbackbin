@@ -40,7 +40,7 @@ class Sessions::MagicLinksControllerTest < ActionDispatch::IntegrationTest
     post magic_session_url, params: { email_address: @identity.email_address }
     post session_magic_link_url, params: { code: magic_link.code }
 
-    assert_redirected_to sign_up_path
+    assert_redirected_to signup_path
     assert_predicate cookies[:session_token], :present?
   end
 
@@ -125,5 +125,70 @@ class Sessions::MagicLinksControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :unauthorized
     assert_equal "Enter your email address to sign in.", @response.parsed_body["message"]
+  end
+
+  # Return URL preservation tests
+
+  test "preserves return URL through magic link flow" do
+    magic_link = @identity.send_magic_link
+    return_url = "/dashboard"
+
+    # Simulate coming from a protected page by setting return_to
+    untenanted do
+      post magic_session_url, params: { email_address: @identity.email_address, return_to: return_url }
+      post session_magic_link_url, params: { code: magic_link.code }
+    end
+
+    # Should redirect to the preserved return URL
+    assert_redirected_to return_url
+    assert_predicate cookies[:session_token], :present?
+  end
+
+  test "creates user for account when entering tenant after magic link sign in" do
+    account = accounts(:feedbackbin)
+    new_identity = Identity.create!(email_address: "newuser@example.com", password: "password123")
+    magic_link = new_identity.send_magic_link
+
+    # Sign in via magic link (untenanted)
+    untenanted do
+      post magic_session_url, params: { email_address: new_identity.email_address }
+      post session_magic_link_url, params: { code: magic_link.code }
+    end
+
+    # Now enter the tenant - should create user via ensure_account_user
+    tenanted(account) do
+      assert_difference "account.users.count", 1 do
+        get root_url
+      end
+    end
+
+    # User should be created for the account
+    user = account.users.find_by(identity: new_identity)
+
+    assert_not_nil user
+    assert_equal :member, user.role.to_sym
+  end
+
+  test "does not create duplicate user when entering tenant after magic link sign in" do
+    account = accounts(:feedbackbin)
+    magic_link = @identity.send_magic_link
+
+    # User already exists in this account
+    assert account.users.exists?(identity: @identity)
+
+    # Sign in via magic link (untenanted)
+    untenanted do
+      post magic_session_url, params: { email_address: @identity.email_address }
+      post session_magic_link_url, params: { code: magic_link.code }
+    end
+
+    # Enter the tenant - should not create duplicate user
+    tenanted(account) do
+      assert_no_difference "account.users.count" do
+        get root_url
+      end
+    end
+
+    assert_response :success
   end
 end

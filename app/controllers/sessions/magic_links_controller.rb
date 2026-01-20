@@ -1,11 +1,17 @@
 # frozen_string_literal: true
 
+# Magic link verification controller.
+# Authentication is global (untenanted). User provisioning for accounts
+# happens via ensure_account_user when entering tenant scope.
 class Sessions::MagicLinksController < ApplicationController
   include Authentication::ViaMagicLink
 
   disallow_account_scope
   require_unauthenticated_access
+
   skip_after_action :verify_authorized
+
+  layout "auth"
 
   rate_limit to: 10, within: 15.minutes, only: :create, with: -> { rate_limit_exceeded }
 
@@ -29,8 +35,8 @@ class Sessions::MagicLinksController < ApplicationController
     def ensure_that_email_address_pending_authentication_exists
       unless email_address_pending_authentication.present?
         respond_to do |format|
-          format.html { redirect_to magic_sign_in_path, alert: t("sessions.magic_links.ensure_that_email_address_pending_authentication_exists.enter_email_address") }
-          format.json { render json: { message: t("sessions.magic_links.ensure_that_email_address_pending_authentication_exists.enter_email_address") }, status: :unauthorized }
+          format.html { redirect_to magic_sign_in_path, alert: t("sessions.magic_links.enter_email_address") }
+          format.json { render json: { message: t("sessions.magic_links.enter_email_address") }, status: :unauthorized }
         end
       end
     end
@@ -49,7 +55,7 @@ class Sessions::MagicLinksController < ApplicationController
 
     def sign_in(magic_link)
       clear_pending_authentication_token
-      start_new_session_for magic_link.identity
+      start_new_session_for(magic_link.identity)
 
       respond_to do |format|
         format.html { redirect_to after_sign_in_url(magic_link), notice: t("sessions.magic_links.sign_in.signed_in_successfully") }
@@ -75,7 +81,7 @@ class Sessions::MagicLinksController < ApplicationController
 
     def after_sign_in_url(magic_link)
       if magic_link.for_sign_up?
-        sign_up_path
+        signup_path
       else
         after_authentication_url
       end

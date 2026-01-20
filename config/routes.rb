@@ -5,30 +5,44 @@ Rails.application.routes.draw do
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
+  # =============================================================================
+  # Authentication Routes
+  # These routes work in both tenanted and untenanted contexts via AccountSlug
+  # middleware which moves /:account_id prefix to SCRIPT_NAME.
+  # =============================================================================
+
+  # Account creation (untenanted only - disallow_account_scope)
   resource :signup, only: %i[show create]
 
-  # authentification
-  get "sign_in", to: "users/sessions#new"
-  get "sign_up", to: "users/registrations#new"
-  get "magic_sign_in", to: "users/magic_sessions#new"
-  post "magic_session", to: "users/magic_sessions#create"
-
-  get "/auth/failure", to: "users/omniauth#failure"
-  get "/auth/:provider/callback", to: "users/omniauth#create"
-  post "/auth/:provider/callback", to: "users/omniauth#create"
-
-  namespace :users do
-    resources :password_resets, param: :token, only: [ :new, :create, :edit, :update ]
-    resource :email_verification, only: [ :show, :create ]
-    resources :registrations, only: [ :create ]
-  end
-
-  resource :session, only: [ :create, :destroy ], controller: "users/sessions" do
+  # Session management
+  get "sign_in", to: "sessions#new"
+  resource :session, only: [ :create, :destroy ] do
     scope module: :sessions do
       resource :menu, only: [ :show ]
       resource :magic_link, only: [ :show, :create ]
     end
   end
+
+  # Magic link authentication
+  get "magic_sign_in", to: "users/magic_sessions#new"
+  post "magic_session", to: "users/magic_sessions#create"
+
+  # OAuth callbacks (untenanted only - disallow_account_scope)
+  get "/auth/failure", to: "users/omniauth#failure"
+  get "/auth/:provider/callback", to: "users/omniauth#create"
+  post "/auth/:provider/callback", to: "users/omniauth#create"
+
+  # User registration (tenanted context for joining an account)
+  namespace :users do
+    get "sign_up", to: "registrations#new", as: :sign_up
+    resources :registrations, only: [ :create ]
+    resources :password_resets, param: :token, only: [ :new, :create, :edit, :update ]
+    resource :email_verification, only: [ :show, :create ]
+  end
+
+  # =============================================================================
+  # User Settings (requires authentication)
+  # =============================================================================
 
   namespace :user_settings do
     resource :account, only: [ :show ]
@@ -42,6 +56,10 @@ Rails.application.routes.draw do
     root to: redirect("/user_settings/profile")
   end
 
+  # =============================================================================
+  # User Resources
+  # =============================================================================
+
   resources :users, only: [ :show, :destroy ] do
     scope module: "users" do
       resource :avatar, only: %i[show destroy]
@@ -51,6 +69,10 @@ Rails.application.routes.draw do
   direct :fresh_user_avatar do |user, options|
     route_for :user_avatar, user, v: user.updated_at.to_fs(:number)
   end
+
+  # =============================================================================
+  # Core Application Resources (require account context)
+  # =============================================================================
 
   resource :vote, only: [ :update ]
 
@@ -78,6 +100,10 @@ Rails.application.routes.draw do
 
   # Roadmap
   get "roadmap", to: "roadmap#index"
+
+  # =============================================================================
+  # Admin Routes (require account context)
+  # =============================================================================
 
   namespace :admin do
     root to: "dashboard#show"
@@ -111,8 +137,15 @@ Rails.application.routes.draw do
     end
   end
 
-  # Public invitation acceptance
+  # =============================================================================
+  # Invitations (public access, but require account context)
+  # =============================================================================
+
   resources :invitations, only: [ :show ], param: :token
+
+  # =============================================================================
+  # Static Pages
+  # =============================================================================
 
   scope controller: :static do
     get :about
@@ -120,9 +153,17 @@ Rails.application.routes.draw do
     get :privacy
   end
 
+  # =============================================================================
+  # Staff Routes (authenticated)
+  # =============================================================================
+
   authenticated :staff do
     draw :staff
   end
+
+  # =============================================================================
+  # Health & PWA
+  # =============================================================================
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
   # Can be used by load balancers and uptime monitors to verify that the app is live.
@@ -132,10 +173,18 @@ Rails.application.routes.draw do
   get "manifest", to: "rails/pwa#manifest", as: :pwa_manifest
   get "service-worker", to: "rails/pwa#service_worker", as: :pwa_service_worker
 
+  # =============================================================================
+  # Development Tools
+  # =============================================================================
+
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
     mount Lookbook::Engine, at: "/lookbook"
   end
+
+  # =============================================================================
+  # Root
+  # =============================================================================
 
   root "ideas#index"
 end
