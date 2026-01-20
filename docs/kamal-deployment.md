@@ -27,7 +27,7 @@ rollbacks.
 The steps to deploy your own FeedbackBin instance:
 
 1. Fork the repository
-2. Clone your fork and run `bin/setup --skip-server`
+2. Clone your fork and run `bin/setup`
 3. Configure `config/deploy.yml` and `.kamal/secrets`
 4. Run `kamal setup` for your first deploy
 
@@ -42,7 +42,7 @@ git clone https://github.com/yourusername/feedbackbin.git
 cd feedbackbin
 
 # Set up the development environment
-bin/setup --skip-server
+bin/setup
 ```
 
 ## Configuration
