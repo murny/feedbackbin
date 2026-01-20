@@ -60,14 +60,17 @@
           <%= form.submit t(".sign_in"), class: "btn w-full" %>
         <% end %>
 
-        <p class="text-center text-sm">
-          <%= t(".need_an_account") %>
-          <% if Current.account.present? %>
+        <% if Current.account.present? %>
+          <p class="text-center text-sm">
+            <%= t(".need_an_account") %>
             <%= link_to t(".sign_up"), users_sign_up_path, class: "underline underline-offset-4" %>
-          <% else %>
+          </p>
+        <% elsif Account.accepting_signups? %>
+          <p class="text-center text-sm">
+            <%= t(".need_an_account") %>
             <%= link_to t(".sign_up"), signup_path(script_name: nil), class: "underline underline-offset-4" %>
-          <% end %>
-        </p>
+          </p>
+        <% end %>
 
         <p class="text-center text-sm">
           <%= link_to t(".sign_in_with_magic_link"), magic_sign_in_path(script_name: nil), class: "underline underline-offset-4" %>
