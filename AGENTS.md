@@ -5,8 +5,8 @@ This file provides guidance to AI coding assistants when working with code in th
 ## Development Commands
 
 ### Setup and Development
-- `bin/setup` - Sets up the project and runs `bin/dev` by default
-- `bin/setup --skip-server` - Sets up the project without starting the server
+- `bin/setup` - Sets up the project (install deps, prepare database, clean logs)
+- `bin/setup --reset` - Sets up the project and resets the database
 - `bin/dev` - Starts the development server using foreman (port 3000 by default)
 - `bin/rails server` - Starts Rails server directly
 - `bin/jobs` - Starts background job worker

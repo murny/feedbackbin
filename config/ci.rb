@@ -3,7 +3,7 @@
 # Run using bin/ci
 
 CI.run do
-  step "Setup", "bin/setup --skip-server"
+  step "Setup", "bin/setup"
 
   step "Style: Ruby", "bin/rubocop"
   step "Style: ERB", "bin/erb_lint --lint-all"
