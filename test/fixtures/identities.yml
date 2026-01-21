@@ -3,25 +3,25 @@
 shane:
   email_address: shane.murnaghan@feedbackbin.com
   staff: true
-  email_verified: true
+  email_verified_at: <%= Time.current.to_fs(:db) %>
   password_digest: <%= password_digest %>
 
 admin:
   email_address: admin@feedbackbin.com
-  email_verified: true
+  email_verified_at: <%= Time.current.to_fs(:db) %>
   password_digest: <%= password_digest %>
 
 jane:
   email_address: jane.doe@feedbackbin.com
-  email_verified: true
+  email_verified_at: <%= Time.current.to_fs(:db) %>
   password_digest: <%= password_digest %>
 
 john:
   email_address: john.smith@feedbackbin.com
-  email_verified: true
+  email_verified_at: <%= Time.current.to_fs(:db) %>
   password_digest: <%= password_digest %>
 
 acme_admin:
   email_address: admin@acme.com
-  email_verified: true
+  email_verified_at: <%= Time.current.to_fs(:db) %>
   password_digest: <%= password_digest %>

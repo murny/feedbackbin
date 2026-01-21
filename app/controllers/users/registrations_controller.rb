@@ -93,7 +93,7 @@ module Users
         if @invitation.account == Current.account
           @invitation.accept!(@user)
         end
-        @identity.update!(email_verified: true) if @invitation
+        @identity.update!(email_verified_at: Time.current) if @invitation
       end
 
       def redirect_authenticated_user

@@ -26,7 +26,7 @@ class Signup
     raise ActiveModel::ValidationError.new(self) unless valid?
 
     ApplicationRecord.transaction do
-      @identity = Identity.create!(email_address: email_address, password: password, email_verified: true)
+      @identity = Identity.create!(email_address: email_address, password: password, email_verified_at: Time.current)
 
       @account = Account.create_with_owner(
         account: {

@@ -41,7 +41,7 @@ module Users
     end
 
     test "should not send a password reset email to an unverified email" do
-      @identity.update!(email_verified: false)
+      @identity.update!(email_verified_at: nil)
 
       assert_no_enqueued_emails do
         post users_password_resets_url, params: { email_address: @identity.email_address }

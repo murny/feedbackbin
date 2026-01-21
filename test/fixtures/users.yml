@@ -4,7 +4,7 @@ shane:
   identity: shane
   name: Shane
   role: owner
-  verified_at: <%= Time.current.to_fs(:db) %>
+  
 
 admin:
   account: feedbackbin
@@ -41,4 +41,4 @@ acme_admin:
   identity: acme_admin
   name: Acme Admin
   role: owner
-  verified_at: <%= Time.current.to_fs(:db) %>
+  

@@ -63,9 +63,9 @@
               <!-- Email Status Column -->
               <td class="px-6 py-4">
                 <%= render Elements::BadgeComponent.new(
-                  variant: user&.identity&.email_verified? ? :default : :outline
+                  variant: user&.identity&.email_verified_at&.present? ? :default : :outline
                 ) do %>
-                  <%= user&.identity&.email_verified? ? t(".verified_badge") : t(".unverified_badge") %>
+                  <%= user&.identity&.email_verified_at&.present? ? t(".verified_badge") : t(".unverified_badge") %>
                 <% end %>
               </td>
               <td class="px-6 py-4">

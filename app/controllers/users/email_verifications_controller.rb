@@ -9,7 +9,7 @@ module Users
     before_action :set_identity, only: :show
 
     def show
-      @identity.update!(email_verified: true)
+      @identity.update!(email_verified_at: Time.current)
       redirect_to session_menu_path, notice: t(".email_verified")
     end
 

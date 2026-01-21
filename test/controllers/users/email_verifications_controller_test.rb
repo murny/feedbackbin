@@ -7,7 +7,7 @@ module Users
     setup do
       @user = users(:shane)
       @identity = @user.identity
-      @identity.update!(email_verified: false)
+      @identity.update!(email_verified_at: nil)
       # Email verifications controller uses disallow_account_scope
       integration_session.default_url_options[:script_name] = ""
     end
