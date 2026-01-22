@@ -95,7 +95,7 @@ module Users
         {
           email_address: auth.info.email,
           password: SecureRandom.base58(24),
-          email_verified: true
+          email_verified_at: Time.current
         }
       end
 

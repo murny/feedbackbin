@@ -150,7 +150,7 @@ ActiveRecord::Schema[8.2].define(version: 2024_05_17_075643) do
   create_table "identities", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.string "email_address", null: false
-    t.boolean "email_verified", default: false, null: false
+    t.datetime "email_verified_at"
     t.string "password_digest"
     t.boolean "staff", default: false, null: false
     t.datetime "updated_at", null: false
@@ -246,7 +246,6 @@ ActiveRecord::Schema[8.2].define(version: 2024_05_17_075643) do
     t.integer "theme", default: 0, null: false
     t.string "time_zone"
     t.datetime "updated_at", null: false
-    t.datetime "verified_at"
     t.index ["account_id", "identity_id"], name: "index_users_on_account_id_and_identity_id", unique: true
     t.index ["account_id", "role"], name: "index_users_on_account_id_and_role"
     t.index ["identity_id"], name: "index_users_on_identity_id"

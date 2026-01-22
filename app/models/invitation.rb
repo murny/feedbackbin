@@ -23,7 +23,7 @@ class Invitation < ApplicationRecord
 
   def accept!(user)
     transaction do
-      user.identity&.update!(email_verified: true)
+      user.identity&.update!(email_verified_at: Time.current)
       destroy!
     end
 

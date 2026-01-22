@@ -53,7 +53,7 @@ class InvitationTest < ActiveSupport::TestCase
       @invitation.accept!(user)
     end
 
-    assert_predicate user.identity.reload, :email_verified?
+    assert_predicate user.identity.reload.email_verified_at, :present?
   end
 
   test "#reject!" do

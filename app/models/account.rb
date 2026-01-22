@@ -36,7 +36,7 @@ class Account < ApplicationRecord
   def self.create_with_owner(account:, owner:)
     create!(**account).tap do |account|
       account.users.create!(role: :system, name: "System")
-      account.users.create!(**owner.reverse_merge(role: :owner, verified_at: Time.current))
+      account.users.create!(**owner.reverse_merge(role: :owner))
     end
   end
 
