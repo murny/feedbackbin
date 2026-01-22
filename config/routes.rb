@@ -37,7 +37,10 @@ Rails.application.routes.draw do
     get "sign_up", to: "registrations#new", as: :sign_up
     resources :registrations, only: [ :create ]
     resources :password_resets, param: :token, only: [ :new, :create, :edit, :update ]
-    resource :email_verification, only: [ :show, :create ]
+    resource :email_verification, only: [ :show, :create ] do
+      get :pending, on: :collection
+    end
+    resource :email_change_confirmation, only: [ :show ]
   end
 
   # =============================================================================

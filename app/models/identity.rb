@@ -4,7 +4,7 @@ class Identity < ApplicationRecord
   MIN_PASSWORD_LENGTH = 10
   MAX_PASSWORD_LENGTH = 72
 
-  include Joinable, Transferable
+  include EmailAddressChangeable, Joinable, Transferable
 
   # has_many :access_tokens, dependent: :destroy
   has_many :magic_links, dependent: :destroy
@@ -43,6 +43,10 @@ class Identity < ApplicationRecord
     magic_links.create!(attributes).tap do |magic_link|
       MagicLinkMailer.sign_in_instructions(magic_link).deliver_later
     end
+  end
+
+  def has_password?
+    password_digest.present?
   end
 
   private
