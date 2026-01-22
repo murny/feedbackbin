@@ -26,6 +26,7 @@ class Account < ApplicationRecord
   has_many :boards, dependent: :destroy
   has_many :statuses, dependent: :destroy
   has_many :users, dependent: :destroy
+  has_many :tags, dependent: :destroy
 
   validates :logo, content_type: { in: ALLOWED_IMAGE_CONTENT_TYPES }, file_size: { maximum: 2.megabytes }
   validates :favicon, content_type: { in: ALLOWED_IMAGE_CONTENT_TYPES }, file_size: { maximum: 500.kilobytes }

@@ -1,0 +1,17 @@
+<%# Update the idea tags container %>
+<%= turbo_stream.replace "idea-tags" do %>
+  <% if @idea.tags.any? %>
+    <div id="idea-tags" class="flex flex-wrap gap-2 mb-4">
+      <% @idea.tags.each do |tag| %>
+        <%= render "tags/tag", tag: tag, idea: @idea, removable: policy(@idea).edit? %>
+      <% end %>
+    </div>
+  <% else %>
+    <div id="idea-tags" class="mb-4"></div>
+  <% end %>
+<% end %>
+
+<%# Show success flash message %>
+<%= turbo_stream.prepend "flash" do %>
+  <%= render partial: "shared/flash", locals: { type: :notice, message: flash[:notice] } if flash[:notice] %>
+<% end %>
