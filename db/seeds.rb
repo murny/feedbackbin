@@ -42,13 +42,13 @@ else
   end
 
   def find_or_create_user(full_name, email_address)
-    identity = Identity.find_or_create_by!(email_address: email_address) do |new_identity|
-      new_identity.email_verified_at = Time.current
-    end
+    identity = Identity.find_or_create_by!(email_address: email_address)
+    identity.update!(email_verified_at: Time.current) if identity.email_verified_at.nil?
+
     if user = identity.users.find_by(account: Current.account)
       user
     else
-      identity.users.create!(name: full_name,  account: Current.account)
+      identity.users.create!(name: full_name, account: Current.account)
     end
   end
 
