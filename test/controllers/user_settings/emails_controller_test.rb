@@ -10,11 +10,26 @@ module UserSettings
       sign_in_as(@user)
     end
 
-    test "should be able to update email" do
-      patch user_settings_email_url, params: { identity: { email_address: "new_email@example.com", password_challenge: "secret123456" } }
+    test "should send verification email when updating email" do
+      original_email = @identity.email_address
+
+      assert_enqueued_emails 1 do
+        patch user_settings_email_url, params: { identity: { email_address: "new_email@example.com", password_challenge: "secret123456" } }
+      end
 
       assert_redirected_to user_settings_account_url
-      assert_equal "Your email address has been changed.", flash[:notice]
+      assert_equal "We've sent a verification link to your new email address. Please check your inbox.", flash[:notice]
+
+      # Email should not be changed yet
+      assert_equal original_email, @identity.reload.email_address
+    end
+
+    test "should not allow changing to an already taken email" do
+      existing_identity = identities(:shane)
+
+      patch user_settings_email_url, params: { identity: { email_address: existing_identity.email_address, password_challenge: "secret123456" } }
+
+      assert_response :unprocessable_entity
     end
 
     test "should not be able to update email with invalid password" do

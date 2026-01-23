@@ -55,6 +55,7 @@ class Sessions::MagicLinksController < ApplicationController
 
     def sign_in(magic_link)
       clear_pending_authentication_token
+      magic_link.identity.update!(email_verified_at: Time.current) unless magic_link.identity.email_verified_at.present?
       start_new_session_for(magic_link.identity)
 
       respond_to do |format|

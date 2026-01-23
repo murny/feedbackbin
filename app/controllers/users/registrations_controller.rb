@@ -33,15 +33,19 @@ module Users
         @user = create_user_for_account
 
         handle_invitation if @invitation
-        start_new_session_for(@identity)
+
+        # Only create session if invitation (already verified) or existing verified identity
+        if @invitation || !@new_identity || @identity.email_verified_at.present?
+          start_new_session_for(@identity)
+        end
       end
 
-      # Send verification email for new identities (not invited)
       if @new_identity && @invitation.nil?
         IdentityMailer.email_verification(@identity).deliver_later
+        redirect_to pending_users_email_verification_path, notice: t(".verification_email_sent")
+      else
+        redirect_to root_path, notice: t(".signed_up_successfully")
       end
-
-      redirect_to root_path, notice: t(".signed_up_successfully")
     rescue ActiveRecord::RecordInvalid
       @identity ||= Identity.new(identity_params)
       @user ||= User.new(user_params)
@@ -51,16 +55,11 @@ module Users
     private
 
       def find_or_create_identity
-        # Check if identity already exists (user signing up for another account)
         existing_identity = Identity.find_by(email_address: identity_params[:email_address])
 
         if existing_identity
-          # Verify password matches for existing identity
-          unless existing_identity.authenticate(identity_params[:password])
-            @identity = existing_identity.tap { |i| i.errors.add(:password, :invalid) }
-            raise ActiveRecord::RecordInvalid.new(@identity)
-          end
-          existing_identity
+          @identity = existing_identity.tap { |i| i.errors.add(:email_address, :already_registered) }
+          raise ActiveRecord::RecordInvalid.new(@identity)
         else
           @new_identity = true
           @identity = Identity.create!(identity_params)

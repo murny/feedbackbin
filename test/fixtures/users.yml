@@ -4,7 +4,6 @@ shane:
   identity: shane
   name: Shane
   role: owner
-  
 
 admin:
   account: feedbackbin
@@ -41,4 +40,3 @@ acme_admin:
   identity: acme_admin
   name: Acme Admin
   role: owner
-  

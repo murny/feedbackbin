@@ -24,7 +24,9 @@ else
   def create_tenant(account_name)
     tenant_id = ActiveRecord::FixtureSet.identify(account_name)
     email_address = "shane@example.com"
-    identity = Identity.find_or_create_by!(email_address: email_address, staff: true)
+    identity = Identity.find_or_create_by!(email_address: email_address, staff: true) do |new_identity|
+      new_identity.email_verified_at = Time.current
+    end
 
     unless account = Account.find_by(external_account_id: tenant_id)
       account = Account.create_with_owner(

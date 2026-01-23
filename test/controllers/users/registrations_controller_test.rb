@@ -30,42 +30,36 @@ module Users
 
         assert_enqueued_email_with IdentityMailer, :email_verification, args: [ Identity.last ]
 
-        # After registration, stays in the same account context
-        assert_redirected_to root_path
-        assert_equal "Welcome! You have signed up successfully.", flash[:notice]
+        # After registration, redirects to pending email verification page
+        assert_redirected_to pending_users_email_verification_path
+        assert_equal "We've sent you an email to verify your address. Please check your inbox to complete your registration.", flash[:notice]
 
         # User should be created for the correct account
         user = User.last
 
         assert_equal @account, user.account
         assert_equal "member", user.role
+
+        # User should not be signed in yet (email not verified)
+        assert_nil Identity.last.email_verified_at
       end
     end
 
-    test "should register existing identity as new user for account" do
-      # Create a new account where the identity doesn't have a user
-      new_account = Account.create!(name: "Test Account for Registration")
+    test "should reject registration with already registered email" do
+      # Try to register with an email that already has an identity
       identity = identities(:shane)
 
-      tenanted(new_account) do
-        assert_difference "User.count" do
-          assert_no_difference "Identity.count" do
-            post users_registrations_url, params: { user: {
-              name: "Shane in New Account",
-              email_address: identity.email_address,
-              password: "secret123456", # Must match existing identity password
-              password_confirmation: "secret123456"
-            } }
-          end
+      tenanted(@account) do
+        assert_no_difference [ "User.count", "Identity.count" ] do
+          post users_registrations_url, params: { user: {
+            name: "Shane Duplicate",
+            email_address: identity.email_address,
+            password: "password123456",
+            password_confirmation: "password123456"
+          } }
         end
 
-        assert_redirected_to root_path
-
-        # User should be created for the correct account
-        user = User.last
-
-        assert_equal new_account, user.account
-        assert_equal identity, user.identity
+        assert_response :unprocessable_entity
       end
     end
 

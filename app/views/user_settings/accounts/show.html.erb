@@ -36,10 +36,12 @@
                   </div>
                 </div>
 
-                <div class="grid gap-2">
-                  <%= form.label :password_challenge, t(".current_password"), class: "text-sm font-medium" %>
-                  <%= form.password_field :password_challenge, autocomplete: "current-password", required: true, class: "w-full" %>
-                </div>
+                <% if @identity.has_password? %>
+                  <div class="grid gap-2">
+                    <%= form.label :password_challenge, t(".current_password"), class: "text-sm font-medium" %>
+                    <%= form.password_field :password_challenge, autocomplete: "current-password", required: true, class: "w-full" %>
+                  </div>
+                <% end %>
               </div>
 
               <div class="flex justify-end gap-3 pt-6">

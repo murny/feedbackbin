@@ -21,7 +21,7 @@ module Users
     end
 
     def create
-      if (identity = Identity.where(email_address: params[:email_address]).where.not(email_verified_at: nil).first)
+      if (identity = Identity.where.not(email_verified_at: nil).find_by(email_address: params[:email_address]))
         IdentityMailer.password_reset(identity).deliver_later
       end
 

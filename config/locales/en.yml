@@ -7,6 +7,10 @@ en:
           attributes:
             boards:
               must_have_at_least_one: must have at least one board
+        identity:
+          attributes:
+            email_address:
+              already_registered: is already registered. Please sign in instead.
         invitation:
           attributes:
             email:
@@ -537,6 +541,13 @@ en:
     update:
       successfully_updated: Idea was successfully updated.
   identity_mailer:
+    email_change_confirmation:
+      confirm_email_change: Confirm your email change
+      email_change_requested: You requested to change your email address to %{email}. Click the link below to confirm this change.
+      greeting: Hey there,
+      ignore_if_not_you: If you did not request this change, you can safely ignore this email.
+      must_click_to_confirm: You must click the link below to confirm your new email address.
+      yes_change_my_email_to_this_address: Yes, change my email to this address
     email_verification:
       verify_your_email: Verify your email
     password_reset:
@@ -795,8 +806,8 @@ en:
         disconnected_successfully: Your connected account has been disconnected successfully.
     emails:
       update:
-        email_changed: Your email address has been changed.
         email_has_not_changed: You provided the same email address, nothing has changed.
+        verification_email_sent: We've sent a verification link to your new email address. Please check your inbox.
     header:
       account: Account
       active_sessions: Active Sessions
@@ -856,10 +867,21 @@ en:
       reply_to: Reply to
     destroy:
       user_deleted: Your account has been deleted.
+    email_change_confirmations:
+      invalid_or_expired_token: That email change link is invalid or has expired.
+      show:
+        email_change_failed: Email change could not be completed. Please try again.
+        email_changed_successfully: Your email address has been changed successfully.
     email_verifications:
       create:
         email_verification_sent: We've sent you an email with a link to verify your email address
       invalid_token: That email verification link is invalid or has expired
+      pending:
+        brand_name: FeedbackBin
+        check_your_email: Check your email
+        didnt_receive_email: Didn't receive the email? Sign in and we'll send another one.
+        sign_in: Sign in
+        verification_instructions: We've sent you an email with a link to verify your email address. Please check your inbox and click the link to complete your registration.
       show:
         email_verified: Thank you for verifying your email address
     ideas_tab:
@@ -916,6 +938,7 @@ en:
       create:
         rate_limited: Please try again later.
         signed_up_successfully: Welcome! You have signed up successfully.
+        verification_email_sent: We've sent you an email to verify your address. Please check your inbox to complete your registration.
       joined_account: You've joined %{account_name}. Welcome!
       new:
         already_have_an_account: Already have an account?
