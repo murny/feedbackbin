@@ -11,6 +11,8 @@ module UserSettings
     end
 
     test "should send verification email when updating email" do
+      original_email = @identity.email_address
+
       assert_enqueued_emails 1 do
         patch user_settings_email_url, params: { identity: { email_address: "new_email@example.com", password_challenge: "secret123456" } }
       end
@@ -19,7 +21,7 @@ module UserSettings
       assert_equal "We've sent a verification link to your new email address. Please check your inbox.", flash[:notice]
 
       # Email should not be changed yet
-      assert_equal @identity.reload.email_address, @identity.email_address
+      assert_equal original_email, @identity.reload.email_address
     end
 
     test "should not allow changing to an already taken email" do

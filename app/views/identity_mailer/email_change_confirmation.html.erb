@@ -1,9 +1,9 @@
-<p>Hey there,</p>
+<p><%= t(".greeting") %></p>
 
-<p>You requested to change your email address to <%= @new_email %>. Click the link below to confirm this change.</p>
+<p><%= t(".email_change_requested", email: @new_email) %></p>
 
-<p><strong>You must click the link below to confirm your new email address.</strong></p>
+<p><strong><%= t(".must_click_to_confirm") %></strong></p>
 
-<p><%= link_to "Yes, change my email to this address", @url %></p>
+<p><%= link_to t(".yes_change_my_email_to_this_address"), @url %></p>
 
-<p>If you did not request this change, you can safely ignore this email.</p>
+<p><%= t(".ignore_if_not_you") %></p>
