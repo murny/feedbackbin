@@ -15,6 +15,11 @@ module UserSettings
 
       new_email = email_change_params[:email_address].to_s.strip.downcase.presence
 
+      if new_email.blank?
+        @identity.errors.add(:email_address, :blank)
+        return render "user_settings/accounts/show", status: :unprocessable_entity
+      end
+
       if new_email == @identity.email_address
         redirect_to user_settings_account_path, notice: t(".email_has_not_changed")
       elsif Identity.exists?(email_address: new_email)
