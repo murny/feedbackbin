@@ -15,6 +15,10 @@ class AuthenticationTest < ApplicationSystemTestCase
     visit sign_in_url(script_name: nil)
 
     fill_in "Email", with: @user.identity.email_address
+
+    # Switch to password mode (magic link is default)
+    click_link "Or sign in with password"
+
     fill_in "Password", with: "secret123456"
 
     click_button "Sign in"
@@ -41,6 +45,10 @@ class AuthenticationTest < ApplicationSystemTestCase
     visit sign_in_url(script_name: @account.slug)
 
     fill_in "Email", with: @user.identity.email_address
+
+    # Switch to password mode (magic link is default)
+    click_link "Or sign in with password"
+
     fill_in "Password", with: "secret123456"
 
     click_button "Sign in"
