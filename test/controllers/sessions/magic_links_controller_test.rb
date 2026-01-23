@@ -12,12 +12,12 @@ class Sessions::MagicLinksControllerTest < ActionDispatch::IntegrationTest
   test "show redirects without pending authentication" do
     get session_magic_link_url
 
-    assert_redirected_to magic_sign_in_path
+    assert_redirected_to sign_in_path
     assert_equal "Enter your email address to sign in.", flash[:alert]
   end
 
   test "show displays code entry form with pending authentication" do
-    post magic_session_url, params: { email_address: @identity.email_address }
+    post session_magic_link_requests_url, params: { email_address: @identity.email_address }
     get session_magic_link_url
 
     assert_response :success
@@ -26,7 +26,7 @@ class Sessions::MagicLinksControllerTest < ActionDispatch::IntegrationTest
   test "create with valid code signs in user" do
     magic_link = @identity.send_magic_link
 
-    post magic_session_url, params: { email_address: @identity.email_address }
+    post session_magic_link_requests_url, params: { email_address: @identity.email_address }
     post session_magic_link_url, params: { code: magic_link.code }
 
     assert_response :redirect
@@ -37,7 +37,7 @@ class Sessions::MagicLinksControllerTest < ActionDispatch::IntegrationTest
   test "create with sign up code redirects to sign up" do
     magic_link = @identity.send_magic_link(for: :sign_up)
 
-    post magic_session_url, params: { email_address: @identity.email_address }
+    post session_magic_link_requests_url, params: { email_address: @identity.email_address }
     post session_magic_link_url, params: { code: magic_link.code }
 
     assert_redirected_to signup_path
@@ -48,15 +48,15 @@ class Sessions::MagicLinksControllerTest < ActionDispatch::IntegrationTest
     other_identity = identities(:john)
     magic_link = other_identity.send_magic_link
 
-    post magic_session_url, params: { email_address: @identity.email_address }
+    post session_magic_link_requests_url, params: { email_address: @identity.email_address }
     post session_magic_link_url, params: { code: magic_link.code }
 
-    assert_redirected_to magic_sign_in_path
+    assert_redirected_to sign_in_path
     assert_nil cookies[:session_token]
   end
 
   test "create with invalid code shows error" do
-    post magic_session_url, params: { email_address: @identity.email_address }
+    post session_magic_link_requests_url, params: { email_address: @identity.email_address }
     post session_magic_link_url, params: { code: "INVALID" }
 
     assert_redirected_to session_magic_link_path
@@ -67,7 +67,7 @@ class Sessions::MagicLinksControllerTest < ActionDispatch::IntegrationTest
     magic_link = @identity.send_magic_link
     magic_link.update_column(:expires_at, 1.hour.ago)
 
-    post magic_session_url, params: { email_address: @identity.email_address }
+    post session_magic_link_requests_url, params: { email_address: @identity.email_address }
     post session_magic_link_url, params: { code: magic_link.code }
 
     assert_redirected_to session_magic_link_path
@@ -79,7 +79,7 @@ class Sessions::MagicLinksControllerTest < ActionDispatch::IntegrationTest
   test "create via JSON with valid code" do
     magic_link = @identity.send_magic_link
 
-    post magic_session_url(format: :json), params: { email_address: @identity.email_address }
+    post session_magic_link_requests_url(format: :json), params: { email_address: @identity.email_address }
     post session_magic_link_url(format: :json), params: { code: magic_link.code }
 
     assert_response :success
@@ -96,7 +96,7 @@ class Sessions::MagicLinksControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "create via JSON with invalid code" do
-    post magic_session_url(format: :json), params: { email_address: @identity.email_address }
+    post session_magic_link_requests_url(format: :json), params: { email_address: @identity.email_address }
     post session_magic_link_url(format: :json), params: { code: "INVALID" }
 
     assert_response :unauthorized
@@ -107,7 +107,7 @@ class Sessions::MagicLinksControllerTest < ActionDispatch::IntegrationTest
     other_identity = identities(:john)
     magic_link = other_identity.send_magic_link
 
-    post magic_session_url(format: :json), params: { email_address: @identity.email_address }
+    post session_magic_link_requests_url(format: :json), params: { email_address: @identity.email_address }
     post session_magic_link_url(format: :json), params: { code: magic_link.code }
 
     assert_response :unauthorized
@@ -118,7 +118,7 @@ class Sessions::MagicLinksControllerTest < ActionDispatch::IntegrationTest
     magic_link = @identity.send_magic_link
 
     travel_to 20.minutes.ago do
-      post magic_session_url(format: :json), params: { email_address: @identity.email_address }
+      post session_magic_link_requests_url(format: :json), params: { email_address: @identity.email_address }
     end
 
     post session_magic_link_url(format: :json), params: { code: magic_link.code }
@@ -135,7 +135,7 @@ class Sessions::MagicLinksControllerTest < ActionDispatch::IntegrationTest
 
     # Simulate coming from a protected page by setting return_to
     untenanted do
-      post magic_session_url, params: { email_address: @identity.email_address, return_to: return_url }
+      post session_magic_link_requests_url, params: { email_address: @identity.email_address, return_to: return_url }
       post session_magic_link_url, params: { code: magic_link.code }
     end
 
@@ -151,7 +151,7 @@ class Sessions::MagicLinksControllerTest < ActionDispatch::IntegrationTest
 
     # Sign in via magic link (untenanted)
     untenanted do
-      post magic_session_url, params: { email_address: new_identity.email_address }
+      post session_magic_link_requests_url, params: { email_address: new_identity.email_address }
       post session_magic_link_url, params: { code: magic_link.code }
     end
 
@@ -178,7 +178,7 @@ class Sessions::MagicLinksControllerTest < ActionDispatch::IntegrationTest
 
     # Sign in via magic link (untenanted)
     untenanted do
-      post magic_session_url, params: { email_address: @identity.email_address }
+      post session_magic_link_requests_url, params: { email_address: @identity.email_address }
       post session_magic_link_url, params: { code: magic_link.code }
     end
 

@@ -33,32 +33,69 @@
           <span class="bg-card text-muted-foreground relative z-10 px-2"><%= t(".or_continue_with") %></span>
         </div>
 
-        <%= form_with url: session_path, class: "grid gap-6" do |form| %>
-          <div class="grid gap-3">
-            <%= form.label :email_address, t(".email"), class: "text-sm font-medium leading-none" %>
-            <%= form.email_field :email_address,
+        <div data-controller="tabs email-sync" data-tabs-index-value="<%= @mode == :password ? 1 : 0 %>">
+          <% if flash[:alert].present? %>
+            <div class="mb-6 rounded-md border border-destructive/50 bg-destructive/10 px-4 py-3 text-center text-sm text-destructive" role="alert">
+              <%= flash[:alert] %>
+            </div>
+            <% flash.delete(:alert) %>
+          <% end %>
+
+          <%# Shared email field (outside panels) %>
+          <div class="grid gap-3 mb-6">
+            <%= label_tag :email_address, t(".email"), class: "text-sm font-medium leading-none" %>
+            <%= email_field_tag :email_address, params[:email_address],
                   required: true,
                   autofocus: true,
                   autocomplete: "email",
                   placeholder: t(".email_address_placeholder"),
-                  value: params[:email_address] %>
+                  class: "border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-hidden focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm",
+                  data: { email_sync_target: "source" } %>
           </div>
 
-          <div class="grid gap-3">
-            <div class="flex items-center">
-              <%= form.label :password, t(".password"), class: "text-sm font-medium leading-none" %>
-              <%= link_to t(".forgot_your_password"), new_users_password_reset_path(script_name: nil), class: "ml-auto text-sm underline-offset-4 hover:underline" %>
-            </div>
-            <%= form.password_field :password,
-                  required: true,
-                  autocomplete: "current-password",
-                  placeholder: t(".password_placeholder"),
-                  minlength: Identity::MIN_PASSWORD_LENGTH,
-                  maxlength: Identity::MAX_PASSWORD_LENGTH %>
+          <%# Magic Link Panel (index 0, shown by default) %>
+          <div data-tabs-target="panel" class="<%= "hidden" if @mode == :password %>">
+            <%= form_with url: session_magic_link_requests_path, data: { action: "submit->email-sync#sync" } do |form| %>
+              <%= form.hidden_field :email_address, data: { email_sync_target: "destination" } %>
+              <%= form.submit t(".send_magic_link"), class: "btn w-full" %>
+            <% end %>
+
+            <p class="text-center text-sm mt-6">
+              <%= link_to t(".or_sign_in_with_password"), "#",
+                    data: { tabs_target: "tab", action: "tabs#change", index: 1 },
+                    class: "underline underline-offset-4" %>
+            </p>
           </div>
 
-          <%= form.submit t(".sign_in"), class: "btn w-full" %>
-        <% end %>
+          <%# Password Panel (index 1, hidden by default) %>
+          <div data-tabs-target="panel" class="<%= "hidden" unless @mode == :password %>">
+            <%= form_with url: session_path, data: { action: "submit->email-sync#sync" } do |form| %>
+              <%= form.hidden_field :email_address, data: { email_sync_target: "destination" } %>
+
+              <div class="grid gap-3 mb-6">
+                <div class="flex items-center">
+                  <%= form.label :password, t(".password"), class: "text-sm font-medium leading-none" %>
+                  <%= link_to t(".forgot_your_password"), new_users_password_reset_path(script_name: nil),
+                        class: "ml-auto text-sm underline-offset-4 hover:underline" %>
+                </div>
+                <%= form.password_field :password,
+                      required: true,
+                      autocomplete: "current-password",
+                      placeholder: t(".password_placeholder"),
+                      minlength: Identity::MIN_PASSWORD_LENGTH,
+                      maxlength: Identity::MAX_PASSWORD_LENGTH %>
+              </div>
+
+              <%= form.submit t(".sign_in"), class: "btn w-full" %>
+            <% end %>
+
+            <p class="text-center text-sm mt-6">
+              <%= link_to t(".or_use_magic_link"), "#",
+                    data: { tabs_target: "tab", action: "tabs#change", index: 0 },
+                    class: "underline underline-offset-4" %>
+            </p>
+          </div>
+        </div>
 
         <% if Current.account.present? %>
           <p class="text-center text-sm">
@@ -71,10 +108,6 @@
             <%= link_to t(".sign_up"), signup_path(script_name: nil), class: "underline underline-offset-4" %>
           </p>
         <% end %>
-
-        <p class="text-center text-sm">
-          <%= link_to t(".sign_in_with_magic_link"), magic_sign_in_path(script_name: nil), class: "underline underline-offset-4" %>
-        </p>
       </div>
     </div>
 

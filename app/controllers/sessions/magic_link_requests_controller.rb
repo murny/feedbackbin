@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-module Users
+module Sessions
   # Magic link request controller.
   # Sends magic link email for passwordless authentication.
-  class MagicSessionsController < ApplicationController
+  class MagicLinkRequestsController < ApplicationController
     include Authentication::ViaMagicLink
 
     disallow_account_scope
@@ -14,10 +14,6 @@ module Users
     layout "auth"
 
     rate_limit to: 10, within: 3.minutes, only: :create, with: -> { rate_limit_exceeded }
-
-    def new
-      store_return_to_url
-    end
 
     def create
       store_return_to_url
@@ -37,7 +33,7 @@ module Users
 
       def rate_limit_exceeded
         respond_to do |format|
-          format.html { redirect_to magic_sign_in_path, alert: t(".rate_limited") }
+          format.html { redirect_to sign_in_path, alert: t(".rate_limited") }
           format.json { render json: { message: t(".rate_limited") }, status: :too_many_requests }
         end
       end

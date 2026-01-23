@@ -41,8 +41,8 @@ class SessionsControllerTest < ActionDispatch::IntegrationTest
     untenanted do
       post session_url, params: { email_address: @user.identity.email_address, password: "SecretWrong1*3" }
 
-      assert_redirected_to sign_in_url
-      assert_equal "Try another email address or password.", flash[:alert]
+      assert_response :unprocessable_entity
+      assert_select "[role=alert]", text: /Try another email address or password/
       assert_nil cookies[:session_token]
     end
   end
