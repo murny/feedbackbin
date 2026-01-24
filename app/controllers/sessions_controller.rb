@@ -22,7 +22,9 @@ class SessionsController < ApplicationController
       start_new_session_for(identity)
       redirect_to after_authentication_url, notice: t(".signed_in_successfully")
     else
-      redirect_to sign_in_path, alert: t(".invalid_credentials")
+      flash.now[:alert] = t(".invalid_credentials")
+      @mode = :password
+      render :new, status: :unprocessable_entity
     end
   end
 

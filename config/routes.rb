@@ -20,12 +20,9 @@ Rails.application.routes.draw do
     scope module: :sessions do
       resource :menu, only: [ :show ]
       resource :magic_link, only: [ :show, :create ]
+      resources :magic_link_requests, only: [ :create ]
     end
   end
-
-  # Magic link authentication
-  get "magic_sign_in", to: "users/magic_sessions#new"
-  post "magic_session", to: "users/magic_sessions#create"
 
   # OAuth callbacks (untenanted only - disallow_account_scope)
   get "/auth/failure", to: "users/omniauth#failure"

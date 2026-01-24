@@ -662,6 +662,9 @@ en:
       signed_in_successfully: You have signed in successfully.
     destroy:
       signed_out_successfully: You have signed out successfully.
+    magic_link_requests:
+      rate_limit_exceeded:
+        rate_limited: Too many requests. Please try again later.
     magic_links:
       email_address_mismatch:
         something_went_wrong: Something went wrong. Please try again.
@@ -700,12 +703,14 @@ en:
       login_with_social: Login with your Google or Facebook account
       need_an_account: Need an account?
       or_continue_with: Or continue with
+      or_sign_in_with_password: Or sign in with password
+      or_use_magic_link: Or use magic link
       password: Password
       password_placeholder: Enter your password
       privacy_policy: Privacy Policy
+      send_magic_link: Send magic link
       sign_in: Sign in
       sign_in_to_participate: Sign in to participate in %{account_name}
-      sign_in_with_magic_link: Sign in with magic link
       sign_up: Sign up
       terms_agreement_html: By clicking continue, you agree to our %{terms_link} and %{privacy_link}.
       terms_of_service: Terms of Service
@@ -886,22 +891,6 @@ en:
         email_verified: Thank you for verifying your email address
     ideas_tab:
       empty_ideas: No ideas yet.
-    magic_sessions:
-      new:
-        brand_name: FeedbackBin
-        email: Email
-        email_placeholder: Enter your email address
-        prefer_password: Prefer password?
-        privacy_policy: Privacy Policy
-        send_magic_link: Send magic link
-        sign_in_with_magic_link: Sign in with magic link
-        sign_in_with_password: Sign in with password
-        subtitle: We'll email you a verification code
-        terms_agreement_html: By clicking continue, you agree to our %{terms_link} and %{privacy_link}.
-        terms_of_service: Terms of Service
-        title: Sign in with magic link
-      rate_limit_exceeded:
-        rate_limited: Please try again later.
     omniauth:
       create:
         already_connected: This %{provider} account is already connected to your account.
