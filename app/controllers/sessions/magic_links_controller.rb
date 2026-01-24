@@ -1,17 +1,15 @@
 # frozen_string_literal: true
 
 # Magic link verification controller.
-# Authentication is global (untenanted). User provisioning for accounts
-# happens via ensure_account_user when entering tenant scope.
+# Works in both tenant and non-tenant contexts.
 class Sessions::MagicLinksController < ApplicationController
   include Authentication::ViaMagicLink
+  include AuthLayout
 
-  disallow_account_scope
+  skip_before_action :require_account
   require_unauthenticated_access
 
   skip_after_action :verify_authorized
-
-  layout "auth"
 
   rate_limit to: 10, within: 15.minutes, only: :create, with: -> { rate_limit_exceeded }
 

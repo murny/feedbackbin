@@ -674,7 +674,6 @@ en:
       rate_limit_exceeded:
         rate_limited: Too many attempts. Try again in 15 minutes.
       show:
-        brand_name: FeedbackBin
         check_your_email: Check your email
         code_expires_in: Expires in %{time}
         code_placeholder: "••••••"
@@ -687,7 +686,6 @@ en:
         signed_in_successfully: You have signed in successfully.
     menus:
       show:
-        brand_name: FeedbackBin
         choose_account_to_continue: Choose an account to continue
         create_account: Create Account
         no_accounts: No Accounts
@@ -696,7 +694,6 @@ en:
         sign_out: Sign out
         signed_in_as: Signed in as %{email}
     new:
-      brand_name: FeedbackBin
       email: Email
       email_address_placeholder: Enter your email address
       forgot_your_password: Forgot your password?
@@ -882,7 +879,6 @@ en:
         email_verification_sent: We've sent you an email with a link to verify your email address
       invalid_token: That email verification link is invalid or has expired
       pending:
-        brand_name: FeedbackBin
         check_your_email: Check your email
         didnt_receive_email: Didn't receive the email? Sign in and we'll send another one.
         sign_in: Sign in

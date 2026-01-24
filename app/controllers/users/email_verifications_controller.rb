@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
 module Users
+  # Email verification controller.
+  # Works in both tenant and non-tenant contexts.
   class EmailVerificationsController < ApplicationController
-    disallow_account_scope
+    include AuthLayout
+
+    skip_before_action :require_account
     allow_unauthenticated_access only: %i[show pending]
     skip_after_action :verify_authorized
-
-    layout "auth", only: :pending
 
     before_action :set_identity, only: :show
 

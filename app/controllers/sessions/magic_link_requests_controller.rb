@@ -3,15 +3,15 @@
 module Sessions
   # Magic link request controller.
   # Sends magic link email for passwordless authentication.
+  # Works in both tenant and non-tenant contexts.
   class MagicLinkRequestsController < ApplicationController
     include Authentication::ViaMagicLink
+    include AuthLayout
 
-    disallow_account_scope
+    skip_before_action :require_account
     require_unauthenticated_access
 
     skip_after_action :verify_authorized
-
-    layout "auth"
 
     rate_limit to: 10, within: 3.minutes, only: :create, with: -> { rate_limit_exceeded }
 

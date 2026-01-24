@@ -1,15 +1,16 @@
 # frozen_string_literal: true
 
 # Session controller for Identity authentication.
-# Authentication is global (untenanted). User provisioning for accounts
-# happens via ensure_account_user when entering tenant scope.
+# Works in both tenant and non-tenant contexts:
+# - Non-tenant: FeedbackBin branding, redirects to account menu after sign-in
+# - Tenant: Org branding with navbar/footer, redirects to tenant root after sign-in
 class SessionsController < ApplicationController
-  disallow_account_scope
+  include AuthLayout
+
+  skip_before_action :require_account
   require_unauthenticated_access only: %i[new create]
 
   skip_after_action :verify_authorized
-
-  layout "auth"
 
   rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to sign_in_path, alert: t("sessions.create.rate_limited") }
 

@@ -1,0 +1,12 @@
+<%# locals: () %>
+<% if Current.account.present? %>
+  <%= link_to root_path, class: "flex items-center gap-2 self-center font-medium" do %>
+    <%= account_logo(Current.account, class: "h-8 w-8") %>
+    <span class="font-bold text-primary text-xl"><%= Current.account.name %></span>
+  <% end %>
+<% else %>
+  <div class="flex items-center gap-2 self-center font-medium">
+    <%= inline_svg_tag "mark.svg", class: "h-8 w-8 text-blue-500" %>
+    <span class="font-bold text-blue-500">FeedbackBin</span>
+  </div>
+<% end %>

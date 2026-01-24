@@ -1,120 +1,108 @@
 <% content_for(:title) { t(".sign_in") } %>
 
-<div class="flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
-  <div class="flex w-full max-w-sm flex-col gap-6">
-    <% if Current.account.present? %>
-      <%= link_to root_path, class: "flex items-center gap-2 self-center font-medium" do %>
-        <%= account_logo(Current.account, class: "h-8 w-8") %>
-        <span class="font-bold text-primary text-xl"><%= Current.account.name %></span>
-      <% end %>
-    <% else %>
-      <div class="flex items-center gap-2 self-center font-medium">
-        <%= inline_svg_tag "mark.svg", class: "h-8 w-8 text-blue-500" %>
-        <span class="font-bold text-blue-500"><%= t(".brand_name") %></span>
-      </div>
-    <% end %>
+<div class="mx-auto w-full max-w-sm flex flex-col gap-6">
+  <%= render "shared/auth_branding" %>
 
-    <div class="card flex flex-col gap-6 py-6">
-      <header class="px-6 text-center space-y-1.5">
-        <h1 class="font-semibold text-xl"><%= t(".welcome_back") %></h1>
-        <p class="text-muted-foreground text-sm">
-          <% if Current.account.present? %>
-            <%= t(".sign_in_to_participate", account_name: Current.account.name) %>
-          <% else %>
-            <%= t(".login_with_social") %>
-          <% end %>
-        </p>
-      </header>
-
-      <div class="px-6 grid gap-6">
-        <%= render "oauth_providers" %>
-
-        <div class="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
-          <span class="bg-card text-muted-foreground relative z-10 px-2"><%= t(".or_continue_with") %></span>
-        </div>
-
-        <div data-controller="tabs email-sync" data-tabs-index-value="<%= @mode == :password ? 1 : 0 %>">
-          <% if flash[:alert].present? %>
-            <div class="mb-6 rounded-md border border-destructive/50 bg-destructive/10 px-4 py-3 text-center text-sm text-destructive" role="alert">
-              <%= flash[:alert] %>
-            </div>
-            <% flash.delete(:alert) %>
-          <% end %>
-
-          <%# Shared email field (outside panels) %>
-          <div class="grid gap-3 mb-6">
-            <%= label_tag :email_address, t(".email"), class: "text-sm font-medium leading-none" %>
-            <%= email_field_tag :email_address, params[:email_address],
-                  required: true,
-                  autofocus: true,
-                  autocomplete: "email",
-                  placeholder: t(".email_address_placeholder"),
-                  class: "border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-hidden focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm",
-                  data: { email_sync_target: "source" } %>
-          </div>
-
-          <%# Magic Link Panel (index 0, shown by default) %>
-          <div data-tabs-target="panel" class="<%= "hidden" if @mode == :password %>">
-            <%= form_with url: session_magic_link_requests_path, data: { action: "submit->email-sync#sync" } do |form| %>
-              <%= form.hidden_field :email_address, data: { email_sync_target: "destination" } %>
-              <%= form.submit t(".send_magic_link"), class: "btn w-full" %>
-            <% end %>
-
-            <p class="text-center text-sm mt-6">
-              <%= link_to t(".or_sign_in_with_password"), "#",
-                    data: { tabs_target: "tab", action: "tabs#change", index: 1 },
-                    class: "underline underline-offset-4" %>
-            </p>
-          </div>
-
-          <%# Password Panel (index 1, hidden by default) %>
-          <div data-tabs-target="panel" class="<%= "hidden" unless @mode == :password %>">
-            <%= form_with url: session_path, data: { action: "submit->email-sync#sync" } do |form| %>
-              <%= form.hidden_field :email_address, data: { email_sync_target: "destination" } %>
-
-              <div class="grid gap-3 mb-6">
-                <div class="flex items-center">
-                  <%= form.label :password, t(".password"), class: "text-sm font-medium leading-none" %>
-                  <%= link_to t(".forgot_your_password"), new_users_password_reset_path(script_name: nil),
-                        class: "ml-auto text-sm underline-offset-4 hover:underline" %>
-                </div>
-                <%= form.password_field :password,
-                      required: true,
-                      autocomplete: "current-password",
-                      placeholder: t(".password_placeholder"),
-                      minlength: Identity::MIN_PASSWORD_LENGTH,
-                      maxlength: Identity::MAX_PASSWORD_LENGTH %>
-              </div>
-
-              <%= form.submit t(".sign_in"), class: "btn w-full" %>
-            <% end %>
-
-            <p class="text-center text-sm mt-6">
-              <%= link_to t(".or_use_magic_link"), "#",
-                    data: { tabs_target: "tab", action: "tabs#change", index: 0 },
-                    class: "underline underline-offset-4" %>
-            </p>
-          </div>
-        </div>
-
+  <div class="card flex flex-col gap-6 py-6">
+    <header class="px-6 text-center space-y-1.5">
+      <h1 class="font-semibold text-xl"><%= t(".welcome_back") %></h1>
+      <p class="text-muted-foreground text-sm">
         <% if Current.account.present? %>
-          <p class="text-center text-sm">
-            <%= t(".need_an_account") %>
-            <%= link_to t(".sign_up"), users_sign_up_path, class: "underline underline-offset-4" %>
-          </p>
-        <% elsif Account.accepting_signups? %>
-          <p class="text-center text-sm">
-            <%= t(".need_an_account") %>
-            <%= link_to t(".sign_up"), signup_path(script_name: nil), class: "underline underline-offset-4" %>
-          </p>
+          <%= t(".sign_in_to_participate", account_name: Current.account.name) %>
+        <% else %>
+          <%= t(".login_with_social") %>
         <% end %>
-      </div>
-    </div>
+      </p>
+    </header>
 
-    <p class="text-muted-foreground text-center text-xs text-balance">
-      <%= t(".terms_agreement_html",
-            terms_link: link_to(t(".terms_of_service"), terms_path(script_name: nil), class: "hover:text-primary underline underline-offset-4"),
-            privacy_link: link_to(t(".privacy_policy"), privacy_path(script_name: nil), class: "hover:text-primary underline underline-offset-4")) %>
-    </p>
+    <div class="px-6 grid gap-6">
+      <%= render "oauth_providers" %>
+
+      <div class="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
+        <span class="bg-card text-muted-foreground relative z-10 px-2"><%= t(".or_continue_with") %></span>
+      </div>
+
+      <div data-controller="tabs email-sync" data-tabs-index-value="<%= @mode == :password ? 1 : 0 %>">
+        <% if flash[:alert].present? %>
+          <div class="mb-6 rounded-md border border-destructive/50 bg-destructive/10 px-4 py-3 text-center text-sm text-destructive" role="alert">
+            <%= flash[:alert] %>
+          </div>
+          <% flash.delete(:alert) %>
+        <% end %>
+
+        <%# Shared email field (outside panels) %>
+        <div class="grid gap-3 mb-6">
+          <%= label_tag :email_address, t(".email"), class: "text-sm font-medium leading-none" %>
+          <%= email_field_tag :email_address, params[:email_address],
+                required: true,
+                autofocus: true,
+                autocomplete: "email",
+                placeholder: t(".email_address_placeholder"),
+                class: "border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-hidden focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm",
+                data: { email_sync_target: "source" } %>
+        </div>
+
+        <%# Magic Link Panel (index 0, shown by default) %>
+        <div data-tabs-target="panel" class="<%= "hidden" if @mode == :password %>">
+          <%= form_with url: session_magic_link_requests_path, data: { action: "submit->email-sync#sync" } do |form| %>
+            <%= form.hidden_field :email_address, data: { email_sync_target: "destination" } %>
+            <%= form.submit t(".send_magic_link"), class: "btn w-full" %>
+          <% end %>
+
+          <p class="text-center text-sm mt-6">
+            <%= link_to t(".or_sign_in_with_password"), "#",
+                  data: { tabs_target: "tab", action: "tabs#change", index: 1 },
+                  class: "underline underline-offset-4" %>
+          </p>
+        </div>
+
+        <%# Password Panel (index 1, hidden by default) %>
+        <div data-tabs-target="panel" class="<%= "hidden" unless @mode == :password %>">
+          <%= form_with url: session_path, data: { action: "submit->email-sync#sync" } do |form| %>
+            <%= form.hidden_field :email_address, data: { email_sync_target: "destination" } %>
+
+            <div class="grid gap-3 mb-6">
+              <div class="flex items-center">
+                <%= form.label :password, t(".password"), class: "text-sm font-medium leading-none" %>
+                <%= link_to t(".forgot_your_password"), new_users_password_reset_path,
+                      class: "ml-auto text-sm underline-offset-4 hover:underline" %>
+              </div>
+              <%= form.password_field :password,
+                    required: true,
+                    autocomplete: "current-password",
+                    placeholder: t(".password_placeholder"),
+                    minlength: Identity::MIN_PASSWORD_LENGTH,
+                    maxlength: Identity::MAX_PASSWORD_LENGTH %>
+            </div>
+
+            <%= form.submit t(".sign_in"), class: "btn w-full" %>
+          <% end %>
+
+          <p class="text-center text-sm mt-6">
+            <%= link_to t(".or_use_magic_link"), "#",
+                  data: { tabs_target: "tab", action: "tabs#change", index: 0 },
+                  class: "underline underline-offset-4" %>
+          </p>
+        </div>
+      </div>
+
+      <% if Current.account.present? %>
+        <p class="text-center text-sm">
+          <%= t(".need_an_account") %>
+          <%= link_to t(".sign_up"), users_sign_up_path, class: "underline underline-offset-4" %>
+        </p>
+      <% elsif Account.accepting_signups? %>
+        <p class="text-center text-sm">
+          <%= t(".need_an_account") %>
+          <%= link_to t(".sign_up"), signup_path(script_name: nil), class: "underline underline-offset-4" %>
+        </p>
+      <% end %>
+    </div>
   </div>
+
+  <p class="text-muted-foreground text-center text-xs text-balance">
+    <%= t(".terms_agreement_html",
+          terms_link: link_to(t(".terms_of_service"), terms_path(script_name: nil), class: "hover:text-primary underline underline-offset-4"),
+          privacy_link: link_to(t(".privacy_policy"), privacy_path(script_name: nil), class: "hover:text-primary underline underline-offset-4")) %>
+  </p>
 </div>

@@ -1,45 +1,33 @@
 <% content_for(:title) { t(".forgot_your_password") } %>
 
-<div class="flex min-h-svh flex-col items-center justify-center gap-6 p-6 md:p-10">
-  <div class="flex w-full max-w-sm flex-col gap-6">
-    <% if Current.account.present? %>
-      <%= link_to root_path, class: "flex items-center gap-2 self-center font-medium" do %>
-        <%= account_logo(Current.account, class: "h-8 w-8") %>
-        <span class="font-bold text-primary text-xl"><%= Current.account.name %></span>
+<div class="mx-auto w-full max-w-sm flex flex-col gap-6">
+  <%= render "shared/auth_branding" %>
+
+  <div class="card flex flex-col gap-6 py-6">
+    <header class="px-6 text-center space-y-1.5">
+      <h1 class="font-semibold text-xl"><%= t(".forgot_your_password") %></h1>
+      <p class="text-muted-foreground text-sm text-balance"><%= t(".description") %></p>
+    </header>
+
+    <div class="px-6 grid gap-4">
+      <%= form_with url: users_password_resets_path, class: "grid gap-6" do |form| %>
+        <div class="grid gap-3">
+          <%= form.label :email_address, t(".email"), class: "text-sm font-medium leading-none" %>
+          <%= form.email_field :email_address,
+                               required: true,
+                               autofocus: true,
+                               autocomplete: "email",
+                               placeholder: t(".email_address_placeholder"),
+                               value: params[:email_address] %>
+        </div>
+
+        <%= form.submit t(".send_reset_instructions"), class: "btn w-full" %>
       <% end %>
-    <% else %>
-      <div class="flex items-center gap-2 self-center font-medium">
-        <%= inline_svg_tag "mark.svg", class: "h-8 w-8 text-blue-500" %>
-        <span class="font-bold text-blue-500">FeedbackBin</span>
-      </div>
-    <% end %>
 
-    <div class="card flex flex-col gap-6 py-6">
-      <header class="px-6 text-center space-y-1.5">
-        <h1 class="font-semibold text-xl"><%= t(".forgot_your_password") %></h1>
-        <p class="text-muted-foreground text-sm text-balance"><%= t(".description") %></p>
-      </header>
-
-      <div class="px-6 grid gap-4">
-        <%= form_with url: users_password_resets_path, class: "grid gap-6" do |form| %>
-          <div class="grid gap-3">
-            <%= form.label :email_address, t(".email"), class: "text-sm font-medium leading-none" %>
-            <%= form.email_field :email_address,
-                                 required: true,
-                                 autofocus: true,
-                                 autocomplete: "email",
-                                 placeholder: t(".email_address_placeholder"),
-                                 value: params[:email_address] %>
-          </div>
-
-          <%= form.submit t(".send_reset_instructions"), class: "btn w-full" %>
-        <% end %>
-
-        <p class="text-center text-sm py-2 px-4">
-          <%= t(".remember_password") %>
-          <%= link_to t("sessions.new.sign_in"), sign_in_path, class: "underline underline-offset-4" %>
-        </p>
-      </div>
+      <p class="text-center text-sm py-2 px-4">
+        <%= t(".remember_password") %>
+        <%= link_to t("sessions.new.sign_in"), sign_in_path, class: "underline underline-offset-4" %>
+      </p>
     </div>
   </div>
 </div>
