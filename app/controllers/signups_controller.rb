@@ -4,7 +4,7 @@
 # This creates both the Account and the owner Identity/User.
 # For registering as a User within an existing Account, see Users::RegistrationsController.
 class SignupsController < ApplicationController
-  layout "auth"
+  include AuthLayout
 
   disallow_account_scope
   require_unauthenticated_access

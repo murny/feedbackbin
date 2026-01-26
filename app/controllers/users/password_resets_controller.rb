@@ -1,14 +1,15 @@
 # frozen_string_literal: true
 
 module Users
-  # Password reset controller - Identity-level operation (untenanted).
+  # Password reset controller.
+  # Works in both tenant and non-tenant contexts.
   class PasswordResetsController < ApplicationController
-    disallow_account_scope
+    include AuthLayout
+
+    skip_before_action :require_account
     require_unauthenticated_access
 
     skip_after_action :verify_authorized
-
-    layout "auth"
 
     rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to new_users_password_reset_path, alert: t("users.password_resets.create.rate_limited") }
 

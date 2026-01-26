@@ -5,6 +5,8 @@ module Users
   # Shows account-branded registration page.
   # For creating a new Account (tenant), see SignupsController.
   class RegistrationsController < ApplicationController
+    include AuthLayout
+
     allow_unauthenticated_access
     skip_before_action :ensure_account_user
     before_action :redirect_authenticated_user, only: %i[new create]
