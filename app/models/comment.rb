@@ -14,10 +14,15 @@ class Comment < ApplicationRecord
   has_rich_text :body
 
   validates :body, presence: true
+  validate :parent_must_be_top_level_comment, if: :parent_id?
 
   scope :ordered, -> { order(created_at: :asc) }
 
-  # TODO: Validation for parent_id parent is an Idea (no more than 1 level of nesting of comments)
-  #
-  # TODO: Add turbo stream broadcasts?
+  private
+
+    def parent_must_be_top_level_comment
+      if parent&.parent_id.present?
+        errors.add(:parent_id, :cannot_reply_to_reply)
+      end
+    end
 end

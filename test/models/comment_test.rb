@@ -46,6 +46,23 @@ class CommentTest < ActiveSupport::TestCase
     assert_equal @reply, @comment.replies.first
   end
 
+  test "should not allow replies to replies (max 1 level nesting)" do
+    reply = comments(:reply_one)
+
+    nested_reply = Comment.new(body: "Nested reply", idea: reply.idea, parent: reply, creator: users(:shane))
+
+    assert_not nested_reply.valid?
+    assert_includes nested_reply.errors[:parent_id], "you can only reply to comments, not to other replies"
+  end
+
+  test "should allow reply to top-level comment" do
+    top_level_comment = comments(:one)
+
+    reply = Comment.new(body: "Valid reply", idea: top_level_comment.idea, parent: top_level_comment, creator: users(:shane))
+
+    assert_predicate reply, :valid?
+  end
+
   test "creates event when regular user creates comment" do
     assert_difference "Event.count", 1 do
       Comment.create!(body: "User comment", idea: ideas(:one), creator: users(:shane))

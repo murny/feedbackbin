@@ -1,13 +1,13 @@
 GIT
   remote: https://github.com/basecamp/lexxy.git
-  revision: 0e2f1f5141c365509bf755478019ac7e8e837b72
+  revision: d9b2278589e9bb15ff4ee7b1388dc8465048a779
   specs:
-    lexxy (0.7.2.beta)
+    lexxy (0.7.3.beta)
       rails (>= 8.0.2)
 
 GIT
   remote: https://github.com/rails/rails.git
-  revision: 6f39910d26eb590cb214a0fce5858fe0d7ddfff8
+  revision: 2b4feede1b6ead327b40c3415749de58af896e05
   branch: main
   specs:
     actioncable (8.2.0.alpha)
@@ -382,7 +382,7 @@ GEM
       actionpack (>= 4.2)
       omniauth (~> 2.0)
     ostruct (0.6.3)
-    pagy (43.2.6)
+    pagy (43.2.8)
       json
       yaml
     parallel (1.27.0)
@@ -401,7 +401,7 @@ GEM
       date
       stringio
     public_suffix (7.0.2)
-    puma (7.1.0)
+    puma (7.2.0)
       nio4r (~> 2.0)
     pundit (2.5.2)
       activesupport (>= 3.0.0)
@@ -481,7 +481,7 @@ GEM
       rubocop (>= 1.72)
       rubocop-performance (>= 1.24)
       rubocop-rails (>= 2.30)
-    ruby-lsp (0.26.4)
+    ruby-lsp (0.26.5)
       language_server-protocol (~> 3.17.0)
       prism (>= 1.2, < 2.0)
       rbs (>= 3, < 5)
@@ -759,7 +759,7 @@ CHECKSUMS
   launchy (3.1.1) sha256=72b847b5cc961589dde2c395af0108c86ff0119f42d4648d25b5440ebb10059e
   letter_opener (1.10.0) sha256=2ff33f2e3b5c3c26d1959be54b395c086ca6d44826e8bf41a14ff96fdf1bdbb2
   letter_opener_web (3.0.0) sha256=3f391efe0e8b9b24becfab5537dfb17a5cf5eb532038f947daab58cb4b749860
-  lexxy (0.7.2.beta)
+  lexxy (0.7.3.beta)
   lint_roller (1.1.0) sha256=2c0c845b632a7d172cb849cc90c1bce937a28c5c8ccccb50dfd46a485003cc87
   listen (3.10.0) sha256=c6e182db62143aeccc2e1960033bebe7445309c7272061979bb098d03760c9d2
   logger (1.7.0) sha256=196edec7cc44b66cfb40f9755ce11b392f21f7967696af15d274dde7edff0203
@@ -802,7 +802,7 @@ CHECKSUMS
   omniauth-oauth2 (1.9.0) sha256=ed15f6d9d20991807ce114cc5b9c1453bce3645b64e51c68c90cff5ff153fee8
   omniauth-rails_csrf_protection (2.0.1) sha256=c6e3204d7e3925bb537cb52d50fdfc9f05293f1a9d87c5d4ab4ca3a39ba8c32d
   ostruct (0.6.3) sha256=95a2ed4a4bd1d190784e666b47b2d3f078e4a9efda2fccf18f84ddc6538ed912
-  pagy (43.2.6) sha256=d4c02090727f355a27b27bd9894e5679abc036e081afa011bb306c24ece125e7
+  pagy (43.2.8) sha256=3d38376df4a9a7893361bb68825643896371707c4c49ef73acf1bd3b50af7562
   parallel (1.27.0) sha256=4ac151e1806b755fb4e2dc2332cbf0e54f2e24ba821ff2d3dcf86bf6dc4ae130
   parser (3.3.10.1) sha256=06f6a725d2cd91e5e7f2b7c32ba143631e1f7c8ae2fb918fc4cebec187e6a688
   pp (0.6.3) sha256=2951d514450b93ccfeb1df7d021cae0da16e0a7f95ee1e2273719669d0ab9df6
@@ -811,7 +811,7 @@ CHECKSUMS
   propshaft (1.3.1) sha256=9acc664ef67e819ffa3d95bd7ad4c3623ea799110c5f4dee67fa7e583e74c392
   psych (5.3.1) sha256=eb7a57cef10c9d70173ff74e739d843ac3b2c019a003de48447b2963d81b1974
   public_suffix (7.0.2) sha256=9114090c8e4e7135c1fd0e7acfea33afaab38101884320c65aaa0ffb8e26a857
-  puma (7.1.0) sha256=e45c10cb124f224d448c98db653a75499794edbecadc440ad616cf50f2fd49dd
+  puma (7.2.0) sha256=bf8ef4ab514a4e6d4554cb4326b2004eba5036ae05cf765cfe51aba9706a72a8
   pundit (2.5.2) sha256=e374152baa24f90b630428293faf4b4c5468fc3cc010165f7d8fcb44ce108bbd
   raabro (1.4.0) sha256=d4fa9ff5172391edb92b242eed8be802d1934b1464061ae5e70d80962c5da882
   racc (1.8.1) sha256=4a7f6929691dbec8b5209a0b373bc2614882b55fc5d2e447a21aaa691303d62f
@@ -843,7 +843,7 @@ CHECKSUMS
   rubocop-performance (1.26.1) sha256=cd19b936ff196df85829d264b522fd4f98b6c89ad271fa52744a8c11b8f71834
   rubocop-rails (2.34.3) sha256=10d37989024865ecda8199f311f3faca990143fbac967de943f88aca11eb9ad2
   rubocop-rails-omakase (1.1.0) sha256=2af73ac8ee5852de2919abbd2618af9c15c19b512c4cfc1f9a5d3b6ef009109d
-  ruby-lsp (0.26.4) sha256=1cb3046a066c8f1983dfe5f0cd3baa76034d6ba156e8ab460b15ab129d37a9f7
+  ruby-lsp (0.26.5) sha256=19272659139b292a81a700d78e1b4d8988c4812e96b54fd6c30a21ce5e82b189
   ruby-lsp-rails (0.4.8) sha256=f09d1f926d4063deeb2f3049311925c20dfe6c912371e3bcd04a265a865c44ae
   ruby-progressbar (1.13.0) sha256=80fc9c47a9b640d6834e0dc7b3c94c9df37f08cb072b7761e4a71e22cff29b33
   ruby-vips (2.3.0) sha256=e685ec02c13969912debbd98019e50492e12989282da5f37d05f5471442f5374

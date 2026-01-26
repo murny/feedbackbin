@@ -6,11 +6,11 @@ class VotesController < ApplicationController
     "Comment" => Comment
   }.freeze
 
-  skip_after_action :verify_authorized
-
   before_action :set_voteable
 
   def update
+    authorize @voteable, :show?
+
     respond_to do |format|
       if @voteable.voted_by?(Current.user)
         @voteable.unvote(Current.user)
