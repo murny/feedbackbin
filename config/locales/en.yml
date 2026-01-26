@@ -7,6 +7,10 @@ en:
           attributes:
             boards:
               must_have_at_least_one: must have at least one board
+        comment:
+          attributes:
+            parent_id:
+              cannot_reply_to_reply: you can only reply to comments, not to other replies
         identity:
           attributes:
             email_address:
@@ -19,10 +23,6 @@ en:
           attributes:
             role:
               admin_cannot_be_removed: admin role cannot be removed for the account owner
-        comment:
-          attributes:
-            parent_id:
-              cannot_reply_to_reply: you can only reply to comments, not to other replies
         status:
           attributes:
             base:
