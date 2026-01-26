@@ -74,4 +74,28 @@ class CommentTest < ActiveSupport::TestCase
       Comment.create!(body: "System comment", idea: ideas(:one), creator: users(:system))
     end
   end
+
+  test "auto-watches idea when user comments" do
+    idea = ideas(:two)
+    user = users(:shane)
+
+    assert_not idea.watched_by?(user)
+
+    Comment.create!(body: "Great idea!", idea: idea, creator: user)
+
+    assert idea.reload.watched_by?(user)
+  end
+
+  test "auto-watch is idempotent for existing watchers" do
+    idea = ideas(:one)
+    user = users(:shane)
+
+    assert idea.watched_by?(user)
+
+    assert_no_difference "Watch.count" do
+      Comment.create!(body: "Another comment", idea: idea, creator: user)
+    end
+
+    assert idea.watched_by?(user)
+  end
 end

@@ -16,6 +16,8 @@ class Comment < ApplicationRecord
   validates :body, presence: true
   validate :parent_must_be_top_level_comment, if: :parent_id?
 
+  after_create_commit :watch_idea_by_creator
+
   scope :ordered, -> { order(created_at: :asc) }
 
   private
@@ -24,5 +26,9 @@ class Comment < ApplicationRecord
       if parent&.parent_id.present?
         errors.add(:parent_id, :cannot_reply_to_reply)
       end
+    end
+
+    def watch_idea_by_creator
+      idea.watch_by(creator)
     end
 end

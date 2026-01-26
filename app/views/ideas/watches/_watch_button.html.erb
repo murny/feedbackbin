@@ -1,0 +1,13 @@
+<div id="<%= dom_id(idea, :watch_button) %>">
+  <% if idea.watched_by?(Current.user) %>
+    <%= render Elements::ButtonComponent.new(variant: :outline, href: idea_watch_path(idea), method: :delete) do %>
+      <%= lucide_icon "bell" %>
+      <%= t(".watching") %>
+    <% end %>
+  <% else %>
+    <%= render Elements::ButtonComponent.new(variant: :outline, href: idea_watch_path(idea), method: :post) do %>
+      <%= lucide_icon "bell-off" %>
+      <%= t(".watch") %>
+    <% end %>
+  <% end %>
+</div>

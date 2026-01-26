@@ -10,6 +10,7 @@ module Elements
       size: :default,
       href: nil,
       type: :button,
+      method: nil,
       loading: false,
       **attrs
     )
@@ -17,12 +18,15 @@ module Elements
       @size = validate_option(size, SIZES, "size")
       @href = href
       @type = type
+      @method = method
       @loading = loading
       @attrs = attrs
     end
 
     def call
-      if @href.present?
+      if @href.present? && @method.present?
+        button_to(@href, **button_to_attrs) { content_with_loading }
+      elsif @href.present?
         link_to(@href, **link_attrs) { content_with_loading }
       else
         button_tag(**button_attrs) { content_with_loading }
@@ -74,6 +78,30 @@ module Elements
         attrs[:"aria-busy"] = "true" if @loading
 
         attrs
+      end
+
+      def button_to_attrs
+        attrs = {
+          method: @method,
+          class: button_to_classes,
+          data: @attrs[:data] || {}
+        }
+
+        attrs[:disabled] = true if @loading || @attrs[:disabled]
+        attrs[:"aria-busy"] = "true" if @loading
+
+        attrs
+      end
+
+      def button_to_classes
+        tw_merge(
+          base_classes,
+          variant_classes,
+          size_classes,
+          # Reset default button_to styles
+          "[&>button]:bg-transparent [&>button]:border-0 [&>button]:p-0 [&>button]:m-0 [&>button]:h-auto [&>button]:w-auto",
+          @attrs[:class]
+        )
       end
 
       def button_classes
