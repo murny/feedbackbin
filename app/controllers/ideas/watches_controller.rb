@@ -4,7 +4,6 @@ module Ideas
   class WatchesController < ApplicationController
     include IdeaScoped
 
-    skip_after_action :verify_authorized
 
     def show
       fresh_when etag: @idea.watch_for(Current.user) || "none"

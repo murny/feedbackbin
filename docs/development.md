@@ -153,7 +153,6 @@ automatically in your browser.
 - `app/controllers/` - Request handlers
 - `app/views/` - ERB templates
 - `app/components/` - ViewComponent UI components
-- `app/policies/` - Pundit authorization policies
 - `config/locales/` - I18n translation files
 - `test/` - Test suite
 

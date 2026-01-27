@@ -9,7 +9,6 @@ class SignupsController < ApplicationController
   disallow_account_scope
   require_unauthenticated_access
   skip_before_action :ensure_signup_completed
-  skip_after_action :verify_authorized
 
   before_action :require_accepting_signups
 

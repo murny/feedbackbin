@@ -3,7 +3,6 @@
 module Ideas
   class StatusesController < ApplicationController
     include IdeaScoped
-    skip_after_action :verify_authorized
     before_action :ensure_admin
 
     # PATCH /ideas/:idea_id/status

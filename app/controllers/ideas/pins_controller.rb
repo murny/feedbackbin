@@ -3,7 +3,6 @@
 module Ideas
   class PinsController < ApplicationController
     include IdeaScoped
-    skip_after_action :verify_authorized
     before_action :ensure_admin
 
     # POST /ideas/:idea_id/pin

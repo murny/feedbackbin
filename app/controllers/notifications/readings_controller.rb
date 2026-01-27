@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Notifications::ReadingsController < ApplicationController
-  skip_after_action :verify_authorized
-
   def create
     @notification = Current.user.notifications.find(params[:notification_id])
     @notification.read

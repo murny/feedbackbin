@@ -2,7 +2,6 @@
 
 class UsersController < ApplicationController
   allow_unauthenticated_access only: %i[show]
-  skip_after_action :verify_authorized
 
   before_action :set_user
   before_action :ensure_permission_to_change_user, only: :destroy

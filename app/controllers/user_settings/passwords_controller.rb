@@ -2,8 +2,6 @@
 
 module UserSettings
   class PasswordsController < ApplicationController
-    skip_after_action :verify_authorized
-
     before_action :set_identity
 
     def show

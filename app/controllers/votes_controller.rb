@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class VotesController < ApplicationController
-  skip_after_action :verify_authorized
-
   VOTEABLE_CLASSES = {
     "Idea" => Idea,
     "Comment" => Comment

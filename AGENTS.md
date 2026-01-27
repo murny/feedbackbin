@@ -55,11 +55,11 @@ FeedbackBin is a customer feedback management platform built with Ruby on Rails 
 - **SQLite**: Primary database for all environments
 
 ### Authentication & Authorization
-- Custom authentication system using `has_secure_password` via Rails
+- Global Identity (email-based) can have Users in multiple Accounts
+- Users belong to an Account and have roles: owner, admin, member, system, bot
 - OAuth integration (Google, Facebook) via Omniauth
-- Session-based authentication stored in database
-- Pundit policies for authorization (`app/policies/`)
-- Role-based access via `Membership` model
+- Sessions managed via signed cookies
+- Role-based access via `Role` model
 
 ### UI Framework
 - **Tailwind CSS**: Utility-first styling with custom components
@@ -80,7 +80,6 @@ FeedbackBin is a customer feedback management platform built with Ruby on Rails 
 - RESTful controllers following Rails conventions
 - Authentication handled via `Authentication` concern
 - Organization context set via `SetCurrentOrganization` concern
-- Authorization via Pundit policies
 
 ### Testing Strategy
 - Rails testing framework (Rails + Minitest) with fixtures

@@ -35,7 +35,7 @@ FeedbackBin helps product teams close the feedback loop by creating a complete s
 
 # Rules
 
-You are an expert in Ruby, Ruby on Rails, Stimulus.js, Hotwire, Shadcn UI, and Tailwind. 
+You are an expert in Ruby, Ruby on Rails, Stimulus.js, Hotwire, Shadcn UI, and Tailwind.
 
 ## Code Style and Structure
 
@@ -75,7 +75,7 @@ You are an expert in Ruby, Ruby on Rails, Stimulus.js, Hotwire, Shadcn UI, and T
 - We are using custom UI components inspired by Shadcn UI built with ViewComponent. Use ViewComponents like `render Elements::ButtonComponent.new(variant: :outline) do ... end`
 - Use the builtin Tailwind CSS variable based colors, like `bg-primary` or `text-primary-foreground`
 - We use lucide icons with the `inline_svg_tag` Rails helper (e.g `inline_svg_tag "icons/cheveron-right.svg` )
-- Do not come up with your own svg icon names. Always reference the same names from https://lucide.dev/ 
+- Do not come up with your own svg icon names. Always reference the same names from https://lucide.dev/
 
 ## Accessibility and SEO
 
@@ -83,7 +83,7 @@ You are an expert in Ruby, Ruby on Rails, Stimulus.js, Hotwire, Shadcn UI, and T
 - Make sure to use the correct ARIA roles and attributes.
 - Remember to use the "sr-only" Tailwind class for screen reader only text.
 - Add alt text for all images, unless they are decorative or it would be repetitive for screen readers.
-  
+
 ## Performance Optimization
 
 - Use database indexing effectively.
@@ -99,12 +99,12 @@ You are an expert in Ruby, Ruby on Rails, Stimulus.js, Hotwire, Shadcn UI, and T
 
 ## Testing
 - Write comprehensive tests using Rail's Testing best pratices (https://guides.rubyonrails.org/testing.html).
-- Ensure we have good test coverage. Every controller, model, etc should have corresponding tests. (E.g: The user model at `app/models/user.rb` has corresponding tests at `test/models/user_test.rb` which is testing the main functionality) 
+- Ensure we have good test coverage. Every controller, model, etc should have corresponding tests. (E.g: The user model at `app/models/user.rb` has corresponding tests at `test/models/user_test.rb` which is testing the main functionality)
 - Use fixtures (https://api.rubyonrails.org/v8.0.2/classes/ActiveRecord/FixtureSet.html) for test data generation.
 
 ## Security
 
-- Implement proper authentication and authorization (e.g., Pundit Policies).
+- Implement proper authentication and authorization.
 - Use strong parameters in controllers.
 - Protect against common web vulnerabilities (XSS, CSRF, SQL injection).
 
@@ -162,4 +162,4 @@ Remember:
 
 
 Always follow the [official Ruby on Rails guides](https://edgeguides.rubyonrails.org) for best practices in routing, controllers, models, views, and other Rails components.
-      
+

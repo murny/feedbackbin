@@ -4,7 +4,6 @@ module Users
   class EmailChangeConfirmationsController < ApplicationController
     disallow_account_scope
     allow_unauthenticated_access
-    skip_after_action :verify_authorized
 
     before_action :set_identity
 

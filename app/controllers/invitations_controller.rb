@@ -8,7 +8,6 @@ class InvitationsController < ApplicationController
 
   skip_before_action :require_account
   skip_before_action :ensure_account_user
-  skip_after_action :verify_authorized
 
   before_action :set_invitation
   before_action :set_account_from_invitation

@@ -10,7 +10,6 @@ class SessionsController < ApplicationController
   skip_before_action :require_account
   require_unauthenticated_access only: %i[new create]
 
-  skip_after_action :verify_authorized
 
   rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to sign_in_path, alert: t("sessions.create.rate_limited") }
 

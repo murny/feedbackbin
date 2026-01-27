@@ -8,7 +8,6 @@ module Users
 
     skip_before_action :require_account
     allow_unauthenticated_access only: %i[show pending]
-    skip_after_action :verify_authorized
 
     before_action :set_identity, only: :show
 

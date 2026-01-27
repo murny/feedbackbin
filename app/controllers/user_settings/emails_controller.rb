@@ -2,8 +2,6 @@
 
 module UserSettings
   class EmailsController < ApplicationController
-    skip_after_action :verify_authorized
-
     before_action :set_identity
     before_action :set_account_settings_data
 

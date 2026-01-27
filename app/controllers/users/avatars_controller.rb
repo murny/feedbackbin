@@ -4,7 +4,6 @@ module Users
   class AvatarsController < ApplicationController
     include ActiveStorage::Streaming
     allow_unauthenticated_access only: %i[show]
-    skip_after_action :verify_authorized
 
     def show
       @user = User.find(params[:user_id])

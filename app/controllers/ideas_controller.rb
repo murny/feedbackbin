@@ -2,7 +2,6 @@
 
 class IdeasController < ApplicationController
   allow_unauthenticated_access only: %i[index show]
-  skip_after_action :verify_authorized
 
   before_action :set_idea, only: %i[show edit update destroy]
   before_action :set_boards, only: %i[index new edit create update]
