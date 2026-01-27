@@ -36,13 +36,13 @@
                 <span class="sr-only"><%= t(".comment_settings") %></span>
               <% end %>
 
-              <% if policy(comment).edit? %>
+              <% if Current.user&.can_administer_comment?(comment) %>
                 <% dropdown.with_item_content(href: edit_comment_path(comment)) do %>
                   <%= t("edit") %>
                 <% end %>
               <% end %>
 
-              <% if policy(comment).destroy? %>
+              <% if Current.user&.can_administer_comment?(comment) %>
                 <% dropdown.with_item_content(
                   href: comment_path(comment),
                   method: :delete,

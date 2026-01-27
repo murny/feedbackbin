@@ -1,7 +1,7 @@
 <%# locals: (idea:) %>
 
 <span id="idea-status-badge">
-  <% if policy(idea).update_status? %>
+  <% if Current.user&.admin? %>
     <%= render Elements::DropdownMenuComponent.new do |dropdown| %>
       <% dropdown.with_trigger(
         type: "button",

@@ -42,19 +42,19 @@
             <div class="flex items-center gap-2">
               <%= render "ideas/status_badge", idea: @idea %>
 
-              <% if policy(@idea).pin? || policy(@idea).edit? || policy(@idea).destroy? %>
+              <% if Current.user&.can_administer_idea?(@idea) %>
                 <%= render Elements::DropdownMenuComponent.new do |dropdown| %>
                   <% dropdown.with_trigger(variant: :ghost, size: :icon, class: "text-muted-foreground") do %>
                     <%= lucide_icon("ellipsis") %>
                   <% end %>
 
-                  <% if policy(@idea).edit? %>
+                  <% if Current.user&.can_administer_idea?(@idea) %>
                     <% dropdown.with_item_content(href: edit_idea_path(@idea)) do %>
                       <%= t("edit") %>
                     <% end %>
                   <% end %>
 
-                  <% if policy(@idea).pin? %>
+                  <% if Current.user&.admin? %>
                     <% if @idea.pinned? %>
                       <% dropdown.with_item_content(
                         id: "idea-pin-button",
@@ -74,7 +74,7 @@
                     <% end %>
                   <% end %>
 
-                  <% if policy(@idea).destroy? %>
+                  <% if Current.user&.can_administer_idea?(@idea) %>
                     <% dropdown.with_item_separator %>
                     <% dropdown.with_item_content(
                       href: @idea,
