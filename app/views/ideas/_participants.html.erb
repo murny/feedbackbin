@@ -2,7 +2,7 @@
 
 <% participants = idea.participants %>
 <% if participants.any? %>
-  <% total_count = idea.participants_count %>
+  <% total_count = idea.participant_ids.count %>
   <% remaining_count = total_count - participants.size %>
   <div class="flex flex-col items-end gap-2">
     <span class="text-sm text-muted-foreground"><%= t(".title", count: total_count) %></span>

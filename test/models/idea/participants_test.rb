@@ -60,11 +60,11 @@ class Idea::ParticipantsTest < ActiveSupport::TestCase
     assert_operator result.size, :<=, 2
   end
 
-  test "participants_count returns total count without limit" do
+  test "participant_ids returns total count without limit" do
     idea = Idea.create!(title: "Test idea", board: boards(:one), creator: users(:shane))
     Comment.create!(idea: idea, creator: users(:jane), account: accounts(:feedbackbin), body: "Comment")
     Comment.create!(idea: idea, creator: users(:john), account: accounts(:feedbackbin), body: "Comment")
 
-    assert_equal 3, idea.participants_count
+    assert_equal 3, idea.participant_ids.count
   end
 end

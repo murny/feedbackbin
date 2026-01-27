@@ -42,15 +42,14 @@ class Idea < ApplicationRecord
     status.nil?
   end
 
+  def participant_ids
+    @participant_ids ||= ([ creator_id ] + comments.order(created_at: :desc).distinct.pluck(:creator_id)).uniq
+  end
+
   def participants(limit: 10)
-    ids = ([ creator_id ] + comments.order(created_at: :desc).distinct.pluck(:creator_id)).uniq
-    ids = ids.first(limit) if limit
+    ids = participant_ids.first(limit)
     return [] if ids.empty?
 
     account.users.active.where(id: ids).index_by(&:id).values_at(*ids).compact
-  end
-
-  def participants_count
-    ([ creator_id ] + comments.distinct.pluck(:creator_id)).uniq.count
   end
 end
