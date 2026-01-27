@@ -74,6 +74,7 @@ class Idea::WatchableTest < ActiveSupport::TestCase
 
     assert_includes watchers, @user
     assert_includes watchers, users(:jane)
+    assert watchers.all? { |user| @idea.watched_by?(user) }
   end
 
   test "creator is auto-subscribed on idea creation" do

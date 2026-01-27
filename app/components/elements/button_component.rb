@@ -81,11 +81,11 @@ module Elements
       end
 
       def button_to_attrs
-        attrs = {
+        attrs = @attrs.merge(
           method: @method,
           class: button_to_classes,
           data: @attrs[:data] || {}
-        }
+        )
 
         attrs[:disabled] = true if @loading || @attrs[:disabled]
         attrs[:"aria-busy"] = "true" if @loading
