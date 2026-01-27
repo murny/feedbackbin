@@ -34,12 +34,6 @@ module Admin
         # TODO: This won't be root_path in the future but marketing site?
         redirect_to root_path, notice: t(".success")
       end
-
-      private
-
-        def ensure_owner
-          authorize Current.account, :destroy?
-        end
     end
   end
 end

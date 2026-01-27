@@ -73,28 +73,4 @@ class AccountPolicyTest < ActiveSupport::TestCase
 
     assert_predicate AccountPolicy.new(owner, @account), :destroy?
   end
-
-  test "transfer_ownership only available to owner" do
-    assert_not_predicate AccountPolicy.new(nil, @account), :transfer_ownership?
-    assert_not_predicate AccountPolicy.new(@user, @account), :transfer_ownership?
-
-    # Create another admin who is not the owner
-    other_identity = Identity.create!(
-      email_address: "admin3@feedbackbin.com",
-      password: "password123456"
-    )
-    other_admin = User.create!(
-      name: "Admin Three",
-      identity: other_identity,
-      account: @account,
-      role: :admin
-    )
-
-    assert_not_predicate AccountPolicy.new(other_admin, @account), :transfer_ownership?
-
-    # Only the owner (user with owner role) can transfer ownership
-    owner = users(:shane)
-
-    assert_predicate AccountPolicy.new(owner, @account), :transfer_ownership?
-  end
 end

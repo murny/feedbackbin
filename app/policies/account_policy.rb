@@ -26,8 +26,4 @@ class AccountPolicy < ApplicationPolicy
   def destroy?
     record.owned_by?(user)
   end
-
-  def transfer_ownership?
-    record.owned_by?(user)
-  end
 end

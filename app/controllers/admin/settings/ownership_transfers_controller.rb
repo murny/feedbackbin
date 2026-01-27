@@ -27,12 +27,6 @@ module Admin
         flash.now[:alert] = t(".failure")
         render :new, status: :unprocessable_entity
       end
-
-      private
-
-        def ensure_owner
-          authorize Current.account, :transfer_ownership?
-        end
     end
   end
 end

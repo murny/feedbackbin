@@ -2,10 +2,9 @@
 
 class RoadmapController < ApplicationController
   allow_unauthenticated_access only: %i[index]
-
+  skip_after_action :verify_authorized
   # GET /roadmap
   def index
-    authorize :roadmap, :index?
     @boards = Board.ordered
 
     if params[:board_id].present?

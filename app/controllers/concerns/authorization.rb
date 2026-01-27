@@ -17,6 +17,14 @@ module Authorization
 
   private
 
+    def ensure_admin
+      head :forbidden unless Current.user&.admin?
+    end
+
+    def ensure_owner
+      head :forbidden unless Current.user&.owner?
+    end
+
     # You can also customize the messages using the policy and action to generate the I18n key
     # https://github.com/varvet/pundit#creating-custom-error-messages
     def user_not_authorized
