@@ -20,8 +20,7 @@ module Admin
 
       get admin_invitations_url
 
-      assert_response :redirect
-      assert_equal I18n.t("authorization.unauthorized"), flash[:alert]
+      assert_response :forbidden
     end
 
     test "should get new" do
@@ -35,8 +34,7 @@ module Admin
 
       get new_admin_invitation_url
 
-      assert_response :redirect
-      assert_equal I18n.t("authorization.unauthorized"), flash[:alert]
+      assert_response :forbidden
     end
 
     test "admin can create invitation" do
@@ -63,8 +61,7 @@ module Admin
 
       post admin_invitations_url, params: { invitation: { email: "x@example.com", name: "X" } }
 
-      assert_response :redirect
-      assert_equal I18n.t("authorization.unauthorized"), flash[:alert]
+      assert_response :forbidden
     end
 
     test "should resend invitation email" do
@@ -86,8 +83,7 @@ module Admin
 
       post resend_admin_invitation_url(invitation.token)
 
-      assert_response :redirect
-      assert_equal I18n.t("authorization.unauthorized"), flash[:alert]
+      assert_response :forbidden
     end
 
     test "should return 404 for invalid invitation token on resend" do
@@ -113,8 +109,7 @@ module Admin
 
       delete admin_invitation_url(invitation.token)
 
-      assert_response :redirect
-      assert_equal I18n.t("authorization.unauthorized"), flash[:alert]
+      assert_response :forbidden
     end
   end
 end

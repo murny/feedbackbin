@@ -32,8 +32,7 @@ module Admin
 
         get new_admin_settings_ownership_transfer_url
 
-        assert_redirected_to root_path
-        assert_equal I18n.t("authorization.unauthorized"), flash[:alert]
+        assert_response :forbidden
       end
 
       test "owner can transfer ownership to another admin" do
@@ -55,8 +54,7 @@ module Admin
 
         post admin_settings_ownership_transfer_url, params: { new_owner_id: @owner.id }
 
-        assert_redirected_to root_path
-        assert_equal I18n.t("authorization.unauthorized"), flash[:alert]
+        assert_response :forbidden
       end
     end
   end

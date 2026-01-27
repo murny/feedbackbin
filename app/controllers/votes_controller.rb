@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class VotesController < ApplicationController
+  skip_after_action :verify_authorized
+
   VOTEABLE_CLASSES = {
     "Idea" => Idea,
     "Comment" => Comment
@@ -9,8 +11,6 @@ class VotesController < ApplicationController
   before_action :set_voteable
 
   def update
-    authorize @voteable, :show?
-
     respond_to do |format|
       if @voteable.voted_by?(Current.user)
         @voteable.unvote(Current.user)
@@ -30,6 +30,6 @@ class VotesController < ApplicationController
       klass = VOTEABLE_CLASSES[params[:voteable_type]]
       return head :unprocessable_entity unless klass
 
-      @voteable = klass.find(params[:voteable_id])
+      @voteable = Current.account.public_send(klass.model_name.plural).find(params[:voteable_id])
     end
 end

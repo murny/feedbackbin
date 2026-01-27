@@ -76,8 +76,7 @@ module Admin
         user = users(:john)
         patch admin_user_role_path(user), params: { role: "admin" }
 
-        assert_redirected_to root_path
-        assert_equal "You are not authorized to perform this action.", flash[:alert]
+        assert_response :forbidden
       end
     end
   end

@@ -55,8 +55,8 @@ class IdeasControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to ideas_url
   end
 
-  test "authenticated non-member should be redirected to sign up when creating idea" do
-    # Create a new account where the user doesn't have a membership
+  test "authenticated user visiting new account gets auto-provisioned and can create idea" do
+    # Create a new account where the user doesn't have a membership yet
     new_account = Account.create!(name: "Non-Member Test Account")
     new_account.boards.create!(name: "Test Board", color: "#3B82F6")
 
@@ -65,13 +65,13 @@ class IdeasControllerTest < ActionDispatch::IntegrationTest
     # Sign in as shane (in the original account context first)
     sign_in_as shane
 
-    # Now try to create an idea in the new account (where they're not a member)
+    # Visit the new account - user should be auto-provisioned
     tenanted(new_account) do
       get new_idea_url
 
-      # Should be redirected to sign up with a message about joining
-      assert_redirected_to users_sign_up_url
-      assert_match /Join this account/, flash[:alert]
+      # User is auto-provisioned and can access the page
+      assert_response :success
+      assert new_account.users.exists?(identity: shane.identity)
     end
   end
 

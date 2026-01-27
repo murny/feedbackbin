@@ -47,8 +47,7 @@ module Admin
         sign_in_as users(:john)
         get admin_settings_danger_zone_url
 
-        assert_response :redirect
-        assert_equal "You are not authorized to perform this action.", flash[:alert]
+        assert_response :forbidden
       end
 
       test "non-owner admin cannot view danger zone" do
@@ -57,8 +56,7 @@ module Admin
 
         get admin_settings_danger_zone_url
 
-        assert_redirected_to root_path
-        assert_equal "You are not authorized to perform this action.", flash[:alert]
+        assert_response :forbidden
       end
 
       test "non-owner admin cannot delete account" do
@@ -69,8 +67,7 @@ module Admin
           delete admin_settings_danger_zone_url, params: { account: { name: @account.name, acknowledge: "1" } }
         end
 
-        assert_redirected_to root_path
-        assert_equal "You are not authorized to perform this action.", flash[:alert]
+        assert_response :forbidden
       end
     end
   end

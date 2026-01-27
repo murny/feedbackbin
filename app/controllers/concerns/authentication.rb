@@ -13,11 +13,13 @@ module Authentication
 
   class_methods do
     # Allow both authenticated and unauthenticated access
+    # For unauthenticated users: resume_session sets up session if cookie exists
+    # For authenticated users: normal flow with user provisioning
     def allow_unauthenticated_access(**options)
       skip_before_action :require_authentication, **options
-      skip_before_action :ensure_account_user, **options
-      before_action :resume_session, **options
-      before_action :ensure_account_user, **options
+      # Prepend resume_session so it runs BEFORE ensure_account_user
+      # This ensures authenticated? returns true when ensure_account_user runs
+      prepend_before_action :resume_session, **options
     end
 
     # Only allow unauthenticated access - redirect authenticated users away

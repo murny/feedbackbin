@@ -2,12 +2,12 @@
 
 module Ideas
   class StatusesController < ApplicationController
-    before_action :set_idea
+    include IdeaScoped
+    skip_after_action :verify_authorized
+    before_action :ensure_admin
 
     # PATCH /ideas/:idea_id/status
     def update
-      authorize @idea, :update_status?
-
       status = Status.find(params.expect(:status_id))
       @idea.update!(status: status)
 
@@ -16,11 +16,5 @@ module Ideas
         format.turbo_stream
       end
     end
-
-    private
-
-      def set_idea
-        @idea = Idea.find(params.expect(:idea_id))
-      end
   end
 end

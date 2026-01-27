@@ -36,7 +36,7 @@ module Ideas
 
       patch idea_status_path(@idea), params: { status_id: @planned_status.id }
 
-      assert_response :redirect
+      assert_response :forbidden
       assert_equal @complete_status, @idea.reload.status
     end
   end

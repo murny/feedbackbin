@@ -1,11 +1,13 @@
 # frozen_string_literal: true
 
 class UsersController < ApplicationController
-  before_action :set_user
   allow_unauthenticated_access only: %i[show]
+  skip_after_action :verify_authorized
+
+  before_action :set_user
+  before_action :ensure_permission_to_change_user, only: :destroy
 
   def show
-    authorize @user
     # TODO: Refactor this to use better queries, pagination and maybe just break it into multiple controller actions
     @ideas = @user.ideas.includes(:votes, :board).order(created_at: :desc)
     @comments = @user.comments.includes(:votes, :idea).order(created_at: :desc)
@@ -21,7 +23,6 @@ class UsersController < ApplicationController
   end
 
   def destroy
-    authorize @user
     @user.destroy
     redirect_to root_path, notice: t(".user_deleted")
   end
@@ -30,5 +31,9 @@ class UsersController < ApplicationController
 
     def set_user
       @user = User.find(params.expect(:id))
+    end
+
+    def ensure_permission_to_change_user
+      head :forbidden unless Current.user.can_change?(@user)
     end
 end

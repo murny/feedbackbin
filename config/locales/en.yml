@@ -538,6 +538,11 @@ en:
       title:
         one: "%{count} participant"
         other: "%{count} participants"
+    pins:
+      create:
+        pinned: Idea has been pinned.
+      destroy:
+        unpinned: Idea has been unpinned.
     show:
       back_to_ideas: Back to ideas
       pin: Pin
