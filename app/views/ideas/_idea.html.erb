@@ -51,11 +51,13 @@
 
         <!-- Comments section moved to bottom -->
         <div class="flex items-center justify-between pt-2 pr-2">
-          <%= render Elements::AvatarGroupComponent.new([
-              { src: "https://github.com/murny.png", alt: "@murny", fallback: "SM" },
-              { src: "https://github.com/rails.png", alt: "@rails", fallback: "RR" },
-              { src: "https://github.com/ruby.png", alt: "@ruby", fallback: "RB" }
-            ], hover_effect: true) %>
+          <% participants = idea.participants(limit: 5) %>
+          <% if participants.any? %>
+            <%= render Elements::AvatarGroupComponent.new(
+              participants.map { |user| { src: fresh_user_avatar_path(user), alt: user.name, fallback: user.initials, href: user_path(user), title: user.name } },
+              hover_effect: true
+            ) %>
+          <% end %>
           <div class="flex items-center gap-x-2.5">
             <div>
               <span class="sr-only"><%= t(".total_comments") %></span>

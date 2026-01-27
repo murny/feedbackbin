@@ -103,18 +103,22 @@
             <%= @idea.description %>
           </div>
 
-          <!-- Bottom: user actions -->
-          <div class="mt-6 flex flex-wrap items-center gap-2">
-            <%= turbo_frame_tag @idea, :watch, src: idea_watch_path(@idea) do %>
-              <%= render Elements::ButtonComponent.new(variant: :outline, disabled: true) do %>
-                <%= lucide_icon "bell-off" %>
-                <%= t(".watch") %>
+          <!-- Bottom: user actions and participants -->
+          <div class="mt-6 flex flex-wrap items-center justify-between gap-4">
+            <div class="flex flex-wrap items-center gap-2">
+              <%= turbo_frame_tag @idea, :watch, src: idea_watch_path(@idea) do %>
+                <%= render Elements::ButtonComponent.new(variant: :outline, disabled: true) do %>
+                  <%= lucide_icon "bell-off" %>
+                  <%= t(".watch") %>
+                <% end %>
               <% end %>
-            <% end %>
-            <%= render Elements::ButtonComponent.new(variant: :outline) do %>
-              <%= lucide_icon "share" %>
-              <%= t(".share") %>
-            <% end %>
+              <%= render Elements::ButtonComponent.new(variant: :outline) do %>
+                <%= lucide_icon "share" %>
+                <%= t(".share") %>
+              <% end %>
+            </div>
+
+            <%= render "ideas/participants", idea: @idea %>
           </div>
         </div>
         </div>

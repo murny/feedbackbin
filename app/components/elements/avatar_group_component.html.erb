@@ -1,12 +1,17 @@
 <%= tag.div(**html_attrs) do %>
   <% @avatars.each do |avatar| %>
-    <%= render Elements::AvatarComponent.new(
+    <% avatar_component = render Elements::AvatarComponent.new(
       src: avatar[:src],
       alt: avatar[:alt],
       fallback: avatar[:fallback],
       size: @size,
       class: avatar_item_classes
     ) %>
+    <% if avatar[:href] %>
+      <%= link_to avatar[:href], title: avatar[:title], data: { tooltip: avatar[:title] } do %><%= avatar_component %><% end %>
+    <% else %>
+      <%= avatar_component %>
+    <% end %>
   <% end %>
 
   <% if show_remaining? %>
