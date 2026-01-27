@@ -531,6 +531,13 @@ en:
       title: Customer Ideas
     new:
       title: New Idea
+    participants:
+      and_others:
+        one: and %{count} other
+        other: and %{count} others
+      title:
+        one: "%{count} participant"
+        other: "%{count} participants"
     show:
       back_to_ideas: Back to ideas
       pin: Pin
