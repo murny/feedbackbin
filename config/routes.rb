@@ -91,6 +91,7 @@ Rails.application.routes.draw do
 
   resources :ideas do
     scope module: :ideas do
+      resource :watch, only: [ :show, :create, :destroy ]
       resource :pin, only: [ :create, :destroy ]
       resource :status, only: [ :update ]
     end

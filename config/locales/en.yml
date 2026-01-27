@@ -468,7 +468,6 @@ en:
       comment_settings: Comment settings
     comments:
       comments_title_with_count: Comments (%{comment_count})
-      subscribe: Subscribe
     create:
       successfully_created: Comment was successfully created.
     destroy:
@@ -544,6 +543,10 @@ en:
         success: Status has been updated.
     update:
       successfully_updated: Idea was successfully updated.
+    watches:
+      watch_button:
+        watch: Watch
+        watching: Watching
   identity_mailer:
     email_change_confirmation:
       confirm_email_change: Confirm your email change

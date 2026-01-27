@@ -105,9 +105,11 @@
 
           <!-- Bottom: user actions -->
           <div class="mt-6 flex flex-wrap items-center gap-2">
-            <%= render Elements::ButtonComponent.new(variant: :outline) do %>
-              <%= lucide_icon "eye" %>
-              <%= t(".watch") %>
+            <%= turbo_frame_tag @idea, :watch, src: idea_watch_path(@idea) do %>
+              <%= render Elements::ButtonComponent.new(variant: :outline, disabled: true) do %>
+                <%= lucide_icon "bell-off" %>
+                <%= t(".watch") %>
+              <% end %>
             <% end %>
             <%= render Elements::ButtonComponent.new(variant: :outline) do %>
               <%= lucide_icon "share" %>
