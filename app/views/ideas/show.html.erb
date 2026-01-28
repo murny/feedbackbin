@@ -48,10 +48,8 @@
                     <%= lucide_icon("ellipsis") %>
                   <% end %>
 
-                  <% if Current.user&.can_administer_idea?(@idea) %>
-                    <% dropdown.with_item_content(href: edit_idea_path(@idea)) do %>
-                      <%= t("edit") %>
-                    <% end %>
+                  <% dropdown.with_item_content(href: edit_idea_path(@idea)) do %>
+                    <%= t("edit") %>
                   <% end %>
 
                   <% if Current.user&.admin? %>
@@ -74,16 +72,14 @@
                     <% end %>
                   <% end %>
 
-                  <% if Current.user&.can_administer_idea?(@idea) %>
-                    <% dropdown.with_item_separator %>
-                    <% dropdown.with_item_content(
-                      href: @idea,
-                      method: :delete,
-                      form: { data: { turbo_confirm: t("are_you_sure") } },
-                      class: "text-destructive"
-                    ) do %>
-                      <%= t("delete") %>
-                    <% end %>
+                  <% dropdown.with_item_separator %>
+                  <% dropdown.with_item_content(
+                    href: @idea,
+                    method: :delete,
+                    form: { data: { turbo_confirm: t("are_you_sure") } },
+                    class: "text-destructive"
+                  ) do %>
+                    <%= t("delete") %>
                   <% end %>
                 <% end %>
               <% end %>

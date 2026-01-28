@@ -14,6 +14,6 @@ module IdeaScoped
     end
 
     def ensure_permission_to_administer_idea
-      head :forbidden unless Current.user.can_administer_idea?(@idea)
+      head :forbidden unless Current.user&.can_administer_idea?(@idea)
     end
 end

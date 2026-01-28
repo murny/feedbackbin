@@ -33,6 +33,6 @@ class UsersController < ApplicationController
     end
 
     def ensure_permission_to_change_user
-      head :forbidden unless Current.user.can_change?(@user)
+      head :forbidden unless Current.user&.can_change?(@user)
     end
 end

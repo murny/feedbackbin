@@ -74,7 +74,7 @@ You are an expert in Ruby, Ruby on Rails, Stimulus.js, Hotwire, Shadcn UI, and T
 - Use Rails view helpers and partials to keep views DRY.
 - We are using custom UI components inspired by Shadcn UI built with ViewComponent. Use ViewComponents like `render Elements::ButtonComponent.new(variant: :outline) do ... end`
 - Use the builtin Tailwind CSS variable based colors, like `bg-primary` or `text-primary-foreground`
-- We use lucide icons with the `inline_svg_tag` Rails helper (e.g `inline_svg_tag "icons/cheveron-right.svg` )
+- We use lucide icons with the `inline_svg_tag` Rails helper (e.g. `inline_svg_tag "icons/chevron-right.svg"`).
 - Do not come up with your own svg icon names. Always reference the same names from https://lucide.dev/
 
 ## Accessibility and SEO
@@ -98,7 +98,7 @@ You are an expert in Ruby, Ruby on Rails, Stimulus.js, Hotwire, Shadcn UI, and T
 - Use background jobs (e.g., ActiveJob) for time-consuming tasks.
 
 ## Testing
-- Write comprehensive tests using Rail's Testing best pratices (https://guides.rubyonrails.org/testing.html).
+- Write comprehensive tests using Rails testing best practices (https://guides.rubyonrails.org/testing.html).
 - Ensure we have good test coverage. Every controller, model, etc should have corresponding tests. (E.g: The user model at `app/models/user.rb` has corresponding tests at `test/models/user_test.rb` which is testing the main functionality)
 - Use fixtures (https://api.rubyonrails.org/v8.0.2/classes/ActiveRecord/FixtureSet.html) for test data generation.
 

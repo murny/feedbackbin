@@ -59,7 +59,7 @@ class CommentsController < ApplicationController
     end
 
     def ensure_permission_to_administer_comment
-      head :forbidden unless Current.user.can_administer_comment?(@comment)
+      head :forbidden unless Current.user&.can_administer_comment?(@comment)
     end
 
     def comment_params

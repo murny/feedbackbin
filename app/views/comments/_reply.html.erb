@@ -40,9 +40,6 @@
                 <% dropdown.with_item_content(href: edit_comment_path(comment)) do %>
                   <%= t("edit") %>
                 <% end %>
-              <% end %>
-
-              <% if Current.user&.can_administer_comment?(comment) %>
                 <% dropdown.with_item_content(
                   href: comment_path(comment),
                   method: :delete,

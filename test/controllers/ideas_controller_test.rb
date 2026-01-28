@@ -72,6 +72,13 @@ class IdeasControllerTest < ActionDispatch::IntegrationTest
       # User is auto-provisioned and can access the page
       assert_response :success
       assert new_account.users.exists?(identity: shane.identity)
+
+      # User can actually create an idea
+      board = new_account.boards.first
+      assert_difference("Idea.count") do
+        post ideas_url, params: { idea: { title: "Test", description: "Test", board_id: board.id } }
+      end
+      assert_redirected_to idea_url(Idea.last)
     end
   end
 

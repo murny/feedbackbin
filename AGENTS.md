@@ -80,6 +80,8 @@ FeedbackBin is a customer feedback management platform built with Ruby on Rails 
 - RESTful controllers following Rails conventions
 - Authentication handled via `Authentication` concern
 - Organization context set via `SetCurrentOrganization` concern
+- Authorization via role-based guards (`ensure_admin`, `ensure_owner`) in `Authorization` concern
+- Resource-level permissions via `can_administer_*` and `can_change?` methods on `User::Role`
 
 ### Testing Strategy
 - Rails testing framework (Rails + Minitest) with fixtures
