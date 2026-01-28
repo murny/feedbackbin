@@ -49,6 +49,12 @@ class Account < ApplicationRecord
     user&.owner?
   end
 
+  # TODO: We will implement cancellation next in future commits.
+  # Check if account is active (always true for now, can be expanded for account suspension)
+  def active?
+    true
+  end
+
   # Allow `record.account` to work when record IS an Account (e.g., for attachments)
   def account
     self

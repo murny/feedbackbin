@@ -123,7 +123,7 @@ module Users
       shane = users(:shane)
 
       # Create and deactivate the user for this account
-      deactivated_user = User.create!(
+      User.create!(
         identity: shane.identity,
         account: new_account,
         name: "Shane",
@@ -142,8 +142,9 @@ module Users
           get users_sign_up_url
         end
 
-        assert_redirected_to root_path
-        assert_match /deactivated/, flash[:alert]
+        # Deactivated users are redirected to session menu to pick another account
+        assert_redirected_to session_menu_path(script_name: nil)
+        assert_match "Your user has been deactivated for this organization.", flash[:alert]
       end
     end
 
