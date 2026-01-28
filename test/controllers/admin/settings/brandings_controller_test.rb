@@ -43,8 +43,7 @@ module Admin
 
         patch admin_settings_branding_url, params: { account: { name: "New Name" } }
 
-        assert_redirected_to root_url
-        assert_equal "You are not authorized to perform this action.", flash[:alert]
+        assert_response :forbidden
       end
 
       # Enhanced branding tests

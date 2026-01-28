@@ -9,7 +9,6 @@ class Sessions::MagicLinksController < ApplicationController
   skip_before_action :require_account
   require_unauthenticated_access
 
-  skip_after_action :verify_authorized
 
   rate_limit to: 10, within: 15.minutes, only: :create, with: -> { rate_limit_exceeded }
 

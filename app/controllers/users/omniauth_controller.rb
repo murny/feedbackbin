@@ -4,7 +4,6 @@ module Users
   class OmniauthController < ApplicationController
     disallow_account_scope
     allow_unauthenticated_access only: %i[create failure]
-    skip_after_action :verify_authorized
 
     def create
       return redirect_to root_path, alert: t("something_went_wrong") if auth.nil?

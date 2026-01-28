@@ -10,7 +10,6 @@ module Users
     allow_unauthenticated_access
     skip_before_action :ensure_account_user
     before_action :redirect_authenticated_user, only: %i[new create]
-    skip_after_action :verify_authorized
 
     rate_limit to: 10, within: 3.minutes, only: :create, with: -> { redirect_to users_sign_up_path, alert: t("users.registrations.create.rate_limited") }
 

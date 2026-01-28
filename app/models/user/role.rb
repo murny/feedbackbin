@@ -12,10 +12,30 @@ module User::Role
 
     validate :account_owner_cannot_change_role, if: -> { role_changed? && role_was == "owner" }
 
+    def admin?
+      super || owner?
+    end
+
     private
 
       def account_owner_cannot_change_role
         errors.add(:role, :account_owner_cannot_change)
       end
+  end
+
+  def can_change?(other)
+    (admin? && !other.owner?) || other == self
+  end
+
+  def can_administer?(other)
+    admin? && !other.owner? && other != self
+  end
+
+  def can_administer_idea?(idea)
+    admin? || idea.creator == self
+  end
+
+  def can_administer_comment?(comment)
+    admin? || comment.creator == self
   end
 end

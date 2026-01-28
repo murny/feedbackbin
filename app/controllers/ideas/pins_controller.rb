@@ -2,36 +2,27 @@
 
 module Ideas
   class PinsController < ApplicationController
-    before_action :set_idea
+    include IdeaScoped
+    before_action :ensure_admin
 
     # POST /ideas/:idea_id/pin
     def create
-      authorize @idea, :pin?
-
       @idea.update!(pinned: true)
 
       respond_to do |format|
-        format.html { redirect_to @idea, notice: "Idea has been pinned." }
+        format.html { redirect_to @idea, notice: t(".pinned") }
         format.turbo_stream
       end
     end
 
     # DELETE /ideas/:idea_id/pin
     def destroy
-      authorize @idea, :unpin?
-
       @idea.update!(pinned: false)
 
       respond_to do |format|
-        format.html { redirect_to @idea, notice: "Idea has been unpinned." }
+        format.html { redirect_to @idea, notice: t(".unpinned") }
         format.turbo_stream
       end
     end
-
-    private
-
-      def set_idea
-        @idea = Idea.find(params.expect(:idea_id))
-      end
   end
 end

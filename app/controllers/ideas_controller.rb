@@ -5,11 +5,10 @@ class IdeasController < ApplicationController
 
   before_action :set_idea, only: %i[show edit update destroy]
   before_action :set_boards, only: %i[index new edit create update]
+  before_action :ensure_permission_to_administer_idea, only: %i[edit update destroy]
 
   # GET /ideas or /ideas.json
   def index
-    authorize Idea
-
     ideas = Current.account.ideas.includes(:creator, :board, :status, comments: :creator)
     @statuses = Status.ordered
     @search = params[:search]
@@ -42,8 +41,6 @@ class IdeasController < ApplicationController
 
   # GET /ideas/1 or /ideas/1.json
   def show
-    authorize @idea
-
     @top_level_comments = @idea.comments
                              .where(parent_id: nil)
                              .ordered
@@ -54,8 +51,6 @@ class IdeasController < ApplicationController
 
   # GET /ideas/new
   def new
-    authorize Idea
-
     @idea = Idea.new
 
     if params[:board_id].present?
@@ -65,13 +60,10 @@ class IdeasController < ApplicationController
 
   # GET /ideas/1/edit
   def edit
-    authorize @idea
   end
 
   # POST /ideas or /ideas.json
   def create
-    authorize Idea
-
     @idea = Idea.new(idea_params)
 
     respond_to do |format|
@@ -87,8 +79,6 @@ class IdeasController < ApplicationController
 
   # PATCH/PUT /ideas/1 or /ideas/1.json
   def update
-    authorize @idea
-
     respond_to do |format|
       if @idea.update(idea_params)
         format.html { redirect_to idea_path(@idea), notice: t(".successfully_updated") }
@@ -102,8 +92,6 @@ class IdeasController < ApplicationController
 
   # DELETE /ideas/1 or /ideas/1.json
   def destroy
-    authorize @idea
-
     @idea.destroy!
 
     respond_to do |format|
@@ -114,16 +102,18 @@ class IdeasController < ApplicationController
 
   private
 
-    # Use callbacks to share common setup or constraints between actions.
     def set_idea
-      @idea = Idea.find(params.expect(:id))
+      @idea = Current.account.ideas.find(params.expect(:id))
     end
 
     def set_boards
       @boards = Board.ordered
     end
 
-    # Only allow a list of trusted parameters through.
+    def ensure_permission_to_administer_idea
+      head :forbidden unless Current.user&.can_administer_idea?(@idea)
+    end
+
     def idea_params
       params.expect(idea: [ :title, :description, :board_id ])
     end

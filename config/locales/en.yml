@@ -450,9 +450,6 @@ en:
       signed_in_as: Signed in as
       view_notifications: View notifications
   are_you_sure: Are you sure?
-  authorization:
-    join_to_participate: Join this account to participate. Sign up to continue.
-    unauthorized: You are not authorized to perform this action.
   board: Board
   cancel: Cancel
   changelogs:
@@ -538,6 +535,11 @@ en:
       title:
         one: "%{count} participant"
         other: "%{count} participants"
+    pins:
+      create:
+        pinned: Idea has been pinned.
+      destroy:
+        unpinned: Idea has been unpinned.
     show:
       back_to_ideas: Back to ideas
       pin: Pin

@@ -42,8 +42,7 @@ module Admin
         user = users(:john)
         delete admin_user_activation_path(user)
 
-        assert_redirected_to root_path
-        assert_equal "You are not authorized to perform this action.", flash[:alert]
+        assert_response :forbidden
       end
     end
   end

@@ -2,8 +2,6 @@
 
 # NotificationsController handles user notifications.
 class NotificationsController < ApplicationController
-  skip_after_action :verify_authorized
-
   MAX_UNREAD_NOTIFICATIONS = 500
 
   def index

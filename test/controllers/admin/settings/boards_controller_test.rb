@@ -22,8 +22,68 @@ module Admin
 
         get admin_settings_boards_url
 
-        assert_response :redirect
-        assert_equal I18n.t("authorization.unauthorized"), flash[:alert]
+        assert_response :forbidden
+      end
+
+      test "should not get new if not an admin" do
+        sign_in_as users(:john)
+
+        get new_admin_settings_board_url
+
+        assert_response :forbidden
+      end
+
+      test "should not create board if not an admin" do
+        sign_in_as users(:john)
+
+        assert_no_difference "Board.count" do
+          post admin_settings_boards_url, params: {
+            board: {
+              name: "Unauthorized Board",
+              description: "Should not be created",
+              color: "#ff5733"
+            }
+          }
+        end
+
+        assert_response :forbidden
+      end
+
+      test "should not get edit if not an admin" do
+        sign_in_as users(:john)
+
+        get edit_admin_settings_board_url(@board)
+
+        assert_response :forbidden
+      end
+
+      test "should not update board if not an admin" do
+        sign_in_as users(:john)
+        original_name = @board.name
+
+        patch admin_settings_board_url(@board), params: {
+          board: {
+            name: "Unauthorized Update"
+          }
+        }
+
+        assert_response :forbidden
+        assert_equal original_name, @board.reload.name
+      end
+
+      test "should not destroy board if not an admin" do
+        sign_in_as users(:john)
+        board_to_delete = Board.create!(
+          name: "Protected Board",
+          description: "Should not be deleted",
+          color: "#cccccc"
+        )
+
+        assert_no_difference "Board.count" do
+          delete admin_settings_board_url(board_to_delete)
+        end
+
+        assert_response :forbidden
       end
 
       test "should get new" do

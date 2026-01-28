@@ -2,19 +2,19 @@
 
 class CommentsController < ApplicationController
   allow_unauthenticated_access only: %i[show]
+
   before_action :set_comment, only: %i[show edit update destroy]
+  before_action :ensure_permission_to_administer_comment, only: %i[edit update destroy]
 
   def show
-    authorize @comment
   end
 
   def edit
-    authorize @comment
   end
 
   def create
-    authorize Comment
-    @comment = Comment.new(comment_params)
+    @idea = Current.account.ideas.find(params[:comment][:idea_id])
+    @comment = @idea.comments.new(comment_params.except(:idea_id))
 
     respond_to do |format|
       if @comment.save
@@ -30,8 +30,6 @@ class CommentsController < ApplicationController
   end
 
   def update
-    authorize @comment
-
     respond_to do |format|
       if @comment.update(comment_params)
         flash.now[:notice] = t(".successfully_updated")
@@ -46,8 +44,6 @@ class CommentsController < ApplicationController
   end
 
   def destroy
-    authorize @comment
-
     @comment.destroy!
     respond_to do |format|
       flash.now[:notice] = t(".successfully_destroyed")
@@ -60,7 +56,11 @@ class CommentsController < ApplicationController
   private
 
     def set_comment
-      @comment = Comment.find(params.expect(:id))
+      @comment = Current.account.comments.find(params.expect(:id))
+    end
+
+    def ensure_permission_to_administer_comment
+      head :forbidden unless Current.user&.can_administer_comment?(@comment)
     end
 
     def comment_params

@@ -1,8 +1,6 @@
 # frozen_string_literal: true
 
 class Notifications::BulkReadingsController < ApplicationController
-  skip_after_action :verify_authorized
-
   def create
     Current.user.notifications.unread.read_all
 
