@@ -77,13 +77,15 @@ class TenantedSessionsControllerTest < ActionDispatch::IntegrationTest
       assert_predicate cookies[:session_token], :present?
     end
 
-    # Try to enter the tenant - should be blocked by ensure_account_user
+    # Try to enter the tenant - should be blocked by ensure_can_access_account
+    # User is redirected to session menu to pick another account (session preserved)
     tenanted(@account) do
       get root_url
 
-      assert_redirected_to sign_in_url
-      assert_equal "Your account has been deactivated. Please contact support for assistance.", flash[:alert]
-      assert_empty cookies[:session_token].to_s # Session terminated
+      assert_redirected_to session_menu_path(script_name: nil)
+      assert_match "Your user has been deactivated for this organization.", flash[:alert]
+
+      assert_predicate cookies[:session_token], :present? # Session preserved for other accounts
     end
   end
 

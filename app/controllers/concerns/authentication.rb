@@ -137,10 +137,6 @@ module Authentication
       # Ignore invalid URLs
     end
 
-    # Account user provisioning
-    # Creates a user for the current account if authenticated identity doesn't have one.
-    # Checks that existing users are active.
-
     def ensure_account_user
       return unless Current.account.present? && authenticated?
 
@@ -149,9 +145,6 @@ module Authentication
 
       if user.nil?
         Current.user = provision_user_for_account(identity)
-      elsif !user.active?
-        terminate_session
-        redirect_to sign_in_path, alert: t("sessions.create.account_deactivated")
       end
     end
 

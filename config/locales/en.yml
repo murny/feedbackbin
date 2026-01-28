@@ -450,6 +450,9 @@ en:
       signed_in_as: Signed in as
       view_notifications: View notifications
   are_you_sure: Are you sure?
+  authorization:
+    account_inactive: This organization has been deactivated.
+    user_inactive: Your user has been deactivated for this organization.
   board: Board
   cancel: Cancel
   changelogs:
@@ -672,7 +675,6 @@ en:
   select_board: Select a board
   sessions:
     create:
-      account_deactivated: Your account has been deactivated. Please contact support for assistance.
       invalid_credentials: Try another email address or password.
       rate_limited: Please try again later.
       signed_in_successfully: You have signed in successfully.
@@ -770,8 +772,6 @@ en:
         back_button: Back to Accounts
         created: Created
         description: Account details and activity
-    base:
-      unauthorized: You are not authorized to access this page.
   themes:
     dark: Dark
     light: Light
@@ -935,7 +935,6 @@ en:
         password_is_invalid: Password is invalid.
         passwords_did_not_match: Passwords did not match.
     registrations:
-      account_deactivated: Your account has been deactivated for this organization.
       create:
         rate_limited: Please try again later.
         signed_up_successfully: Welcome! You have signed up successfully.
