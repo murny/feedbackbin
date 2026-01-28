@@ -13,7 +13,8 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = Comment.new(comment_params)
+    @idea = Current.account.ideas.find(params[:comment][:idea_id])
+    @comment = @idea.comments.new(comment_params.except(:idea_id))
 
     respond_to do |format|
       if @comment.save
