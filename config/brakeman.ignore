@@ -60,6 +60,40 @@
     {
       "warning_type": "Dynamic Render Path",
       "warning_code": 15,
+      "fingerprint": "eda692de6f0c918880d703e2fc6ff5895b3f617269e184a591902af0babb347a",
+      "check_name": "Render",
+      "message": "Render path contains parameter value",
+      "file": "app/views/comments/show.html.erb",
+      "line": 6,
+      "link": "https://brakemanscanner.org/docs/warning_types/dynamic_render_path/",
+      "code": "render(action => Current.account.ideas.find(params[:comment][:idea_id]).comments.new(comment_params.except(:idea_id)), { :locals => ({ :current => Current.account.ideas.find(params[:comment][:idea_id]).comments.new(comment_params.except(:idea_id)) }) })",
+      "render_path": [
+        {
+          "type": "controller",
+          "class": "CommentsController",
+          "method": "create",
+          "line": 23,
+          "file": "app/controllers/comments_controller.rb",
+          "rendered": {
+            "name": "comments/show",
+            "file": "app/views/comments/show.html.erb"
+          }
+        }
+      ],
+      "location": {
+        "type": "template",
+        "template": "comments/show"
+      },
+      "user_input": "params[:comment][:idea_id]",
+      "confidence": "Weak",
+      "cwe_id": [
+        22
+      ],
+      "note": ""
+    },
+    {
+      "warning_type": "Dynamic Render Path",
+      "warning_code": 15,
       "fingerprint": "fe8063803bbdd3ea1a3d5a2718c1f0206e2e2c535d41db204a90a87a883f6b1c",
       "check_name": "Render",
       "message": "Render path contains parameter value",
