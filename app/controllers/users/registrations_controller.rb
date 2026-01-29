@@ -75,7 +75,7 @@ module Users
             @user = User.new.tap { |u| u.errors.add(:base, :already_registered) }
             raise ActiveRecord::RecordInvalid.new(@user)
           else
-            @user = User.new.tap { |u| u.errors.add(:base, :account_deactivated) }
+            @user = User.new.tap { |u| u.errors.add(:base, I18n.t("authorization.user_inactive")) }
             raise ActiveRecord::RecordInvalid.new(@user)
           end
         end
@@ -105,7 +105,7 @@ module Users
           if existing_user.active?
             redirect_to root_path
           else
-            redirect_to root_path, alert: t("users.registrations.account_deactivated")
+            redirect_to root_path, alert: I18n.t("authorization.user_inactive")
           end
         else
           # Authenticated but no user for this account - auto-create their membership
@@ -114,7 +114,7 @@ module Users
       end
 
       def auto_join_account
-        user = Current.identity.users.create!(
+        Current.identity.users.create!(
           account: Current.account,
           name: Current.identity.email_address.split("@").first.titleize,
           role: :member
