@@ -75,7 +75,7 @@ module Users
             @user = User.new.tap { |u| u.errors.add(:base, :already_registered) }
             raise ActiveRecord::RecordInvalid.new(@user)
           else
-            @user = User.new.tap { |u| u.errors.add(:base, I18n.t("authorization.account_inactive")) }
+            @user = User.new.tap { |u| u.errors.add(:base, I18n.t("authorization.user_inactive")) }
             raise ActiveRecord::RecordInvalid.new(@user)
           end
         end
