@@ -74,8 +74,6 @@ Rails.application.routes.draw do
   # Core Application Resources (require account context)
   # =============================================================================
 
-  resource :vote, only: [ :update ]
-
   resources :notifications, only: [ :index ] do
     scope module: :notifications do
       resource :reading, only: [ :create, :destroy ]
@@ -91,12 +89,16 @@ Rails.application.routes.draw do
 
   resources :ideas do
     scope module: :ideas do
+      resource :vote, only: [ :update ]
       resource :watch, only: [ :show, :create, :destroy ]
       resource :pin, only: [ :create, :destroy ]
       resource :status, only: [ :update ]
+
+      resources :comments do
+        resource :vote, only: [ :update ], module: :comments
+      end
     end
   end
-  resources :comments, except: [ :index, :new ]
   resources :changelogs, only: [ :index, :show ]
 
   # Roadmap

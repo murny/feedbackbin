@@ -1,13 +1,6 @@
 GIT
-  remote: https://github.com/basecamp/lexxy.git
-  revision: 27b7b6e5edaa17e10a2e96837040e71da6c169f7
-  specs:
-    lexxy (0.7.3.beta)
-      rails (>= 8.0.2)
-
-GIT
   remote: https://github.com/rails/rails.git
-  revision: 3ad79fcede4f9b620f03b9fd76507d9fb3c07e95
+  revision: e50f232402239391c9680d861a6ba9aa543503f8
   branch: main
   specs:
     actioncable (8.2.0.alpha)
@@ -130,7 +123,7 @@ GEM
     bindex (0.8.1)
     bootsnap (1.21.1)
       msgpack (~> 1.2)
-    brakeman (8.0.0)
+    brakeman (8.0.1)
       racc
     builder (3.3.0)
     bundler-audit (0.9.3)
@@ -266,6 +259,8 @@ GEM
       letter_opener (~> 1.9)
       railties (>= 6.1)
       rexml
+    lexxy (0.7.3.beta)
+      rails (>= 8.0.2)
     lint_roller (1.1.0)
     listen (3.10.0)
       logger
@@ -639,7 +634,7 @@ DEPENDENCIES
   jbuilder
   kamal
   letter_opener_web (~> 3.0)
-  lexxy!
+  lexxy
   listen
   lookbook
   lucide-rails
@@ -699,7 +694,7 @@ CHECKSUMS
   bigdecimal (4.0.1) sha256=8b07d3d065a9f921c80ceaea7c9d4ae596697295b584c296fe599dd0ad01c4a7
   bindex (0.8.1) sha256=7b1ecc9dc539ed8bccfc8cb4d2732046227b09d6f37582ff12e50a5047ceb17e
   bootsnap (1.21.1) sha256=9373acfe732da35846623c337d3481af8ce77c7b3a927fb50e9aa92b46dbc4c4
-  brakeman (8.0.0) sha256=9fd6e793d1f8e581dd864a0e0dee3ce8864e2902fcbd314d21f952f9751dd2f6
+  brakeman (8.0.1) sha256=c68ce0ac35a6295027c4eab8b4ac597d2a0bfc82f0d62dcd334bbf944d352f70
   builder (3.3.0) sha256=497918d2f9dca528fdca4b88d84e4ef4387256d984b8154e9d5d3fe5a9c8835f
   bundler-audit (0.9.3) sha256=81c8766c71e47d0d28a0f98c7eed028539f21a6ea3cd8f685eb6f42333c9b4e9
   capybara (3.40.0) sha256=42dba720578ea1ca65fd7a41d163dd368502c191804558f6e0f71b391054aeef
@@ -756,7 +751,7 @@ CHECKSUMS
   launchy (3.1.1) sha256=72b847b5cc961589dde2c395af0108c86ff0119f42d4648d25b5440ebb10059e
   letter_opener (1.10.0) sha256=2ff33f2e3b5c3c26d1959be54b395c086ca6d44826e8bf41a14ff96fdf1bdbb2
   letter_opener_web (3.0.0) sha256=3f391efe0e8b9b24becfab5537dfb17a5cf5eb532038f947daab58cb4b749860
-  lexxy (0.7.3.beta)
+  lexxy (0.7.3.beta) sha256=e15c5ca11a07362a566b12408f4c561772efe01c19072913881a55baa364c424
   lint_roller (1.1.0) sha256=2c0c845b632a7d172cb849cc90c1bce937a28c5c8ccccb50dfd46a485003cc87
   listen (3.10.0) sha256=c6e182db62143aeccc2e1960033bebe7445309c7272061979bb098d03760c9d2
   logger (1.7.0) sha256=196edec7cc44b66cfb40f9755ce11b392f21f7967696af15d274dde7edff0203

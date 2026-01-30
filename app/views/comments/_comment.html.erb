@@ -1,10 +1,10 @@
 <%# locals: (comment:) %>
 
 <%= turbo_frame_tag dom_id(comment) do %>
-  <div class="pl-6 pt-6 border-left">
+  <div class="py-6">
     <% if comment.creator.system? %>
       <%# System comment - simplified styling for audit trail %>
-      <div class="p-3 mb-4 text-sm bg-muted/30 border border-muted rounded-lg">
+      <div class="p-3 text-sm bg-muted/30 border border-muted rounded-lg">
         <div class="flex items-center gap-2">
           <%= lucide_icon("info", class: "w-4 h-4 text-muted-foreground") %>
           <div class="flex-1">
@@ -17,22 +17,20 @@
       </div>
     <% else %>
       <%# Regular user comment %>
-      <div class="p-4 lg:p-6 mb-6 text-base bg-card border border-border rounded-lg">
+      <div class="p-4 lg:p-6 text-base bg-card border border-border rounded-lg">
         <div class="flex">
           <div class="mr-4">
             <%= render partial: "votes/vote_button", locals: { voteable: comment } %>
           </div>
-          <div class="w-full">
-            <div class="flex justify-between items-center mb-2 w-full">
+          <div class="flex-1 min-w-0">
+            <div class="flex justify-between items-center mb-2">
               <div class="flex items-center">
                 <%= avatar_tag comment.creator, class: "mr-2 w-6 h-6 rounded-full", alt: comment.creator.name %>
 
-                <a href="#" class="flex items-center">
-                    <p class="inline-flex flex-col md:flex-row items-start mr-3 text-sm text-foreground">
-                        <span class="font-semibold"><%= comment.creator.name %></span>
-                        <%= local_datetime_tag comment.created_at, style: :datetime, class: "text-sm text-muted-foreground md:ml-2" %>
-                    </p>
-                </a>
+                <p class="inline-flex flex-col md:flex-row items-start mr-3 text-sm text-foreground">
+                  <span class="font-semibold"><%= comment.creator.name %></span>
+                  <%= local_datetime_tag comment.created_at, style: :datetime, class: "text-sm text-muted-foreground md:ml-2" %>
+                </p>
               </div>
               <%= render Elements::DropdownMenuComponent.new do |dropdown| %>
                 <% dropdown.with_trigger(variant: :ghost, size: :icon, class: "text-muted-foreground") do %>
@@ -41,11 +39,11 @@
                 <% end %>
 
                 <% if Current.user&.can_administer_comment?(comment) %>
-                  <% dropdown.with_item_content(href: edit_comment_path(comment)) do %>
+                  <% dropdown.with_item_content(href: edit_idea_comment_path(comment.idea, comment)) do %>
                     <%= t("edit") %>
                   <% end %>
                   <% dropdown.with_item_content(
-                    href: comment_path(comment),
+                    href: idea_comment_path(comment.idea, comment),
                     method: :delete,
                     form: { data: { turbo_confirm: t("are_you_sure") } }
                   ) do %>
@@ -64,12 +62,12 @@
           </div>
         </div>
       </div>
-    <% end %>
-      <div id="<%= dom_id(comment) %>_replies" class="mt-5">
+
+      <div id="<%= dom_id(comment) %>_replies" class="mt-4 ml-8">
         <%= render partial: "comments/reply", collection: comment.replies.ordered, as: :comment %>
       </div>
 
       <%= render partial: "comments/reply_form", locals: { parent: comment, comment: Comment.new } %>
-    </div>
+    <% end %>
   </div>
 <% end %>

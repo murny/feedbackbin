@@ -4,14 +4,14 @@
   <% if authenticated? %>
     <%= turbo_frame_tag voteable, :vote_button do %>
       <% if voteable.voted_by?(Current.user) %>
-        <%= button_to vote_path(voteable_type: voteable.class.to_s, voteable_id: voteable.id),
+        <%= button_to voteable_vote_path(voteable),
               method: :patch,
               class: "btn-secondary flex flex-col h-auto py-2 px-2 md:px-3 min-w-[50px] md:min-w-[60px]" do %>
           <%= lucide_icon "chevron-up", class: "h-3 w-3 md:h-4 md:w-4 mb-1" %>
           <span class="text-lg font-bold text-center min-w-[2ch] text-foreground"><%= voteable.votes_count %></span>
         <% end %>
       <% else %>
-        <%= button_to vote_path(voteable_type: voteable.class.to_s, voteable_id: voteable.id),
+        <%= button_to voteable_vote_path(voteable),
               method: :patch,
               class: "btn-ghost flex flex-col h-auto py-2 px-2 md:px-3 min-w-[50px] md:min-w-[60px]" do %>
           <%= lucide_icon "chevron-up", class: "h-3 w-3 md:h-4 md:w-4 mb-1" %>

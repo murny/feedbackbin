@@ -11,6 +11,7 @@ en:
           attributes:
             parent_id:
               cannot_reply_to_reply: you can only reply to comments, not to other replies
+              must_belong_to_same_idea: must belong to the same idea
         identity:
           attributes:
             email_address:
@@ -468,10 +469,6 @@ en:
       comment_settings: Comment settings
     comments:
       comments_title_with_count: Comments (%{comment_count})
-    create:
-      successfully_created: Comment was successfully created.
-    destroy:
-      successfully_destroyed: Comment was successfully destroyed.
     form:
       comment_placeholder: Write a comment...
     reply:
@@ -479,8 +476,6 @@ en:
     reply_form:
       reply_placeholder: Write a reply...
       write_a_reply: Write a reply
-    update:
-      successfully_updated: Comment was successfully updated.
   delete: Delete
   edit: Edit
   elements:
@@ -505,6 +500,17 @@ en:
     was: was
     you: You
   ideas:
+    comments:
+      create:
+        successfully_created: Comment was successfully created.
+      destroy:
+        successfully_destroyed: Comment was successfully destroyed.
+      update:
+        successfully_updated: Comment was successfully updated.
+      votes:
+        update:
+          successfully_unvoted: Comment was successfully unliked.
+          successfully_voted: Comment was successfully liked.
     create:
       successfully_created: Idea was successfully created.
     default_status: Open
@@ -555,6 +561,10 @@ en:
         success: Status has been updated.
     update:
       successfully_updated: Idea was successfully updated.
+    votes:
+      update:
+        successfully_unvoted: Idea was successfully unliked.
+        successfully_voted: Idea was successfully liked.
     watches:
       watch_button:
         watch: Watch
@@ -988,7 +998,3 @@ en:
       comment_on: Comment on
       empty_votes: No votes yet.
       voted: Voted
-  votes:
-    update:
-      successfully_unvoted: You removed your vote from this %{resource}
-      successfully_voted: You voted for this %{resource}

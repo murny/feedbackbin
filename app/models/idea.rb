@@ -43,7 +43,15 @@ class Idea < ApplicationRecord
   end
 
   def participant_ids
-    @participant_ids ||= ([ creator_id ] + comments.order(created_at: :desc).distinct.pluck(:creator_id)).uniq
+    @participant_ids ||= begin
+      comment_creator_ids = comments.joins(:creator)
+                                    .where.not(users: { role: :system })
+                                    .order(created_at: :desc)
+                                    .pluck(:creator_id)
+                                    .uniq
+
+      creator.system? ? comment_creator_ids : ([ creator_id ] + comment_creator_ids).uniq
+    end
   end
 
   def participants(limit: 10)
