@@ -21,37 +21,58 @@ class Ideas::CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
-        flash[:notice] = t(".successfully_created")
-        format.html { redirect_to idea_path(@idea) }
+        notice = t(".successfully_created")
+        format.html do
+          flash[:notice] = notice
+          redirect_to idea_path(@idea)
+        end
+        format.turbo_stream do
+          flash.now[:notice] = notice
+          render "comments/create"
+        end
         format.json { render "comments/show", status: :created, location: idea_comment_path(@idea, @comment) }
       else
         format.html { render "comments/new", status: :unprocessable_entity }
+        format.turbo_stream { render "comments/create" }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
-      format.turbo_stream { render "comments/create" }
     end
   end
 
   def update
     respond_to do |format|
       if @comment.update(comment_params)
-        flash[:notice] = t(".successfully_updated")
-        format.html { redirect_to idea_comment_path(@idea, @comment) }
+        notice = t(".successfully_updated")
+        format.html do
+          flash[:notice] = notice
+          redirect_to idea_comment_path(@idea, @comment)
+        end
+        format.turbo_stream do
+          flash.now[:notice] = notice
+          render "comments/update"
+        end
         format.json { render "comments/show", status: :ok, location: idea_comment_path(@idea, @comment) }
       else
         format.html { render "comments/edit", status: :unprocessable_entity }
+        format.turbo_stream { render "comments/update" }
         format.json { render json: @comment.errors, status: :unprocessable_entity }
       end
-      format.turbo_stream { render "comments/update" }
     end
   end
 
   def destroy
     @comment.destroy!
+    notice = t(".successfully_destroyed")
+
     respond_to do |format|
-      flash[:notice] = t(".successfully_destroyed")
-      format.turbo_stream { render "comments/destroy" }
-      format.html { redirect_to @idea, status: :see_other }
+      format.html do
+        flash[:notice] = notice
+        redirect_to @idea, status: :see_other
+      end
+      format.turbo_stream do
+        flash.now[:notice] = notice
+        render "comments/destroy"
+      end
       format.json { head :no_content }
     end
   end

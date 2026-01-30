@@ -23,7 +23,11 @@ class Comment < ApplicationRecord
   private
 
     def parent_must_be_top_level_comment
-      if parent&.parent_id.present?
+      return unless parent.present?
+
+      if parent.idea_id != idea_id
+        errors.add(:parent_id, :must_belong_to_same_idea)
+      elsif parent.parent_id.present?
         errors.add(:parent_id, :cannot_reply_to_reply)
       end
     end

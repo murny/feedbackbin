@@ -63,6 +63,16 @@ class CommentTest < ActiveSupport::TestCase
     assert_predicate reply, :valid?
   end
 
+  test "should not allow reply to comment from different idea" do
+    comment_on_idea_one = comments(:one)
+    different_idea = ideas(:two)
+
+    reply = Comment.new(body: "Cross-idea reply", idea: different_idea, parent: comment_on_idea_one, creator: users(:shane))
+
+    assert_not reply.valid?
+    assert_includes reply.errors[:parent_id], "must belong to the same idea"
+  end
+
   test "creates event when regular user creates comment" do
     assert_difference "Event.count", 1 do
       Comment.create!(body: "User comment", idea: ideas(:one), creator: users(:shane))
