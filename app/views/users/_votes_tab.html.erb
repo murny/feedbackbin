@@ -13,7 +13,7 @@
                       <% if vote.voteable_type == "Idea" %>
                         <%= link_to vote.voteable.title, idea_path(vote.voteable), class: "scroll-m-20 text-xl font-semibold tracking-tight hover:underline cursor-pointer line-clamp-2" %>
                       <% else %>
-                        <%= link_to comment_path(vote.voteable), class: "scroll-m-20 text-xl font-semibold tracking-tight hover:underline cursor-pointer line-clamp-2" do %>
+                        <%= link_to idea_comment_path(vote.voteable.idea, vote.voteable), class: "scroll-m-20 text-xl font-semibold tracking-tight hover:underline cursor-pointer line-clamp-2" do %>
                           <span class="text-muted-foreground text-sm font-normal"><%= t(".comment_on") %></span> <%= vote.voteable.idea.title %>
                         <% end %>
                       <% end %>

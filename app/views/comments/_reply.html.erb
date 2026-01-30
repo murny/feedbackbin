@@ -37,11 +37,11 @@
               <% end %>
 
               <% if Current.user&.can_administer_comment?(comment) %>
-                <% dropdown.with_item_content(href: edit_comment_path(comment)) do %>
+                <% dropdown.with_item_content(href: edit_idea_comment_path(comment.idea, comment)) do %>
                   <%= t("edit") %>
                 <% end %>
                 <% dropdown.with_item_content(
-                  href: comment_path(comment),
+                  href: idea_comment_path(comment.idea, comment),
                   method: :delete,
                   form: { data: { turbo_confirm: t("are_you_sure") } }
                 ) do %>

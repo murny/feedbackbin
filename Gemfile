@@ -31,7 +31,7 @@ gem "tailwindcss-rails", "4.4.0"
 gem "jbuilder"
 
 # Rich Text Editor
-gem "lexxy", github: "basecamp/lexxy"
+gem "lexxy"
 
 # View
 gem "pagy", "~> 43.2"

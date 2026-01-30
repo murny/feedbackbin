@@ -10,7 +10,7 @@
                 <div class="mb-2">
                   <div class="flex items-center gap-2 mb-1">
                     <h2 class="flex-1">
-                      <%= link_to comment_path(comment), class: "scroll-m-20 text-xl font-semibold tracking-tight hover:underline cursor-pointer line-clamp-2" do %>
+                      <%= link_to idea_comment_path(comment.idea, comment), class: "scroll-m-20 text-xl font-semibold tracking-tight hover:underline cursor-pointer line-clamp-2" do %>
                         <span class="text-muted-foreground text-sm font-normal"><%= t(".comment_on") %></span> <%= comment.idea.title %>
                       <% end %>
                     </h2>

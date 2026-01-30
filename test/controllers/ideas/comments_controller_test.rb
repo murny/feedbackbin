@@ -2,7 +2,7 @@
 
 require "test_helper"
 
-class CommentsControllerTest < ActionDispatch::IntegrationTest
+class Ideas::CommentsControllerTest < ActionDispatch::IntegrationTest
   setup do
     @user = users(:jane)
     @idea = ideas(:one)
@@ -10,7 +10,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "should show comment" do
-    get comment_url(@comment)
+    get idea_comment_url(@idea, @comment)
 
     assert_response :success
   end
@@ -18,7 +18,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
   test "should edit comment" do
     sign_in_as @user
 
-    get edit_comment_url(@comment)
+    get edit_idea_comment_url(@idea, @comment)
 
     assert_response :success
   end
@@ -27,11 +27,11 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     sign_in_as @user
 
     assert_difference "Comment.count" do
-      post comments_url, params: { comment: { idea_id: @idea.id, body: "Hello, world!" } }
+      post idea_comments_url(@idea), params: { comment: { body: "Hello, world!" } }
     end
 
     assert_response :redirect
-    assert_redirected_to idea_url(@idea), notice: "Comment was successfully created."
+    assert_redirected_to idea_url(@idea)
 
     assert_equal "Hello, world!", Comment.last.body.to_plain_text
     assert_equal @user, Comment.last.creator
@@ -39,7 +39,7 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
 
   test "should not create comment if not authenticated" do
     assert_no_difference "Comment.count" do
-      post comments_url, params: { comment: { idea_id: @idea.id, body: "Hello, world!" } }
+      post idea_comments_url(@idea), params: { comment: { body: "Hello, world!" } }
     end
 
     assert_response :redirect
@@ -49,10 +49,10 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
   test "should update comment if authenticated" do
     sign_in_as @user
 
-    patch comment_url(@comment), params: { comment: { body: "This is a new body" } }
+    patch idea_comment_url(@idea, @comment), params: { comment: { body: "This is a new body" } }
 
     assert_response :redirect
-    assert_redirected_to comment_url(@comment), notice: "Comment was successfully updated."
+    assert_redirected_to idea_comment_url(@idea, @comment)
 
     @comment.reload
 
@@ -63,10 +63,10 @@ class CommentsControllerTest < ActionDispatch::IntegrationTest
     sign_in_as @user
 
     assert_difference "Comment.count", -1 do
-      delete comment_url(@comment)
+      delete idea_comment_url(@idea, @comment)
     end
 
     assert_response :redirect
-    assert_redirected_to idea_url(@comment.idea), notice: "Comment was successfully destroyed."
+    assert_redirected_to idea_url(@idea)
   end
 end

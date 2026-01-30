@@ -3,10 +3,8 @@
 <% if authenticated? %>
   <%= turbo_frame_tag "idea_comment_form" do %>
     <div class="flex items-start">
-      <%= form_with model: comment, class: "my-4 w-full" do |form| %>
+      <%= form_with model: comment, url: idea_comments_path(idea), class: "my-4 w-full" do |form| %>
         <%= render "error_messages", resource: form.object %>
-
-        <%= form.hidden_field :idea_id, value: idea.id %>
         <div class="bg-card border border-input rounded-md overflow-hidden focus-within:border-ring focus-within:ring-2 focus-within:ring-ring/50">
           <%= form.rich_text_area :body, id: "idea_#{idea.id}_new_comment_body", placeholder: t(".comment_placeholder") do %>
             <%= rich_text_prompts %>
@@ -14,7 +12,7 @@
         </div>
         <div class="mt-5 flex items-center gap-4 justify-end">
           <%= form.submit class: "btn btn-primary" %>
-          <%= link_to "Cancel", comment, class: "btn btn-secondary" if form.object.persisted? %>
+          <%= link_to "Cancel", idea_comment_path(idea, comment), class: "btn btn-secondary" if form.object.persisted? %>
         </div>
       <% end %>
     </div>
