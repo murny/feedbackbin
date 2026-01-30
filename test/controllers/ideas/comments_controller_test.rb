@@ -32,6 +32,7 @@ class Ideas::CommentsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :redirect
     assert_redirected_to idea_url(@idea)
+    assert_equal I18n.t("ideas.comments.create.successfully_created"), flash[:notice]
 
     assert_equal "Hello, world!", Comment.last.body.to_plain_text
     assert_equal @user, Comment.last.creator
@@ -53,10 +54,23 @@ class Ideas::CommentsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :redirect
     assert_redirected_to idea_comment_url(@idea, @comment)
+    assert_equal I18n.t("ideas.comments.update.successfully_updated"), flash[:notice]
 
     @comment.reload
 
     assert_equal "This is a new body", @comment.body.to_plain_text
+  end
+
+  test "should not update comment if not authorized" do
+    sign_in_as users(:john)
+
+    patch idea_comment_url(@idea, @comment), params: { comment: { body: "Unauthorized update" } }
+
+    assert_response :forbidden
+
+    @comment.reload
+
+    assert_not_equal "Unauthorized update", @comment.body.to_plain_text
   end
 
   test "should destroy comment" do
@@ -68,5 +82,16 @@ class Ideas::CommentsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :redirect
     assert_redirected_to idea_url(@idea)
+    assert_equal I18n.t("ideas.comments.destroy.successfully_destroyed"), flash[:notice]
+  end
+
+  test "should not destroy comment if not authorized" do
+    sign_in_as users(:john)
+
+    assert_no_difference "Comment.count" do
+      delete idea_comment_url(@idea, @comment)
+    end
+
+    assert_response :forbidden
   end
 end

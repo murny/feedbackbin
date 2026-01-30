@@ -115,6 +115,12 @@ Example badge usage:
 <% end %>
 ```
 
+### Code Comments
+- Do not add comments that explain the context of a change or the prompt that led to it
+- Comments should be useful to future readers who have no knowledge of why a change was made
+- Bad: `<%# Replies are always from regular users - system comments are only top-level %>` (explains prompt context, not the code)
+- Good: Only add comments when the code itself is complex and requires explanation
+
 ### Styling Guidelines
 - Use Tailwind's built-in CSS variables: `bg-primary`, `text-primary-foreground`
 - Follow mobile-first responsive approach

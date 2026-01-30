@@ -21,7 +21,7 @@ class Ideas::CommentsController < ApplicationController
 
     respond_to do |format|
       if @comment.save
-        flash.now[:notice] = t(".successfully_created")
+        flash[:notice] = t(".successfully_created")
         format.html { redirect_to idea_path(@idea) }
         format.json { render "comments/show", status: :created, location: idea_comment_path(@idea, @comment) }
       else
@@ -35,7 +35,7 @@ class Ideas::CommentsController < ApplicationController
   def update
     respond_to do |format|
       if @comment.update(comment_params)
-        flash.now[:notice] = t(".successfully_updated")
+        flash[:notice] = t(".successfully_updated")
         format.html { redirect_to idea_comment_path(@idea, @comment) }
         format.json { render "comments/show", status: :ok, location: idea_comment_path(@idea, @comment) }
       else
@@ -49,7 +49,7 @@ class Ideas::CommentsController < ApplicationController
   def destroy
     @comment.destroy!
     respond_to do |format|
-      flash.now[:notice] = t(".successfully_destroyed")
+      flash[:notice] = t(".successfully_destroyed")
       format.turbo_stream { render "comments/destroy" }
       format.html { redirect_to @idea, status: :see_other }
       format.json { head :no_content }

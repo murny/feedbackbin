@@ -1,64 +1,49 @@
 <%# locals: (comment:) %>
 
-<%= turbo_frame_tag comment, data: { controller: "comment-reply" } do %>
-  <% if comment.creator.system? %>
-    <%# System comment - simplified styling for audit trail %>
-    <%= tag.div class: "ml-8 p-3 mb-4 text-sm bg-muted/30 border border-muted rounded-lg" do %>
-      <div class="flex items-center gap-2">
-        <%= lucide_icon("info", class: "w-4 h-4 text-muted-foreground") %>
-        <div class="flex-1">
-          <p class="text-muted-foreground">
-            <%= sanitize(comment.body, tags: %w[strong]) %>
-          </p>
-        </div>
-        <%= local_datetime_tag comment.created_at, style: :datetime, class: "text-xs text-muted-foreground" %>
+<%= turbo_frame_tag comment do %>
+  <div class="p-4 lg:p-6 mb-4 text-base bg-card border border-border rounded-lg">
+    <div class="flex">
+      <div class="mr-4">
+        <%= render partial: "votes/vote_button", locals: { voteable: comment } %>
       </div>
-    <% end %>
-  <% else %>
-    <%# Regular user comment %>
-    <%= tag.div class: "ml-8 p-4 lg:p-6 mb-6 text-base bg-card border border-border rounded-lg" do %>
-      <div class="flex">
-        <div class="w-full">
-            <div class="flex justify-between items-center mb-2 w-full">
-            <div class="flex items-center">
-              <%= avatar_tag comment.creator, class: "mr-2 w-6 h-6 rounded-full", alt: comment.creator.name %>
+      <div class="flex-1 min-w-0">
+        <div class="flex justify-between items-center mb-2">
+          <div class="flex items-center">
+            <%= avatar_tag comment.creator, class: "mr-2 w-6 h-6 rounded-full", alt: comment.creator.name %>
 
-              <a href="#" class="flex items-center">
-                  <p class="inline-flex flex-col md:flex-row items-start mr-3 text-sm text-foreground">
-                      <span class="font-semibold"><%= comment.creator.name %></span>
-                      <%= local_datetime_tag comment.created_at, style: :datetime, class: "text-sm text-muted-foreground md:ml-2" %>
-                  </p>
-              </a>
-            </div>
-            <%= render Elements::DropdownMenuComponent.new do |dropdown| %>
-              <% dropdown.with_trigger(variant: :ghost, size: :icon, class: "text-muted-foreground") do %>
-                <%= lucide_icon("ellipsis") %>
-                <span class="sr-only"><%= t(".comment_settings") %></span>
+            <p class="inline-flex flex-col md:flex-row items-start mr-3 text-sm text-foreground">
+              <span class="font-semibold"><%= comment.creator.name %></span>
+              <%= local_datetime_tag comment.created_at, style: :datetime, class: "text-sm text-muted-foreground md:ml-2" %>
+            </p>
+          </div>
+          <%= render Elements::DropdownMenuComponent.new do |dropdown| %>
+            <% dropdown.with_trigger(variant: :ghost, size: :icon, class: "text-muted-foreground") do %>
+              <%= lucide_icon("ellipsis") %>
+              <span class="sr-only"><%= t(".comment_settings") %></span>
+            <% end %>
+
+            <% if Current.user&.can_administer_comment?(comment) %>
+              <% dropdown.with_item_content(href: edit_idea_comment_path(comment.idea, comment)) do %>
+                <%= t("edit") %>
               <% end %>
-
-              <% if Current.user&.can_administer_comment?(comment) %>
-                <% dropdown.with_item_content(href: edit_idea_comment_path(comment.idea, comment)) do %>
-                  <%= t("edit") %>
-                <% end %>
-                <% dropdown.with_item_content(
-                  href: idea_comment_path(comment.idea, comment),
-                  method: :delete,
-                  form: { data: { turbo_confirm: t("are_you_sure") } }
-                ) do %>
-                  <%= t("remove") %>
-                <% end %>
-              <% end %>
-
-              <% dropdown.with_item_content(href: "#") do %>
-                <%= t("report") %>
+              <% dropdown.with_item_content(
+                href: idea_comment_path(comment.idea, comment),
+                method: :delete,
+                form: { data: { turbo_confirm: t("are_you_sure") } }
+              ) do %>
+                <%= t("remove") %>
               <% end %>
             <% end %>
-          </div>
-          <div class="text-muted-foreground" data-controller="syntax-highlight">
-            <%= comment.body %>
-          </div>
+
+            <% dropdown.with_item_content(href: "#") do %>
+              <%= t("report") %>
+            <% end %>
+          <% end %>
+        </div>
+        <div class="text-muted-foreground" data-controller="syntax-highlight">
+          <%= comment.body %>
         </div>
       </div>
-    <% end %>
-  <% end %>
+    </div>
+  </div>
 <% end %>

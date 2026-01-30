@@ -15,6 +15,7 @@ class Ideas::VotesControllerTest < ActionDispatch::IntegrationTest
       patch idea_vote_url(@idea)
 
       assert_redirected_to @idea
+      assert_equal I18n.t("ideas.votes.update.successfully_voted"), flash[:notice]
     end
   end
 
@@ -26,6 +27,7 @@ class Ideas::VotesControllerTest < ActionDispatch::IntegrationTest
       patch idea_vote_url(@idea)
 
       assert_redirected_to @idea
+      assert_equal I18n.t("ideas.votes.update.successfully_unvoted"), flash[:notice]
     end
   end
 
