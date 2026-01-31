@@ -3,6 +3,7 @@
 class Comment < ApplicationRecord
   include Voteable
   include Comment::Eventable
+  include Mentioning
 
   belongs_to :account, default: -> { Current.account }
   belongs_to :creator, class_name: "User", default: -> { Current.user }
@@ -12,6 +13,7 @@ class Comment < ApplicationRecord
   has_many :replies, class_name: "Comment", foreign_key: :parent_id, dependent: :destroy, inverse_of: :parent
 
   has_rich_text :body
+  mentionable_rich_text :body
 
   validates :body, presence: true
   validate :parent_must_be_top_level_comment, if: :parent_id?

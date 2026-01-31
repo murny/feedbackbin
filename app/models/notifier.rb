@@ -14,13 +14,15 @@ class Notifier
   attr_reader :source, :creator
 
   # Factory method to create the appropriate notifier
-  # @param source [Event] The source object that should trigger notifications
+  # @param source [Event, Mention] The source object that should trigger notifications
   # @return [Notifier subclass, nil] The appropriate notifier or nil if not found
   def self.for(source)
     case source
     when Event
       notifier_class_name = "Notifier::#{source.eventable.class.name}EventNotifier"
       notifier_class_name.safe_constantize&.new(source)
+    when Mention
+      Notifier::MentionNotifier.new(source)
     else
       nil
     end

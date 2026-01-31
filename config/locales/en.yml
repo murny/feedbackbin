@@ -499,6 +499,9 @@ en:
     unknown_item: unknown item
     was: was
     you: You
+  mentions:
+    actions:
+      mentioned_you_in: mentioned you in
   ideas:
     comments:
       create:
