@@ -1,0 +1,9 @@
+<lexxy-prompt-item search="<%= "#{idea.id} #{idea.title}" %>">
+  <template type="menu">
+    <span class="text-muted-foreground">#<%= idea.id %></span>
+    <%= truncate(idea.title, length: 50) %>
+  </template>
+  <template type="editor">
+    <%= link_to "##{idea.id} #{truncate(idea.title, length: 40)}", idea_path(idea), class: "text-primary hover:underline" %>
+  </template>
+</lexxy-prompt-item>

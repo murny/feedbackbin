@@ -1,0 +1,13 @@
+# Test fixtures for mentions
+
+idea_mention:
+  account: feedbackbin
+  source: one (Idea)
+  mentioner: shane
+  mentionee: jane
+
+comment_mention:
+  account: feedbackbin
+  source: one (Comment)
+  mentioner: jane
+  mentionee: john
