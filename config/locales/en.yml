@@ -478,7 +478,6 @@ en:
       comment_placeholder: Write a comment...
     reply:
       comment_settings: Comment settings
-      reply: Reply
     reply_form:
       create_reply: Reply
       reply_placeholder: Write a reply...
