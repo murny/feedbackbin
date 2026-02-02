@@ -10,7 +10,7 @@
         <p class="text-sm text-muted-foreground"><%= t(".description") %></p>
       </div>
       <div class="whitespace-nowrap">
-        <%= link_to t(".new_board"), new_admin_settings_board_path, class: "btn btn-primary" %>
+        <%= link_to t(".new_board"), new_admin_settings_board_path, class: "btn btn--primary" %>
       </div>
     </div>
 
@@ -64,7 +64,7 @@
         <h3 class="mt-4 text-lg font-semibold text-foreground"><%= t(".no_boards_title") %></h3>
         <p class="mt-2 text-sm text-muted-foreground"><%= t(".no_boards_description") %></p>
         <div class="mt-6">
-          <%= link_to t(".create_first_board"), new_admin_settings_board_path, class: "btn btn-primary" %>
+          <%= link_to t(".create_first_board"), new_admin_settings_board_path, class: "btn btn--primary" %>
         </div>
         <% end %>
       <% end %>

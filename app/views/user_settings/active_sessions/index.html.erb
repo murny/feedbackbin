@@ -51,7 +51,7 @@
                     <%= button_to t(".revoke"),
                           user_settings_active_session_path(session),
                           method: :delete,
-                          class: "btn btn-destructive btn-sm",
+                          class: "btn btn--destructive btn--sm",
                           form: { data: { turbo_confirm: t(".are_you_sure") } } %>
                   <% end %>
                 </div>

@@ -29,7 +29,7 @@
       </header>
 
       <div class="px-6">
-        <%= link_to t(".create_account"), signup_path, class: "btn btn-primary w-full" %>
+        <%= link_to t(".create_account"), signup_path, class: "btn btn--primary w-full" %>
       </div>
     <% end %>
 
@@ -39,7 +39,7 @@
       </p>
       <%= button_to t(".sign_out"), session_url(script_name: ""),
             method: :delete,
-            class: "btn btn-outline w-full mt-3" %>
+            class: "btn btn--outline w-full mt-3" %>
     </div>
   </div>
 </div>
