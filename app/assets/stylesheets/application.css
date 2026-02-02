@@ -34,6 +34,7 @@
 @import "components/rich-text-content.css";
 @import "components/forms.css";
 @import "components/upload-preview.css";
+@import "components/lexxy.css";
 
 /* Utilities (highest priority) */
 @import "utilities.css";

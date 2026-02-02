@@ -25,7 +25,6 @@ gem "propshaft"
 gem "turbo-rails"
 gem "stimulus-rails"
 gem "importmap-rails"
-gem "tailwindcss-rails", "4.4.0"
 
 # API
 gem "jbuilder"
@@ -37,7 +36,6 @@ gem "lexxy"
 gem "pagy", "~> 43.2"
 gem "inline_svg"
 gem "lucide-rails"
-gem "tailwind_merge", "~> 1.3.2"
 gem "view_component"
 
 # Authentication & Authorization
