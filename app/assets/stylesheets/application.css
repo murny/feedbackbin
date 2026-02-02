@@ -21,6 +21,9 @@
 @import "components/dropdowns.css";
 @import "components/popovers.css";
 @import "components/tabs.css";
+@import "components/toasts.css";
+@import "components/avatars.css";
+@import "components/breadcrumbs.css";
 
 /* Utilities (highest priority) */
 @import "utilities.css";

@@ -11,6 +11,7 @@ module Elements
       size: :default,
       shape: :circle,
       fallback: nil,
+      ring: false,
       **attrs
     )
       @src = src
@@ -18,6 +19,7 @@ module Elements
       @size = validate_option(size, SIZES, "size")
       @shape = validate_option(shape, SHAPES, "shape")
       @fallback = generate_fallback(fallback)
+      @ring = ring
       @attrs = attrs
     end
 
@@ -31,43 +33,34 @@ module Elements
       end
 
       def avatar_classes
-        tw_merge(base_classes, size_classes, shape_classes, @attrs[:class])
-      end
-
-      def base_classes
         [
-          "relative flex shrink-0 overflow-hidden",
-          # Focus
-          "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring"
-        ].join(" ")
+          "avatar",
+          size_class,
+          shape_class,
+          ("avatar--ring" if @ring),
+          @attrs[:class]
+        ].compact.join(" ")
       end
 
-      def size_classes
+      def size_class
         case @size
-        when :sm
-          "size-6" # 24px
-        when :default
-          "size-8" # 32px
-        when :lg
-          "size-12" # 48px
-        when :xl
-          "size-16" # 64px
+        when :sm then "avatar--sm"
+        when :lg then "avatar--lg"
+        when :xl then "avatar--xl"
+        else nil
         end
       end
 
-      def shape_classes
+      def shape_class
         case @shape
-        when :circle
-          "rounded-full"
-        when :square
-          "rounded-md"
+        when :square then "avatar--square"
+        else nil
         end
       end
 
       def generate_fallback(fallback)
         return nil if fallback.blank?
 
-        # If fallback contains space, assume it's a full name and generate initials
         if fallback.is_a?(String) && fallback.strip.include?(" ")
           generate_initials_from_name(fallback)
         else
@@ -78,14 +71,7 @@ module Elements
       def generate_initials_from_name(name)
         return "" if name.blank?
 
-        # Take first letter of each word, uppercase, limit to 2 characters
         name.strip.split.map(&:first).join("").upcase[0, 2]
-      end
-
-      def validate_option(value, valid_options, option_name)
-        return value if valid_options.include?(value)
-
-        raise ArgumentError, "Unknown #{option_name}: #{value}. Valid options: #{valid_options.join(', ')}"
       end
   end
 end
