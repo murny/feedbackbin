@@ -1,0 +1,221 @@
+/* ==========================================================================
+   Dialog Component (Modal)
+
+   Usage:
+     <dialog class="dialog">
+       <article class="dialog__content">
+         <header class="dialog__header">
+           <h2 class="dialog__title">Title</h2>
+           <p class="dialog__description">Description</p>
+         </header>
+         <section class="dialog__body">Content</section>
+         <footer class="dialog__footer">Actions</footer>
+         <button class="dialog__close">×</button>
+       </article>
+     </dialog>
+
+   Open with: dialogEl.showModal()
+   ========================================================================== */
+
+@layer components {
+  /* Dialog (native <dialog> element)
+  /* ------------------------------------------------------------------------ */
+
+  .dialog {
+    /* Reset dialog defaults */
+    padding: 0;
+    border: none;
+    background: transparent;
+    max-inline-size: none;
+    max-block-size: none;
+
+    /* Positioning */
+    position: fixed;
+    inset: 0;
+
+    /* Initial hidden state */
+    opacity: 0;
+    transition: opacity var(--duration-normal) var(--ease-out),
+                display var(--duration-normal) var(--ease-out) allow-discrete,
+                overlay var(--duration-normal) var(--ease-out) allow-discrete;
+
+    /* Open state */
+    &[open] {
+      opacity: 1;
+
+      .dialog__content {
+        transform: translate(-50%, -50%) scale(1);
+      }
+
+      &::backdrop {
+        opacity: 1;
+      }
+    }
+
+    /* Backdrop */
+    &::backdrop {
+      background-color: oklch(0 0 0 / 50%);
+      opacity: 0;
+      transition: opacity var(--duration-normal) var(--ease-out),
+                  display var(--duration-normal) var(--ease-out) allow-discrete,
+                  overlay var(--duration-normal) var(--ease-out) allow-discrete;
+    }
+
+    /* Starting style for open animation */
+    @starting-style {
+      &[open] {
+        opacity: 0;
+
+        .dialog__content {
+          transform: translate(-50%, -50%) scale(0.95);
+        }
+
+        &::backdrop {
+          opacity: 0;
+        }
+      }
+    }
+  }
+
+  /* Dialog Content (the visible modal box)
+  /* ------------------------------------------------------------------------ */
+
+  .dialog__content {
+    /* Component API */
+    --dialog-padding: 1.5rem;
+    --dialog-gap: 1rem;
+    --dialog-radius: var(--radius-lg);
+    --dialog-background: var(--color-background);
+    --dialog-shadow: var(--shadow-lg);
+    --dialog-max-width: 32rem;
+
+    /* Positioning - centered */
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.95);
+    z-index: 50;
+
+    /* Structure */
+    display: flex;
+    flex-direction: column;
+    gap: var(--dialog-gap);
+    inline-size: 100%;
+    max-inline-size: min(var(--dialog-max-width), calc(100% - 2rem));
+    max-block-size: calc(100% - 2rem);
+    padding: var(--dialog-padding);
+
+    /* Appearance */
+    background-color: var(--dialog-background);
+    border: 1px solid var(--color-border);
+    border-radius: var(--dialog-radius);
+    box-shadow: var(--dialog-shadow);
+
+    /* Animation */
+    transition: transform var(--duration-normal) var(--ease-out);
+  }
+
+  /* Dialog Header
+  /* ------------------------------------------------------------------------ */
+
+  .dialog__header {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+
+    @media (min-width: 640px) {
+      text-align: start;
+    }
+  }
+
+  .dialog__title {
+    font-size: var(--text-lg);
+    font-weight: var(--font-semibold);
+    line-height: var(--leading-none);
+  }
+
+  .dialog__description {
+    color: var(--color-muted-foreground);
+    font-size: var(--text-sm);
+  }
+
+  /* Dialog Body
+  /* ------------------------------------------------------------------------ */
+
+  .dialog__body {
+    flex: 1;
+    margin-inline: calc(var(--dialog-padding) * -1);
+    padding-inline: var(--dialog-padding);
+    overflow-y: auto;
+  }
+
+  /* Dialog Footer
+  /* ------------------------------------------------------------------------ */
+
+  .dialog__footer {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 0.5rem;
+
+    @media (min-width: 640px) {
+      flex-direction: row;
+      justify-content: flex-end;
+    }
+  }
+
+  /* Dialog Close Button
+  /* ------------------------------------------------------------------------ */
+
+  .dialog__close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem;
+    background-color: transparent;
+    color: var(--color-muted-foreground);
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity var(--duration-fast) var(--ease-out);
+
+    svg {
+      inline-size: 1rem;
+      block-size: 1rem;
+    }
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &:focus-visible {
+      outline: var(--focus-ring-width) solid var(--focus-ring-color);
+      outline-offset: var(--focus-ring-offset);
+      opacity: 1;
+    }
+  }
+
+  /* Size variants
+  /* ------------------------------------------------------------------------ */
+
+  .dialog__content--sm {
+    --dialog-max-width: 24rem;
+  }
+
+  .dialog__content--lg {
+    --dialog-max-width: 48rem;
+  }
+
+  .dialog__content--xl {
+    --dialog-max-width: 64rem;
+  }
+
+  .dialog__content--full {
+    --dialog-max-width: calc(100% - 2rem);
+    max-block-size: calc(100% - 2rem);
+  }
+}

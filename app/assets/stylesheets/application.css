@@ -24,6 +24,16 @@
 @import "components/toasts.css";
 @import "components/avatars.css";
 @import "components/breadcrumbs.css";
+@import "components/dialogs.css";
+@import "components/tooltips.css";
+@import "components/tables.css";
+@import "components/pagination.css";
+@import "components/collapsible.css";
+@import "components/code.css";
+@import "components/sidebar.css";
+@import "components/rich-text-content.css";
+@import "components/forms.css";
+@import "components/upload-preview.css";
 
 /* Utilities (highest priority) */
 @import "utilities.css";

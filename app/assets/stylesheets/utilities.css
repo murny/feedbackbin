@@ -56,6 +56,57 @@
   .gap-6 { gap: var(--space-6); }
   .gap-8 { gap: var(--space-8); }
 
+  .gap-x-1 { column-gap: var(--space-1); }
+  .gap-x-2 { column-gap: var(--space-2); }
+  .gap-x-3 { column-gap: var(--space-3); }
+  .gap-x-4 { column-gap: var(--space-4); }
+  .gap-y-1 { row-gap: var(--space-1); }
+  .gap-y-2 { row-gap: var(--space-2); }
+  .gap-y-3 { row-gap: var(--space-3); }
+  .gap-y-4 { row-gap: var(--space-4); }
+
+  /* ==========================================================================
+     Spacing (margin & padding)
+     ========================================================================== */
+  .m-0 { margin: var(--space-0); }
+  .m-1 { margin: var(--space-1); }
+  .m-2 { margin: var(--space-2); }
+  .m-3 { margin: var(--space-3); }
+  .m-4 { margin: var(--space-4); }
+
+  .mt-0 { margin-block-start: var(--space-0); }
+  .mt-1 { margin-block-start: var(--space-1); }
+  .mt-2 { margin-block-start: var(--space-2); }
+  .mt-3 { margin-block-start: var(--space-3); }
+  .mt-4 { margin-block-start: var(--space-4); }
+
+  .mb-0 { margin-block-end: var(--space-0); }
+  .mb-1 { margin-block-end: var(--space-1); }
+  .mb-2 { margin-block-end: var(--space-2); }
+  .mb-3 { margin-block-end: var(--space-3); }
+  .mb-4 { margin-block-end: var(--space-4); }
+
+  .p-0 { padding: var(--space-0); }
+  .p-1 { padding: var(--space-1); }
+  .p-2 { padding: var(--space-2); }
+  .p-3 { padding: var(--space-3); }
+  .p-4 { padding: var(--space-4); }
+
+  .py-1 { padding-block: var(--space-1); }
+  .py-2 { padding-block: var(--space-2); }
+  .py-3 { padding-block: var(--space-3); }
+  .py-4 { padding-block: var(--space-4); }
+
+  .px-1 { padding-inline: var(--space-1); }
+  .px-2 { padding-inline: var(--space-2); }
+  .px-3 { padding-inline: var(--space-3); }
+  .px-4 { padding-inline: var(--space-4); }
+
+  /* Stack children vertically with consistent spacing */
+  .stack > * + * { margin-block-start: var(--space-3); }
+  .stack--sm > * + * { margin-block-start: var(--space-2); }
+  .stack--lg > * + * { margin-block-start: var(--space-4); }
+
   /* ==========================================================================
      Width & Height
      ========================================================================== */
