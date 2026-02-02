@@ -1,0 +1,156 @@
+/* ==========================================================================
+   Utility Classes
+   Minimal set of utility classes for common patterns.
+   Keep this small - prefer component classes for most styling.
+   ========================================================================== */
+
+@layer utilities {
+  /* ==========================================================================
+     Display
+     ========================================================================== */
+  .hidden { display: none; }
+  .block { display: block; }
+  .inline { display: inline; }
+  .inline-block { display: inline-block; }
+  .flex { display: flex; }
+  .inline-flex { display: inline-flex; }
+  .grid { display: grid; }
+
+  /* ==========================================================================
+     Flexbox
+     ========================================================================== */
+  .flex-row { flex-direction: row; }
+  .flex-col { flex-direction: column; }
+  .flex-wrap { flex-wrap: wrap; }
+  .flex-nowrap { flex-wrap: nowrap; }
+
+  .items-start { align-items: flex-start; }
+  .items-center { align-items: center; }
+  .items-end { align-items: flex-end; }
+  .items-baseline { align-items: baseline; }
+  .items-stretch { align-items: stretch; }
+
+  .justify-start { justify-content: flex-start; }
+  .justify-center { justify-content: center; }
+  .justify-end { justify-content: flex-end; }
+  .justify-between { justify-content: space-between; }
+  .justify-around { justify-content: space-around; }
+
+  .flex-1 { flex: 1 1 0%; }
+  .flex-auto { flex: 1 1 auto; }
+  .flex-none { flex: none; }
+  .grow { flex-grow: 1; }
+  .grow-0 { flex-grow: 0; }
+  .shrink { flex-shrink: 1; }
+  .shrink-0 { flex-shrink: 0; }
+
+  /* ==========================================================================
+     Gap (spacing between flex/grid items)
+     ========================================================================== */
+  .gap-0 { gap: var(--space-0); }
+  .gap-1 { gap: var(--space-1); }
+  .gap-2 { gap: var(--space-2); }
+  .gap-3 { gap: var(--space-3); }
+  .gap-4 { gap: var(--space-4); }
+  .gap-5 { gap: var(--space-5); }
+  .gap-6 { gap: var(--space-6); }
+  .gap-8 { gap: var(--space-8); }
+
+  /* ==========================================================================
+     Width & Height
+     ========================================================================== */
+  .w-full { inline-size: 100%; }
+  .w-auto { inline-size: auto; }
+  .h-full { block-size: 100%; }
+  .h-auto { block-size: auto; }
+  .min-w-0 { min-inline-size: 0; }
+  .min-h-0 { min-block-size: 0; }
+
+  /* ==========================================================================
+     Text Alignment
+     ========================================================================== */
+  .text-start { text-align: start; }
+  .text-center { text-align: center; }
+  .text-end { text-align: end; }
+
+  /* ==========================================================================
+     Text Size
+     ========================================================================== */
+  .text-xs { font-size: var(--text-xs); }
+  .text-sm { font-size: var(--text-sm); }
+  .text-base { font-size: var(--text-base); }
+  .text-lg { font-size: var(--text-lg); }
+  .text-xl { font-size: var(--text-xl); }
+  .text-2xl { font-size: var(--text-2xl); }
+
+  /* ==========================================================================
+     Font Weight
+     ========================================================================== */
+  .font-normal { font-weight: var(--font-normal); }
+  .font-medium { font-weight: var(--font-medium); }
+  .font-semibold { font-weight: var(--font-semibold); }
+  .font-bold { font-weight: var(--font-bold); }
+
+  /* ==========================================================================
+     Text Colors (semantic)
+     ========================================================================== */
+  .text-muted { color: var(--color-muted-foreground); }
+  .text-destructive { color: var(--color-destructive); }
+  .text-success { color: var(--color-success); }
+  .text-warning { color: var(--color-warning); }
+
+  /* ==========================================================================
+     Overflow
+     ========================================================================== */
+  .overflow-hidden { overflow: hidden; }
+  .overflow-auto { overflow: auto; }
+  .overflow-x-auto { overflow-x: auto; }
+  .overflow-y-auto { overflow-y: auto; }
+  .truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* ==========================================================================
+     Position
+     ========================================================================== */
+  .relative { position: relative; }
+  .absolute { position: absolute; }
+  .fixed { position: fixed; }
+  .sticky { position: sticky; }
+
+  /* ==========================================================================
+     Visibility
+     ========================================================================== */
+  .invisible { visibility: hidden; }
+  .visible { visibility: visible; }
+
+  /* ==========================================================================
+     Pointer Events
+     ========================================================================== */
+  .pointer-events-none { pointer-events: none; }
+  .pointer-events-auto { pointer-events: auto; }
+
+  /* ==========================================================================
+     Cursor
+     ========================================================================== */
+  .cursor-pointer { cursor: pointer; }
+  .cursor-default { cursor: default; }
+  .cursor-not-allowed { cursor: not-allowed; }
+
+  /* ==========================================================================
+     Screen Reader Only
+     ========================================================================== */
+  .sr-only {
+    position: absolute;
+    inline-size: 1px;
+    block-size: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border-width: 0;
+  }
+}
