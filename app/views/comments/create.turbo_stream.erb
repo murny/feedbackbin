@@ -1,35 +1,39 @@
 <% if @comment.persisted? %>
   <%= turbo_stream.update "flash_toast", partial: "flash_toast" %>
 
-  <%= turbo_stream.update "idea_#{@comment.idea.id}_comment_count" do %>
-    <%= t('comments.comments.comments_title_with_count', comment_count: @comment.idea.comments_count) %>
-  <% end %>
-
   <% if @comment.parent %>
-      <%= turbo_stream.replace "comment_#{@comment.parent.id}_new_reply" do %>
-        <%= render partial: "comments/reply_form", locals: {parent: @comment.parent, comment: Comment.new} %>
+    <% is_reply_to_reply = @source_comment && @source_comment != @comment.parent %>
+    <% mention = is_reply_to_reply ? @source_comment.creator : nil %>
+    <% source = @source_comment || @comment.parent %>
+
+    <%= turbo_stream.replace "#{dom_id(source)}_reply_section" do %>
+      <%= render partial: "comments/reply_section", locals: { source_comment: source, parent: @comment.parent, mention: mention } %>
     <% end %>
 
-    <%= turbo_stream.append "comment_#{@comment.parent.id}_replies" do %>
-      <%= render partial: "comments/reply", locals: {comment: @comment} %>
+    <%= turbo_stream.append "#{dom_id(@comment.parent)}_replies" do %>
+      <%= render partial: "comments/reply", locals: { comment: @comment } %>
     <% end %>
   <% else %>
     <%= turbo_stream.replace "idea_comment_form" do %>
-        <%= render partial: "comments/form", locals: {idea: @comment.idea, comment: Comment.new} %>
+      <%= render partial: "comments/form", locals: { idea: @comment.idea, comment: Comment.new } %>
     <% end %>
 
     <%= turbo_stream.append "idea_#{@comment.idea.id}_comments" do %>
-      <%= render partial: "comments/comment", locals: {comment: @comment} %>
+      <%= render partial: "comments/comment", locals: { comment: @comment } %>
     <% end %>
   <% end %>
 <% else %>
   <% if @comment.parent %>
-    <%= turbo_stream.replace "comment_#{@comment.parent.id}_new_reply" do %>
-      <%= render partial: "comments/reply_form", locals: {parent: @comment.parent, comment: @comment, show_form: true} %>
+    <% is_reply_to_reply = @source_comment && @source_comment != @comment.parent %>
+    <% mention = is_reply_to_reply ? @source_comment.creator : nil %>
+    <% source = @source_comment || @comment.parent %>
+
+    <%= turbo_stream.replace "#{dom_id(source)}_reply_section" do %>
+      <%= render partial: "comments/reply_section", locals: { source_comment: source, parent: @comment.parent, comment: @comment, mention: mention, show_form: true } %>
     <% end %>
   <% else %>
     <%= turbo_stream.replace "idea_comment_form" do %>
-      <%= render partial: "comments/form", locals: {idea: @comment.idea, comment: @comment} %>
+      <%= render partial: "comments/form", locals: { idea: @comment.idea, comment: @comment } %>
     <% end %>
-  <% end%>
+  <% end %>
 <% end %>

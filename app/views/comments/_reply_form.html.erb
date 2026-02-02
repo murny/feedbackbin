@@ -1,14 +1,15 @@
-<%# locals: (parent:, comment:, show_form: false, mention: nil) %>
+<%# locals: (source_comment:, parent:, comment:, show_form: false, mention: nil) %>
 
-<%= tag.div id: "comment_#{parent.id}_new_reply_#{mention&.id}", data: { comment_reply_target: "form" }, class: (show_form ? "" : "hidden").to_s do %>
+<%= tag.div id: "#{dom_id(source_comment)}_reply_form", data: { comment_reply_target: "form" }, class: (show_form ? "" : "hidden").to_s do %>
   <div class="flex items-start">
     <%= form_with model: comment, url: idea_comments_path(parent.idea), class: "my-4 w-full" do |form| %>
       <%= render "error_messages", resource: form.object %>
 
       <%= form.hidden_field :parent_id, value: parent.id %>
+      <%= hidden_field_tag :source_comment_id, source_comment.id %>
 
       <div class="bg-card border border-input rounded-md overflow-hidden focus-within:border-ring focus-within:ring-2 focus-within:ring-ring/50">
-        <%= form.rich_text_area :body, id: "comment_#{parent.id}_new_reply_body_#{mention&.id}", row: 1, placeholder: t(".reply_placeholder") do %>
+        <%= form.rich_text_area :body, id: "#{dom_id(source_comment)}_reply_body", row: 1, placeholder: t(".reply_placeholder") do %>
           <%= rich_text_prompts %>
         <% end %>
       </div>

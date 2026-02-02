@@ -18,6 +18,7 @@ class Ideas::CommentsController < ApplicationController
 
   def create
     @comment = @idea.comments.new(comment_params)
+    @source_comment = @idea.comments.find_by(id: params[:source_comment_id])
 
     respond_to do |format|
       if @comment.save
