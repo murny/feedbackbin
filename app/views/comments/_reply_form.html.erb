@@ -2,7 +2,7 @@
 
 <% if authenticated? %>
  <div data-controller="comment-reply">
-    <%= button_tag class: "btn btn-secondary w-full #{show_form ? "hidden" : ""}", data: { comment_reply_target: "button", action: "click->comment-reply#toggle" } do %>
+    <%= button_tag class: "btn btn--secondary w-full #{show_form ? "hidden" : ""}", data: { comment_reply_target: "button", action: "click->comment-reply#toggle" } do %>
       <%= lucide_icon "reply", class: "h-5 w-5 text-muted-foreground" %>
       <%= t(".write_a_reply") %>
     <% end %>
@@ -22,11 +22,11 @@
 
           <div class="mt-5 flex items-center gap-4 justify-end">
             <% if form.object.persisted? %>
-              <%= form.submit "Update Reply", class: "btn btn-primary" %>
-              <%= link_to "Cancel", idea_comment_path(parent.idea, parent), class: "btn btn-secondary" %>
+              <%= form.submit "Update Reply", class: "btn btn--primary" %>
+              <%= link_to "Cancel", idea_comment_path(parent.idea, parent), class: "btn btn--secondary" %>
             <% else %>
-              <%= form.submit "Create Reply", class: "btn btn-primary" %>
-              <%= button_tag "Cancel", class: "btn btn-secondary", data: { action: "click->comment-reply#toggle" } %>
+              <%= form.submit "Create Reply", class: "btn btn--primary" %>
+              <%= button_tag "Cancel", class: "btn btn--secondary", data: { action: "click->comment-reply#toggle" } %>
             <% end %>
           </div>
         <% end %>

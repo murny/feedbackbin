@@ -1,0 +1,314 @@
+/* ==========================================================================
+   Global Styles
+   Design tokens, CSS layers, and foundational variables.
+   ========================================================================== */
+
+/* Define layer order - later layers have higher priority */
+@layer reset, base, components, modules, utilities;
+
+:root {
+  /* ==========================================================================
+     Spacing
+     ========================================================================== */
+  --space-0: 0;
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* Semantic spacing */
+  --inline-space: 1ch;
+  --block-space: 1rem;
+
+  /* ==========================================================================
+     Typography
+     ========================================================================== */
+  --font-sans: ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, "Liberation Mono", monospace;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+
+  --leading-none: 1;
+  --leading-tight: 1.25;
+  --leading-snug: 1.375;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.625;
+
+  --font-normal: 400;
+  --font-medium: 500;
+  --font-semibold: 600;
+  --font-bold: 700;
+
+  /* ==========================================================================
+     Border Radius
+     ========================================================================== */
+  --radius: 0.625rem;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-full: 9999px;
+
+  /* ==========================================================================
+     Shadows
+     ========================================================================== */
+  --shadow-xs: 0 1px 2px 0 oklch(0% 0 0 / 5%);
+  --shadow-sm: 0 1px 3px 0 oklch(0% 0 0 / 10%), 0 1px 2px -1px oklch(0% 0 0 / 10%);
+  --shadow-md: 0 4px 6px -1px oklch(0% 0 0 / 10%), 0 2px 4px -2px oklch(0% 0 0 / 10%);
+  --shadow-lg: 0 10px 15px -3px oklch(0% 0 0 / 10%), 0 4px 6px -4px oklch(0% 0 0 / 10%);
+
+  /* ==========================================================================
+     Focus Ring
+     ========================================================================== */
+  --focus-ring-color: var(--color-ring);
+  --focus-ring-offset: 2px;
+  --focus-ring-width: 3px;
+
+  /* ==========================================================================
+     Z-Index Scale
+     ========================================================================== */
+  --z-dropdown: 10;
+  --z-sticky: 20;
+  --z-fixed: 30;
+  --z-modal-backdrop: 40;
+  --z-modal: 50;
+  --z-popover: 60;
+  --z-tooltip: 70;
+
+  /* ==========================================================================
+     Transitions
+     ========================================================================== */
+  --duration-fast: 100ms;
+  --duration-normal: 150ms;
+  --duration-slow: 300ms;
+
+  --ease-out: cubic-bezier(0, 0, 0.2, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* ==========================================================================
+     Layout
+     ========================================================================== */
+  --sidebar-width: 16rem;
+  --sidebar-mobile-width: 18rem;
+
+  /* ==========================================================================
+     Colors - Light Mode (Default)
+
+     Using OKLCH color space for perceptually uniform colors.
+     Format: oklch(lightness chroma hue)
+     ========================================================================== */
+
+  /* Canvas & Ink - the fundamental background/foreground pair */
+  --color-canvas: oklch(1 0 0);
+  --color-ink: oklch(0.145 0 0);
+  --color-ink-light: oklch(0.556 0 0);
+  --color-ink-lighter: oklch(0.708 0 0);
+  --color-ink-inverted: oklch(0.985 0 0);
+
+  /* Aliases for utility class compatibility */
+  --color-background: var(--color-canvas);
+  --color-foreground: var(--color-ink);
+
+  /* Primary - main action color */
+  --color-primary: oklch(0.205 0 0);
+  --color-primary-foreground: oklch(0.985 0 0);
+
+  /* Secondary - subtle actions */
+  --color-secondary: oklch(0.97 0 0);
+  --color-secondary-foreground: oklch(0.205 0 0);
+
+  /* Muted - de-emphasized content */
+  --color-muted: oklch(0.97 0 0);
+  --color-muted-foreground: oklch(0.556 0 0);
+
+  /* Accent - highlights and hover states */
+  --color-accent: oklch(0.97 0 0);
+  --color-accent-foreground: oklch(0.205 0 0);
+
+  /* Semantic colors */
+  --color-destructive: oklch(0.577 0.245 27.325);
+  --color-success: oklch(0.599 0.156 163.224);
+  --color-warning: oklch(0.831 0.167 85.594);
+  --color-link: oklch(0.488 0.243 264.376);
+
+  /* Borders & inputs */
+  --color-border: oklch(0.922 0 0);
+  --color-input: oklch(0.922 0 0);
+  --color-ring: oklch(0.708 0 0);
+
+  /* Card & Popover surfaces */
+  --color-card: oklch(1 0 0);
+  --color-card-foreground: oklch(0.145 0 0);
+  --color-popover: oklch(1 0 0);
+  --color-popover-foreground: oklch(0.145 0 0);
+
+  /* Sidebar */
+  --color-sidebar: oklch(0.985 0 0);
+  --color-sidebar-foreground: oklch(0.145 0 0);
+  --color-sidebar-primary: oklch(0.205 0 0);
+  --color-sidebar-primary-foreground: oklch(0.985 0 0);
+  --color-sidebar-accent: oklch(0.97 0 0);
+  --color-sidebar-accent-foreground: oklch(0.205 0 0);
+  --color-sidebar-border: oklch(0.922 0 0);
+
+  /* Charts */
+  --color-chart-1: oklch(0.646 0.222 41.116);
+  --color-chart-2: oklch(0.6 0.118 184.704);
+  --color-chart-3: oklch(0.398 0.07 227.392);
+  --color-chart-4: oklch(0.828 0.189 84.429);
+  --color-chart-5: oklch(0.769 0.188 70.08);
+
+  /* Scrollbar */
+  --scrollbar-track: transparent;
+  --scrollbar-thumb: oklch(0% 0 0 / 30%);
+  --scrollbar-width: 6px;
+  --scrollbar-radius: 6px;
+}
+
+/* ==========================================================================
+   Dark Mode
+
+   Override color variables when dark mode is active.
+   Using html[data-theme="dark"] for explicit user preference.
+   ========================================================================== */
+
+html[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Canvas & Ink */
+  --color-canvas: oklch(0.145 0 0);
+  --color-ink: oklch(0.985 0 0);
+  --color-ink-light: oklch(0.708 0 0);
+  --color-ink-lighter: oklch(0.556 0 0);
+  --color-ink-inverted: oklch(0.205 0 0);
+
+  /* Primary */
+  --color-primary: oklch(0.922 0 0);
+  --color-primary-foreground: oklch(0.205 0 0);
+
+  /* Secondary */
+  --color-secondary: oklch(0.269 0 0);
+  --color-secondary-foreground: oklch(0.985 0 0);
+
+  /* Muted */
+  --color-muted: oklch(0.269 0 0);
+  --color-muted-foreground: oklch(0.708 0 0);
+
+  /* Accent */
+  --color-accent: oklch(0.371 0 0);
+  --color-accent-foreground: oklch(0.985 0 0);
+
+  /* Semantic colors - adjusted for dark backgrounds */
+  --color-destructive: oklch(0.704 0.191 22.216);
+  --color-success: oklch(0.696 0.17 162.48);
+  --color-warning: oklch(0.769 0.188 70.08);
+
+  /* Borders & inputs */
+  --color-border: oklch(1 0 0 / 10%);
+  --color-input: oklch(1 0 0 / 15%);
+  --color-ring: oklch(0.556 0 0);
+
+  /* Card & Popover surfaces */
+  --color-card: oklch(0.205 0 0);
+  --color-card-foreground: oklch(0.985 0 0);
+  --color-popover: oklch(0.269 0 0);
+  --color-popover-foreground: oklch(0.985 0 0);
+
+  /* Sidebar */
+  --color-sidebar: oklch(0.205 0 0);
+  --color-sidebar-foreground: oklch(0.985 0 0);
+  --color-sidebar-primary: oklch(0.488 0.243 264.376);
+  --color-sidebar-primary-foreground: oklch(0.985 0 0);
+  --color-sidebar-accent: oklch(0.269 0 0);
+  --color-sidebar-accent-foreground: oklch(0.985 0 0);
+  --color-sidebar-border: oklch(1 0 0 / 10%);
+
+  /* Charts - adjusted for dark mode */
+  --color-chart-1: oklch(0.488 0.243 264.376);
+  --color-chart-2: oklch(0.696 0.17 162.48);
+  --color-chart-3: oklch(0.769 0.188 70.08);
+  --color-chart-4: oklch(0.627 0.265 303.9);
+  --color-chart-5: oklch(0.645 0.246 16.439);
+
+  /* Scrollbar */
+  --scrollbar-thumb: oklch(100% 0 0 / 30%);
+
+  /* Shadows need adjustment in dark mode */
+  --shadow-xs: 0 1px 2px 0 oklch(0% 0 0 / 20%);
+  --shadow-sm: 0 1px 3px 0 oklch(0% 0 0 / 30%), 0 1px 2px -1px oklch(0% 0 0 / 30%);
+  --shadow-md: 0 4px 6px -1px oklch(0% 0 0 / 30%), 0 2px 4px -2px oklch(0% 0 0 / 30%);
+  --shadow-lg: 0 10px 15px -3px oklch(0% 0 0 / 30%), 0 4px 6px -4px oklch(0% 0 0 / 30%);
+}
+
+/* Fallback to system preference when no explicit theme is set */
+@media (prefers-color-scheme: dark) {
+  html:not([data-theme]) {
+    color-scheme: dark;
+
+    --color-canvas: oklch(0.145 0 0);
+    --color-ink: oklch(0.985 0 0);
+    --color-ink-light: oklch(0.708 0 0);
+    --color-ink-lighter: oklch(0.556 0 0);
+    --color-ink-inverted: oklch(0.205 0 0);
+
+    --color-primary: oklch(0.922 0 0);
+    --color-primary-foreground: oklch(0.205 0 0);
+
+    --color-secondary: oklch(0.269 0 0);
+    --color-secondary-foreground: oklch(0.985 0 0);
+
+    --color-muted: oklch(0.269 0 0);
+    --color-muted-foreground: oklch(0.708 0 0);
+
+    --color-accent: oklch(0.371 0 0);
+    --color-accent-foreground: oklch(0.985 0 0);
+
+    --color-destructive: oklch(0.704 0.191 22.216);
+    --color-success: oklch(0.696 0.17 162.48);
+    --color-warning: oklch(0.769 0.188 70.08);
+
+    --color-border: oklch(1 0 0 / 10%);
+    --color-input: oklch(1 0 0 / 15%);
+    --color-ring: oklch(0.556 0 0);
+
+    --color-card: oklch(0.205 0 0);
+    --color-card-foreground: oklch(0.985 0 0);
+    --color-popover: oklch(0.269 0 0);
+    --color-popover-foreground: oklch(0.985 0 0);
+
+    --color-sidebar: oklch(0.205 0 0);
+    --color-sidebar-foreground: oklch(0.985 0 0);
+    --color-sidebar-primary: oklch(0.488 0.243 264.376);
+    --color-sidebar-primary-foreground: oklch(0.985 0 0);
+    --color-sidebar-accent: oklch(0.269 0 0);
+    --color-sidebar-accent-foreground: oklch(0.985 0 0);
+    --color-sidebar-border: oklch(1 0 0 / 10%);
+
+    --color-chart-1: oklch(0.488 0.243 264.376);
+    --color-chart-2: oklch(0.696 0.17 162.48);
+    --color-chart-3: oklch(0.769 0.188 70.08);
+    --color-chart-4: oklch(0.627 0.265 303.9);
+    --color-chart-5: oklch(0.645 0.246 16.439);
+
+    --scrollbar-thumb: oklch(100% 0 0 / 30%);
+
+    --shadow-xs: 0 1px 2px 0 oklch(0% 0 0 / 20%);
+    --shadow-sm: 0 1px 3px 0 oklch(0% 0 0 / 30%), 0 1px 2px -1px oklch(0% 0 0 / 30%);
+    --shadow-md: 0 4px 6px -1px oklch(0% 0 0 / 30%), 0 2px 4px -2px oklch(0% 0 0 / 30%);
+    --shadow-lg: 0 10px 15px -3px oklch(0% 0 0 / 30%), 0 4px 6px -4px oklch(0% 0 0 / 30%);
+  }
+}

@@ -7,3 +7,6 @@ Rails.application.config.assets.version = "1.0"
 
 # Add additional assets to the asset load path.
 # Rails.application.config.assets.paths << Emoji.images_path
+
+# Add pure CSS stylesheets directory (Fizzy-style architecture)
+Rails.application.config.assets.paths << Rails.root.join("app/assets/stylesheets")

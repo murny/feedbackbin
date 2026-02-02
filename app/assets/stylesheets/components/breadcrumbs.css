@@ -1,0 +1,124 @@
+/* ==========================================================================
+   Breadcrumb Component
+
+   Usage:
+     <nav class="breadcrumb" aria-label="breadcrumb">
+       <ol class="breadcrumb__list">
+         <li class="breadcrumb__item">
+           <a href="/" class="breadcrumb__link">Home</a>
+         </li>
+         <li class="breadcrumb__separator" aria-hidden="true">/</li>
+         <li class="breadcrumb__item">
+           <span class="breadcrumb__current" aria-current="page">Current</span>
+         </li>
+       </ol>
+     </nav>
+   ========================================================================== */
+
+@layer components {
+  /* Breadcrumb Container
+  /* ------------------------------------------------------------------------ */
+
+  .breadcrumb {
+    /* Component API */
+    --breadcrumb-gap: 0.375rem;
+    --breadcrumb-color: var(--color-muted-foreground);
+    --breadcrumb-link-color: var(--color-foreground);
+    --breadcrumb-separator-color: var(--color-muted-foreground);
+    --breadcrumb-icon-size: 0.875rem;
+
+    color: var(--breadcrumb-color);
+    font-size: var(--text-sm);
+  }
+
+  /* Breadcrumb List
+  /* ------------------------------------------------------------------------ */
+
+  .breadcrumb__list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--breadcrumb-gap);
+    word-break: break-word;
+
+    @media (min-width: 640px) {
+      --breadcrumb-gap: 0.625rem;
+    }
+  }
+
+  /* Breadcrumb Item
+  /* ------------------------------------------------------------------------ */
+
+  .breadcrumb__item {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--breadcrumb-gap);
+  }
+
+  /* Breadcrumb Link
+  /* ------------------------------------------------------------------------ */
+
+  .breadcrumb__link {
+    color: var(--breadcrumb-link-color);
+    text-decoration: none;
+    transition: color var(--duration-fast) var(--ease-out);
+
+    &:hover {
+      color: var(--color-foreground);
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    &:focus-visible {
+      outline: var(--focus-ring-width) solid var(--focus-ring-color);
+      outline-offset: var(--focus-ring-offset);
+      border-radius: var(--radius-sm);
+    }
+  }
+
+  /* Breadcrumb Current Page
+  /* ------------------------------------------------------------------------ */
+
+  .breadcrumb__current {
+    color: var(--color-foreground);
+    font-weight: var(--font-normal);
+  }
+
+  /* Breadcrumb Separator
+  /* ------------------------------------------------------------------------ */
+
+  .breadcrumb__separator {
+    display: inline-flex;
+    align-items: center;
+    color: var(--breadcrumb-separator-color);
+
+    svg {
+      inline-size: var(--breadcrumb-icon-size);
+      block-size: var(--breadcrumb-icon-size);
+    }
+  }
+
+  /* Breadcrumb Ellipsis (for collapsed breadcrumbs)
+  /* ------------------------------------------------------------------------ */
+
+  .breadcrumb__ellipsis {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: 1.5rem;
+    block-size: 1.5rem;
+    color: var(--breadcrumb-separator-color);
+
+    svg {
+      inline-size: 1rem;
+      block-size: 1rem;
+    }
+  }
+
+  /* Breadcrumb Page (text only, non-link)
+  /* ------------------------------------------------------------------------ */
+
+  .breadcrumb__page {
+    color: var(--breadcrumb-color);
+  }
+}

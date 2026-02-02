@@ -68,7 +68,7 @@
                 <div class="mt-4">
                   <%= button_to t(".resend_verification_email"), users_email_verification_path,
                         method: :post,
-                        class: "btn btn-sm bg-yellow-100 text-yellow-800 hover:bg-yellow-200 dark:bg-yellow-800 dark:text-yellow-100 dark:hover:bg-yellow-700" %>
+                        class: "btn btn--sm bg-yellow-100 text-yellow-800 hover:bg-yellow-200 dark:bg-yellow-800 dark:text-yellow-100 dark:hover:bg-yellow-700" %>
                 </div>
               </div>
             </div>
@@ -104,13 +104,13 @@
                     <% if (connected_account = @identity_connected_accounts.find_by(provider_name: provider)) %>
                       <%= button_to t(".disconnect"), user_settings_connected_account_path(connected_account),
                             method: :delete,
-                            class: "btn btn-destructive btn-sm",
+                            class: "btn btn--destructive btn--sm",
                             form: { data: { turbo_confirm: t(".disconnect_confirm") } } %>
                     <% else %>
                       <%= button_to t(".connect"), "/auth/#{provider}",
                             method: :post,
                             data: { turbo: false, disable_with: t(".redirecting") },
-                            class: "btn btn-sm" %>
+                            class: "btn btn--sm" %>
                     <% end %>
                   </div>
                 </div>
@@ -128,7 +128,7 @@
             </div>
 
             <div class="pt-4">
-              <%= button_to user_path(@user), method: :delete, data: { turbo_confirm: t(".delete_account_confirm") }, class: "btn btn-destructive" do %>
+              <%= button_to user_path(@user), method: :delete, data: { turbo_confirm: t(".delete_account_confirm") }, class: "btn btn--destructive" do %>
                 <%= t(".delete_my_account") %>
               <% end %>
             </div>

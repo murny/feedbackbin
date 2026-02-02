@@ -1,3 +1,10 @@
+/* ==========================================================================
+   Lexxy Rich Text Editor Component
+
+   Styling for the Lexxy WYSIWYG editor including toolbar, dropdowns,
+   and content editing areas.
+   ========================================================================== */
+
 @layer components {
   /* Editor
   /* ------------------------------------------------------------------------ */
@@ -11,13 +18,13 @@
     div.node--selected {
       &:has(img) {
         img {
-          outline: 2px solid var(--ring);
+          outline: 2px solid var(--color-ring);
           outline-offset: 2px;
         }
       }
 
       &:not(:has(img)) {
-        outline: 2px solid var(--ring);
+        outline: 2px solid var(--color-ring);
         outline-offset: 2px;
       }
     }
@@ -32,12 +39,12 @@
   table {
     th, td {
       &.table-cell--selected {
-        background-color: color-mix(in oklch, var(--primary) 20%, transparent);
+        background-color: color-mix(in oklch, var(--color-primary) 20%, transparent);
       }
 
       &.lexxy-content__table-cell--selected {
-        background-color: color-mix(in oklch, var(--primary) 30%, transparent);
-        border-color: var(--primary);
+        background-color: color-mix(in oklch, var(--color-primary) 30%, transparent);
+        border-color: var(--color-primary);
       }
     }
 
@@ -54,7 +61,7 @@
   .lexxy-editor--empty {
     .lexxy-editor__content:not(:has(ul, ol))::before {
       content: attr(placeholder);
-      color: var(--muted-foreground);
+      color: var(--color-muted-foreground);
       cursor: text;
       opacity: 0.66;
       pointer-events: none;
@@ -70,7 +77,7 @@
 
     /* Allow color highlights to show through a bit */
     ::selection {
-      background: color-mix(in oklch, var(--primary) 50%, transparent);
+      background: color-mix(in oklch, var(--color-primary) 50%, transparent);
     }
 
     > :last-child {
@@ -79,9 +86,9 @@
   }
 
   .lexxy-editor--drag-over {
-    background-color: var(--accent);
+    background-color: var(--color-accent);
     border-radius: var(--radius-md);
-    outline: 2px dashed var(--ring);
+    outline: 2px dashed var(--color-ring);
   }
 
   .lexxy-code-language-picker {
@@ -90,14 +97,14 @@
 
     -webkit-appearance: none;
     appearance: none;
-    background-color: var(--card);
+    background-color: var(--color-card);
     background-image: var(--caret-icon);
     background-position: center right 0.9em;
     background-repeat: no-repeat;
     background-size: 0.5em;
-    border: 1px solid var(--border);
+    border: 1px solid var(--color-border);
     border-radius: 99rem;
-    color: var(--foreground);
+    color: var(--color-foreground);
     cursor: pointer;
     font-size: 0.75rem;
     font-weight: 500;
@@ -107,7 +114,7 @@
     padding-inline: 1.5ch 1.8em;
     text-align: start;
 
-    .dark & {
+    html[data-theme="dark"] & {
       --caret-icon: var(--caret-icon-dark);
     }
 
@@ -118,8 +125,8 @@
     }
 
     option {
-      background-color: var(--card);
-      color: var(--foreground);
+      background-color: var(--color-card);
+      color: var(--color-foreground);
     }
   }
 
@@ -134,8 +141,8 @@
   lexxy-toolbar {
     --lexxy-toolbar-icon-size: 1em;
 
-    background-color: var(--card);
-    border-block-end: 1px solid var(--border);
+    background-color: var(--color-card);
+    border-block-end: 1px solid var(--color-border);
     border-start-start-radius: var(--radius-md);
     border-start-end-radius: var(--radius-md);
     color: currentColor;
@@ -165,13 +172,13 @@
     place-items: center;
 
     &:is(:focus, :hover) {
-      background-color: var(--accent);
+      background-color: var(--color-accent);
       box-shadow: none;
     }
 
     &:is(:active),
     &[aria-pressed="true"] {
-      background-color: color-mix(in oklch, var(--primary) 20%, transparent);
+      background-color: color-mix(in oklch, var(--color-primary) 20%, transparent);
     }
 
     svg {
@@ -189,7 +196,7 @@
   }
 
   .lexxy-editor__toolbar-overflow-menu {
-    background-color: var(--card);
+    background-color: var(--color-card);
     border-radius: 0.5ch;
     box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
     display: flex;
@@ -211,11 +218,11 @@
     --lexxy-dropdown-padding: 0.75rem;
     --lexxy-dropdown-btn-size: 2rem;
 
-    background-color: var(--card);
-    border: 1px solid var(--border);
+    background-color: var(--color-card);
+    border: 1px solid var(--color-border);
     border-radius: 0.5em;
     box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    color: var(--foreground);
+    color: var(--color-foreground);
     font-size: 0.875rem;
     padding: var(--lexxy-dropdown-padding);
     position: absolute;
@@ -234,14 +241,13 @@
     margin-block-start: var(--lexxy-dropdown-padding);
 
     .btn {
-      --radius: 99rem;
-
+      --btn-radius: 99rem;
       inline-size: 100%;
     }
 
     .btn[type="submit"] {
-      --btn-background: var(--primary);
-      --btn-color: var(--primary-foreground);
+      --btn-background: var(--color-primary);
+      --btn-color: var(--color-primary-foreground);
     }
 
     span {
@@ -277,10 +283,10 @@
   }
 
   .lexxy-highlight-button {
-    --outline-color: color-mix(in oklch, var(--foreground) 20%, transparent);
+    --outline-color: color-mix(in oklch, var(--color-foreground) 20%, transparent);
 
     appearance: none;
-    background: var(--card);
+    background: var(--color-card);
     border: none;
     border-radius: 0.5ch;
     color: inherit;
@@ -297,11 +303,11 @@
 
     &:hover,
     &[aria-pressed="true"] {
-      box-shadow: 0 0 0 1px var(--card), 0 0 0 3px var(--outline-color);
+      box-shadow: 0 0 0 1px var(--color-card), 0 0 0 3px var(--outline-color);
     }
 
     &[aria-pressed="true"] {
-      --outline-color: var(--primary);
+      --outline-color: var(--color-primary);
 
       &:after {
         content: "✓";
@@ -310,8 +316,8 @@
   }
 
   .lexxy-editor__toolbar-dropdown-reset {
-    background: var(--card);
-    border: 1px solid var(--border);
+    background: var(--color-card);
+    border: 1px solid var(--color-border);
     border-radius: 99rem;
     inline-size: 100%;
     margin-block-start: var(--lexxy-dropdown-padding);
@@ -324,7 +330,7 @@
   .lexxy-table-handle-buttons {
     --button-size: 2.5em;
 
-    color: var(--primary-foreground);
+    color: var(--color-primary-foreground);
     display: none;
     flex-direction: row;
     font-size: 0.75rem;
@@ -340,7 +346,7 @@
 
     .lexxy-table-control {
       align-items: center;
-      background-color: var(--foreground);
+      background-color: var(--color-foreground);
       border-radius: 0.75ch;
       display: flex;
       flex-direction: row;
@@ -355,7 +361,7 @@
         background-color: transparent;
         border-radius: 0.5ch;
         border: 0;
-        color: var(--background);
+        color: var(--color-background);
         cursor: pointer;
         display: flex;
         font-size: inherit;
@@ -370,13 +376,13 @@
         -webkit-user-select: none;
 
         &:hover {
-          background-color: color-mix(in oklch, var(--foreground) 80%, transparent);
+          background-color: color-mix(in oklch, var(--color-foreground) 80%, transparent);
         }
 
         &:focus,
         &:focus-visible {
-          background-color: color-mix(in oklch, var(--foreground) 80%, transparent);
-          outline: 2px solid var(--ring);
+          background-color: color-mix(in oklch, var(--color-foreground) 80%, transparent);
+          outline: 2px solid var(--color-ring);
           outline-offset: 2px;
         }
 
@@ -413,7 +419,7 @@
         position: absolute;
 
         .lexxy-table-control__more-menu-section {
-          background: var(--foreground);
+          background: var(--color-foreground);
           border-radius: 0.75ch;
           display: flex;
           flex-direction: column;
@@ -452,10 +458,10 @@
     --lexxy-prompt-min-width: 20ch;
     --lexxy-prompt-padding: 0.5ch;
 
-    background-color: var(--card);
+    background-color: var(--color-card);
     border-radius: calc(var(--lexxy-prompt-padding) * 2);
     box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-    color: var(--foreground);
+    color: var(--color-foreground);
     font-size: 0.875rem;
     list-style: none;
     margin: 0;
@@ -481,11 +487,11 @@
     white-space: nowrap;
 
     &:hover {
-      background-color: var(--accent);
+      background-color: var(--color-accent);
     }
 
     &[aria-selected] {
-      background-color: color-mix(in oklch, var(--primary) 20%, transparent);
+      background-color: color-mix(in oklch, var(--color-primary) 20%, transparent);
     }
 
     img {
@@ -501,7 +507,7 @@
     }
 
     code {
-      background-color: var(--muted);
+      background-color: var(--color-muted);
       border-radius: 0.25ch;
       font-size: 0.95em;
       padding-inline: 0.5ch;
@@ -510,7 +516,7 @@
 
   /* Empty state */
   .lexxy-prompt-menu__item--empty {
-    color: var(--muted-foreground);
+    color: var(--color-muted-foreground);
     padding: var(--lexxy-prompt-padding);
   }
 }

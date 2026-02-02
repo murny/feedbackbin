@@ -1,0 +1,140 @@
+/* ==========================================================================
+   Collapsible Component (Details/Summary)
+
+   Usage:
+     <details class="collapsible">
+       <summary class="collapsible__trigger">Click to expand</summary>
+       <div class="collapsible__content">Content here</div>
+     </details>
+
+   The native <details> element provides built-in accessibility.
+   ========================================================================== */
+
+@layer components {
+  /* Collapsible (details element)
+  /* ------------------------------------------------------------------------ */
+
+  .collapsible,
+  details {
+    /* Content animation */
+    &::details-content {
+      block-size: 0;
+      opacity: 0;
+      overflow: hidden;
+      display: block;
+      transition: block-size var(--duration-normal) var(--ease-out),
+                  opacity var(--duration-normal) var(--ease-out),
+                  content-visibility var(--duration-normal) var(--ease-out) allow-discrete;
+    }
+
+    /* Open state */
+    &[open]::details-content {
+      block-size: auto;
+      block-size: calc-size(auto, size);
+      opacity: 1;
+    }
+  }
+
+  /* Collapsible Trigger (summary element)
+  /* ------------------------------------------------------------------------ */
+
+  .collapsible__trigger,
+  details summary {
+    display: inline-flex;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+
+    /* Remove default marker */
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &::marker {
+      display: none;
+      content: "";
+    }
+
+    list-style: none;
+  }
+
+  /* Collapsible Content
+  /* ------------------------------------------------------------------------ */
+
+  .collapsible__content {
+    /* Padding is applied here to avoid animation issues */
+  }
+
+  /* Variant: Bordered accordion style
+  /* ------------------------------------------------------------------------ */
+
+  .collapsible--bordered {
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+
+    .collapsible__trigger,
+    summary {
+      padding: 1rem;
+      font-weight: var(--font-medium);
+
+      &:hover {
+        background-color: var(--color-accent);
+      }
+    }
+
+    .collapsible__content {
+      padding: 0 1rem 1rem;
+    }
+
+    &[open] .collapsible__trigger,
+    &[open] summary {
+      border-block-end: 1px solid var(--color-border);
+    }
+  }
+
+  /* Accordion Group
+  /* ------------------------------------------------------------------------ */
+
+  .accordion {
+    display: flex;
+    flex-direction: column;
+
+    .collapsible,
+    details {
+      border: 1px solid var(--color-border);
+      margin-block-start: -1px;
+
+      &:first-child {
+        margin-block-start: 0;
+        border-start-start-radius: var(--radius-md);
+        border-start-end-radius: var(--radius-md);
+      }
+
+      &:last-child {
+        border-end-start-radius: var(--radius-md);
+        border-end-end-radius: var(--radius-md);
+      }
+    }
+  }
+
+  /* Collapsible with icon indicator
+  /* ------------------------------------------------------------------------ */
+
+  .collapsible__trigger--icon,
+  .collapsible--icon summary {
+    gap: 0.5rem;
+
+    /* Chevron icon rotation */
+    svg,
+    .icon {
+      transition: transform var(--duration-fast) var(--ease-out);
+    }
+  }
+
+  .collapsible--icon[open] summary svg,
+  .collapsible--icon[open] summary .icon,
+  details[open] .collapsible__trigger--icon svg,
+  details[open] .collapsible__trigger--icon .icon {
+    transform: rotate(180deg);
+  }
+}

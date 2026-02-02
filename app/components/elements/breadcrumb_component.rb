@@ -20,17 +20,12 @@ module Elements
       end
 
       def breadcrumb_classes
-        tw_merge(base_classes, @attrs[:class])
-      end
-
-      def base_classes
-        "text-muted-foreground flex flex-wrap items-center gap-1.5 text-sm break-words sm:gap-2.5"
+        ["breadcrumb", @attrs[:class]].compact.join(" ")
       end
 
       def processed_items
         return @items unless @collapse && @items.size > 3
 
-        # Collapse to: first ... last
         [
           @items.first,
           { is_ellipsis: true },

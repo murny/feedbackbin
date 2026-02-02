@@ -1,0 +1,264 @@
+/* ==========================================================================
+   Toast Component
+
+   Usage:
+     <div class="toast" role="status" data-controller="toast">
+       <svg>...</svg>
+       <div class="toast__content">
+         <h2 class="toast__title">Title</h2>
+         <p class="toast__description">Description</p>
+       </div>
+       <button class="toast__dismiss">×</button>
+     </div>
+
+   Variants: toast--success, toast--warning, toast--error, toast--info
+   ========================================================================== */
+
+@layer components {
+  /* Toast Base
+  /* ------------------------------------------------------------------------ */
+
+  .toast {
+    /* Component API */
+    --toast-padding: 1rem;
+    --toast-radius: var(--radius-lg);
+    --toast-background: var(--color-card);
+    --toast-color: var(--color-card-foreground);
+    --toast-border-color: var(--color-border);
+    --toast-accent-color: var(--color-border);
+    --toast-shadow: var(--shadow-lg);
+    --toast-icon-size: 1.25rem;
+    --toast-gap: 0.75rem;
+
+    /* Structure */
+    position: relative;
+    display: flex;
+    align-items: flex-start;
+    gap: var(--toast-gap);
+    inline-size: 100%;
+    padding: var(--toast-padding);
+    padding-inline-end: 2.5rem;
+    overflow: hidden;
+
+    /* Appearance */
+    background-color: var(--toast-background);
+    color: var(--toast-color);
+    border: 1px solid var(--toast-border-color);
+    border-inline-start: 4px solid var(--toast-accent-color);
+    border-radius: var(--toast-radius);
+    box-shadow: var(--toast-shadow);
+
+    /* Behavior */
+    pointer-events: auto;
+
+    /* Animation */
+    transition: var(--duration-normal) var(--ease-out);
+    transition-property: opacity, transform;
+
+    /* Icon styling */
+    > svg,
+    > .toast__icon {
+      inline-size: var(--toast-icon-size);
+      block-size: var(--toast-icon-size);
+      flex-shrink: 0;
+      color: var(--toast-accent-color);
+    }
+
+    /* Slide in animation */
+    &[data-state="open"] {
+      animation: toast-slide-in var(--duration-normal) var(--ease-out);
+    }
+
+    /* Slide out animation */
+    &[data-state="closed"] {
+      animation: toast-slide-out var(--duration-fast) var(--ease-in);
+    }
+  }
+
+  @keyframes toast-slide-in {
+    from {
+      opacity: 0;
+      transform: translateY(-100%);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes toast-slide-out {
+    from {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    to {
+      opacity: 0;
+      transform: translateX(100%);
+    }
+  }
+
+  /* Toast Content Wrapper
+  /* ------------------------------------------------------------------------ */
+
+  .toast__content {
+    flex: 1;
+    display: grid;
+    gap: 0.25rem;
+  }
+
+  /* Toast Title
+  /* ------------------------------------------------------------------------ */
+
+  .toast__title {
+    font-size: var(--text-sm);
+    font-weight: var(--font-semibold);
+  }
+
+  /* Toast Description
+  /* ------------------------------------------------------------------------ */
+
+  .toast__description {
+    font-size: var(--text-sm);
+    color: var(--color-muted-foreground);
+    opacity: 0.9;
+  }
+
+  /* Toast Action
+  /* ------------------------------------------------------------------------ */
+
+  .toast__action {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .toast__action-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    block-size: 2rem;
+    padding-inline: 0.75rem;
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    background-color: transparent;
+    color: inherit;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: background-color var(--duration-fast) var(--ease-out);
+
+    &:hover {
+      background-color: var(--color-secondary);
+    }
+
+    &:focus-visible {
+      outline: var(--focus-ring-width) solid var(--focus-ring-color);
+      outline-offset: var(--focus-ring-offset);
+    }
+  }
+
+  /* Toast Dismiss Button
+  /* ------------------------------------------------------------------------ */
+
+  .toast__dismiss {
+    position: absolute;
+    top: 0.25rem;
+    right: 0.25rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.25rem;
+    color: var(--color-muted-foreground);
+    background-color: transparent;
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    opacity: 0;
+    transition: var(--duration-fast) var(--ease-out);
+    transition-property: opacity, color;
+
+    svg {
+      inline-size: 1rem;
+      block-size: 1rem;
+    }
+
+    &:hover {
+      color: var(--color-foreground);
+    }
+
+    &:focus-visible {
+      opacity: 1;
+      outline: var(--focus-ring-width) solid var(--focus-ring-color);
+      outline-offset: var(--focus-ring-offset);
+    }
+
+    /* Show on toast hover */
+    .toast:hover & {
+      opacity: 1;
+    }
+  }
+
+  /* Variant: Success
+  /* ------------------------------------------------------------------------ */
+
+  .toast--success {
+    --toast-accent-color: var(--color-success, oklch(0.65 0.2 145));
+  }
+
+  /* Variant: Warning
+  /* ------------------------------------------------------------------------ */
+
+  .toast--warning {
+    --toast-accent-color: var(--color-warning, oklch(0.8 0.15 85));
+  }
+
+  /* Variant: Error
+  /* ------------------------------------------------------------------------ */
+
+  .toast--error {
+    --toast-accent-color: var(--color-destructive);
+  }
+
+  /* Variant: Info
+  /* ------------------------------------------------------------------------ */
+
+  .toast--info {
+    --toast-accent-color: var(--color-primary);
+  }
+
+  /* Toast Container (for multiple toasts)
+  /* ------------------------------------------------------------------------ */
+
+  .toast-container {
+    position: fixed;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+    max-block-size: 100vh;
+    pointer-events: none;
+
+    /* Default: top right */
+    top: 0;
+    right: 0;
+    inline-size: 100%;
+    max-inline-size: 24rem;
+  }
+
+  .toast-container--bottom {
+    top: auto;
+    bottom: 0;
+  }
+
+  .toast-container--left {
+    right: auto;
+    left: 0;
+  }
+
+  .toast-container--center {
+    right: auto;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}

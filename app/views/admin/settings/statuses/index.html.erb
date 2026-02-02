@@ -10,7 +10,7 @@
         <p class="text-sm text-muted-foreground"><%= t(".description") %></p>
       </div>
       <div class="whitespace-nowrap">
-        <%= link_to t(".new_status"), new_admin_settings_status_path, class: "btn btn-primary" %>
+        <%= link_to t(".new_status"), new_admin_settings_status_path, class: "btn btn--primary" %>
       </div>
     </div>
 
@@ -79,7 +79,7 @@
         <h3 class="mt-4 text-lg font-semibold text-foreground"><%= t(".no_statuses_title") %></h3>
         <p class="mt-2 text-sm text-muted-foreground"><%= t(".no_statuses_description") %></p>
         <div class="mt-6">
-          <%= link_to t(".create_first_status"), new_admin_settings_status_path, class: "btn btn-primary" %>
+          <%= link_to t(".create_first_status"), new_admin_settings_status_path, class: "btn btn--primary" %>
         </div>
         <% end %>
       <% end %>

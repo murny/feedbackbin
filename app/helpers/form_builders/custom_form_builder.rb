@@ -29,7 +29,7 @@ module FormBuilders
     CHECKBOX_CLASSES = "h-4 w-4 rounded border-input bg-background text-primary focus-visible:ring-2 " \
     "focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
 
-    SUBMIT_CLASSES = "btn-primary"
+    SUBMIT_CLASSES = "btn btn--primary"
 
     def text_field(attribute, options = {}, &block)
       if options[:leading_icon]

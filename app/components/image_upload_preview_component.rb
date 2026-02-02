@@ -10,7 +10,7 @@ class ImageUploadPreviewComponent < Elements::BaseComponent
     preview_url:,
     upload_button_text:,
     size_hint:,
-    image_class: "h-20 w-20 flex-none rounded-lg bg-muted object-cover border",
+    image_class: "upload-preview__image",
     upload_button_variant: :secondary,
     remove_path: nil,
     remove_confirmation: nil
@@ -31,27 +31,15 @@ class ImageUploadPreviewComponent < Elements::BaseComponent
   end
 
   def button_classes
-    # Style the label to look like a button
-    base = "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all shrink-0 outline-hidden cursor-pointer"
-    focus = "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]"
-    icons = "[&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 [&_svg]:shrink-0"
-    size = "h-9 px-4 py-2"
-
-    variant = case upload_button_variant
-    when :default
-      "bg-primary text-primary-foreground shadow-xs hover:bg-primary/90"
-    when :destructive
-      "bg-destructive text-white shadow-xs hover:bg-destructive/90"
-    when :outline
-      "border bg-background shadow-xs hover:bg-accent hover:text-accent-foreground"
-    when :secondary
-      "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80"
-    when :ghost
-      "hover:bg-accent hover:text-accent-foreground"
-    else
-      "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80"
+    variant_class = case upload_button_variant
+    when :default, :primary then "btn--primary"
+    when :destructive then "btn--destructive"
+    when :outline then "btn--outline"
+    when :secondary then "btn--secondary"
+    when :ghost then "btn--ghost"
+    else "btn--secondary"
     end
 
-    tw_merge(base, focus, icons, size, variant)
+    ["btn", variant_class].join(" ")
   end
 end

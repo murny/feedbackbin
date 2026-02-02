@@ -2,9 +2,12 @@
 
 module Elements
   class TabsComponent < BaseComponent
-    def initialize(items:, index_value: 0, **attrs)
+    VARIANTS = %i[default underline pills].freeze
+
+    def initialize(items:, index_value: 0, variant: :default, **attrs)
       @items = items
       @index_value = index_value
+      @variant = variant
       @attrs = attrs
     end
 
@@ -21,7 +24,7 @@ module Elements
 
       def container_attrs
         {
-          class: tw_merge("flex flex-col gap-2 w-full", @attrs[:class]),
+          class: container_classes,
           data: {
             controller: "tabs",
             tabs_index_value: @index_value,
@@ -30,11 +33,27 @@ module Elements
         }
       end
 
+      def container_classes
+        [
+          "tabs",
+          variant_class,
+          @attrs[:class]
+        ].compact.join(" ")
+      end
+
+      def variant_class
+        case @variant
+        when :underline then "tabs--underline"
+        when :pills then "tabs--pills"
+        else nil
+        end
+      end
+
       def render_tab_list
         tag.div(
           role: "tablist",
           aria: { orientation: "horizontal" },
-          class: "bg-muted text-muted-foreground inline-flex h-9 w-fit items-center justify-center rounded-lg p-[3px]"
+          class: "tabs__list"
         ) do
           safe_join(
             @items.map.with_index do |item, index|
@@ -58,10 +77,10 @@ module Elements
             tabs_target: "tab",
             action: "click->tabs#change"
           },
-          class: trigger_classes
+          class: "tabs__trigger"
         ) do
           safe_join([
-            (lucide_icon(item[:icon], class: "size-4") if item[:icon].present?),
+            (lucide_icon(item[:icon]) if item[:icon].present?),
             item[:label]
           ].compact)
         end
@@ -94,27 +113,11 @@ module Elements
         end
       end
 
-      def trigger_classes
-        [
-          # Base styles
-          "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring",
-          "text-foreground dark:text-muted-foreground",
-          "inline-flex h-[calc(100%_-_1px)] flex-1 items-center justify-center gap-1.5",
-          "rounded-md border border-transparent px-2 py-1 text-sm font-medium whitespace-nowrap",
-          "transition-[color,box-shadow]",
-          "focus-visible:ring-[3px] focus-visible:outline-1",
-          "disabled:pointer-events-none disabled:opacity-50",
-          # Active state (when aria-selected="true")
-          "aria-selected:bg-background aria-selected:dark:text-foreground aria-selected:dark:border-input aria-selected:dark:bg-input/30 aria-selected:shadow-sm",
-          # Icon styles
-          "[&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4"
-        ].join(" ")
-      end
-
       def panel_classes(index)
-        classes = [ "flex-1 outline-hidden" ]
-        classes << "hidden" if index != @index_value
-        classes.join(" ")
+        [
+          "tabs__panel",
+          ("hidden" if index != @index_value)
+        ].compact.join(" ")
       end
 
       def trigger_id(value)

@@ -1,0 +1,154 @@
+/* ==========================================================================
+   Alert Component
+
+   Usage:
+     <div class="alert" role="alert">
+       <svg>...</svg>
+       <h2 class="alert__title">Title</h2>
+       <section class="alert__description">Description</section>
+     </div>
+
+   Variants: alert--destructive, alert--success, alert--warning
+   ========================================================================== */
+
+@layer components {
+  /* Base Alert
+  /* ------------------------------------------------------------------------ */
+
+  .alert {
+    /* Component API */
+    --alert-padding-inline: 1rem;
+    --alert-padding-block: 0.75rem;
+    --alert-gap-x: 0.75rem;
+    --alert-gap-y: 0.125rem;
+    --alert-radius: var(--radius-lg);
+    --alert-background: var(--color-card);
+    --alert-color: var(--color-card-foreground);
+    --alert-border-color: var(--color-border);
+    --alert-icon-size: 1rem;
+
+    /* Structure - Grid layout for icon + content */
+    position: relative;
+    display: grid;
+    grid-template-columns: 0 1fr;
+    align-items: start;
+    gap: var(--alert-gap-y) 0;
+    inline-size: 100%;
+    padding-inline: var(--alert-padding-inline);
+    padding-block: var(--alert-padding-block);
+
+    /* Appearance */
+    background-color: var(--alert-background);
+    color: var(--alert-color);
+    border: 1px solid var(--alert-border-color);
+    border-radius: var(--alert-radius);
+
+    /* Typography */
+    font-size: var(--text-sm);
+
+    /* When alert has an icon, add column for it */
+    &:has(> svg),
+    &:has(> .alert__icon) {
+      grid-template-columns: var(--alert-icon-size) 1fr;
+      gap: var(--alert-gap-y) var(--alert-gap-x);
+    }
+
+    /* Icon styling */
+    > svg,
+    > .alert__icon {
+      inline-size: var(--alert-icon-size);
+      block-size: var(--alert-icon-size);
+      translate: 0 0.125rem;
+      color: currentColor;
+    }
+  }
+
+  /* Alert Title
+  /* ------------------------------------------------------------------------ */
+
+  .alert__title {
+    grid-column-start: 2;
+    min-block-size: 1rem;
+    font-weight: var(--font-medium);
+    letter-spacing: -0.01em;
+    line-height: var(--leading-tight);
+
+    /* Truncate long titles */
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+  }
+
+  /* Alert Description
+  /* ------------------------------------------------------------------------ */
+
+  .alert__description {
+    grid-column-start: 2;
+    display: grid;
+    gap: 0.25rem;
+    justify-items: start;
+    color: var(--color-muted-foreground);
+    font-size: var(--text-sm);
+
+    p {
+      line-height: var(--leading-relaxed);
+    }
+
+    ul {
+      list-style-type: disc;
+      list-style-position: inside;
+      font-size: var(--text-sm);
+    }
+  }
+
+  /* Variant: Destructive
+  /* ------------------------------------------------------------------------ */
+
+  .alert--destructive {
+    --alert-color: var(--color-destructive);
+
+    .alert__description {
+      color: oklch(from var(--color-destructive) l c h / 90%);
+    }
+  }
+
+  /* Variant: Success
+  /* ------------------------------------------------------------------------ */
+
+  .alert--success {
+    --alert-color: var(--color-success, oklch(0.65 0.2 145));
+    --alert-border-color: var(--color-success, oklch(0.65 0.2 145));
+    --alert-background: oklch(from var(--color-success, oklch(0.65 0.2 145)) l c h / 10%);
+
+    .alert__description {
+      color: var(--color-success, oklch(0.65 0.2 145));
+    }
+  }
+
+  /* Variant: Warning
+  /* ------------------------------------------------------------------------ */
+
+  .alert--warning {
+    --alert-color: var(--color-warning, oklch(0.7 0.15 60));
+    --alert-border-color: var(--color-warning, oklch(0.7 0.15 60));
+    --alert-background: oklch(from var(--color-warning, oklch(0.7 0.15 60)) l c h / 10%);
+
+    .alert__description {
+      color: var(--color-warning, oklch(0.7 0.15 60));
+    }
+  }
+
+  /* Variant: Info
+  /* ------------------------------------------------------------------------ */
+
+  .alert--info {
+    --alert-color: var(--color-info, oklch(0.6 0.15 250));
+    --alert-border-color: var(--color-info, oklch(0.6 0.15 250));
+    --alert-background: oklch(from var(--color-info, oklch(0.6 0.15 250)) l c h / 10%);
+
+    .alert__description {
+      color: var(--color-info, oklch(0.6 0.15 250));
+    }
+  }
+}

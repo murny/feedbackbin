@@ -8,7 +8,7 @@
         class: image_class,
         data: { "upload-preview-target": "image" } %>
 
-  <div class="space-y-3 flex-1">
+  <div class="stack--sm flex-1">
     <%= form.file_field field_name,
           accept: "image/*",
           data: { upload_preview_target: "input", action: "upload-preview#previewImage" },
@@ -21,14 +21,14 @@
       <% end %>
 
       <% if show_remove_button? %>
-        <%= render Elements::ButtonComponent.new(variant: :outline, size: :sm, href: remove_path, data: { "turbo-method": :delete, turbo_confirm: remove_confirmation }, class: "text-muted-foreground hover:text-destructive hover:border-destructive") do %>
+        <%= render Elements::ButtonComponent.new(variant: :ghost, size: :sm, href: remove_path, data: { "turbo-method": :delete, turbo_confirm: remove_confirmation }) do %>
           <%= helpers.lucide_icon "trash-2" %>
           <%= helpers.t("remove") %>
         <% end %>
       <% end %>
     </div>
 
-    <p class="text-xs text-muted-foreground">
+    <p class="text-xs text-muted">
       <%= size_hint %>
     </p>
   </div>

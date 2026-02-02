@@ -2,7 +2,7 @@
 
 module Elements
   class BadgeComponent < BaseComponent
-    VARIANTS = %i[default secondary destructive outline].freeze
+    VARIANTS = %i[default primary secondary destructive outline success warning].freeze
 
     def initialize(
       variant: :default,
@@ -38,47 +38,21 @@ module Elements
       end
 
       def badge_classes
-        tw_merge(
-          base_classes,
-          variant_classes,
-          @attrs[:class]
-        )
-      end
-
-      def base_classes
         [
-          "inline-flex items-center justify-center rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-all w-fit whitespace-nowrap shrink-0",
-          # Icon support
-          "[&>svg]:pointer-events-none [&>svg:not([class*='size-'])]:size-3 [&>svg:not([class*='w-'])]:w-3 [&>svg:not([class*='h-'])]:h-3",
-          "[&>svg]:shrink-0",
-          "gap-1",
-          # Focus states
-          "focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
-        ].join(" ")
+          "badge",
+          variant_class,
+          @attrs[:class]
+        ].compact.join(" ")
       end
 
-      def variant_classes
+      def variant_class
         case @variant
-        when :default
-          [
-            "border-transparent bg-primary text-primary-foreground shadow",
-            "[a&]:hover:bg-primary/80"
-          ].join(" ")
-        when :secondary
-          [
-            "border-transparent bg-secondary text-secondary-foreground",
-            "[a&]:hover:bg-secondary/80"
-          ].join(" ")
-        when :destructive
-          [
-            "border-transparent bg-destructive text-white shadow",
-            "[a&]:hover:bg-destructive/80"
-          ].join(" ")
-        when :outline
-          [
-            "text-foreground",
-            "[a&]:hover:bg-accent [a&]:hover:text-accent-foreground"
-          ].join(" ")
+        when :default, :primary then "badge--primary"
+        when :secondary then "badge--secondary"
+        when :outline then "badge--outline"
+        when :destructive then "badge--destructive"
+        when :success then "badge--success"
+        when :warning then "badge--warning"
         end
       end
   end

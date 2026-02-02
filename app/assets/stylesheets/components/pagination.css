@@ -1,0 +1,171 @@
+/* ==========================================================================
+   Pagination Component (Pagy compatible)
+
+   Usage:
+     <nav class="pagination" aria-label="Pagination">
+       <a href="#" class="pagination__item pagination__prev">Prev</a>
+       <a href="#" class="pagination__item">1</a>
+       <a href="#" class="pagination__item pagination__item--current">2</a>
+       <a href="#" class="pagination__item">3</a>
+       <a href="#" class="pagination__item pagination__next">Next</a>
+     </nav>
+
+   Pagy classes are also supported: .pagy, a.current, a[aria-disabled]
+   ========================================================================== */
+
+@layer components {
+  /* Pagination Container
+  /* ------------------------------------------------------------------------ */
+
+  .pagination,
+  .pagy {
+    display: inline-flex;
+    font-size: var(--text-sm);
+
+    /* Remove gaps between items */
+    > * {
+      margin-inline-start: -1px;
+    }
+
+    > *:first-child {
+      margin-inline-start: 0;
+      border-start-start-radius: var(--radius-lg);
+      border-end-start-radius: var(--radius-lg);
+    }
+
+    > *:last-child {
+      border-start-end-radius: var(--radius-lg);
+      border-end-end-radius: var(--radius-lg);
+    }
+  }
+
+  /* Pagination Info Text
+  /* ------------------------------------------------------------------------ */
+
+  .pagination__info,
+  .pagy.info {
+    font-size: var(--text-sm);
+    font-weight: var(--font-normal);
+    color: var(--color-muted-foreground);
+  }
+
+  /* Pagination Item (link/button)
+  /* ------------------------------------------------------------------------ */
+
+  .pagination__item,
+  .pagy a:not(.gap) {
+    /* Component API */
+    --pagination-height: 2rem;
+    --pagination-padding: 0.75rem;
+    --pagination-background: var(--color-background);
+    --pagination-color: var(--color-muted-foreground);
+    --pagination-border-color: var(--color-border);
+    --pagination-hover-background: var(--color-accent);
+    --pagination-hover-color: var(--color-foreground);
+    --pagination-current-background: var(--color-primary);
+    --pagination-current-color: var(--color-primary-foreground);
+
+    /* Structure */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    block-size: var(--pagination-height);
+    padding-inline: var(--pagination-padding);
+    line-height: var(--leading-tight);
+
+    /* Appearance */
+    background-color: var(--pagination-background);
+    color: var(--pagination-color);
+    border: 1px solid var(--pagination-border-color);
+    text-decoration: none;
+
+    /* Transitions */
+    transition: var(--duration-fast) var(--ease-out);
+    transition-property: background-color, color, border-color;
+
+    /* Hover state */
+    &:hover:not([aria-disabled="true"]):not(.pagination__item--current):not(.current) {
+      background-color: var(--pagination-hover-background);
+      color: var(--pagination-hover-color);
+    }
+
+    /* Focus state */
+    &:focus-visible {
+      z-index: 1;
+      outline: var(--focus-ring-width) solid var(--focus-ring-color);
+      outline-offset: var(--focus-ring-offset);
+    }
+  }
+
+  /* Current Page
+  /* ------------------------------------------------------------------------ */
+
+  .pagination__item--current,
+  .pagy a.current {
+    background-color: var(--pagination-current-background);
+    color: var(--pagination-current-color);
+    border-color: var(--pagination-current-background);
+    font-weight: var(--font-medium);
+
+    &:hover {
+      background-color: oklch(from var(--pagination-current-background) calc(l * 0.9) c h);
+    }
+  }
+
+  /* Disabled State
+  /* ------------------------------------------------------------------------ */
+
+  .pagination__item--disabled,
+  .pagy a[aria-disabled="true"]:not(.current) {
+    background-color: var(--color-muted);
+    color: var(--color-muted-foreground);
+    cursor: not-allowed;
+    opacity: 0.5;
+  }
+
+  /* Gap/Ellipsis
+  /* ------------------------------------------------------------------------ */
+
+  .pagination__gap,
+  .pagy .gap {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    block-size: 2rem;
+    padding-inline: 0.5rem;
+    color: var(--color-muted-foreground);
+  }
+
+  /* Pagy input label
+  /* ------------------------------------------------------------------------ */
+
+  .pagy label {
+    display: inline-block;
+    white-space: nowrap;
+    background-color: var(--color-muted);
+    border-radius: var(--radius-lg);
+    padding-inline: 0.75rem;
+    padding-block: 0.125rem;
+
+    input {
+      background-color: var(--color-background);
+      border: none;
+      border-radius: var(--radius-md);
+    }
+  }
+
+  /* Dark mode adjustments
+  /* ------------------------------------------------------------------------ */
+
+  html[data-theme="dark"] .pagination__item,
+  html[data-theme="dark"] .pagy a:not(.gap) {
+    --pagination-background: var(--color-card);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    html:not([data-theme]) .pagination__item,
+    html:not([data-theme]) .pagy a:not(.gap) {
+      --pagination-background: var(--color-card);
+    }
+  }
+}

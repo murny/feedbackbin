@@ -34,7 +34,7 @@
   </div>
 
   <div class="mt-8 flex items-center justify-end gap-3">
-    <%= link_to t("cancel"), admin_settings_boards_path, class: "btn btn-secondary" %>
+    <%= link_to t("cancel"), admin_settings_boards_path, class: "btn btn--secondary" %>
     <%= render Elements::ButtonComponent.new(type: :submit, variant: :default) do %>
       <%= board.persisted? ? t(".save_changes") : t(".create_board") %>
     <% end %>

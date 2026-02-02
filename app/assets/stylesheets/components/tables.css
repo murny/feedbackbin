@@ -1,0 +1,152 @@
+/* ==========================================================================
+   Table Component
+
+   Usage:
+     <table class="table">
+       <thead>
+         <tr>
+           <th>Header</th>
+         </tr>
+       </thead>
+       <tbody>
+         <tr>
+           <td>Cell</td>
+         </tr>
+       </tbody>
+     </table>
+
+   Variants: table--striped, table--bordered
+   ========================================================================== */
+
+@layer components {
+  /* Table Base
+  /* ------------------------------------------------------------------------ */
+
+  .table {
+    /* Component API */
+    --table-padding-inline: 0.5rem;
+    --table-padding-block: 0.5rem;
+    --table-header-height: 2.5rem;
+    --table-border-color: var(--color-border);
+    --table-stripe-background: var(--color-muted);
+    --table-hover-background: oklch(from var(--color-muted) l c h / 50%);
+
+    inline-size: 100%;
+    caption-side: bottom;
+    font-size: var(--text-sm);
+    border-collapse: collapse;
+
+    /* Header rows */
+    thead tr {
+      border-block-end: 1px solid var(--table-border-color);
+    }
+
+    /* Body rows */
+    tbody tr {
+      border-block-end: 1px solid var(--table-border-color);
+      transition: background-color var(--duration-fast) var(--ease-out);
+
+      &:last-child {
+        border-block-end: none;
+      }
+
+      &:hover {
+        background-color: var(--table-hover-background);
+      }
+    }
+
+    /* Footer */
+    tfoot {
+      background-color: var(--table-hover-background);
+      border-block-start: 1px solid var(--table-border-color);
+      font-weight: var(--font-medium);
+
+      tr:last-child {
+        border-block-end: none;
+      }
+    }
+
+    /* Header cells */
+    th {
+      block-size: var(--table-header-height);
+      padding-inline: var(--table-padding-inline);
+      color: var(--color-foreground);
+      font-weight: var(--font-medium);
+      text-align: start;
+      vertical-align: middle;
+      white-space: nowrap;
+
+      /* Checkbox alignment */
+      &:has([role="checkbox"]) {
+        padding-inline-end: 0;
+      }
+
+      [role="checkbox"] {
+        translate: 0 2px;
+      }
+    }
+
+    /* Body cells */
+    td {
+      padding: var(--table-padding-block) var(--table-padding-inline);
+      vertical-align: middle;
+      white-space: nowrap;
+
+      /* Checkbox alignment */
+      &:has([role="checkbox"]) {
+        padding-inline-end: 0;
+      }
+
+      [role="checkbox"] {
+        translate: 0 2px;
+      }
+    }
+
+    /* Caption */
+    caption {
+      margin-block-start: 1rem;
+      color: var(--color-muted-foreground);
+      font-size: var(--text-sm);
+    }
+  }
+
+  /* Variant: Striped
+  /* ------------------------------------------------------------------------ */
+
+  .table--striped {
+    tbody tr:nth-child(even) {
+      background-color: var(--table-hover-background);
+    }
+  }
+
+  /* Variant: Bordered
+  /* ------------------------------------------------------------------------ */
+
+  .table--bordered {
+    border: 1px solid var(--table-border-color);
+    border-radius: var(--radius-md);
+    overflow: hidden;
+
+    th,
+    td {
+      border: 1px solid var(--table-border-color);
+    }
+  }
+
+  /* Variant: Compact
+  /* ------------------------------------------------------------------------ */
+
+  .table--compact {
+    --table-padding-inline: 0.25rem;
+    --table-padding-block: 0.25rem;
+    --table-header-height: 2rem;
+  }
+
+  /* Responsive wrapper
+  /* ------------------------------------------------------------------------ */
+
+  .table-container {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}
