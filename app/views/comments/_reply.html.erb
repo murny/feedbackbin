@@ -1,7 +1,7 @@
 <%# locals: (comment:) %>
 
-<%= turbo_frame_tag comment do %>
-  <div id="<%= dom_id(comment) %>" class="p-4 lg:p-6 mb-4 text-base bg-card border border-border rounded-lg scroll-mt-4">
+<%= turbo_frame_tag comment, class: "block scroll-mt-4" do %>
+  <div class="p-4 lg:p-6 mb-4 text-base bg-card border border-border rounded-lg">
     <div class="flex">
       <div class="mr-4">
         <%= render partial: "votes/vote_button", locals: { voteable: comment } %>
@@ -47,7 +47,7 @@
         </div>
 
         <% if authenticated? %>
-          <%= render partial: "comments/reply_section", locals: { source_comment: comment, parent: comment.parent, mention: comment.creator } %>
+          <%= render partial: "comments/reply_section", locals: { source_comment: comment, parent: comment.parent } %>
         <% end %>
       </div>
     </div>

@@ -2,12 +2,8 @@
   <%= turbo_stream.update "flash_toast", partial: "flash_toast" %>
 
   <% if @comment.parent %>
-    <% is_reply_to_reply = @source_comment && @source_comment != @comment.parent %>
-    <% mention = is_reply_to_reply ? @source_comment.creator : nil %>
-    <% source = @source_comment || @comment.parent %>
-
-    <%= turbo_stream.replace "#{dom_id(source)}_reply_section" do %>
-      <%= render partial: "comments/reply_section", locals: { source_comment: source, parent: @comment.parent, mention: mention } %>
+    <%= turbo_stream.replace "#{dom_id(@reply_source)}_reply_section" do %>
+      <%= render partial: "comments/reply_section", locals: { source_comment: @reply_source, parent: @comment.parent } %>
     <% end %>
 
     <%= turbo_stream.append "#{dom_id(@comment.parent)}_replies" do %>
@@ -24,12 +20,8 @@
   <% end %>
 <% else %>
   <% if @comment.parent %>
-    <% is_reply_to_reply = @source_comment && @source_comment != @comment.parent %>
-    <% mention = is_reply_to_reply ? @source_comment.creator : nil %>
-    <% source = @source_comment || @comment.parent %>
-
-    <%= turbo_stream.replace "#{dom_id(source)}_reply_section" do %>
-      <%= render partial: "comments/reply_section", locals: { source_comment: source, parent: @comment.parent, comment: @comment, mention: mention, show_form: true } %>
+    <%= turbo_stream.replace "#{dom_id(@reply_source)}_reply_section" do %>
+      <%= render partial: "comments/reply_section", locals: { source_comment: @reply_source, parent: @comment.parent, comment: @comment, show_form: true } %>
     <% end %>
   <% else %>
     <%= turbo_stream.replace "idea_comment_form" do %>

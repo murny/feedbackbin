@@ -1,8 +1,7 @@
 <%# locals: (comment:) %>
 
-<%= turbo_frame_tag dom_id(comment) do %>
-  <div id="<%= dom_id(comment) %>" class="py-6 scroll-mt-4">
-    <% if comment.creator.system? %>
+<%= turbo_frame_tag dom_id(comment), class: "block py-6 scroll-mt-4" do %>
+  <% if comment.creator.system? %>
       <%# System comment - simplified styling for audit trail %>
       <div class="p-3 text-sm bg-muted/30 border border-muted rounded-lg">
         <div class="flex items-center gap-2">
@@ -73,5 +72,4 @@
         <%= render partial: "comments/reply", collection: comment.replies.ordered, as: :comment %>
       </div>
     <% end %>
-  </div>
 <% end %>

@@ -1,4 +1,4 @@
-<%# locals: (source_comment:, parent:, comment:, show_form: false, mention: nil) %>
+<%# locals: (source_comment:, parent:, comment:, show_form: false) %>
 
 <%= tag.div id: "#{dom_id(source_comment)}_reply_form", data: { comment_reply_target: "form" }, class: (show_form ? "" : "hidden").to_s do %>
   <div class="flex items-start">
