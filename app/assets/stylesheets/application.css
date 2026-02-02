@@ -18,6 +18,9 @@
 @import "components/badges.css";
 @import "components/cards.css";
 @import "components/alerts.css";
+@import "components/dropdowns.css";
+@import "components/popovers.css";
+@import "components/tabs.css";
 
 /* Utilities (highest priority) */
 @import "utilities.css";
