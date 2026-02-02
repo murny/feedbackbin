@@ -17,6 +17,7 @@
 @import "components/buttons.css";
 @import "components/badges.css";
 @import "components/cards.css";
+@import "components/alerts.css";
 
 /* Utilities (highest priority) */
 @import "utilities.css";
