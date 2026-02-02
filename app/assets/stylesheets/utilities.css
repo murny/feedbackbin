@@ -145,10 +145,45 @@
   /* ==========================================================================
      Text Colors (semantic)
      ========================================================================== */
+  .text-foreground { color: var(--color-foreground); }
   .text-muted { color: var(--color-muted-foreground); }
+  .text-muted-foreground { color: var(--color-muted-foreground); }
+  .text-primary { color: var(--color-primary); }
+  .text-primary-foreground { color: var(--color-primary-foreground); }
+  .text-secondary { color: var(--color-secondary-foreground); }
   .text-destructive { color: var(--color-destructive); }
   .text-success { color: var(--color-success); }
   .text-warning { color: var(--color-warning); }
+  .text-accent-foreground { color: var(--color-accent-foreground); }
+  .text-white { color: white; }
+
+  /* ==========================================================================
+     Background Colors
+     ========================================================================== */
+  .bg-background { background-color: var(--color-background); }
+  .bg-foreground { background-color: var(--color-foreground); }
+  .bg-card { background-color: var(--color-card); }
+  .bg-primary { background-color: var(--color-primary); }
+  .bg-primary\/10 { background-color: oklch(from var(--color-primary) l c h / 10%); }
+  .bg-secondary { background-color: var(--color-secondary); }
+  .bg-muted { background-color: var(--color-muted); }
+  .bg-muted\/30 { background-color: oklch(from var(--color-muted) l c h / 30%); }
+  .bg-muted\/50 { background-color: oklch(from var(--color-muted) l c h / 50%); }
+  .bg-accent { background-color: var(--color-accent); }
+  .bg-destructive { background-color: var(--color-destructive); }
+  .bg-destructive\/10 { background-color: oklch(from var(--color-destructive) l c h / 10%); }
+  .bg-transparent { background-color: transparent; }
+  .bg-white { background-color: white; }
+
+  /* ==========================================================================
+     Border Colors
+     ========================================================================== */
+  .border-border { border-color: var(--color-border); }
+  .border-input { border-color: var(--color-input); }
+  .border-primary { border-color: var(--color-primary); }
+  .border-destructive { border-color: var(--color-destructive); }
+  .border-destructive\/50 { border-color: oklch(from var(--color-destructive) l c h / 50%); }
+  .border-transparent { border-color: transparent; }
 
   /* ==========================================================================
      Overflow
@@ -204,4 +239,234 @@
     white-space: nowrap;
     border-width: 0;
   }
+
+  /* ==========================================================================
+     Borders
+     ========================================================================== */
+  .border { border: 1px solid var(--color-border); }
+  .border-0 { border-width: 0; }
+  .border-t { border-block-start: 1px solid var(--color-border); }
+  .border-b { border-block-end: 1px solid var(--color-border); }
+  .border-l { border-inline-start: 1px solid var(--color-border); }
+  .border-r { border-inline-end: 1px solid var(--color-border); }
+
+  /* ==========================================================================
+     Border Radius
+     ========================================================================== */
+  .rounded { border-radius: var(--radius-md); }
+  .rounded-none { border-radius: 0; }
+  .rounded-sm { border-radius: var(--radius-sm); }
+  .rounded-md { border-radius: var(--radius-md); }
+  .rounded-lg { border-radius: var(--radius-lg); }
+  .rounded-xl { border-radius: var(--radius-xl); }
+  .rounded-full { border-radius: 9999px; }
+  .rounded-inherit { border-radius: inherit; }
+
+  /* ==========================================================================
+     Shadows
+     ========================================================================== */
+  .shadow { box-shadow: var(--shadow-md); }
+  .shadow-xs { box-shadow: var(--shadow-xs); }
+  .shadow-sm { box-shadow: var(--shadow-sm); }
+  .shadow-md { box-shadow: var(--shadow-md); }
+  .shadow-lg { box-shadow: var(--shadow-lg); }
+  .shadow-none { box-shadow: none; }
+
+  /* ==========================================================================
+     Additional Sizing
+     ========================================================================== */
+  .w-3 { inline-size: 0.75rem; }
+  .w-4 { inline-size: 1rem; }
+  .w-5 { inline-size: 1.25rem; }
+  .w-6 { inline-size: 1.5rem; }
+  .w-8 { inline-size: 2rem; }
+  .w-10 { inline-size: 2.5rem; }
+  .w-12 { inline-size: 3rem; }
+  .w-16 { inline-size: 4rem; }
+  .w-20 { inline-size: 5rem; }
+  .w-24 { inline-size: 6rem; }
+  .w-32 { inline-size: 8rem; }
+  .w-48 { inline-size: 12rem; }
+  .w-64 { inline-size: 16rem; }
+  .w-72 { inline-size: 18rem; }
+
+  .h-3 { block-size: 0.75rem; }
+  .h-4 { block-size: 1rem; }
+  .h-5 { block-size: 1.25rem; }
+  .h-6 { block-size: 1.5rem; }
+  .h-8 { block-size: 2rem; }
+  .h-9 { block-size: 2.25rem; }
+  .h-10 { block-size: 2.5rem; }
+  .h-12 { block-size: 3rem; }
+  .h-16 { block-size: 4rem; }
+  .h-20 { block-size: 5rem; }
+  .h-24 { block-size: 6rem; }
+  .h-32 { block-size: 8rem; }
+
+  .size-3 { inline-size: 0.75rem; block-size: 0.75rem; }
+  .size-4 { inline-size: 1rem; block-size: 1rem; }
+  .size-5 { inline-size: 1.25rem; block-size: 1.25rem; }
+  .size-6 { inline-size: 1.5rem; block-size: 1.5rem; }
+  .size-8 { inline-size: 2rem; block-size: 2rem; }
+  .size-10 { inline-size: 2.5rem; block-size: 2.5rem; }
+  .size-12 { inline-size: 3rem; block-size: 3rem; }
+  .size-16 { inline-size: 4rem; block-size: 4rem; }
+
+  .max-w-xs { max-inline-size: 20rem; }
+  .max-w-sm { max-inline-size: 24rem; }
+  .max-w-md { max-inline-size: 28rem; }
+  .max-w-lg { max-inline-size: 32rem; }
+  .max-w-xl { max-inline-size: 36rem; }
+  .max-w-2xl { max-inline-size: 42rem; }
+  .max-w-3xl { max-inline-size: 48rem; }
+  .max-w-4xl { max-inline-size: 56rem; }
+  .max-w-5xl { max-inline-size: 64rem; }
+  .max-w-6xl { max-inline-size: 72rem; }
+  .max-w-7xl { max-inline-size: 80rem; }
+  .max-w-full { max-inline-size: 100%; }
+  .max-w-none { max-inline-size: none; }
+
+  .min-h-screen { min-block-size: 100vh; }
+  .min-h-svh { min-block-size: 100svh; }
+
+  /* ==========================================================================
+     Space Between (children)
+     ========================================================================== */
+  .space-x-1 > * + * { margin-inline-start: var(--space-1); }
+  .space-x-2 > * + * { margin-inline-start: var(--space-2); }
+  .space-x-3 > * + * { margin-inline-start: var(--space-3); }
+  .space-x-4 > * + * { margin-inline-start: var(--space-4); }
+
+  .space-y-1 > * + * { margin-block-start: var(--space-1); }
+  .space-y-2 > * + * { margin-block-start: var(--space-2); }
+  .space-y-3 > * + * { margin-block-start: var(--space-3); }
+  .space-y-4 > * + * { margin-block-start: var(--space-4); }
+  .space-y-5 > * + * { margin-block-start: var(--space-5); }
+  .space-y-6 > * + * { margin-block-start: var(--space-6); }
+  .space-y-8 > * + * { margin-block-start: var(--space-8); }
+
+  /* ==========================================================================
+     Grid
+     ========================================================================== */
+  .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+  .grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  .grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+  .col-span-1 { grid-column: span 1 / span 1; }
+  .col-span-2 { grid-column: span 2 / span 2; }
+  .col-span-3 { grid-column: span 3 / span 3; }
+  .col-span-full { grid-column: 1 / -1; }
+
+  /* ==========================================================================
+     Text Utilities
+     ========================================================================== */
+  .whitespace-nowrap { white-space: nowrap; }
+  .whitespace-normal { white-space: normal; }
+  .whitespace-pre { white-space: pre; }
+  .whitespace-pre-wrap { white-space: pre-wrap; }
+
+  .break-words { overflow-wrap: break-word; }
+  .break-all { word-break: break-all; }
+
+  .line-clamp-1 {
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .line-clamp-2 {
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .uppercase { text-transform: uppercase; }
+  .lowercase { text-transform: lowercase; }
+  .capitalize { text-transform: capitalize; }
+  .normal-case { text-transform: none; }
+
+  .underline { text-decoration: underline; }
+  .no-underline { text-decoration: none; }
+  .line-through { text-decoration: line-through; }
+
+  .leading-none { line-height: 1; }
+  .leading-tight { line-height: 1.25; }
+  .leading-snug { line-height: 1.375; }
+  .leading-normal { line-height: 1.5; }
+  .leading-relaxed { line-height: 1.625; }
+  .leading-loose { line-height: 2; }
+
+  /* ==========================================================================
+     Opacity
+     ========================================================================== */
+  .opacity-0 { opacity: 0; }
+  .opacity-25 { opacity: 0.25; }
+  .opacity-50 { opacity: 0.5; }
+  .opacity-75 { opacity: 0.75; }
+  .opacity-100 { opacity: 1; }
+
+  /* ==========================================================================
+     Z-Index
+     ========================================================================== */
+  .z-0 { z-index: 0; }
+  .z-10 { z-index: 10; }
+  .z-20 { z-index: 20; }
+  .z-30 { z-index: 30; }
+  .z-40 { z-index: 40; }
+  .z-50 { z-index: 50; }
+
+  /* ==========================================================================
+     Inset (positioning)
+     ========================================================================== */
+  .inset-0 { inset: 0; }
+  .top-0 { inset-block-start: 0; }
+  .right-0 { inset-inline-end: 0; }
+  .bottom-0 { inset-block-end: 0; }
+  .left-0 { inset-inline-start: 0; }
+
+  /* ==========================================================================
+     Aspect Ratio
+     ========================================================================== */
+  .aspect-square { aspect-ratio: 1 / 1; }
+  .aspect-video { aspect-ratio: 16 / 9; }
+  .aspect-auto { aspect-ratio: auto; }
+
+  /* ==========================================================================
+     Object Fit
+     ========================================================================== */
+  .object-cover { object-fit: cover; }
+  .object-contain { object-fit: contain; }
+  .object-fill { object-fit: fill; }
+  .object-none { object-fit: none; }
+
+  /* ==========================================================================
+     User Select
+     ========================================================================== */
+  .select-none { user-select: none; }
+  .select-text { user-select: text; }
+  .select-all { user-select: all; }
+
+  /* ==========================================================================
+     Transform
+     ========================================================================== */
+  .rotate-90 { transform: rotate(90deg); }
+  .rotate-180 { transform: rotate(180deg); }
+  .-rotate-90 { transform: rotate(-90deg); }
+
+  /* ==========================================================================
+     Transition
+     ========================================================================== */
+  .transition { transition: all var(--duration-normal) var(--ease-out); }
+  .transition-colors { transition: color, background-color, border-color var(--duration-fast) var(--ease-out); }
+  .transition-opacity { transition: opacity var(--duration-fast) var(--ease-out); }
+  .transition-transform { transition: transform var(--duration-fast) var(--ease-out); }
+  .duration-fast { transition-duration: var(--duration-fast); }
+  .duration-normal { transition-duration: var(--duration-normal); }
 }
