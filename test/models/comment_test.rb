@@ -108,4 +108,25 @@ class CommentTest < ActiveSupport::TestCase
 
     assert idea.watched_by?(user)
   end
+
+  test "sorted_by returns comments in oldest order by default" do
+    idea = ideas(:one)
+    comments = idea.comments.where(parent_id: nil).sorted_by(nil)
+
+    assert_equal comments.first.created_at, comments.minimum(:created_at)
+  end
+
+  test "sorted_by newest returns comments in newest first order" do
+    idea = ideas(:one)
+    comments = idea.comments.where(parent_id: nil).sorted_by(:newest)
+
+    assert_equal comments.first.created_at, comments.maximum(:created_at)
+  end
+
+  test "sorted_by top returns comments ordered by votes_count descending" do
+    idea = ideas(:one)
+    comments = idea.comments.where(parent_id: nil).sorted_by(:top)
+
+    assert_operator comments.first.votes_count, :>=, comments.last.votes_count
+  end
 end

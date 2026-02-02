@@ -41,9 +41,11 @@ class IdeasController < ApplicationController
 
   # GET /ideas/1 or /ideas/1.json
   def show
+    @comment_sort = params[:comment_sort]&.to_sym || :oldest
+
     @top_level_comments = @idea.comments
                              .where(parent_id: nil)
-                             .ordered
+                             .sorted_by(@comment_sort)
                              .includes(:creator, replies: :creator)
 
     @comment = Comment.new

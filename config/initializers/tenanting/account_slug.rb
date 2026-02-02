@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
 module AccountSlug
-  MINIMUM_DIGITS = 7
-  SLUG_PATTERN = /\A\/(\d{#{MINIMUM_DIGITS},})(\/.*|)\z/
+  SLUG_PATTERN = /\A\/(\d+)(\/.*|)\z/
 
   class << self
-    # Encode account ID to slug format (7+ digit zero-padded)
-    # Returns format like "/1234567"
+    # Encode account ID to slug format
+    # Returns format like "/1"
     def encode(external_account_id)
-      format("/%0#{MINIMUM_DIGITS}d", external_account_id)
+      "/#{external_account_id}"
     end
 
     # Decode slug to external_account_id
