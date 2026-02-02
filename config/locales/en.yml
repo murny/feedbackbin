@@ -1015,3 +1015,12 @@ en:
       add_or_search_tags: Add or search tags
       tag_placeholder: "Type to search or create..."
       keyboard_hint: "Press Enter to create a new tag"
+  taggings:
+    new:
+      title: "Tag this…"
+      filter_placeholder: "Add a new tag or filter…"
+      name_placeholder: "Name this tag…"
+      create_tag: "Create tag"
+  ideas:
+    tags:
+      add_tag: "Add a tag"

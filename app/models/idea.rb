@@ -8,6 +8,7 @@ class Idea < ApplicationRecord
   include Searchable
   include Idea::Eventable
   include Idea::Watchable
+  include Idea::Taggable
 
   has_rich_text :description
 
@@ -19,8 +20,6 @@ class Idea < ApplicationRecord
   belongs_to :status, optional: true
 
   has_many :comments, dependent: :destroy
-  has_many :taggings, dependent: :destroy
-  has_many :tags, through: :taggings
 
   broadcasts_refreshes
 

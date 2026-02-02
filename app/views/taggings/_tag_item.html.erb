@@ -1,0 +1,10 @@
+<%# locals: (tag_item:, idea:) %>
+<li class="flex" data-filter-target="item" data-navigable-list-target="item" aria-checked="<%= idea.tagged_with?(tag_item) %>">
+  <%= button_to idea_taggings_path(idea, params: { tag_title: tag_item.title }),
+        method: :post,
+        class: "flex items-center gap-2 w-full px-3 py-2 rounded-md hover:bg-accent text-sm transition-colors group",
+        form_class: "w-full flex-1" do %>
+    <span class="flex-1 text-left overflow-hidden text-ellipsis"><%= tag_item.hashtag %></span>
+    <%= lucide_icon "check", class: "h-4 w-4 text-primary opacity-0 group-aria-[checked=true]:opacity-100 flex-shrink-0" %>
+  <% end %>
+</li>

@@ -1,0 +1,47 @@
+<%# Tag picker dialog content %>
+<%= turbo_frame_tag @idea, :tagging do %>
+  <div class="flex flex-col w-full"
+    data-controller="form filter navigable-list"
+    data-navigable-list-focus-on-selection-value="false"
+    data-navigable-list-actionable-items-value="true"
+    data-action="keydown->navigable-list#navigate filter:changed->navigable-list#reset">
+
+    <div class="flex items-start justify-between mb-4">
+      <strong class="text-sm font-semibold"><%= t(".title") %></strong>
+      <kbd class="text-xs text-muted-foreground hidden md:inline">t</kbd>
+    </div>
+
+    <%= form_with url: idea_taggings_path(@idea),
+          id: dom_id(@idea, :tags_form),
+          data: {
+            controller: "form",
+            action: "submit->form#preventEmptySubmit submit->form#preventComposingSubmit"
+          },
+          class: "flex flex-col gap-2 w-full mb-4" do |form| %>
+      <%= form.text_field :tag_title,
+            placeholder: @tags.any? ? t(".filter_placeholder") : t(".name_placeholder"),
+            class: "w-full px-3 py-2 bg-background border border-input rounded-md text-sm focus:outline-hidden focus:ring-2 focus:ring-ring",
+            autocomplete: "off",
+            autofocus: true,
+            data: {
+              filter_target: "input",
+              form_target: "input",
+              action: "input->filter#filter compositionstart->form#compositionStart compositionend->form#compositionEnd"
+            } %>
+    <% end %>
+
+    <ul class="flex flex-col gap-1 max-h-64 overflow-y-auto" data-filter-target="list">
+      <%= render collection: @tagged_with, partial: "taggings/tag_item", locals: { idea: @idea } %>
+      <%= render collection: @tags, partial: "taggings/tag_item", locals: { idea: @idea } %>
+
+      <li class="flex" data-navigable-list-target="item">
+        <%= button_tag type: "submit", form: dom_id(@idea, :tags_form),
+              class: "flex items-center gap-2 w-full px-3 py-2 rounded-md hover:bg-accent text-sm transition-colors",
+              data: { form_target: "submit" } do %>
+          <%= lucide_icon "plus", class: "h-4 w-4" %>
+          <span><%= t(".create_tag") %></span>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+<% end %>

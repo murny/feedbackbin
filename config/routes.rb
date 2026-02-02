@@ -98,7 +98,7 @@ Rails.application.routes.draw do
         resource :vote, only: [ :update ], module: :comments
       end
     end
-    resources :taggings, only: [ :create, :destroy ]
+    resources :taggings, only: [ :new, :create ]
   end
   resources :changelogs, only: [ :index, :show ]
   resources :tags, only: [ :index, :create ]

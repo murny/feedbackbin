@@ -1,0 +1,31 @@
+<%# locals: (idea:) %>
+<div id="<%= dom_id(idea, :tags) %>" class="flex flex-wrap items-center gap-2">
+  <% if policy(idea).edit? %>
+    <div data-controller="dialog"
+          data-action="keydown.esc->dialog#close click@document->dialog#closeOnClickOutside">
+      <%= render Elements::ButtonComponent.new(
+            variant: :outline,
+            size: :sm,
+            data: {
+              controller: "hotkey",
+              action: "click->dialog#open:stop keydown.t@document->hotkey#click"
+            }
+          ) do %>
+        <%= lucide_icon "tag", class: "h-4 w-4" %>
+        <span class="sr-only"><%= t(".add_tag") %></span>
+      <% end %>
+
+      <dialog class="rounded-lg border bg-popover p-4 shadow-md min-w-80 max-w-md"
+              data-dialog-target="dialog"
+              data-action="turbo:before-morph-attribute->dialog#preventCloseOnMorphing turbo:submit-end->dialog#close">
+        <%= turbo_frame_tag idea, :tagging, src: new_idea_tagging_path(idea), loading: :lazy, refresh: :morph %>
+      </dialog>
+    </div>
+  <% end %>
+
+  <% if idea.tags.any? %>
+    <% idea.tags.each do |tag| %>
+      <%= render "tags/tag", tag: tag, idea: idea, removable: false %>
+    <% end %>
+  <% end %>
+</div>

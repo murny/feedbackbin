@@ -5,29 +5,18 @@ class TaggingsController < ApplicationController
 
   before_action :set_idea
 
-  def create
-    @tag = Current.account.tags.find_or_create_by(title: tagging_params[:title])
-
-    unless @idea.tags.include?(@tag)
-      @idea.tags << @tag
-      flash.now[:notice] = t(".successfully_tagged")
-    end
-
-    respond_to do |format|
-      format.turbo_stream
-      format.html { redirect_to @idea }
-    end
+  def new
+    @tagged_with = @idea.tags.alphabetically
+    @tags = Current.account.tags.alphabetically.where.not(id: @tagged_with)
+    fresh_when etag: [ @tags, @idea.tags ]
   end
 
-  def destroy
-    @tagging = Tagging.find(params[:id])
-    @tag = @tagging.tag
-    @tagging.destroy!
+  def create
+    @idea.toggle_tag_with sanitized_tag_title_param
 
     respond_to do |format|
-      flash.now[:notice] = t(".successfully_untagged")
       format.turbo_stream
-      format.html { redirect_to @idea, status: :see_other }
+      format.json { head :no_content }
     end
   end
 
@@ -37,7 +26,7 @@ class TaggingsController < ApplicationController
       @idea = Idea.find(params[:idea_id])
     end
 
-    def tagging_params
-      params.expect(tagging: [ :title ])
+    def sanitized_tag_title_param
+      params.required(:tag_title).strip.gsub(/\A#/, "")
     end
 end
