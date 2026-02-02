@@ -1,7 +1,7 @@
 <%# locals: (comment:) %>
 
 <%= turbo_frame_tag comment do %>
-  <div class="p-4 lg:p-6 mb-4 text-base bg-card border border-border rounded-lg">
+  <div id="<%= dom_id(comment) %>" class="p-4 lg:p-6 mb-4 text-base bg-card border border-border rounded-lg scroll-mt-4">
     <div class="flex">
       <div class="mr-4">
         <%= render partial: "votes/vote_button", locals: { voteable: comment } %>
@@ -13,7 +13,9 @@
 
             <p class="inline-flex flex-col md:flex-row items-start mr-3 text-sm text-foreground">
               <span class="font-semibold"><%= comment.creator.name %></span>
-              <%= local_datetime_tag comment.created_at, style: :datetime, class: "text-sm text-muted-foreground md:ml-2" %>
+              <%= link_to idea_path(comment.idea, anchor: dom_id(comment)), class: "text-sm text-muted-foreground hover:underline md:ml-2", data: { turbo_frame: "_top" } do %>
+                <%= local_datetime_tag comment.created_at, style: :datetime %>
+              <% end %>
             </p>
           </div>
           <%= render Elements::DropdownMenuComponent.new do |dropdown| %>
@@ -43,6 +45,17 @@
         <div class="text-muted-foreground" data-controller="syntax-highlight">
           <%= comment.body %>
         </div>
+
+        <% if authenticated? %>
+          <div class="mt-3" data-controller="comment-reply">
+            <button type="button" class="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground" data-comment-reply-target="button" data-action="click->comment-reply#toggle">
+              <%= lucide_icon "reply", class: "h-4 w-4" %>
+              <%= t(".reply") %>
+            </button>
+
+            <%= render partial: "comments/reply_form", locals: { parent: comment.parent, comment: Comment.new, mention: comment.creator } %>
+          </div>
+        <% end %>
       </div>
     </div>
   </div>

@@ -467,15 +467,22 @@ en:
   comments:
     comment:
       comment_settings: Comment settings
+      reply: Reply
     comments:
       comments_title_with_count: Comments (%{comment_count})
+      sort:
+        newest: Newest
+        oldest: Oldest
+        top: Top
     form:
       comment_placeholder: Write a comment...
     reply:
       comment_settings: Comment settings
+      reply: Reply
     reply_form:
+      create_reply: Reply
       reply_placeholder: Write a reply...
-      write_a_reply: Write a reply
+      update_reply: Update Reply
   delete: Delete
   edit: Edit
   elements:

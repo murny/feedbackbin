@@ -1,34 +1,25 @@
-<%# locals: (parent:, comment:, show_form: false) %>
+<%# locals: (parent:, comment:, show_form: false, mention: nil) %>
 
-<% if authenticated? %>
- <div data-controller="comment-reply">
-    <%= button_tag class: "btn btn-secondary w-full #{show_form ? "hidden" : ""}", data: { comment_reply_target: "button", action: "click->comment-reply#toggle" } do %>
-      <%= lucide_icon "reply", class: "h-5 w-5 text-muted-foreground" %>
-      <%= t(".write_a_reply") %>
-    <% end %>
+<%= tag.div id: "comment_#{parent.id}_new_reply_#{mention&.id}", data: { comment_reply_target: "form" }, class: (show_form ? "" : "hidden").to_s do %>
+  <div class="flex items-start">
+    <%= form_with model: comment, url: idea_comments_path(parent.idea), class: "my-4 w-full" do |form| %>
+      <%= render "error_messages", resource: form.object %>
 
-    <%= tag.div id: "comment_#{parent.id}_new_reply", data: { comment_reply_target: "form" }, class: (show_form ? "" : "hidden").to_s do %>
-      <div class="flex items-start">
-        <%= form_with model: comment, url: idea_comments_path(parent.idea), class: "my-4 w-full" do |form| %>
-          <%= render "error_messages", resource: form.object %>
+      <%= form.hidden_field :parent_id, value: parent.id %>
 
-          <%= form.hidden_field :parent_id, value: parent.id %>
+      <div class="bg-card border border-input rounded-md overflow-hidden focus-within:border-ring focus-within:ring-2 focus-within:ring-ring/50">
+        <%= form.rich_text_area :body, id: "comment_#{parent.id}_new_reply_body_#{mention&.id}", row: 1, placeholder: t(".reply_placeholder") do %>
+          <%= rich_text_prompts %>
+        <% end %>
+      </div>
 
-          <div class="bg-card border border-input rounded-md overflow-hidden focus-within:border-ring focus-within:ring-2 focus-within:ring-ring/50">
-            <%= form.rich_text_area :body, id: "comment_#{parent.id}_new_reply_body", row: 1, placeholder: t(".reply_placeholder") do %>
-              <%= rich_text_prompts %>
-            <% end %>
-          </div>
-
-          <div class="mt-5 flex items-center gap-4 justify-end">
-            <% if form.object.persisted? %>
-              <%= form.submit "Update Reply", class: "btn btn-primary" %>
-              <%= link_to "Cancel", idea_comment_path(parent.idea, parent), class: "btn btn-secondary" %>
-            <% else %>
-              <%= form.submit "Create Reply", class: "btn btn-primary" %>
-              <%= button_tag "Cancel", class: "btn btn-secondary", data: { action: "click->comment-reply#toggle" } %>
-            <% end %>
-          </div>
+      <div class="mt-5 flex items-center gap-4 justify-end">
+        <% if form.object.persisted? %>
+          <%= form.submit t(".update_reply"), class: "btn btn-primary" %>
+          <%= link_to t("cancel"), idea_comment_path(parent.idea, parent), class: "btn btn-secondary" %>
+        <% else %>
+          <%= form.submit t(".create_reply"), class: "btn btn-primary" %>
+          <%= button_tag t("cancel"), type: "button", class: "btn btn-secondary", data: { action: "click->comment-reply#toggle" } %>
         <% end %>
       </div>
     <% end %>
