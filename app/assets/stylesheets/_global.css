@@ -119,7 +119,7 @@
   --color-ink-lighter: oklch(0.708 0 0);
   --color-ink-inverted: oklch(0.985 0 0);
 
-  /* Aliases for Tailwind utility class compatibility */
+  /* Aliases for utility class compatibility */
   --color-background: var(--color-canvas);
   --color-foreground: var(--color-ink);
 

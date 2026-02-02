@@ -62,8 +62,7 @@ FeedbackBin is a customer feedback management platform built with Ruby on Rails 
 - Role-based access via `Role` model
 
 ### UI Framework
-- **Tailwind CSS**: Utility-first styling with custom components
-- **Basecoat CSS**: Shadcn-inspired layer on top of Tailwind
+- **Fizzy-style CSS**: Pure CSS architecture with BEM naming, CSS custom properties, and CSS layers
 - **Custom UI Components**: Shadcn-inspired components in `app/components/elements/`
 - **Lucide Icons**: Icon system via lucide-rails gem using `lucide_icon("example_icon")` view helper
 - **Mobile-first responsive design**
@@ -122,8 +121,10 @@ Example badge usage:
 - Good: Only add comments when the code itself is complex and requires explanation
 
 ### Styling Guidelines
-- Use Tailwind's built-in CSS variables: `bg-primary`, `text-primary-foreground`
-- Follow mobile-first responsive approach
+- Use CSS custom properties: `--color-primary`, `--color-muted-foreground`
+- Use BEM naming for components: `.block`, `.block__element`, `.block--modifier`
+- Use utility classes from `utilities.css` for layout: `flex`, `gap-4`, `text-sm`
+- Follow mobile-first responsive approach with `sm:`, `md:`, `lg:` prefixes
 - Ensure components work in both light and dark themes
 - Use semantic HTML elements and proper ARIA attributes
 

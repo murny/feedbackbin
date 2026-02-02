@@ -2,7 +2,6 @@
 
 module RoadmapHelper
   # Returns the appropriate CSS classes for the roadmap grid based on column count
-  # Uses explicit Tailwind classes to ensure they're not purged during build
   def roadmap_grid_classes(column_count)
     if column_count <= 3
       # Use grid layout for 1-3 columns with explicit class names
