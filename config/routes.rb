@@ -93,15 +93,15 @@ Rails.application.routes.draw do
       resource :watch, only: [ :show, :create, :destroy ]
       resource :pin, only: [ :create, :destroy ]
       resource :status, only: [ :update ]
+      resources :taggings, only: [ :new, :create ]
 
       resources :comments do
         resource :vote, only: [ :update ], module: :comments
       end
     end
-    resources :taggings, only: [ :new, :create ]
   end
   resources :changelogs, only: [ :index, :show ]
-  resources :tags, only: [ :index, :create ]
+  resources :tags, only: :index
 
   # Roadmap
   get "roadmap", to: "roadmap#index"

@@ -510,53 +510,51 @@ en:
       create:
         successfully_created: Comment was successfully created.
       destroy:
-        successfully_destroyed: Comment was successfully destroyed.
+        successfully_destroyed: Comment was successfully deleted.
       update:
         successfully_updated: Comment was successfully updated.
       votes:
         update:
-          successfully_unvoted: Comment was successfully unliked.
-          successfully_voted: Comment was successfully liked.
+          successfully_unvoted: Your vote has been removed.
+          successfully_voted: Your vote has been recorded.
     create:
       successfully_created: Idea was successfully created.
     default_status: Open
     destroy:
-      successfully_destroyed: Idea was successfully destroyed.
+      successfully_destroyed: Idea was successfully deleted.
     edit:
       title: Edit Idea
     form:
-      description_placeholder: Add your description here...
-      title_placeholder: Add a title
+      description_placeholder: Describe your idea...
+      title_placeholder: Enter a title...
     idea:
       pinned: Pinned
-      total_comments: Total comments
+      total_comments:
+        one: "%{count} comment"
+        other: "%{count} comments"
     index:
       all_ideas: All Ideas
-      description: Share your ideas and help us improve our product
-      empty_idea_description: Get started by sharing your first suggestion or idea with the community.
+      description: Share your ideas and help us improve
+      empty_idea_description: Be the first to share an idea!
       empty_idea_title: No ideas yet
       search_placeholder: Search ideas...
       sort_by_label: Sort by
       sort_latest: Latest
       sort_most_commented: Most Commented
       sort_top: Top
-      title: Customer Ideas
+      title: Ideas
     new:
       title: New Idea
     participants:
-      and_others:
-        one: and %{count} other
-        other: and %{count} others
-      title:
-        one: "%{count} participant"
-        other: "%{count} participants"
+      and_others: and %{count} others
+      title: Participants
     pins:
       create:
         pinned: Idea has been pinned.
       destroy:
         unpinned: Idea has been unpinned.
     show:
-      back_to_ideas: Back to ideas
+      back_to_ideas: Back to Ideas
       pin: Pin
       pinned: Pinned
       share: Share
@@ -564,13 +562,21 @@ en:
       watch: Watch
     statuses:
       update:
-        success: Status has been updated.
+        success: Status was successfully updated.
+    taggings:
+      new:
+        create_tag: Create tag
+        filter_placeholder: Add a new tag or filter…
+        name_placeholder: Name this tag…
+        title: Tag this…
+    tags:
+      add_tag: Add a tag
     update:
       successfully_updated: Idea was successfully updated.
     votes:
       update:
-        successfully_unvoted: Idea was successfully unliked.
-        successfully_voted: Idea was successfully liked.
+        successfully_unvoted: Your vote has been removed.
+        successfully_voted: Your vote has been recorded.
     watches:
       watch_button:
         watch: Watch
@@ -1004,23 +1010,3 @@ en:
       comment_on: Comment on
       empty_votes: No votes yet.
       voted: Voted
-  taggings:
-    create:
-      successfully_tagged: Tag was successfully added.
-    destroy:
-      successfully_untagged: Tag was successfully removed.
-  tags:
-    tagging_menu:
-      manage_tags: Manage Tags
-      add_or_search_tags: Add or search tags
-      tag_placeholder: "Type to search or create..."
-      keyboard_hint: "Press Enter to create a new tag"
-  taggings:
-    new:
-      title: "Tag this…"
-      filter_placeholder: "Add a new tag or filter…"
-      name_placeholder: "Name this tag…"
-      create_tag: "Create tag"
-  ideas:
-    tags:
-      add_tag: "Add a tag"

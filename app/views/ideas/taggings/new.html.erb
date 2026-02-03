@@ -31,8 +31,8 @@
     <% end %>
 
     <ul class="flex flex-col gap-1 max-h-64 overflow-y-auto" data-filter-target="list">
-      <%= render collection: @tagged_with, partial: "taggings/tag_item", locals: { idea: @idea } %>
-      <%= render collection: @tags, partial: "taggings/tag_item", locals: { idea: @idea } %>
+      <%= render collection: @tagged_with, partial: "ideas/taggings/tag_item", locals: { idea: @idea } %>
+      <%= render collection: @tags, partial: "ideas/taggings/tag_item", locals: { idea: @idea } %>
 
       <li class="flex" data-navigable-list-target="item">
         <%= button_tag type: "submit", form: dom_id(@idea, :tags_form),

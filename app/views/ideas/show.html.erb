@@ -119,7 +119,7 @@
             <% if Current.user&.can_administer_idea?(@idea) %>
               <%= render "tags/tagging_menu", idea: @idea %>
             <% end %>
-            
+
             <%= render "ideas/participants", idea: @idea %>
           </div>
         </div>

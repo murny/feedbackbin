@@ -10,6 +10,7 @@ class Tag < ApplicationRecord
   normalizes :title, with: -> { _1.strip.downcase }
 
   scope :alphabetically, -> { order(Arel.sql("lower(title)")) }
+  scope :unused, -> { left_outer_joins(:taggings).where(taggings: { id: nil }) }
 
   def hashtag
     "##{title}"
