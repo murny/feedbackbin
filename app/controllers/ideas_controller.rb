@@ -44,7 +44,7 @@ class IdeasController < ApplicationController
     @comment_sort = params[:comment_sort]&.to_sym || :oldest
 
     @top_level_comments = @idea.comments
-                             .where(parent_id: nil)
+                             .top_level
                              .sorted_by(@comment_sort)
                              .includes(:creator, replies: :creator)
 

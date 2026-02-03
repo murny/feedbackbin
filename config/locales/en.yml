@@ -24,6 +24,10 @@ en:
           attributes:
             role:
               admin_cannot_be_removed: admin role cannot be removed for the account owner
+        reaction:
+          attributes:
+            reacter_id:
+              already_reacted: you have already reacted with this emoji
         status:
           attributes:
             base:
@@ -670,6 +674,10 @@ en:
     items_selector_js: Show %{items_input} %{item_name} per page
     next: "&gt;"
     prev: "&lt;"
+  reactions:
+    add_reaction: Add reaction
+    react_with: React with %{emoji}
+    you_reacted: You reacted with %{emoji}
   remove: Remove
   report: Report
   roadmap:

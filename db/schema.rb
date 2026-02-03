@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.2].define(version: 2024_05_17_075643) do
+ActiveRecord::Schema[8.2].define(version: 2026_02_02_235808) do
   create_table "account_external_id_sequences", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -211,6 +211,20 @@ ActiveRecord::Schema[8.2].define(version: 2024_05_17_075643) do
     t.index ["user_id"], name: "index_notifications_on_user_id"
   end
 
+  create_table "reactions", force: :cascade do |t|
+    t.integer "account_id", null: false
+    t.string "content", limit: 16, null: false
+    t.datetime "created_at", null: false
+    t.integer "reactable_id", null: false
+    t.string "reactable_type", null: false
+    t.integer "reacter_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_reactions_on_account_id"
+    t.index ["reactable_type", "reactable_id"], name: "index_reactions_on_reactable"
+    t.index ["reacter_id", "reactable_type", "reactable_id", "content"], name: "index_reactions_uniqueness", unique: true
+    t.index ["reacter_id"], name: "index_reactions_on_reacter_id"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.bigint "identity_id", null: false
@@ -320,4 +334,7 @@ ActiveRecord::Schema[8.2].define(version: 2024_05_17_075643) do
     t.index ["active"], name: "index_webhooks_on_active"
     t.index ["board_id"], name: "index_webhooks_on_board_id"
   end
+
+  add_foreign_key "reactions", "accounts"
+  add_foreign_key "reactions", "users", column: "reacter_id"
 end
