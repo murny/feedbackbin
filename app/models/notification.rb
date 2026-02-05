@@ -22,7 +22,7 @@ class Notification < ApplicationRecord
   # Scopes
   scope :unread, -> { where(read_at: nil) }
   scope :ordered, -> { order(read_at: :desc, created_at: :desc) }
-  scope :preloaded, -> { preload(:creator, :account, source: [ :board, :creator, { eventable: [ :board ] } ]) }
+  scope :preloaded, -> { preload(:creator, :account, :source) }
 
   # Broadcast notification to user's notification list
   after_create_commit :broadcast_unread

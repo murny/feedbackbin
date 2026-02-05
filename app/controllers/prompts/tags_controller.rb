@@ -2,7 +2,7 @@
 
 class Prompts::TagsController < ApplicationController
   def index
-    @tags = Current.account.tags.ordered
+    @tags = Current.account.tags.alphabetically
 
     if stale? etag: @tags
       render layout: false

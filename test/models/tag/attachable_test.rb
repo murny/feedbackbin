@@ -2,11 +2,8 @@
 
 require "test_helper"
 
-# Note: This test assumes the Tag model exists and includes Tag::Attachable.
-# If Tag model is not yet created, these tests will be skipped.
 class Tag::AttachableTest < ActiveSupport::TestCase
   setup do
-    skip "Tag model not yet available" unless defined?(Tag)
     @tag = tags(:feature)
   end
 
@@ -15,7 +12,7 @@ class Tag::AttachableTest < ActiveSupport::TestCase
   end
 
   test "attachable_plain_text_representation returns hashtag format" do
-    assert_equal "##{@tag.name}", @tag.attachable_plain_text_representation
+    assert_equal @tag.hashtag, @tag.attachable_plain_text_representation
   end
 
   test "to_attachable_partial_path returns tags/reference" do

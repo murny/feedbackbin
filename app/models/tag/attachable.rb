@@ -13,18 +13,18 @@ class Tag
 
     included do
       include ActionText::Attachable
-    end
 
-    def attachable_plain_text_representation(caption = nil)
-      "##{name}"
-    end
+      def attachable_plain_text_representation(caption = nil)
+        hashtag
+      end
 
-    def to_attachable_partial_path
-      "tags/reference"
-    end
+      def to_attachable_partial_path
+        "tags/reference"
+      end
 
-    def to_rich_text_content_attachment_partial_path
-      "tags/reference"
+      def to_rich_text_content_attachment_partial_path
+        "tags/reference"
+      end
     end
   end
 end
