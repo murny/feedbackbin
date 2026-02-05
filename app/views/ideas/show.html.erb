@@ -88,6 +88,8 @@
 
           <h1 class="text-2xl sm:text-3xl font-bold tracking-tight mb-2"><%= @idea.title %></h1>
 
+          <%= render "ideas/tags", idea: @idea %>
+
           <div class="flex items-center gap-2 text-sm mb-6">
             <%= avatar_tag @idea.creator, class: "rounded-full w-8 h-8" %>
             <%= link_to @idea.creator.name, @idea.creator, class: "font-medium hover:underline" %>
@@ -113,6 +115,10 @@
                 <%= t(".share") %>
               <% end %>
             </div>
+
+            <% if Current.user&.can_administer_idea?(@idea) %>
+              <%= render "tags/tagging_menu", idea: @idea %>
+            <% end %>
 
             <%= render "ideas/participants", idea: @idea %>
           </div>

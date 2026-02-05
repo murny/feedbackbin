@@ -8,6 +8,7 @@ class Idea < ApplicationRecord
   include Searchable
   include Idea::Eventable
   include Idea::Watchable
+  include Idea::Taggable
 
   has_rich_text :description
 

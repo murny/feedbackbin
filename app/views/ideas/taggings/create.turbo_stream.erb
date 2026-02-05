@@ -1,0 +1,2 @@
+<%# Update the idea tags section using morph for smooth transitions %>
+<%= turbo_stream.replace [ @idea, :tags ], partial: "ideas/tags", method: "morph", locals: { idea: @idea.reload } %>
