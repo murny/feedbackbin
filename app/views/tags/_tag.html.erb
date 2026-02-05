@@ -11,6 +11,7 @@
     <%= button_to idea_tagging_path(idea, tagging),
       method: :delete,
       class: "ml-0.5 hover:text-destructive transition-colors",
+      "aria-label": t("ideas.taggings.remove_tag", tag: tag.title),
       form: { data: { turbo: true } } do %>
       <%= lucide_icon "x", class: "h-3 w-3" %>
     <% end %>

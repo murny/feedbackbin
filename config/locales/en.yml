@@ -564,11 +564,14 @@ en:
       update:
         success: Status was successfully updated.
     taggings:
+      destroy:
+        successfully_removed: Tag was successfully removed.
       new:
         create_tag: Create tag
         filter_placeholder: Add a new tag or filter…
         name_placeholder: Name this tag…
         title: Tag this…
+      remove_tag: Remove tag %{tag}
     tags:
       add_tag: Add a tag
     update:

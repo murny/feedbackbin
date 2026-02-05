@@ -4,6 +4,8 @@ module Ideas
   class TaggingsController < ApplicationController
     include IdeaScoped
 
+    before_action :ensure_permission_to_administer_idea
+
     def new
       @tagged_with = @idea.tags.alphabetically
       @tags = Current.account.tags.alphabetically.where.not(id: @tagged_with)
@@ -15,6 +17,17 @@ module Ideas
 
       respond_to do |format|
         format.turbo_stream
+        format.json { head :no_content }
+      end
+    end
+
+    def destroy
+      @tagging = @idea.taggings.find(params[:id])
+      @tagging.destroy
+
+      respond_to do |format|
+        format.turbo_stream { render turbo_stream: turbo_stream.remove(@tagging.tag, :tag_for_idea) }
+        format.html { redirect_to @idea, notice: t(".successfully_removed") }
         format.json { head :no_content }
       end
     end
