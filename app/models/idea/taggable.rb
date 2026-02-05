@@ -17,7 +17,7 @@ module Idea::Taggable
       if tagged_with?(tag)
         taggings.destroy_by tag: tag
       else
-        taggings.create tag: tag
+        taggings.create! tag: tag
       end
     end
   end

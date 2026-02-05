@@ -35,7 +35,9 @@ module Ideas
     private
 
       def sanitized_tag_title_param
-        params.required(:tag_title).strip.gsub(/\A#/, "")
+        title = params.required(:tag_title).strip.gsub(/\A#/, "")
+        raise ActionController::ParameterMissing, :tag_title if title.blank?
+        title
       end
   end
 end
