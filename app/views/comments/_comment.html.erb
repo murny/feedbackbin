@@ -2,21 +2,23 @@
 
 <%= turbo_frame_tag dom_id(comment), class: "block py-6 scroll-mt-4" do %>
   <% if comment.creator.system? %>
-      <%# System comment - simplified styling for audit trail %>
-      <div class="p-3 text-sm bg-muted/30 border border-muted rounded-lg">
-        <div class="flex items-center gap-2">
-          <%= lucide_icon("info", class: "w-4 h-4 text-muted-foreground") %>
-          <div class="flex-1">
-            <p class="text-muted-foreground">
-              <%= sanitize(comment.body, tags: %w[strong]) %>
-            </p>
-          </div>
-          <%= local_datetime_tag comment.created_at, style: :datetime, class: "text-xs text-muted-foreground" %>
+    <%# System comment - simplified styling for audit trail %>
+    <div class="p-3 text-sm bg-muted/30 border border-muted rounded-lg">
+      <div class="flex items-center gap-2">
+        <%= lucide_icon("info", class: "w-4 h-4 text-muted-foreground") %>
+        <div class="flex-1">
+          <p class="text-muted-foreground">
+            <%= sanitize(comment.body, tags: %w[strong]) %>
+          </p>
         </div>
+        <%= local_datetime_tag comment.created_at, style: :datetime, class: "text-xs text-muted-foreground" %>
       </div>
-    <% else %>
-      <%# Regular user comment %>
-      <div class="p-4 lg:p-6 text-base bg-card border border-border rounded-lg">
+    </div>
+  <% else %>
+    <%# Regular user comment with replies contained inside %>
+    <div class="text-base bg-card border border-border rounded-lg">
+      <%# Main comment content %>
+      <div class="p-4 lg:p-6">
         <div class="flex">
           <div class="mr-4">
             <%= render partial: "votes/vote_button", locals: { voteable: comment } %>
@@ -52,6 +54,17 @@
                   <% end %>
                 <% end %>
 
+                <% dropdown.with_item_content(
+                  href: "#",
+                  data: {
+                    controller: "copy-to-clipboard",
+                    copy_to_clipboard_content_value: idea_url(comment.idea, anchor: dom_id(comment)),
+                    action: "click->copy-to-clipboard#copy"
+                  }
+                ) do %>
+                  <%= t(".copy_link") %>
+                <% end %>
+
                 <% dropdown.with_item_content(href: "#") do %>
                   <%= t("report") %>
                 <% end %>
@@ -61,19 +74,36 @@
               <%= comment.body %>
             </div>
 
-            <div class="mt-3">
+            <%# Footer with reactions and reply count %>
+            <div class="mt-3 flex items-center justify-between gap-4">
               <%= render "reactions/reactions", reactable: comment %>
-            </div>
 
-            <% if authenticated? %>
-              <%= render partial: "comments/reply_section", locals: { source_comment: comment, parent: comment } %>
-            <% end %>
+              <% if comment.replies.any? %>
+                <span class="text-sm text-muted-foreground">
+                  <%= t(".replies_count", count: comment.replies.size) %>
+                </span>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
 
-      <div id="<%= dom_id(comment) %>_replies" class="mt-4 ml-8">
-        <%= render partial: "comments/reply", collection: comment.replies.ordered, as: :comment %>
-      </div>
-    <% end %>
+      <%# Replies section - inside the card %>
+      <% if comment.replies.any? || authenticated? %>
+        <div class="border-t border-border bg-muted/30">
+          <%# Replies list %>
+          <div id="<%= dom_id(comment) %>_replies">
+            <%= render partial: "comments/reply", collection: comment.replies.ordered, as: :reply %>
+          </div>
+
+          <%# Single reply form at the bottom %>
+          <% if authenticated? %>
+            <div id="<%= dom_id(comment) %>_reply_form" class="p-4 lg:px-6">
+              <%= render partial: "comments/thread_reply_form", locals: { parent: comment } %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
 <% end %>

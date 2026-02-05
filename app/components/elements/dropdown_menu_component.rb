@@ -158,7 +158,7 @@ module Elements
               role: "menuitem",
               tabindex: "0",
               data: (@attrs[:data] || {}).merge(
-                action: "click->dropdown#close"
+                action: combined_action
               )
             }.merge(@attrs.except(:class, :data))
           end
@@ -170,7 +170,7 @@ module Elements
               type: "button",
               tabindex: "0",
               data: (@attrs[:data] || {}).merge(
-                action: "click->dropdown#close"
+                action: combined_action
               )
             }.merge(@attrs.except(:class, :data))
           end
@@ -223,7 +223,7 @@ module Elements
               role: "menuitem",
               tabindex: "0",
               data: (@attrs[:data] || {}).merge(
-                action: "click->dropdown#close"
+                action: combined_action
               )
             }.merge(@attrs.except(:class, :data, :form))
           end
@@ -238,6 +238,11 @@ module Elements
               @inset ? "pl-8" : nil,
               @attrs[:class]
             )
+          end
+
+          def combined_action
+            existing_action = (@attrs[:data] || {})[:action]
+            [ existing_action, "click->dropdown#close" ].compact.join(" ")
           end
       end
 
