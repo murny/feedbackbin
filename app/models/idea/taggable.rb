@@ -7,7 +7,7 @@ module Idea::Taggable
     has_many :taggings, dependent: :destroy
     has_many :tags, through: :taggings
 
-    scope :tagged_with, ->(tags) { joins(:taggings).where(taggings: { tag: tags }) }
+    scope :tagged_with, ->(tags) { joins(:taggings).where(taggings: { tag: tags }).distinct }
   end
 
   def toggle_tag_with(title)
@@ -23,6 +23,6 @@ module Idea::Taggable
   end
 
   def tagged_with?(tag)
-    tags.include? tag
+    tags.loaded? ? tags.include?(tag) : tags.exists?(tag.id)
   end
 end
