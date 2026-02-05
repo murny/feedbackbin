@@ -1,22 +1,17 @@
 import { Controller } from "@hotwired/stimulus"
+import { debounce } from "helpers/timing_helpers"
+import { filterMatches } from "helpers/text_helpers"
 
-// Filter controller for real-time filtering of lists
-// Hides/shows items based on text input
 export default class extends Controller {
-  static targets = [ "input", "item", "list" ]
+  static targets = ["input", "item"]
 
   initialize() {
-    this.filter = this.debounce(this.filter.bind(this), 100)
+    this.filter = debounce(this.filter.bind(this), 100)
   }
 
   filter() {
-    const query = this.inputTarget.value.toLowerCase().trim()
-
     this.itemTargets.forEach(item => {
-      const text = item.textContent.toLowerCase()
-      const matches = text.includes(query)
-
-      if (matches) {
+      if (filterMatches(item.textContent, this.inputTarget.value)) {
         item.removeAttribute("hidden")
       } else {
         item.toggleAttribute("hidden", true)
@@ -29,19 +24,5 @@ export default class extends Controller {
   clearInput() {
     if (!this.hasInputTarget) return
     this.inputTarget.value = ""
-    this.filter()
-  }
-
-  // Simple debounce implementation
-  debounce(func, wait) {
-    let timeout
-    return function executedFunction(...args) {
-      const later = () => {
-        clearTimeout(timeout)
-        func(...args)
-      }
-      clearTimeout(timeout)
-      timeout = setTimeout(later, wait)
-    }
   }
 }

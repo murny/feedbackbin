@@ -1,24 +1,32 @@
 import { Controller } from "@hotwired/stimulus"
+import { orient } from "helpers/orientation_helpers"
+import { isTouchDevice } from "helpers/platform_helpers"
 
-// Dialog controller for managing modal and non-modal dialogs
-// Handles opening/closing, lazy frame loading, and accessibility
 export default class extends Controller {
-  static targets = [ "dialog" ]
+  static targets = ["dialog", "focusMouse", "focusTouch"]
   static values = {
-    modal: { type: Boolean, default: false }
+    modal: { type: Boolean, default: false },
+    sizing: { type: Boolean, default: true },
+    autoOpen: { type: Boolean, default: false }
   }
 
   connect() {
     this.dialogTarget.setAttribute("aria-hidden", "true")
+    if (this.autoOpenValue) this.open()
   }
 
-  open(event) {
-    if (event) event.stopPropagation()
+  focusTouchTargetConnected() {
+    this.#setupFocus()
+  }
 
-    if (this.modalValue) {
+  open() {
+    const modal = this.modalValue
+
+    if (modal) {
       this.dialogTarget.showModal()
     } else {
       this.dialogTarget.show()
+      orient({ target: this.dialogTarget, anchor: this.element })
     }
 
     this.loadLazyFrames()
@@ -26,9 +34,7 @@ export default class extends Controller {
     this.dispatch("show")
   }
 
-  toggle(event) {
-    if (event) event.preventDefault()
-
+  toggle() {
     if (this.dialogTarget.open) {
       this.close()
     } else {
@@ -36,12 +42,11 @@ export default class extends Controller {
     }
   }
 
-  close(event) {
-    if (event) event.preventDefault()
-
+  close() {
     this.dialogTarget.close()
     this.dialogTarget.setAttribute("aria-hidden", "true")
     this.dialogTarget.blur()
+    orient({ target: this.dialogTarget, reset: true })
     this.dispatch("close")
   }
 
@@ -57,8 +62,16 @@ export default class extends Controller {
   }
 
   loadLazyFrames() {
-    Array.from(this.dialogTarget.querySelectorAll("turbo-frame")).forEach(frame => {
-      frame.loading = "eager"
-    })
+    Array.from(this.dialogTarget.querySelectorAll("turbo-frame")).forEach(frame => { frame.loading = "eager" })
+  }
+
+  captureKey(event) {
+    if (event.key !== "Escape") { event.stopPropagation() }
+  }
+
+  #setupFocus() {
+    const touch = isTouchDevice()
+    if (this.hasFocusMouseTarget) this.focusMouseTarget.autofocus = !touch
+    if (this.hasFocusTouchTarget) this.focusTouchTarget.autofocus = touch
   }
 }

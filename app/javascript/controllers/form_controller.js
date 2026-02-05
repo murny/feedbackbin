@@ -1,13 +1,19 @@
-import { Controller } from "@hotwired/stimulus";
+import { Controller } from "@hotwired/stimulus"
+import { debounce, nextFrame } from "helpers/timing_helpers"
 
-// Generic form controller for auto-submit and form enhancements
-// Includes IME composition tracking for international input
 export default class extends Controller {
   static targets = ["cancel", "submit", "input"]
 
+  static values = {
+    debounceTimeout: { type: Number, default: 300 }
+  }
+
   #isComposing = false
 
-  // IME Composition tracking (important for international input methods like Chinese, Japanese, Korean)
+  initialize() {
+    this.debouncedSubmit = debounce(this.debouncedSubmit.bind(this), this.debounceTimeoutValue)
+  }
+
   compositionStart() {
     this.#isComposing = true
   }
@@ -16,12 +22,10 @@ export default class extends Controller {
     this.#isComposing = false
   }
 
-  // Submits the form (used by radio buttons, auto-submit, etc.)
   submit() {
-    this.element.requestSubmit();
+    this.element.requestSubmit()
   }
 
-  // Prevent empty form submissions
   preventEmptySubmit(event) {
     const input = this.hasInputTarget ? this.inputTarget : null
 
@@ -31,32 +35,59 @@ export default class extends Controller {
 
       if (isEmpty) {
         event.preventDefault()
-        input.setCustomValidity("Please fill out this field")
+        input.setCustomValidity(input.dataset.validationMessage || "Please fill out this field")
         input.reportValidity()
         input.addEventListener("input", () => input.setCustomValidity(""), { once: true })
       }
     }
   }
 
-  // Prevent submission while user is composing (IME)
   preventComposingSubmit(event) {
     if (this.#isComposing) {
       event.preventDefault()
     }
   }
 
-  // Clicks the cancel button/link if present
-  cancel() {
-    this.cancelTarget?.click();
+  debouncedSubmit(event) {
+    this.submit(event)
   }
 
-  // Prevents file attachments (useful for rich text areas)
-  preventAttachment(event) {
-    event.preventDefault();
+  submitToTopTarget(event) {
+    const value = event.target.value?.trim()
+
+    if (!value) return false
+
+    this.element.setAttribute("data-turbo-frame", "_top")
+    this.submit()
   }
 
-  // Resets the form
   reset() {
     this.element.reset()
+  }
+
+  cancel() {
+    this.cancelTarget?.click()
+  }
+
+  preventAttachment(event) {
+    event.preventDefault()
+  }
+
+  async disableSubmitWhenInvalid(event) {
+    await nextFrame()
+
+    if (this.element.checkValidity()) {
+      this.submitTarget.removeAttribute("disabled")
+    } else {
+      this.submitTarget.toggleAttribute("disabled", true)
+    }
+  }
+
+  select(event) {
+    event.target.select()
+  }
+
+  blurActiveInput() {
+    document.activeElement?.blur()
   }
 }
