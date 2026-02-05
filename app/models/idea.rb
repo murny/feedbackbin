@@ -7,6 +7,7 @@ class Idea < ApplicationRecord
   include Voteable
   include Searchable
   include Idea::Eventable
+  include Idea::Taggable
   include Idea::Watchable
   include Mentioning
 
