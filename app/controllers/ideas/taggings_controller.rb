@@ -17,6 +17,7 @@ module Ideas
 
       respond_to do |format|
         format.turbo_stream
+        format.html { redirect_back fallback_location: idea_path(@idea) }
         format.json { head :no_content }
       end
     end
