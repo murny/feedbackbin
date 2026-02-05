@@ -30,12 +30,11 @@ module Mentioning
 
     def sync_mentions_for(attribute)
       rich_text = public_send(attribute)
-      return unless rich_text&.body.present?
+      body = rich_text&.body
 
-      mentioned_user_ids = extract_mentioned_user_ids(rich_text.body)
+      mentioned_user_ids = extract_mentioned_user_ids(body)
       current_mentionee_ids = mentions.pluck(:mentionee_id)
 
-      # Create new mentions
       new_mentionee_ids = mentioned_user_ids - current_mentionee_ids
       new_mentionee_ids.each do |mentionee_id|
         mentions.create!(
@@ -44,7 +43,6 @@ module Mentioning
         )
       end
 
-      # Remove mentions for users no longer mentioned
       removed_mentionee_ids = current_mentionee_ids - mentioned_user_ids
       mentions.where(mentionee_id: removed_mentionee_ids).destroy_all
     end

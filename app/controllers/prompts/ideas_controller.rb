@@ -5,10 +5,10 @@ class Prompts::IdeasController < ApplicationController
 
   def index
     @ideas = if filter_param.present?
-      prepending_exact_matches_by_id(search_ideas)
+      prepending_exact_matches_by_id(search_ideas).first(MAX_RESULTS)
     else
-      published_ideas.order(created_at: :desc)
-    end.limit(MAX_RESULTS)
+      published_ideas.order(created_at: :desc).limit(MAX_RESULTS)
+    end
 
     if stale? etag: @ideas
       render layout: false
@@ -22,8 +22,9 @@ class Prompts::IdeasController < ApplicationController
     end
 
     def search_ideas
+      sanitized_filter = ActiveRecord::Base.sanitize_sql_like(filter_param)
       published_ideas
-        .where("title LIKE ?", "%#{filter_param}%")
+        .where("title LIKE ?", "%#{sanitized_filter}%")
         .order(created_at: :desc)
     end
 
@@ -32,8 +33,11 @@ class Prompts::IdeasController < ApplicationController
     end
 
     def prepending_exact_matches_by_id(ideas)
-      if idea_by_id = published_ideas.find_by(id: filter_param.to_i)
-        [ idea_by_id ] + ideas.where.not(id: idea_by_id.id)
+      parsed_id = Integer(filter_param, exception: false)
+      return ideas unless parsed_id&.positive?
+
+      if idea_by_id = published_ideas.find_by(id: parsed_id)
+        [ idea_by_id ] + ideas.where.not(id: idea_by_id.id).to_a
       else
         ideas
       end

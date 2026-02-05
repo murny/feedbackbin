@@ -8,6 +8,8 @@ class Mention < ApplicationRecord
   belongs_to :mentioner, class_name: "User"
   belongs_to :mentionee, class_name: "User", inverse_of: :mentions
 
+  validates :mentionee_id, uniqueness: { scope: [ :source_type, :source_id ] }
+
   after_create_commit :watch_idea_by_mentionee
 
   def self_mention?

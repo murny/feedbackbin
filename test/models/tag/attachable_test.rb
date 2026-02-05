@@ -11,7 +11,7 @@ class Tag::AttachableTest < ActiveSupport::TestCase
   end
 
   test "tag includes ActionText::Attachable" do
-    assert Tag.include?(ActionText::Attachable)
+    assert_includes Tag, ActionText::Attachable
   end
 
   test "attachable_plain_text_representation returns hashtag format" do

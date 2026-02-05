@@ -10,11 +10,13 @@ class MentioningTest < ActiveSupport::TestCase
 
   test "idea has mentions association" do
     idea = ideas(:one)
+
     assert_respond_to idea, :mentions
   end
 
   test "comment has mentions association" do
     comment = comments(:one)
+
     assert_respond_to comment, :mentions
   end
 
@@ -46,6 +48,7 @@ class MentioningTest < ActiveSupport::TestCase
     HTML
 
     idea.update!(description: rich_text_with_two_mentions)
+
     assert_equal 2, idea.mentions.count
 
     rich_text_with_one_mention = <<~HTML
@@ -102,5 +105,22 @@ class MentioningTest < ActiveSupport::TestCase
     idea.destroy!
 
     assert_nil Mention.find_by(id: mention_id)
+  end
+
+  test "removes all mentions when rich text is cleared" do
+    idea = ideas(:one)
+    jane = users(:jane)
+
+    rich_text_with_mention = <<~HTML
+      <div>Hello <action-text-attachment sgid="#{jane.attachable_sgid}"></action-text-attachment>!</div>
+    HTML
+
+    idea.update!(description: rich_text_with_mention)
+
+    assert_equal 1, idea.mentions.count
+
+    idea.update!(description: "")
+
+    assert_equal 0, idea.mentions.count
   end
 end

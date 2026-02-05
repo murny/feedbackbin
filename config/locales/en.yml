@@ -505,9 +505,6 @@ en:
     unknown_item: unknown item
     was: was
     you: You
-  mentions:
-    actions:
-      mentioned_you_in: mentioned you in
   ideas:
     comments:
       create:
@@ -639,6 +636,9 @@ en:
       sign_up_instructions: Please enter this 6-character verification code on the FeedbackBin sign-up page to create your new account
       sign_up_title: Welcome to FeedbackBin!
       subject: Your FeedbackBin code is %{code}
+  mentions:
+    actions:
+      mentioned_you_in: mentioned you in
   notifications:
     ago: ago
     index:
