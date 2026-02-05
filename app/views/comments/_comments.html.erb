@@ -1,21 +1,34 @@
-<%# locals: (comment:, idea:, top_level_comments:) %>
+<%# locals: (comment:, idea:, top_level_comments:, comment_sort: :oldest) %>
 
 <section class="max-w-5xl mx-auto">
   <%= render Elements::CardComponent.new do |c| %>
     <% c.with_body(class: "p-4 md:p-6 lg:p-8") do %>
-      <h2 class="text-xl font-semibold tracking-tight mb-4">
-        <%= turbo_frame_tag "idea_#{idea.id}_comment_count" do %>
-          <%= t(".comments_title_with_count", comment_count: idea.comments_count) %>
+      <%= turbo_frame_tag "idea_#{idea.id}_comments_section" do %>
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 mb-4">
+          <h2 class="text-xl font-semibold tracking-tight">
+            <%= t(".comments_title_with_count", comment_count: idea.comments_count) %>
+          </h2>
+
+          <% if top_level_comments.any? %>
+            <div class="flex items-center gap-1 text-sm">
+              <% %i[oldest newest top].each do |sort_option| %>
+                <%= link_to t(".sort.#{sort_option}"),
+                      idea_path(idea, comment_sort: sort_option),
+                      class: "px-3 py-1 rounded-md transition-colors #{comment_sort == sort_option ? 'bg-primary text-primary-foreground' : 'text-muted-foreground hover:bg-muted'}",
+                      data: { turbo_frame: "idea_#{idea.id}_comments_section" } %>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+
+        <%= tag.div id: "idea_#{idea.id}_comments", class: "divide-y divide-border" do %>
+          <%= render partial: "comments/comment", collection: top_level_comments %>
         <% end %>
-      </h2>
+      <% end %>
 
-    <%= tag.div id: "idea_#{idea.id}_comments", class: "divide-y divide-border" do %>
-      <%= render partial: "comments/comment", collection: top_level_comments %>
-    <% end %>
-
-    <%= turbo_frame_tag "idea_comment_form", class: "mt-6" do %>
-      <%= render partial: "comments/form", locals: { comment: comment, idea: idea } %>
-    <% end %>
+      <%= turbo_frame_tag "idea_comment_form", class: "mt-6" do %>
+        <%= render partial: "comments/form", locals: { comment: comment, idea: idea } %>
+      <% end %>
     <% end %>
   <% end %>
 </section>

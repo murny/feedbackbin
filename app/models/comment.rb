@@ -21,6 +21,17 @@ class Comment < ApplicationRecord
   after_create_commit :watch_idea_by_creator
 
   scope :ordered, -> { order(created_at: :asc) }
+  scope :by_oldest, -> { order(created_at: :asc) }
+  scope :by_newest, -> { order(created_at: :desc) }
+  scope :by_top, -> { order(votes_count: :desc, created_at: :asc) }
+
+  def self.sorted_by(sort_option)
+    case sort_option&.to_sym
+    when :newest then by_newest
+    when :top then by_top
+    else by_oldest
+    end
+  end
 
   private
 

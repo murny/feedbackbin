@@ -1,6 +1,6 @@
 <%# locals: (comment:) %>
 
-<%= turbo_frame_tag comment do %>
+<%= turbo_frame_tag comment, class: "block scroll-mt-4" do %>
   <div class="p-4 lg:p-6 mb-4 text-base bg-card border border-border rounded-lg">
     <div class="flex">
       <div class="mr-4">
@@ -13,7 +13,9 @@
 
             <p class="inline-flex flex-col md:flex-row items-start mr-3 text-sm text-foreground">
               <span class="font-semibold"><%= comment.creator.name %></span>
-              <%= local_datetime_tag comment.created_at, style: :datetime, class: "text-sm text-muted-foreground md:ml-2" %>
+              <%= link_to idea_path(comment.idea, anchor: dom_id(comment)), class: "text-sm text-muted-foreground hover:underline md:ml-2", data: { turbo_frame: "_top" } do %>
+                <%= local_datetime_tag comment.created_at, style: :datetime %>
+              <% end %>
             </p>
           </div>
           <%= render Elements::DropdownMenuComponent.new do |dropdown| %>
@@ -43,6 +45,10 @@
         <div class="text-muted-foreground" data-controller="syntax-highlight">
           <%= comment.body %>
         </div>
+
+        <% if authenticated? %>
+          <%= render partial: "comments/reply_section", locals: { source_comment: comment, parent: comment.parent } %>
+        <% end %>
       </div>
     </div>
   </div>
