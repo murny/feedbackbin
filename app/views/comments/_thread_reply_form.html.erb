@@ -20,7 +20,6 @@
       <div class="bg-card border border-input rounded-md overflow-hidden focus-within:border-ring focus-within:ring-2 focus-within:ring-ring/50">
         <%= form.rich_text_area :body,
               id: "#{dom_id(parent)}_new_reply_body",
-              rows: 1,
               placeholder: t("comments.thread_reply_form.placeholder"),
               data: { reply_form_target: "input" } do %>
           <%= rich_text_prompts %>
