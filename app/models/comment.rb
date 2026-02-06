@@ -11,6 +11,7 @@ class Comment < ApplicationRecord
 
   belongs_to :parent, class_name: "Comment", optional: true
   has_many :replies, class_name: "Comment", foreign_key: :parent_id, dependent: :destroy, inverse_of: :parent
+  has_many :reactions, as: :reactable, dependent: :delete_all
 
   has_rich_text :body
   mentionable_rich_text :body
@@ -21,6 +22,7 @@ class Comment < ApplicationRecord
   after_create_commit :watch_idea_by_creator
 
   scope :ordered, -> { order(created_at: :asc) }
+  scope :top_level, -> { where(parent_id: nil) }
   scope :by_oldest, -> { order(created_at: :asc) }
   scope :by_newest, -> { order(created_at: :desc) }
   scope :by_top, -> { order(votes_count: :desc, created_at: :asc) }

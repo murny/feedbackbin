@@ -99,6 +99,7 @@ Rails.application.routes.draw do
 
       resources :comments do
         resource :vote, only: [ :update ], module: :comments
+        resources :reactions, only: [ :index, :new, :create, :destroy ], module: :comments
       end
     end
   end

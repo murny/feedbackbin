@@ -1,0 +1,33 @@
+<%= turbo_frame_tag @reactable, :new_reaction do %>
+  <div class="relative" data-controller="reaction-picker" data-reaction-picker-open-on-connect-value="true">
+    <button type="button"
+            class="inline-flex items-center justify-center size-7 rounded-full bg-primary/10 text-primary ring-2 ring-primary/30"
+            data-action="click->reaction-picker#toggle">
+      <%= lucide_icon "smile-plus", class: "size-4" %>
+      <span class="sr-only"><%= t("reactions.add_reaction") %></span>
+    </button>
+
+    <div class="absolute left-0 bottom-full mb-2 z-50 w-52 p-2 bg-popover border border-border rounded-lg shadow-lg"
+         data-reaction-picker-target="menu">
+      <div class="grid grid-cols-4 gap-0.5">
+        <% EmojiHelper.reactions.each do |emoji, title| %>
+          <%= button_to idea_comment_reactions_path(@reactable.idea, @reactable),
+                params: { reaction: { content: emoji } },
+                class: "h-10 w-full flex items-center justify-center text-2xl rounded-md hover:bg-muted transition-colors",
+                title: title,
+                data: { turbo_frame: dom_id(@reactable, :reacting) } do %>
+            <%= emoji %>
+          <% end %>
+        <% end %>
+      </div>
+
+      <div class="mt-2 pt-2 border-t border-border text-center">
+        <%= link_to idea_comment_reactions_path(@reactable.idea, @reactable),
+              class: "text-xs text-muted-foreground hover:text-foreground",
+              data: { turbo_frame: dom_id(@reactable, :reacting) } do %>
+          <%= t("cancel") %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
