@@ -25,8 +25,10 @@ class Ideas::Comments::ReactionsController < ApplicationController
     if existing
       existing.destroy
     else
-      @reactable.reactions.create!(reaction_params)
+      @reactable.reactions.create(reaction_params)
     end
+
+    @reactable.reload
 
     respond_to do |format|
       format.turbo_stream { render "reactions/create" }
@@ -36,6 +38,7 @@ class Ideas::Comments::ReactionsController < ApplicationController
 
   def destroy
     @reaction.destroy
+    @reactable.reload
 
     respond_to do |format|
       format.turbo_stream { render "reactions/destroy" }

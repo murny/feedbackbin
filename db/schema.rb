@@ -370,6 +370,4 @@ ActiveRecord::Schema[8.2].define(version: 2026_02_02_235808) do
     t.index ["board_id"], name: "index_webhooks_on_board_id"
   end
 
-  add_foreign_key "reactions", "accounts"
-  add_foreign_key "reactions", "users", column: "reacter_id"
 end

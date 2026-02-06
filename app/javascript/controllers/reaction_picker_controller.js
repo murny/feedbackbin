@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Controls the emoji picker popover for reactions
 export default class extends Controller {
-  static targets = ["menu", "trigger"]
+  static targets = ["menu"]
   static values = { openOnConnect: { type: Boolean, default: false } }
 
   connect() {

@@ -688,6 +688,15 @@ en:
     prev: "&lt;"
   reactions:
     add_reaction: Add reaction
+    emojis:
+      confused: Confused
+      eyes: Eyes
+      heart: Heart
+      party_popper: Party popper
+      rocket: Rocket
+      smile: Smile
+      thumbs_down: Thumbs down
+      thumbs_up: Thumbs up
     react_with: React with %{emoji}
     you_reacted: You reacted with %{emoji}
   remove: Remove

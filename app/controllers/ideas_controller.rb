@@ -46,7 +46,7 @@ class IdeasController < ApplicationController
     @top_level_comments = @idea.comments
                              .top_level
                              .sorted_by(@comment_sort)
-                             .includes(:creator, replies: :creator)
+                             .includes(:creator, :reactions, replies: [ :creator, :reactions ])
 
     @comment = Comment.new
   end

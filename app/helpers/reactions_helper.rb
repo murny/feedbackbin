@@ -11,7 +11,12 @@ module ReactionsHelper
   end
 
   def reactions_grouped(reactable)
-    reactions = reactable.reactions.includes(:reacter)
+    reactions = if reactable.reactions.loaded?
+      reactable.reactions
+    else
+      reactable.reactions.includes(:reacter)
+    end
+
     current_user_id = Current.user&.id
 
     reactions.group_by(&:content).map do |emoji, group|
