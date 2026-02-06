@@ -85,6 +85,8 @@ Rails.application.routes.draw do
 
   namespace :prompts do
     resources :users, only: [ :index ]
+    resources :ideas, only: [ :index ]
+    resources :tags, only: [ :index ]
   end
 
   resources :ideas do
@@ -93,6 +95,7 @@ Rails.application.routes.draw do
       resource :watch, only: [ :show, :create, :destroy ]
       resource :pin, only: [ :create, :destroy ]
       resource :status, only: [ :update ]
+      resources :taggings, only: [ :new, :create, :destroy ]
 
       resources :comments do
         resource :vote, only: [ :update ], module: :comments
@@ -101,6 +104,7 @@ Rails.application.routes.draw do
     end
   end
   resources :changelogs, only: [ :index, :show ]
+  resources :tags, only: :index
 
   # Roadmap
   get "roadmap", to: "roadmap#index"

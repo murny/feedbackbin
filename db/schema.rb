@@ -194,6 +194,21 @@ ActiveRecord::Schema[8.2].define(version: 2026_02_02_235808) do
     t.index ["identity_id"], name: "index_magic_links_on_identity_id"
   end
 
+  create_table "mentions", force: :cascade do |t|
+    t.integer "account_id", null: false
+    t.datetime "created_at", null: false
+    t.integer "mentionee_id", null: false
+    t.integer "mentioner_id", null: false
+    t.integer "source_id", null: false
+    t.string "source_type", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_mentions_on_account_id"
+    t.index ["mentionee_id"], name: "index_mentions_on_mentionee_id"
+    t.index ["mentioner_id"], name: "index_mentions_on_mentioner_id"
+    t.index ["source_type", "source_id", "mentionee_id"], name: "index_mentions_on_source_type_and_source_id_and_mentionee_id", unique: true
+    t.index ["source_type", "source_id"], name: "index_mentions_on_source"
+  end
+
   create_table "notifications", force: :cascade do |t|
     t.integer "account_id", null: false
     t.datetime "created_at", null: false
@@ -245,6 +260,26 @@ ActiveRecord::Schema[8.2].define(version: 2026_02_02_235808) do
     t.boolean "show_on_roadmap", default: false, null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_statuses_on_account_id"
+  end
+
+  create_table "taggings", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.datetime "created_at", null: false
+    t.bigint "idea_id", null: false
+    t.bigint "tag_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_taggings_on_account_id"
+    t.index ["idea_id", "tag_id"], name: "index_taggings_on_idea_id_and_tag_id", unique: true
+    t.index ["tag_id"], name: "index_taggings_on_tag_id"
+  end
+
+  create_table "tags", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.datetime "created_at", null: false
+    t.string "title", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id", "title"], name: "index_tags_on_account_id_and_title", unique: true
+    t.index ["account_id"], name: "index_tags_on_account_id"
   end
 
   create_table "users", force: :cascade do |t|

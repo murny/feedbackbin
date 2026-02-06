@@ -14,16 +14,15 @@ class Notification < ApplicationRecord
   belongs_to :account, default: -> { user.account }
   belongs_to :user
   belongs_to :creator, class_name: "User"
-  belongs_to :source, polymorphic: true  # Event (for now)
+  belongs_to :source, polymorphic: true  # Event or Mention
 
   # Delegate to source event for getting the actual subject (Idea or Comment)
   delegate :eventable, to: :source, prefix: :notifiable, allow_nil: true
-  delegate :description_for, to: :source
 
   # Scopes
   scope :unread, -> { where(read_at: nil) }
   scope :ordered, -> { order(read_at: :desc, created_at: :desc) }
-  scope :preloaded, -> { preload(:creator, :account, source: [ :board, :creator, { eventable: [ :board ] } ]) }
+  scope :preloaded, -> { preload(:creator, :account, :source) }
 
   # Broadcast notification to user's notification list
   after_create_commit :broadcast_unread
@@ -56,17 +55,45 @@ class Notification < ApplicationRecord
     !read?
   end
 
+  # Get the description for this notification
+  def description_for(user)
+    case source
+    when Event
+      source.description_for(user)
+    when Mention
+      Mention::Description.new(source, user)
+    end
+  end
+
   # Get the URL for this notification's subject
   def url
-    case notifiable_eventable
-    when Idea
-      Rails.application.routes.url_helpers.idea_path(notifiable_eventable)
-    when Comment
-      Rails.application.routes.url_helpers.idea_path(notifiable_eventable.idea, anchor: "comment_#{notifiable_eventable.id}")
+    case source
+    when Event
+      event_url
+    when Mention
+      mention_url
     end
   end
 
   private
+
+    def event_url
+      case notifiable_eventable
+      when Idea
+        Rails.application.routes.url_helpers.idea_path(notifiable_eventable)
+      when Comment
+        Rails.application.routes.url_helpers.idea_path(notifiable_eventable.idea, anchor: "comment_#{notifiable_eventable.id}")
+      end
+    end
+
+    def mention_url
+      case source.source
+      when Idea
+        Rails.application.routes.url_helpers.idea_path(source.source)
+      when Comment
+        Rails.application.routes.url_helpers.idea_path(source.source.idea, anchor: "comment_#{source.source.id}")
+      end
+    end
 
     def broadcast_unread
       broadcast_prepend_later_to user, :notifications, target: "notifications"

@@ -1,0 +1,10 @@
+<lexxy-prompt-item search="<%= tag.title %>" sgid="<%= tag.attachable_sgid %>">
+  <template type="menu">
+    <%= tag.title %>
+  </template>
+  <template type="editor">
+    <span class="inline-flex items-center rounded-full px-1.5 py-0.5 text-xs font-medium bg-muted text-muted-foreground">
+      <%= tag.hashtag %>
+    </span>
+  </template>
+</lexxy-prompt-item>

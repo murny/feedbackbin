@@ -9,7 +9,7 @@ class IdeasController < ApplicationController
 
   # GET /ideas or /ideas.json
   def index
-    ideas = Current.account.ideas.includes(:creator, :board, :status, comments: :creator)
+    ideas = Current.account.ideas.includes(:creator, :board, :status, :tags, comments: :creator)
     @statuses = Status.ordered
     @search = params[:search]
 
@@ -105,7 +105,7 @@ class IdeasController < ApplicationController
   private
 
     def set_idea
-      @idea = Current.account.ideas.find(params.expect(:id))
+      @idea = Current.account.ideas.includes(:tags).find(params.expect(:id))
     end
 
     def set_boards

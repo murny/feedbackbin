@@ -35,6 +35,15 @@
             <span><%= idea.board.name %></span>
           <% end %>
         </div>
+
+        <% if idea.tags.any? %>
+          <div class="flex flex-wrap gap-2 mb-2">
+            <% idea.tags.each do |tag| %>
+              <%= render "tags/tag", tag: tag, idea: idea, removable: false %>
+            <% end %>
+          </div>
+        <% end %>
+
         <div class="mt-1 flex items-center gap-x-2 text-xs/5">
           <%= avatar_tag idea.creator, class: "rounded-full w-8 h-8" %>
           <p>
