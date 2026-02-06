@@ -80,7 +80,7 @@ class Ideas::CommentsController < ApplicationController
   private
 
     def set_comment
-      @comment = @idea.comments.find(params.expect(:id))
+      @comment = @idea.comments.includes(replies: :creator).find(params.expect(:id))
     end
 
     def ensure_permission_to_administer_comment

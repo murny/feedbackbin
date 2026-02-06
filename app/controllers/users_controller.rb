@@ -9,7 +9,7 @@ class UsersController < ApplicationController
   def show
     # TODO: Refactor this to use better queries, pagination and maybe just break it into multiple controller actions
     @ideas = @user.ideas.includes(:votes, :board).order(created_at: :desc)
-    @comments = @user.comments.includes(:votes, :idea).order(created_at: :desc)
+    @comments = @user.comments.includes(:votes, :idea, replies: :creator).order(created_at: :desc)
     @votes = @user.votes.includes(:voteable).order(created_at: :desc)
 
     # Pre-calculate stats for better performance

@@ -8,6 +8,7 @@ export default class extends Controller {
   expand() {
     if (this.hasTriggerTarget) {
       this.triggerTarget.classList.add("hidden")
+      this.triggerTarget.setAttribute("aria-expanded", "true")
     }
 
     if (this.hasFormTarget) {
@@ -26,6 +27,7 @@ export default class extends Controller {
   collapse() {
     if (this.hasTriggerTarget) {
       this.triggerTarget.classList.remove("hidden")
+      this.triggerTarget.setAttribute("aria-expanded", "false")
     }
 
     if (this.hasFormTarget) {
