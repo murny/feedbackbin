@@ -7,10 +7,12 @@ class Idea < ApplicationRecord
   include Voteable
   include Searchable
   include Idea::Eventable
-  include Idea::Watchable
   include Idea::Taggable
+  include Idea::Watchable
+  include Mentioning
 
   has_rich_text :description
+  mentionable_rich_text :description
 
   to_param :title
 

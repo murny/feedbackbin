@@ -194,6 +194,21 @@ ActiveRecord::Schema[8.2].define(version: 2026_01_17_164901) do
     t.index ["identity_id"], name: "index_magic_links_on_identity_id"
   end
 
+  create_table "mentions", force: :cascade do |t|
+    t.integer "account_id", null: false
+    t.datetime "created_at", null: false
+    t.integer "mentionee_id", null: false
+    t.integer "mentioner_id", null: false
+    t.integer "source_id", null: false
+    t.string "source_type", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_mentions_on_account_id"
+    t.index ["mentionee_id"], name: "index_mentions_on_mentionee_id"
+    t.index ["mentioner_id"], name: "index_mentions_on_mentioner_id"
+    t.index ["source_type", "source_id", "mentionee_id"], name: "index_mentions_on_source_type_and_source_id_and_mentionee_id", unique: true
+    t.index ["source_type", "source_id"], name: "index_mentions_on_source"
+  end
+
   create_table "notifications", force: :cascade do |t|
     t.integer "account_id", null: false
     t.datetime "created_at", null: false

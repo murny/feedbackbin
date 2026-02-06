@@ -85,6 +85,8 @@ Rails.application.routes.draw do
 
   namespace :prompts do
     resources :users, only: [ :index ]
+    resources :ideas, only: [ :index ]
+    resources :tags, only: [ :index ]
   end
 
   resources :ideas do

@@ -1,6 +1,8 @@
 # frozen_string_literal: true
 
 class Tag < ApplicationRecord
+  include Tag::Attachable
+
   belongs_to :account, default: -> { Current.account }
   has_many :taggings, dependent: :destroy
   has_many :ideas, through: :taggings

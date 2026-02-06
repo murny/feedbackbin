@@ -1,0 +1,7 @@
+feature:
+  account: feedbackbin
+  title: feature
+
+bug:
+  account: feedbackbin
+  title: bug
