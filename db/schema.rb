@@ -369,5 +369,4 @@ ActiveRecord::Schema[8.2].define(version: 2026_02_02_235808) do
     t.index ["active"], name: "index_webhooks_on_active"
     t.index ["board_id"], name: "index_webhooks_on_board_id"
   end
-
 end

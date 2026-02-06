@@ -15,6 +15,7 @@
                 params: { reaction: { content: emoji } },
                 class: "h-10 w-full flex items-center justify-center text-2xl rounded-md hover:bg-muted transition-colors",
                 title: title,
+                aria: { label: title },
                 data: { turbo_frame: dom_id(@reactable, :reacting) } do %>
             <%= emoji %>
           <% end %>

@@ -20,12 +20,10 @@ class Ideas::Comments::ReactionsController < ApplicationController
   end
 
   def create
-    existing = @reactable.reactions.find_by(reacter: Current.user, content: reaction_params[:content])
+    reaction = @reactable.reactions.find_or_create_by(reacter: Current.user, content: reaction_params[:content])
 
-    if existing
-      existing.destroy
-    else
-      @reactable.reactions.create(reaction_params)
+    if reaction.persisted? && !reaction.previously_new_record?
+      reaction.destroy
     end
 
     @reactable.reload

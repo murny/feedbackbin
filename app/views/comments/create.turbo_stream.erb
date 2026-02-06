@@ -2,14 +2,18 @@
   <%= turbo_stream.update "flash_toast", partial: "flash_toast" %>
 
   <% if @comment.parent %>
-    <%= turbo_stream.replace "#{dom_id(@reply_source)}_reply_section" do %>
-      <%= render partial: "comments/reply_section", locals: { source_comment: @reply_source, parent: @comment.parent } %>
+    <%# Reply created - append to replies list and reset the form %>
+    <%= turbo_stream.append "#{dom_id(@comment.parent)}_replies" do %>
+      <%= render partial: "comments/reply", locals: { reply: @comment } %>
     <% end %>
 
-    <%= turbo_stream.append "#{dom_id(@comment.parent)}_replies" do %>
-      <%= render partial: "comments/reply", locals: { comment: @comment } %>
+    <%= turbo_stream.replace "#{dom_id(@comment.parent)}_reply_form" do %>
+      <div id="<%= dom_id(@comment.parent) %>_reply_form" class="p-4 lg:px-6">
+        <%= render partial: "comments/thread_reply_form", locals: { parent: @comment.parent } %>
+      </div>
     <% end %>
   <% else %>
+    <%# Top-level comment created %>
     <%= turbo_stream.replace "idea_comment_form" do %>
       <%= render partial: "comments/form", locals: { idea: @comment.idea, comment: Comment.new } %>
     <% end %>
@@ -19,9 +23,12 @@
     <% end %>
   <% end %>
 <% else %>
+  <%# Validation failed - re-render form with errors %>
   <% if @comment.parent %>
-    <%= turbo_stream.replace "#{dom_id(@reply_source)}_reply_section" do %>
-      <%= render partial: "comments/reply_section", locals: { source_comment: @reply_source, parent: @comment.parent, comment: @comment, show_form: true } %>
+    <%= turbo_stream.replace "#{dom_id(@comment.parent)}_reply_form" do %>
+      <div id="<%= dom_id(@comment.parent) %>_reply_form" class="p-4 lg:px-6">
+        <%= render partial: "comments/thread_reply_form", locals: { parent: @comment.parent, comment: @comment } %>
+      </div>
     <% end %>
   <% else %>
     <%= turbo_stream.replace "idea_comment_form" do %>

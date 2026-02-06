@@ -18,8 +18,6 @@ class Ideas::CommentsController < ApplicationController
 
   def create
     @comment = @idea.comments.new(comment_params)
-    @source_comment = @idea.comments.find_by(id: params[:source_comment_id])
-    set_reply_context if @comment.parent
 
     respond_to do |format|
       if @comment.save
@@ -82,7 +80,7 @@ class Ideas::CommentsController < ApplicationController
   private
 
     def set_comment
-      @comment = @idea.comments.find(params.expect(:id))
+      @comment = @idea.comments.includes(replies: :creator).find(params.expect(:id))
     end
 
     def ensure_permission_to_administer_comment
@@ -91,9 +89,5 @@ class Ideas::CommentsController < ApplicationController
 
     def comment_params
       params.expect(comment: [ :body, :parent_id ])
-    end
-
-    def set_reply_context
-      @reply_source = @source_comment || @comment.parent
     end
 end

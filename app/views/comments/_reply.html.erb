@@ -1,58 +1,73 @@
-<%# locals: (comment:) %>
+<%# locals: (reply:) %>
 
-<%= turbo_frame_tag comment, class: "block scroll-mt-4" do %>
-  <div class="p-4 lg:p-6 mb-4 text-base bg-card border border-border rounded-lg">
-    <div class="flex">
-      <div class="mr-4">
-        <%= render partial: "votes/vote_button", locals: { voteable: comment } %>
-      </div>
-      <div class="flex-1 min-w-0">
-        <div class="flex justify-between items-center mb-2">
-          <div class="flex items-center">
-            <%= avatar_tag comment.creator, class: "mr-2 w-6 h-6 rounded-full", alt: comment.creator.name %>
+<%= turbo_frame_tag reply, class: "block scroll-mt-4" do %>
+  <div class="flex border-l-2 border-border ml-4 lg:ml-6 py-3 pl-4">
+    <div class="flex-1 min-w-0">
+      <div class="flex justify-between items-center mb-1">
+        <div class="flex items-center">
+          <%= avatar_tag reply.creator, class: "mr-2 w-5 h-5 rounded-full", alt: reply.creator.name %>
 
-            <p class="inline-flex flex-col md:flex-row items-start mr-3 text-sm text-foreground">
-              <span class="font-semibold"><%= comment.creator.name %></span>
-              <%= link_to idea_path(comment.idea, anchor: dom_id(comment)), class: "text-sm text-muted-foreground hover:underline md:ml-2", data: { turbo_frame: "_top" } do %>
-                <%= local_datetime_tag comment.created_at, style: :datetime %>
-              <% end %>
-            </p>
-          </div>
-          <%= render Elements::DropdownMenuComponent.new do |dropdown| %>
-            <% dropdown.with_trigger(variant: :ghost, size: :icon, class: "text-muted-foreground") do %>
-              <%= lucide_icon("ellipsis") %>
-              <span class="sr-only"><%= t(".comment_settings") %></span>
+          <p class="inline-flex flex-col md:flex-row items-start mr-3 text-sm text-foreground">
+            <span class="font-medium"><%= reply.creator.name %></span>
+            <%= link_to idea_path(reply.idea, anchor: dom_id(reply)), class: "text-xs text-muted-foreground hover:underline md:ml-2", data: { turbo_frame: "_top" } do %>
+              <%= local_datetime_tag reply.created_at, style: :datetime %>
             <% end %>
+          </p>
+        </div>
+        <%= render Elements::DropdownMenuComponent.new do |dropdown| %>
+          <% dropdown.with_trigger(variant: :ghost, size: :icon, class: "h-6 w-6 text-muted-foreground") do %>
+            <%= lucide_icon("ellipsis", class: "h-3.5 w-3.5") %>
+            <span class="sr-only"><%= t(".reply_settings") %></span>
+          <% end %>
 
-            <% if Current.user&.can_administer_comment?(comment) %>
-              <% dropdown.with_item_content(href: edit_idea_comment_path(comment.idea, comment)) do %>
-                <%= t("edit") %>
-              <% end %>
-              <% dropdown.with_item_content(
-                href: idea_comment_path(comment.idea, comment),
-                method: :delete,
-                form: { data: { turbo_confirm: t("are_you_sure") } }
-              ) do %>
-                <%= t("remove") %>
-              <% end %>
+          <% if Current.user&.can_administer_comment?(reply) %>
+            <% dropdown.with_item_content(href: edit_idea_comment_path(reply.idea, reply)) do %>
+              <%= t("edit") %>
             <% end %>
-
-            <% dropdown.with_item_content(href: "#") do %>
-              <%= t("report") %>
+            <% dropdown.with_item_content(
+              href: idea_comment_path(reply.idea, reply),
+              method: :delete,
+              form: { data: { turbo_confirm: t("are_you_sure") } }
+            ) do %>
+              <%= t("remove") %>
             <% end %>
           <% end %>
-        </div>
-        <div class="text-muted-foreground" data-controller="syntax-highlight">
-          <%= comment.body %>
-        </div>
 
-        <div class="mt-3">
-          <%= render "reactions/reactions", reactable: comment %>
-        </div>
+          <% dropdown.with_item_content(
+            href: "#",
+            data: {
+              controller: "copy-to-clipboard",
+              copy_to_clipboard_content_value: idea_url(reply.idea, anchor: dom_id(reply)),
+              action: "click->copy-to-clipboard#copy"
+            }
+          ) do %>
+            <%= t(".copy_link") %>
+          <% end %>
 
-        <% if authenticated? %>
-          <%= render partial: "comments/reply_section", locals: { source_comment: comment, parent: comment.parent } %>
+          <% dropdown.with_item_content(
+            href: "#",
+            data: {
+              controller: "quote-reply",
+              quote_reply_text_value: reply.body.to_plain_text,
+              quote_reply_form_id_value: "#{dom_id(reply.parent)}_reply_form",
+              action: "click->quote-reply#quote"
+            }
+          ) do %>
+            <%= t(".quote_reply") %>
+          <% end %>
+
+          <% dropdown.with_item_content(href: "#") do %>
+            <%= t("report") %>
+          <% end %>
         <% end %>
+      </div>
+
+      <div class="text-sm text-muted-foreground" data-controller="syntax-highlight">
+        <%= reply.body %>
+      </div>
+
+      <div class="mt-2">
+        <%= render "reactions/reactions", reactable: reply %>
       </div>
     </div>
   </div>

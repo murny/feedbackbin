@@ -471,7 +471,10 @@ en:
   comments:
     comment:
       comment_settings: Comment settings
-      reply: Reply
+      copy_link: Copy link
+      replies_count:
+        one: "%{count} reply"
+        other: "%{count} replies"
     comments:
       comments_title_with_count: Comments (%{comment_count})
       sort:
@@ -481,11 +484,16 @@ en:
     form:
       comment_placeholder: Write a comment...
     reply:
-      comment_settings: Comment settings
+      copy_link: Copy link
+      quote_reply: Quote reply
+      reply_settings: Reply settings
     reply_form:
       create_reply: Reply
       reply_placeholder: Write a reply...
       update_reply: Update Reply
+    thread_reply_form:
+      placeholder: Write a reply...
+      submit: Reply
   delete: Delete
   edit: Edit
   elements:
