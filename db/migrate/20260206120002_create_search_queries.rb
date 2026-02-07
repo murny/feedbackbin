@@ -9,7 +9,7 @@ class CreateSearchQueries < ActiveRecord::Migration[8.1]
       t.timestamps
     end
 
-    add_index :search_queries, [:account_id, :user_id, :terms],
+    add_index :search_queries, [ :account_id, :user_id, :terms ],
               unique: true, name: "idx_search_queries_uniqueness"
   end
 end

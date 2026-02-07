@@ -12,11 +12,11 @@ class Search::Result
   end
 
   def display_title
-    highlighted_title.presence || record.title
+    escape_fts_highlight(highlighted_title) || record.title
   end
 
   def display_snippet
-    snippet.presence || record.content&.truncate(150)
+    escape_fts_highlight(snippet) || record.content&.truncate(150)
   end
 
   def idea?
@@ -26,4 +26,15 @@ class Search::Result
   def comment?
     searchable_type == "Comment"
   end
+
+  private
+
+    def escape_fts_highlight(html)
+      return nil unless html.present?
+
+      CGI.escapeHTML(html)
+        .gsub("&lt;mark&gt;", "<mark>")
+        .gsub("&lt;/mark&gt;", "</mark>")
+        .html_safe
+    end
 end
