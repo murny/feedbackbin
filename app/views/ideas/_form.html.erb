@@ -27,9 +27,9 @@
 
   <div class="flex justify-end gap-3 pt-2">
     <% if form.object.new_record? %>
-      <%= link_to t("cancel"), ideas_path, class: "btn btn-secondary" %>
+      <%= link_to t("cancel"), ideas_path, class: "btn btn--secondary" %>
     <% else %>
-      <%= link_to t("cancel"), idea_path(@idea), class: "btn btn-secondary" %>
+      <%= link_to t("cancel"), idea_path(@idea), class: "btn btn--secondary" %>
     <% end %>
 
     <%= form.submit class: "btn" %>

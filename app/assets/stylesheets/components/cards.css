@@ -1,0 +1,140 @@
+/* ==========================================================================
+   Card Component
+
+   Usage:
+     <div class="card">
+       <header class="card__header">
+         <h2 class="card__title">Title</h2>
+         <p class="card__description">Description</p>
+       </header>
+       <section class="card__body">Content</section>
+       <footer class="card__footer">Footer</footer>
+     </div>
+
+   Modifiers: card--bordered (header/footer borders)
+   ========================================================================== */
+
+@layer components {
+  /* Base Card
+  /* ------------------------------------------------------------------------ */
+
+  .card {
+    /* Component API */
+    --card-padding-inline: 1.5rem;
+    --card-padding-block: 1.5rem;
+    --card-gap: 1.5rem;
+    --card-radius: var(--radius-xl);
+    --card-background: var(--color-card);
+    --card-color: var(--color-card-foreground);
+    --card-border-color: var(--color-border);
+    --card-shadow: var(--shadow-sm);
+
+    /* Structure */
+    display: flex;
+    flex-direction: column;
+    gap: var(--card-gap);
+    padding-block: var(--card-padding-block);
+
+    /* Appearance */
+    background-color: var(--card-background);
+    color: var(--card-color);
+    border: 1px solid var(--card-border-color);
+    border-radius: var(--card-radius);
+    box-shadow: var(--card-shadow);
+  }
+
+  /* Card Header
+  /* ------------------------------------------------------------------------ */
+
+  .card__header {
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-auto-rows: min-content;
+    align-items: start;
+    gap: 0.375rem;
+    padding-inline: var(--card-padding-inline);
+
+    /* When header has an action, use two columns */
+    &:has([data-slot="card-action"]) {
+      grid-template-columns: 1fr auto;
+    }
+  }
+
+  .card__title {
+    font-weight: var(--font-semibold);
+    line-height: var(--leading-none);
+  }
+
+  .card__description {
+    color: var(--color-muted-foreground);
+    font-size: var(--text-sm);
+  }
+
+  .card__action {
+    grid-row: 1 / -1;
+    grid-column: 2;
+  }
+
+  /* Card Body
+  /* ------------------------------------------------------------------------ */
+
+  .card__body {
+    padding-inline: var(--card-padding-inline);
+    font-size: var(--text-sm);
+  }
+
+  /* Card Footer
+  /* ------------------------------------------------------------------------ */
+
+  .card__footer {
+    display: flex;
+    align-items: center;
+    padding-inline: var(--card-padding-inline);
+    font-size: var(--text-sm);
+  }
+
+  /* Modifier: Bordered (adds dividers between sections)
+  /* ------------------------------------------------------------------------ */
+
+  .card--bordered {
+    .card__header {
+      padding-block-end: var(--card-gap);
+      border-block-end: 1px solid var(--card-border-color);
+    }
+
+    .card__footer {
+      padding-block-start: var(--card-gap);
+      border-block-start: 1px solid var(--card-border-color);
+    }
+  }
+
+  /* Compact variant (less padding)
+  /* ------------------------------------------------------------------------ */
+
+  .card--compact {
+    --card-padding-inline: 1rem;
+    --card-padding-block: 1rem;
+    --card-gap: 1rem;
+  }
+
+  /* Interactive cards (clickable)
+  /* ------------------------------------------------------------------------ */
+
+  a.card,
+  button.card,
+  .card--interactive {
+    cursor: pointer;
+    transition: var(--duration-fast) var(--ease-out);
+    transition-property: box-shadow, border-color;
+
+    &:hover {
+      --card-border-color: var(--color-ring);
+      --card-shadow: var(--shadow-md);
+    }
+
+    &:focus-visible {
+      outline: var(--focus-ring-width) solid var(--focus-ring-color);
+      outline-offset: var(--focus-ring-offset);
+    }
+  }
+}

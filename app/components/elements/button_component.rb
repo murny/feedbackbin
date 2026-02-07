@@ -2,7 +2,7 @@
 
 module Elements
   class ButtonComponent < BaseComponent
-    VARIANTS = %i[default destructive outline secondary ghost link].freeze
+    VARIANTS = %i[default primary destructive outline secondary ghost link].freeze
     SIZES = %i[default sm lg icon].freeze
 
     def initialize(
@@ -25,28 +25,15 @@ module Elements
 
     def call
       if @href.present? && @method.present?
-        button_to(@href, **button_to_attrs) { content_with_loading }
+        button_to(@href, **button_to_attrs) { content }
       elsif @href.present?
-        link_to(@href, **link_attrs) { content_with_loading }
+        link_to(@href, **link_attrs) { content }
       else
-        button_tag(**button_attrs) { content_with_loading }
+        button_tag(**button_attrs) { content }
       end
     end
 
     private
-
-      def content_with_loading
-        safe_join([ loading_spinner, content ].compact)
-      end
-
-      def loading_spinner
-        return unless @loading
-
-        tag.div(class: "animate-spin mr-2", "aria-label": "Loading") do
-          # Using lucide-rails icon helper
-          helpers.lucide_icon("loader", class: "size-4")
-        end
-      end
 
       def link_attrs
         attrs = @attrs.merge(
@@ -54,13 +41,11 @@ module Elements
           data: @attrs[:data] || {}
         )
 
-        # Links use aria-disabled instead of disabled attribute
         if @loading || @attrs[:disabled]
           attrs[:"aria-disabled"] = "true"
-          attrs.delete(:disabled) # Remove invalid disabled attribute for links
+          attrs.delete(:disabled)
         end
 
-        # Add aria-busy for screen readers when loading
         attrs[:"aria-busy"] = "true" if @loading
 
         attrs
@@ -74,7 +59,6 @@ module Elements
           data: @attrs[:data] || {}
         )
 
-        # Add aria-busy for screen readers when loading
         attrs[:"aria-busy"] = "true" if @loading
 
         attrs
@@ -94,88 +78,39 @@ module Elements
       end
 
       def button_to_classes
-        tw_merge(
-          base_classes,
-          variant_classes,
-          size_classes,
-          # Reset default button_to styles
-          "[&>button]:bg-transparent [&>button]:border-0 [&>button]:p-0 [&>button]:m-0 [&>button]:h-auto [&>button]:w-auto",
-          @attrs[:class]
+        class_names(
+          button_classes,
+          "btn-to"
         )
       end
 
       def button_classes
-        tw_merge(
-          base_classes,
-          variant_classes,
-          size_classes,
+        class_names(
+          "btn",
+          variant_class,
+          size_class,
+          ("btn--loading" if @loading),
           @attrs[:class]
         )
       end
 
-      def base_classes
-        [
-          "inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-all shrink-0 outline-hidden",
-          # Aria
-          "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive",
-          # Disabled (for buttons)
-          "disabled:pointer-events-none disabled:opacity-50",
-          # Aria-disabled (for links)
-          "aria-disabled:pointer-events-none aria-disabled:opacity-50",
-          # Focus
-          "focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px]",
-          # Icon
-          "[&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 [&_svg]:shrink-0"
-        ].join(" ")
-      end
-
-      def variant_classes
+      def variant_class
         case @variant
-        when :default
-          [
-            "bg-primary text-primary-foreground shadow-xs",
-            "hover:bg-primary/90"
-          ].join(" ")
-        when :destructive
-          [
-            "bg-destructive text-white shadow-xs",
-            "hover:bg-destructive/90",
-            "focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40",
-            "dark:bg-destructive/60 dark:hover:bg-destructive/70"
-          ].join(" ")
-        when :outline
-          [
-            "border bg-background shadow-xs",
-            "hover:bg-accent hover:text-accent-foreground",
-            "dark:bg-input/30 dark:border-input dark:hover:bg-input/50"
-          ].join(" ")
-        when :secondary
-          [
-            "bg-secondary text-secondary-foreground shadow-xs",
-            "hover:bg-secondary/80"
-          ].join(" ")
-        when :ghost
-          [
-            "hover:bg-accent hover:text-accent-foreground dark:hover:bg-accent/50"
-          ].join(" ")
-        when :link
-          [
-            "text-primary underline-offset-4",
-            "hover:underline"
-          ].join(" ")
+        when :default, :primary then "btn--primary"
+        when :secondary then "btn--secondary"
+        when :outline then "btn--outline"
+        when :ghost then "btn--ghost"
+        when :link then "btn--link"
+        when :destructive then "btn--destructive"
         end
       end
 
-      def size_classes
+      def size_class
         case @size
-        when :default
-          "h-9 px-4 py-2 has-[>svg]:px-3"
-        when :sm
-          "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5"
-        when :lg
-          "h-10 rounded-md px-6 has-[>svg]:px-4"
-        when :icon
-          "size-9"
+        when :default then nil
+        when :sm then "btn--sm"
+        when :lg then "btn--lg"
+        when :icon then "btn--icon"
         end
       end
   end

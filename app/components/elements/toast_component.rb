@@ -29,7 +29,6 @@ module Elements
     end
 
     def before_render
-      # If block content is provided, use it as description
       @description = content if content.present?
     end
 
@@ -52,13 +51,9 @@ module Elements
           action: "mouseenter->toast#pause mouseleave->toast#resume"
         }
 
-        # Only add dismiss_after if provided and greater than 0
         data_attrs[:toast_dismiss_after_value] = @dismiss_after if @dismiss_after && @dismiss_after > 0
-
-        # Merge with any additional data attributes
         data_attrs = data_attrs.merge(@attrs[:data] || {})
 
-        # Use assertive for error variant, polite for others
         aria_live = @variant == :error ? "assertive" : "polite"
 
         @attrs.merge(
@@ -71,36 +66,20 @@ module Elements
       end
 
       def toast_classes
-        tw_merge(
-          base_classes,
-          variant_classes,
-          @attrs[:class]
-        )
-      end
-
-      def base_classes
         [
-          "group pointer-events-auto relative flex w-full items-start gap-3 overflow-hidden",
-          "rounded-lg border p-4 pr-10 shadow-lg transition-all",
-          "data-[state=open]:animate-in data-[state=closed]:animate-out",
-          "data-[state=closed]:fade-out-80 data-[state=open]:fade-in-0",
-          "data-[state=closed]:slide-out-to-right-full data-[state=open]:slide-in-from-top-full",
-          "[&>svg]:size-5 [&>svg]:shrink-0"
-        ].join(" ")
+          "toast",
+          variant_class,
+          @attrs[:class]
+        ].compact.join(" ")
       end
 
-      def variant_classes
+      def variant_class
         case @variant
-        when :default
-          "bg-card text-card-foreground border-l-4 border-l-border"
-        when :success
-          "bg-card text-card-foreground border-l-4 border-l-success [&>svg]:text-success"
-        when :warning
-          "bg-card text-card-foreground border-l-4 border-l-warning [&>svg]:text-warning"
-        when :error
-          "bg-card text-card-foreground border-l-4 border-l-destructive [&>svg]:text-destructive"
-        when :info
-          "bg-card text-card-foreground border-l-4 border-l-primary [&>svg]:text-primary"
+        when :success then "toast--success"
+        when :warning then "toast--warning"
+        when :error then "toast--error"
+        when :info then "toast--info"
+        else nil
         end
       end
 
@@ -113,23 +92,17 @@ module Elements
       def icon_name
         return @custom_icon if @custom_icon.present?
 
-        # Default icons based on variant
         case @variant
-        when :success
-          "circle-check"
-        when :warning
-          "triangle-alert"
-        when :error
-          "circle-alert"
-        when :info
-          "info"
-        when :default
-          nil # Default variant has no icon unless custom icon is provided
+        when :success then "circle-check"
+        when :warning then "triangle-alert"
+        when :error then "circle-alert"
+        when :info then "info"
+        else nil
         end
       end
 
       def content_wrapper
-        tag.div(class: "flex-1 grid gap-1") do
+        tag.div(class: "toast__content") do
           safe_join([
             title_element,
             description_element
@@ -140,28 +113,20 @@ module Elements
       def title_element
         return nil unless @title.present?
 
-        tag.div(@title,
-          class: "text-sm font-semibold [&+div]:text-xs"
-        )
+        tag.h2(@title, class: "toast__title")
       end
 
       def description_element
         return nil unless @description.present?
 
-        tag.div(@description,
-          class: "text-sm text-muted-foreground opacity-90"
-        )
+        tag.p(@description, class: "toast__description")
       end
 
       def action_element
         return nil unless @action_label.present? && @action_href.present?
 
-        tag.div(class: "flex items-center shrink-0") do
-          helpers.link_to(
-            @action_label,
-            @action_href,
-            class: "inline-flex h-8 shrink-0 items-center justify-center rounded-md border bg-transparent px-3 text-sm font-medium transition-colors hover:bg-secondary focus:outline-hidden focus:ring-1 focus:ring-ring"
-          )
+        tag.div(class: "toast__action") do
+          helpers.link_to(@action_label, @action_href, class: "toast__action-button")
         end
       end
 
@@ -170,11 +135,11 @@ module Elements
 
         tag.button(
           type: "button",
-          class: "absolute right-1 top-1 rounded-md p-1 text-muted-foreground/50 opacity-0 transition-opacity hover:text-muted-foreground focus:opacity-100 focus:outline-hidden focus:ring-1 group-hover:opacity-100",
+          class: "toast__dismiss",
           "aria-label": t("ui.toast.dismiss"),
           data: { action: "toast#close" }
         ) do
-          helpers.lucide_icon("x", class: "size-4")
+          helpers.lucide_icon("x")
         end
       end
   end

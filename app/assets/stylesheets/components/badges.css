@@ -1,0 +1,157 @@
+/* ==========================================================================
+   Badge Component
+
+   Usage:
+     <span class="badge">Default</span>
+     <span class="badge badge--secondary">Secondary</span>
+     <a href="#" class="badge badge--outline">Clickable</a>
+
+   Variants: badge--primary, badge--secondary, badge--outline, badge--destructive
+   ========================================================================== */
+
+@layer components {
+  /* Base
+  /* ------------------------------------------------------------------------ */
+
+  .badge {
+    /* Component API - these variables can be customized by variants */
+    --badge-padding-inline: 0.625rem;
+    --badge-padding-block: 0.125rem;
+    --badge-gap: 0.25rem;
+    --badge-font-size: var(--text-xs);
+    --badge-font-weight: var(--font-medium);
+    --badge-radius: var(--radius-md);
+    --badge-background: var(--color-primary);
+    --badge-color: var(--color-primary-foreground);
+    --badge-border-color: transparent;
+    --badge-icon-size: 0.75rem;
+
+    /* Structure */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--badge-gap);
+    padding-inline: var(--badge-padding-inline);
+    padding-block: var(--badge-padding-block);
+    inline-size: fit-content;
+    white-space: nowrap;
+    flex-shrink: 0;
+    overflow: hidden;
+
+    /* Appearance */
+    background-color: var(--badge-background);
+    color: var(--badge-color);
+    border: 1px solid var(--badge-border-color);
+    border-radius: var(--badge-radius);
+
+    /* Typography */
+    font-size: var(--badge-font-size);
+    font-weight: var(--badge-font-weight);
+    line-height: var(--leading-normal);
+    text-decoration: none;
+
+    /* Transitions */
+    transition: var(--duration-fast) var(--ease-out);
+    transition-property: background-color, border-color, color;
+
+    /* Icon sizing */
+    svg,
+    .icon {
+      inline-size: var(--badge-icon-size);
+      block-size: var(--badge-icon-size);
+      flex-shrink: 0;
+      pointer-events: none;
+    }
+
+    /* Focus state (for interactive badges) */
+    &:focus-visible {
+      outline: var(--focus-ring-width) solid var(--focus-ring-color);
+      outline-offset: var(--focus-ring-offset);
+    }
+  }
+
+  /* Interactive badges (links) get hover states */
+  a.badge:hover,
+  button.badge:hover {
+    filter: brightness(0.9);
+  }
+
+  html[data-theme="dark"] a.badge:hover,
+  html[data-theme="dark"] button.badge:hover {
+    filter: brightness(1.15);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    html:not([data-theme]) a.badge:hover,
+    html:not([data-theme]) button.badge:hover {
+      filter: brightness(1.15);
+    }
+  }
+
+  /* Variant: Primary (default, explicitly named for clarity)
+  /* ------------------------------------------------------------------------ */
+
+  .badge--primary {
+    --badge-background: var(--color-primary);
+    --badge-color: var(--color-primary-foreground);
+  }
+
+  /* Variant: Secondary
+  /* ------------------------------------------------------------------------ */
+
+  .badge--secondary {
+    --badge-background: var(--color-secondary);
+    --badge-color: var(--color-secondary-foreground);
+  }
+
+  /* Variant: Outline
+  /* ------------------------------------------------------------------------ */
+
+  .badge--outline {
+    --badge-background: transparent;
+    --badge-color: var(--color-ink);
+    --badge-border-color: var(--color-border);
+  }
+
+  a.badge--outline:hover,
+  button.badge--outline:hover {
+    --badge-background: var(--color-accent);
+    --badge-color: var(--color-accent-foreground);
+    filter: none;
+  }
+
+  /* Variant: Destructive
+  /* ------------------------------------------------------------------------ */
+
+  .badge--destructive {
+    --badge-background: var(--color-destructive);
+    --badge-color: white;
+    --focus-ring-color: var(--color-destructive);
+  }
+
+  html[data-theme="dark"] .badge--destructive {
+    --badge-background: oklch(from var(--color-destructive) l c h / 60%);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    html:not([data-theme]) .badge--destructive {
+      --badge-background: oklch(from var(--color-destructive) l c h / 60%);
+    }
+  }
+
+  /* Variant: Success (bonus - commonly needed)
+  /* ------------------------------------------------------------------------ */
+
+  .badge--success {
+    --badge-background: var(--color-success, oklch(0.65 0.2 145));
+    --badge-color: white;
+  }
+
+  /* Variant: Warning (bonus - commonly needed)
+  /* ------------------------------------------------------------------------ */
+
+  .badge--warning {
+    --badge-background: var(--color-warning, oklch(0.8 0.15 85));
+    --badge-color: var(--color-ink);
+  }
+}

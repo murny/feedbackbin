@@ -11,8 +11,8 @@
           <% end %>
         </div>
         <div class="mt-5 flex items-center gap-4 justify-end">
-          <%= form.submit class: "btn btn-primary" %>
-          <%= link_to "Cancel", idea_comment_path(idea, comment), class: "btn btn-secondary" if form.object.persisted? %>
+          <%= form.submit class: "btn btn--primary" %>
+          <%= link_to "Cancel", idea_comment_path(idea, comment), class: "btn btn--secondary" if form.object.persisted? %>
         </div>
       <% end %>
     </div>

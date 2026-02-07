@@ -2,11 +2,6 @@
 
 module Elements
   class BaseComponent < ViewComponent::Base
-    # Shared utility for merging Tailwind classes
-    def tw_merge(*classes)
-      TailwindMerge::Merger.new.merge(classes.compact.join(" "))
-    end
-
     private
 
       # Validates that a value is in the list of valid options

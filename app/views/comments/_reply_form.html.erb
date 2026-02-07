@@ -16,11 +16,11 @@
 
       <div class="mt-5 flex items-center gap-4 justify-end">
         <% if form.object.persisted? %>
-          <%= form.submit t(".update_reply"), class: "btn btn-primary" %>
-          <%= link_to t("cancel"), idea_comment_path(parent.idea, parent), class: "btn btn-secondary" %>
+          <%= form.submit t(".update_reply"), class: "btn btn--primary" %>
+          <%= link_to t("cancel"), idea_comment_path(parent.idea, parent), class: "btn btn--secondary" %>
         <% else %>
-          <%= form.submit t(".create_reply"), class: "btn btn-primary" %>
-          <%= button_tag t("cancel"), type: "button", class: "btn btn-secondary", data: { action: "click->comment-reply#toggle" } %>
+          <%= form.submit t(".create_reply"), class: "btn btn--primary" %>
+          <%= button_tag t("cancel"), type: "button", class: "btn btn--secondary", data: { action: "click->comment-reply#toggle" } %>
         <% end %>
       </div>
     <% end %>

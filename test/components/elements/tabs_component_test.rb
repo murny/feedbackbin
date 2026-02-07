@@ -198,7 +198,7 @@ module Elements
 
       page_html = page.native.to_html
 
-      # Component uses inline Tailwind classes
+      # Component uses utility classes
       assert_includes page_html, "flex flex-col gap-2"
       assert_includes page_html, "bg-muted"
     end
