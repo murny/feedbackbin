@@ -2,6 +2,7 @@
 
 class Comment < ApplicationRecord
   include Voteable
+  include Comment::Searchable
   include Comment::Eventable
   include Mentioning
 

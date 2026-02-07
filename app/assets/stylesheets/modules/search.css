@@ -1,0 +1,252 @@
+/* ==========================================================================
+   Search Module
+
+   Styles for the global search dialog, search results, and search page.
+   ========================================================================== */
+
+@layer modules {
+  /* Search Dialog
+  /* ------------------------------------------------------------------------ */
+
+  .search-dialog {
+    padding: 0;
+    border: none;
+    background: transparent;
+    max-inline-size: none;
+    max-block-size: none;
+    margin-inline: auto;
+    margin-block-start: 15%;
+    margin-block-end: auto;
+    inline-size: 100%;
+    max-inline-size: min(42rem, calc(100% - 2rem));
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    background-color: var(--color-background);
+    box-shadow: var(--shadow-lg);
+    overflow: hidden;
+
+    &[open] {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &::backdrop {
+      background-color: oklch(0 0 0 / 80%);
+    }
+  }
+
+  .search-dialog__input-wrapper {
+    display: flex;
+    align-items: center;
+    border-block-end: 1px solid var(--color-border);
+    padding-inline: var(--space-4);
+    gap: var(--space-2);
+  }
+
+  .search-dialog__input {
+    display: flex;
+    block-size: 3rem;
+    inline-size: 100%;
+    background-color: transparent;
+    padding-block: var(--space-3);
+    font-size: var(--text-sm);
+    border: none;
+    outline: none;
+    color: var(--color-foreground);
+
+    &::placeholder {
+      color: var(--color-muted-foreground);
+    }
+  }
+
+  .search-dialog__kbd {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    block-size: 1.25rem;
+    padding-inline: 0.375rem;
+    margin-inline-start: var(--space-2);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-muted);
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    font-weight: var(--font-medium);
+    color: var(--color-muted-foreground);
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .search-dialog__results {
+    max-block-size: 60vh;
+    overflow-y: auto;
+    padding: var(--space-2);
+  }
+
+  /* Search Result
+  /* ------------------------------------------------------------------------ */
+
+  .search-result {
+    display: flex;
+    align-items: flex-start;
+    gap: var(--space-3);
+    padding: var(--space-2) var(--space-3);
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    text-decoration: none;
+    color: inherit;
+    transition: background-color var(--duration-fast) var(--ease-out),
+                color var(--duration-fast) var(--ease-out);
+
+    &:hover {
+      background-color: var(--color-accent);
+      color: var(--color-accent-foreground);
+    }
+  }
+
+  .search-result__icon {
+    margin-block-start: 0.125rem;
+    flex-shrink: 0;
+  }
+
+  .search-result__content {
+    flex: 1;
+    min-inline-size: 0;
+  }
+
+  .search-result__header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+  }
+
+  .search-result__title {
+    font-weight: var(--font-medium);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .search-result__snippet {
+    margin-block-start: 0.125rem;
+    font-size: var(--text-xs);
+    color: var(--color-muted-foreground);
+    display: -webkit-box;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  .search-result__comment-hint {
+    display: inline-flex;
+    align-items: center;
+    margin-block-start: 0.125rem;
+    font-size: var(--text-xs);
+    color: var(--color-muted-foreground);
+    gap: var(--space-1);
+  }
+
+  /* Search Results List
+  /* ------------------------------------------------------------------------ */
+
+  .search-results-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  /* Search Empty State
+  /* ------------------------------------------------------------------------ */
+
+  .search-empty {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-block: var(--space-6);
+    text-align: center;
+    gap: var(--space-2);
+  }
+
+  /* Search Recent Queries
+  /* ------------------------------------------------------------------------ */
+
+  .search-recent {
+    padding: var(--space-1) var(--space-2);
+  }
+
+  .search-recent__label {
+    padding: var(--space-2);
+    padding-block-end: 0.375rem;
+    font-size: var(--text-xs);
+    font-weight: var(--font-medium);
+    color: var(--color-muted-foreground);
+  }
+
+  .search-recent__list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+
+  .search-recent__item {
+    display: flex;
+    inline-size: 100%;
+    align-items: center;
+    gap: var(--space-2);
+    padding: 0.375rem var(--space-2);
+    border: none;
+    border-radius: var(--radius-md);
+    background-color: transparent;
+    font-size: var(--text-sm);
+    color: inherit;
+    cursor: pointer;
+    text-align: start;
+    transition: background-color var(--duration-fast) var(--ease-out),
+                color var(--duration-fast) var(--ease-out);
+
+    &:hover {
+      background-color: var(--color-accent);
+      color: var(--color-accent-foreground);
+    }
+  }
+
+  /* Search Page (full page search)
+  /* ------------------------------------------------------------------------ */
+
+  .search-page {
+    max-inline-size: 42rem;
+    margin-inline: auto;
+  }
+
+  .search-page__title {
+    font-size: var(--text-2xl);
+    font-weight: var(--font-bold);
+    letter-spacing: -0.025em;
+    margin-block-end: var(--space-6);
+  }
+
+  .search-page__form {
+    margin-block-end: var(--space-6);
+  }
+
+  .search-page__form-icon {
+    position: absolute;
+    inset-block: 0;
+    inset-inline-start: 0;
+    display: flex;
+    align-items: center;
+    padding-inline-start: var(--space-3);
+    pointer-events: none;
+  }
+
+  .search-page__form-input {
+    padding-inline-start: var(--space-10);
+  }
+
+  .search-page__count {
+    font-size: var(--text-sm);
+    color: var(--color-muted-foreground);
+    margin-block-end: var(--space-4);
+  }
+}

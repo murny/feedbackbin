@@ -28,21 +28,15 @@
 
       <div class="header__search">
         <div class="header__search-wrapper">
-          <label for="search" class="visually-hidden"><%= t(".search") %></label>
-          <div class="position-relative">
-            <div class="header__search-icon">
-              <svg class="size-4 txt-subtle" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                <path fill-rule="evenodd" d="M9 3.5a5.5 5.5 0 100 11 5.5 5.5 0 000-11zM2 9a7 7 0 1112.452 4.391l3.328 3.329a.75.75 0 11-1.06 1.06l-3.329-3.328A7 7 0 012 9z" clip-rule="evenodd" />
-              </svg>
-            </div>
-            <input id="search"
-                   name="search"
-                   autocomplete="off"
-                   class="form__input"
-                   style="padding-inline-start: var(--space-10);"
-                   placeholder="<%= t(".search_placeholder") %>"
-                   type="search">
-          </div>
+          <button type="button"
+                  class="header__search-trigger"
+                  data-action="click->global-search#open">
+            <%= lucide_icon "search", class: "size-4" %>
+            <span class="header__search-trigger-text"><%= t(".search_placeholder") %></span>
+            <kbd class="header__search-kbd">
+              <span><%= t(".search_shortcut_modifier") %></span>K
+            </kbd>
+          </button>
         </div>
       </div>
       <% if Current.user %>

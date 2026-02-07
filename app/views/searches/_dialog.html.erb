@@ -1,0 +1,20 @@
+<%# locals: () %>
+
+<dialog data-global-search-target="dialog"
+        class="search-dialog"
+        aria-label="<%= t('searches.dialog.aria_label') %>">
+  <div class="search-dialog__input-wrapper">
+    <%= lucide_icon "search", class: "size-4 txt-subtle" %>
+    <input type="search"
+           data-global-search-target="input"
+           data-action="input->global-search#search keydown->global-search#navigate"
+           class="search-dialog__input"
+           placeholder="<%= t('searches.dialog.placeholder') %>"
+           autocomplete="off">
+    <kbd class="search-dialog__kbd">ESC</kbd>
+  </div>
+  <div data-global-search-target="results" class="search-dialog__results">
+    <turbo-frame id="search_results">
+    </turbo-frame>
+  </div>
+</dialog>
