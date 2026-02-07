@@ -6,7 +6,7 @@
   class: "gap-1.5 bg-yellow-100 dark:bg-yellow-900/30 text-yellow-900 dark:text-yellow-200 hover:bg-yellow-200 dark:hover:bg-yellow-900/50 transition-colors",
   id: dom_id(tag, :tag_for_idea)
 ) do %>
-  <span class="font-medium"><%= tag.hashtag %></span>
+  <span class="font-weight-medium"><%= tag.hashtag %></span>
   <% if removable && tagging %>
     <%= button_to idea_tagging_path(idea, tagging),
       method: :delete,

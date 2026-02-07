@@ -20,7 +20,7 @@ module FormBuilders
     test "text_field returns custom styled text field" do
       form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
-      expected = %(<div class="relative grid gap-2" data-slot="form-item">
+      expected = %(<div class="position-relative grid gap-half" data-slot="form-item">
       <input
         class="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-hidden focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm"
         type="text"
@@ -34,8 +34,8 @@ module FormBuilders
     test "text_field with leading icon returns custom styled text field" do
       form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
-      expected = %(<div class="relative grid gap-2" data-slot="form-item">
-      <div>{class: &quot;pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3&quot;}</div>
+      expected = %(<div class="position-relative grid gap-half" data-slot="form-item">
+      <div>{class: &quot;pointer-events-none absolute inset-y-0 left-0 flex align-center pl-3&quot;}</div>
       <input leading_icon="true"
              class="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-hidden focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm pl-10"
              type="text"
@@ -49,7 +49,7 @@ module FormBuilders
     test "text_field with classes returns custom styled text field with additional classes" do
       form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
-      expected = %(<div class="relative grid gap-2" data-slot="form-item">
+      expected = %(<div class="position-relative grid gap-half" data-slot="form-item">
       <input
         class="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-hidden focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm test-class"
         type="text"
@@ -71,15 +71,15 @@ module FormBuilders
       assert_match(/Must be present, must be at least 3 characters, and must be at most 255 characters/, field_html)
       assert_match(/aria-invalid:ring-destructive\/20/, field_html)
       assert_match(/aria-invalid:border-destructive/, field_html)
-      assert_match(/text-destructive/, field_html)
-      assert_match(/relative grid gap-2/, field_html)
+      assert_match(/txt-negative/, field_html)
+      assert_match(/position-relative grid gap-half/, field_html)
       assert_match(/<svg.*?class=".*?h-5 w-5 text-red-500.*?".*?>/, field_html)
     end
 
     test "text_field with no object returns custom styled text field" do
       form = FormBuilders::CustomFormBuilder.new(:user, nil, self, {})
 
-      expected = %(<div class="relative grid gap-2" data-slot="form-item">
+      expected = %(<div class="position-relative grid gap-half" data-slot="form-item">
       <input
         class="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-hidden focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm"
         type="text"
@@ -93,7 +93,7 @@ module FormBuilders
     test "email_field returns custom styled email field" do
       form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
-      expected = %(<div class="relative grid gap-2" data-slot="form-item">
+      expected = %(<div class="position-relative grid gap-half" data-slot="form-item">
       <input
         class="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-hidden focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm"
         type="email"
@@ -107,7 +107,7 @@ module FormBuilders
     test "date_field returns custom styled date field" do
       form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
-      expected = %(<div class="relative grid gap-2" data-slot="form-item">
+      expected = %(<div class="position-relative grid gap-half" data-slot="form-item">
       <input
         class="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-hidden focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm"
         type="date"
@@ -121,7 +121,7 @@ module FormBuilders
     test "password_field returns custom styled password field" do
       form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
-      expected = %(<div class="relative grid gap-2" data-slot="form-item">
+      expected = %(<div class="position-relative grid gap-half" data-slot="form-item">
       <input
         class="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-hidden focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm"
         type="password"
@@ -136,7 +136,7 @@ module FormBuilders
       form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
       expected = %(
-    <div class="relative grid gap-2" data-slot="form-item">
+    <div class="position-relative grid gap-half" data-slot="form-item">
       <textarea class="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-hidden focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm field-sizing-content min-h-16 resize-none"
       name="user[bio]"
       id="user_bio"></textarea>

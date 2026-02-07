@@ -1,5 +1,5 @@
 <%# locals: (idea:) %>
-<div id="<%= dom_id(idea, :tags) %>" class="flex flex-wrap items-center gap-2">
+<div id="<%= dom_id(idea, :tags) %>" class="flex flex-wrap align-center gap">
   <% if Current.user&.can_administer_idea?(idea) %>
     <div data-controller="dialog"
           data-action="keydown.esc->dialog#close click@document->dialog#closeOnClickOutside">
@@ -12,10 +12,10 @@
             }
           ) do %>
         <%= lucide_icon "tag", class: "h-4 w-4" %>
-        <span class="sr-only"><%= t(".add_tag") %></span>
+        <span class="visually-hidden"><%= t(".add_tag") %></span>
       <% end %>
 
-      <dialog class="rounded-lg border bg-popover p-4 shadow-md min-w-80 max-w-md"
+      <dialog class="border-radius border fill-popover pad shadow-md min-w-80 max-w-md"
               data-dialog-target="dialog"
               data-action="turbo:before-morph-attribute->dialog#preventCloseOnMorphing turbo:submit-end->dialog#close">
         <%= turbo_frame_tag idea, :tagging, src: new_idea_tagging_path(idea), loading: :lazy, refresh: :morph %>

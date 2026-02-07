@@ -1,19 +1,19 @@
 <%= turbo_frame_tag @reactable, :new_reaction do %>
-  <div class="relative" data-controller="reaction-picker" data-reaction-picker-open-on-connect-value="true">
+  <div class="position-relative" data-controller="reaction-picker" data-reaction-picker-open-on-connect-value="true">
     <button type="button"
-            class="inline-flex items-center justify-center size-7 rounded-full bg-primary/10 text-primary ring-2 ring-primary/30"
+            class="reaction-add-btn reaction-add-btn--active"
             data-action="click->reaction-picker#toggle">
       <%= lucide_icon "smile-plus", class: "size-4" %>
-      <span class="sr-only"><%= t("reactions.add_reaction") %></span>
+      <span class="visually-hidden"><%= t("reactions.add_reaction") %></span>
     </button>
 
-    <div class="absolute left-0 bottom-full mb-2 z-50 w-52 p-2 bg-popover border border-border rounded-lg shadow-lg"
+    <div class="reaction-picker"
          data-reaction-picker-target="menu">
-      <div class="grid grid-cols-4 gap-0.5">
+      <div class="reaction-picker__grid">
         <% EmojiHelper.reactions.each do |emoji, title| %>
           <%= button_to idea_comment_reactions_path(@reactable.idea, @reactable),
                 params: { reaction: { content: emoji } },
-                class: "h-10 w-full flex items-center justify-center text-2xl rounded-md hover:bg-muted transition-colors",
+                class: "reaction-picker__emoji",
                 title: title,
                 aria: { label: title },
                 data: { turbo_frame: dom_id(@reactable, :reacting) } do %>
@@ -22,9 +22,9 @@
         <% end %>
       </div>
 
-      <div class="mt-2 pt-2 border-t border-border text-center">
+      <div class="reaction-picker__footer">
         <%= link_to idea_comment_reactions_path(@reactable.idea, @reactable),
-              class: "text-xs text-muted-foreground hover:text-foreground",
+              class: "reaction-picker__cancel",
               data: { turbo_frame: dom_id(@reactable, :reacting) } do %>
           <%= t("cancel") %>
         <% end %>

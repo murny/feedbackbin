@@ -24,7 +24,7 @@ module FormBuilders
     "group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 " \
     "peer-disabled:cursor-not-allowed peer-disabled:opacity-50 text-destructive"
 
-    ERROR_MESSAGE_CLASSES = "text-destructive text-sm"
+    ERROR_MESSAGE_CLASSES = "txt-negative txt-small"
 
     CHECKBOX_CLASSES = "h-4 w-4 rounded border-input bg-background text-primary focus-visible:ring-2 " \
     "focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
@@ -137,19 +137,19 @@ module FormBuilders
       end
 
       def text_layout(attribute)
-        @template.content_tag :div, class: "relative grid gap-2", "data-slot": "form-item" do
+        @template.content_tag :div, class: "position-relative grid gap-half", "data-slot": "form-item" do
           yield + attribute_error_icon(attribute)
         end
       end
 
       def leading_icon(&)
-        @template.content_tag(:div, class: "pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3", &)
+        @template.content_tag(:div, class: "pointer-events-none absolute inset-y-0 left-0 flex align-center pl-3", &)
       end
 
       def attribute_error_icon(attribute)
         return if @object.blank? || @object.errors[attribute].blank?
 
-        @template.content_tag :div, class: "pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 " do
+        @template.content_tag :div, class: "pointer-events-none absolute inset-y-0 right-0 flex align-center pr-3" do
           @template.lucide_icon(
             "circle-alert",
             class: "h-5 w-5 text-red-500",

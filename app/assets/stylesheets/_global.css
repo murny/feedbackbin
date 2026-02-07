@@ -22,9 +22,13 @@
   --space-12: 3rem;
   --space-16: 4rem;
 
-  /* Semantic spacing */
+  /* Semantic spacing (Fizzy-style) */
   --inline-space: 1ch;
+  --inline-space-half: 0.5ch;
+  --inline-space-double: 2ch;
   --block-space: 1rem;
+  --block-space-half: 0.5rem;
+  --block-space-double: 2rem;
 
   /* ==========================================================================
      Typography
@@ -40,6 +44,16 @@
   --text-2xl: 1.5rem;
   --text-3xl: 1.875rem;
   --text-4xl: 2.25rem;
+
+  /* Fizzy-style typography aliases */
+  --text-xx-small: var(--text-xs);
+  --text-x-small: var(--text-xs);
+  --text-small: var(--text-sm);
+  --text-normal: var(--text-base);
+  --text-medium: var(--text-lg);
+  --text-large: var(--text-xl);
+  --text-x-large: var(--text-2xl);
+  --text-xx-large: var(--text-3xl);
 
   --leading-none: 1;
   --leading-tight: 1.25;
@@ -69,6 +83,7 @@
   --shadow-sm: 0 1px 3px 0 oklch(0% 0 0 / 10%), 0 1px 2px -1px oklch(0% 0 0 / 10%);
   --shadow-md: 0 4px 6px -1px oklch(0% 0 0 / 10%), 0 2px 4px -2px oklch(0% 0 0 / 10%);
   --shadow-lg: 0 10px 15px -3px oklch(0% 0 0 / 10%), 0 4px 6px -4px oklch(0% 0 0 / 10%);
+  --shadow: var(--shadow-md);
 
   /* ==========================================================================
      Focus Ring
@@ -122,6 +137,15 @@
   /* Aliases for utility class compatibility */
   --color-background: var(--color-canvas);
   --color-foreground: var(--color-ink);
+
+  /* Fizzy-style color aliases */
+  --color-ink-dark: var(--color-muted-foreground);
+  --color-ink-lightest: var(--color-muted);
+  --color-negative: var(--color-destructive);
+  --color-positive: var(--color-success);
+  --color-marker: var(--color-warning);
+  --color-selected: var(--color-accent);
+  --color-highlight: oklch(from var(--color-primary) l c h / 10%);
 
   /* Primary - main action color */
   --color-primary: oklch(0.205 0 0);

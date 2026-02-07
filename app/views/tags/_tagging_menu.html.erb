@@ -11,7 +11,7 @@
     <%= t("ideas.tags.add_tag") %>
   <% end %>
 
-  <dialog class="rounded-lg border bg-popover p-4 shadow-md min-w-80 max-w-md"
+  <dialog class="border-radius border fill-popover pad shadow-md min-w-80 max-w-md"
           data-dialog-target="dialog"
           data-action="turbo:before-morph-attribute->dialog#preventCloseOnMorphing turbo:submit-end->dialog#close">
     <%= turbo_frame_tag idea, :tagging, src: new_idea_tagging_path(idea), loading: :lazy, refresh: :morph %>

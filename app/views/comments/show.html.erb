@@ -1,4 +1,4 @@
-<div class="mt-10">
+<div class="margin-block-start-double">
   <%= turbo_frame_tag @comment do %>
     <% if @comment.parent %>
       <%= render partial: "comments/reply", locals: { comment: @comment } %>

@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
 module IdeasSortHelper
-  BASE_SORT_CLASSES = "px-3 py-1.5 rounded-md transition-all duration-200 text-sm font-medium"
-  ACTIVE_SORT_CLASSES = "bg-primary text-primary-foreground shadow-sm"
-  INACTIVE_SORT_CLASSES = "text-muted-foreground hover:text-foreground hover:bg-muted"
+  BASE_SORT_CLASSES = "px-3 py-1.5 border-radius transition txt-small font-weight-medium"
+  ACTIVE_SORT_CLASSES = "fill-primary txt-reversed shadow-sm"
+  INACTIVE_SORT_CLASSES = "txt-subtle hover:text-foreground hover:bg-muted"
 
   # Helper method to clean params by removing nil and blank values
   def clean_params(**params)

@@ -1,23 +1,23 @@
 <%# locals: (reply:) %>
 
-<%= turbo_frame_tag reply, class: "block scroll-mt-4" do %>
-  <div class="flex border-l-2 border-border ml-4 lg:ml-6 py-3 pl-4">
-    <div class="flex-1 min-w-0">
-      <div class="flex justify-between items-center mb-1">
-        <div class="flex items-center">
+<%= turbo_frame_tag reply, class: "display-block scroll-mt-4" do %>
+  <div class="reply-thread">
+    <div class="flex-1 min-width">
+      <div class="flex justify-space-between align-center margin-block-end-half">
+        <div class="flex align-center">
           <%= avatar_tag reply.creator, class: "mr-2 w-5 h-5 rounded-full", alt: reply.creator.name %>
 
-          <p class="inline-flex flex-col md:flex-row items-start mr-3 text-sm text-foreground">
-            <span class="font-medium"><%= reply.creator.name %></span>
-            <%= link_to idea_path(reply.idea, anchor: dom_id(reply)), class: "text-xs text-muted-foreground hover:underline md:ml-2", data: { turbo_frame: "_top" } do %>
+          <p class="flex-inline flex-column md:flex-row align-start margin-inline-end txt-small txt-ink">
+            <span class="font-weight-medium"><%= reply.creator.name %></span>
+            <%= link_to idea_path(reply.idea, anchor: dom_id(reply)), class: "txt-x-small txt-subtle hover:underline md:ml-2", data: { turbo_frame: "_top" } do %>
               <%= local_datetime_tag reply.created_at, style: :datetime %>
             <% end %>
           </p>
         </div>
         <%= render Elements::DropdownMenuComponent.new do |dropdown| %>
-          <% dropdown.with_trigger(variant: :ghost, size: :icon, class: "h-6 w-6 text-muted-foreground") do %>
+          <% dropdown.with_trigger(variant: :ghost, size: :icon, class: "h-6 w-6 txt-subtle") do %>
             <%= lucide_icon("ellipsis", class: "h-3.5 w-3.5") %>
-            <span class="sr-only"><%= t(".reply_settings") %></span>
+            <span class="visually-hidden"><%= t(".reply_settings") %></span>
           <% end %>
 
           <% if Current.user&.can_administer_comment?(reply) %>
@@ -62,11 +62,11 @@
         <% end %>
       </div>
 
-      <div class="text-sm text-muted-foreground" data-controller="syntax-highlight">
+      <div class="txt-small txt-subtle" data-controller="syntax-highlight">
         <%= reply.body %>
       </div>
 
-      <div class="mt-2">
+      <div class="margin-block-start-half">
         <%= render "reactions/reactions", reactable: reply %>
       </div>
     </div>

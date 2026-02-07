@@ -36,5 +36,11 @@
 @import "components/upload-preview.css";
 @import "components/lexxy.css";
 
+/* Modules */
+@import "modules/reactions.css";
+@import "modules/mentions.css";
+@import "modules/tag-chips.css";
+@import "modules/comments.css";
+
 /* Utilities (highest priority) */
 @import "utilities.css";
