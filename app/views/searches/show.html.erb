@@ -1,0 +1,27 @@
+<%# locals: () %>
+
+<div class="mx-auto max-w-2xl">
+  <h1 class="text-2xl font-bold tracking-tight mb-6"><%= t("searches.show.title") %></h1>
+
+  <form action="<%= search_path %>" method="get" class="mb-6">
+    <div class="relative">
+      <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+        <%= lucide_icon "search", class: "h-4 w-4 text-muted-foreground" %>
+      </div>
+      <input type="search"
+             name="q"
+             value="<%= @query %>"
+             class="flex h-10 w-full rounded-md border border-input bg-background pl-10 pr-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus-visible:outline-hidden focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2"
+             placeholder="<%= t('searches.form.placeholder') %>"
+             autocomplete="off">
+    </div>
+  </form>
+
+  <% if @query.present? %>
+    <p class="text-sm text-muted-foreground mb-4">
+      <%= t("searches.show.results_count", count: @results.size) %>
+    </p>
+  <% end %>
+
+  <%= render "searches/results", results: @results, query: @query, recent_queries: @recent_queries %>
+</div>

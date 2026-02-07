@@ -447,8 +447,8 @@ en:
         your_profile: Your profile
       open_main_menu: Open main menu
       open_user_menu: Open user menu
-      search: Search
-      search_placeholder: Search
+      search_placeholder: Search...
+      search_shortcut_modifier: "⌘"
       sign_in: Sign in
       sign_out: Sign out
       sign_up: Sign up
@@ -725,6 +725,22 @@ en:
       sort_most_commented: Most Commented
       sort_top: Top
       title: Roadmap
+  searches:
+    dialog:
+      aria_label: Search
+      placeholder: Search ideas and comments...
+      recent_searches: Recent searches
+    form:
+      placeholder: Search ideas and comments...
+    result:
+      comment_on_idea: Comment on idea
+    results:
+      no_results: No results found
+    show:
+      results_count:
+        one: "%{count} result"
+        other: "%{count} results"
+      title: Search
   select_board: Select a board
   sessions:
     create:

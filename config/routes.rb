@@ -89,6 +89,11 @@ Rails.application.routes.draw do
     resources :tags, only: [ :index ]
   end
 
+  resource :search, only: [:show], controller: "searches"
+  namespace :searches do
+    resources :queries, only: [:create]
+  end
+
   resources :ideas do
     scope module: :ideas do
       resource :vote, only: [ :update ]

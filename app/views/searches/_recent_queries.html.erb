@@ -1,0 +1,16 @@
+<%# locals: (recent_queries:) %>
+
+<div class="px-1 py-2">
+  <p class="px-2 pb-1.5 text-xs font-medium text-muted-foreground"><%= t("searches.dialog.recent_searches") %></p>
+  <div class="space-y-0.5">
+    <% recent_queries.each do |query| %>
+      <button type="button"
+              class="flex w-full items-center gap-2 rounded-md px-2 py-1.5 text-sm transition-colors hover:bg-accent hover:text-accent-foreground"
+              data-action="click->global-search#selectRecentQuery"
+              data-query="<%= query.terms %>">
+        <%= lucide_icon "clock", class: "h-3.5 w-3.5 text-muted-foreground" %>
+        <span class="truncate"><%= query.terms %></span>
+      </button>
+    <% end %>
+  </div>
+</div>
