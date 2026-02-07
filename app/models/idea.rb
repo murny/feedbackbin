@@ -63,5 +63,4 @@ class Idea < ApplicationRecord
 
     account.users.active.where(id: ids).index_by(&:id).values_at(*ids).compact
   end
-
 end

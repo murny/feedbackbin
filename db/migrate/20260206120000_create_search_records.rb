@@ -12,7 +12,7 @@ class CreateSearchRecords < ActiveRecord::Migration[8.1]
       t.timestamps
     end
 
-    add_index :search_records, [:account_id, :searchable_type, :searchable_id],
+    add_index :search_records, [ :account_id, :searchable_type, :searchable_id ],
               unique: true, name: "idx_search_records_uniqueness"
     add_index :search_records, :idea_id
   end

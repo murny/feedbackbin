@@ -12,13 +12,13 @@
   </div>
   <div class="flex-1 min-w-0">
     <div class="flex items-center gap-2">
-      <span class="font-medium truncate"><%= raw result.display_title %></span>
+      <span class="font-medium truncate"><%= result.display_title %></span>
       <%= render Elements::BadgeComponent.new(variant: :secondary, class: "shrink-0 text-xs") do %>
         <%= result.board.name %>
       <% end %>
     </div>
     <% if result.display_snippet.present? %>
-      <p class="mt-0.5 text-xs text-muted-foreground line-clamp-1"><%= raw result.display_snippet %></p>
+      <p class="mt-0.5 text-xs text-muted-foreground line-clamp-1"><%= result.display_snippet %></p>
     <% end %>
     <% if result.comment? %>
       <span class="mt-0.5 inline-flex items-center text-xs text-muted-foreground">

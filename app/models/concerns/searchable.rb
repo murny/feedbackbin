@@ -8,7 +8,7 @@ module Searchable
   included do
     has_one :search_record, as: :searchable, class_name: "Search::Record", dependent: :destroy
 
-    after_commit :upsert_search_record, on: [:create, :update]
+    after_commit :upsert_search_record, on: [ :create, :update ]
     after_commit :remove_search_record, on: :destroy
   end
 
