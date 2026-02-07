@@ -5,7 +5,7 @@ class Idea < ApplicationRecord
 
   include ModelSortable
   include Voteable
-  include Searchable
+  include Idea::Searchable
   include Idea::Eventable
   include Idea::Taggable
   include Idea::Watchable

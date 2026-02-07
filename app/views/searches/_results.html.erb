@@ -1,0 +1,16 @@
+<%# locals: (results:, query:, recent_queries: []) %>
+
+<% if query.blank? && recent_queries.any? %>
+  <%= render "searches/recent_queries", recent_queries: recent_queries %>
+<% elsif query.present? && results.empty? %>
+  <div class="flex flex-col items-center justify-center py-6 text-center">
+    <%= lucide_icon "search-x", class: "h-8 w-8 text-muted-foreground mb-2" %>
+    <p class="text-sm text-muted-foreground"><%= t("searches.results.no_results") %></p>
+  </div>
+<% else %>
+  <div class="space-y-1">
+    <% results.each do |result| %>
+      <%= render "searches/result", result: result %>
+    <% end %>
+  </div>
+<% end %>

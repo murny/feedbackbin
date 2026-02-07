@@ -1,0 +1,22 @@
+<%# locals: () %>
+
+<dialog data-global-search-target="dialog"
+        class="backdrop:bg-black/80 mx-auto mt-[15%] mb-auto w-full max-w-2xl rounded-lg border bg-background p-0 shadow-2xl open:flex open:flex-col"
+        aria-label="<%= t("searches.dialog.aria_label") %>">
+  <div class="flex items-center border-b px-4">
+    <%= lucide_icon "search", class: "mr-2 h-4 w-4 shrink-0 text-muted-foreground" %>
+    <input type="search"
+           data-global-search-target="input"
+           data-action="input->global-search#search keydown->global-search#navigate"
+           class="flex h-12 w-full bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground"
+           placeholder="<%= t("searches.dialog.placeholder") %>"
+           autocomplete="off">
+    <kbd class="pointer-events-none ml-2 inline-flex h-5 select-none items-center gap-1 rounded border bg-muted px-1.5 font-mono text-[10px] font-medium text-muted-foreground">
+      ESC
+    </kbd>
+  </div>
+  <div data-global-search-target="results" class="max-h-[60vh] overflow-y-auto p-2">
+    <turbo-frame id="search_results">
+    </turbo-frame>
+  </div>
+</dialog>
