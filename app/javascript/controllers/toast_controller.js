@@ -31,7 +31,7 @@ export default class extends Controller {
     // Wait for animation to complete before removing
     setTimeout(() => {
       this.element.remove()
-    }, 300) // Match animation duration from Tailwind
+    }, 300)
   }
 
   // Pause auto-dismiss on hover

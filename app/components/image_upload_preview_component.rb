@@ -40,6 +40,6 @@ class ImageUploadPreviewComponent < Elements::BaseComponent
     else "btn--secondary"
     end
 
-    ["btn", variant_class].join(" ")
+    [ "btn", variant_class ].join(" ")
   end
 end

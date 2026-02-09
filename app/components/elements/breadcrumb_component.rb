@@ -20,7 +20,7 @@ module Elements
       end
 
       def breadcrumb_classes
-        ["breadcrumb", @attrs[:class]].compact.join(" ")
+        [ "breadcrumb", @attrs[:class] ].compact.join(" ")
       end
 
       def processed_items

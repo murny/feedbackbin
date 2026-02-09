@@ -77,7 +77,7 @@ module Elements
 
       def wrapper_attrs
         {
-          class: ["popover", @attrs[:class]].compact.join(" "),
+          class: [ "popover", @attrs[:class] ].compact.join(" "),
           data: controller_data.merge(@attrs[:data] || {})
         }.merge(@attrs.except(:class, :data))
       end

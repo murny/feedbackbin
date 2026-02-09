@@ -36,7 +36,7 @@ module Elements
 
         {
           data: data,
-          class: ["dropdown", @attrs[:class]].compact.join(" ")
+          class: [ "dropdown", @attrs[:class] ].compact.join(" ")
         }.merge(@attrs.except(:class, :data))
       end
 
@@ -243,7 +243,7 @@ module Elements
         private
 
           def label_attrs
-            { class: ["dropdown__label", @attrs[:class]].compact.join(" ") }.merge(@attrs.except(:class))
+            { class: [ "dropdown__label", @attrs[:class] ].compact.join(" ") }.merge(@attrs.except(:class))
           end
       end
   end

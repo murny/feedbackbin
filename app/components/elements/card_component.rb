@@ -78,7 +78,7 @@ module Elements
           end
 
           def header_classes
-            ["card__header", @attrs[:class]].compact.join(" ")
+            [ "card__header", @attrs[:class] ].compact.join(" ")
           end
 
           def render_text_content
@@ -121,7 +121,7 @@ module Elements
           end
 
           def body_classes
-            ["card__body", @attrs[:class]].compact.join(" ")
+            [ "card__body", @attrs[:class] ].compact.join(" ")
           end
       end
 
@@ -145,7 +145,7 @@ module Elements
           end
 
           def footer_classes
-            ["card__footer", @attrs[:class]].compact.join(" ")
+            [ "card__footer", @attrs[:class] ].compact.join(" ")
           end
       end
   end
