@@ -397,4 +397,6 @@ ActiveRecord::Schema[8.2].define(version: 2026_02_06_120002) do
     t.index ["active"], name: "index_webhooks_on_active"
     t.index ["board_id"], name: "index_webhooks_on_board_id"
   end
+  execute "CREATE VIRTUAL TABLE search_records_fts USING fts5(\n  title,\n  content,\n  tokenize='porter unicode61'\n)"
+
 end

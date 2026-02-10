@@ -17,8 +17,11 @@ class Search::Query < ApplicationRecord
       user: user,
       terms: sanitized
     )
-    record.save! if record.new_record?
-    record.touch unless record.new_record?
+    if record.new_record?
+      record.save!
+    else
+      record.touch
+    end
     record
   end
 

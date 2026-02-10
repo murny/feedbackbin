@@ -33,7 +33,7 @@ export default class extends Controller {
   close() {
     this.dialogTarget.close()
     this.inputTarget.value = ""
-    this.resultsTarget.querySelector("#search_results").innerHTML = ""
+    this.resultsTarget.querySelector("#search_results")?.replaceChildren()
   }
 
   navigate(event) {

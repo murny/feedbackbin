@@ -22,7 +22,7 @@ class Search::Record < ApplicationRecord
 
     scope = where(account: account, id: matching_ids)
     scope = scope.where(board: board) if board.present?
-    scope.order(
+    scope.includes(:idea, :board).order(
       Arel.sql("CASE searchable_type WHEN 'Idea' THEN 0 ELSE 1 END"),
       created_at: :desc
     ).limit(RESULT_LIMIT)

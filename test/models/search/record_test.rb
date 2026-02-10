@@ -90,12 +90,15 @@ class Search::RecordTest < ActiveSupport::TestCase
     comment = comments(:one)
     Search::Record.upsert_for(comment)
 
-    results = Search::Record.search("dark", account: @account)
+    results = Search::Record.search("dark", account: @account).to_a
 
-    if results.size >= 2
-      idea_idx = results.index { |r| r.searchable_type == "Idea" }
-      comment_idx = results.index { |r| r.searchable_type == "Comment" }
-      assert_operator idea_idx, :<, comment_idx if idea_idx && comment_idx
-    end
+    assert_operator results.size, :>=, 2, "Expected at least 2 results, got #{results.size}"
+
+    idea_idx = results.index { |r| r.searchable_type == "Idea" }
+    comment_idx = results.index { |r| r.searchable_type == "Comment" }
+
+    assert_not_nil idea_idx, "Expected an Idea in results"
+    assert_not_nil comment_idx, "Expected a Comment in results"
+    assert_operator idea_idx, :<, comment_idx
   end
 end
