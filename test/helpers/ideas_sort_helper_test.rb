@@ -32,7 +32,7 @@ class IdeasSortHelperTest < ActionView::TestCase
     link = ideas_sort_link(text: "Latest", sort_field: "created_at", direction: "desc", params: test_params)
 
     assert_includes link, "Latest"
-    assert_includes link, "bg-primary text-primary-foreground"
+    assert_includes link, "fill-primary"
   end
 
   test "sort_link preserves existing params" do

@@ -62,32 +62,19 @@
   /* Text Inputs
   /* ------------------------------------------------------------------------ */
 
-  .form input[type='text'],
-  .form input[type='email'],
-  .form input[type='password'],
-  .form input[type='number'],
-  .form input[type='file'],
-  .form input[type='tel'],
-  .form input[type='url'],
-  .form input[type='search'],
-  .form input[type='date'],
-  .form input[type='datetime-local'],
-  .form input[type='month'],
-  .form input[type='week'],
-  .form input[type='time'],
-  .input[type='text'],
-  .input[type='email'],
-  .input[type='password'],
-  .input[type='number'],
-  .input[type='file'],
-  .input[type='tel'],
-  .input[type='url'],
-  .input[type='search'],
-  .input[type='date'],
-  .input[type='datetime-local'],
-  .input[type='month'],
-  .input[type='week'],
-  .input[type='time'],
+  input[type='text'],
+  input[type='email'],
+  input[type='password'],
+  input[type='number'],
+  input[type='file'],
+  input[type='tel'],
+  input[type='url'],
+  input[type='search'],
+  input[type='date'],
+  input[type='datetime-local'],
+  input[type='month'],
+  input[type='week'],
+  input[type='time'],
   .input {
     /* Component API */
     --input-height: 2.25rem;
@@ -152,14 +139,14 @@
     /* Focus state */
     &:focus-visible {
       border-color: var(--color-ring);
-      box-shadow: 0 0 0 3px oklch(from var(--color-ring) l c h / 50%);
+      box-shadow: 0 0 0 2px oklch(from var(--color-ring) l c h / 40%);
     }
 
     /* Invalid state */
-    &:invalid,
+    &:user-invalid,
     &[aria-invalid="true"] {
       border-color: var(--color-destructive);
-      box-shadow: 0 0 0 3px oklch(from var(--color-destructive) l c h / 20%);
+      box-shadow: 0 0 0 2px oklch(from var(--color-destructive) l c h / 20%);
     }
 
     /* Disabled state */
@@ -184,7 +171,7 @@
   /* Textarea
   /* ------------------------------------------------------------------------ */
 
-  .form textarea,
+  textarea,
   .textarea {
     /* Component API */
     --textarea-min-height: 4rem;
@@ -227,13 +214,13 @@
 
     &:focus-visible {
       border-color: var(--color-ring);
-      box-shadow: 0 0 0 3px oklch(from var(--color-ring) l c h / 50%);
+      box-shadow: 0 0 0 2px oklch(from var(--color-ring) l c h / 40%);
     }
 
-    &:invalid,
+    &:user-invalid,
     &[aria-invalid="true"] {
       border-color: var(--color-destructive);
-      box-shadow: 0 0 0 3px oklch(from var(--color-destructive) l c h / 20%);
+      box-shadow: 0 0 0 2px oklch(from var(--color-destructive) l c h / 20%);
     }
 
     &:disabled {
@@ -256,7 +243,7 @@
   /* Select
   /* ------------------------------------------------------------------------ */
 
-  .form select,
+  select,
   select.select {
     /* Component API */
     --select-height: 2.25rem;
@@ -305,13 +292,13 @@
 
     &:focus-visible {
       border-color: var(--color-ring);
-      box-shadow: 0 0 0 3px oklch(from var(--color-ring) l c h / 50%);
+      box-shadow: 0 0 0 2px oklch(from var(--color-ring) l c h / 40%);
     }
 
-    &:invalid,
+    &:user-invalid,
     &[aria-invalid="true"] {
       border-color: var(--color-destructive);
-      box-shadow: 0 0 0 3px oklch(from var(--color-destructive) l c h / 20%);
+      box-shadow: 0 0 0 2px oklch(from var(--color-destructive) l c h / 20%);
     }
 
     &:disabled {
@@ -485,8 +472,7 @@
   /* Checkbox
   /* ------------------------------------------------------------------------ */
 
-  .form input[type='checkbox']:not([role='switch']),
-  .input[type='checkbox']:not([role='switch']) {
+  input[type='checkbox']:not([role='switch']) {
     /* Component API */
     --checkbox-size: 1rem;
     --checkbox-radius: 4px;
@@ -512,13 +498,13 @@
 
     &:focus-visible {
       border-color: var(--color-ring);
-      box-shadow: 0 0 0 3px oklch(from var(--color-ring) l c h / 50%);
+      box-shadow: 0 0 0 2px oklch(from var(--color-ring) l c h / 40%);
     }
 
-    &:invalid,
+    &:user-invalid,
     &[aria-invalid="true"] {
       border-color: var(--color-destructive);
-      box-shadow: 0 0 0 3px oklch(from var(--color-destructive) l c h / 20%);
+      box-shadow: 0 0 0 2px oklch(from var(--color-destructive) l c h / 20%);
     }
 
     &:disabled {
@@ -565,8 +551,7 @@
   /* Radio
   /* ------------------------------------------------------------------------ */
 
-  .form input[type='radio'],
-  .input[type='radio'] {
+  input[type='radio'] {
     /* Component API */
     --radio-size: 1rem;
     --radio-border-color: var(--color-input);
@@ -593,13 +578,13 @@
 
     &:focus-visible {
       border-color: var(--color-ring);
-      box-shadow: 0 0 0 3px oklch(from var(--color-ring) l c h / 50%);
+      box-shadow: 0 0 0 2px oklch(from var(--color-ring) l c h / 40%);
     }
 
-    &:invalid,
+    &:user-invalid,
     &[aria-invalid="true"] {
       border-color: var(--color-destructive);
-      box-shadow: 0 0 0 3px oklch(from var(--color-destructive) l c h / 20%);
+      box-shadow: 0 0 0 2px oklch(from var(--color-destructive) l c h / 20%);
     }
 
     &:disabled {
@@ -633,8 +618,7 @@
   /* Switch (checkbox with role="switch")
   /* ------------------------------------------------------------------------ */
 
-  .form input[type='checkbox'][role='switch'],
-  .input[type='checkbox'][role='switch'] {
+  input[type='checkbox'][role='switch'] {
     /* Component API */
     --switch-width: 2rem;
     --switch-height: 1.15rem;
@@ -672,7 +656,7 @@
 
     &:focus-visible {
       border-color: var(--color-ring);
-      box-shadow: 0 0 0 3px oklch(from var(--color-ring) l c h / 50%);
+      box-shadow: 0 0 0 2px oklch(from var(--color-ring) l c h / 40%);
     }
 
     &:disabled {
@@ -726,8 +710,7 @@
   /* Range/Slider
   /* ------------------------------------------------------------------------ */
 
-  .form input[type='range'],
-  .input[type='range'] {
+  input[type='range'] {
     /* Component API */
     --slider-value: 20%;
     --slider-thumb-size: 1rem;
@@ -744,13 +727,13 @@
     &:hover,
     &:focus-visible {
       &::-webkit-slider-thumb {
-        box-shadow: 0 0 0 4px oklch(from var(--color-ring) l c h / 50%);
+        box-shadow: 0 0 0 4px oklch(from var(--color-ring) l c h / 20%);
       }
       &::-moz-range-thumb {
-        box-shadow: 0 0 0 4px oklch(from var(--color-ring) l c h / 50%);
+        box-shadow: 0 0 0 4px oklch(from var(--color-ring) l c h / 20%);
       }
       &::-ms-thumb {
-        box-shadow: 0 0 0 4px oklch(from var(--color-ring) l c h / 50%);
+        box-shadow: 0 0 0 4px oklch(from var(--color-ring) l c h / 20%);
       }
     }
 
@@ -836,6 +819,15 @@
       background-color: var(--color-muted);
       border-radius: 9999px;
     }
+  }
+
+  /* Peer-checked state for radio/checkbox card selectors
+  /* ------------------------------------------------------------------------ */
+
+  input[type='radio'].visually-hidden:checked + .theme-option,
+  input[type='checkbox'].visually-hidden:checked + .theme-option {
+    border-color: var(--color-primary);
+    background-color: var(--color-accent);
   }
 
   /* Form Helper Text

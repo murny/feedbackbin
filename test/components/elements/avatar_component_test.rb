@@ -59,7 +59,6 @@ module Elements
         fallback: "John Michael Doe"
       ))
 
-      # Should take first 2 letters
       assert_selector "div[data-slot='avatar-fallback']", text: "JM"
     end
 
@@ -83,31 +82,26 @@ module Elements
         fallback: "JD"
       ))
 
-      # Both image and fallback should be present (fallback for image load failure)
       assert_selector "img[src='/test.jpg']"
       assert_selector "div[data-slot='avatar-fallback']"
     end
 
-    test "applies size classes correctly" do
+    test "applies size BEM class correctly" do
       render_inline(AvatarComponent.new(
         src: "/test.jpg",
         size: :lg
       ))
 
-      page_html = page.native.to_html
-
-      assert_includes page_html, "size-12"
+      assert_selector ".avatar--lg"
     end
 
-    test "applies shape classes correctly" do
+    test "applies shape BEM class correctly" do
       render_inline(AvatarComponent.new(
         src: "/test.jpg",
         shape: :square
       ))
 
-      page_html = page.native.to_html
-
-      assert_includes page_html, "rounded-md"
+      assert_selector ".avatar--square"
     end
 
     test "merges custom classes" do

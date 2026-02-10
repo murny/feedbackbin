@@ -1,30 +1,30 @@
 <%= content_for :title, t(".title") %>
 
-<section class="container mx-auto px-4 sm:px-6 mt-6 md:mt-10">
-  <div class="max-w-4xl mx-auto space-y-6">
-    <div class="text-center">
-      <h1 class="text-3xl font-bold mb-2"><%= t(".title") %></h1>
-      <p class="text-muted-foreground text-lg"><%= t(".description", name: Rails.application.config.app_name) %></p>
+<section class="center pad-inline" style="margin-block-start: var(--space-6);">
+  <div class="center flex flex-column" style="max-inline-size: 56rem; gap: var(--space-6);">
+    <div class="txt-align-center">
+      <h1 class="txt-xx-large font-weight-bold" style="margin-block-end: var(--space-2);"><%= t(".title") %></h1>
+      <p class="txt-subtle txt-medium"><%= t(".description", name: Rails.application.config.app_name) %></p>
     </div>
 
     <% if @changelogs.empty? %>
       <%= render Elements::CardComponent.new do |c| %>
-        <% c.with_body(class: "p-4 md:p-6 lg:p-8") do %>
-        <div class="flex flex-col items-center justify-center text-center py-12">
-          <div class="flex h-20 w-20 items-center justify-center rounded-full bg-muted/50">
-            <%= lucide_icon "scroll-text", class: "h-10 w-10 text-muted-foreground" %>
+        <% c.with_body(class: "pad") do %>
+        <div class="flex flex-column align-center justify-center txt-align-center" style="padding-block: var(--space-12);">
+          <div class="flex align-center justify-center border-radius fill-shade" style="block-size: 5rem; inline-size: 5rem; opacity: 0.5;">
+            <%= lucide_icon "scroll-text", style: "inline-size: 2.5rem; block-size: 2.5rem; color: var(--color-muted-foreground);" %>
           </div>
-          <h3 class="mt-6 text-lg font-semibold text-foreground"><%= t(".empty_placeholder") %></h3>
-          <p class="mt-2 text-sm text-muted-foreground max-w-sm">
+          <h3 class="txt-medium font-weight-bold" style="margin-block-start: var(--space-6);"><%= t(".empty_placeholder") %></h3>
+          <p class="txt-small txt-subtle" style="margin-block-start: var(--space-2); max-inline-size: 24rem;">
             <%= t(".empty_description") %>
           </p>
         </div>
         <% end %>
       <% end %>
     <% else %>
-      <div class="space-y-4">
+      <div class="flex flex-column" style="gap: var(--space-4);">
         <% @changelogs.each do |changelog| %>
-          <%= render Elements::CardComponent.new(class: "hover:shadow-lg transition-shadow duration-200") do |c| %>
+          <%= render Elements::CardComponent.new do |c| %>
             <% c.with_body do %>
               <%= render changelog %>
             <% end %>
@@ -34,7 +34,7 @@
     <% end %>
 
     <% if @pagy.last > 1 %>
-      <div class="flex items-center justify-between px-4 py-3 sm:px-6">
+      <div class="flex align-center justify-space-between pad-inline" style="padding-block: var(--space-3);">
         <%== pagy.info_tag %>
         <%== pagy.series_nav %>
       </div>

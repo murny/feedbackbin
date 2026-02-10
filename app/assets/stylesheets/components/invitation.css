@@ -1,0 +1,43 @@
+/* ==========================================================================
+   Invitation Page
+   Styles for the invitation acceptance page.
+   ========================================================================== */
+
+@layer components {
+  .invitation__icon-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: 4rem;
+    block-size: 4rem;
+    margin-inline: auto;
+    border-radius: 9999px;
+    background-color: oklch(0.932 0.032 255.585);
+  }
+
+  html[data-theme="dark"] .invitation__icon-wrapper {
+    background-color: oklch(from oklch(0.379 0.146 265.522) l c h / 30%);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    html:not([data-theme]) .invitation__icon-wrapper {
+      background-color: oklch(from oklch(0.379 0.146 265.522) l c h / 30%);
+    }
+  }
+
+  .invitation__icon {
+    inline-size: 2rem;
+    block-size: 2rem;
+    color: oklch(0.546 0.245 262.881);
+  }
+
+  html[data-theme="dark"] .invitation__icon {
+    color: oklch(0.707 0.165 254.624);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    html:not([data-theme]) .invitation__icon {
+      color: oklch(0.707 0.165 254.624);
+    }
+  }
+}

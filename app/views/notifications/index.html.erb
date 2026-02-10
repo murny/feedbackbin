@@ -1,15 +1,15 @@
-<div class="container center px-4 py-8">
+<div class="center" style="max-inline-size: 56rem; padding-inline: var(--space-4); padding-block: var(--space-8);">
   <div class="flex align-center justify-space-between margin-block-end">
     <h1 class="txt-xx-large font-weight-bold"><%= t(".heading") %></h1>
     <% if @unread.any? %>
-      <%= button_to t(".mark_all_read"), bulk_reading_path, class: "px-4 py-2 txt-small fill-primary txt-reversed border-radius hover:bg-primary/90" %>
+      <%= button_to t(".mark_all_read"), bulk_reading_path, class: "btn btn--primary btn--sm" %>
     <% end %>
   </div>
 
   <% if @unread.any? || @read.any? %>
     <% if @unread.any? %>
       <h2 class="txt-medium font-weight-bold margin-block-end-half"><%= t(".unread") %></h2>
-      <div id="notifications" class="space-y-2 mb-8">
+      <div id="notifications" class="flex flex-column" style="gap: var(--space-2); margin-block-end: var(--space-8);">
         <% @unread.each do |notification| %>
           <%= render "notification", notification: notification %>
         <% end %>
@@ -18,14 +18,14 @@
 
     <% if @read.any? %>
       <h2 class="txt-medium font-weight-bold margin-block-end-half txt-subtle"><%= t(".read") %></h2>
-      <div class="space-y-2">
+      <div class="flex flex-column" style="gap: var(--space-2);">
         <% @read.each do |notification| %>
           <%= render "notification", notification: notification %>
         <% end %>
       </div>
     <% end %>
   <% else %>
-    <div class="txt-align-center py-12">
+    <div class="txt-align-center" style="padding-block: var(--space-12);">
       <p class="txt-subtle txt-medium"><%= t(".all_caught_up") %></p>
       <p class="txt-subtle txt-small margin-block-start-half"><%= t(".no_notifications") %></p>
     </div>

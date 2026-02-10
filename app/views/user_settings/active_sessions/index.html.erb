@@ -1,27 +1,27 @@
 <% content_for(:title) { t("user_settings.page_titles.active_sessions") } %>
 
-<div class="container mx-auto max-w-4xl">
+<div class="center" style="max-inline-size: 56rem;">
   <%= render partial: "user_settings/header" %>
 
-  <div class="mt-8">
-    <div class="card p-6">
-      <div class="space-y-6">
+  <div style="margin-block-start: var(--space-8);">
+    <div class="card" style="padding: var(--space-6);">
+      <div class="flex flex-column" style="gap: var(--space-6);">
         <div>
-          <h2 class="text-lg font-medium"><%= t(".active_devices_sessions") %></h2>
-          <p class="text-sm text-muted-foreground"><%= t(".active_sessions_description") %></p>
+          <h2 class="txt-large font-weight-medium"><%= t(".active_devices_sessions") %></h2>
+          <p class="txt-small txt-subtle"><%= t(".active_sessions_description") %></p>
         </div>
 
-        <div class="space-y-4">
+        <div class="flex flex-column" style="gap: var(--space-4);">
           <% if @sessions.any? %>
             <% @sessions.each do |session| %>
-              <div class="flex items-start justify-between p-4 border rounded-lg">
-                <div class="flex items-start gap-4">
-                  <div class="shrink-0 mt-1">
-                    <%= lucide_icon "code", class: "h-5 w-5 text-muted-foreground" %>
+              <div class="flex align-start justify-space-between pad border border-radius">
+                <div class="flex align-start" style="gap: var(--space-4);">
+                  <div class="flex-item-no-shrink" style="margin-block-start: var(--space-1);">
+                    <%= lucide_icon "code", class: "size-5 txt-subtle" %>
                   </div>
-                  <div class="space-y-1">
-                    <div class="flex items-center gap-2">
-                      <p class="text-sm font-medium">
+                  <div class="flex flex-column" style="gap: var(--space-1);">
+                    <div class="flex align-center" style="gap: var(--space-2);">
+                      <p class="txt-small font-weight-medium">
                         <%= session.ip_address %>
                       </p>
                       <% if session.current? %>
@@ -30,23 +30,23 @@
                         <% end %>
                       <% end %>
                     </div>
-                    <div class="text-sm text-muted-foreground">
-                      <span class="font-medium"><%= UserAgent.parse(session.user_agent).browser %></span> <%= t(".browser_platform_separator") %>
-                      <span class="font-medium"><%= UserAgent.parse(session.user_agent).platform %></span>
+                    <div class="txt-small txt-subtle">
+                      <span class="font-weight-medium"><%= UserAgent.parse(session.user_agent).browser %></span> <%= t(".browser_platform_separator") %>
+                      <span class="font-weight-medium"><%= UserAgent.parse(session.user_agent).platform %></span>
                     </div>
-                    <div class="text-xs text-muted-foreground">
+                    <div class="txt-x-small txt-subtle">
                       <% if session.current? %>
                         <%= t(".this_is_your_current_session") %>
                       <% else %>
                         <%= t(".last_accessed") %> <%= local_datetime_tag session.last_active_at, style: :datetime %>
                       <% end %>
                     </div>
-                    <div class="text-xs text-muted-foreground">
+                    <div class="txt-x-small txt-subtle">
                       <%= t(".signed_in") %> <%= local_datetime_tag session.created_at, style: :datetime %>
                     </div>
                   </div>
                 </div>
-                <div class="shrink-0">
+                <div class="flex-item-no-shrink">
                   <% unless session.current? %>
                     <%= button_to t(".revoke"),
                           user_settings_active_session_path(session),
@@ -58,12 +58,12 @@
               </div>
             <% end %>
           <% else %>
-            <div class="text-center py-8">
-              <div class="flex justify-center mb-4">
-                <%= lucide_icon "code", class: "h-12 w-12 text-muted-foreground" %>
+            <div class="txt-align-center" style="padding-block: var(--space-8);">
+              <div class="flex justify-center" style="margin-block-end: var(--space-4);">
+                <%= lucide_icon "code", class: "h-12 w-12 txt-subtle" %>
               </div>
-              <h3 class="text-sm font-medium text-muted-foreground"><%= t(".no_active_sessions") %></h3>
-              <p class="text-sm text-muted-foreground"><%= t(".no_active_sessions_description") %></p>
+              <h3 class="txt-small font-weight-medium txt-subtle"><%= t(".no_active_sessions") %></h3>
+              <p class="txt-small txt-subtle"><%= t(".no_active_sessions_description") %></p>
             </div>
           <% end %>
         </div>

@@ -1,167 +1,144 @@
-<div class="flex-1 space-y-8 p-8 pt-6">
-  <!-- Header section with title and actions -->
-  <div class="flex items-center justify-between">
-    <div class="space-y-1">
-      <h2 class="text-3xl font-bold tracking-tight text-foreground">Staff Dashboard</h2>
-      <p class="text-muted-foreground">
+<div class="flex-1 flex flex-column" style="gap: var(--space-8); padding: var(--space-8); padding-block-start: var(--space-6);">
+  <div class="flex align-center justify-space-between">
+    <div class="flex flex-column" style="gap: var(--space-1);">
+      <h2 class="txt-xx-large font-weight-bold">Staff Dashboard</h2>
+      <p class="txt-subtle">
         System overview and analytics
       </p>
     </div>
-    <div class="flex items-center gap-2">
+    <div class="flex align-center" style="gap: var(--space-2);">
       <%= render Elements::ButtonComponent.new(
         variant: :outline,
         size: :default
       ) do %>
-        <%= lucide_icon "calendar", class: "h-4 w-4" %>
+        <%= lucide_icon "calendar", class: "size-4" %>
         <span>Last 30 days</span>
       <% end %>
       <%= render Elements::ButtonComponent.new(
         variant: :default,
         size: :default
       ) do %>
-        <%= lucide_icon "download", class: "h-4 w-4" %>
+        <%= lucide_icon "download", class: "size-4" %>
         <span>Download Report</span>
       <% end %>
     </div>
   </div>
 
-  <!-- Navigation tabs -->
-  <div class="border-b border-border">
-    <nav class="-mb-px flex gap-4">
-      <a href="#" class="border-primary text-primary border-b-2 py-2 px-3 text-sm font-medium">Overview</a>
-      <a href="#" class="border-transparent text-muted-foreground hover:text-foreground hover:border-border border-b-2 py-2 px-3 text-sm font-medium">Analytics</a>
-      <a href="#" class="border-transparent text-muted-foreground hover:text-foreground hover:border-border border-b-2 py-2 px-3 text-sm font-medium">Reports</a>
-      <a href="#" class="border-transparent text-muted-foreground hover:text-foreground hover:border-border border-b-2 py-2 px-3 text-sm font-medium">Notifications</a>
+  <div class="border-bottom">
+    <nav class="flex" style="margin-block-end: -1px; gap: var(--space-4);">
+      <a href="#" class="txt-small font-weight-medium txt-primary" style="border-block-end: 2px solid var(--color-primary); padding-block: var(--space-2); padding-inline: var(--space-3);">Overview</a>
+      <a href="#" class="txt-small font-weight-medium txt-subtle" style="border-block-end: 2px solid transparent; padding-block: var(--space-2); padding-inline: var(--space-3);">Analytics</a>
+      <a href="#" class="txt-small font-weight-medium txt-subtle" style="border-block-end: 2px solid transparent; padding-block: var(--space-2); padding-inline: var(--space-3);">Reports</a>
+      <a href="#" class="txt-small font-weight-medium txt-subtle" style="border-block-end: 2px solid transparent; padding-block: var(--space-2); padding-inline: var(--space-3);">Notifications</a>
     </nav>
   </div>
 
-  <!-- Stats cards -->
-  <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-    <!-- Total Revenue -->
-    <%= render Elements::CardComponent.new do |c| %>
-      <% c.with_body(class: "p-0") do %>
-        <div class="p-6 flex flex-row items-center justify-between pb-2">
-        <div class="text-sm font-medium text-foreground">Total Revenue</div>
-        <%= lucide_icon "dollar-sign", class: "h-4 w-4 text-muted-foreground" %>
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4" style="gap: var(--space-4);">
+    <div class="card card--stat">
+      <div class="flex align-center justify-space-between" style="padding: var(--space-6); padding-block-end: var(--space-2);">
+        <div class="card__stat-label">Total Revenue</div>
+        <%= lucide_icon "dollar-sign", class: "size-4 txt-subtle" %>
       </div>
-      <div class="p-6 pt-0">
-        <div class="text-2xl font-bold text-foreground">$45,231.89</div>
-        <p class="text-xs text-muted-foreground">+20.1% from last month</p>
-        </div>
-      <% end %>
-    <% end %>
+      <div style="padding: var(--space-6); padding-block-start: 0;">
+        <div class="card__stat-value" style="font-size: var(--text-x-large);">$45,231.89</div>
+        <p class="txt-xx-small txt-subtle">+20.1% from last month</p>
+      </div>
+    </div>
 
-    <!-- Active Users -->
-    <%= render Elements::CardComponent.new do |c| %>
-      <% c.with_body(class: "p-0") do %>
-      <div class="p-6 flex flex-row items-center justify-between pb-2">
-        <div class="text-sm font-medium text-foreground">Active Users</div>
-        <%= lucide_icon "users", class: "h-4 w-4 text-muted-foreground" %>
+    <div class="card card--stat">
+      <div class="flex align-center justify-space-between" style="padding: var(--space-6); padding-block-end: var(--space-2);">
+        <div class="card__stat-label">Active Users</div>
+        <%= lucide_icon "users", class: "size-4 txt-subtle" %>
       </div>
-      <div class="p-6 pt-0">
-        <div class="text-2xl font-bold text-foreground">2,350</div>
-        <p class="text-xs text-muted-foreground">+18.1% from last month</p>
-        </div>
-      <% end %>
-    <% end %>
+      <div style="padding: var(--space-6); padding-block-start: 0;">
+        <div class="card__stat-value" style="font-size: var(--text-x-large);">2,350</div>
+        <p class="txt-xx-small txt-subtle">+18.1% from last month</p>
+      </div>
+    </div>
 
-    <!-- New Signups -->
-    <%= render Elements::CardComponent.new do |c| %>
-      <% c.with_body(class: "p-0") do %>
-      <div class="p-6 flex flex-row items-center justify-between pb-2">
-        <div class="text-sm font-medium text-foreground">New Signups</div>
-        <%= lucide_icon "credit-card", class: "h-4 w-4 text-muted-foreground" %>
+    <div class="card card--stat">
+      <div class="flex align-center justify-space-between" style="padding: var(--space-6); padding-block-end: var(--space-2);">
+        <div class="card__stat-label">New Signups</div>
+        <%= lucide_icon "credit-card", class: "size-4 txt-subtle" %>
       </div>
-      <div class="p-6 pt-0">
-        <div class="text-2xl font-bold text-foreground">+1,234</div>
-        <p class="text-xs text-muted-foreground">+19% from last month</p>
-        </div>
-      <% end %>
-    <% end %>
+      <div style="padding: var(--space-6); padding-block-start: 0;">
+        <div class="card__stat-value" style="font-size: var(--text-x-large);">+1,234</div>
+        <p class="txt-xx-small txt-subtle">+19% from last month</p>
+      </div>
+    </div>
 
-    <!-- Active Now -->
-    <%= render Elements::CardComponent.new do |c| %>
-      <% c.with_body(class: "p-0") do %>
-      <div class="p-6 flex flex-row items-center justify-between pb-2">
-        <div class="text-sm font-medium text-foreground">Active Now</div>
-        <%= lucide_icon "activity", class: "h-4 w-4 text-muted-foreground" %>
+    <div class="card card--stat">
+      <div class="flex align-center justify-space-between" style="padding: var(--space-6); padding-block-end: var(--space-2);">
+        <div class="card__stat-label">Active Now</div>
+        <%= lucide_icon "activity", class: "size-4 txt-subtle" %>
       </div>
-      <div class="p-6 pt-0">
-        <div class="text-2xl font-bold text-foreground">573</div>
-        <p class="text-xs text-muted-foreground">+201 since last hour</p>
-        </div>
-      <% end %>
-    <% end %>
+      <div style="padding: var(--space-6); padding-block-start: 0;">
+        <div class="card__stat-value" style="font-size: var(--text-x-large);">573</div>
+        <p class="txt-xx-small txt-subtle">+201 since last hour</p>
+      </div>
+    </div>
   </div>
 
-  <!-- Main content area -->
-  <div class="grid gap-4 md:grid-cols-2 lg:grid-cols-7">
-    <!-- Chart overview -->
+  <div class="grid" style="gap: var(--space-4); grid-template-columns: repeat(7, minmax(0, 1fr));">
     <%= render Elements::CardComponent.new(class: "col-span-4") do |c| %>
       <% c.with_header(title: "Overview") %>
       <% c.with_body do %>
-      <!-- Placeholder for chart/graph -->
-      <div class="w-full h-[350px] bg-muted rounded flex items-center justify-center">
-        <span class="text-muted-foreground">Monthly revenue chart (placeholder)</span>
+      <div class="full-width fill-shade border-radius flex align-center justify-center" style="block-size: 350px;">
+        <span class="txt-subtle">Monthly revenue chart (placeholder)</span>
       </div>
       <% end %>
     <% end %>
 
-    <!-- Recent activity -->
     <%= render Elements::CardComponent.new(class: "col-span-3") do |c| %>
       <% c.with_header(title: "Recent Activity", description: "You had 265 actions this month.") %>
       <% c.with_body do %>
-      <div class="space-y-6">
-        <!-- Activity item 1 -->
-        <div class="flex items-center">
+      <div class="flex flex-column" style="gap: var(--space-6);">
+        <div class="flex align-center">
           <%= render Elements::AvatarComponent.new(
             fallback: "OM",
             size: :default
           ) %>
-          <div class="ml-4 space-y-1">
-            <p class="text-sm font-medium text-foreground">Olivia Martin</p>
-            <p class="text-sm text-muted-foreground">olivia.martin@example.com</p>
+          <div style="margin-inline-start: var(--space-4);">
+            <p class="txt-small font-weight-medium">Olivia Martin</p>
+            <p class="txt-small txt-subtle">olivia.martin@example.com</p>
           </div>
-          <div class="ml-auto font-medium text-foreground">+$1,999.00</div>
+          <div class="font-weight-medium flex-item-justify-end">+$1,999.00</div>
         </div>
 
-        <!-- Activity item 2 -->
-        <div class="flex items-center">
+        <div class="flex align-center">
           <%= render Elements::AvatarComponent.new(
             fallback: "JL",
             size: :default
           ) %>
-          <div class="ml-4 space-y-1">
-            <p class="text-sm font-medium text-foreground">Jackson Lee</p>
-            <p class="text-sm text-muted-foreground">jackson.lee@example.com</p>
+          <div style="margin-inline-start: var(--space-4);">
+            <p class="txt-small font-weight-medium">Jackson Lee</p>
+            <p class="txt-small txt-subtle">jackson.lee@example.com</p>
           </div>
-          <div class="ml-auto font-medium text-foreground">+$39.00</div>
+          <div class="font-weight-medium flex-item-justify-end">+$39.00</div>
         </div>
 
-        <!-- Activity item 3 -->
-        <div class="flex items-center">
+        <div class="flex align-center">
           <%= render Elements::AvatarComponent.new(
             fallback: "IN",
             size: :default
           ) %>
-          <div class="ml-4 space-y-1">
-            <p class="text-sm font-medium text-foreground">Isabella Nguyen</p>
-            <p class="text-sm text-muted-foreground">isabella.nguyen@example.com</p>
+          <div style="margin-inline-start: var(--space-4);">
+            <p class="txt-small font-weight-medium">Isabella Nguyen</p>
+            <p class="txt-small txt-subtle">isabella.nguyen@example.com</p>
           </div>
-          <div class="ml-auto font-medium text-foreground">+$299.00</div>
+          <div class="font-weight-medium flex-item-justify-end">+$299.00</div>
         </div>
 
-        <!-- Activity item 4 -->
-        <div class="flex items-center">
+        <div class="flex align-center">
           <%= render Elements::AvatarComponent.new(
             fallback: "WK",
             size: :default
           ) %>
-          <div class="ml-4 space-y-1">
-            <p class="text-sm font-medium text-foreground">William Kim</p>
-            <p class="text-sm text-muted-foreground">william.kim@example.com</p>
+          <div style="margin-inline-start: var(--space-4);">
+            <p class="txt-small font-weight-medium">William Kim</p>
+            <p class="txt-small txt-subtle">william.kim@example.com</p>
           </div>
-          <div class="ml-auto font-medium text-foreground">+$99.00</div>
+          <div class="font-weight-medium flex-item-justify-end">+$99.00</div>
         </div>
       </div>
       <% end %>

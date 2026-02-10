@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html class="h-full bg-background overscroll-none font-sans antialiased">
+<html class="antialiased overscroll-none" style="font-family: var(--font-sans);">
   <%= render "shared/head" %>
 
-  <%= tag.body class: "h-full flex flex-col",
+  <%= tag.body class: "flex flex-column",
+        style: "min-block-size: 100%;",
         data: {
           controller: "local-time lightbox theme-application",
           theme_application_preference_value: Current.user&.theme || "system"
@@ -10,11 +11,11 @@
     <% if content_for?(:sidebar) %>
       <!-- Admin layout with sidebar -->
       <%= yield(:sidebar) %>
-      <div class="flex flex-col flex-1 lg:pl-72">
+      <div class="flex flex-column flex-1 admin-main-offset">
         <%= render "navbar" %>
         <%= render "flash" %>
-        <div class="bg-muted flex-1">
-          <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="fill-shade flex-item-grow">
+          <main class="center pad-inline">
             <%= yield %>
           </main>
         </div>
@@ -22,11 +23,11 @@
       </div>
     <% else %>
       <!-- Normal layout without sidebar -->
-      <div class="flex flex-col flex-1">
+      <div class="flex flex-column flex-1">
         <%= render "navbar" %>
         <%= render "flash" %>
-        <div class="bg-muted flex-1">
-          <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div class="fill-shade flex-item-grow">
+          <main class="center pad-inline">
             <%= yield %>
           </main>
         </div>

@@ -104,7 +104,7 @@ module Elements
       def content_classes
         [
           "popover__content",
-          "hidden",
+          "display-none",
           position_class,
           alignment_class
         ].compact.join(" ")

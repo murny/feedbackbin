@@ -1,82 +1,87 @@
 <%# Shared sidebar navigation for admin layout %>
-<div class="flex h-16 shrink-0 items-center">
-  <%= link_to root_path, class: "flex items-center" do %>
+<div class="flex flex-item-no-shrink align-center" style="block-size: 4rem;">
+  <%= link_to root_path, class: "flex align-center" do %>
     <% if local_assigns[:show_icon] %>
-      <%= inline_svg_tag "mark.svg", class: "h-8 w-8 text-primary" %>
+      <%= inline_svg_tag "mark.svg", class: "size-8 txt-primary" %>
     <% end %>
-    <span class="ml-2 text-lg font-bold text-primary"><%= t("layouts.admin.title") %></span>
+    <span class="txt-medium font-weight-bold txt-primary" style="margin-inline-start: var(--space-2);"><%= t("layouts.admin.title") %></span>
   <% end %>
 </div>
-<nav class="flex flex-1 flex-col">
-  <ul role="list" class="flex flex-1 flex-col gap-y-7">
+<nav class="flex flex-1 flex-column">
+  <ul role="list" class="flex flex-1 flex-column list-style-none" style="row-gap: 1.75rem;">
     <li>
-      <ul role="list" class="-mx-2 space-y-1">
+      <ul role="list" class="list-style-none flex flex-column" style="margin-inline: calc(-1 * var(--space-2)); gap: var(--space-1);">
         <li>
           <%= active_link_to admin_root_path,
-                class: "group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold transition-colors",
-                active_class: "bg-accent text-accent-foreground",
-                inactive_class: "text-muted-foreground hover:text-foreground hover:bg-accent" do %>
-            <%= lucide_icon "layout-dashboard", class: "h-6 w-6 shrink-0" %>
+                class: "flex align-center border-radius txt-small font-weight-bold",
+                style: "gap: var(--space-3); padding: var(--space-2);",
+                active_class: "fill-selected",
+                inactive_class: "txt-subtle" do %>
+            <%= lucide_icon "layout-dashboard", class: "size-6 flex-item-no-shrink" %>
             <%= t("layouts.admin.navigation.dashboard") %>
           <% end %>
         </li>
         <li>
-          <div class="text-xs font-semibold leading-6 text-muted-foreground">
+          <div class="txt-xx-small font-weight-bold txt-subtle" style="line-height: 1.5rem;">
             <%= t("layouts.admin.navigation.ideas_section") %>
           </div>
         </li>
         <li>
           <%= active_link_to admin_ideas_path,
-                class: "group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold transition-colors",
-                active_class: "bg-accent text-accent-foreground",
-                inactive_class: "text-muted-foreground hover:text-foreground hover:bg-accent" do %>
-            <%= lucide_icon "lightbulb", class: "h-6 w-6 shrink-0" %>
+                class: "flex align-center border-radius txt-small font-weight-bold",
+                style: "gap: var(--space-3); padding: var(--space-2);",
+                active_class: "fill-selected",
+                inactive_class: "txt-subtle" do %>
+            <%= lucide_icon "lightbulb", class: "size-6 flex-item-no-shrink" %>
             <%= t("layouts.admin.navigation.ideas") %>
           <% end %>
         </li>
         <li>
-          <div class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-muted-foreground cursor-not-allowed">
-            <%= lucide_icon "map", class: "h-6 w-6 shrink-0" %>
+          <div class="flex align-center border-radius txt-small font-weight-bold txt-subtle" style="gap: var(--space-3); padding: var(--space-2); cursor: not-allowed;">
+            <%= lucide_icon "map", class: "size-6 flex-item-no-shrink" %>
             <%= t("layouts.admin.navigation.roadmap") %>
-            <span class="ml-auto text-xs bg-muted text-muted-foreground px-2 py-1 rounded-full"><%= t("layouts.admin.badges.soon") %></span>
+            <span class="txt-xx-small fill-shade txt-subtle flex-item-justify-end" style="padding-inline: var(--space-2); padding-block: var(--space-1); border-radius: 9999px;"><%= t("layouts.admin.badges.soon") %></span>
           </div>
         </li>
         <li>
           <%= active_link_to admin_users_path,
-                class: "group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold transition-colors",
-                active_class: "bg-accent text-accent-foreground",
-                inactive_class: "text-muted-foreground hover:text-foreground hover:bg-accent" do %>
-            <%= lucide_icon "users", class: "h-6 w-6 shrink-0" %>
+                class: "flex align-center border-radius txt-small font-weight-bold",
+                style: "gap: var(--space-3); padding: var(--space-2);",
+                active_class: "fill-selected",
+                inactive_class: "txt-subtle" do %>
+            <%= lucide_icon "users", class: "size-6 flex-item-no-shrink" %>
             <%= t("layouts.admin.navigation.users") %>
           <% end %>
         </li>
         <li>
           <%= active_link_to admin_invitations_path,
-                class: "group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold transition-colors",
-                active_class: "bg-accent text-accent-foreground",
-                inactive_class: "text-muted-foreground hover:text-foreground hover:bg-accent" do %>
-            <%= lucide_icon "mail", class: "h-6 w-6 shrink-0" %>
+                class: "flex align-center border-radius txt-small font-weight-bold",
+                style: "gap: var(--space-3); padding: var(--space-2);",
+                active_class: "fill-selected",
+                inactive_class: "txt-subtle" do %>
+            <%= lucide_icon "mail", class: "size-6 flex-item-no-shrink" %>
             <%= t("layouts.admin.navigation.invitations") %>
           <% end %>
         </li>
         <li>
-          <div class="group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-muted-foreground cursor-not-allowed">
-            <%= lucide_icon "megaphone", class: "h-6 w-6 shrink-0" %>
+          <div class="flex align-center border-radius txt-small font-weight-bold txt-subtle" style="gap: var(--space-3); padding: var(--space-2); cursor: not-allowed;">
+            <%= lucide_icon "megaphone", class: "size-6 flex-item-no-shrink" %>
             <%= t("layouts.admin.navigation.changelog") %>
-            <span class="ml-auto text-xs bg-muted text-muted-foreground px-2 py-1 rounded-full"><%= t("layouts.admin.badges.soon") %></span>
+            <span class="txt-xx-small fill-shade txt-subtle flex-item-justify-end" style="padding-inline: var(--space-2); padding-block: var(--space-1); border-radius: 9999px;"><%= t("layouts.admin.badges.soon") %></span>
           </div>
         </li>
         <li>
-          <div class="text-xs font-semibold leading-6 text-muted-foreground mt-8">
+          <div class="txt-xx-small font-weight-bold txt-subtle" style="line-height: 1.5rem; margin-block-start: var(--space-8);">
             <%= t("layouts.admin.navigation.management_section") %>
           </div>
         </li>
         <li>
           <%= active_link_to admin_settings_branding_path,
-                class: "group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold transition-colors",
-                active_class: "bg-accent text-accent-foreground",
-                inactive_class: "text-muted-foreground hover:text-foreground hover:bg-accent" do %>
-            <%= lucide_icon "settings", class: "h-6 w-6 shrink-0" %>
+                class: "flex align-center border-radius txt-small font-weight-bold",
+                style: "gap: var(--space-3); padding: var(--space-2);",
+                active_class: "fill-selected",
+                inactive_class: "txt-subtle" do %>
+            <%= lucide_icon "settings", class: "size-6 flex-item-no-shrink" %>
             <%= t("layouts.admin.navigation.settings") %>
           <% end %>
         </li>
@@ -84,10 +89,11 @@
     </li>
   </ul>
 </nav>
-<div class="border-t border-border pt-4">
+<div class="border-top" style="padding-block-start: var(--space-4);">
   <%= link_to root_path,
-        class: "group flex gap-x-3 rounded-md p-2 text-sm/6 font-semibold text-muted-foreground hover:text-foreground hover:bg-accent transition-colors" do %>
-    <%= lucide_icon "arrow-left", class: "h-6 w-6 shrink-0" %>
+        class: "flex align-center border-radius txt-small font-weight-bold txt-subtle",
+        style: "gap: var(--space-3); padding: var(--space-2);" do %>
+    <%= lucide_icon "arrow-left", class: "size-6 flex-item-no-shrink" %>
     <%= t("layouts.admin.navigation.back_to_app") %>
   <% end %>
 </div>

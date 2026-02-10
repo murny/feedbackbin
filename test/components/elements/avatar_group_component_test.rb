@@ -37,7 +37,6 @@ module Elements
 
       render_inline(AvatarGroupComponent.new(avatars, limit: 3))
 
-      # Should show +2 for remaining avatars
       assert_selector "div[data-slot='avatar-fallback']", text: "+2"
     end
 
@@ -57,10 +56,7 @@ module Elements
 
       render_inline(AvatarGroupComponent.new(avatars, hover_effect: true))
 
-      page_html = page.native.to_html
-
-      assert_includes page_html, "hover:space-x-1"
-      assert_includes page_html, "transition-all"
+      assert_selector ".avatar-group--hover"
     end
 
     test "applies ring classes when enabled" do
@@ -68,10 +64,7 @@ module Elements
 
       render_inline(AvatarGroupComponent.new(avatars, ring: true))
 
-      page_html = page.native.to_html
-
-      assert_includes page_html, "ring-2"
-      assert_includes page_html, "ring-background"
+      assert_selector ".avatar--ring"
     end
 
     test "passes size to child avatars" do
@@ -79,9 +72,7 @@ module Elements
 
       render_inline(AvatarGroupComponent.new(avatars, size: :lg))
 
-      page_html = page.native.to_html
-
-      assert_includes page_html, "size-12"
+      assert_selector ".avatar--lg"
     end
 
     test "renders group with initials fallbacks" do
@@ -101,10 +92,7 @@ module Elements
 
       render_inline(AvatarGroupComponent.new(avatars, class: "custom-container"))
 
-      page_html = page.native.to_html
-
-      assert_includes page_html, "custom-container"
-      assert_includes page_html, "flex"
+      assert_selector ".avatar-group.custom-container"
     end
   end
 end

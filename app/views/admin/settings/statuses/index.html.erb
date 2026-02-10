@@ -1,50 +1,50 @@
 <% content_for :title, t(".title") %>
 
-<div class="container mx-auto max-w-4xl">
+<div class="center" style="max-inline-size: 56rem;">
   <%= render partial: "admin/settings/header" %>
 
-  <div class="mt-8">
-    <div class="flex items-center justify-between mb-6">
+  <div style="margin-block-start: var(--space-8);">
+    <div class="flex align-center justify-space-between" style="margin-block-end: var(--space-6);">
       <div>
-        <h2 class="text-lg font-medium"><%= t(".title") %></h2>
-        <p class="text-sm text-muted-foreground"><%= t(".description") %></p>
+        <h2 class="txt-medium font-weight-medium"><%= t(".title") %></h2>
+        <p class="txt-small txt-subtle"><%= t(".description") %></p>
       </div>
-      <div class="whitespace-nowrap">
+      <div class="txt-nowrap">
         <%= link_to t(".new_status"), new_admin_settings_status_path, class: "btn btn--primary" %>
       </div>
     </div>
 
     <% if @statuses.any? %>
       <%= render Elements::CardComponent.new do |c| %>
-        <% c.with_body(class: "p-0") do %>
-          <ul role="list" class="divide-y divide-border">
+        <% c.with_body(class: "unpad") do %>
+          <ul role="list" class="divide-y">
           <% @statuses.each do |status| %>
-            <li class="flex items-center justify-between gap-x-6 py-5 px-6">
-              <div class="flex items-center gap-x-4 min-w-0">
-                <span class="w-6 h-6 rounded-full shrink-0 ring-2 ring-background shadow-sm" style="background-color: <%= status.color %>;"></span>
-                <div class="min-w-0 flex-auto">
-                  <div class="flex items-center gap-2">
-                    <p class="text-sm font-semibold leading-6 text-foreground">
+            <li class="flex align-center justify-space-between" style="gap: var(--space-6); padding-block: var(--space-5); padding-inline: var(--space-6);">
+              <div class="flex align-center min-width" style="gap: var(--space-4);">
+                <span class="size-6 flex-item-no-shrink" style="border-radius: 9999px; box-shadow: 0 0 0 2px var(--color-background), var(--shadow-sm); background-color: <%= status.color %>;"></span>
+                <div class="min-width" style="flex: 1 1 auto;">
+                  <div class="flex align-center" style="gap: var(--space-2);">
+                    <p class="txt-small font-weight-bold">
                       <%= status.name %>
                     </p>
-                    <div class="flex items-center gap-1">
+                    <div class="flex align-center" style="gap: var(--space-1);">
                       <% if status.show_on_idea %>
-                        <span class="inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-medium bg-blue-50 text-blue-700 ring-1 ring-inset ring-blue-700/10 dark:bg-blue-400/10 dark:text-blue-400 dark:ring-blue-400/20" title="<%= t(".visible_on_idea") %>">
-                          <%= lucide_icon "list", class: "h-3 w-3" %>
-                          <span class="hidden sm:inline"><%= t(".idea_badge") %></span>
+                        <span class="flex-inline align-center border-radius" style="gap: var(--space-1); padding-inline: var(--space-2); padding-block: 0.125rem; font-size: var(--text-xx-small); font-weight: 500; background-color: oklch(0.97 0.014 254.604); color: oklch(0.488 0.243 264.376); box-shadow: inset 0 0 0 1px oklch(from oklch(0.488 0.243 264.376) l c h / 10%);" title="<%= t(".visible_on_idea") %>">
+                          <%= lucide_icon "list", class: "size-3" %>
+                          <span class="kbd-shortcut-hint"><%= t(".idea_badge") %></span>
                         </span>
                       <% end %>
                       <% if status.show_on_roadmap %>
-                        <span class="inline-flex items-center gap-1 rounded-md px-2 py-0.5 text-xs font-medium bg-purple-50 text-purple-700 ring-1 ring-inset ring-purple-700/10 dark:bg-purple-400/10 dark:text-purple-400 dark:ring-purple-400/20" title="<%= t(".visible_on_roadmap") %>">
-                          <%= lucide_icon "map", class: "h-3 w-3" %>
-                          <span class="hidden sm:inline"><%= t(".roadmap_badge") %></span>
+                        <span class="flex-inline align-center border-radius" style="gap: var(--space-1); padding-inline: var(--space-2); padding-block: 0.125rem; font-size: var(--text-xx-small); font-weight: 500; background-color: oklch(0.977 0.014 308.299); color: oklch(0.496 0.265 301.924); box-shadow: inset 0 0 0 1px oklch(from oklch(0.496 0.265 301.924) l c h / 10%);" title="<%= t(".visible_on_roadmap") %>">
+                          <%= lucide_icon "map", class: "size-3" %>
+                          <span class="kbd-shortcut-hint"><%= t(".roadmap_badge") %></span>
                         </span>
                       <% end %>
                     </div>
                   </div>
-                  <div class="mt-1 flex items-center gap-x-2 text-xs/5 text-muted-foreground">
+                  <div class="flex align-center txt-subtle" style="margin-block-start: var(--space-1); gap: var(--space-2); font-size: var(--text-xx-small); line-height: 1.25rem;">
                     <p><%= t(".position_label") %> <%= status.position %></p>
-                    <svg viewBox="0 0 2 2" class="h-0.5 w-0.5 fill-current">
+                    <svg viewBox="0 0 2 2" style="inline-size: 0.125rem; block-size: 0.125rem; fill: currentColor;">
                       <circle cx="1" cy="1" r="1" />
                     </svg>
                     <p>
@@ -53,17 +53,18 @@
                   </div>
                 </div>
               </div>
-              <div class="flex items-center gap-x-4">
-                <div class="flex gap-2">
-                  <%= link_to edit_admin_settings_status_path(status), class: "text-sm text-muted-foreground hover:text-foreground" do %>
-                    <%= lucide_icon "pencil", class: "h-5 w-5" %>
-                    <span class="sr-only"><%= t("edit") %></span>
+              <div class="flex align-center" style="gap: var(--space-4);">
+                <div class="flex" style="gap: var(--space-2);">
+                  <%= link_to edit_admin_settings_status_path(status), class: "txt-small txt-subtle" do %>
+                    <%= lucide_icon "pencil", class: "size-5" %>
+                    <span class="visually-hidden"><%= t("edit") %></span>
                   <% end %>
                   <%= link_to admin_settings_status_path(status),
-                        class: "text-sm text-destructive hover:text-destructive/80",
+                        class: "txt-small",
+                        style: "color: var(--color-destructive);",
                         data: { "turbo-method": :delete, turbo_confirm: t("are_you_sure") } do %>
-                    <%= lucide_icon "trash-2", class: "h-5 w-5" %>
-                    <span class="sr-only"><%= t("delete") %></span>
+                    <%= lucide_icon "trash-2", class: "size-5" %>
+                    <span class="visually-hidden"><%= t("delete") %></span>
                   <% end %>
                 </div>
               </div>
@@ -74,11 +75,11 @@
       <% end %>
     <% else %>
       <%= render Elements::CardComponent.new do |c| %>
-        <% c.with_body(class: "p-8 text-center") do %>
-          <%= lucide_icon "tag", class: "mx-auto h-12 w-12 text-muted-foreground" %>
-        <h3 class="mt-4 text-lg font-semibold text-foreground"><%= t(".no_statuses_title") %></h3>
-        <p class="mt-2 text-sm text-muted-foreground"><%= t(".no_statuses_description") %></p>
-        <div class="mt-6">
+        <% c.with_body(class: "txt-align-center", style: "padding: var(--space-8);") do %>
+          <%= lucide_icon "tag", class: "size-12 txt-subtle center" %>
+        <h3 class="txt-medium font-weight-bold" style="margin-block-start: var(--space-4);"><%= t(".no_statuses_title") %></h3>
+        <p class="txt-small txt-subtle" style="margin-block-start: var(--space-2);"><%= t(".no_statuses_description") %></p>
+        <div style="margin-block-start: var(--space-6);">
           <%= link_to t(".create_first_status"), new_admin_settings_status_path, class: "btn btn--primary" %>
         </div>
         <% end %>

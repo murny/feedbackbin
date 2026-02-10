@@ -1,29 +1,24 @@
 <%# locals: (idea:) %>
 
-<%= link_to idea, class: "block group" do %>
-  <div class="border border-border rounded-lg p-4 bg-card hover:border-primary hover:shadow-md transition-all duration-200">
-    <!-- Idea Title -->
-    <h3 class="font-medium text-sm mb-3 line-clamp-2 group-hover:text-primary transition-colors">
+<%= link_to idea, class: "display-block roadmap-idea-card" do %>
+  <div class="border border-radius fill-card" style="padding: var(--space-4);">
+    <h3 class="font-weight-medium txt-small overflow-line-clamp" style="--lines: 2; margin-block-end: var(--space-3);">
       <%= idea.title %>
     </h3>
 
-    <!-- Idea Meta -->
-    <div class="flex items-center flex-wrap gap-2 text-xs text-muted-foreground">
-      <!-- Board Badge -->
+    <div class="flex align-center flex-wrap txt-x-small txt-subtle" style="gap: var(--space-2);">
       <%= render Elements::BadgeComponent.new(
         variant: :outline,
-        class: "text-muted-foreground bg-muted/30"
+        class: "txt-subtle"
       ) do %>
         <%= idea.board.name %>
       <% end %>
 
-      <!-- Vote Count -->
-      <span class="inline-flex items-center gap-1">
-        <%= lucide_icon "arrow-up", class: "h-3 w-3" %>
+      <span class="flex-inline align-center" style="gap: var(--space-1);">
+        <%= lucide_icon "arrow-up", style: "inline-size: 0.75rem; block-size: 0.75rem;" %>
         <%= idea.votes_count %>
       </span>
 
-      <!-- Created Date (relative) -->
       <span title="<%= l(idea.created_at, format: :long) %>">
         <%= time_ago_in_words(idea.created_at) %> <%= t(".ago") %>
       </span>

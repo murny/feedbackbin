@@ -55,6 +55,8 @@
   /* ------------------------------------------------------------------------ */
 
   .avatar__image {
+    position: absolute;
+    inset: 0;
     inline-size: 100%;
     block-size: 100%;
     object-fit: cover;
@@ -64,6 +66,8 @@
   /* ------------------------------------------------------------------------ */
 
   .avatar__fallback {
+    position: absolute;
+    inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -94,6 +98,14 @@
   .avatar--xl {
     --avatar-size: 4rem;
     --avatar-font-size: var(--text-lg);
+  }
+
+  /* Size: 2x Extra Large (profile pages)
+  /* ------------------------------------------------------------------------ */
+
+  .avatar--2xl {
+    --avatar-size: 6rem;
+    --avatar-font-size: var(--text-2xl);
   }
 
   /* Shape: Square

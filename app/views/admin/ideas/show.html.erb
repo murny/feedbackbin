@@ -1,13 +1,12 @@
 <% content_for :title, @idea.title %>
 
-<div class="space-y-8">
-  <!-- Header Section -->
-  <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-    <div class="space-y-1">
-      <h1 class="text-3xl font-bold tracking-tight text-foreground">
+<div class="flex flex-column" style="gap: var(--space-8);">
+  <div class="flex flex-column sm:flex-row sm:align-center sm:justify-space-between" style="gap: var(--space-4);">
+    <div class="flex flex-column" style="gap: var(--space-1);">
+      <h1 class="txt-xx-large font-weight-bold">
         <%= truncate(@idea.title, length: 60) %>
       </h1>
-      <p class="text-muted-foreground">
+      <p class="txt-subtle">
         <%= t(".description") %>
       </p>
     </div>
@@ -19,16 +18,15 @@
     <% end %>
   </div>
 
-  <!-- Idea Info -->
   <%= render Elements::CardComponent.new do |c| %>
     <% c.with_header(title: t(".idea_info_title")) %>
     <% c.with_body do %>
-      <div class="space-y-6">
-      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        <div class="lg:col-span-2">
-          <h3 class="text-xl font-semibold text-foreground mb-4"><%= @idea.title %></h3>
+      <div class="flex flex-column" style="gap: var(--space-6);">
+      <div class="grid grid-cols-1 lg:grid-cols-3" style="gap: var(--space-6);">
+        <div style="grid-column: span 2;">
+          <h3 class="txt-large font-weight-bold" style="margin-block-end: var(--space-4);"><%= @idea.title %></h3>
 
-          <div class="flex items-center gap-4 mb-4">
+          <div class="flex align-center" style="gap: var(--space-4); margin-block-end: var(--space-4);">
             <%= render Elements::AvatarComponent.new(
               src: @idea.creator.avatar.attached? ? url_for(@idea.creator.avatar) : nil,
               alt: @idea.creator.name,
@@ -36,12 +34,12 @@
               fallback: @idea.creator.name[0, 2].upcase
             ) %>
             <div>
-              <div class="font-medium text-foreground"><%= @idea.creator.name %></div>
-              <div class="text-sm text-muted-foreground"><%= @idea.creator.identity.email_address %></div>
+              <div class="font-weight-medium"><%= @idea.creator.name %></div>
+              <div class="txt-small txt-subtle"><%= @idea.creator.identity.email_address %></div>
             </div>
           </div>
 
-          <div class="flex flex-wrap gap-2 mb-4">
+          <div class="flex flex-wrap" style="gap: var(--space-2); margin-block-end: var(--space-4);">
             <% if @idea.board %>
               <%= render Elements::BadgeComponent.new(variant: :secondary) do %>
                 <%= @idea.board.name %>
@@ -52,27 +50,26 @@
             <% end %>
           </div>
 
-          <div class="prose max-w-none text-foreground" data-controller="syntax-highlight">
+          <div class="prose" style="max-inline-size: none;" data-controller="syntax-highlight">
             <%= @idea.description %>
           </div>
         </div>
 
-        <div class="space-y-6">
-          <!-- Stats -->
+        <div class="flex flex-column" style="gap: var(--space-6);">
           <div>
-            <h4 class="text-sm font-medium text-foreground mb-3"><%= t(".engagement_title") %></h4>
-            <div class="space-y-3">
-              <div class="flex items-center justify-between text-sm">
-                <span class="text-muted-foreground"><%= t(".votes_label") %></span>
-                <span class="font-medium text-foreground"><%= @idea.votes_count %></span>
+            <h4 class="txt-small font-weight-medium" style="margin-block-end: var(--space-3);"><%= t(".engagement_title") %></h4>
+            <div class="flex flex-column" style="gap: var(--space-3);">
+              <div class="flex align-center justify-space-between txt-small">
+                <span class="txt-subtle"><%= t(".votes_label") %></span>
+                <span class="font-weight-medium"><%= @idea.votes_count %></span>
               </div>
-              <div class="flex items-center justify-between text-sm">
-                <span class="text-muted-foreground"><%= t(".comments_label") %></span>
-                <span class="font-medium text-foreground"><%= @idea.comments_count %></span>
+              <div class="flex align-center justify-space-between txt-small">
+                <span class="txt-subtle"><%= t(".comments_label") %></span>
+                <span class="font-weight-medium"><%= @idea.comments_count %></span>
               </div>
-              <div class="flex items-center justify-between text-sm">
-                <span class="text-muted-foreground"><%= t(".created_label") %></span>
-                <span class="font-medium text-foreground"><%= time_ago_in_words(@idea.created_at) %> <%= t(".ago") %></span>
+              <div class="flex align-center justify-space-between txt-small">
+                <span class="txt-subtle"><%= t(".created_label") %></span>
+                <span class="font-weight-medium"><%= time_ago_in_words(@idea.created_at) %> <%= t(".ago") %></span>
               </div>
             </div>
           </div>
@@ -82,28 +79,27 @@
     <% end %>
   <% end %>
 
-  <!-- Recent Comments -->
   <% if @recent_comments.any? %>
     <%= render Elements::CardComponent.new do |c| %>
       <% c.with_header(title: t(".recent_comments_title")) %>
       <% c.with_body do %>
-      <div class="space-y-4">
+      <div class="flex flex-column" style="gap: var(--space-4);">
         <% @recent_comments.each do |comment| %>
-          <div class="flex items-start gap-3 p-4 border border-border rounded-lg">
+          <div class="flex align-start border border-radius" style="gap: var(--space-3); padding: var(--space-4);">
             <%= render Elements::AvatarComponent.new(
               src: comment.creator.avatar.attached? ? url_for(comment.creator.avatar) : nil,
               alt: comment.creator.name,
               size: :sm,
               fallback: comment.creator.name[0, 2].upcase
             ) %>
-            <div class="min-w-0 flex-1">
-              <div class="flex items-center gap-2 mb-2">
-                <div class="font-medium text-foreground"><%= comment.creator.name %></div>
-                <div class="text-sm text-muted-foreground">
+            <div class="min-width flex-1">
+              <div class="flex align-center" style="gap: var(--space-2); margin-block-end: var(--space-2);">
+                <div class="font-weight-medium"><%= comment.creator.name %></div>
+                <div class="txt-small txt-subtle">
                   <%= time_ago_in_words(comment.created_at) %> <%= t(".ago") %>
                 </div>
               </div>
-              <div class="text-sm text-foreground" data-controller="syntax-highlight">
+              <div class="txt-small" data-controller="syntax-highlight">
                 <%= comment.body %>
               </div>
             </div>
@@ -116,7 +112,7 @@
     <%= render Elements::CardComponent.new do |c| %>
       <% c.with_header(title: t(".comments_title")) %>
       <% c.with_body do %>
-      <div class="text-center py-8 text-muted-foreground">
+      <div class="txt-align-center txt-subtle" style="padding-block: var(--space-8);">
         <%= t(".no_comments") %>
       </div>
       <% end %>

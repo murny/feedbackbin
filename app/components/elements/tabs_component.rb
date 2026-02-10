@@ -116,7 +116,7 @@ module Elements
       def panel_classes(index)
         [
           "tabs__panel",
-          ("hidden" if index != @index_value)
+          ("display-none" if index != @index_value)
         ].compact.join(" ")
       end
 

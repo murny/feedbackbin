@@ -33,7 +33,7 @@ export async function transition(element, state, transitionOptions = {}) {
 //   data-transition-enter="transition ease-out duration-300"
 //   data-transition-enter-from="opacity-0"
 //   data-transition-enter-to="opacity-100"
-//   data-toggle-class="hidden"
+//   data-toggle-class="display-none"
 //
 // Or can be called with options:
 //   enter(element, { enter: "...", enterFrom: "...", enterTo: "..." })
@@ -63,7 +63,7 @@ export async function enter(element, transitionOptions = {}) {
 //   data-transition-leave="transition ease-in duration-200"
 //   data-transition-leave-from="opacity-100"
 //   data-transition-leave-to="opacity-0"
-//   data-toggle-class="hidden"
+//   data-toggle-class="display-none"
 export async function leave(element, transitionOptions = {}) {
   const { transitionClasses, fromClasses, toClasses, toggleClass } = getTransitionOptions("Leave", element, transitionOptions)
 
@@ -90,7 +90,7 @@ function getTransitionOptions(type, element, transitionOptions) {
     transitionClasses: element.dataset[`transition${type}`] || transitionOptions[type.toLowerCase()] || type.toLowerCase(),
     fromClasses: element.dataset[`transition${type}From`] || transitionOptions[`${type.toLowerCase()}From`] || `${type.toLowerCase()}-from`,
     toClasses: element.dataset[`transition${type}To`] || transitionOptions[`${type.toLowerCase()}To`] || `${type.toLowerCase()}-to`,
-    toggleClass: element.dataset.toggleClass || transitionOptions.toggleClass || transitionOptions.toggle || 'hidden'
+    toggleClass: element.dataset.toggleClass || transitionOptions.toggleClass || transitionOptions.toggle || 'display-none'
   }
 }
 

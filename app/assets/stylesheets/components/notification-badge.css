@@ -1,0 +1,20 @@
+/* ==========================================================================
+   Notification Badge
+   Counter badge for unread notifications.
+   ========================================================================== */
+
+@layer components {
+  .notification-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-inline-size: 1.25rem;
+    block-size: 1.25rem;
+    padding-inline: var(--space-1);
+    font-size: var(--text-xs);
+    font-weight: 600;
+    color: white;
+    background-color: var(--color-destructive);
+    border-radius: 9999px;
+  }
+}

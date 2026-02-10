@@ -1,0 +1,41 @@
+/* ==========================================================================
+   Roadmap Column
+   Kanban-style column for the roadmap view.
+   ========================================================================== */
+
+@layer components {
+  .roadmap-column {
+    flex-shrink: 0;
+    inline-size: 20rem;
+  }
+
+  @media (min-width: 1024px) {
+    .roadmap-column {
+      inline-size: 24rem;
+    }
+  }
+
+  .roadmap-column__status-dot {
+    inline-size: 0.75rem;
+    block-size: 0.75rem;
+    border-radius: 9999px;
+    flex-shrink: 0;
+  }
+
+  .roadmap-column__empty {
+    text-align: center;
+    padding-block: var(--space-12);
+    border: 2px dashed var(--color-border);
+    border-radius: var(--radius-lg);
+    background-color: oklch(from var(--color-muted) l c h / 20%);
+  }
+
+  .roadmap-idea-card > div {
+    transition: border-color var(--duration-fast), box-shadow var(--duration-fast);
+  }
+
+  .roadmap-idea-card:hover > div {
+    border-color: var(--color-primary);
+    box-shadow: var(--shadow-md);
+  }
+}

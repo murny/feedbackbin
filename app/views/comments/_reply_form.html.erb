@@ -1,6 +1,6 @@
 <%# locals: (source_comment:, parent:, comment:, show_form: false) %>
 
-<%= tag.div id: "#{dom_id(source_comment)}_reply_form", data: { comment_reply_target: "form" }, class: (show_form ? "" : "hidden").to_s do %>
+<%= tag.div id: "#{dom_id(source_comment)}_reply_form", data: { comment_reply_target: "form" }, class: (show_form ? "" : "display-none").to_s do %>
   <div class="flex align-start">
     <%= form_with model: comment, url: idea_comments_path(parent.idea), class: "margin-block full-width" do |form| %>
       <%= render "error_messages", resource: form.object %>

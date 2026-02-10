@@ -1,22 +1,22 @@
 <%# locals: (reply:) %>
 
-<%= turbo_frame_tag reply, class: "display-block scroll-mt-4" do %>
+<%= turbo_frame_tag reply, class: "display-block", style: "scroll-margin-block-start: var(--space-4);" do %>
   <div class="reply-thread">
     <div class="flex-1 min-width">
       <div class="flex justify-space-between align-center margin-block-end-half">
         <div class="flex align-center">
-          <%= avatar_tag reply.creator, class: "mr-2 w-5 h-5 rounded-full", alt: reply.creator.name %>
+          <%= avatar_tag reply.creator, class: "avatar avatar--sm", alt: reply.creator.name, style: "margin-inline-end: var(--space-2);" %>
 
-          <p class="flex-inline flex-column md:flex-row align-start margin-inline-end txt-small txt-ink">
+          <p class="flex-inline flex-column align-start margin-inline-end txt-small txt-ink">
             <span class="font-weight-medium"><%= reply.creator.name %></span>
-            <%= link_to idea_path(reply.idea, anchor: dom_id(reply)), class: "txt-x-small txt-subtle hover:underline md:ml-2", data: { turbo_frame: "_top" } do %>
+            <%= link_to idea_path(reply.idea, anchor: dom_id(reply)), class: "txt-x-small txt-subtle txt-underline", data: { turbo_frame: "_top" } do %>
               <%= local_datetime_tag reply.created_at, style: :datetime %>
             <% end %>
           </p>
         </div>
         <%= render Elements::DropdownMenuComponent.new do |dropdown| %>
-          <% dropdown.with_trigger(variant: :ghost, size: :icon, class: "h-6 w-6 txt-subtle") do %>
-            <%= lucide_icon("ellipsis", class: "h-3.5 w-3.5") %>
+          <% dropdown.with_trigger(variant: :ghost, size: :icon, class: "txt-subtle") do %>
+            <%= lucide_icon("ellipsis") %>
             <span class="visually-hidden"><%= t(".reply_settings") %></span>
           <% end %>
 

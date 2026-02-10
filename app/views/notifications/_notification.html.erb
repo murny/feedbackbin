@@ -13,19 +13,19 @@
 
         <div class="flex align-center gap-half">
           <% unless notification.read? %>
-            <span class="display-inline-block w-2 h-2 fill-primary rounded-full" title="<%= t("notifications.unread") %>"></span>
+            <span class="display-inline-block fill-primary" style="inline-size: 0.5rem; block-size: 0.5rem; border-radius: 50%;" title="<%= t("notifications.unread") %>"></span>
           <% end %>
 
-          <%= link_to notification.url, class: "txt-small txt-primary hover:underline" do %>
+          <%= link_to notification.url, class: "txt-small txt-primary" do %>
             <%= t("notifications.view") %>
           <% end %>
 
           <% if notification.read? %>
-            <%= button_to notification_reading_path(notification), method: :delete, class: "txt-x-small txt-subtle hover:text-foreground" do %>
+            <%= button_to notification_reading_path(notification), method: :delete, class: "txt-x-small txt-subtle" do %>
               <%= t("notifications.mark_unread") %>
             <% end %>
           <% else %>
-            <%= button_to notification_reading_path(notification), method: :post, class: "txt-x-small txt-subtle hover:text-foreground" do %>
+            <%= button_to notification_reading_path(notification), method: :post, class: "txt-x-small txt-subtle" do %>
               <%= t("notifications.mark_read") %>
             <% end %>
           <% end %>

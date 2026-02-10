@@ -1,37 +1,46 @@
 <%# locals: () %>
 
-<div class="mb-8">
-  <h1 class="text-2xl font-semibold tracking-tight"><%= t("user_settings.settings_title") %></h1>
-  <p class="text-muted-foreground"><%= t("user_settings.settings_description") %></p>
+<style>
+  .settings-tab--active { --border-color: var(--color-primary); }
+</style>
+
+<div style="margin-block-end: var(--space-8);">
+  <h1 class="txt-xx-large font-weight-semibold"><%= t("user_settings.settings_title") %></h1>
+  <p class="txt-subtle"><%= t("user_settings.settings_description") %></p>
 </div>
 
-<div class="border-b border-border">
-  <nav class="flex overflow-x-auto">
-    <ul role="list" class="flex min-w-full flex-none gap-x-8 px-0 text-sm font-medium">
+<div class="border-bottom">
+  <nav class="flex overflow-x">
+    <ul role="list" class="flex flex-none txt-small font-weight-medium" style="min-inline-size: 100%; gap: var(--space-8); padding-inline: 0;">
       <li>
         <%= active_link_to t(".public_profile"), user_settings_profile_path,
-              class: "inline-flex items-center px-1 pt-4 pb-4 text-muted-foreground hover:text-foreground transition-colors",
-              active_class: "border-b-2 border-primary text-primary" %>
+              class: "flex-inline align-center txt-subtle pad-block",
+              style: "padding-inline: var(--space-1);",
+              active_class: "border-bottom settings-tab--active txt-primary" %>
       </li>
       <li>
         <%= active_link_to t(".account"), user_settings_account_path,
-              class: "inline-flex items-center px-1 pt-4 pb-4 text-muted-foreground hover:text-foreground transition-colors",
-              active_class: "border-b-2 border-primary text-primary" %>
+              class: "flex-inline align-center txt-subtle pad-block",
+              style: "padding-inline: var(--space-1);",
+              active_class: "border-bottom settings-tab--active txt-primary" %>
       </li>
       <li>
         <%= active_link_to t(".password"), user_settings_password_path,
-              class: "inline-flex items-center px-1 pt-4 pb-4 text-muted-foreground hover:text-foreground transition-colors",
-              active_class: "border-b-2 border-primary text-primary" %>
+              class: "flex-inline align-center txt-subtle pad-block",
+              style: "padding-inline: var(--space-1);",
+              active_class: "border-bottom settings-tab--active txt-primary" %>
       </li>
       <li>
         <%= active_link_to t(".preferences"), user_settings_preferences_path,
-              class: "inline-flex items-center px-1 pt-4 pb-4 text-muted-foreground hover:text-foreground transition-colors",
-              active_class: "border-b-2 border-primary text-primary" %>
+              class: "flex-inline align-center txt-subtle pad-block",
+              style: "padding-inline: var(--space-1);",
+              active_class: "border-bottom settings-tab--active txt-primary" %>
       </li>
       <li>
         <%= active_link_to t(".active_sessions"), user_settings_active_sessions_path,
-              class: "inline-flex items-center px-1 pt-4 pb-4 text-muted-foreground hover:text-foreground transition-colors",
-              active_class: "border-b-2 border-primary text-primary" %>
+              class: "flex-inline align-center txt-subtle pad-block",
+              style: "padding-inline: var(--space-1);",
+              active_class: "border-bottom settings-tab--active txt-primary" %>
       </li>
     </ul>
   </nav>

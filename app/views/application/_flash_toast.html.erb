@@ -1,6 +1,6 @@
 <%# locals: () %>
 
-<div id="flash_toast" class="pointer-events-none fixed top-4 right-4 z-50 flex flex-col gap-2 w-full max-w-sm" role="region" aria-live="assertive" data-turbo-temporary>
+<div id="flash_toast" class="toast-container" role="region" aria-live="assertive" data-turbo-temporary>
   <% if alert = flash[:alert] %>
     <%= render Elements::ToastComponent.new(
       title: t(".alert_title"),

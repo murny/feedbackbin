@@ -1,14 +1,14 @@
 <% content_for(:title) { t("user_settings.page_titles.profile") } %>
 
-<div class="container mx-auto max-w-4xl">
+<div class="center" style="max-inline-size: 56rem;">
   <%= render partial: "user_settings/header" %>
 
-  <div class="mt-8">
-    <div class="card p-6">
-      <div class="space-y-6">
+  <div style="margin-block-start: var(--space-8);">
+    <div class="card" style="padding: var(--space-6);">
+      <div class="flex flex-column" style="gap: var(--space-6);">
         <div>
-          <h2 class="text-lg font-medium"><%= t(".profile") %></h2>
-          <p class="text-sm text-muted-foreground"><%= t(".profile_description") %></p>
+          <h2 class="txt-large font-weight-medium"><%= t(".profile") %></h2>
+          <p class="txt-small txt-subtle"><%= t(".profile_description") %></p>
         </div>
 
         <%= form_with(model: @user,
@@ -17,9 +17,9 @@
               data: { controller: "form", action: "keydown.enter->form#submit:prevent" }) do |form| %>
           <%= render "error_messages", resource: form.object %>
 
-          <div class="space-y-6">
+          <div class="flex flex-column" style="gap: var(--space-6);">
             <div>
-              <h3 class="text-base font-medium mb-4"><%= t(".public_avatar") %></h3>
+              <h3 class="font-weight-medium" style="margin-block-end: var(--space-4);"><%= t(".public_avatar") %></h3>
               <%= render ImageUploadPreviewComponent.new(
                     form: form,
                     field_name: :avatar,
@@ -27,28 +27,29 @@
                     upload_button_text: t(".upload_new_avatar"),
                     size_hint: t(".avatar_size_hint"),
                     upload_button_variant: :default,
-                    image_class: "h-20 w-20 flex-none rounded-lg bg-muted object-cover",
+                    image_class: "flex-item-no-shrink fill-shade object-cover border-radius",
+                    image_style: "inline-size: 5rem; block-size: 5rem;",
                     remove_path: (@user.avatar.attached? ? user_avatar_path(@user) : nil),
                     remove_confirmation: t(".remove_avatar_confirm")) %>
             </div>
 
-            <div class="grid gap-4">
-              <div class="grid gap-2">
-                <%= form.label :name, class: "text-sm font-medium" %>
-                <%= form.text_field :name, autocomplete: "name", class: "w-full" %>
+            <div class="grid" style="gap: var(--space-4);">
+              <div class="grid" style="gap: var(--space-2);">
+                <%= form.label :name, class: "txt-small font-weight-medium" %>
+                <%= form.text_field :name, autocomplete: "name", class: "full-width" %>
               </div>
 
-              <div class="grid gap-2">
-                <%= form.label :bio, class: "text-sm font-medium" %>
-                <%= form.text_area :bio, rows: 4, class: "w-full" %>
-                <p class="text-xs text-muted-foreground">
+              <div class="grid" style="gap: var(--space-2);">
+                <%= form.label :bio, class: "txt-small font-weight-medium" %>
+                <%= form.text_area :bio, rows: 4, class: "full-width" %>
+                <p class="txt-x-small txt-subtle">
                   <%= t(".bio_hint") %>
                 </p>
               </div>
             </div>
           </div>
 
-          <div class="flex justify-end gap-3 pt-6">
+          <div class="flex justify-end" style="gap: var(--space-3); padding-block-start: var(--space-6);">
             <%= link_to t(".back_to_profile"), user_path(@user), class: "btn btn--secondary" %>
             <%= form.submit t(".update_profile"), class: "btn" %>
           </div>

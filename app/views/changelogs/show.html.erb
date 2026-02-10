@@ -1,18 +1,18 @@
 <%= content_for :title, @changelog.title %>
 
-<section class="container mx-auto px-4 sm:px-6 mt-6 md:mt-10">
-  <div class="max-w-4xl mx-auto">
-    <div class="mb-8">
-      <%= link_to changelogs_path, class: "inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground" do %>
-        <%= lucide_icon "chevron-left", class: "h-4 w-4" %>
+<section class="center pad-inline" style="margin-block-start: var(--space-6);">
+  <div class="center" style="max-inline-size: 56rem;">
+    <div style="margin-block-end: var(--space-8);">
+      <%= link_to changelogs_path, class: "flex-inline align-center gap-half txt-small txt-subtle" do %>
+        <%= lucide_icon "chevron-left", style: "inline-size: 1rem; block-size: 1rem;" %>
         <span><%= t(".back") %></span>
       <% end %>
     </div>
 
-    <article class="space-y-6">
-      <header class="space-y-4">
-        <div class="flex items-center gap-3">
-          <time class="text-sm text-muted-foreground font-medium">
+    <article class="flex flex-column" style="gap: var(--space-6);">
+      <header class="flex flex-column" style="gap: var(--space-4);">
+        <div class="flex align-center" style="gap: var(--space-3);">
+          <time class="txt-small txt-subtle font-weight-medium">
             <%= local_datetime_tag @changelog.published_at, style: :datetime %>
           </time>
           <%= render Elements::BadgeComponent.new(
@@ -22,12 +22,12 @@
           <% end %>
         </div>
 
-        <h1 class="text-4xl font-bold leading-tight">
+        <h1 class="font-weight-bold" style="font-size: var(--text-4xl); line-height: 1.1;">
           <%= @changelog.title %>
         </h1>
       </header>
 
-      <div class="prose prose-lg max-w-none leading-relaxed" data-controller="syntax-highlight">
+      <div class="prose prose-lg" style="max-inline-size: none; line-height: 1.625;" data-controller="syntax-highlight">
         <%= @changelog.description %>
       </div>
     </article>

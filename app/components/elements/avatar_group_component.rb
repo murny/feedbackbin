@@ -34,10 +34,6 @@ module Elements
         ].compact.join(" ")
       end
 
-      def avatar_ring?
-        @ring
-      end
-
       def remaining_count
         return 0 unless @limit && @total > @limit
         @total - @limit

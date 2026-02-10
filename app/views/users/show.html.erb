@@ -1,7 +1,7 @@
 <!-- Back to ideas link -->
-<div class="container mx-auto px-4 py-4">
-  <div class="max-w-4xl mx-auto">
-    <%= link_to root_path, class: "inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors" do %>
+<div class="center pad-inline" style="padding-block: var(--space-4);">
+  <div class="center" style="max-inline-size: 56rem;">
+    <%= link_to root_path, class: "flex-inline align-center gap-half txt-small txt-subtle" do %>
       <%= lucide_icon "chevron-left", class: "size-4" %>
       <%= t(".back_to_ideas") %>
     <% end %>
@@ -9,45 +9,45 @@
 </div>
 
 <!-- Main Profile Card -->
-<div class="container mx-auto px-4 pb-6">
-  <div class="max-w-4xl mx-auto">
-    <%= render Elements::CardComponent.new(class: "pt-0") do |c| %>
-      <% c.with_body(class: "p-0") do %>
+<div class="center pad-inline" style="padding-block-end: var(--space-6);">
+  <div class="center" style="max-inline-size: 56rem;">
+    <%= render Elements::CardComponent.new(style: "padding-block-start: 0;") do |c| %>
+      <% c.with_body(class: "unpad") do %>
         <!-- User Banner (placeholder) -->
-        <div class="h-32 w-full bg-linear-to-r from-blue-500 to-purple-600 lg:h-48"></div>
+        <div class="user-profile__banner"></div>
 
-        <div class="px-6 pb-6 pt-0">
+        <div style="padding: 0 var(--space-6) var(--space-6);">
         <!-- Avatar and Basic Info Section -->
-        <div class="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:gap-5">
-          <div class="flex justify-center sm:justify-start">
+        <div class="user-profile__header">
+          <div class="flex justify-center" style="flex-shrink: 0;">
             <%= render Elements::AvatarComponent.new(
               src: fresh_user_avatar_path(@user),
               size: :xl,
               fallback: @user.name,
-              class: "ring-4 ring-background shadow-xl"
+              class: "user-profile__avatar-ring"
             ) %>
           </div>
 
-          <div class="mt-6 sm:flex sm:min-w-0 sm:flex-1 sm:items-center sm:justify-end sm:gap-6 sm:pb-1">
-            <div class="mt-6 min-w-0 flex-1 text-center sm:text-left">
-              <h1 class="text-2xl font-bold text-foreground"><%= @user.name %></h1>
+          <div class="user-profile__info">
+            <div class="user-profile__name-section">
+              <h1 class="txt-x-large font-weight-bold"><%= @user.name %></h1>
             </div>
 
             <!-- Action Buttons -->
-            <div class="mt-6 flex flex-col justify-stretch gap-3 sm:flex-row">
+            <div class="user-profile__actions">
               <% if Current.user == @user %>
                 <%= render Elements::ButtonComponent.new(
                   variant: :outline,
                   href: user_settings_profile_path
                 ) do %>
-                  <%= lucide_icon "square-pen", class: "size-4 mr-2" %>
+                  <%= lucide_icon "square-pen", class: "size-4", style: "margin-inline-end: var(--space-2);" %>
                   <%= t(".edit_profile") %>
                 <% end %>
               <% else %>
                 <%= render Elements::ButtonComponent.new(
                   variant: :outline
                 ) do %>
-                  <%= lucide_icon "triangle-alert", class: "size-4 mr-2" %>
+                  <%= lucide_icon "triangle-alert", class: "size-4", style: "margin-inline-end: var(--space-2);" %>
                   <%= t(".report_user") %>
                 <% end %>
               <% end %>
@@ -57,96 +57,96 @@
 
         <!-- Bio Section -->
         <% if @user.bio.present? %>
-          <div class="mt-6 text-center sm:text-left">
-            <p class="text-muted-foreground"><%= @user.bio %></p>
+          <div class="user-profile__bio">
+            <p class="txt-subtle"><%= @user.bio %></p>
           </div>
         <% end %>
 
         <!-- Details Section -->
-        <div class="mt-8">
-          <h3 class="text-lg font-semibold text-foreground mb-4"><%= t(".details") %></h3>
-          <dl class="grid grid-cols-1 gap-4 sm:grid-cols-3">
+        <div style="margin-block-start: var(--space-8);">
+          <h3 class="txt-medium font-weight-bold" style="margin-block-end: var(--space-4);"><%= t(".details") %></h3>
+          <dl class="user-profile__detail-grid">
             <%# TODO: Add location field to User model and profile edit form %>
-            <div class="flex items-center gap-3">
-              <div class="p-2 bg-muted rounded-lg">
-                <%= lucide_icon "map-pin", class: "size-4 text-muted-foreground" %>
+            <div class="flex align-center" style="gap: var(--space-3);">
+              <div class="user-profile__detail-icon">
+                <%= lucide_icon "map-pin", class: "size-4 txt-subtle" %>
               </div>
               <div>
-                <dt class="text-sm font-medium text-muted-foreground"><%= t(".location") %></dt>
-                <dd class="text-sm text-muted-foreground"><%= t(".not_specified") %></dd>
+                <dt class="txt-small font-weight-medium txt-subtle"><%= t(".location") %></dt>
+                <dd class="txt-small txt-subtle"><%= t(".not_specified") %></dd>
               </div>
             </div>
 
-            <div class="flex items-center gap-3">
-              <div class="p-2 bg-muted rounded-lg">
-                <%= lucide_icon "shield", class: "size-4 text-muted-foreground" %>
+            <div class="flex align-center" style="gap: var(--space-3);">
+              <div class="user-profile__detail-icon">
+                <%= lucide_icon "shield", class: "size-4 txt-subtle" %>
               </div>
               <div>
-                <dt class="text-sm font-medium text-muted-foreground"><%= t(".role") %></dt>
-                <dd class="text-sm text-foreground"><%= @user.role.humanize %></dd>
+                <dt class="txt-small font-weight-medium txt-subtle"><%= t(".role") %></dt>
+                <dd class="txt-small"><%= @user.role.humanize %></dd>
               </div>
             </div>
 
             <%# TODO: Add website field to User model and profile edit form %>
-            <div class="flex items-center gap-3">
-              <div class="p-2 bg-muted rounded-lg">
-                <%= lucide_icon "globe", class: "size-4 text-muted-foreground" %>
+            <div class="flex align-center" style="gap: var(--space-3);">
+              <div class="user-profile__detail-icon">
+                <%= lucide_icon "globe", class: "size-4 txt-subtle" %>
               </div>
               <div>
-                <dt class="text-sm font-medium text-muted-foreground"><%= t(".website") %></dt>
-                <dd class="text-sm text-muted-foreground"><%= t(".not_specified") %></dd>
+                <dt class="txt-small font-weight-medium txt-subtle"><%= t(".website") %></dt>
+                <dd class="txt-small txt-subtle"><%= t(".not_specified") %></dd>
               </div>
             </div>
 
             <%# TODO: Add twitter_handle field to User model and profile edit form %>
-            <div class="flex items-center gap-3">
-              <div class="p-2 bg-muted rounded-lg">
-                <%= lucide_icon "user", class: "size-4 text-muted-foreground" %>
+            <div class="flex align-center" style="gap: var(--space-3);">
+              <div class="user-profile__detail-icon">
+                <%= lucide_icon "user", class: "size-4 txt-subtle" %>
               </div>
               <div>
-                <dt class="text-sm font-medium text-muted-foreground"><%= t(".twitter") %></dt>
-                <dd class="text-sm text-muted-foreground"><%= t(".not_specified") %></dd>
+                <dt class="txt-small font-weight-medium txt-subtle"><%= t(".twitter") %></dt>
+                <dd class="txt-small txt-subtle"><%= t(".not_specified") %></dd>
               </div>
             </div>
 
             <%# TODO: Add linkedin_handle field to User model and profile edit form %>
-            <div class="flex items-center gap-3">
-              <div class="p-2 bg-muted rounded-lg">
-                <%= inline_svg_tag "icons/brand/linkedin.svg", class: "size-4 text-muted-foreground" %>
+            <div class="flex align-center" style="gap: var(--space-3);">
+              <div class="user-profile__detail-icon">
+                <%= inline_svg_tag "icons/brand/linkedin.svg", class: "size-4 txt-subtle" %>
               </div>
               <div>
-                <dt class="text-sm font-medium text-muted-foreground"><%= t(".linkedin") %></dt>
-                <dd class="text-sm text-muted-foreground"><%= t(".not_specified") %></dd>
+                <dt class="txt-small font-weight-medium txt-subtle"><%= t(".linkedin") %></dt>
+                <dd class="txt-small txt-subtle"><%= t(".not_specified") %></dd>
               </div>
             </div>
 
             <%# TODO: Add github_handle field to User model and profile edit form %>
-            <div class="flex items-center gap-3">
-              <div class="p-2 bg-muted rounded-lg">
-                <%= inline_svg_tag "icons/brand/github.svg", class: "size-4 text-muted-foreground" %>
+            <div class="flex align-center" style="gap: var(--space-3);">
+              <div class="user-profile__detail-icon">
+                <%= inline_svg_tag "icons/brand/github.svg", class: "size-4 txt-subtle" %>
               </div>
               <div>
-                <dt class="text-sm font-medium text-muted-foreground"><%= t(".github") %></dt>
-                <dd class="text-sm text-muted-foreground"><%= t(".not_specified") %></dd>
+                <dt class="txt-small font-weight-medium txt-subtle"><%= t(".github") %></dt>
+                <dd class="txt-small txt-subtle"><%= t(".not_specified") %></dd>
               </div>
             </div>
 
-            <div class="flex items-center gap-3">
-              <div class="p-2 bg-muted rounded-lg">
-                <%= lucide_icon "calendar", class: "size-4 text-muted-foreground" %>
+            <div class="flex align-center" style="gap: var(--space-3);">
+              <div class="user-profile__detail-icon">
+                <%= lucide_icon "calendar", class: "size-4 txt-subtle" %>
               </div>
               <div>
-                <dt class="text-sm font-medium text-muted-foreground"><%= t(".joined") %></dt>
-                <dd class="text-sm text-foreground"><%= local_datetime_tag @user.created_at, style: :date %></dd>
+                <dt class="txt-small font-weight-medium txt-subtle"><%= t(".joined") %></dt>
+                <dd class="txt-small"><%= local_datetime_tag @user.created_at, style: :date %></dd>
               </div>
             </div>
           </dl>
         </div>
 
         <!-- Achievements Section -->
-        <div class="mt-8">
-          <h3 class="text-lg font-semibold text-foreground mb-4"><%= t(".achievements") %></h3>
-          <div class="flex flex-wrap gap-2">
+        <div style="margin-block-start: var(--space-8);">
+          <h3 class="txt-medium font-weight-bold" style="margin-block-end: var(--space-4);"><%= t(".achievements") %></h3>
+          <div class="flex flex-wrap" style="gap: var(--space-2);">
             <%= render Elements::BadgeComponent.new(variant: :default) do %>
               <%= lucide_icon "trophy" %>
               <%= t(".achievements_top_contributor") %>
@@ -163,23 +163,23 @@
         </div>
 
         <!-- Stats Section -->
-        <div class="mt-8">
-          <div class="grid grid-cols-2 gap-6 sm:grid-cols-4">
-            <div class="text-center">
-              <div class="text-3xl font-bold text-foreground"><%= @stats[:ideas_count] %></div>
-              <div class="text-sm text-muted-foreground"><%= t(".stats_ideas_created") %></div>
+        <div style="margin-block-start: var(--space-8);">
+          <div class="user-profile__stats-grid">
+            <div class="user-profile__stat">
+              <div class="user-profile__stat-value"><%= @stats[:ideas_count] %></div>
+              <div class="user-profile__stat-label"><%= t(".stats_ideas_created") %></div>
             </div>
-            <div class="text-center">
-              <div class="text-3xl font-bold text-foreground"><%= @stats[:total_votes] %></div>
-              <div class="text-sm text-muted-foreground"><%= t(".stats_total_votes_received") %></div>
+            <div class="user-profile__stat">
+              <div class="user-profile__stat-value"><%= @stats[:total_votes] %></div>
+              <div class="user-profile__stat-label"><%= t(".stats_total_votes_received") %></div>
             </div>
-            <div class="text-center">
-              <div class="text-3xl font-bold text-foreground"><%= @stats[:comments_count] %></div>
-              <div class="text-sm text-muted-foreground"><%= t(".stats_comments") %></div>
+            <div class="user-profile__stat">
+              <div class="user-profile__stat-value"><%= @stats[:comments_count] %></div>
+              <div class="user-profile__stat-label"><%= t(".stats_comments") %></div>
             </div>
-            <div class="text-center">
-              <div class="text-3xl font-bold text-foreground"><%= @stats[:helpful_votes] %></div>
-              <div class="text-sm text-muted-foreground"><%= t(".stats_helpful_votes_received") %></div>
+            <div class="user-profile__stat">
+              <div class="user-profile__stat-value"><%= @stats[:helpful_votes] %></div>
+              <div class="user-profile__stat-label"><%= t(".stats_helpful_votes_received") %></div>
             </div>
           </div>
         </div>
@@ -190,8 +190,8 @@
 </div>
 
 <!-- Activity Tabs Section -->
-<div class="container mx-auto px-4 pb-6">
-  <div class="max-w-4xl mx-auto">
+<div class="center pad-inline" style="padding-block-end: var(--space-6);">
+  <div class="center" style="max-inline-size: 56rem;">
     <%= render Elements::CardComponent.new do |c| %>
       <% c.with_body do %>
         <%= render Elements::TabsComponent.new(

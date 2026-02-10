@@ -1,10 +1,10 @@
 <%# locals: (comment:) %>
 
-<%= turbo_frame_tag dom_id(comment), class: "display-block pad-block scroll-mt-4" do %>
+<%= turbo_frame_tag dom_id(comment), class: "display-block pad-block", style: "scroll-margin-block-start: var(--space-4);" do %>
   <% if comment.creator.system? %>
     <div class="system-comment">
       <div class="flex align-center gap-half">
-        <%= lucide_icon("info", class: "w-4 h-4 txt-subtle") %>
+        <%= lucide_icon("info", class: "size-4 txt-subtle") %>
         <div class="flex-1">
           <p class="system-comment__content">
             <%= sanitize(comment.body, tags: %w[strong]) %>
@@ -15,7 +15,7 @@
     </div>
   <% else %>
     <div class="txt-normal fill-card border border-radius">
-      <div class="p-4 lg:p-6">
+      <div class="pad">
         <div class="flex">
           <div class="margin-inline-end">
             <%= render partial: "votes/vote_button", locals: { voteable: comment } %>
@@ -23,11 +23,11 @@
           <div class="flex-1 min-width">
             <div class="flex justify-space-between align-center margin-block-end-half">
               <div class="flex align-center">
-                <%= avatar_tag comment.creator, class: "mr-2 w-6 h-6 rounded-full", alt: comment.creator.name %>
+                <%= avatar_tag comment.creator, class: "avatar avatar--sm", alt: comment.creator.name, style: "margin-inline-end: var(--space-2);" %>
 
-                <p class="flex-inline flex-column md:flex-row align-start margin-inline-end txt-small txt-ink">
+                <p class="flex-inline flex-column align-start margin-inline-end txt-small txt-ink">
                   <span class="font-weight-bold"><%= comment.creator.name %></span>
-                  <%= link_to idea_path(comment.idea, anchor: dom_id(comment)), class: "txt-small txt-subtle hover:underline md:ml-2", data: { turbo_frame: "_top" } do %>
+                  <%= link_to idea_path(comment.idea, anchor: dom_id(comment)), class: "txt-small txt-subtle txt-underline", data: { turbo_frame: "_top" } do %>
                     <%= local_datetime_tag comment.created_at, style: :datetime %>
                   <% end %>
                 </p>
@@ -91,7 +91,7 @@
           </div>
 
           <% if authenticated? %>
-            <div id="<%= dom_id(comment) %>_reply_form" class="p-4 lg:px-6">
+            <div id="<%= dom_id(comment) %>_reply_form" class="pad">
               <%= render partial: "comments/thread_reply_form", locals: { parent: comment } %>
             </div>
           <% end %>

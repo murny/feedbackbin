@@ -1,11 +1,11 @@
 <% content_for(:content) do %>
- <div class="px-6 lg:px-8">
-    <div class="mx-auto max-w-xl lg:max-w-7xl">
-      <div class="mx-auto flex max-w-xl items-start gap-x-12 lg:max-w-7xl">
+ <div class="pad-inline" style="padding-inline: var(--space-6);">
+    <div class="center" style="max-inline-size: 80rem;">
+      <div class="center flex align-start" style="max-inline-size: 36rem; gap: var(--space-12);">
         <%= render "staff/sidebar" %>
 
-        <main class="min-w-0 flex-1 gap-x-12 pt-8 pb-16 lg:pt-12">
-          <div class="<%= content_for?(:component_nav) ? "max-w-2xl" : "w-full" %>">
+        <main class="min-width flex-1" style="padding-block-end: var(--space-16);">
+          <div style="<%= content_for?(:component_nav) ? "max-inline-size: 42rem;" : "inline-size: 100%;" %>">
             <%= yield %>
           </div>
         </main>

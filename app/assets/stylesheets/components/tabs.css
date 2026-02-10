@@ -140,7 +140,7 @@
     outline: none;
 
     /* Hidden panels */
-    &.hidden,
+    &.display-none,
     &[hidden] {
       display: none;
     }

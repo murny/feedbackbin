@@ -1,23 +1,25 @@
 <%# locals: () %>
 
-<footer class="bg-background border-t">
-  <div class="mx-auto max-w-7xl px-8 py-8 md:flex md:items-center md:justify-between">
-    <div class="flex justify-center gap-6 md:order-2">
-      <%= link_to t(".about"), about_path, class: "text-muted-foreground hover:text-foreground transition-colors" %>
-      <%= link_to t(".privacy"), privacy_path, class: "text-muted-foreground hover:text-foreground transition-colors" %>
-      <%= link_to t(".terms"), terms_path, class: "text-muted-foreground hover:text-foreground transition-colors" %>
+<footer class="fill border-top">
+  <div class="center pad-double" style="max-inline-size: 80rem;">
+    <div class="flex flex-column align-center gap-double" style="--column-gap: var(--space-6);">
+      <div class="flex justify-center gap" style="--column-gap: var(--space-6);">
+        <%= link_to t(".about"), about_path, class: "txt-subtle txt-undecorated" %>
+        <%= link_to t(".privacy"), privacy_path, class: "txt-subtle txt-undecorated" %>
+        <%= link_to t(".terms"), terms_path, class: "txt-subtle txt-undecorated" %>
 
-      <a href="https://x.com/FeedbackBin" class="text-muted-foreground hover:text-foreground transition-colors">
-        <span class="sr-only"><%= t(".sr_only.twitter") %></span>
-        <%= inline_svg_tag "icons/brand/twitter.svg", class: "h-6 w-6" %>
-      </a>
-      <a href="https://github.com/murny/feedbackbin" class="text-muted-foreground hover:text-foreground transition-colors">
-        <span class="sr-only"><%= t(".sr_only.github") %></span>
-        <%= inline_svg_tag "icons/brand/github.svg", class: "h-6 w-6" %>
-      </a>
-    </div>
-    <div class="mt-8 md:order-1 md:mt-0">
-      <p class="text-center text-xs/5 text-muted-foreground"><%== t(".copyright", year: Date.current.year) %></p>
+        <a href="https://x.com/FeedbackBin" class="txt-subtle txt-undecorated">
+          <span class="visually-hidden"><%= t(".sr_only.twitter") %></span>
+          <%= inline_svg_tag "icons/brand/twitter.svg", class: "size-6" %>
+        </a>
+        <a href="https://github.com/murny/feedbackbin" class="txt-subtle txt-undecorated">
+          <span class="visually-hidden"><%= t(".sr_only.github") %></span>
+          <%= inline_svg_tag "icons/brand/github.svg", class: "size-6" %>
+        </a>
+      </div>
+      <div>
+        <p class="txt-align-center txt-x-small txt-subtle"><%== t(".copyright", year: Date.current.year) %></p>
+      </div>
     </div>
   </div>
 </footer>

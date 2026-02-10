@@ -1,48 +1,59 @@
 <!-- Admin sidebar wrapper -->
 <% content_for(:sidebar) do %>
+  <style>
+    .admin-sidebar { display: none; }
+    .admin-mobile-header { display: flex; }
+    @media (min-width: 1024px) {
+      .admin-sidebar { display: flex; position: fixed; inset-block: 4rem 0; z-index: var(--z-modal); inline-size: 18rem; flex-direction: column; }
+      .admin-mobile-header { display: none; }
+      .admin-main-offset { padding-inline-start: 18rem; }
+    }
+  </style>
   <div data-controller="toggle">
     <!-- Desktop Sidebar -->
-    <div class="hidden lg:fixed lg:inset-y-0 lg:z-50 lg:flex lg:w-72 lg:flex-col lg:top-16">
-      <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-card px-6 pb-4 border-r border-border h-full">
+    <div class="admin-sidebar">
+      <div class="flex flex-column flex-item-grow overflow-y fill-card pad-inline pad-block-end-half border-inline-end" style="block-size: 100%; gap: var(--space-5);">
         <%= render "admin/sidebar" %>
       </div>
     </div>
 
     <!-- Mobile sidebar toggle header (only visible on mobile) -->
-    <div class="sticky top-16 z-40 flex h-16 shrink-0 items-center gap-x-4 border-b border-border bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 px-4 shadow-sm sm:gap-x-6 sm:px-6 lg:px-8 lg:hidden">
+    <div class="admin-mobile-header position-sticky align-center border-bottom shadow" style="inset-block-start: 4rem; z-index: var(--z-fixed); block-size: 4rem; padding-inline: var(--space-4); background-color: oklch(from var(--color-background) l c h / 95%); backdrop-filter: blur(8px); gap: var(--space-4);">
       <button type="button"
-              class="-m-2.5 p-2.5 text-muted-foreground"
+              class="txt-subtle"
+              style="margin: calc(var(--space-2) * -1); padding: var(--space-2);"
               aria-controls="admin-mobile-sidebar"
               data-toggle-target="trigger"
               data-action="click->toggle#toggle">
-        <span class="sr-only"><%= t("layouts.admin.sr_only.open_sidebar") %></span>
-        <%= lucide_icon "menu", class: "h-6 w-6" %>
+        <span class="visually-hidden"><%= t("layouts.admin.sr_only.open_sidebar") %></span>
+        <%= lucide_icon "menu", class: "size-6" %>
       </button>
-      <div class="flex flex-1 items-center">
-        <h1 class="text-lg font-semibold text-foreground"><%= t(".title") %></h1>
+      <div class="flex flex-1 align-center">
+        <h1 class="txt-large font-weight-bold"><%= t(".title") %></h1>
       </div>
     </div>
 
     <!-- Mobile sidebar overlay -->
     <div id="admin-mobile-sidebar"
-         class="relative z-50 lg:hidden hidden"
+         class="position-relative display-none"
+         style="z-index: var(--z-modal);"
          role="dialog"
          aria-modal="true"
          aria-label="<%= t("layouts.admin.title") %>"
          data-toggle-target="toggleable">
-      <div class="fixed inset-0 bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/60"></div>
-      <div class="fixed inset-0 flex">
-        <div class="relative mr-16 flex w-full max-w-xs flex-1">
-          <div class="absolute left-full top-0 flex w-16 justify-center pt-5">
+      <div style="position: fixed; inset: 0; background-color: oklch(from var(--color-background) l c h / 80%); backdrop-filter: blur(8px);"></div>
+      <div style="position: fixed; inset: 0; display: flex;">
+        <div class="position-relative flex" style="margin-inline-end: var(--space-16); max-inline-size: 20rem; flex: 1;">
+          <div style="position: absolute; inset-inline-start: 100%; inset-block-start: 0; inline-size: var(--space-16); display: flex; justify-content: center; padding-block-start: var(--space-5);">
             <button type="button"
-                    class="-m-2.5 p-2.5"
+                    style="margin: calc(var(--space-2) * -1); padding: var(--space-2);"
                     data-toggle-target="trigger"
                     data-action="click->toggle#hide">
-              <span class="sr-only"><%= t("layouts.admin.sr_only.close_sidebar") %></span>
-              <%= lucide_icon "x", class: "h-6 w-6 text-foreground" %>
+              <span class="visually-hidden"><%= t("layouts.admin.sr_only.close_sidebar") %></span>
+              <%= lucide_icon "x", class: "size-6" %>
             </button>
           </div>
-          <div class="flex grow flex-col gap-y-5 overflow-y-auto bg-card px-6 pb-2 border-r border-border">
+          <div class="flex flex-column flex-item-grow overflow-y fill-card pad-inline pad-block-end-half border-inline-end" style="gap: var(--space-5);">
             <%= render "admin/sidebar", show_icon: true %>
           </div>
         </div>

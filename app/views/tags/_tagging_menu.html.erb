@@ -7,11 +7,12 @@
           action: "click->dialog#open:stop"
         }
       ) do %>
-    <%= lucide_icon "tag", class: "h-4 w-4" %>
+    <%= lucide_icon "tag", class: "size-4" %>
     <%= t("ideas.tags.add_tag") %>
   <% end %>
 
-  <dialog class="border-radius border fill-popover pad shadow-md min-w-80 max-w-md"
+  <dialog class="border-radius border fill-popover pad"
+          style="box-shadow: var(--shadow-md); min-inline-size: 20rem; max-inline-size: 28rem;"
           data-dialog-target="dialog"
           data-action="turbo:before-morph-attribute->dialog#preventCloseOnMorphing turbo:submit-end->dialog#close">
     <%= turbo_frame_tag idea, :tagging, src: new_idea_tagging_path(idea), loading: :lazy, refresh: :morph %>

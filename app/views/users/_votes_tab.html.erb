@@ -1,48 +1,46 @@
 <% if votes.any? %>
-  <ul class="space-y-6">
+  <ul class="flex flex-column" style="gap: var(--space-6);">
     <% votes.each do |vote| %>
-      <li class="card hover:shadow-xl hover:border-primary/20">
-        <div class="px-4 md:px-6">
-          <div class="flex gap-3 md:gap-4">
+      <li class="card">
+        <div class="pad-inline">
+          <div class="flex" style="gap: var(--space-3);">
             <%= render partial: "votes/vote_button", locals: { voteable: vote.voteable } %>
-            <div class="grow lg:flex items-center justify-between gap-5 lg:gap-6">
-              <div>
-                <div class="mb-2">
-                  <div class="flex items-center gap-2 mb-1">
-                    <h2 class="flex-1">
-                      <% if vote.voteable_type == "Idea" %>
-                        <%= link_to vote.voteable.title, idea_path(vote.voteable), class: "scroll-m-20 text-xl font-semibold tracking-tight hover:underline cursor-pointer line-clamp-2" %>
-                      <% else %>
-                        <%= link_to idea_comment_path(vote.voteable.idea, vote.voteable), class: "scroll-m-20 text-xl font-semibold tracking-tight hover:underline cursor-pointer line-clamp-2" do %>
-                          <span class="text-muted-foreground text-sm font-normal"><%= t(".comment_on") %></span> <%= vote.voteable.idea.title %>
-                        <% end %>
-                      <% end %>
-                    </h2>
-                    <% if vote.voteable.respond_to?(:board) && vote.voteable.board %>
-                      <%= render Elements::BadgeComponent.new(variant: :outline) do %>
-                        <%= vote.voteable.board.name %>
-                      <% end %>
-                    <% elsif vote.voteable.respond_to?(:idea) && vote.voteable.idea.board %>
-                      <%= render Elements::BadgeComponent.new(variant: :outline) do %>
-                        <%= vote.voteable.idea.board.name %>
+            <div class="flex-item-grow" style="min-inline-size: 0;">
+              <div style="margin-block-end: var(--space-2);">
+                <div class="flex align-center" style="gap: var(--space-2); margin-block-end: var(--space-1);">
+                  <h2 class="flex-1">
+                    <% if vote.voteable_type == "Idea" %>
+                      <%= link_to vote.voteable.title, idea_path(vote.voteable), class: "txt-large font-weight-bold" %>
+                    <% else %>
+                      <%= link_to idea_comment_path(vote.voteable.idea, vote.voteable), class: "txt-large font-weight-bold" do %>
+                        <span class="txt-subtle txt-small font-weight-normal"><%= t(".comment_on") %></span> <%= vote.voteable.idea.title %>
                       <% end %>
                     <% end %>
-                  </div>
-                  <div class="mt-1 flex items-center gap-x-2 text-xs/5">
-                    <p>
-                      <%= link_to vote.voteable.creator.name, vote.voteable.creator, class: "hover:underline" %>
-                    </p>
-                    <%= lucide_icon "dot" %>
-                    <p>
-                      <%= local_datetime_tag vote.voteable.created_at, style: :datetime %>
-                    </p>
-                    <%= lucide_icon "dot" %>
-                    <p><%= t(".voted") %> <%= local_datetime_tag vote.created_at, style: :relative %></p>
-                  </div>
-                  <p class="mt-2 text-muted-foreground text-sm">
-                    <%= truncate(strip_tags(vote.voteable.content_text.to_s), length: 140) %>
-                  </p>
+                  </h2>
+                  <% if vote.voteable.respond_to?(:board) && vote.voteable.board %>
+                    <%= render Elements::BadgeComponent.new(variant: :outline) do %>
+                      <%= vote.voteable.board.name %>
+                    <% end %>
+                  <% elsif vote.voteable.respond_to?(:idea) && vote.voteable.idea.board %>
+                    <%= render Elements::BadgeComponent.new(variant: :outline) do %>
+                      <%= vote.voteable.idea.board.name %>
+                    <% end %>
+                  <% end %>
                 </div>
+                <div class="flex align-center txt-xx-small" style="margin-block-start: var(--space-1); gap: var(--space-2);">
+                  <p>
+                    <%= link_to vote.voteable.creator.name, vote.voteable.creator %>
+                  </p>
+                  <%= lucide_icon "dot" %>
+                  <p>
+                    <%= local_datetime_tag vote.voteable.created_at, style: :datetime %>
+                  </p>
+                  <%= lucide_icon "dot" %>
+                  <p><%= t(".voted") %> <%= local_datetime_tag vote.created_at, style: :relative %></p>
+                </div>
+                <p class="txt-subtle txt-small" style="margin-block-start: var(--space-2);">
+                  <%= truncate(strip_tags(vote.voteable.content_text.to_s), length: 140) %>
+                </p>
               </div>
             </div>
           </div>
@@ -51,10 +49,10 @@
     <% end %>
   </ul>
 <% else %>
-  <div class="text-center py-12 text-muted-foreground">
-    <div class="mb-4">
-      <%= lucide_icon "heart", class: "mx-auto h-12 w-12 text-muted-foreground/50" %>
+  <div class="txt-align-center txt-subtle" style="padding-block: var(--space-12);">
+    <div style="margin-block-end: var(--space-4);">
+      <%= lucide_icon "heart", class: "center", style: "inline-size: 3rem; block-size: 3rem; opacity: 0.5;" %>
     </div>
-    <p class="text-sm"><%= t(".empty_votes") %></p>
+    <p class="txt-small"><%= t(".empty_votes") %></p>
   </div>
 <% end %>

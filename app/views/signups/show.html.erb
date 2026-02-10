@@ -1,11 +1,11 @@
 <% content_for :title, t(".title") %>
 
-<div class="mx-auto w-full max-w-2xl flex flex-col gap-6">
-  <div class="text-center space-y-2">
-    <h1 class="text-3xl font-bold tracking-tight">
+<div class="center full-width flex flex-column" style="max-inline-size: 42rem; gap: var(--space-6);">
+  <div class="txt-align-center flex flex-column" style="gap: var(--space-2);">
+    <h1 class="txt-xx-large font-weight-bold">
       <%= t(".title") %>
     </h1>
-    <p class="text-muted-foreground">
+    <p class="txt-subtle">
       <%= t(".description") %>
     </p>
   </div>
@@ -14,7 +14,8 @@
     <% c.with_body do %>
       <%= form_with(model: @signup,
                     url: signup_path,
-                    class: "space-y-6",
+                    class: "flex flex-column",
+                    style: "gap: var(--space-6);",
                     data: {
                       controller: "form",
                       action: "keydown.enter->form#submit:prevent"
@@ -22,16 +23,14 @@
                    ) do |form| %>
         <%= render "error_messages", resource: @signup %>
 
-        <div class="space-y-8">
-          <!-- User Account Section -->
-          <div class="space-y-4">
+        <div class="flex flex-column" style="gap: var(--space-8);">
+          <div class="flex flex-column" style="gap: var(--space-4);">
             <div>
-              <h3 class="text-base font-medium"><%= t(".account_setup") %></h3>
-              <p class="text-sm text-muted-foreground"><%= t(".account_setup_description") %></p>
+              <h3 class="font-weight-medium"><%= t(".account_setup") %></h3>
+              <p class="txt-small txt-subtle"><%= t(".account_setup_description") %></p>
             </div>
 
-            <div class="grid gap-4">
-              <!-- Avatar Upload -->
+            <div class="grid" style="gap: var(--space-4);">
               <%= render ImageUploadPreviewComponent.new(
                     form: form,
                     field_name: :avatar,
@@ -39,55 +38,52 @@
                     upload_button_text: t(".upload_avatar"),
                     size_hint: t(".avatar_size_hint")) %>
 
-              <!-- User Details -->
-              <div class="grid gap-4">
-                <div class="grid gap-2">
-                  <%= form.label :name, class: "text-sm font-medium" %>
+              <div class="grid" style="gap: var(--space-4);">
+                <div class="grid" style="gap: var(--space-2);">
+                  <%= form.label :name, class: "txt-small font-weight-medium" %>
                   <%= form.text_field :name,
                         required: true,
                         autofocus: true,
                         autocomplete: "name",
                         placeholder: t(".name_placeholder") %>
-                  <p class="text-xs text-muted-foreground"><%= t(".name_hint") %></p>
+                  <p class="txt-x-small txt-subtle"><%= t(".name_hint") %></p>
                 </div>
 
-                <div class="grid gap-2">
-                  <%= form.label :email_address, class: "text-sm font-medium" %>
+                <div class="grid" style="gap: var(--space-2);">
+                  <%= form.label :email_address, class: "txt-small font-weight-medium" %>
                   <%= form.email_field :email_address,
                         required: true,
                         autocomplete: "email",
                         placeholder: t(".email_address_placeholder") %>
-                  <p class="text-xs text-muted-foreground"><%= t(".email_address_hint") %></p>
+                  <p class="txt-x-small txt-subtle"><%= t(".email_address_hint") %></p>
                 </div>
 
-                <div class="grid gap-2">
-                  <%= form.label :password, class: "text-sm font-medium" %>
+                <div class="grid" style="gap: var(--space-2);">
+                  <%= form.label :password, class: "txt-small font-weight-medium" %>
                   <%= form.password_field :password,
                         required: true,
                         autocomplete: "new-password",
                         placeholder: t(".password_placeholder") %>
-                  <p class="text-xs text-muted-foreground"><%= t(".password_hint") %></p>
+                  <p class="txt-x-small txt-subtle"><%= t(".password_hint") %></p>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Account Setup Section -->
-          <div class="space-y-4">
+          <div class="flex flex-column" style="gap: var(--space-4);">
             <div>
-              <h3 class="text-base font-medium"><%= t(".account_setup_section") %></h3>
-              <p class="text-sm text-muted-foreground"><%= t(".account_setup_description") %></p>
+              <h3 class="font-weight-medium"><%= t(".account_setup_section") %></h3>
+              <p class="txt-small txt-subtle"><%= t(".account_setup_description") %></p>
             </div>
 
-            <div class="grid gap-4">
-              <div class="grid gap-2">
-                <%= form.label :account_name, t(".account_name"), class: "text-sm font-medium" %>
+            <div class="grid" style="gap: var(--space-4);">
+              <div class="grid" style="gap: var(--space-2);">
+                <%= form.label :account_name, t(".account_name"), class: "txt-small font-weight-medium" %>
                 <%= form.text_field :account_name,
                       required: true,
                       placeholder: t(".account_name_placeholder") %>
               </div>
 
-              <!-- Account Logo -->
               <%= render ImageUploadPreviewComponent.new(
                     form: form,
                     field_name: :account_logo,
@@ -98,8 +94,7 @@
           </div>
         </div>
 
-        <!-- Form Actions -->
-        <div class="flex justify-end pt-6 border-t">
+        <div class="flex justify-end border-top" style="padding-block-start: var(--space-6);">
           <%= form.submit t(".create_account"), class: "btn btn--primary" %>
         </div>
       <% end %>

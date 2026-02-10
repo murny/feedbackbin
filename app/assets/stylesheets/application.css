@@ -5,42 +5,9 @@
    Layer order (defined in _global.css):
    @layer reset, base, components, modules, utilities;
 
-   Lower layers can be overridden by higher layers.
+   All CSS files in app/assets/stylesheets/ are loaded automatically
+   via `stylesheet_link_tag :app` (Propshaft).
+
+   File loading order is alphabetical. The _global.css file (underscore prefix)
+   sorts first, ensuring the layer order is established before other files load.
    ========================================================================== */
-
-/* Foundation */
-@import "_global.css";
-@import "reset.css";
-@import "base.css";
-
-/* Components */
-@import "components/buttons.css";
-@import "components/badges.css";
-@import "components/cards.css";
-@import "components/alerts.css";
-@import "components/dropdowns.css";
-@import "components/popovers.css";
-@import "components/tabs.css";
-@import "components/toasts.css";
-@import "components/avatars.css";
-@import "components/breadcrumbs.css";
-@import "components/dialogs.css";
-@import "components/tooltips.css";
-@import "components/tables.css";
-@import "components/pagination.css";
-@import "components/collapsible.css";
-@import "components/code.css";
-@import "components/sidebar.css";
-@import "components/rich-text-content.css";
-@import "components/forms.css";
-@import "components/upload-preview.css";
-@import "components/lexxy.css";
-
-/* Modules */
-@import "modules/reactions.css";
-@import "modules/mentions.css";
-@import "modules/tag-chips.css";
-@import "modules/comments.css";
-
-/* Utilities (highest priority) */
-@import "utilities.css";

@@ -2,38 +2,18 @@
 
 module FormBuilders
   class CustomFormBuilder < ActionView::Helpers::FormBuilder
-    INPUT_VALID_CLASSES = "border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 " \
-    "flex w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] " \
-    "outline-hidden focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm"
-
-    INPUT_INVALID_CLASSES = "border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 " \
-    "aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive " \
-    "flex w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] " \
-    "outline-hidden focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm"
-
-    SELECT_CLASSES = "border-input data-[placeholder]:text-muted-foreground [&_svg:not([class*='text-'])]:text-muted-foreground " \
-    "focus-visible:border-ring focus-visible:ring-ring/50 flex w-full items-center justify-between gap-2 " \
-    "rounded-md border bg-background text-foreground px-3 py-2 text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow] " \
-    "outline-hidden focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 h-9 " \
-    "[&>option]:bg-background [&>option]:text-foreground [&>option:checked]:bg-accent [&>option:checked]:text-accent-foreground"
-
-    LABEL_VALID_CLASSES = "flex items-center gap-2 text-sm leading-none font-medium select-none " \
-    "group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 " \
-    "peer-disabled:cursor-not-allowed peer-disabled:opacity-50"
-    LABEL_INVALID_CLASSES = "flex items-center gap-2 text-sm leading-none font-medium select-none " \
-    "group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 " \
-    "peer-disabled:cursor-not-allowed peer-disabled:opacity-50 text-destructive"
-
+    INPUT_VALID_CLASSES = ""
+    INPUT_INVALID_CLASSES = ""
+    SELECT_CLASSES = ""
+    LABEL_VALID_CLASSES = ""
+    LABEL_INVALID_CLASSES = "txt-negative"
     ERROR_MESSAGE_CLASSES = "txt-negative txt-small"
-
-    CHECKBOX_CLASSES = "h-4 w-4 rounded border-input bg-background text-primary focus-visible:ring-2 " \
-    "focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
-
+    CHECKBOX_CLASSES = ""
     SUBMIT_CLASSES = "btn btn--primary"
 
     def text_field(attribute, options = {}, &block)
       if options[:leading_icon]
-        default_opts = { class: "#{classes_for_input(attribute, options)} pl-10" }
+        default_opts = { class: classes_for_input(attribute, options), style: "padding-inline-start: 2.5rem;" }
 
         text_layout(attribute) { leading_icon(&block) + super(attribute, options.merge(default_opts)) } + attribute_error_message(attribute)
       else
@@ -68,17 +48,13 @@ module FormBuilders
     end
 
     def text_area(attribute, options = {})
-      # Use existing input classes and add textarea-specific classes
-      base_classes = classes_for_input(attribute, options)
-      textarea_specific_classes = "field-sizing-content min-h-16 resize-none"
-
-      default_opts = { class: [ base_classes, textarea_specific_classes, options[:class] ].compact.join(" ") }
+      default_opts = { class: classes_for_input(attribute, options) }
 
       text_layout(attribute) { super(attribute, options.merge(default_opts)) } + attribute_error_message(attribute)
     end
 
     def rich_text_area(attribute, options = {})
-      default_opts = { class: [ "rich-text-content", options[:class] ].compact.join(" ") }
+      default_opts = { class: [ "rich-text-content", options[:class] ].compact_blank.join(" ") }
 
       text_layout(attribute) { super(attribute, options.merge(default_opts)) } + attribute_error_message(attribute)
     end
@@ -90,26 +66,26 @@ module FormBuilders
     end
 
     def check_box(attribute, options = {}, checked_value = "1", unchecked_value = "0")
-      default_opts = { class: [ CHECKBOX_CLASSES, options[:class] ].compact.join(" ") }
+      default_opts = { class: [ CHECKBOX_CLASSES, options[:class] ].compact_blank.join(" ") }
 
       super(attribute, options.merge(default_opts), checked_value, unchecked_value)
     end
 
     # TODO: Style select/check box?/time_zone_select with error styles
     def select(attribute, choices, options = {}, html_options = {})
-      default_opts = { class: [ SELECT_CLASSES, html_options[:class] ].compact.join(" ") }
+      default_opts = { class: [ SELECT_CLASSES, html_options[:class] ].compact_blank.join(" ") }
 
       super(attribute, choices, options, html_options.merge(default_opts)) + attribute_error_message(attribute)
     end
 
     def time_zone_select(attribute, priority_zones = nil, options = {}, html_options = {})
-      default_opts = { class: [ SELECT_CLASSES, html_options[:class] ].compact.join(" ") }
+      default_opts = { class: [ SELECT_CLASSES, html_options[:class] ].compact_blank.join(" ") }
 
       super(attribute, priority_zones, options, html_options.merge(default_opts)) + attribute_error_message(attribute)
     end
 
     def submit(value = nil, options = {})
-      default_opts = { class: [ SUBMIT_CLASSES, options[:class] ].compact.join(" ") }
+      default_opts = { class: [ SUBMIT_CLASSES, options[:class] ].compact_blank.join(" ") }
 
       super(value, options.merge(default_opts))
     end
@@ -123,7 +99,7 @@ module FormBuilders
           INPUT_VALID_CLASSES
         end
 
-        [ classes, options[:class] ].compact.join(" ")
+        [ classes, options[:class] ].compact_blank.join(" ")
       end
 
       def classes_for_label(attribute, options)
@@ -133,7 +109,7 @@ module FormBuilders
           LABEL_VALID_CLASSES
         end
 
-        [ classes, options[:class] ].compact.join(" ")
+        [ classes, options[:class] ].compact_blank.join(" ")
       end
 
       def text_layout(attribute)
@@ -143,16 +119,16 @@ module FormBuilders
       end
 
       def leading_icon(&)
-        @template.content_tag(:div, class: "pointer-events-none absolute inset-y-0 left-0 flex align-center pl-3", &)
+        @template.content_tag(:div, class: "flex align-center", style: "pointer-events: none; position: absolute; inset-block: 0; inset-inline-start: 0; padding-inline-start: 0.75rem;", &)
       end
 
       def attribute_error_icon(attribute)
         return if @object.blank? || @object.errors[attribute].blank?
 
-        @template.content_tag :div, class: "pointer-events-none absolute inset-y-0 right-0 flex align-center pr-3" do
+        @template.content_tag :div, class: "flex align-center", style: "pointer-events: none; position: absolute; inset-block: 0; inset-inline-end: 0; padding-inline-end: 0.75rem;" do
           @template.lucide_icon(
             "circle-alert",
-            class: "h-5 w-5 text-red-500",
+            class: "size-5 txt-negative",
             "aria-hidden": true,
             focusable: false
           )

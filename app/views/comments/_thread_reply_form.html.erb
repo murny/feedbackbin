@@ -10,7 +10,7 @@
     <%= t("comments.thread_reply_form.placeholder") %>
   </button>
 
-  <div id="<%= dom_id(parent, :reply_form) %>" data-reply-form-target="form" class="hidden">
+  <div id="<%= dom_id(parent, :reply_form) %>" data-reply-form-target="form" class="display-none">
     <%= form_with model: comment, url: idea_comments_path(parent.idea), class: "full-width" do |form| %>
       <%= render "error_messages", resource: form.object %>
       <%= form.hidden_field :parent_id, value: parent.id %>

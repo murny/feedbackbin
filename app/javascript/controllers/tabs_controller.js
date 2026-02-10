@@ -132,12 +132,12 @@ export default class extends Controller {
       const tab = this.tabTargets[index]
 
       if (index === this.indexValue) {
-        panel.classList.remove('hidden')
+        panel.classList.remove('display-none')
         tab.ariaSelected = 'true'
         if (this.hasInactiveTabClass) tab?.classList?.remove(...this.inactiveTabClasses)
         if (this.hasActiveTabClass) tab?.classList?.add(...this.activeTabClasses)
       } else {
-        panel.classList.add('hidden')
+        panel.classList.add('display-none')
         tab.ariaSelected = 'false'
         if (this.hasActiveTabClass) tab?.classList?.remove(...this.activeTabClasses)
         if (this.hasInactiveTabClass) tab?.classList?.add(...this.inactiveTabClasses)

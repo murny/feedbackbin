@@ -1,0 +1,55 @@
+/* ==========================================================================
+   Vote Component
+
+   Usage:
+     <div class="vote">
+       <button class="vote__trigger btn btn--secondary">
+         <svg class="vote__icon">...</svg>
+         <span class="vote__count">42</span>
+       </button>
+     </div>
+
+   Vertical vote button with responsive sizing.
+   ========================================================================== */
+
+@layer components {
+  .vote {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    flex-shrink: 0;
+  }
+
+  .vote__trigger {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    block-size: auto;
+    padding: var(--space-2);
+    min-inline-size: 50px;
+
+    @media (min-width: 768px) {
+      padding-inline: var(--space-3);
+      min-inline-size: 60px;
+    }
+  }
+
+  .vote__icon {
+    inline-size: 0.75rem;
+    block-size: 0.75rem;
+    margin-block-end: var(--space-1);
+
+    @media (min-width: 768px) {
+      inline-size: 1rem;
+      block-size: 1rem;
+    }
+  }
+
+  .vote__count {
+    font-size: var(--text-lg);
+    font-weight: var(--font-bold);
+    text-align: center;
+    min-inline-size: 2ch;
+    color: var(--color-foreground);
+  }
+}

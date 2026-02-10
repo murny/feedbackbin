@@ -1,18 +1,18 @@
 <% content_for(:title) { t(".check_your_email") } %>
 
-<div class="mx-auto w-full max-w-sm flex flex-col gap-6">
+<div class="center full-width flex flex-column" style="max-inline-size: 24rem; gap: var(--space-6);">
   <%= render "shared/auth_branding" %>
 
-  <div class="card flex flex-col gap-6 py-6 <%= "animate-shake" if flash[:shake] %>">
-    <header class="px-6 text-center space-y-1.5">
-      <h1 class="font-semibold text-xl"><%= t(".check_your_email") %></h1>
-      <p class="text-muted-foreground text-sm"><%= t(".enter_code_instructions") %></p>
+  <div class="card flex flex-column <%= "animate-shake" if flash[:shake] %>" style="gap: var(--space-6); padding-block: var(--space-6);">
+    <header class="txt-align-center" style="padding-inline: var(--space-6);">
+      <h1 class="font-weight-semibold txt-x-large"><%= t(".check_your_email") %></h1>
+      <p class="txt-subtle txt-small margin-block-start-half"><%= t(".enter_code_instructions") %></p>
     </header>
 
-    <div class="px-6 grid gap-6">
-      <%= form_with url: session_magic_link_path, method: :post, class: "grid gap-6", data: { controller: "magic-link" } do |form| %>
-        <div class="grid gap-3">
-          <%= form.label :code, t(".verification_code"), class: "text-sm font-medium leading-none" %>
+    <div class="grid" style="padding-inline: var(--space-6); gap: var(--space-6);">
+      <%= form_with url: session_magic_link_path, method: :post, class: "grid", style: "gap: var(--space-6);", data: { controller: "magic-link" } do |form| %>
+        <div class="grid" style="gap: var(--space-3);">
+          <%= form.label :code, t(".verification_code"), class: "txt-small font-weight-medium" %>
           <%= form.text_field :code,
                 required: true,
                 autofocus: true,
@@ -22,14 +22,15 @@
                 spellcheck: "false",
                 maxlength: "6",
                 placeholder: t(".code_placeholder"),
-                class: "text-center text-lg tracking-widest uppercase",
+                class: "txt-align-center txt-large txt-uppercase",
+                style: "letter-spacing: 0.1em;",
                 data: { "1p_ignore": true, magic_link_target: "input", action: "keydown.enter->magic-link#submitOnEnter paste->magic-link#submitOnPaste" } %>
         </div>
 
-        <%= form.submit t(".verify_code"), class: "btn w-full" %>
+        <%= form.submit t(".verify_code"), class: "btn full-width" %>
       <% end %>
 
-      <p class="text-muted-foreground text-center text-sm">
+      <p class="txt-subtle txt-align-center txt-small">
         <%= t(".code_sent_to_html", email: content_tag(:strong, email_address_pending_authentication)) %>
         <br>
         <%= t(".code_expires_in", time: distance_of_time_in_words(MagicLink::EXPIRATION_TIME)) %>
@@ -38,11 +39,11 @@
   </div>
 
   <% if Rails.env.development? && flash[:magic_link_code].present? %>
-    <div class="card p-4 bg-muted">
-      <p class="text-sm text-muted-foreground text-center">
-        <span class="text-xs uppercase font-bold">Dev</span>
+    <div class="card pad fill-shade">
+      <p class="txt-small txt-subtle txt-align-center">
+        <span class="txt-x-small txt-uppercase font-weight-bold">Dev</span>
         <%= t(".your_code") %>:
-        <code class="text-lg font-bold tracking-widest"><%= flash[:magic_link_code] %></code>
+        <code class="txt-large font-weight-bold" style="letter-spacing: 0.1em;"><%= flash[:magic_link_code] %></code>
       </p>
     </div>
   <% end %>

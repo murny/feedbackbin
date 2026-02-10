@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html class="h-full bg-background overscroll-none font-sans antialiased">
+<html lang="en">
   <%= render "shared/head" %>
 
-  <%= tag.body class: "h-full flex flex-col",
+  <%= tag.body class: "flex flex-column",
+        style: "min-block-size: 100svh;",
         data: {
           controller: "local-time theme-application",
           theme_application_preference_value: "system"
         } do %>
     <%= render "flash" %>
-    <main class="flex-1 flex flex-col items-center justify-center gap-6 p-6 md:p-10">
+    <main class="flex-item-grow flex flex-column align-center justify-center gap" style="padding: var(--space-6); --row-gap: var(--space-6);">
       <%= yield %>
     </main>
   <% end %>

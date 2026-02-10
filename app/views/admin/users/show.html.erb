@@ -1,17 +1,16 @@
 <% content_for :title, @user.name %>
 
-<div class="space-y-8">
-  <!-- Header Section -->
-  <div class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-    <div class="space-y-1">
-      <h1 class="text-3xl font-bold tracking-tight text-foreground">
+<div class="flex flex-column" style="gap: var(--space-8);">
+  <div class="flex flex-column sm:flex-row sm:align-center sm:justify-space-between" style="gap: var(--space-4);">
+    <div class="flex flex-column" style="gap: var(--space-1);">
+      <h1 class="txt-xx-large font-weight-bold">
         <%= @user.name %>
       </h1>
-      <p class="text-muted-foreground">
+      <p class="txt-subtle">
         <%= t(".description") %>
       </p>
     </div>
-    <div class="flex gap-2">
+    <div class="flex" style="gap: var(--space-2);">
       <%= render Elements::ButtonComponent.new(
         href: admin_users_path,
         variant: :outline
@@ -27,11 +26,10 @@
     </div>
   </div>
 
-  <!-- User Info -->
   <%= render Elements::CardComponent.new do |c| %>
     <% c.with_header(title: t(".user_info_title")) %>
     <% c.with_body do %>
-      <div class="flex items-start gap-6">
+      <div class="flex align-start" style="gap: var(--space-6);">
       <%= render Elements::AvatarComponent.new(
         src: @user.avatar.attached? ? url_for(@user.avatar) : nil,
         alt: @user.name,
@@ -39,11 +37,11 @@
         fallback: @user.name[0, 2].upcase
       ) %>
 
-      <div class="flex-1 space-y-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="flex-1 flex flex-column" style="gap: var(--space-4);">
+        <div class="grid grid-cols-1 md:grid-cols-2" style="gap: var(--space-6);">
           <div>
-            <h4 class="text-sm font-medium text-foreground mb-2"><%= t(".basic_info_title") %></h4>
-            <div class="space-y-2 text-sm">
+            <h4 class="txt-small font-weight-medium" style="margin-block-end: var(--space-2);"><%= t(".basic_info_title") %></h4>
+            <div class="flex flex-column txt-small" style="gap: var(--space-2);">
               <div><strong><%= t(".name_label") %>:</strong> <%= @user.name %></div>
               <div><strong><%= t(".email_label") %>:</strong> <%= @user&.identity&.email_address %></div>
               <div>
@@ -59,28 +57,25 @@
               <% else %>
                 <div>
                   <strong><%= t(".last_sign_in") %>:</strong>
-                  <span class="text-muted-foreground"><%= t(".never_signed_in") %></span>
+                  <span class="txt-subtle"><%= t(".never_signed_in") %></span>
                 </div>
               <% end %>
             </div>
           </div>
 
-          <div class="space-y-4">
-            <!-- Role -->
+          <div class="flex flex-column" style="gap: var(--space-4);">
             <div>
-              <h4 class="text-sm font-medium text-foreground mb-3"><%= t(".role_label") %></h4>
+              <h4 class="txt-small font-weight-medium" style="margin-block-end: var(--space-3);"><%= t(".role_label") %></h4>
               <%= render "role_section", user: @user %>
             </div>
 
-            <!-- Account Status -->
             <div>
-              <h4 class="text-sm font-medium text-foreground mb-3"><%= t(".account_status_label") %></h4>
+              <h4 class="txt-small font-weight-medium" style="margin-block-end: var(--space-3);"><%= t(".account_status_label") %></h4>
               <%= render "status_section", user: @user %>
             </div>
 
-            <!-- Email Verification -->
             <div>
-              <h4 class="text-sm font-medium text-foreground mb-3"><%= t(".email_verification_label") %></h4>
+              <h4 class="txt-small font-weight-medium" style="margin-block-end: var(--space-3);"><%= t(".email_verification_label") %></h4>
               <%= render Elements::BadgeComponent.new(
                 variant: @user.identity.email_verified_at.present? ? :default : :outline
               ) do %>
@@ -94,38 +89,36 @@
     <% end %>
   <% end %>
 
-  <!-- Activity Statistics -->
   <%= render Elements::CardComponent.new do |c| %>
     <% c.with_header(title: t(".activity_stats_title")) %>
     <% c.with_body do %>
-      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-      <div class="p-4 border border-border rounded-lg">
-        <div class="text-2xl font-bold text-foreground"><%= @total_ideas %></div>
-        <div class="text-sm text-muted-foreground"><%= t(".total_ideas") %></div>
+      <div class="grid grid-cols-1 sm:grid-cols-3" style="gap: var(--space-6);">
+      <div class="border border-radius" style="padding: var(--space-4);">
+        <div class="txt-x-large font-weight-bold"><%= @total_ideas %></div>
+        <div class="txt-small txt-subtle"><%= t(".total_ideas") %></div>
       </div>
-      <div class="p-4 border border-border rounded-lg">
-        <div class="text-2xl font-bold text-foreground"><%= @total_comments %></div>
-        <div class="text-sm text-muted-foreground"><%= t(".total_comments") %></div>
+      <div class="border border-radius" style="padding: var(--space-4);">
+        <div class="txt-x-large font-weight-bold"><%= @total_comments %></div>
+        <div class="txt-small txt-subtle"><%= t(".total_comments") %></div>
       </div>
-      <div class="p-4 border border-border rounded-lg">
-        <div class="text-2xl font-bold text-foreground"><%= @total_votes %></div>
-        <div class="text-sm text-muted-foreground"><%= t(".total_votes") %></div>
+      <div class="border border-radius" style="padding: var(--space-4);">
+        <div class="txt-x-large font-weight-bold"><%= @total_votes %></div>
+        <div class="txt-small txt-subtle"><%= t(".total_votes") %></div>
       </div>
       </div>
     <% end %>
   <% end %>
 
-  <!-- Recent Ideas -->
   <%= render Elements::CardComponent.new do |c| %>
     <% c.with_header(title: t(".recent_ideas_title")) %>
     <% c.with_body do %>
     <% if @recent_ideas.any? %>
-      <div class="space-y-4">
+      <div class="flex flex-column" style="gap: var(--space-4);">
         <% @recent_ideas.each do |idea| %>
-          <div class="flex items-start gap-3 p-3 rounded-lg hover:bg-muted/50 transition-colors">
-            <div class="min-w-0 flex-1">
-              <div class="font-medium text-foreground truncate"><%= idea.title %></div>
-              <div class="text-sm text-muted-foreground">
+          <div class="flex align-start border-radius" style="gap: var(--space-3); padding: var(--space-3);">
+            <div class="min-width flex-1">
+              <div class="font-weight-medium overflow-ellipsis"><%= idea.title %></div>
+              <div class="txt-small txt-subtle">
                 <%= time_ago_in_words(idea.created_at) %> <%= t(".ago") %>
               </div>
               <% if idea.board %>
@@ -134,14 +127,14 @@
                 <% end %>
               <% end %>
             </div>
-            <div class="text-xs text-muted-foreground">
+            <div class="txt-xx-small txt-subtle">
               <%= pluralize(idea.votes_count, t(".vote_singular"), t(".vote_plural")) %> • <%= pluralize(idea.comments_count, t(".comment_singular"), t(".comment_plural")) %>
             </div>
           </div>
         <% end %>
       </div>
     <% else %>
-      <div class="text-center py-8 text-muted-foreground">
+      <div class="txt-align-center txt-subtle" style="padding-block: var(--space-8);">
         <%= t(".no_ideas") %>
       </div>
     <% end %>

@@ -1,21 +1,18 @@
 <% content_for :title, t(".title") %>
 
-<div class="space-y-8">
-  <!-- Header Section -->
-  <div class="space-y-1">
-    <h1 class="text-3xl font-bold tracking-tight text-foreground">
+<div class="flex flex-column" style="gap: var(--space-8);">
+  <div class="flex flex-column" style="gap: var(--space-1);">
+    <h1 class="txt-xx-large font-weight-bold">
       <%= t(".heading") %>
     </h1>
-    <p class="text-muted-foreground">
+    <p class="txt-subtle">
       <%= t(".description") %>
     </p>
   </div>
 
-  <!-- Search and Filters Section -->
-  <div class="space-y-4">
-    <div class="flex flex-col sm:flex-row gap-4">
-      <!-- Search -->
-      <div class="flex-1 max-w-md"
+  <div class="flex flex-column" style="gap: var(--space-4);">
+    <div class="flex flex-column sm:flex-row" style="gap: var(--space-4);">
+      <div class="flex-1" style="max-inline-size: 28rem;"
            data-controller="search"
            data-search-delay-value="300"
            data-search-loading-class="opacity-75"
@@ -25,12 +22,12 @@
               turbo_frame: "users_content",
               search_target: "form"
             } do |form| %>
-          <%= form.label :search, t(".search_label"), class: "sr-only" %>
+          <%= form.label :search, t(".search_label"), class: "visually-hidden" %>
           <%= form.search_field :search,
               placeholder: t(".search_placeholder"),
               value: params[:search],
               autocomplete: "off",
-              class: "w-full px-4 py-2 border border-input bg-background rounded-md text-sm focus:outline-hidden focus:ring-2 focus:ring-ring focus:border-ring transition-colors",
+              class: "input full-width",
               data: {
                 search_target: "input",
                 action: "input->search#search"
@@ -40,8 +37,7 @@
         <% end %>
       </div>
 
-      <!-- Role Filter -->
-      <div class="w-full sm:w-auto">
+      <div class="full-width sm:w-auto">
         <%= form_with url: admin_users_path, method: :get,
             data: { turbo_frame: "users_content" } do |form| %>
           <%= form.select :role,
@@ -62,8 +58,7 @@
         <% end %>
       </div>
 
-      <!-- Status Filter -->
-      <div class="w-full sm:w-auto">
+      <div class="full-width sm:w-auto">
         <%= form_with url: admin_users_path, method: :get,
             data: { turbo_frame: "users_content" } do |form| %>
           <%= form.select :status,
@@ -85,7 +80,6 @@
     </div>
   </div>
 
-  <!-- Users Content -->
   <%= turbo_frame_tag "users_content",
       data: { action: "turbo:frame-load->search#searchComplete" } do %>
     <%= render "users_list", users: @users, pagy: @pagy %>

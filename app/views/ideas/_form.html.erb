@@ -1,9 +1,9 @@
 <%# locals: (idea:) %>
 
-<%= form_with(model: idea, class: "grid gap-6") do |form| %>
+<%= form_with(model: idea, class: "grid", style: "gap: var(--space-6);") do |form| %>
   <%= render "error_messages", resource: form.object %>
 
-  <div class="grid gap-3">
+  <div class="grid" style="gap: var(--space-3);">
     <%= form.label :board_id, t("board") %>
     <%= form.select :board_id,
         options_from_collection_for_select(@boards, :id, :name, idea.board_id),
@@ -11,21 +11,21 @@
         { class: "select" } %>
   </div>
 
-  <div class="grid gap-3">
+  <div class="grid" style="gap: var(--space-3);">
     <%= form.label :title %>
     <%= form.text_field :title, autofocus: true, placeholder: t(".title_placeholder") %>
   </div>
 
-  <div class="grid gap-3">
+  <div class="grid" style="gap: var(--space-3);">
     <%= form.label :description %>
-    <div class="bg-card border border-input rounded-md overflow-hidden focus-within:border-ring focus-within:ring-2 focus-within:ring-ring/50">
+    <div class="fill-card border border-radius" style="overflow: hidden;">
       <%= form.rich_text_area :description, placeholder: t(".description_placeholder") do %>
         <%= rich_text_prompts %>
       <% end %>
     </div>
   </div>
 
-  <div class="flex justify-end gap-3 pt-2">
+  <div class="flex justify-end" style="gap: var(--space-3); padding-block-start: var(--space-2);">
     <% if form.object.new_record? %>
       <%= link_to t("cancel"), ideas_path, class: "btn btn--secondary" %>
     <% else %>

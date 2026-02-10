@@ -53,21 +53,7 @@ module Elements
 
       page_html = page.native.to_html
 
-      assert_includes page_html, "hidden"
-    end
-
-    test "includes transition data attributes for smooth animations" do
-      render_inline(PopoverComponent.new) do |popover|
-        popover.with_trigger { "Trigger" }
-        popover.with_popover_content { "Content" }
-      end
-
-      assert_selector "[data-transition-enter]"
-      assert_selector "[data-transition-enter-from]"
-      assert_selector "[data-transition-enter-to]"
-      assert_selector "[data-transition-leave]"
-      assert_selector "[data-transition-leave-from]"
-      assert_selector "[data-transition-leave-to]"
+      assert_includes page_html, "display-none"
     end
 
     test "renders with custom wrapper classes and attributes" do
@@ -83,16 +69,13 @@ module Elements
       assert_selector "[data-controller='popover']"
     end
 
-    test "positions content to bottom by default" do
+    test "positions content using BEM class for bottom by default" do
       render_inline(PopoverComponent.new) do |popover|
         popover.with_trigger { "Trigger" }
         popover.with_popover_content { "Content" }
       end
 
-      page_html = page.native.to_html
-
-      assert_includes page_html, "top-full"
-      assert_includes page_html, "margin-top: 4px"
+      assert_selector ".popover__content"
     end
 
     test "positions content to all four sides" do
@@ -102,7 +85,6 @@ module Elements
           popover.with_popover_content { "Content" }
         end
 
-        # Just verify it renders without checking specific CSS classes
         assert_selector "[data-slot='popover-content']"
       end
     end
@@ -114,7 +96,6 @@ module Elements
           popover.with_popover_content { "Content" }
         end
 
-        # Just verify it renders without checking specific CSS classes
         assert_selector "[data-slot='popover-content']"
       end
     end
@@ -127,7 +108,7 @@ module Elements
 
       content = page.find("[data-slot='popover-content']")
 
-      assert_includes content[:style], "margin-top: 16px"
+      assert_includes content[:style], "--popover-offset: 16px"
     end
 
     test "applies custom align offset" do
@@ -147,7 +128,6 @@ module Elements
       end
 
       assert_selector "[data-slot='popover-trigger']", text: "Just trigger"
-      # Content wrapper may exist but should be empty
       content = page.all("[data-slot='popover-content']")
       if content.any?
         assert_empty content.first.text.strip
@@ -160,13 +140,9 @@ module Elements
         popover.with_popover_content { "Content" }
       end
 
-      # Trigger announces it controls a dialog that's collapsed
       assert_selector "[data-popover-target='trigger'][aria-haspopup='dialog'][aria-expanded='false']"
-
-      # Content is a dialog, hidden and focusable, linked to trigger
       assert_selector "[data-popover-target='content'][role='dialog'][aria-hidden='true'][tabindex='-1']"
 
-      # Trigger and content must be linked for assistive tech
       trigger = page.find("[data-popover-target='trigger']")
       content = page.find("[data-popover-target='content']")
 

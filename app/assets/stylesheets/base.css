@@ -98,6 +98,12 @@
     }
   }
 
+  /* Main content area */
+  main {
+    max-inline-size: 80rem;
+    padding-block: 2.5rem var(--block-space-double);
+  }
+
   /* Horizontal rule */
   hr {
     border: none;

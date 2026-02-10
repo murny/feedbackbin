@@ -1,18 +1,18 @@
 <% content_for(:title) { t(".forgot_your_password") } %>
 
-<div class="mx-auto w-full max-w-sm flex flex-col gap-6">
+<div class="center full-width flex flex-column" style="max-inline-size: 24rem; gap: var(--space-6);">
   <%= render "shared/auth_branding" %>
 
-  <div class="card flex flex-col gap-6 py-6">
-    <header class="px-6 text-center space-y-1.5">
-      <h1 class="font-semibold text-xl"><%= t(".forgot_your_password") %></h1>
-      <p class="text-muted-foreground text-sm text-balance"><%= t(".description") %></p>
+  <div class="card flex flex-column" style="gap: var(--space-6); padding-block: var(--space-6);">
+    <header class="txt-align-center" style="padding-inline: var(--space-6);">
+      <h1 class="font-weight-bold txt-x-large"><%= t(".forgot_your_password") %></h1>
+      <p class="txt-subtle txt-small margin-block-start-half"><%= t(".description") %></p>
     </header>
 
-    <div class="px-6 grid gap-4">
-      <%= form_with url: users_password_resets_path, class: "grid gap-6" do |form| %>
-        <div class="grid gap-3">
-          <%= form.label :email_address, t(".email"), class: "text-sm font-medium leading-none" %>
+    <div class="grid" style="padding-inline: var(--space-6); gap: var(--space-6);">
+      <%= form_with url: users_password_resets_path, class: "grid", style: "gap: var(--space-6);" do |form| %>
+        <div class="grid" style="gap: var(--space-3);">
+          <%= form.label :email_address, t(".email"), class: "txt-small font-weight-medium" %>
           <%= form.email_field :email_address,
                                required: true,
                                autofocus: true,
@@ -21,12 +21,12 @@
                                value: params[:email_address] %>
         </div>
 
-        <%= form.submit t(".send_reset_instructions"), class: "btn w-full" %>
+        <%= form.submit t(".send_reset_instructions"), class: "btn full-width" %>
       <% end %>
 
-      <p class="text-center text-sm py-2 px-4">
+      <p class="txt-align-center txt-small">
         <%= t(".remember_password") %>
-        <%= link_to t("sessions.new.sign_in"), sign_in_path, class: "underline underline-offset-4" %>
+        <%= link_to t("sessions.new.sign_in"), sign_in_path, class: "txt-underline" %>
       </p>
     </div>
   </div>

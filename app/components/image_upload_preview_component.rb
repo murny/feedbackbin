@@ -2,7 +2,7 @@
 
 class ImageUploadPreviewComponent < Elements::BaseComponent
   attr_reader :form, :field_name, :preview_url, :upload_button_text, :size_hint,
-              :image_class, :upload_button_variant, :remove_path, :remove_confirmation
+              :image_class, :image_style, :upload_button_variant, :remove_path, :remove_confirmation
 
   def initialize(
     form:,
@@ -11,6 +11,7 @@ class ImageUploadPreviewComponent < Elements::BaseComponent
     upload_button_text:,
     size_hint:,
     image_class: "upload-preview__image",
+    image_style: nil,
     upload_button_variant: :secondary,
     remove_path: nil,
     remove_confirmation: nil
@@ -21,6 +22,7 @@ class ImageUploadPreviewComponent < Elements::BaseComponent
     @upload_button_text = upload_button_text
     @size_hint = size_hint
     @image_class = image_class
+    @image_style = image_style
     @upload_button_variant = upload_button_variant
     @remove_path = remove_path
     @remove_confirmation = remove_confirmation

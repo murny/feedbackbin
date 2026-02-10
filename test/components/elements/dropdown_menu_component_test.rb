@@ -40,7 +40,6 @@ module Elements
         dropdown.with_item_content(href: "/settings", method: :get) { "Settings" }
       end
 
-      # Both render as links (method: :get is normalized to nil)
       assert_selector "a[href='/profile'][role='menuitem']"
       assert_selector "a[href='/settings'][role='menuitem']"
       assert_selector "a[data-action='click->dropdown#close']", count: 2
@@ -53,12 +52,9 @@ module Elements
         dropdown.with_item_content(href: "/logout", method: :delete) { "Sign out" }
       end
 
-      # Form structure
       assert_selector "form[action='/logout']"
       assert_selector "form input[name='authenticity_token'][type='hidden']", visible: false
       assert_selector "form input[name='_method'][value='delete'][type='hidden']", visible: false
-
-      # ARIA on button, not form
       assert_selector "form button[role='menuitem'][type='submit']"
       refute_selector "form[role='menuitem']"
     end
@@ -69,10 +65,7 @@ module Elements
         dropdown.with_item_content(disabled: true, href: "/action") { "Disabled" }
       end
 
-      # Non-interactive span with proper ARIA
       assert_selector "span[role='menuitem'][aria-disabled='true'][data-disabled='true']"
-
-      # No href or action
       refute_selector "a[href='/action']"
       page_html = page.native.to_html
 
@@ -102,7 +95,6 @@ module Elements
       assert_selector "div#user-menu.custom-class"
       assert_selector "[data-testid='dropdown'][aria-label='User actions']"
 
-      # Appends to existing controllers
       page_html = page.native.to_html
 
       assert_includes page_html, 'data-controller="tooltip dropdown"'
@@ -114,10 +106,7 @@ module Elements
         dropdown.with_item_content { "Item" }
       end
 
-      page_html = page.native.to_html
-
-      assert_includes page_html, "size-9"  # icon size
-      assert_includes page_html, "custom"  # custom class
+      assert_selector "button.btn--ghost.btn--icon.custom"
     end
 
     test "label accepts custom attributes" do

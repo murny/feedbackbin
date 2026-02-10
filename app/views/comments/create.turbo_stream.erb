@@ -8,7 +8,7 @@
     <% end %>
 
     <%= turbo_stream.replace "#{dom_id(@comment.parent)}_reply_form" do %>
-      <div id="<%= dom_id(@comment.parent) %>_reply_form" class="p-4 lg:px-6">
+      <div id="<%= dom_id(@comment.parent) %>_reply_form" class="pad">
         <%= render partial: "comments/thread_reply_form", locals: { parent: @comment.parent } %>
       </div>
     <% end %>
@@ -26,7 +26,7 @@
   <%# Validation failed - re-render form with errors %>
   <% if @comment.parent %>
     <%= turbo_stream.replace "#{dom_id(@comment.parent)}_reply_form" do %>
-      <div id="<%= dom_id(@comment.parent) %>_reply_form" class="p-4 lg:px-6">
+      <div id="<%= dom_id(@comment.parent) %>_reply_form" class="pad">
         <%= render partial: "comments/thread_reply_form", locals: { parent: @comment.parent, comment: @comment } %>
       </div>
     <% end %>

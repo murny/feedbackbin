@@ -1,24 +1,19 @@
 <% content_for(:title) { t(".check_your_email") } %>
 
-<div class="mx-auto w-full max-w-sm flex flex-col gap-6">
+<div class="center full-width flex flex-column" style="max-inline-size: 24rem; gap: var(--space-6);">
   <%= render "shared/auth_branding" %>
 
-  <div class="card flex flex-col gap-6 py-6">
-    <header class="px-6 text-center space-y-1.5">
-      <div class="mx-auto w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center mb-4">
-        <%= lucide_icon "mail", class: "h-6 w-6 text-primary" %>
-      </div>
-      <h1 class="font-semibold text-xl"><%= t(".check_your_email") %></h1>
-      <p class="text-muted-foreground text-sm"><%= t(".verification_instructions") %></p>
+  <div class="card flex flex-column" style="gap: var(--space-6); padding-block: var(--space-6);">
+    <header class="txt-align-center" style="padding-inline: var(--space-6);">
+      <h1 class="font-weight-bold txt-x-large"><%= t(".check_your_email") %></h1>
+      <p class="txt-subtle txt-small margin-block-start-half"><%= t(".verification_instructions") %></p>
     </header>
 
-    <div class="px-6 grid gap-4">
-      <p class="text-sm text-center text-muted-foreground">
+    <div class="grid" style="padding-inline: var(--space-6); gap: var(--space-6);">
+      <p class="txt-small txt-align-center txt-subtle">
         <%= t(".didnt_receive_email") %>
       </p>
-      <div class="flex justify-center">
-        <%= link_to t(".sign_in"), sign_in_path, class: "btn btn--outline w-full" %>
-      </div>
+      <%= link_to t(".sign_in"), sign_in_path, class: "btn btn--outline full-width" %>
     </div>
   </div>
 </div>

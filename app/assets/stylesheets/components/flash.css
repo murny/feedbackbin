@@ -1,0 +1,68 @@
+/* ==========================================================================
+   Flash Banner
+
+   Full-width alert banner displayed at the top of the page for flash messages.
+   Wraps an AlertComponent with a colored top border and dismiss button.
+
+   Usage:
+     <div class="flash-banner flash-banner--destructive">
+       <div class="alert alert--destructive">...</div>
+       <button class="flash-banner__dismiss">...</button>
+     </div>
+
+   Variants: flash-banner--destructive, flash-banner--success
+   ========================================================================== */
+
+@layer components {
+  .flash-banner {
+    display: flex;
+    align-items: center;
+    inline-size: 100%;
+    border-top: 4px solid var(--color-border);
+    background-color: var(--color-card);
+
+    .alert {
+      flex: 1 1 auto;
+      border: none;
+      border-radius: 0;
+    }
+  }
+
+  .flash-banner--destructive {
+    border-top-color: var(--color-destructive);
+  }
+
+  .flash-banner--success {
+    border-top-color: var(--color-success);
+  }
+
+  .flash-banner__dismiss {
+    flex: 0 0 auto;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-inline-end: 0.5rem;
+    padding: 0.375rem;
+    border: none;
+    border-radius: var(--radius-md);
+    background-color: transparent;
+    color: var(--color-muted-foreground);
+    cursor: pointer;
+    transition: background-color 150ms ease, color 150ms ease;
+
+    &:hover {
+      background-color: var(--color-accent);
+      color: var(--color-accent-foreground);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--color-ring);
+      outline-offset: 2px;
+    }
+
+    svg {
+      inline-size: 1.25rem;
+      block-size: 1.25rem;
+    }
+  }
+}

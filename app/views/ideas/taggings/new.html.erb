@@ -7,7 +7,7 @@
 
     <div class="flex align-start justify-space-between margin-block-end">
       <strong class="txt-small font-weight-bold"><%= t(".title") %></strong>
-      <kbd class="txt-x-small txt-subtle hidden md:inline">t</kbd>
+      <kbd class="txt-x-small txt-subtle kbd-shortcut-hint">t</kbd>
     </div>
 
     <%= form_with url: idea_taggings_path(@idea),
@@ -20,7 +20,7 @@
       <%= form.label :tag_title, @tags.any? ? t(".filter_placeholder") : t(".name_placeholder"), class: "visually-hidden" %>
       <%= form.text_field :tag_title,
             placeholder: @tags.any? ? t(".filter_placeholder") : t(".name_placeholder"),
-            class: "full-width px-3 py-2 fill border border-input border-radius txt-small focus:outline-hidden focus:ring-2 focus:ring-ring",
+            class: "full-width",
             autocomplete: "off",
             autofocus: true,
             data: {
@@ -30,7 +30,7 @@
             } %>
     <% end %>
 
-    <ul class="flex flex-column gap-half max-h-64 overflow-y-auto list-style-none" data-filter-target="list">
+    <ul class="flex flex-column gap-half list-style-none" style="max-block-size: 16rem; overflow-y: auto;" data-filter-target="list">
       <%= render collection: @tagged_with, partial: "ideas/taggings/tag_item", locals: { idea: @idea } %>
       <%= render collection: @tags, partial: "ideas/taggings/tag_item", locals: { idea: @idea } %>
 
@@ -38,7 +38,7 @@
         <%= button_tag type: "submit", form: dom_id(@idea, :tags_form),
               class: "tag-picker__item",
               data: { form_target: "submit" } do %>
-          <%= lucide_icon "plus", class: "h-4 w-4" %>
+          <%= lucide_icon "plus", class: "size-4" %>
           <span><%= t(".create_tag") %></span>
         <% end %>
       </li>
