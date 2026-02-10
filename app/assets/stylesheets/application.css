@@ -1,6 +1,5 @@
 /* ==========================================================================
    FeedbackBin Stylesheet
-   Pure CSS architecture inspired by Basecamp's Fizzy.
 
    Layer order (defined in _global.css):
    @layer reset, base, components, modules, utilities;

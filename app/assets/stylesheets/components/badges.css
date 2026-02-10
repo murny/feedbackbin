@@ -125,7 +125,7 @@
 
   .badge--destructive {
     --badge-background: var(--color-destructive);
-    --badge-color: white;
+    --badge-color: var(--color-destructive-foreground);
     --focus-ring-color: var(--color-destructive);
   }
 
@@ -144,7 +144,7 @@
 
   .badge--success {
     --badge-background: var(--color-success, oklch(0.65 0.2 145));
-    --badge-color: white;
+    --badge-color: var(--color-success-foreground);
   }
 
   /* Variant: Warning (bonus - commonly needed)

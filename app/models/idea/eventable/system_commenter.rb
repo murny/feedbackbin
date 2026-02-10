@@ -3,8 +3,6 @@
 # Idea::Eventable::SystemCommenter creates system comments for idea events.
 # These comments appear in the comment thread to provide a visible audit trail.
 #
-# Follows Fizzy's pattern of creating human-readable system comments for events.
-#
 # Example:
 #   SystemCommenter.new(idea, event).comment
 #   # Creates: "Alice changed the status from Open to In Progress"

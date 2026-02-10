@@ -1,0 +1,121 @@
+/* ==========================================================================
+   Range/Slider Component
+
+   Usage:
+     <input type="range">
+
+   Set --slider-value via JS to control the filled track portion.
+   ========================================================================== */
+
+@layer components {
+  input[type='range'] {
+    /* Component API */
+    --slider-value: 20%;
+    --slider-thumb-size: 1rem;
+    --slider-track-height: 0.375rem;
+
+    /* Structure */
+    appearance: none;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    outline: none;
+
+    /* Hover/focus state for thumb */
+    &:hover,
+    &:focus-visible {
+      &::-webkit-slider-thumb {
+        box-shadow: 0 0 0 4px oklch(from var(--color-ring) l c h / 20%);
+      }
+      &::-moz-range-thumb {
+        box-shadow: 0 0 0 4px oklch(from var(--color-ring) l c h / 20%);
+      }
+      &::-ms-thumb {
+        box-shadow: 0 0 0 4px oklch(from var(--color-ring) l c h / 20%);
+      }
+    }
+
+    /* WebKit (Chrome, Safari, Edge) */
+    &::-webkit-slider-thumb {
+      appearance: none;
+      display: block;
+      inline-size: var(--slider-thumb-size);
+      block-size: var(--slider-thumb-size);
+      flex-shrink: 0;
+      margin-block-start: -0.3125rem;
+      background-color: var(--color-background);
+      border: 1px solid var(--color-primary);
+      border-radius: 50%;
+      box-shadow: var(--shadow-sm);
+    }
+
+    &::-webkit-slider-runnable-track {
+      appearance: none;
+      inline-size: 100%;
+      block-size: var(--slider-track-height);
+      border-radius: 9999px;
+      background: linear-gradient(
+        to right,
+        var(--color-primary) var(--slider-value),
+        var(--color-muted) var(--slider-value)
+      );
+    }
+
+    /* Firefox */
+    &::-moz-range-thumb {
+      appearance: none;
+      display: block;
+      inline-size: var(--slider-thumb-size);
+      block-size: var(--slider-thumb-size);
+      flex-shrink: 0;
+      margin-block-start: -0.3125rem;
+      background-color: var(--color-background);
+      border: 1px solid var(--color-primary);
+      border-radius: 50%;
+      box-shadow: var(--shadow-sm);
+    }
+
+    &::-moz-range-track {
+      appearance: none;
+      inline-size: 100%;
+      block-size: var(--slider-track-height);
+      border-radius: 9999px;
+      background: linear-gradient(
+        to right,
+        var(--color-primary) var(--slider-value),
+        var(--color-muted) var(--slider-value)
+      );
+    }
+
+    /* IE/Edge Legacy */
+    &::-ms-thumb {
+      appearance: none;
+      display: block;
+      inline-size: var(--slider-thumb-size);
+      block-size: var(--slider-thumb-size);
+      flex-shrink: 0;
+      margin-block-start: -0.3125rem;
+      background-color: var(--color-background);
+      border: 1px solid var(--color-primary);
+      border-radius: 50%;
+      box-shadow: var(--shadow-sm);
+    }
+
+    &::-ms-track {
+      appearance: none;
+      inline-size: 100%;
+      block-size: var(--slider-track-height);
+      border-radius: 9999px;
+    }
+
+    &::-ms-fill-lower {
+      background-color: var(--color-primary);
+      border-radius: 9999px;
+    }
+
+    &::-ms-fill-upper {
+      background-color: var(--color-muted);
+      border-radius: 9999px;
+    }
+  }
+}

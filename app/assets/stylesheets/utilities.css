@@ -1,6 +1,6 @@
 /* ==========================================================================
    Utility Classes
-   Inspired by Basecamp's Fizzy CSS architecture.
+
    Keep this lean — prefer component/module classes for specific styling.
    ========================================================================== */
 
@@ -336,7 +336,7 @@
 
   /* ==========================================================================
      FeedbackBin Extras
-     Utilities not in Fizzy that we need for our design system.
+     Utilities not in our design system.
      Each should have a clear reason for existing.
      ========================================================================== */
 

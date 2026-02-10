@@ -167,7 +167,7 @@
         .token.atrule,
         .token.attr,
         .token.keyword {
-          color: var(--color-code-token-attr, #7c3aed);
+          color: var(--color-code-token-attr);
         }
 
         /* Constants, booleans, numbers, properties, tags */
@@ -179,7 +179,7 @@
         .token.property,
         .token.symbol,
         .token.tag {
-          color: var(--color-code-token-property, #dc2626);
+          color: var(--color-code-token-property);
         }
 
         /* Strings, selectors, and built-in constructs */
@@ -189,7 +189,7 @@
         .token.inserted,
         .token.selector,
         .token.string {
-          color: var(--color-code-token-selector, #16a34a);
+          color: var(--color-code-token-selector);
         }
 
         /* Comments and meta information */
@@ -198,7 +198,7 @@
         .token.comment,
         .token.doctype,
         .token.prolog {
-          color: var(--color-code-token-comment, #6b7280);
+          color: var(--color-code-token-comment);
           font-style: italic;
         }
 
@@ -207,7 +207,7 @@
         .token.entity,
         .token.operator,
         .token.url {
-          color: var(--color-code-token-operator, #0891b2);
+          color: var(--color-code-token-operator);
         }
 
         /* Functions and class names */
@@ -215,7 +215,7 @@
         .token.class,
         .token.class-name,
         .token.function {
-          color: var(--color-code-token-function, #2563eb);
+          color: var(--color-code-token-function);
         }
 
         /* Variables, regex, namespaces, important */
@@ -224,13 +224,13 @@
         .token.namespace,
         .token.regex,
         .token.variable {
-          color: var(--color-code-token-variable, #ea580c);
+          color: var(--color-code-token-variable);
         }
 
         /* Punctuation */
         .code-token__punctuation,
         .token.punctuation {
-          color: var(--color-code-token-punctuation, #475569);
+          color: var(--color-code-token-punctuation);
         }
       }
     }

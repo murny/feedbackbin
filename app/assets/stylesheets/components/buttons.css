@@ -217,7 +217,7 @@
 
   .btn--destructive {
     --btn-background: var(--color-destructive);
-    --btn-color: white;
+    --btn-color: var(--color-destructive-foreground);
     --focus-ring-color: var(--color-destructive);
 
     html[data-theme="dark"] & {

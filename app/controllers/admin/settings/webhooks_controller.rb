@@ -33,7 +33,7 @@ module Admin
       end
 
       def update
-        # URL cannot be changed after creation (security best practice, following Fizzy)
+        # URL cannot be changed after creation (security best practice)
         if @webhook.update(webhook_params.except(:url))
           redirect_to admin_settings_webhook_path(@webhook), notice: t(".successfully_updated")
         else

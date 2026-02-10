@@ -9,7 +9,7 @@
           theme_application_preference_value: "system"
         } do %>
     <%= render "flash" %>
-    <main class="flex-item-grow flex flex-column align-center justify-center gap" style="padding: var(--space-6); --row-gap: var(--space-6);">
+    <main class="flex-item-grow flex flex-column align-center justify-center gap" style="max-inline-size: none; padding: var(--space-6); --row-gap: var(--space-6);">
       <%= yield %>
     </main>
   <% end %>
