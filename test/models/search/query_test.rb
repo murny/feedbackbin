@@ -46,6 +46,34 @@ class Search::QueryTest < ActiveSupport::TestCase
     assert_equal "hello world", Search::Query.sanitize("  hello   world  ")
   end
 
+  test "sanitize strips standalone asterisk" do
+    assert_equal "", Search::Query.sanitize("*")
+  end
+
+  test "sanitize strips standalone dash" do
+    assert_equal "", Search::Query.sanitize("-")
+  end
+
+  test "sanitize strips trailing bare asterisk" do
+    assert_equal "hello", Search::Query.sanitize("hello *")
+  end
+
+  test "sanitize strips trailing bare dash" do
+    assert_equal "hello", Search::Query.sanitize("hello -")
+  end
+
+  test "sanitize preserves prefix wildcard attached to word" do
+    assert_equal "*test", Search::Query.sanitize("*test")
+  end
+
+  test "sanitize preserves suffix wildcard attached to word" do
+    assert_equal "test*", Search::Query.sanitize("test*")
+  end
+
+  test "sanitize preserves prefix dash attached to word" do
+    assert_equal "-test", Search::Query.sanitize("-test")
+  end
+
   test "recent scope returns last 5 ordered by updated_at desc" do
     queries = Search::Query.where(user: @user, account: accounts(:feedbackbin)).recent
 

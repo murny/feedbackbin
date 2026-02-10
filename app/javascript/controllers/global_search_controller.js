@@ -51,24 +51,29 @@ export default class extends Controller {
 
   async #performSearch() {
     const query = this.inputTarget.value.trim()
+    if (query === "") return
 
-    const url = new URL(this.urlValue, window.location.origin)
-    url.searchParams.set("q", query)
+    try {
+      const url = new URL(this.urlValue, window.location.origin)
+      url.searchParams.set("q", query)
 
-    const response = await fetch(url, {
-      headers: {
-        Accept: "text/vnd.turbo-stream.html",
-        "X-CSRF-Token": document.querySelector("meta[name='csrf-token']")?.content
+      const response = await fetch(url, {
+        headers: {
+          Accept: "text/vnd.turbo-stream.html",
+          "X-CSRF-Token": document.querySelector("meta[name='csrf-token']")?.content
+        }
+      })
+
+      if (response.ok) {
+        const html = await response.text()
+        Turbo.renderStreamMessage(html)
+
+        if (query.length >= 3) {
+          this.#trackQuery(query)
+        }
       }
-    })
-
-    if (response.ok) {
-      const html = await response.text()
-      Turbo.renderStreamMessage(html)
-
-      if (query.length >= 3) {
-        this.#trackQuery(query)
-      }
+    } catch (error) {
+      console.error("Search request failed:", error)
     }
   }
 

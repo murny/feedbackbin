@@ -31,7 +31,12 @@ class Search::Query < ApplicationRecord
     sanitized = terms.to_s.strip
     sanitized = sanitized.gsub(/[^\w\s"*-]/u, "")
     sanitized = fix_unbalanced_quotes(sanitized)
+    sanitized = strip_bare_operators(sanitized)
     sanitized.squish
+  end
+
+  def self.strip_bare_operators(str)
+    str.gsub(/(?<!\w)[*-](?!\w)/, "")
   end
 
   def self.fix_unbalanced_quotes(str)
@@ -42,5 +47,5 @@ class Search::Query < ApplicationRecord
     end
   end
 
-  private_class_method :fix_unbalanced_quotes
+  private_class_method :fix_unbalanced_quotes, :strip_bare_operators
 end

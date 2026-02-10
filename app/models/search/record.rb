@@ -6,8 +6,8 @@ class Search::Record < ApplicationRecord
   RESULT_LIMIT = 20
 
   belongs_to :account
-  belongs_to :board
-  belongs_to :idea
+  belongs_to :board, optional: true
+  belongs_to :idea, optional: true
   belongs_to :searchable, polymorphic: true
 
   after_save :upsert_fts_record
