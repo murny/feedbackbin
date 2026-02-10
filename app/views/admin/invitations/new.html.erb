@@ -1,46 +1,46 @@
 <% content_for :title, t(".title") %>
 
-<div class="container mx-auto max-w-2xl px-4 py-8">
-  <div class="mb-8">
-    <div class="flex items-center gap-3 mb-2">
-      <%= link_to admin_invitations_path, class: "text-sm text-muted-foreground hover:text-foreground inline-flex items-center" do %>
-        <%= lucide_icon "arrow-left", class: "mr-2 h-4 w-4" %>
+<div class="center pad-inline" style="max-inline-size: 42rem; padding-block: var(--space-8);">
+  <div style="margin-block-end: var(--space-8);">
+    <div class="flex align-center" style="gap: var(--space-3); margin-block-end: var(--space-2);">
+      <%= link_to admin_invitations_path, class: "txt-small txt-subtle-link flex-inline align-center" do %>
+        <%= lucide_icon "arrow-left", style: "margin-inline-end: var(--space-2); inline-size: 1rem; block-size: 1rem;" %>
         <%= t(".back_to_invitations") %>
       <% end %>
     </div>
-    <h1 class="text-2xl font-semibold tracking-tight"><%= t(".title") %></h1>
-    <p class="text-sm text-muted-foreground"><%= t(".description") %></p>
+    <h1 class="txt-xx-large font-weight-semibold"><%= t(".title") %></h1>
+    <p class="txt-small txt-subtle"><%= t(".description") %></p>
   </div>
 
   <%= render Elements::CardComponent.new do |c| %>
     <% c.with_body do %>
-      <%= form_with model: @invitation, url: admin_invitations_path, class: "space-y-6" do |form| %>
+      <%= form_with model: @invitation, url: admin_invitations_path, class: "flex flex-column", style: "gap: var(--space-6);" do |form| %>
         <%= render "error_messages", resource: form.object %>
 
-        <div class="grid gap-3">
-          <%= form.label :email, t(".email"), class: "text-sm font-medium" %>
+        <div class="grid" style="gap: var(--space-3);">
+          <%= form.label :email, t(".email"), class: "txt-small font-weight-medium" %>
           <%= form.email_field :email, placeholder: t(".email_placeholder"), class: "form-input", autofocus: true, required: true %>
-          <p class="text-xs text-muted-foreground"><%= t(".email_hint") %></p>
+          <p class="txt-x-small txt-subtle"><%= t(".email_hint") %></p>
         </div>
 
-        <div class="grid gap-3">
-          <%= form.label :name, t(".name"), class: "text-sm font-medium" %>
+        <div class="grid" style="gap: var(--space-3);">
+          <%= form.label :name, t(".name"), class: "txt-small font-weight-medium" %>
           <%= form.text_field :name, placeholder: t(".name_placeholder"), class: "form-input", required: true %>
-          <p class="text-xs text-muted-foreground"><%= t(".name_hint") %></p>
+          <p class="txt-x-small txt-subtle"><%= t(".name_hint") %></p>
         </div>
 
-        <div class="p-4 bg-blue-50 dark:bg-blue-900/10 border border-blue-200 dark:border-blue-800 rounded-md">
-          <div class="flex gap-3">
-            <%= lucide_icon "info", class: "h-5 w-5 text-blue-500 shrink-0 mt-0.5" %>
-            <div class="text-sm">
-              <p class="text-blue-900 dark:text-blue-100"><%= t(".member_role_note") %></p>
+        <div class="pad border-radius" style="background-color: oklch(from var(--color-primary) l c h / 10%); border: 1px solid oklch(from var(--color-primary) l c h / 20%);">
+          <div class="flex" style="gap: var(--space-3);">
+            <%= lucide_icon "info", class: "flex-item-no-shrink txt-primary", style: "inline-size: 1.25rem; block-size: 1.25rem; margin-block-start: 0.125rem;" %>
+            <div class="txt-small">
+              <p><%= t(".member_role_note") %></p>
             </div>
           </div>
         </div>
 
-        <div class="flex items-center justify-end gap-3 pt-4">
-          <%= link_to t(".cancel"), admin_invitations_path, class: "btn btn-secondary" %>
-          <%= form.submit t(".send_invitation"), class: "btn btn-primary" %>
+        <div class="flex align-center justify-end" style="gap: var(--space-3); padding-block-start: var(--space-4);">
+          <%= link_to t(".cancel"), admin_invitations_path, class: "btn btn--secondary" %>
+          <%= form.submit t(".send_invitation"), class: "btn btn--primary" %>
         </div>
       <% end %>
     <% end %>

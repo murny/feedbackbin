@@ -7,8 +7,9 @@
   <%= button_to "/auth/#{provider}",
         method: :post,
         data: { turbo: false },
-        class: "btn-outline w-full gap-2" do %>
-    <%= inline_svg_tag "icons/brand/#{provider}.svg", class: "h-4 w-4" %>
+        class: "btn btn--outline full-width",
+        style: "gap: var(--space-2);" do %>
+    <%= inline_svg_tag "icons/brand/#{provider}.svg", class: "size-4" %>
     <span><%= t("oauth.sign_in_with", provider: OmniAuth::Utils.camelize(provider)) %></span>
   <% end %>
 <% end %>

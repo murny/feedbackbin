@@ -1,35 +1,35 @@
 <% content_for :title, @webhook.name %>
 
-<div class="container mx-auto max-w-4xl">
+<div class="center full-width" style="max-inline-size: 56rem;">
   <%= render partial: "admin/settings/header" %>
 
-  <div class="mt-8">
-    <div class="flex items-center justify-between mb-6">
+  <div style="margin-block-start: var(--space-8);">
+    <div class="flex align-center justify-space-between" style="margin-block-end: var(--space-6);">
       <div>
-        <h2 class="text-lg font-medium"><%= @webhook.name %></h2>
-        <p class="text-sm text-muted-foreground font-mono"><%= @webhook.url %></p>
+        <h2 class="txt-large font-weight-medium"><%= @webhook.name %></h2>
+        <p class="txt-small txt-subtle" style="font-family: var(--font-mono, monospace);"><%= @webhook.url %></p>
       </div>
-      <div class="flex items-center gap-2">
+      <div class="flex align-center" style="gap: var(--space-2);">
         <% if @webhook.active? %>
-          <%= button_to t(".deactivate"), admin_settings_webhook_activation_path(@webhook), method: :delete, class: "btn btn-secondary" %>
+          <%= button_to t(".deactivate"), admin_settings_webhook_activation_path(@webhook), method: :delete, class: "btn btn--secondary" %>
         <% else %>
-          <%= button_to t(".activate"), admin_settings_webhook_activation_path(@webhook), method: :post, class: "btn btn-primary" %>
+          <%= button_to t(".activate"), admin_settings_webhook_activation_path(@webhook), method: :post, class: "btn btn--primary" %>
         <% end %>
-        <%= link_to edit_admin_settings_webhook_path(@webhook), class: "btn btn-secondary" do %>
-          <%= lucide_icon "pencil", class: "h-4 w-4 mr-1" %>
+        <%= link_to edit_admin_settings_webhook_path(@webhook), class: "btn btn--secondary" do %>
+          <%= lucide_icon "pencil", class: "size-4", style: "margin-inline-end: var(--space-1);" %>
           <%= t("edit") %>
         <% end %>
       </div>
     </div>
 
-    <div class="space-y-6">
+    <div class="flex flex-column" style="gap: var(--space-6);">
       <%# Status %>
       <%= render Elements::CardComponent.new do |c| %>
         <% c.with_body do %>
-          <div class="flex items-center justify-between">
+          <div class="flex align-center justify-space-between">
             <div>
-              <h3 class="text-sm font-medium"><%= t(".status") %></h3>
-              <p class="text-sm text-muted-foreground mt-1">
+              <h3 class="txt-small font-weight-medium"><%= t(".status") %></h3>
+              <p class="txt-small txt-subtle" style="margin-block-start: var(--space-1);">
                 <% if @webhook.active? %>
                   <%= t(".status_active") %>
                 <% else %>
@@ -38,7 +38,7 @@
               </p>
             </div>
             <% if @webhook.active? %>
-              <%= render Elements::BadgeComponent.new(variant: :default, class: "bg-green-500") do %>
+              <%= render Elements::BadgeComponent.new(variant: :default, style: "background-color: oklch(0.599 0.156 163.224);") do %>
                 <%= t(".active_badge") %>
               <% end %>
             <% else %>
@@ -53,9 +53,9 @@
       <%# Signing Secret %>
       <%= render Elements::CardComponent.new do |c| %>
         <% c.with_body do %>
-          <h3 class="text-sm font-medium mb-2"><%= t(".signing_secret_label") %></h3>
-          <code class="block bg-muted px-3 py-2 rounded-md text-sm font-mono break-all"><%= @webhook.signing_secret %></code>
-          <p class="text-xs text-muted-foreground mt-2"><%= t(".signing_secret_hint") %></p>
+          <h3 class="txt-small font-weight-medium" style="margin-block-end: var(--space-2);"><%= t(".signing_secret_label") %></h3>
+          <code class="display-block fill-shade border-radius txt-small" style="word-break: break-all; padding-inline: var(--space-3); padding-block: var(--space-2); font-family: var(--font-mono, monospace);"><%= @webhook.signing_secret %></code>
+          <p class="txt-x-small txt-subtle" style="margin-block-start: var(--space-2);"><%= t(".signing_secret_hint") %></p>
         <% end %>
       <% end %>
 
@@ -63,9 +63,9 @@
       <% if @webhook.board.present? %>
         <%= render Elements::CardComponent.new do |c| %>
           <% c.with_body do %>
-            <h3 class="text-sm font-medium mb-2"><%= t(".board_scope") %></h3>
-            <p class="text-sm"><%= @webhook.board.name %></p>
-            <p class="text-xs text-muted-foreground mt-1"><%= t(".board_scope_hint") %></p>
+            <h3 class="txt-small font-weight-medium" style="margin-block-end: var(--space-2);"><%= t(".board_scope") %></h3>
+            <p class="txt-small"><%= @webhook.board.name %></p>
+            <p class="txt-x-small txt-subtle" style="margin-block-start: var(--space-1);"><%= t(".board_scope_hint") %></p>
           <% end %>
         <% end %>
       <% end %>
@@ -73,14 +73,14 @@
       <%# Subscribed Events %>
       <%= render Elements::CardComponent.new do |c| %>
         <% c.with_body do %>
-          <h3 class="text-sm font-medium mb-2"><%= t(".subscribed_events") %></h3>
+          <h3 class="txt-small font-weight-medium" style="margin-block-end: var(--space-2);"><%= t(".subscribed_events") %></h3>
           <% if @webhook.subscribed_actions.empty? %>
-            <p class="text-sm text-muted-foreground"><%= t(".no_subscribed_events") %></p>
+            <p class="txt-small txt-subtle"><%= t(".no_subscribed_events") %></p>
           <% else %>
-            <ul class="space-y-1">
+            <ul class="flex flex-column" style="gap: var(--space-1);">
               <% @webhook.subscribed_actions.each do |action| %>
-                <li class="text-sm flex items-center gap-2">
-                  <%= lucide_icon "check", class: "h-4 w-4 text-green-500" %>
+                <li class="txt-small flex align-center" style="gap: var(--space-2);">
+                  <%= lucide_icon "check", class: "size-4", style: "color: oklch(0.599 0.156 163.224);" %>
                   <%= webhook_action_label(action) %>
                 </li>
               <% end %>
@@ -92,11 +92,11 @@
       <%# Recent Deliveries %>
       <%= render Elements::CardComponent.new do |c| %>
         <% c.with_body do %>
-          <h3 class="text-sm font-medium mb-2"><%= t(".recent_deliveries") %></h3>
+          <h3 class="txt-small font-weight-medium" style="margin-block-end: var(--space-2);"><%= t(".recent_deliveries") %></h3>
           <% if @webhook.deliveries.empty? %>
-            <p class="text-sm text-muted-foreground"><%= t(".no_deliveries") %></p>
+            <p class="txt-small txt-subtle"><%= t(".no_deliveries") %></p>
           <% else %>
-            <ul class="divide-y divide-border">
+            <ul class="divide-y">
               <% @webhook.deliveries.order(created_at: :desc).limit(20).each do |delivery| %>
                 <%= render "delivery", delivery: delivery %>
               <% end %>
@@ -106,11 +106,12 @@
       <% end %>
     </div>
 
-    <div class="mt-8 pt-6 border-t border-border">
+    <div class="border-top" style="margin-block-start: var(--space-8); padding-block-start: var(--space-6);">
       <%= link_to admin_settings_webhook_path(@webhook),
-            class: "text-sm text-destructive hover:text-destructive/80",
+            class: "txt-small",
+            style: "color: var(--color-destructive);",
             data: { "turbo-method": :delete, turbo_confirm: t("are_you_sure") } do %>
-        <%= lucide_icon "trash-2", class: "h-4 w-4 inline mr-1" %>
+        <%= lucide_icon "trash-2", class: "size-4 display-inline", style: "margin-inline-end: var(--space-1);" %>
         <%= t(".delete_webhook") %>
       <% end %>
     </div>

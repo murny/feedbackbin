@@ -2,26 +2,26 @@
 
 <% if authenticated? %>
   <%= turbo_frame_tag "idea_comment_form" do %>
-    <div class="flex items-start">
-      <%= form_with model: comment, url: idea_comments_path(idea), class: "my-4 w-full" do |form| %>
+    <div class="flex align-start">
+      <%= form_with model: comment, url: idea_comments_path(idea), class: "margin-block full-width" do |form| %>
         <%= render "error_messages", resource: form.object %>
-        <div class="bg-card border border-input rounded-md overflow-hidden focus-within:border-ring focus-within:ring-2 focus-within:ring-ring/50">
+        <div class="comment-editor">
           <%= form.rich_text_area :body, id: "idea_#{idea.id}_new_comment_body", placeholder: t(".comment_placeholder") do %>
             <%= rich_text_prompts %>
           <% end %>
         </div>
-        <div class="mt-5 flex items-center gap-4 justify-end">
-          <%= form.submit class: "btn btn-primary" %>
-          <%= link_to "Cancel", idea_comment_path(idea, comment), class: "btn btn-secondary" if form.object.persisted? %>
+        <div class="margin-block-start flex align-center gap justify-end">
+          <%= form.submit class: "btn btn--primary" %>
+          <%= link_to "Cancel", idea_comment_path(idea, comment), class: "btn btn--secondary" if form.object.persisted? %>
         </div>
       <% end %>
     </div>
   <% end %>
 <% else %>
-  <p class="my-3 text-base font-semibold leading-7 text-foreground">
-    <%= link_to "Sign up", sign_up_path, class: "font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300" %>
+  <p class="margin-block txt-normal font-weight-bold txt-ink">
+    <%= link_to "Sign up", sign_up_path, class: "font-weight-medium txt-link" %>
     or
-    <%= link_to "login", sign_in_path, class: "font-medium text-indigo-600 hover:text-indigo-500 dark:text-indigo-400 dark:hover:text-indigo-300" %>
+    <%= link_to "login", sign_in_path, class: "font-weight-medium txt-link" %>
     to comment
   </p>
 <% end %>

@@ -1,26 +1,26 @@
 <%# locals: (delivery:) %>
 
-<li id="<%= dom_id(delivery) %>" class="py-3 flex items-center justify-between">
-  <div class="flex items-center gap-3">
+<li id="<%= dom_id(delivery) %>" class="flex align-center justify-space-between" style="padding-block: var(--space-3);">
+  <div class="flex align-center" style="gap: var(--space-3);">
     <% if delivery.succeeded? %>
-      <%= lucide_icon "check-circle", class: "h-5 w-5 text-green-500" %>
+      <%= lucide_icon "check-circle", class: "size-5", style: "color: oklch(0.599 0.156 163.224);" %>
     <% elsif delivery.errored? %>
-      <%= lucide_icon "x-circle", class: "h-5 w-5 text-destructive" %>
+      <%= lucide_icon "x-circle", class: "size-5", style: "color: var(--color-destructive);" %>
     <% elsif delivery.in_progress? %>
-      <%= lucide_icon "loader", class: "h-5 w-5 text-muted-foreground animate-spin" %>
+      <%= lucide_icon "loader", class: "size-5 txt-subtle", style: "animation: spin 1s linear infinite;" %>
     <% else %>
-      <%= lucide_icon "clock", class: "h-5 w-5 text-muted-foreground" %>
+      <%= lucide_icon "clock", class: "size-5 txt-subtle" %>
     <% end %>
     <div>
-      <p class="text-sm font-medium">
+      <p class="txt-small font-weight-medium">
         <%= delivery.state.humanize %>
       </p>
-      <p class="text-xs text-muted-foreground">
+      <p class="txt-x-small txt-subtle">
         <%= webhook_action_label(delivery.event.action) %>
       </p>
     </div>
   </div>
-  <div class="text-xs text-muted-foreground">
+  <div class="txt-x-small txt-subtle">
     <%= time_ago_in_words(delivery.created_at) %> <%= t("notifications.ago") %>
   </div>
 </li>

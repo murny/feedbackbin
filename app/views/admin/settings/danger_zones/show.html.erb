@@ -1,28 +1,27 @@
 <% content_for :title, t(".title") %>
 
-<div class="container mx-auto max-w-4xl">
+<div class="center full-width" style="max-inline-size: 56rem;">
   <%= render partial: "admin/settings/header" %>
 
-  <div class="mt-8">
-    <div class="mb-6">
-      <h2 class="text-lg font-medium text-destructive"><%= t(".title") %></h2>
-      <p class="text-sm text-muted-foreground"><%= t(".page_description") %></p>
+  <div style="margin-block-start: var(--space-8);">
+    <div style="margin-block-end: var(--space-6);">
+      <h2 class="txt-large font-weight-medium" style="color: var(--color-destructive);"><%= t(".title") %></h2>
+      <p class="txt-small txt-subtle"><%= t(".page_description") %></p>
     </div>
 
     <%= render Elements::AlertComponent.new(variant: :destructive, title: t(".subtitle"), description: t(".description"), icon: "shield-alert") %>
 
-    <!-- Transfer Ownership Section -->
-    <div class="mt-8">
+    <div style="margin-block-start: var(--space-8);">
       <%= render Elements::CardComponent.new do |c| %>
         <% c.with_header(title: t(".transfer_ownership_title"), description: t(".transfer_ownership_description")) %>
-        <% c.with_body(class: "py-4") do %>
-          <div class="flex items-center gap-3">
+        <% c.with_body(style: "padding-block: var(--space-4);") do %>
+          <div class="flex align-center" style="gap: var(--space-3);">
             <%= image_tag fresh_user_avatar_path(@owner),
-                class: "h-10 w-10 rounded-full" %>
+                style: "inline-size: 2.5rem; block-size: 2.5rem; border-radius: 9999px;" %>
 
             <div class="flex-1">
-              <p class="font-medium"><%= @owner.name %></p>
-              <p class="text-sm text-muted-foreground"><%= @owner.identity.email_address %></p>
+              <p class="font-weight-medium"><%= @owner.name %></p>
+              <p class="txt-small txt-subtle"><%= @owner.identity.email_address %></p>
             </div>
 
             <%= render Elements::ButtonComponent.new(
@@ -37,37 +36,37 @@
       <% end %>
     </div>
 
-    <div class="mt-8">
+    <div style="margin-block-start: var(--space-8);">
       <%= render Elements::CardComponent.new do |c| %>
         <% c.with_header(title: t(".delete_title"), description: t(".delete_description")) %>
         <% c.with_body do %>
-            <%= form_with model: Current.account, url: admin_settings_danger_zone_path, method: :delete, class: "space-y-4" do |form| %>
+            <%= form_with model: Current.account, url: admin_settings_danger_zone_path, method: :delete, class: "flex flex-column", style: "gap: var(--space-4);" do |form| %>
             <%= render "error_messages", resource: form.object %>
 
-            <div class="space-y-2">
-              <label class="block text-sm font-medium text-foreground">
+            <div class="flex flex-column" style="gap: var(--space-2);">
+              <label class="display-block txt-small font-weight-medium">
                 <%= t(".confirmation_label") %>
               </label>
-              <p class="text-sm text-muted-foreground">
+              <p class="txt-small txt-subtle">
                 <%= t(".confirmation_description_html", name: Current.account.name) %>
               </p>
             </div>
 
-            <div class="space-y-2">
-              <label class="block text-sm font-medium text-foreground" for="account_name">
+            <div class="flex flex-column" style="gap: var(--space-2);">
+              <label class="display-block txt-small font-weight-medium" for="account_name">
                 <%= t(".enter_name") %>
               </label>
-              <%= form.text_field :name, value: nil, placeholder: Current.account.name, autocomplete: "off", class: "form-input w-full", required: true %>
+              <%= form.text_field :name, value: nil, placeholder: Current.account.name, autocomplete: "off", class: "form-input full-width", required: true %>
             </div>
 
-            <div class="flex items-start gap-3">
-              <%= form.check_box :acknowledge, { required: true, class: "form-checkbox mt-1" }, true, false %>
-              <label class="text-sm text-muted-foreground" for="account_acknowledge">
+            <div class="flex align-start" style="gap: var(--space-3);">
+              <%= form.check_box :acknowledge, { required: true, class: "form-checkbox", style: "margin-block-start: var(--space-1);" }, true, false %>
+              <label class="txt-small txt-subtle" for="account_acknowledge">
                 <%= t(".acknowledge") %>
               </label>
             </div>
 
-            <div class="pt-2">
+            <div style="padding-block-start: var(--space-2);">
               <%= render Elements::ButtonComponent.new(variant: :destructive, type: :submit, data: { turbo_confirm: t(".turbo_confirm") }) do %>
                 <%= t(".delete_button") %>
               <% end %>

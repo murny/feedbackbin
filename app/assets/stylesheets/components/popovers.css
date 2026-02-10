@@ -1,0 +1,177 @@
+/* ==========================================================================
+   Popover Component
+
+   Usage:
+     <div class="popover" data-controller="popover">
+       <button class="popover__trigger">Open</button>
+       <div class="popover__content" data-state="closed">
+         Content here
+       </div>
+     </div>
+
+   Positions: popover__content--top, --right, --bottom (default), --left
+   Alignments: popover__content--start, --center (default), --end
+   ========================================================================== */
+
+@layer components {
+  /* Popover Container
+  /* ------------------------------------------------------------------------ */
+
+  .popover {
+    position: relative;
+    display: inline-block;
+  }
+
+  /* Popover Content
+  /* ------------------------------------------------------------------------ */
+
+  .popover__content {
+    /* Component API */
+    --popover-width: 18rem;
+    --popover-padding: 1rem;
+    --popover-radius: var(--radius-md);
+    --popover-background: var(--color-popover);
+    --popover-color: var(--color-popover-foreground);
+    --popover-border-color: var(--color-border);
+    --popover-shadow: var(--shadow-md);
+    --popover-offset: 0.25rem;
+
+    /* Structure */
+    position: absolute;
+    z-index: 50;
+    inline-size: var(--popover-width);
+    padding: var(--popover-padding);
+
+    /* Appearance */
+    background-color: var(--popover-background);
+    color: var(--popover-color);
+    border: 1px solid var(--popover-border-color);
+    border-radius: var(--popover-radius);
+    box-shadow: var(--popover-shadow);
+    outline: none;
+
+    /* Default position: bottom center */
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    margin-block-start: var(--popover-offset);
+
+    /* Animation */
+    transition: var(--duration-fast) var(--ease-out);
+    transition-property: opacity, transform, visibility;
+
+    /* Hidden state */
+    &[data-state="closed"],
+    &.display-none {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    /* Open state */
+    &[data-state="open"] {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+
+  /* Position: Top
+  /* ------------------------------------------------------------------------ */
+
+  .popover__content--top {
+    top: auto;
+    bottom: 100%;
+    margin-block-start: 0;
+    margin-block-end: var(--popover-offset);
+  }
+
+  /* Position: Right
+  /* ------------------------------------------------------------------------ */
+
+  .popover__content--right {
+    top: 50%;
+    left: 100%;
+    transform: translateY(-50%);
+    margin-block-start: 0;
+    margin-inline-start: var(--popover-offset);
+  }
+
+  /* Position: Left
+  /* ------------------------------------------------------------------------ */
+
+  .popover__content--left {
+    top: 50%;
+    left: auto;
+    right: 100%;
+    transform: translateY(-50%);
+    margin-block-start: 0;
+    margin-inline-end: var(--popover-offset);
+  }
+
+  /* Alignment: Start
+  /* ------------------------------------------------------------------------ */
+
+  .popover__content--start {
+    left: 0;
+    transform: none;
+
+    &.popover__content--right,
+    &.popover__content--left {
+      top: 0;
+      transform: none;
+    }
+  }
+
+  /* Alignment: End
+  /* ------------------------------------------------------------------------ */
+
+  .popover__content--end {
+    left: auto;
+    right: 0;
+    transform: none;
+
+    &.popover__content--right,
+    &.popover__content--left {
+      top: auto;
+      bottom: 0;
+      transform: none;
+    }
+  }
+
+  /* Popover Arrow (optional)
+  /* ------------------------------------------------------------------------ */
+
+  .popover__arrow {
+    position: absolute;
+    inline-size: 0.5rem;
+    block-size: 0.5rem;
+    background-color: var(--popover-background);
+    border: 1px solid var(--popover-border-color);
+    border-right: none;
+    border-bottom: none;
+
+    /* Default: pointing up (for bottom popover) */
+    top: -0.3rem;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+  }
+
+  .popover__content--top .popover__arrow {
+    top: auto;
+    bottom: -0.3rem;
+    transform: translateX(-50%) rotate(-135deg);
+  }
+
+  .popover__content--right .popover__arrow {
+    top: 50%;
+    left: -0.3rem;
+    transform: translateY(-50%) rotate(-45deg);
+  }
+
+  .popover__content--left .popover__arrow {
+    top: 50%;
+    left: auto;
+    right: -0.3rem;
+    transform: translateY(-50%) rotate(135deg);
+  }
+}

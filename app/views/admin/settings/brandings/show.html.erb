@@ -1,28 +1,27 @@
 <% content_for :title, t(".title") %>
 
-<div class="container mx-auto max-w-4xl">
+<div class="center full-width" style="max-inline-size: 56rem;">
   <%= render partial: "admin/settings/header" %>
 
-  <!-- Branding Section -->
-  <div class="mt-8">
-    <div class="mb-6">
-      <h2 class="text-lg font-medium"><%= t(".title") %></h2>
-      <p class="text-sm text-muted-foreground"><%= t(".description") %></p>
+  <div style="margin-block-start: var(--space-8);">
+    <div style="margin-block-end: var(--space-6);">
+      <h2 class="txt-large font-weight-medium"><%= t(".title") %></h2>
+      <p class="txt-small txt-subtle"><%= t(".description") %></p>
     </div>
 
     <%= render Elements::CardComponent.new do |c| %>
       <% c.with_body do %>
-        <%= form_with model: @account, url: admin_settings_branding_path, method: :patch, multipart: true, class: "space-y-6" do |f| %>
+        <%= form_with model: @account, url: admin_settings_branding_path, method: :patch, multipart: true, class: "flex flex-column", style: "gap: var(--space-6);" do |f| %>
             <%= render "error_messages", resource: @account %>
 
-            <div class="grid gap-6">
-              <div class="grid gap-3">
+            <div class="grid" style="gap: var(--space-6);">
+              <div class="grid" style="gap: var(--space-3);">
                 <%= f.label :name, t(".name") %>
                 <%= f.text_field :name %>
               </div>
 
-              <div class="grid gap-3">
-                <%= f.label :logo, t(".logo"), class: "text-sm font-medium" %>
+              <div class="grid" style="gap: var(--space-3);">
+                <%= f.label :logo, t(".logo"), class: "txt-small font-weight-medium" %>
                 <%= render ImageUploadPreviewComponent.new(
                       form: f,
                       field_name: :logo,
@@ -33,30 +32,30 @@
                       size_hint: t(".logo_size_hint")) %>
               </div>
 
-              <div class="grid gap-3">
-                <%= f.label :show_company_name, t(".logo_display"), class: "text-sm font-medium" %>
-                <div class="space-y-2">
-                  <div class="flex items-center gap-2">
-                    <%= f.radio_button :show_company_name, true, class: "h-4 w-4" %>
-                    <%= f.label :show_company_name_true, t(".logo_and_name"), class: "font-normal" %>
+              <div class="grid" style="gap: var(--space-3);">
+                <%= f.label :show_company_name, t(".logo_display"), class: "txt-small font-weight-medium" %>
+                <div class="flex flex-column" style="gap: var(--space-2);">
+                  <div class="flex align-center" style="gap: var(--space-2);">
+                    <%= f.radio_button :show_company_name, true, style: "inline-size: 1rem; block-size: 1rem;" %>
+                    <%= f.label :show_company_name_true, t(".logo_and_name"), class: "font-weight-normal" %>
                   </div>
-                  <div class="flex items-center gap-2">
-                    <%= f.radio_button :show_company_name, false, class: "h-4 w-4" %>
-                    <%= f.label :show_company_name_false, t(".logo_only"), class: "font-normal" %>
+                  <div class="flex align-center" style="gap: var(--space-2);">
+                    <%= f.radio_button :show_company_name, false, style: "inline-size: 1rem; block-size: 1rem;" %>
+                    <%= f.label :show_company_name_false, t(".logo_only"), class: "font-weight-normal" %>
                   </div>
                 </div>
               </div>
 
-              <div class="grid gap-3">
-                <%= f.label :logo_link, t(".logo_link"), class: "text-sm font-medium" %>
+              <div class="grid" style="gap: var(--space-3);">
+                <%= f.label :logo_link, t(".logo_link"), class: "txt-small font-weight-medium" %>
                 <%= f.url_field :logo_link, placeholder: t(".logo_link_placeholder") %>
-                <p class="text-xs text-muted-foreground">
+                <p class="txt-x-small txt-subtle">
                   <%= t(".logo_link_hint") %>
                 </p>
               </div>
 
-              <div class="grid gap-3">
-                <%= f.label :favicon, t(".favicon"), class: "text-sm font-medium" %>
+              <div class="grid" style="gap: var(--space-3);">
+                <%= f.label :favicon, t(".favicon"), class: "txt-small font-weight-medium" %>
                 <%= render ImageUploadPreviewComponent.new(
                       form: f,
                       field_name: :favicon,
@@ -65,11 +64,12 @@
                                                           default_url: "/icon.png"),
                       upload_button_text: t(".upload_favicon"),
                       size_hint: t(".favicon_hint"),
-                      image_class: "h-16 w-16 flex-none rounded border bg-muted object-cover") %>
+                      image_class: "flex-none border border-radius object-cover",
+                      image_style: "inline-size: 4rem; block-size: 4rem; background-color: var(--color-muted);") %>
               </div>
 
-              <div class="grid gap-3">
-                <%= f.label :og_image, t(".og_image"), class: "text-sm font-medium" %>
+              <div class="grid" style="gap: var(--space-3);">
+                <%= f.label :og_image, t(".og_image"), class: "txt-small font-weight-medium" %>
                 <%= render ImageUploadPreviewComponent.new(
                       form: f,
                       field_name: :og_image,
@@ -79,12 +79,15 @@
                       upload_button_text: t(".upload_og_image"),
                       size_hint: t(".og_image_hint"),
                       image_class: (@account.og_image.attached? ?
-                                    "h-32 w-auto rounded-lg border object-cover" :
-                                    "h-32 w-auto rounded-lg border bg-muted object-contain p-4")) %>
+                                    "border border-radius object-cover" :
+                                    "border border-radius object-cover"),
+                      image_style: (@account.og_image.attached? ?
+                                    "block-size: 8rem; inline-size: auto;" :
+                                    "block-size: 8rem; inline-size: auto; background-color: var(--color-muted); object-fit: contain; padding: var(--space-4);")) %>
               </div>
             </div>
 
-            <div class="mt-8 flex items-center justify-end gap-3">
+            <div class="flex align-center justify-end" style="margin-block-start: var(--space-8); gap: var(--space-3);">
               <%= render Elements::ButtonComponent.new(type: :submit, variant: :default) do %>
                 <%= t(".save_changes") %>
               <% end %>

@@ -1,0 +1,12 @@
+/* ==========================================================================
+   FeedbackBin Stylesheet
+
+   Layer order (defined in _global.css):
+   @layer reset, base, components, modules, utilities;
+
+   All CSS files in app/assets/stylesheets/ are loaded automatically
+   via `stylesheet_link_tag :app` (Propshaft).
+
+   File loading order is alphabetical. The _global.css file (underscore prefix)
+   sorts first, ensuring the layer order is established before other files load.
+   ========================================================================== */

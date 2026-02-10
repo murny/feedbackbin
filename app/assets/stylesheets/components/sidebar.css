@@ -1,0 +1,329 @@
+/* ==========================================================================
+   Sidebar Component
+
+   Usage:
+     <aside class="sidebar" data-side="left">
+       <nav>
+         <header>Logo/Title</header>
+         <section>
+           <ul>
+             <li><a href="#">Link</a></li>
+           </ul>
+         </section>
+         <footer>User menu</footer>
+       </nav>
+     </aside>
+     <main>Content</main>
+
+   Attributes:
+   - data-side: "left" (default) or "right"
+   - aria-hidden: "true" to collapse sidebar
+   ========================================================================== */
+
+@layer components {
+  /* Sidebar Container
+  /* ------------------------------------------------------------------------ */
+
+  .sidebar {
+    /* Component API */
+    --sidebar-width: 16rem;
+    --sidebar-mobile-width: 18rem;
+    --sidebar-background: var(--color-sidebar, var(--color-background));
+    --sidebar-foreground: var(--color-sidebar-foreground, var(--color-foreground));
+    --sidebar-border: var(--color-sidebar-border, var(--color-border));
+    --sidebar-accent: var(--color-sidebar-accent, var(--color-accent));
+    --sidebar-accent-foreground: var(--color-sidebar-accent-foreground, var(--color-accent-foreground));
+
+    /* Hide before JS initializes to prevent flash */
+    &:not([data-sidebar-initialized]) {
+      @media (max-width: 767px) {
+        display: none;
+      }
+    }
+
+    /* Mobile overlay */
+    &:not([aria-hidden="true"]) {
+      @media (max-width: 767px) {
+        position: fixed;
+        inset: 0;
+        z-index: 40;
+        background-color: oklch(0 0 0 / 50%);
+      }
+    }
+  }
+
+  /* Sidebar Nav (the actual sidebar panel)
+  /* ------------------------------------------------------------------------ */
+
+  .sidebar nav {
+    position: fixed;
+    inset-block: 0;
+    z-index: 50;
+    display: flex;
+    flex-direction: column;
+    inline-size: var(--sidebar-mobile-width);
+    background-color: var(--sidebar-background);
+    color: var(--sidebar-foreground);
+    transition: transform var(--duration-normal) var(--ease-in-out);
+
+    @media (min-width: 768px) {
+      inline-size: var(--sidebar-width);
+    }
+  }
+
+  /* Sidebar content adjustment */
+  .sidebar + * {
+    transition: margin var(--duration-normal) var(--ease-in-out);
+  }
+
+  /* Left sidebar (default)
+  /* ------------------------------------------------------------------------ */
+
+  .sidebar:not([data-side]),
+  .sidebar[data-side="left"] {
+    nav {
+      left: 0;
+      border-inline-end: 1px solid var(--sidebar-border);
+    }
+
+    + * {
+      position: relative;
+
+      @media (min-width: 768px) {
+        margin-inline-start: var(--sidebar-width);
+      }
+    }
+
+    &[aria-hidden="true"] {
+      nav {
+        transform: translateX(-100%);
+      }
+
+      + * {
+        @media (min-width: 768px) {
+          margin-inline-start: 0;
+        }
+      }
+    }
+  }
+
+  /* Right sidebar
+  /* ------------------------------------------------------------------------ */
+
+  .sidebar[data-side="right"] {
+    nav {
+      right: 0;
+      border-inline-start: 1px solid var(--sidebar-border);
+    }
+
+    + * {
+      position: relative;
+
+      @media (min-width: 768px) {
+        margin-inline-end: var(--sidebar-width);
+      }
+    }
+
+    &[aria-hidden="true"] {
+      nav {
+        transform: translateX(100%);
+      }
+
+      + * {
+        @media (min-width: 768px) {
+          margin-inline-end: 0;
+        }
+      }
+    }
+  }
+
+  /* Sidebar Header & Footer
+  /* ------------------------------------------------------------------------ */
+
+  .sidebar nav > header,
+  .sidebar nav > footer {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 0.5rem;
+  }
+
+  /* Sidebar Separator
+  /* ------------------------------------------------------------------------ */
+
+  .sidebar nav [role="separator"] {
+    margin-inline: 0.5rem;
+    inline-size: auto;
+    border-block-end: 1px solid var(--sidebar-border);
+  }
+
+  /* Sidebar Section (scrollable content area)
+  /* ------------------------------------------------------------------------ */
+
+  .sidebar nav > section {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    gap: 0.5rem;
+    min-block-size: 0;
+    overflow-y: auto;
+  }
+
+  /* Sidebar Group
+  /* ------------------------------------------------------------------------ */
+
+  .sidebar nav > section > [role="group"] {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    inline-size: 100%;
+    min-inline-size: 0;
+    padding: 0.5rem;
+  }
+
+  /* Sidebar Group Label
+  /* ------------------------------------------------------------------------ */
+
+  .sidebar nav > section h3 {
+    display: flex;
+    align-items: center;
+    flex-shrink: 0;
+    block-size: 2rem;
+    padding-inline: 0.5rem;
+    border-radius: var(--radius-md);
+    color: oklch(from var(--sidebar-foreground) l c h / 70%);
+    font-size: var(--text-xs);
+    font-weight: var(--font-medium);
+    outline: none;
+    transition: margin var(--duration-normal) linear,
+                opacity var(--duration-normal) linear;
+
+    &:focus-visible {
+      outline: 2px solid var(--focus-ring-color);
+    }
+
+    svg {
+      inline-size: 1rem;
+      block-size: 1rem;
+      flex-shrink: 0;
+    }
+  }
+
+  /* Sidebar Navigation List
+  /* ------------------------------------------------------------------------ */
+
+  .sidebar nav > section ul {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    inline-size: 100%;
+    min-inline-size: 0;
+  }
+
+  .sidebar nav > section ul li {
+    position: relative;
+  }
+
+  /* Sidebar Link
+  /* ------------------------------------------------------------------------ */
+
+  .sidebar nav > section ul li > a,
+  .sidebar nav > section ul li > details > summary {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    inline-size: 100%;
+    padding: 0.5rem;
+    border-radius: var(--radius-md);
+    color: inherit;
+    font-size: var(--text-sm);
+    text-align: start;
+    text-decoration: none;
+    overflow: hidden;
+    outline: none;
+    transition: background-color var(--duration-fast) var(--ease-out),
+                color var(--duration-fast) var(--ease-out);
+
+    &:hover {
+      background-color: var(--sidebar-accent);
+      color: var(--sidebar-accent-foreground);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--focus-ring-color);
+    }
+
+    &:active {
+      background-color: var(--sidebar-accent);
+      color: var(--sidebar-accent-foreground);
+    }
+
+    &[disabled],
+    &[aria-disabled="true"] {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
+    /* Current page */
+    &[aria-current="page"] {
+      background-color: var(--sidebar-accent);
+      color: var(--sidebar-accent-foreground);
+      font-weight: var(--font-medium);
+    }
+
+    /* Text truncation */
+    > span:last-child {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    /* Icon sizing */
+    svg {
+      inline-size: 1rem;
+      block-size: 1rem;
+      flex-shrink: 0;
+    }
+  }
+
+  /* Sidebar Details (collapsible submenu)
+  /* ------------------------------------------------------------------------ */
+
+  .sidebar nav > section ul li > details {
+    &:not([open]) > summary::after {
+      transform: rotate(-90deg);
+    }
+
+    > summary {
+      cursor: pointer;
+
+      &::after {
+        content: "";
+        display: block;
+        inline-size: 0.875rem;
+        block-size: 0.875rem;
+        margin-inline-start: auto;
+        background-color: var(--sidebar-foreground);
+        mask-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E");
+        mask-size: 1rem;
+        mask-repeat: no-repeat;
+        mask-position: center;
+        transition: transform var(--duration-fast) linear;
+      }
+    }
+
+    &::details-content {
+      padding-inline: 0.875rem;
+    }
+  }
+
+  /* Nested Navigation List
+  /* ------------------------------------------------------------------------ */
+
+  .sidebar nav > section ul ul {
+    translate: 1px 0;
+    border-inline-start: 1px solid var(--sidebar-border);
+    padding-inline-start: 0.625rem;
+    padding-block: 0.125rem;
+  }
+}

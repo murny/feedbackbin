@@ -1,25 +1,25 @@
 <%# locals: (ideas:, pagy:) %>
 
 <%= render Elements::CardComponent.new(class: "overflow-hidden") do |c| %>
-  <% c.with_body(class: "p-0") do %>
-    <div class="overflow-x-auto">
-    <table class="w-full text-sm">
-      <thead class="border-b border-border">
-        <tr class="bg-muted/50">
-          <th class="px-6 py-4 text-left font-semibold text-foreground"><%= t(".idea_column") %></th>
-          <th class="px-6 py-4 text-left font-semibold text-foreground"><%= t(".creator_column") %></th>
-          <th class="px-6 py-4 text-left font-semibold text-foreground"><%= t(".engagement_column") %></th>
-          <th class="px-6 py-4 text-left font-semibold text-foreground"><%= t(".created_column") %></th>
-          <th class="px-6 py-4 text-center font-semibold text-foreground"><%= t(".actions_column") %></th>
+  <% c.with_body(class: "unpad") do %>
+    <div class="overflow-x">
+    <table class="full-width txt-small">
+      <thead class="border-bottom">
+        <tr class="fill-shade">
+          <th class="txt-align-start font-weight-semibold" style="padding-inline: var(--space-6); padding-block: var(--space-4);"><%= t(".idea_column") %></th>
+          <th class="txt-align-start font-weight-semibold" style="padding-inline: var(--space-6); padding-block: var(--space-4);"><%= t(".creator_column") %></th>
+          <th class="txt-align-start font-weight-semibold" style="padding-inline: var(--space-6); padding-block: var(--space-4);"><%= t(".engagement_column") %></th>
+          <th class="txt-align-start font-weight-semibold" style="padding-inline: var(--space-6); padding-block: var(--space-4);"><%= t(".created_column") %></th>
+          <th class="txt-align-center font-weight-semibold" style="padding-inline: var(--space-6); padding-block: var(--space-4);"><%= t(".actions_column") %></th>
         </tr>
       </thead>
-      <tbody class="divide-y divide-border">
+      <tbody class="divide-y">
         <% if ideas.any? %>
           <% ideas.each do |idea| %>
-            <tr class="hover:bg-muted/25 transition-colors">
-              <td class="px-6 py-4">
-                <div class="min-w-0 max-w-xs">
-                  <div class="font-medium text-foreground truncate mb-1">
+            <tr>
+              <td style="padding-inline: var(--space-6); padding-block: var(--space-4);">
+                <div style="min-inline-size: 0; max-inline-size: 20rem;">
+                  <div class="font-weight-medium overflow-ellipsis" style="margin-block-end: var(--space-1);">
                     <%= idea.title %>
                   </div>
                   <% if idea.board %>
@@ -29,51 +29,51 @@
                   <% end %>
                   <%= render Elements::BadgeComponent.new(
                     variant: :outline,
-                    class: "ml-2"
+                    style: "margin-inline-start: var(--space-2);"
                   ) do %>
                     <%= idea.status_name %>
                   <% end %>
                 </div>
               </td>
-              <td class="px-6 py-4">
-                <div class="flex items-center gap-3">
+              <td style="padding-inline: var(--space-6); padding-block: var(--space-4);">
+                <div class="flex align-center" style="gap: var(--space-3);">
                   <%= render Elements::AvatarComponent.new(
                     src: idea.creator.avatar.attached? ? url_for(idea.creator.avatar) : nil,
                     alt: idea.creator.name,
                     size: :sm,
                     fallback: idea.creator.name[0, 2].upcase
                   ) %>
-                  <div class="min-w-0">
-                    <div class="font-medium text-foreground truncate">
+                  <div style="min-inline-size: 0;">
+                    <div class="font-weight-medium overflow-ellipsis">
                       <%= idea.creator.name %>
                     </div>
-                    <div class="text-xs text-muted-foreground truncate">
+                    <div class="txt-x-small txt-subtle overflow-ellipsis">
                       <%= idea.creator.identity.email_address %>
                     </div>
                   </div>
                 </div>
               </td>
-              <td class="px-6 py-4">
-                <div class="flex items-center gap-4 text-xs text-muted-foreground">
-                  <div class="flex items-center gap-1">
+              <td style="padding-inline: var(--space-6); padding-block: var(--space-4);">
+                <div class="flex align-center txt-x-small txt-subtle" style="gap: var(--space-4);">
+                  <div class="flex align-center" style="gap: var(--space-1);">
                     <%= lucide_icon "heart", class: "size-3" %>
                     <span><%= idea.votes_count %></span>
                   </div>
-                  <div class="flex items-center gap-1">
+                  <div class="flex align-center" style="gap: var(--space-1);">
                     <%= lucide_icon "message-square", class: "size-3" %>
                     <span><%= idea.comments_count %></span>
                   </div>
                 </div>
               </td>
-              <td class="px-6 py-4 text-muted-foreground">
-                <div class="text-sm">
+              <td class="txt-subtle" style="padding-inline: var(--space-6); padding-block: var(--space-4);">
+                <div class="txt-small">
                   <%= idea.created_at.strftime("%b %d, %Y") %>
                 </div>
-                <div class="text-xs">
+                <div class="txt-x-small">
                   <%= time_ago_in_words(idea.created_at) %> <%= t(".ago") %>
                 </div>
               </td>
-              <td class="px-6 py-4 text-center">
+              <td class="txt-align-center" style="padding-inline: var(--space-6); padding-block: var(--space-4);">
                 <%= render Elements::ButtonComponent.new(
                   href: admin_idea_path(idea),
                   variant: :outline,
@@ -87,12 +87,12 @@
           <% end %>
         <% else %>
           <tr>
-            <td colspan="5" class="px-6 py-12 text-center">
-              <div class="mx-auto size-12 bg-muted rounded-full flex items-center justify-center mb-4">
-                <%= lucide_icon "message-square", class: "size-6 text-muted-foreground" %>
+            <td colspan="5" class="txt-align-center" style="padding-inline: var(--space-6); padding-block: var(--space-12);">
+              <div class="center size-12 fill-shade flex align-center justify-center" style="margin-block-end: var(--space-4); border-radius: 9999px;">
+                <%= lucide_icon "message-square", class: "size-6 txt-subtle" %>
               </div>
-              <h3 class="text-sm font-medium text-foreground mb-2"><%= t(".no_ideas_title") %></h3>
-              <p class="text-sm text-muted-foreground">
+              <h3 class="txt-small font-weight-medium" style="margin-block-end: var(--space-2);"><%= t(".no_ideas_title") %></h3>
+              <p class="txt-small txt-subtle">
                 <% if params[:search].present? %>
                   <%= t(".no_ideas_search") %>
                 <% else %>
@@ -108,10 +108,9 @@
   <% end %>
 <% end %>
 
-<!-- Pagination -->
-<div class="mt-8">
-  <%= tag.div id: ("ideas" if first_page?(pagy.last)), class: "space-y-4" do %>
-    <div class="text-center text-sm text-muted-foreground">
+<div style="margin-block-start: var(--space-8);">
+  <%= tag.div id: ("ideas" if first_page?(pagy.last)), class: "flex flex-column", style: "gap: var(--space-4);" do %>
+    <div class="txt-align-center txt-small txt-subtle">
       <%== pagy.info_tag %>
     </div>
     <% if pagy.last > 1 %>

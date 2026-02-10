@@ -77,7 +77,7 @@ module Elements
 
       def wrapper_attrs
         {
-          class: tw_merge("relative inline-block", @attrs[:class]),
+          class: [ "popover", @attrs[:class] ].compact.join(" "),
           data: controller_data.merge(@attrs[:data] || {})
         }.merge(@attrs.except(:class, :data))
       end
@@ -90,101 +90,60 @@ module Elements
           data: {
             slot: "popover-content",
             popover_target: "content",
-            state: "closed",
-            transition_enter: "transition ease-out duration-200",
-            transition_enter_from: "opacity-0 scale-95",
-            transition_enter_to: "opacity-100 scale-100",
-            transition_leave: "transition ease-in duration-150",
-            transition_leave_from: "opacity-100 scale-100",
-            transition_leave_to: "opacity-0 scale-95"
+            state: "closed"
           },
           aria: {
             hidden: "true",
             labelledby: trigger_id
           },
           class: content_classes,
-          style: position_styles
+          style: offset_styles
         }
       end
 
       def content_classes
-        tw_merge(
-          base_content_classes,
-          position_classes,
-          "hidden" # Start hidden
-        )
+        [
+          "popover__content",
+          "display-none",
+          position_class,
+          alignment_class
+        ].compact.join(" ")
       end
 
-      def base_content_classes
-        "absolute z-50 w-72 rounded-md border bg-popover p-4 text-popover-foreground shadow-md outline-hidden"
-      end
-
-      def position_classes
-        # Calculate position based on side and align
-        classes = []
-
-        # Side positioning (without offset, handled in styles)
+      def position_class
         case @side
-        when :top
-          classes << "bottom-full"
-        when :right
-          classes << "left-full"
-        when :bottom
-          classes << "top-full"
-        when :left
-          classes << "right-full"
+        when :top then "popover__content--top"
+        when :right then "popover__content--right"
+        when :left then "popover__content--left"
+        else nil
         end
-
-        # Alignment
-        case @align
-        when :start
-          if %i[top bottom].include?(@side)
-            classes << "left-0"
-          else
-            classes << "top-0"
-          end
-        when :center
-          if %i[top bottom].include?(@side)
-            classes << "left-1/2 -translate-x-1/2"
-          else
-            classes << "top-1/2 -translate-y-1/2"
-          end
-        when :end
-          if %i[top bottom].include?(@side)
-            classes << "right-0"
-          else
-            classes << "bottom-0"
-          end
-        end
-
-        classes.join(" ")
       end
 
-      def position_styles
+      def alignment_class
+        case @align
+        when :start then "popover__content--start"
+        when :end then "popover__content--end"
+        else nil
+        end
+      end
+
+      def offset_styles
         styles = []
 
-        # Side offset
-        case @side
-        when :top
-          styles << "margin-bottom: #{@side_offset}px"
-        when :right
-          styles << "margin-left: #{@side_offset}px"
-        when :bottom
-          styles << "margin-top: #{@side_offset}px"
-        when :left
-          styles << "margin-right: #{@side_offset}px"
+        if @side_offset != 4
+          styles << "--popover-offset: #{@side_offset}px"
         end
 
-        # Align offset
         if @align_offset != 0
-          if %i[top bottom].include?(@side)
+          case @side
+          when :top, :bottom
             styles << "margin-left: #{@align_offset}px"
-          else
+          when :left, :right
             styles << "margin-top: #{@align_offset}px"
           end
         end
 
-        styles.join("; ")
+        styles.any? ? styles.join("; ") : nil
       end
   end
 end

@@ -1,43 +1,44 @@
 <%# locals: (webhook:) %>
 
-<li class="flex items-center justify-between gap-x-6 py-5 px-6">
-  <div class="flex items-center gap-x-4 min-w-0">
-    <div class="min-w-0 flex-auto">
-      <p class="text-sm font-semibold leading-6 text-foreground">
-        <%= link_to webhook.name, admin_settings_webhook_path(webhook), class: "hover:underline" %>
+<li class="flex align-center justify-space-between" style="gap: var(--space-6); padding-block: var(--space-5); padding-inline: var(--space-6);">
+  <div class="flex align-center min-width" style="gap: var(--space-4);">
+    <div class="min-width" style="flex: 1 1 auto;">
+      <p class="txt-small font-weight-semibold" style="line-height: 1.5rem;">
+        <%= link_to webhook.name, admin_settings_webhook_path(webhook) %>
       </p>
-      <p class="mt-1 text-xs/5 text-muted-foreground truncate">
+      <p class="txt-x-small txt-subtle overflow-ellipsis" style="margin-block-start: var(--space-1); line-height: 1.25rem;">
         <%= webhook.url %>
       </p>
-      <div class="mt-1 flex items-center gap-x-2 text-xs/5 text-muted-foreground">
+      <div class="flex align-center txt-x-small txt-subtle" style="margin-block-start: var(--space-1); gap: var(--space-2); line-height: 1.25rem;">
         <% if webhook.board.present? %>
-          <%= render Elements::BadgeComponent.new(variant: :outline, class: "text-xs") do %>
+          <%= render Elements::BadgeComponent.new(variant: :outline, class: "txt-x-small") do %>
             <%= webhook.board.name %>
           <% end %>
         <% end %>
         <% if webhook.active? %>
-          <%= render Elements::BadgeComponent.new(variant: :default, class: "text-xs bg-green-500") do %>
+          <%= render Elements::BadgeComponent.new(variant: :default, class: "txt-x-small", style: "background-color: oklch(0.599 0.156 163.224);") do %>
             <%= t("admin.settings.webhooks.index.active_badge") %>
           <% end %>
         <% else %>
-          <%= render Elements::BadgeComponent.new(variant: :secondary, class: "text-xs") do %>
+          <%= render Elements::BadgeComponent.new(variant: :secondary, class: "txt-x-small") do %>
             <%= t("admin.settings.webhooks.index.inactive_badge") %>
           <% end %>
         <% end %>
       </div>
     </div>
   </div>
-  <div class="flex items-center gap-x-4">
-    <div class="flex gap-2">
-      <%= link_to edit_admin_settings_webhook_path(webhook), class: "text-sm text-muted-foreground hover:text-foreground" do %>
-        <%= lucide_icon "pencil", class: "h-5 w-5" %>
-        <span class="sr-only"><%= t("edit") %></span>
+  <div class="flex align-center" style="gap: var(--space-4);">
+    <div class="flex" style="gap: var(--space-2);">
+      <%= link_to edit_admin_settings_webhook_path(webhook), class: "txt-small txt-subtle" do %>
+        <%= lucide_icon "pencil", class: "size-5" %>
+        <span class="visually-hidden"><%= t("edit") %></span>
       <% end %>
       <%= link_to admin_settings_webhook_path(webhook),
-            class: "text-sm text-destructive hover:text-destructive/80",
+            class: "txt-small",
+            style: "color: var(--color-destructive);",
             data: { "turbo-method": :delete, turbo_confirm: t("are_you_sure") } do %>
-        <%= lucide_icon "trash-2", class: "h-5 w-5" %>
-        <span class="sr-only"><%= t("delete") %></span>
+        <%= lucide_icon "trash-2", class: "size-5" %>
+        <span class="visually-hidden"><%= t("delete") %></span>
       <% end %>
     </div>
   </div>

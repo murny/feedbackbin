@@ -4,15 +4,15 @@
 <% if participants.any? %>
   <% total_count = idea.participant_ids.count %>
   <% remaining_count = total_count - participants.size %>
-  <div class="flex flex-col items-end gap-2">
-    <span class="text-sm text-muted-foreground"><%= t(".title", count: total_count) %></span>
+  <div class="flex flex-column align-end" style="gap: var(--space-2);">
+    <span class="txt-small txt-subtle"><%= t(".title", count: total_count) %></span>
     <%= render Elements::AvatarGroupComponent.new(
       participants.map { |user| { src: fresh_user_avatar_path(user), alt: user.name, fallback: user.initials, href: user_path(user), title: user.name } },
       size: :sm,
       hover_effect: true
     ) %>
     <% if remaining_count > 0 %>
-      <span class="text-sm text-muted-foreground"><%= t(".and_others", count: remaining_count) %></span>
+      <span class="txt-small txt-subtle"><%= t(".and_others", count: remaining_count) %></span>
     <% end %>
   </div>
 <% end %>

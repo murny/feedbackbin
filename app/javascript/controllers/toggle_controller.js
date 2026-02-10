@@ -8,7 +8,7 @@ import { transition } from "helpers/transition"
 // Usage:
 //   <div data-controller="toggle">
 //     <button data-action="toggle#toggle" data-toggle-target="trigger">Toggle</button>
-//     <div data-toggle-target="toggleable" class="hidden">Content</div>
+//     <div data-toggle-target="toggleable" class="display-none">Content</div>
 //   </div>
 export default class extends Controller {
   static targets = ["toggleable", "trigger"]
@@ -20,7 +20,7 @@ export default class extends Controller {
     // Initialize state for all toggleable elements
     this.toggleableTargets.forEach(target => {
       if (!this.openValue) {
-        target.classList.add('hidden')
+        target.classList.add('display-none')
       }
     })
   }

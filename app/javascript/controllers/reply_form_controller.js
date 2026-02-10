@@ -7,12 +7,12 @@ export default class extends Controller {
 
   expand() {
     if (this.hasTriggerTarget) {
-      this.triggerTarget.classList.add("hidden")
+      this.triggerTarget.classList.add("display-none")
       this.triggerTarget.setAttribute("aria-expanded", "true")
     }
 
     if (this.hasFormTarget) {
-      this.formTarget.classList.remove("hidden")
+      this.formTarget.classList.remove("display-none")
 
       // Focus the Trix editor
       requestAnimationFrame(() => {
@@ -26,12 +26,12 @@ export default class extends Controller {
 
   collapse() {
     if (this.hasTriggerTarget) {
-      this.triggerTarget.classList.remove("hidden")
+      this.triggerTarget.classList.remove("display-none")
       this.triggerTarget.setAttribute("aria-expanded", "false")
     }
 
     if (this.hasFormTarget) {
-      this.formTarget.classList.add("hidden")
+      this.formTarget.classList.add("display-none")
     }
 
     // Clear the Trix editor

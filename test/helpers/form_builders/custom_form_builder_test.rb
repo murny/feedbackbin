@@ -20,9 +20,9 @@ module FormBuilders
     test "text_field returns custom styled text field" do
       form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
-      expected = %(<div class="relative grid gap-2" data-slot="form-item">
+      expected = %(<div class="position-relative grid gap-half" data-slot="form-item">
       <input
-        class="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-hidden focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm"
+        class=""
         type="text"
         name="user[name]"
         id="user_name" />
@@ -34,10 +34,11 @@ module FormBuilders
     test "text_field with leading icon returns custom styled text field" do
       form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
-      expected = %(<div class="relative grid gap-2" data-slot="form-item">
-      <div>{class: &quot;pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3&quot;}</div>
+      expected = %(<div class="position-relative grid gap-half" data-slot="form-item">
+      <div>{class: &quot;flex align-center&quot;, style: &quot;pointer-events: none; position: absolute; inset-block: 0; inset-inline-start: 0; padding-inline-start: 0.75rem;&quot;}</div>
       <input leading_icon="true"
-             class="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-hidden focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm pl-10"
+             class=""
+             style="padding-inline-start: 2.5rem;"
              type="text"
              name="user[name]"
              id="user_name" />
@@ -49,9 +50,9 @@ module FormBuilders
     test "text_field with classes returns custom styled text field with additional classes" do
       form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
-      expected = %(<div class="relative grid gap-2" data-slot="form-item">
+      expected = %(<div class="position-relative grid gap-half" data-slot="form-item">
       <input
-        class="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-hidden focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm test-class"
+        class="test-class"
         type="text"
         name="user[name]"
         id="user_name" />
@@ -69,19 +70,17 @@ module FormBuilders
       field_html = form.text_field(:name)
 
       assert_match(/Must be present, must be at least 3 characters, and must be at most 255 characters/, field_html)
-      assert_match(/aria-invalid:ring-destructive\/20/, field_html)
-      assert_match(/aria-invalid:border-destructive/, field_html)
-      assert_match(/text-destructive/, field_html)
-      assert_match(/relative grid gap-2/, field_html)
-      assert_match(/<svg.*?class=".*?h-5 w-5 text-red-500.*?".*?>/, field_html)
+      assert_match(/txt-negative/, field_html)
+      assert_match(/position-relative grid gap-half/, field_html)
+      assert_match(/<svg.*?class=".*?size-5 txt-negative.*?".*?>/m, field_html)
     end
 
     test "text_field with no object returns custom styled text field" do
       form = FormBuilders::CustomFormBuilder.new(:user, nil, self, {})
 
-      expected = %(<div class="relative grid gap-2" data-slot="form-item">
+      expected = %(<div class="position-relative grid gap-half" data-slot="form-item">
       <input
-        class="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-hidden focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm"
+        class=""
         type="text"
         name="user[name]"
         id="user_name" />
@@ -93,9 +92,9 @@ module FormBuilders
     test "email_field returns custom styled email field" do
       form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
-      expected = %(<div class="relative grid gap-2" data-slot="form-item">
+      expected = %(<div class="position-relative grid gap-half" data-slot="form-item">
       <input
-        class="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-hidden focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm"
+        class=""
         type="email"
         name="user[email_address]"
         id="user_email_address" />
@@ -107,9 +106,9 @@ module FormBuilders
     test "date_field returns custom styled date field" do
       form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
-      expected = %(<div class="relative grid gap-2" data-slot="form-item">
+      expected = %(<div class="position-relative grid gap-half" data-slot="form-item">
       <input
-        class="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-hidden focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm"
+        class=""
         type="date"
         name="user[created_at]"
         id="user_created_at" />
@@ -121,9 +120,9 @@ module FormBuilders
     test "password_field returns custom styled password field" do
       form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
-      expected = %(<div class="relative grid gap-2" data-slot="form-item">
+      expected = %(<div class="position-relative grid gap-half" data-slot="form-item">
       <input
-        class="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-hidden focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm"
+        class=""
         type="password"
         name="user[password]"
         id="user_password" />
@@ -136,8 +135,8 @@ module FormBuilders
       form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
       expected = %(
-    <div class="relative grid gap-2" data-slot="form-item">
-      <textarea class="border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-hidden focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 dark:bg-input/30 md:text-sm field-sizing-content min-h-16 resize-none"
+    <div class="position-relative grid gap-half" data-slot="form-item">
+      <textarea class=""
       name="user[bio]"
       id="user_bio"></textarea>
     </div>)
@@ -149,7 +148,7 @@ module FormBuilders
       form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
       expected = %(<select
-      class="border-input data-[placeholder]:text-muted-foreground [&_svg:not([class*='text-'])]:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 flex w-full items-center justify-between gap-2 rounded-md border bg-background text-foreground px-3 py-2 text-sm whitespace-nowrap shadow-xs transition-[color,box-shadow] outline-hidden focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 h-9 [&>option]:bg-background [&>option]:text-foreground [&>option:checked]:bg-accent [&>option:checked]:text-accent-foreground"
+      class=""
       name="user[active]"
       id="user_active"></select>)
 
@@ -160,7 +159,7 @@ module FormBuilders
       form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
       expected = %(<input name="user[active]" type="hidden" value="0" />
-    <input class="h-4 w-4 rounded border-input bg-background text-primary focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
+    <input class=""
            type="checkbox" value="1" name="user[active]" id="user_active" />)
 
       assert_dom_equal expected, form.check_box(:active)
@@ -169,7 +168,7 @@ module FormBuilders
     test "label returns custom styled label" do
       form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
-      expected = %(<label class="flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50" for="user_name">Name</label>)
+      expected = %(<label class="" for="user_name">Name</label>)
 
       assert_dom_equal expected, form.label(:name, "Name")
     end
@@ -177,7 +176,7 @@ module FormBuilders
     test "submit returns custom styled submit button" do
       form = FormBuilders::CustomFormBuilder.new(:user, @form_object, self, {})
 
-      expected = %(<input type="submit" name="commit" value="Create User" class="btn-primary" data-disable-with="Create User" />)
+      expected = %(<input type="submit" name="commit" value="Create User" class="btn btn--primary" data-disable-with="Create User" />)
 
       assert_dom_equal expected, form.submit("Create User")
     end

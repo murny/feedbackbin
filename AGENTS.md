@@ -62,12 +62,13 @@ FeedbackBin is a customer feedback management platform built with Ruby on Rails 
 - Role-based access via `Role` model
 
 ### UI Framework
-- **Tailwind CSS**: Utility-first styling with custom components
-- **Basecoat CSS**: Shadcn-inspired layer on top of Tailwind
-- **Custom UI Components**: Shadcn-inspired components in `app/components/elements/`
+- **Vanilla CSS**: No Sass, no PostCSS, no Tailwind — pure modern CSS with native features
+- **CSS Cascade Layers**: `@layer reset, base, components, modules, utilities` for specificity control
+- **OKLCH Color System**: Perceptually uniform colors with P3 gamut support
+- **Custom UI Components**: Shadcn-inspired ViewComponents in `app/components/elements/`
 - **Lucide Icons**: Icon system via lucide-rails gem using `lucide_icon("example_icon")` view helper
 - **Mobile-first responsive design**
-- **Dark/light theme support**
+- **Dark/light theme support** via CSS custom property redefinition
 
 ### Key Patterns and Conventions
 - **Concerns**: Shared behavior in `app/models/concerns/` and `app/controllers/concerns/`
@@ -121,11 +122,153 @@ Example badge usage:
 - Bad: `<%# Replies are always from regular users - system comments are only top-level %>` (explains prompt context, not the code)
 - Good: Only add comments when the code itself is complex and requires explanation
 
-### Styling Guidelines
-- Use Tailwind's built-in CSS variables: `bg-primary`, `text-primary-foreground`
-- Follow mobile-first responsive approach
-- Ensure components work in both light and dark themes
-- Use semantic HTML elements and proper ARIA attributes
+### CSS Architecture
+
+**No preprocessors, no utility frameworks.** The entire CSS codebase is vanilla CSS using modern browser features.
+
+#### Cascade Layers
+
+All CSS must be placed in the appropriate `@layer`. The layer order defines specificity priority (last wins):
+
+```css
+@layer reset, base, components, modules, utilities;
+```
+
+| Layer | Purpose | Example |
+|-------|---------|---------|
+| `reset` | Normalize browser defaults | `* { margin: 0 }` |
+| `base` | Global element styles | `body`, `a`, `kbd` |
+| `components` | Reusable UI patterns | `.btn`, `.card`, `.input` |
+| `modules` | Page/feature-specific styles | `.ideas-list`, `.settings-form` |
+| `utilities` | Single-purpose helpers (highest priority) | `.flex`, `.txt-small`, `.visually-hidden` |
+
+Never use `!important` — layers handle specificity conflicts.
+
+#### OKLCH Color System
+
+Colors are defined as OKLCH components in `_global.css` and consumed via `oklch()`:
+
+```css
+:root {
+  --lch-blue-dark: 57.02% 0.1895 260.46;
+  --color-link: oklch(var(--lch-blue-dark));
+}
+```
+
+Dark mode works by redefining the OKLCH variable values — components automatically adapt:
+
+```css
+html[data-theme="dark"] {
+  --lch-ink-darkest: 96.02% 0.0034 260;  /* flipped from dark to light */
+  --lch-canvas: 20% 0.0195 232.58;        /* flipped from light to dark */
+}
+```
+
+Always use existing color tokens (`--color-ink`, `--color-canvas`, `--color-link`, etc.) rather than raw color values.
+
+#### Component Pattern
+
+Components use BEM-inspired naming with CSS custom properties as their API:
+
+```css
+@layer components {
+  .btn {
+    /* Component API — these are the knobs modifiers turn */
+    --btn-background: var(--color-canvas);
+    --btn-color: var(--color-ink);
+    --btn-padding: 0.5em 1.1em;
+
+    background-color: var(--btn-background);
+    color: var(--btn-color);
+    padding: var(--btn-padding);
+  }
+
+  /* Modifiers only override variables */
+  .btn--link {
+    --btn-background: var(--color-link);
+    --btn-color: var(--color-ink-inverted);
+  }
+}
+```
+
+Naming rules:
+- `.block` — the component (`.card`, `.btn`, `.input`)
+- `.block__element` — a child part (`.card__header`, `.card__title`)
+- `.block--modifier` — a variant (`.btn--link`, `.card--notification`)
+- Keep elements flat — never `.card__header__title`, always `.card__title`
+
+#### Native CSS Nesting
+
+Use native CSS nesting (no preprocessor needed):
+
+```css
+.btn {
+  background: var(--btn-background);
+
+  &:hover { filter: brightness(var(--btn-hover-brightness)); }
+  &[disabled] { opacity: 0.3; cursor: not-allowed; }
+
+  html[data-theme="dark"] & {
+    --btn-hover-brightness: 1.25;
+  }
+}
+```
+
+#### Modern CSS Features
+
+Use these freely — they are part of the architecture:
+
+- **`:has()` selectors** for parent-aware styling: `.card:has(.card__closed) { }`
+- **`:where()` selectors** for zero-specificity defaults (easy to override): `.btn:where(:focus-visible) { }`
+- **`:is()` selectors** for grouping: `.btn :is(input[type=radio], input[type=checkbox]) { }`
+- **`color-mix()`** for dynamic colors: `color-mix(in srgb, var(--card-color) 4%, var(--color-canvas))`
+- **`@starting-style`** for entry animations on `<dialog>` and popovers
+- **Logical properties** throughout: `padding-inline`, `margin-block-start`, `inline-size` (not `width`/`padding-left`)
+- **Variable fallbacks**: `var(--btn-icon-size, 1.3em)` for sensible defaults
+- **Container queries** where appropriate
+- **`field-sizing: content`** for auto-sizing textareas (behind `@supports`)
+
+#### Utility Classes (Minimal)
+
+~60 focused utility classes in `utilities.css` for layout and text. Use them in markup for simple layout needs:
+
+```html
+<div class="flex gap">
+  <span class="txt-small txt-subtle">Posted 2 days ago</span>
+</div>
+```
+
+Do NOT create Tailwind-style utility classes. If you need more than 2-3 utilities on an element, create a component class instead.
+
+#### File Organization
+
+One CSS file per concern, ~100-300 lines each:
+
+```
+app/assets/stylesheets/
+├── _global.css          # CSS variables, layers, OKLCH tokens, dark mode
+├── reset.css            # Modern CSS reset
+├── base.css             # Element defaults
+├── layout.css           # Grid layout
+├── utilities.css        # Utility classes
+├── buttons.css          # .btn component
+├── cards.css            # .card component
+├── inputs.css           # Form controls
+├── dialog.css           # Dialog/modal animations
+├── popup.css            # Dropdown menus
+└── ...                  # One file per component/module
+```
+
+#### Key Principles
+
+1. **No preprocessors** — native CSS is powerful enough
+2. **No Tailwind** — utilities exist but are minimal and purposeful
+3. **No CSS-in-JS** — styles live in stylesheets
+4. **No `!important`** — cascade layers handle specificity
+5. **Variables as component APIs** — modifiers override variables, not properties
+6. **Dark mode via token redefinition** — components never need `html[data-theme="dark"]` overrides unless adjusting interaction behavior (e.g. hover brightness)
+7. **Logical properties** — use `inline`/`block` not `left`/`right`/`top`/`bottom`
+8. **Semantic HTML** — use proper elements and ARIA attributes
 
 ### View Guidelines
 - Always use Rails I18n; do not hardcode text in views.
@@ -156,10 +299,3 @@ Database schema is managed through standard Rails migrations in `db/migrate/`. T
 - Cache database: Application cache
 - Queue database: Background jobs
 - Cable database: WebSocket connections
-
-## Tools
-
-### Chrome MCP (Local Dev)
-URL: http://localhost:3000 Login: shane@example.com (passwordless magic link auth - check rails console for link)
-
-Use Chrome MCP tools to interact with the running dev app for UI testing and debugging.

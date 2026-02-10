@@ -1,57 +1,55 @@
 <% content_for(:title) { t(".title") } %>
 
-<div class="mx-auto w-full max-w-sm flex flex-col gap-6">
+<div class="center full-width flex flex-column" style="max-inline-size: 24rem; gap: var(--space-6);">
   <%= render "shared/auth_branding" %>
 
-  <div class="card flex flex-col gap-6 py-6">
-    <header class="px-6 text-center space-y-1.5">
-      <h1 class="font-semibold text-xl"><%= t(".create_your_account") %></h1>
-      <p class="text-muted-foreground text-sm"><%= t(".join_account", account_name: Current.account.name) %></p>
+  <div class="card flex flex-column" style="gap: var(--space-6); padding-block: var(--space-6);">
+    <header class="txt-align-center" style="padding-inline: var(--space-6);">
+      <h1 class="font-weight-semibold txt-x-large"><%= t(".create_your_account") %></h1>
+      <p class="txt-subtle txt-small margin-block-start-half"><%= t(".join_account", account_name: Current.account.name) %></p>
     </header>
 
-    <div class="px-6 grid gap-6">
+    <div class="grid" style="padding-inline: var(--space-6); gap: var(--space-6);">
       <%= render "oauth_providers" %>
 
-      <div class="relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t after:border-border">
-        <span class="bg-card text-muted-foreground relative z-10 px-2"><%= t(".or_continue_with") %></span>
-      </div>
+      <div class="text-divider txt-small txt-subtle"><%= t(".or_continue_with") %></div>
 
-      <%= form_with model: @user, url: users_registrations_path, class: "grid gap-6" do |form| %>
+      <%= form_with model: @user, url: users_registrations_path, class: "grid", style: "gap: var(--space-6);" do |form| %>
         <%= render "error_messages", resource: @user %>
         <%= render "error_messages", resource: @identity %>
         <%= hidden_field_tag :invitation_token, params[:invitation_token] %>
 
-        <div class="grid gap-3">
-          <%= form.label :name, t(".name"), class: "text-sm font-medium leading-none" %>
+        <div class="grid" style="gap: var(--space-3);">
+          <%= form.label :name, t(".name"), class: "txt-small font-weight-medium" %>
           <%= form.text_field :name, required: true, autofocus: true, autocomplete: "name", placeholder: t(".name_placeholder") %>
-          <p class="text-muted-foreground text-sm"><%= t(".name_hint") %></p>
+          <p class="txt-subtle txt-small"><%= t(".name_hint") %></p>
         </div>
 
-        <div class="grid gap-3">
-          <%= form.label :email_address, t(".email"), class: "text-sm font-medium leading-none" %>
+        <div class="grid" style="gap: var(--space-3);">
+          <%= form.label :email_address, t(".email"), class: "txt-small font-weight-medium" %>
           <%= form.email_field :email_address, required: true, autocomplete: "email", placeholder: t(".email_address_placeholder") %>
-          <p class="text-muted-foreground text-sm"><%= t(".email_address_hint") %></p>
+          <p class="txt-subtle txt-small"><%= t(".email_address_hint") %></p>
         </div>
 
-        <div class="grid gap-3">
-          <%= form.label :password, t(".password"), class: "text-sm font-medium leading-none" %>
+        <div class="grid" style="gap: var(--space-3);">
+          <%= form.label :password, t(".password"), class: "txt-small font-weight-medium" %>
           <%= form.password_field :password, required: true, autocomplete: "new-password", placeholder: t(".password_placeholder") %>
-          <p class="text-muted-foreground text-sm"><%= t(".password_hint") %></p>
+          <p class="txt-subtle txt-small"><%= t(".password_hint") %></p>
         </div>
 
-        <%= form.submit t(".create_account"), class: "btn w-full" %>
+        <%= form.submit t(".create_account"), class: "btn full-width" %>
       <% end %>
 
-      <p class="text-center text-sm">
+      <p class="txt-align-center txt-small">
         <%= t(".already_have_an_account") %>
-        <%= link_to t(".login"), sign_in_path, class: "underline underline-offset-4" %>
+        <%= link_to t(".login"), sign_in_path, class: "txt-underline" %>
       </p>
     </div>
   </div>
 
-  <p class="text-muted-foreground text-center text-xs text-balance">
+  <p class="txt-subtle txt-align-center txt-x-small txt-balance">
     <%= t(".terms_agreement_html",
-          terms_link: link_to(t(".terms_of_service"), terms_path(script_name: nil), class: "hover:text-primary underline underline-offset-4"),
-          privacy_link: link_to(t(".privacy_policy"), privacy_path(script_name: nil), class: "hover:text-primary underline underline-offset-4")) %>
+          terms_link: link_to(t(".terms_of_service"), terms_path(script_name: nil), class: "txt-underline"),
+          privacy_link: link_to(t(".privacy_policy"), privacy_path(script_name: nil), class: "txt-underline")) %>
   </p>
 </div>

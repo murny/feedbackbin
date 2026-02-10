@@ -1,0 +1,85 @@
+/* ==========================================================================
+   Form Layout Components
+
+   Container, groups, labels, helper text, and action rows.
+   Individual form controls are in their own files:
+     inputs.css, selects.css, checkboxes.css, switches.css, sliders.css
+
+   Usage:
+     <form class="form">
+       <div class="form__group">
+         <label class="label">Name</label>
+         <input type="text">
+         <p class="form__helper">Enter your full name</p>
+       </div>
+       <div class="form__actions">
+         <button class="btn">Submit</button>
+       </div>
+     </form>
+   ========================================================================== */
+
+@layer components {
+  /* Form Container
+  /* ------------------------------------------------------------------------ */
+
+  .form {
+    /* Component API */
+    --form-gap: 1rem;
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--form-gap);
+  }
+
+  /* Form Group (label + input pairs)
+  /* ------------------------------------------------------------------------ */
+
+  .form__group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  /* Label
+  /* ------------------------------------------------------------------------ */
+
+  .form label,
+  .label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    line-height: 1;
+    user-select: none;
+
+    &:has(> *:disabled),
+    &:has(+ *:disabled) {
+      opacity: 0.5;
+      pointer-events: none;
+    }
+  }
+
+  /* Form Helper Text
+  /* ------------------------------------------------------------------------ */
+
+  .form__helper {
+    font-size: var(--text-sm);
+    color: var(--color-muted-foreground);
+  }
+
+  .form__error {
+    font-size: var(--text-sm);
+    color: var(--color-destructive);
+  }
+
+  /* Form Actions (button row)
+  /* ------------------------------------------------------------------------ */
+
+  .form__actions {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-block-start: 0.5rem;
+  }
+}

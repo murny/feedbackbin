@@ -1,4 +1,4 @@
-<%= link_to user_path(user), class: "mention inline-flex items-center gap-1 rounded-full px-1.5 py-0.5 bg-primary/10 text-primary hover:bg-primary/20 no-underline", data: { turbo_frame: "_top" } do %>
-  <%= image_tag fresh_user_avatar_path(user), alt: user.name, class: "h-4 w-4 rounded-full" %>
-  <span class="text-sm font-medium"><%= user.first_name %></span>
+<%= link_to user_path(user), class: "mention", data: { turbo_frame: "_top" } do %>
+  <%= image_tag fresh_user_avatar_path(user), alt: user.name, class: "mention__avatar" %>
+  <span class="mention__name"><%= user.first_name %></span>
 <% end %>

@@ -1,0 +1,192 @@
+/* ==========================================================================
+   Tabs Component
+
+   Usage:
+     <div class="tabs" data-controller="tabs">
+       <div class="tabs__list" role="tablist">
+         <button class="tabs__trigger" role="tab">Tab 1</button>
+         <button class="tabs__trigger" role="tab">Tab 2</button>
+       </div>
+       <div class="tabs__panel" role="tabpanel">Content 1</div>
+       <div class="tabs__panel" role="tabpanel">Content 2</div>
+     </div>
+
+   States: [aria-selected="true"] for active tab
+   ========================================================================== */
+
+@layer components {
+  /* Tabs Container
+  /* ------------------------------------------------------------------------ */
+
+  .tabs {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    inline-size: 100%;
+  }
+
+  /* Tabs List (the tab bar)
+  /* ------------------------------------------------------------------------ */
+
+  .tabs__list {
+    /* Component API */
+    --tabs-list-padding: 3px;
+    --tabs-list-radius: var(--radius-lg);
+    --tabs-list-background: var(--color-muted);
+    --tabs-list-height: 2.25rem;
+
+    /* Structure */
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    block-size: var(--tabs-list-height);
+    inline-size: fit-content;
+    padding: var(--tabs-list-padding);
+
+    /* Appearance */
+    background-color: var(--tabs-list-background);
+    color: var(--color-muted-foreground);
+    border-radius: var(--tabs-list-radius);
+  }
+
+  /* Tab Trigger (individual tab button)
+  /* ------------------------------------------------------------------------ */
+
+  .tabs__trigger {
+    /* Component API */
+    --tab-padding-inline: 0.5rem;
+    --tab-padding-block: 0.25rem;
+    --tab-radius: var(--radius-md);
+    --tab-gap: 0.375rem;
+    --tab-icon-size: 1rem;
+
+    /* Structure */
+    display: inline-flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    gap: var(--tab-gap);
+    block-size: calc(100% - 1px);
+    padding-inline: var(--tab-padding-inline);
+    padding-block: var(--tab-padding-block);
+
+    /* Appearance */
+    background-color: transparent;
+    color: var(--color-foreground);
+    border: 1px solid transparent;
+    border-radius: var(--tab-radius);
+
+    /* Typography */
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    white-space: nowrap;
+
+    /* Behavior */
+    cursor: pointer;
+    user-select: none;
+
+    /* Transitions */
+    transition: var(--duration-fast) var(--ease-out);
+    transition-property: color, box-shadow, background-color, border-color;
+
+    /* Icon sizing */
+    svg,
+    .icon {
+      inline-size: var(--tab-icon-size);
+      block-size: var(--tab-icon-size);
+      flex-shrink: 0;
+      pointer-events: none;
+    }
+
+    /* Focus state */
+    &:focus-visible {
+      outline: var(--focus-ring-width) solid var(--focus-ring-color);
+      outline-offset: var(--focus-ring-offset);
+    }
+
+    /* Disabled state */
+    &:disabled,
+    &[disabled] {
+      pointer-events: none;
+      opacity: 0.5;
+    }
+
+    /* Active/selected state */
+    &[aria-selected="true"] {
+      background-color: var(--color-background);
+      color: var(--color-foreground);
+      box-shadow: var(--shadow-sm);
+    }
+
+    /* Dark mode active state */
+    html[data-theme="dark"] &[aria-selected="true"] {
+      background-color: var(--color-input);
+      border-color: var(--color-input);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      html:not([data-theme]) &[aria-selected="true"] {
+        background-color: var(--color-input);
+        border-color: var(--color-input);
+      }
+    }
+  }
+
+  /* Tab Panel (content area)
+  /* ------------------------------------------------------------------------ */
+
+  .tabs__panel {
+    flex: 1;
+    outline: none;
+
+    /* Hidden panels */
+    &.display-none,
+    &[hidden] {
+      display: none;
+    }
+  }
+
+  /* Variant: Underline tabs
+  /* ------------------------------------------------------------------------ */
+
+  .tabs--underline {
+    .tabs__list {
+      --tabs-list-padding: 0;
+      --tabs-list-background: transparent;
+      block-size: auto;
+      border-block-end: 1px solid var(--color-border);
+      border-radius: 0;
+    }
+
+    .tabs__trigger {
+      --tab-padding-block: 0.75rem;
+      border-radius: 0;
+      border-block-end: 2px solid transparent;
+      margin-block-end: -1px;
+
+      &[aria-selected="true"] {
+        background-color: transparent;
+        border-block-end-color: var(--color-primary);
+        box-shadow: none;
+      }
+    }
+  }
+
+  /* Variant: Pills
+  /* ------------------------------------------------------------------------ */
+
+  .tabs--pills {
+    .tabs__list {
+      --tabs-list-padding: 0;
+      --tabs-list-background: transparent;
+      gap: 0.25rem;
+    }
+
+    .tabs__trigger {
+      &[aria-selected="true"] {
+        background-color: var(--color-primary);
+        color: var(--color-primary-foreground);
+      }
+    }
+  }
+}

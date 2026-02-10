@@ -1,44 +1,41 @@
 <%# locals: (comment:) %>
 
-<%= turbo_frame_tag dom_id(comment), class: "block py-6 scroll-mt-4" do %>
+<%= turbo_frame_tag dom_id(comment), class: "display-block pad-block", style: "scroll-margin-block-start: var(--space-4);" do %>
   <% if comment.creator.system? %>
-    <%# System comment - simplified styling for audit trail %>
-    <div class="p-3 text-sm bg-muted/30 border border-muted rounded-lg">
-      <div class="flex items-center gap-2">
-        <%= lucide_icon("info", class: "w-4 h-4 text-muted-foreground") %>
+    <div class="system-comment">
+      <div class="flex align-center gap-half">
+        <%= lucide_icon("info", class: "size-4 txt-subtle") %>
         <div class="flex-1">
-          <p class="text-muted-foreground">
+          <p class="system-comment__content">
             <%= sanitize(comment.body, tags: %w[strong]) %>
           </p>
         </div>
-        <%= local_datetime_tag comment.created_at, style: :datetime, class: "text-xs text-muted-foreground" %>
+        <%= local_datetime_tag comment.created_at, style: :datetime, class: "txt-x-small txt-subtle" %>
       </div>
     </div>
   <% else %>
-    <%# Regular user comment with replies contained inside %>
-    <div class="text-base bg-card border border-border rounded-lg">
-      <%# Main comment content %>
-      <div class="p-4 lg:p-6">
+    <div class="txt-normal fill-card border border-radius">
+      <div class="pad">
         <div class="flex">
-          <div class="mr-4">
+          <div class="margin-inline-end">
             <%= render partial: "votes/vote_button", locals: { voteable: comment } %>
           </div>
-          <div class="flex-1 min-w-0">
-            <div class="flex justify-between items-center mb-2">
-              <div class="flex items-center">
-                <%= avatar_tag comment.creator, class: "mr-2 w-6 h-6 rounded-full", alt: comment.creator.name %>
+          <div class="flex-1 min-width">
+            <div class="flex justify-space-between align-center margin-block-end-half">
+              <div class="flex align-center">
+                <%= avatar_tag comment.creator, class: "avatar avatar--sm", alt: comment.creator.name, style: "margin-inline-end: var(--space-2);" %>
 
-                <p class="inline-flex flex-col md:flex-row items-start mr-3 text-sm text-foreground">
-                  <span class="font-semibold"><%= comment.creator.name %></span>
-                  <%= link_to idea_path(comment.idea, anchor: dom_id(comment)), class: "text-sm text-muted-foreground hover:underline md:ml-2", data: { turbo_frame: "_top" } do %>
+                <p class="flex-inline flex-column align-start margin-inline-end txt-small txt-ink">
+                  <span class="font-weight-bold"><%= comment.creator.name %></span>
+                  <%= link_to idea_path(comment.idea, anchor: dom_id(comment)), class: "txt-small txt-subtle txt-underline", data: { turbo_frame: "_top" } do %>
                     <%= local_datetime_tag comment.created_at, style: :datetime %>
                   <% end %>
                 </p>
               </div>
               <%= render Elements::DropdownMenuComponent.new do |dropdown| %>
-                <% dropdown.with_trigger(variant: :ghost, size: :icon, class: "text-muted-foreground") do %>
+                <% dropdown.with_trigger(variant: :ghost, size: :icon, class: "txt-subtle") do %>
                   <%= lucide_icon("ellipsis") %>
-                  <span class="sr-only"><%= t(".comment_settings") %></span>
+                  <span class="visually-hidden"><%= t(".comment_settings") %></span>
                 <% end %>
 
                 <% if Current.user&.can_administer_comment?(comment) %>
@@ -70,16 +67,15 @@
                 <% end %>
               <% end %>
             </div>
-            <div class="text-muted-foreground" data-controller="syntax-highlight">
+            <div class="txt-subtle" data-controller="syntax-highlight">
               <%= comment.body %>
             </div>
 
-            <%# Footer with reactions and reply count %>
-            <div class="mt-3 flex items-center justify-between gap-4">
+            <div class="margin-block-start-half flex align-center justify-space-between gap">
               <%= render "reactions/reactions", reactable: comment %>
 
               <% if comment.replies.any? %>
-                <span class="text-sm text-muted-foreground">
+                <span class="txt-small txt-subtle">
                   <%= t(".replies_count", count: comment.replies.size) %>
                 </span>
               <% end %>
@@ -88,17 +84,14 @@
         </div>
       </div>
 
-      <%# Replies section - inside the card %>
       <% if comment.replies.any? || authenticated? %>
-        <div class="border-t border-border bg-muted/30">
-          <%# Replies list %>
+        <div class="replies-section">
           <div id="<%= dom_id(comment) %>_replies">
             <%= render partial: "comments/reply", collection: comment.replies.ordered, as: :reply %>
           </div>
 
-          <%# Single reply form at the bottom %>
           <% if authenticated? %>
-            <div id="<%= dom_id(comment) %>_reply_form" class="p-4 lg:px-6">
+            <div id="<%= dom_id(comment) %>_reply_form" class="pad">
               <%= render partial: "comments/thread_reply_form", locals: { parent: comment } %>
             </div>
           <% end %>

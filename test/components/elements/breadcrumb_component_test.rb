@@ -75,7 +75,7 @@ module Elements
 
       # Should show: first, ellipsis, last
       assert_selector "a", text: "Item 1"
-      assert_selector ".sr-only", text: "More" # Ellipsis with sr-only text
+      assert_selector ".visually-hidden", text: "More" # Ellipsis with sr-only text
       assert_selector "span[aria-current='page']", text: "Item 5"
       assert_no_selector "a", text: "Item 2"
       assert_no_selector "a", text: "Item 3"
@@ -117,7 +117,7 @@ module Elements
 
       render_inline(BreadcrumbComponent.new(items: items, collapse: true))
 
-      assert_selector "[data-slot='breadcrumb-ellipsis'] .sr-only", text: "More"
+      assert_selector "[data-slot='breadcrumb-ellipsis'] .visually-hidden", text: "More"
       assert_selector "svg[aria-hidden='true']"
     end
 

@@ -1,34 +1,34 @@
 <% content_for :title, t(".title") %>
 
-<div class="container mx-auto max-w-2xl">
-  <div class="px-4 py-8">
-    <h1 class="text-2xl font-bold mb-4"><%= t(".title") %></h1>
+<div class="center" style="max-inline-size: 42rem;">
+  <div class="pad-inline" style="padding-block: var(--space-8);">
+    <h1 class="txt-xx-large font-weight-bold" style="margin-block-end: var(--space-4);"><%= t(".title") %></h1>
 
-    <div class="mb-6 p-4 border-l-4 border-warning bg-warning/10">
-      <div class="flex items-start gap-2">
-        <%= lucide_icon "alert-triangle", class: "h-5 w-5 text-warning mt-0.5" %>
+    <div style="margin-block-end: var(--space-6); padding: var(--space-4); background-color: oklch(from var(--color-warning) l c h / 10%); border-inline-start: 2px solid var(--color-warning);">
+      <div class="flex align-start" style="gap: var(--space-2);">
+        <%= lucide_icon "alert-triangle", style: "inline-size: 1.25rem; block-size: 1.25rem; color: var(--color-warning); margin-block-start: 0.125rem; flex-shrink: 0;" %>
         <div>
-          <span class="font-semibold text-warning"><%= t(".warning_title") %></span>
-          <p class="text-sm mt-1 text-warning/90"><%= t(".warning_message") %></p>
+          <span class="font-weight-semibold" style="color: var(--color-warning);"><%= t(".warning_title") %></span>
+          <p class="txt-small" style="margin-block-start: var(--space-1); color: var(--color-warning);"><%= t(".warning_message") %></p>
         </div>
       </div>
     </div>
 
     <%= render Elements::CardComponent.new do |c| %>
-      <% c.with_body(class: "py-4") do %>
-        <%= form_with url: admin_settings_ownership_transfer_path, method: :post, class: "space-y-6" do |f| %>
-          <div class="mb-4">
-            <%= f.label :new_owner_id, t(".new_owner"), class: "block text-sm font-medium mb-2" %>
+      <% c.with_body(style: "padding-block: var(--space-4);") do %>
+        <%= form_with url: admin_settings_ownership_transfer_path, method: :post, class: "flex flex-column", style: "gap: var(--space-6);" do |f| %>
+          <div style="margin-block-end: var(--space-4);">
+            <%= f.label :new_owner_id, t(".new_owner"), class: "display-block txt-small font-weight-medium", style: "margin-block-end: var(--space-2);" %>
             <%= f.select :new_owner_id,
                 options_from_collection_for_select(@admins, :id, :name),
                 { prompt: t(".select_admin") },
-                class: "form-select w-full" %>
-            <p class="text-sm text-muted-foreground mt-1">
+                class: "form-select full-width" %>
+            <p class="txt-small txt-subtle" style="margin-block-start: var(--space-1);">
               <%= t(".new_owner_help") %>
             </p>
           </div>
 
-          <div class="flex gap-3 mt-6">
+          <div class="flex" style="gap: var(--space-3); margin-block-start: var(--space-6);">
             <%= render Elements::ButtonComponent.new(type: :submit, variant: :default) do %>
               <%= t(".transfer_ownership") %>
             <% end %>

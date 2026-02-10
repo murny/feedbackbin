@@ -1,0 +1,48 @@
+@layer components {
+  .search-filter__icon {
+    position: absolute;
+    inset-inline-start: var(--space-3);
+    inset-block-start: 50%;
+    transform: translateY(-50%);
+    inline-size: 1rem;
+    block-size: 1rem;
+    color: var(--color-muted-foreground);
+    pointer-events: none;
+  }
+
+  input.search-filter__input {
+    --input-height: 2.5rem;
+    --input-background: var(--color-background);
+    --input-radius: var(--radius);
+    --input-shadow: var(--shadow-sm);
+
+    padding-inline-start: 2.5rem;
+    padding-inline-end: 2.5rem;
+    font-size: var(--text-sm);
+
+    &::placeholder {
+      color: var(--color-muted-foreground);
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 2px var(--color-ring);
+    }
+  }
+
+  .search-filter__clear {
+    position: absolute;
+    inset-inline-end: var(--space-3);
+    inset-block-start: 50%;
+    transform: translateY(-50%);
+    color: var(--color-muted-foreground);
+    transition: color 0.15s ease;
+
+    &:hover {
+      color: var(--color-foreground);
+    }
+  }
+
+  .search-active {
+    box-shadow: 0 0 0 2px var(--color-primary);
+  }
+}

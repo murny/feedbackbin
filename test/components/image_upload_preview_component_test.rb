@@ -66,7 +66,7 @@ class ImageUploadPreviewComponentTest < ViewComponent::TestCase
     # Stub form object that implements the minimal interface needed by the component
     class StubForm
       def file_field(field_name, options = {})
-        '<input type="file" name="user[avatar]" id="user_avatar" accept="image/*" class="hidden" data-upload-preview-target="input" data-action="upload-preview#previewImage">'.html_safe
+        '<input type="file" name="user[avatar]" id="user_avatar" accept="image/*" class="display-none" data-upload-preview-target="input" data-action="upload-preview#previewImage">'.html_safe
       end
 
       def label(field_name, options = {}, &block)

@@ -169,12 +169,8 @@ module Elements
 
       render_inline(TabsComponent.new(items: items))
 
-      page_html = page.native.to_html
-
-      # First panel should not have hidden class
-      assert_selector "div[role='tabpanel']#panel-tab1:not(.hidden)", visible: :all
-      # Second panel should have hidden class
-      assert_selector "div[role='tabpanel']#panel-tab2.hidden", visible: :all
+      assert_selector "div[role='tabpanel']#panel-tab1:not(.display-none)", visible: :all
+      assert_selector "div[role='tabpanel']#panel-tab2.display-none", visible: :all
     end
 
     test "selected panel is visible, others hidden" do
@@ -185,22 +181,19 @@ module Elements
 
       render_inline(TabsComponent.new(items: items, index_value: 1))
 
-      assert_selector "div[role='tabpanel'].hidden#panel-tab1", visible: :all
-      assert_selector "div[role='tabpanel']:not(.hidden)#panel-tab2", visible: :all
+      assert_selector "div[role='tabpanel'].display-none#panel-tab1", visible: :all
+      assert_selector "div[role='tabpanel']:not(.display-none)#panel-tab2", visible: :all
     end
 
-    test "applies container classes" do
+    test "applies tabs classes" do
       items = [
         { label: "Tab", value: "tab", content: "Content" }
       ]
 
       render_inline(TabsComponent.new(items: items))
 
-      page_html = page.native.to_html
-
-      # Component uses inline Tailwind classes
-      assert_includes page_html, "flex flex-col gap-2"
-      assert_includes page_html, "bg-muted"
+      assert_selector ".tabs"
+      assert_selector ".tabs__list[role='tablist']"
     end
 
     test "renders proper semantic structure" do
@@ -210,7 +203,6 @@ module Elements
 
       render_inline(TabsComponent.new(items: items))
 
-      # Tabs are styled via tabs.css, not inline classes
       assert_selector "[role='tablist']"
       assert_selector "[role='tab']"
       assert_selector "[role='tabpanel']"
@@ -224,7 +216,7 @@ module Elements
       render_inline(TabsComponent.new(items: items))
 
       page_html = page.native.to_html
-      # HTML escaped version of the actions
+
       assert_includes page_html, "keydown.right-&gt;tabs#nextTab"
       assert_includes page_html, "keydown.left-&gt;tabs#previousTab"
     end

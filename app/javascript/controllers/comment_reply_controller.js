@@ -5,7 +5,7 @@ export default class extends Controller {
 
   toggle(event) {
     event.preventDefault()
-    this.formTarget.classList.toggle("hidden")
-    this.buttonTarget.classList.toggle("hidden")
+    this.formTarget.classList.toggle("display-none")
+    this.buttonTarget.classList.toggle("display-none")
   }
 }

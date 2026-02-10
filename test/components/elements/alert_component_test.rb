@@ -11,8 +11,8 @@ module Elements
       ))
 
       assert_selector "div[role='alert']", text: "Test Title"
-      assert_selector "div[data-slot='alert-title']", text: "Test Title"
-      assert_selector "div[data-slot='alert-description']", text: "Test Description"
+      assert_selector "h2[data-slot='alert-title']", text: "Test Title"
+      assert_selector "section[data-slot='alert-description']", text: "Test Description"
     end
 
     test "renders all variants without errors" do
@@ -33,7 +33,7 @@ module Elements
         variant: :destructive
       ))
 
-      assert_selector "div.text-destructive"
+      assert_selector "div.alert--destructive"
     end
 
     test "renders default icon based on variant" do
@@ -42,7 +42,6 @@ module Elements
         variant: :default
       ))
 
-      # Should have info icon
       assert_selector "svg"
     end
 
@@ -52,7 +51,6 @@ module Elements
         variant: :destructive
       ))
 
-      # Should have circle-alert icon
       assert_selector "svg"
     end
 
@@ -79,21 +77,21 @@ module Elements
         "Block Description"
       end
 
-      assert_selector "div[data-slot='alert-description']", text: "Block Description"
+      assert_selector "section[data-slot='alert-description']", text: "Block Description"
     end
 
     test "renders with only title" do
       render_inline(AlertComponent.new(title: "Just Title"))
 
-      assert_selector "div[data-slot='alert-title']", text: "Just Title"
-      assert_no_selector "div[data-slot='alert-description']"
+      assert_selector "h2[data-slot='alert-title']", text: "Just Title"
+      assert_no_selector "section[data-slot='alert-description']"
     end
 
     test "renders with only description" do
       render_inline(AlertComponent.new(description: "Just Description"))
 
-      assert_selector "div[data-slot='alert-description']", text: "Just Description"
-      assert_no_selector "div[data-slot='alert-title']"
+      assert_selector "section[data-slot='alert-description']", text: "Just Description"
+      assert_no_selector "h2[data-slot='alert-title']"
     end
 
     test "merges custom classes" do
@@ -137,26 +135,21 @@ module Elements
         "Block Content"
       end
 
-      assert_selector "div[data-slot='alert-description']", text: "Block Content"
+      assert_selector "section[data-slot='alert-description']", text: "Block Content"
       assert_no_text "This should be overridden"
     end
 
     test "renders without title or description" do
-      # Edge case - alert with only icon
       render_inline(AlertComponent.new)
 
       assert_selector "div[role='alert']"
-      # Should still have icon by default
       assert_selector "svg"
     end
 
-    test "applies grid layout classes" do
+    test "applies alert base class" do
       render_inline(AlertComponent.new(title: "Test"))
 
-      page_html = page.native.to_html
-
-      # Check for grid classes
-      assert_includes page_html, "grid"
+      assert_selector "div.alert[role='alert']"
     end
   end
 end

@@ -20,7 +20,7 @@ FeedbackBin helps companies centralize customer feedback to uncover insights and
 
 ### Technical Stack
 - Backend: Ruby on Rails 8, SQLite
-- Frontend: Tailwind CSS, Hotwire/Turbo, Stimulus.js
+- Frontend: Vanilla CSS with BEM, Hotwire/Turbo, Stimulus.js
 - UI Components: Custom components inspired by Shadcn UI
 - Icons: Lucide icon library
 
@@ -35,7 +35,7 @@ FeedbackBin helps product teams close the feedback loop by creating a complete s
 
 # Rules
 
-You are an expert in Ruby, Ruby on Rails, Stimulus.js, Hotwire, Shadcn UI, and Tailwind.
+You are an expert in Ruby, Ruby on Rails, Stimulus.js, Hotwire, Shadcn UI, and Vanilla CSS with BEM conventions.
 
 ## Code Style and Structure
 
@@ -69,11 +69,11 @@ You are an expert in Ruby, Ruby on Rails, Stimulus.js, Hotwire, Shadcn UI, and T
 ## UI and Styling
 
 - Use Hotwire (Turbo and Stimulus) for dynamic, SPA-like interactions.
-- Implement responsive design which work on mobile/tablet and desktop screen sizes with Tailwind CSS. Use a mobile-first approach.
-- Ensure styles look good in both dark and light mode using Tailwind CSS
+- Implement responsive design which work on mobile/tablet and desktop screen sizes with Vanilla CSS. Use a mobile-first approach.
+- Ensure styles look good in both dark and light mode using Vanilla CSS
 - Use Rails view helpers and partials to keep views DRY.
 - We are using custom UI components inspired by Shadcn UI built with ViewComponent. Use ViewComponents like `render Elements::ButtonComponent.new(variant: :outline) do ... end`
-- Use the builtin Tailwind CSS variable based colors, like `bg-primary` or `text-primary-foreground`
+- Use the builtin Vanilla CSS variable based colors, like `bg-primary` or `text-primary-foreground`
 - We use lucide icons with the `inline_svg_tag` Rails helper (e.g. `inline_svg_tag "icons/chevron-right.svg"`).
 - Do not come up with your own svg icon names. Always reference the same names from https://lucide.dev/
 
@@ -81,7 +81,7 @@ You are an expert in Ruby, Ruby on Rails, Stimulus.js, Hotwire, Shadcn UI, and T
 
 - Use semantic HTML elements when appropriate, like `main` and `header`
 - Make sure to use the correct ARIA roles and attributes.
-- Remember to use the "sr-only" Tailwind class for screen reader only text.
+- Remember to use the "sr-only" CSS class for screen reader only text.
 - Add alt text for all images, unless they are decorative or it would be repetitive for screen readers.
 
 ## Performance Optimization

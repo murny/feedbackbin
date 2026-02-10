@@ -1,0 +1,131 @@
+/* ==========================================================================
+   CSS Reset
+
+   https://github.com/hankchizljaw/modern-css-reset
+   ========================================================================== */
+
+@layer reset {
+  /* Box sizing rules */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  /* Remove default margin */
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p,
+  figure,
+  blockquote,
+  dl,
+  dd {
+    margin: 0;
+  }
+
+  /* Prevent text overflow */
+  p,
+  li,
+  h1,
+  h2,
+  h3,
+  h4 {
+    word-break: break-word;
+  }
+
+  /* Prevent horizontal scrolling */
+  html,
+  body {
+    overflow-x: clip;
+  }
+
+  /* Set core body defaults */
+  body {
+    min-block-size: 100dvh;
+    font-family: var(--font-sans);
+    font-size: 100%;
+    line-height: var(--leading-normal);
+    text-rendering: optimizeSpeed;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  /* Make images easier to work with */
+  img,
+  picture,
+  video,
+  canvas,
+  svg {
+    display: block;
+    max-inline-size: 100%;
+  }
+
+  /* Inherit fonts for inputs and buttons */
+  input,
+  button,
+  textarea,
+  select {
+    font: inherit;
+  }
+
+  /* Button cursor */
+  button {
+    cursor: pointer;
+  }
+
+  /* Remove default list styles */
+  ul[role="list"],
+  ol[role="list"] {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  /* Remove summary marker */
+  summary {
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &::marker {
+      content: "";
+    }
+  }
+
+  /* Set core anchor defaults */
+  a {
+    text-decoration-skip-ink: auto;
+  }
+
+  /* Dialog reset */
+  dialog {
+    border: 0;
+    padding: 0;
+
+    &:where(:focus-visible):focus,
+    &:where(:focus-visible):active {
+      outline: 0;
+    }
+  }
+
+  /* Remove all animations and transitions for people who prefer not to see them */
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+
+    html {
+      scroll-behavior: initial;
+    }
+  }
+}

@@ -1,0 +1,165 @@
+/* ==========================================================================
+   Checkbox & Radio Components
+
+   Usage:
+     <input type="checkbox">
+     <input type="radio">
+
+   Note: Switch (checkbox with role="switch") is in switches.css.
+   ========================================================================== */
+
+@layer components {
+  /* Checkbox
+  /* ------------------------------------------------------------------------ */
+
+  input[type='checkbox']:not([role='switch']) {
+    /* Component API */
+    --checkbox-size: 1rem;
+    --checkbox-radius: 4px;
+    --checkbox-border-color: var(--color-input);
+
+    /* Structure */
+    appearance: none;
+    inline-size: var(--checkbox-size);
+    block-size: var(--checkbox-size);
+    flex-shrink: 0;
+
+    /* Appearance */
+    background-color: transparent;
+    border: 1px solid var(--checkbox-border-color);
+    border-radius: var(--checkbox-radius);
+    box-shadow: var(--shadow-xs);
+
+    /* Behavior */
+    outline: none;
+    transition: box-shadow var(--duration-fast) var(--ease-out),
+                border-color var(--duration-fast) var(--ease-out),
+                background-color var(--duration-fast) var(--ease-out);
+
+    &:focus-visible {
+      border-color: var(--color-ring);
+      box-shadow: 0 0 0 2px oklch(from var(--color-ring) l c h / 40%);
+    }
+
+    &:user-invalid,
+    &[aria-invalid="true"] {
+      border-color: var(--color-destructive);
+      box-shadow: 0 0 0 2px oklch(from var(--color-destructive) l c h / 20%);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    &:checked {
+      background-color: var(--color-primary);
+      border-color: var(--color-primary);
+    }
+
+    &:checked::after {
+      content: '';
+      display: block;
+      inline-size: 0.875rem;
+      block-size: 0.875rem;
+      background-color: var(--color-primary-foreground);
+      mask-image: var(--check-icon);
+      mask-size: 0.875rem;
+      mask-repeat: no-repeat;
+      mask-position: center;
+    }
+
+    html[data-theme="dark"] & {
+      background-color: oklch(from var(--color-input) l c h / 30%);
+
+      &:checked {
+        background-color: var(--color-primary);
+      }
+    }
+
+    @media (prefers-color-scheme: dark) {
+      html:not([data-theme]) & {
+        background-color: oklch(from var(--color-input) l c h / 30%);
+
+        &:checked {
+          background-color: var(--color-primary);
+        }
+      }
+    }
+  }
+
+  /* Radio
+  /* ------------------------------------------------------------------------ */
+
+  input[type='radio'] {
+    /* Component API */
+    --radio-size: 1rem;
+    --radio-border-color: var(--color-input);
+
+    /* Structure */
+    appearance: none;
+    position: relative;
+    inline-size: var(--radio-size);
+    block-size: var(--radio-size);
+    aspect-ratio: 1;
+    flex-shrink: 0;
+
+    /* Appearance */
+    background-color: transparent;
+    border: 1px solid var(--radio-border-color);
+    border-radius: 50%;
+    box-shadow: var(--shadow-xs);
+
+    /* Behavior */
+    outline: none;
+    transition: color var(--duration-fast) var(--ease-out),
+                box-shadow var(--duration-fast) var(--ease-out),
+                border-color var(--duration-fast) var(--ease-out);
+
+    &:focus-visible {
+      border-color: var(--color-ring);
+      box-shadow: 0 0 0 2px oklch(from var(--color-ring) l c h / 40%);
+    }
+
+    &:user-invalid,
+    &[aria-invalid="true"] {
+      border-color: var(--color-destructive);
+      box-shadow: 0 0 0 2px oklch(from var(--color-destructive) l c h / 20%);
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+      opacity: 0.5;
+    }
+
+    &:checked::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      margin: auto;
+      inline-size: 0.5rem;
+      block-size: 0.5rem;
+      background-color: var(--color-primary);
+      border-radius: 50%;
+    }
+
+    html[data-theme="dark"] & {
+      background-color: oklch(from var(--color-input) l c h / 30%);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      html:not([data-theme]) & {
+        background-color: oklch(from var(--color-input) l c h / 30%);
+      }
+    }
+  }
+
+  /* Peer-checked state for radio/checkbox card selectors
+  /* ------------------------------------------------------------------------ */
+
+  input[type='radio'].visually-hidden:checked + .theme-option,
+  input[type='checkbox'].visually-hidden:checked + .theme-option {
+    border-color: var(--color-primary);
+    background-color: var(--color-accent);
+  }
+}

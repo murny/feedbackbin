@@ -1,0 +1,121 @@
+/* ==========================================================================
+   Reactions Module
+   Emoji reaction pills, add-reaction button, and emoji picker.
+   ========================================================================== */
+
+@layer modules {
+  /* Reaction pill - appears as an emoji counter button */
+  .reaction-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--inline-space-half);
+    padding-inline: var(--space-2);
+    padding-block: 0.125rem;
+    font-size: var(--text-small);
+    border-radius: var(--radius-full);
+    border: 1px solid transparent;
+    transition: color var(--duration-fast) var(--ease-out),
+                background-color var(--duration-fast) var(--ease-out);
+  }
+
+  .reaction-pill--active {
+    background-color: oklch(from var(--color-primary) l c h / 10%);
+    border-color: oklch(from var(--color-primary) l c h / 30%);
+    color: var(--color-primary);
+  }
+
+  .reaction-pill--active:hover {
+    background-color: oklch(from var(--color-primary) l c h / 20%);
+  }
+
+  .reaction-pill--inactive {
+    background-color: var(--color-muted);
+    border-color: transparent;
+    color: var(--color-muted-foreground);
+  }
+
+  .reaction-pill--inactive:hover {
+    background-color: oklch(from var(--color-muted) l c h / 80%);
+  }
+
+  .reaction-pill__count {
+    font-size: var(--text-x-small);
+    font-weight: 500;
+  }
+
+  /* Add reaction button */
+  .reaction-add-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: 1.75rem;
+    block-size: 1.75rem;
+    border-radius: var(--radius-full);
+    color: var(--color-muted-foreground);
+    transition: color var(--duration-fast) var(--ease-out),
+                background-color var(--duration-fast) var(--ease-out);
+  }
+
+  .reaction-add-btn:hover {
+    background-color: var(--color-muted);
+    color: var(--color-foreground);
+  }
+
+  .reaction-add-btn--active {
+    background-color: oklch(from var(--color-primary) l c h / 10%);
+    color: var(--color-primary);
+    box-shadow: 0 0 0 2px oklch(from var(--color-primary) l c h / 30%);
+  }
+
+  /* Emoji picker popover */
+  .reaction-picker {
+    position: absolute;
+    inset-inline-start: 0;
+    inset-block-end: 100%;
+    margin-block-end: var(--space-2);
+    z-index: var(--z-popover);
+    inline-size: 13rem;
+    padding: var(--space-2);
+    background-color: var(--color-popover);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-lg);
+  }
+
+  .reaction-picker__grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 0.125rem;
+  }
+
+  .reaction-picker__emoji {
+    block-size: 2.5rem;
+    inline-size: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: var(--text-x-large);
+    border-radius: var(--radius-md);
+    transition: background-color var(--duration-fast) var(--ease-out);
+  }
+
+  .reaction-picker__emoji:hover {
+    background-color: var(--color-muted);
+  }
+
+  .reaction-picker__footer {
+    margin-block-start: var(--space-2);
+    padding-block-start: var(--space-2);
+    border-block-start: 1px solid var(--color-border);
+    text-align: center;
+  }
+
+  .reaction-picker__cancel {
+    font-size: var(--text-x-small);
+    color: var(--color-muted-foreground);
+  }
+
+  .reaction-picker__cancel:hover {
+    color: var(--color-foreground);
+  }
+}

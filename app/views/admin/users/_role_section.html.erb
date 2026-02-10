@@ -1,6 +1,6 @@
 <%= turbo_frame_tag dom_id(user, "role_section") do %>
-  <div class="flex items-center justify-between gap-4">
-    <div class="flex flex-wrap gap-1">
+  <div class="flex align-center justify-space-between" style="gap: var(--space-4);">
+    <div class="flex flex-wrap" style="gap: var(--space-1);">
       <%= render Elements::BadgeComponent.new(
         variant: user.admin? ? :default : :secondary
       ) do %>
@@ -12,7 +12,7 @@
         <% end %>
       <% end %>
     </div>
-    <%= form_with url: admin_user_role_path(user), method: :patch, class: "flex gap-2 items-center" do |form| %>
+    <%= form_with url: admin_user_role_path(user), method: :patch, class: "flex align-center", style: "gap: var(--space-2);" do |form| %>
       <%= form.select :role,
           options_for_select(
             User.roles.keys.map { |role| [ role.humanize, role ] },

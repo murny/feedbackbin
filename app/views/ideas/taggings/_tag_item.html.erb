@@ -3,9 +3,9 @@
   <%= button_to idea_taggings_path(idea, params: { tag_title: tag_item.title }),
         method: :post,
         "aria-pressed": idea.tagged_with?(tag_item),
-        class: "flex items-center gap-2 w-full px-3 py-2 rounded-md hover:bg-accent text-sm transition-colors group",
-        form_class: "w-full flex-1" do %>
-    <span class="flex-1 text-left overflow-hidden text-ellipsis"><%= tag_item.hashtag %></span>
-    <%= lucide_icon "check", class: "h-4 w-4 text-primary opacity-0 group-aria-[pressed=true]:opacity-100 shrink-0" %>
+        class: "tag-picker__item",
+        form_class: "full-width flex-1" do %>
+    <span class="tag-picker__item-label"><%= tag_item.hashtag %></span>
+    <%= lucide_icon "check", class: "size-4 tag-picker__item-check" %>
   <% end %>
 </li>

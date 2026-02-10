@@ -1,12 +1,12 @@
 <% content_for :title, t(".title") %>
 
-<div class="container mx-auto max-w-4xl">
+<div class="center full-width" style="max-inline-size: 56rem;">
   <%= render partial: "admin/settings/header" %>
 
-  <div class="mt-8">
-    <div class="mb-6">
-      <h2 class="text-lg font-medium"><%= t(".title") %></h2>
-      <p class="text-sm text-muted-foreground"><%= t(".description") %></p>
+  <div style="margin-block-start: var(--space-8);">
+    <div style="margin-block-end: var(--space-6);">
+      <h2 class="txt-large font-weight-medium"><%= t(".title") %></h2>
+      <p class="txt-small txt-subtle"><%= t(".description") %></p>
     </div>
 
     <%= render Elements::CardComponent.new do |c| %>

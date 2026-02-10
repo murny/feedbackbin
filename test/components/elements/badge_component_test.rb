@@ -65,30 +65,31 @@ module Elements
       assert_text "With Icon"
     end
 
-    test "default variant has primary background" do
+    test "default variant has primary class" do
       render_inline(BadgeComponent.new(variant: :default)) { "Test" }
 
-      assert_selector "span[class*='bg-primary']"
+      assert_selector "span.badge--primary"
     end
 
-    test "secondary variant has secondary background" do
+    test "secondary variant has secondary class" do
       render_inline(BadgeComponent.new(variant: :secondary)) { "Test" }
 
-      assert_selector "span[class*='bg-secondary']"
+      assert_selector "span.badge--secondary"
     end
 
-    test "destructive variant has destructive background" do
+    test "destructive variant has destructive class" do
       render_inline(BadgeComponent.new(variant: :destructive)) { "Test" }
 
-      assert_selector "span[class*='bg-destructive']"
+      assert_selector "span.badge--destructive"
     end
 
-    test "outline variant has no background" do
+    test "outline variant has outline class" do
       render_inline(BadgeComponent.new(variant: :outline)) { "Test" }
 
-      assert_no_selector "span[class*='bg-primary']"
-      assert_no_selector "span[class*='bg-secondary']"
-      assert_no_selector "span[class*='bg-destructive']"
+      assert_selector "span.badge--outline"
+      assert_no_selector "span.badge--primary"
+      assert_no_selector "span.badge--secondary"
+      assert_no_selector "span.badge--destructive"
     end
   end
 end

@@ -1,20 +1,22 @@
-<nav class="sticky top-16 hidden max-h-[calc(100dvh-(--spacing(16)))] w-48 shrink-0 overflow-y-auto pt-12 pb-16 lg:block">
-  <ul role="list" class="p-2">
+<nav class="position-sticky flex-item-no-shrink overflow-y display-none lg:block" style="inset-block-start: 4rem; max-block-size: calc(100dvh - 4rem); inline-size: 12rem; padding-block-start: var(--space-12); padding-block-end: var(--space-16);">
+  <ul role="list" style="padding: var(--space-2);">
     <li>
       <%= active_link_to staff_root_path,
-            class: "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-foreground",
-            active_class: "bg-secondary",
-            inactive_class: "hover:bg-secondary" do %>
-        <%= lucide_icon "house", class: "h-6 w-6 shrink-0 text-muted-foreground" %>
+            class: "flex align-center border-radius txt-small font-weight-bold",
+            style: "gap: var(--space-3); padding: var(--space-2);",
+            active_class: "fill-selected",
+            inactive_class: "" do %>
+        <%= lucide_icon "house", class: "size-6 flex-item-no-shrink txt-subtle" %>
         Dashboard
       <% end %>
     </li>
-    <li class="mt-6">
+    <li style="margin-block-start: var(--space-6);">
       <%= active_link_to staff_accounts_path,
-            class: "group flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-foreground",
-            active_class: "bg-secondary",
-            inactive_class: "hover:bg-secondary" do %>
-        <%= lucide_icon "building", class: "h-6 w-6 shrink-0 text-muted-foreground" %>
+            class: "flex align-center border-radius txt-small font-weight-bold",
+            style: "gap: var(--space-3); padding: var(--space-2);",
+            active_class: "fill-selected",
+            inactive_class: "" do %>
+        <%= lucide_icon "building", class: "size-6 flex-item-no-shrink txt-subtle" %>
         Accounts
       <% end %>
     </li>

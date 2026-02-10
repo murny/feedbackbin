@@ -1,0 +1,99 @@
+/* ==========================================================================
+   Code Syntax Highlighting (Highlight.js compatible)
+
+   Colors are defined as tokens in _global.css and adapt to light/dark mode.
+   ========================================================================== */
+
+@layer components {
+  .hljs {
+    color: var(--color-code-text);
+    background: var(--color-popover);
+  }
+
+  .hljs-doctag,
+  .hljs-keyword,
+  .hljs-meta .hljs-keyword,
+  .hljs-template-tag,
+  .hljs-template-variable,
+  .hljs-type,
+  .hljs-variable.language_ {
+    color: var(--color-code-token-attr);
+  }
+
+  .hljs-title,
+  .hljs-title.class_,
+  .hljs-title.class_.inherited__,
+  .hljs-title.function_ {
+    color: var(--color-code-token-function);
+  }
+
+  .hljs-attr,
+  .hljs-attribute,
+  .hljs-literal,
+  .hljs-meta,
+  .hljs-number,
+  .hljs-operator,
+  .hljs-variable,
+  .hljs-selector-attr,
+  .hljs-selector-class,
+  .hljs-selector-id {
+    color: var(--color-code-token-property);
+  }
+
+  .hljs-regexp,
+  .hljs-string,
+  .hljs-meta .hljs-string {
+    color: var(--color-code-token-selector);
+  }
+
+  .hljs-built_in,
+  .hljs-symbol {
+    color: var(--color-code-token-variable);
+  }
+
+  .hljs-comment,
+  .hljs-code,
+  .hljs-formula {
+    color: var(--color-code-token-comment);
+  }
+
+  .hljs-name,
+  .hljs-quote,
+  .hljs-selector-tag,
+  .hljs-selector-pseudo {
+    color: var(--color-code-token-tag);
+  }
+
+  .hljs-subst {
+    color: var(--color-code-text);
+  }
+
+  .hljs-section {
+    color: var(--color-code-token-function);
+    font-weight: bold;
+  }
+
+  .hljs-bullet {
+    color: var(--color-code-token-operator);
+  }
+
+  .hljs-emphasis {
+    color: var(--color-code-text);
+    font-style: italic;
+  }
+
+  .hljs-strong {
+    color: var(--color-code-text);
+    font-weight: bold;
+  }
+
+  .hljs-addition {
+    color: var(--color-code-token-addition);
+    background-color: var(--color-code-token-addition-bg);
+  }
+
+  .hljs-deletion {
+    color: var(--color-code-token-deletion);
+    background-color: var(--color-code-token-deletion-bg);
+  }
+}

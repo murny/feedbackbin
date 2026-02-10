@@ -10,12 +10,12 @@ export default class extends Controller {
     this.hideOnEscape = this.hideOnEscape.bind(this)
 
     // Check if menu is already visible (no hidden class)
-    this.isOpen = !this.menuTarget.classList.contains("hidden")
+    this.isOpen = !this.menuTarget.classList.contains("display-none")
 
     // If open on connect or already visible, set up listeners
     if (this.openOnConnectValue || this.isOpen) {
       this.isOpen = true
-      this.menuTarget.classList.remove("hidden")
+      this.menuTarget.classList.remove("display-none")
       requestAnimationFrame(() => this.addGlobalListeners())
     }
   }
@@ -37,13 +37,13 @@ export default class extends Controller {
 
   show() {
     this.isOpen = true
-    this.menuTarget.classList.remove("hidden")
+    this.menuTarget.classList.remove("display-none")
     this.addGlobalListeners()
   }
 
   hide() {
     this.isOpen = false
-    this.menuTarget.classList.add("hidden")
+    this.menuTarget.classList.add("display-none")
     this.removeGlobalListeners()
   }
 

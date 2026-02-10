@@ -1,0 +1,36 @@
+/* ==========================================================================
+   Upload Preview Component
+
+   Usage:
+     <div class="upload-preview">
+       <img class="upload-preview__image" src="...">
+       <div class="upload-preview__actions">
+         <label class="btn btn--secondary">Upload</label>
+       </div>
+     </div>
+   ========================================================================== */
+
+@layer components {
+  .upload-preview {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .upload-preview__image {
+    inline-size: 5rem;
+    block-size: 5rem;
+    flex: none;
+    border-radius: var(--radius-lg);
+    background-color: var(--color-muted);
+    object-fit: cover;
+    border: 1px solid var(--color-border);
+  }
+
+  .upload-preview__actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    flex: 1;
+  }
+}

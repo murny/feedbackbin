@@ -1,0 +1,203 @@
+/* ==========================================================================
+   Tooltip Component
+
+   Usage:
+     <button data-tooltip="Tooltip text">Hover me</button>
+     <button data-tooltip="Right tooltip" data-side="right">Hover me</button>
+     <button data-tooltip="Start aligned" data-align="start">Hover me</button>
+
+   Positions: data-side="top" (default), "right", "bottom", "left"
+   Alignments: data-align="center" (default), "start", "end"
+   ========================================================================== */
+
+@layer components {
+  /* Tooltip via data attribute
+  /* ------------------------------------------------------------------------ */
+
+  [data-tooltip] {
+    position: relative;
+
+    /* Tooltip pseudo-element */
+    &::before {
+      /* Component API */
+      --tooltip-padding-inline: 0.75rem;
+      --tooltip-padding-block: 0.375rem;
+      --tooltip-radius: var(--radius-md);
+      --tooltip-background: var(--color-primary);
+      --tooltip-color: var(--color-primary-foreground);
+      --tooltip-font-size: var(--text-xs);
+      --tooltip-max-width: 20rem;
+      --tooltip-offset: 0.375rem;
+
+      /* Content from attribute */
+      content: attr(data-tooltip);
+
+      /* Positioning */
+      position: absolute;
+      z-index: 60;
+
+      /* Structure */
+      max-inline-size: var(--tooltip-max-width);
+      padding-inline: var(--tooltip-padding-inline);
+      padding-block: var(--tooltip-padding-block);
+      inline-size: max-content;
+
+      /* Appearance */
+      background-color: var(--tooltip-background);
+      color: var(--tooltip-color);
+      border-radius: var(--tooltip-radius);
+
+      /* Typography */
+      font-size: var(--tooltip-font-size);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+
+      /* Initial state */
+      visibility: hidden;
+      opacity: 0;
+      transform: scale(0.95);
+      pointer-events: none;
+
+      /* Animation */
+      transition: var(--duration-fast) var(--ease-out);
+      transition-property: opacity, transform, visibility;
+    }
+
+    /* Show on hover */
+    &:hover::before {
+      visibility: visible;
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    /* Hide on focus (keyboard) to avoid clutter */
+    &:focus-visible:not(:hover)::before {
+      display: none;
+    }
+  }
+
+  /* Position: Top (default)
+  /* ------------------------------------------------------------------------ */
+
+  [data-tooltip]:not([data-side])::before,
+  [data-tooltip][data-side="top"]::before {
+    bottom: 100%;
+    margin-block-end: var(--tooltip-offset);
+    transform: scale(0.95) translateY(0.5rem);
+  }
+
+  [data-tooltip]:not([data-side]):hover::before,
+  [data-tooltip][data-side="top"]:hover::before {
+    transform: scale(1) translateY(0);
+  }
+
+  /* Position: Bottom
+  /* ------------------------------------------------------------------------ */
+
+  [data-tooltip][data-side="bottom"]::before {
+    top: 100%;
+    margin-block-start: var(--tooltip-offset);
+    transform: scale(0.95) translateY(-0.5rem);
+  }
+
+  [data-tooltip][data-side="bottom"]:hover::before {
+    transform: scale(1) translateY(0);
+  }
+
+  /* Position: Left
+  /* ------------------------------------------------------------------------ */
+
+  [data-tooltip][data-side="left"]::before {
+    right: 100%;
+    margin-inline-end: var(--tooltip-offset);
+    transform: scale(0.95) translateX(0.5rem);
+  }
+
+  [data-tooltip][data-side="left"]:hover::before {
+    transform: scale(1) translateX(0);
+  }
+
+  /* Position: Right
+  /* ------------------------------------------------------------------------ */
+
+  [data-tooltip][data-side="right"]::before {
+    left: 100%;
+    margin-inline-start: var(--tooltip-offset);
+    transform: scale(0.95) translateX(-0.5rem);
+  }
+
+  [data-tooltip][data-side="right"]:hover::before {
+    transform: scale(1) translateX(0);
+  }
+
+  /* Alignment: Center (default for top/bottom)
+  /* ------------------------------------------------------------------------ */
+
+  [data-tooltip]:not([data-side])::before,
+  [data-tooltip][data-side="top"]::before,
+  [data-tooltip][data-side="bottom"]::before {
+    &:not([data-align]),
+    &[data-align="center"] {
+      left: 50%;
+      transform: translateX(-50%) scale(0.95);
+    }
+  }
+
+  [data-tooltip]:not([data-side]):not([data-align]):hover::before,
+  [data-tooltip]:not([data-side])[data-align="center"]:hover::before,
+  [data-tooltip][data-side="top"]:not([data-align]):hover::before,
+  [data-tooltip][data-side="top"][data-align="center"]:hover::before,
+  [data-tooltip][data-side="bottom"]:not([data-align]):hover::before,
+  [data-tooltip][data-side="bottom"][data-align="center"]:hover::before {
+    transform: translateX(-50%) scale(1);
+  }
+
+  /* Alignment: Start
+  /* ------------------------------------------------------------------------ */
+
+  [data-tooltip][data-align="start"]:not([data-side])::before,
+  [data-tooltip][data-align="start"][data-side="top"]::before,
+  [data-tooltip][data-align="start"][data-side="bottom"]::before {
+    left: 0;
+  }
+
+  [data-tooltip][data-align="start"][data-side="left"]::before,
+  [data-tooltip][data-align="start"][data-side="right"]::before {
+    top: 0;
+  }
+
+  /* Alignment: End
+  /* ------------------------------------------------------------------------ */
+
+  [data-tooltip][data-align="end"]:not([data-side])::before,
+  [data-tooltip][data-align="end"][data-side="top"]::before,
+  [data-tooltip][data-align="end"][data-side="bottom"]::before {
+    right: 0;
+    left: auto;
+  }
+
+  [data-tooltip][data-align="end"][data-side="left"]::before,
+  [data-tooltip][data-align="end"][data-side="right"]::before {
+    bottom: 0;
+    top: auto;
+  }
+
+  /* Alignment: Center for left/right
+  /* ------------------------------------------------------------------------ */
+
+  [data-tooltip][data-side="left"]:not([data-align])::before,
+  [data-tooltip][data-side="left"][data-align="center"]::before,
+  [data-tooltip][data-side="right"]:not([data-align])::before,
+  [data-tooltip][data-side="right"][data-align="center"]::before {
+    top: 50%;
+    transform: translateY(-50%) scale(0.95);
+  }
+
+  [data-tooltip][data-side="left"]:not([data-align]):hover::before,
+  [data-tooltip][data-side="left"][data-align="center"]:hover::before,
+  [data-tooltip][data-side="right"]:not([data-align]):hover::before,
+  [data-tooltip][data-side="right"][data-align="center"]:hover::before {
+    transform: translateY(-50%) scale(1);
+  }
+}

@@ -1,0 +1,175 @@
+/* ==========================================================================
+   Avatar Component
+
+   Usage:
+     <span class="avatar">
+       <img class="avatar__image" src="..." alt="..." />
+     </span>
+     <span class="avatar avatar--lg">
+       <span class="avatar__fallback">JD</span>
+     </span>
+
+   Sizes: avatar--sm, avatar--lg, avatar--xl
+   Shapes: avatar--square (default is circle)
+   ========================================================================== */
+
+@layer components {
+  /* Avatar Base
+  /* ------------------------------------------------------------------------ */
+
+  .avatar {
+    /* Component API */
+    --avatar-size: 2rem;
+    --avatar-radius: var(--radius-full);
+    --avatar-background: var(--color-muted);
+    --avatar-color: var(--color-muted-foreground);
+    --avatar-font-size: var(--text-sm);
+
+    /* Structure */
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    inline-size: var(--avatar-size);
+    block-size: var(--avatar-size);
+    overflow: hidden;
+
+    /* Appearance */
+    background-color: var(--avatar-background);
+    color: var(--avatar-color);
+    border-radius: var(--avatar-radius);
+
+    /* Typography (for fallback) */
+    font-size: var(--avatar-font-size);
+    font-weight: var(--font-medium);
+
+    /* Focus state */
+    &:focus-visible {
+      outline: var(--focus-ring-width) solid var(--focus-ring-color);
+      outline-offset: var(--focus-ring-offset);
+    }
+  }
+
+  /* Avatar Image
+  /* ------------------------------------------------------------------------ */
+
+  .avatar__image {
+    position: absolute;
+    inset: 0;
+    inline-size: 100%;
+    block-size: 100%;
+    object-fit: cover;
+  }
+
+  /* Avatar Fallback (initials)
+  /* ------------------------------------------------------------------------ */
+
+  .avatar__fallback {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    inline-size: 100%;
+    block-size: 100%;
+    text-transform: uppercase;
+  }
+
+  /* Size: Small
+  /* ------------------------------------------------------------------------ */
+
+  .avatar--sm {
+    --avatar-size: 1.5rem;
+    --avatar-font-size: var(--text-xs);
+  }
+
+  /* Size: Large
+  /* ------------------------------------------------------------------------ */
+
+  .avatar--lg {
+    --avatar-size: 3rem;
+    --avatar-font-size: var(--text-base);
+  }
+
+  /* Size: Extra Large
+  /* ------------------------------------------------------------------------ */
+
+  .avatar--xl {
+    --avatar-size: 4rem;
+    --avatar-font-size: var(--text-lg);
+  }
+
+  /* Size: 2x Extra Large (profile pages)
+  /* ------------------------------------------------------------------------ */
+
+  .avatar--2xl {
+    --avatar-size: 6rem;
+    --avatar-font-size: var(--text-2xl);
+  }
+
+  /* Shape: Square
+  /* ------------------------------------------------------------------------ */
+
+  .avatar--square {
+    --avatar-radius: var(--radius-md);
+  }
+
+  /* Avatar with ring (for groups)
+  /* ------------------------------------------------------------------------ */
+
+  .avatar--ring {
+    box-shadow: 0 0 0 2px var(--color-background);
+  }
+
+  /* Avatar Group
+  /* ------------------------------------------------------------------------ */
+
+  .avatar-group {
+    display: flex;
+
+    /* Overlapping avatars */
+    .avatar {
+      margin-inline-start: -0.5rem;
+
+      &:first-child {
+        margin-inline-start: 0;
+      }
+    }
+  }
+
+  /* Avatar group with hover effect */
+  .avatar-group--hover {
+    .avatar {
+      transition: margin var(--duration-normal) var(--ease-out);
+    }
+
+    &:hover .avatar {
+      margin-inline-start: 0.25rem;
+
+      &:first-child {
+        margin-inline-start: 0;
+      }
+    }
+  }
+
+  /* Avatar group overflow counter */
+  .avatar-group__overflow {
+    --avatar-background: var(--color-muted);
+    --avatar-color: var(--color-muted-foreground);
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    inline-size: var(--avatar-size, 2rem);
+    block-size: var(--avatar-size, 2rem);
+    margin-inline-start: -0.5rem;
+    background-color: var(--avatar-background);
+    color: var(--avatar-color);
+    border-radius: var(--radius-full);
+    font-size: var(--text-xs);
+    font-weight: var(--font-medium);
+    box-shadow: 0 0 0 2px var(--color-background);
+  }
+}

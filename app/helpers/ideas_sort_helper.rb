@@ -1,9 +1,10 @@
 # frozen_string_literal: true
 
 module IdeasSortHelper
-  BASE_SORT_CLASSES = "px-3 py-1.5 rounded-md transition-all duration-200 text-sm font-medium"
-  ACTIVE_SORT_CLASSES = "bg-primary text-primary-foreground shadow-sm"
-  INACTIVE_SORT_CLASSES = "text-muted-foreground hover:text-foreground hover:bg-muted"
+  BASE_SORT_CLASSES = "border-radius txt-small font-weight-medium"
+  BASE_SORT_STYLE = "padding: 0.375rem 0.75rem;"
+  ACTIVE_SORT_CLASSES = "fill-primary txt-reversed shadow-sm"
+  INACTIVE_SORT_CLASSES = "txt-subtle"
 
   # Helper method to clean params by removing nil and blank values
   def clean_params(**params)
@@ -35,7 +36,7 @@ module IdeasSortHelper
     }.compact # Remove nil values
 
     # Build link options
-    link_options = { class: css_classes }
+    link_options = { class: css_classes, style: BASE_SORT_STYLE }
     link_options[:data] = { turbo_frame: turbo_frame } if turbo_frame
 
     link_to text, send(path_helper, path_params), **link_options

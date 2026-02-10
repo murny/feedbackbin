@@ -1,10 +1,10 @@
 <lexxy-prompt-item search="<%= "#{user.name} #{"me" if user == Current.user}" %>" sgid="<%= user.attachable_sgid %>">
   <template type="menu">
-    <%= image_tag fresh_user_avatar_path(user), alt: user.name, class: "h-6 w-6 rounded-full" %>
+    <%= image_tag fresh_user_avatar_path(user), alt: user.name, class: "size-6", style: "border-radius: 9999px;" %>
     <%= user.name %>
   </template>
   <template type="editor">
-    <%= image_tag fresh_user_avatar_path(user), alt: user.name, class: "h-4 w-4 rounded-full" %>
+    <%= image_tag fresh_user_avatar_path(user), alt: user.name, class: "size-4", style: "border-radius: 9999px;" %>
     <%= user.first_name %>
   </template>
 </lexxy-prompt-item>

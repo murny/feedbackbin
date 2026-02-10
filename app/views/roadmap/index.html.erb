@@ -1,10 +1,10 @@
 <% content_for :title, t(".title") %>
 
-<div class="max-w-screen-2xl mx-auto px-4 sm:px-6 py-8">
+<div class="center pad-inline" style="max-inline-size: 96rem; padding-block: var(--space-8);">
   <!-- Page Header -->
-  <div class="mb-8">
-    <h1 class="text-3xl font-bold tracking-tight"><%= t(".title") %></h1>
-    <p class="text-muted-foreground mt-2"><%= t(".description") %></p>
+  <div style="margin-block-end: var(--space-8);">
+    <h1 class="txt-xx-large font-weight-bold" style="letter-spacing: -0.025em;"><%= t(".title") %></h1>
+    <p class="txt-subtle" style="margin-block-start: var(--space-2);"><%= t(".description") %></p>
   </div>
 
   <%= turbo_frame_tag "roadmap_content", data: {
@@ -12,8 +12,8 @@
     action: "turbo:frame-load->search#searchComplete"
   } do %>
     <!-- Filters -->
-    <div class="mb-6">
-      <div class="flex flex-col sm:flex-row gap-4 sm:items-center sm:justify-between mb-6">
+    <div style="margin-block-end: var(--space-6);">
+      <div class="flex flex-column" style="gap: var(--space-4); margin-block-end: var(--space-6);">
         <%= render "shared/board_filter",
           path_helper: :roadmap_path,
           boards: @boards,
@@ -39,9 +39,9 @@
     </div>
 
     <!-- Sort Options -->
-    <div class="flex items-center gap-2 text-sm mb-6">
-      <span class="text-muted-foreground font-medium"><%= t(".sort_by_label") %></span>
-      <div class="flex items-center gap-1 border border-border rounded-lg p-1 bg-background">
+    <div class="flex align-center txt-small" style="gap: var(--space-2); margin-block-end: var(--space-6);">
+      <span class="txt-subtle font-weight-medium"><%= t(".sort_by_label") %></span>
+      <div class="flex align-center border border-radius" style="gap: var(--space-1); padding: var(--space-1); background-color: var(--color-background);">
         <%= ideas_sort_link text: t(".sort_latest"), sort_field: "created_at", direction: "desc", params: params, path_helper: :roadmap_path, turbo_frame: "roadmap_content" %>
         <%= ideas_sort_link text: t(".sort_top"), sort_field: "votes_count", direction: "desc", params: params, path_helper: :roadmap_path, turbo_frame: "roadmap_content" %>
         <%= ideas_sort_link text: t(".sort_most_commented"), sort_field: "comments_count", direction: "desc", params: params, path_helper: :roadmap_path, turbo_frame: "roadmap_content" %>
@@ -50,11 +50,11 @@
 
     <!-- Empty State (if filters return no results) -->
     <% if @roadmap_data.values.all?(&:empty?) %>
-      <div class="text-center py-12">
-        <%= lucide_icon "search-x", class: "h-12 w-12 mx-auto mb-4 text-muted-foreground opacity-50" %>
-        <h3 class="text-lg font-semibold mb-2"><%= t(".no_results_title") %></h3>
-        <p class="text-muted-foreground mb-4"><%= t(".no_results_description") %></p>
-        <%= link_to t(".clear_filters"), roadmap_path, class: "btn btn-primary", data: { turbo_frame: "roadmap_content" } %>
+      <div class="txt-align-center" style="padding-block: var(--space-12);">
+        <%= lucide_icon "search-x", class: "center", style: "inline-size: 3rem; block-size: 3rem; margin-block-end: var(--space-4); color: var(--color-muted-foreground); opacity: 0.5;" %>
+        <h3 class="txt-medium font-weight-bold" style="margin-block-end: var(--space-2);"><%= t(".no_results_title") %></h3>
+        <p class="txt-subtle" style="margin-block-end: var(--space-4);"><%= t(".no_results_description") %></p>
+        <%= link_to t(".clear_filters"), roadmap_path, class: "btn btn--primary", data: { turbo_frame: "roadmap_content" } %>
       </div>
     <% else %>
       <!-- Kanban Board -->

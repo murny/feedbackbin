@@ -41,10 +41,10 @@ module Elements
       assert_no_selector "a"
     end
 
-    test "shows loading spinner when loading" do
+    test "shows loading state when loading" do
       render_inline(ButtonComponent.new(loading: true)) { "Loading" }
 
-      assert_selector ".animate-spin"
+      assert_selector "button.btn--loading"
       assert_selector "button[disabled]"
     end
 
@@ -72,12 +72,6 @@ module Elements
       render_inline(ButtonComponent.new(href: "/test", loading: true)) { "Loading" }
 
       assert_selector "a[aria-busy='true']"
-    end
-
-    test "loading spinner has aria-label for screen readers" do
-      render_inline(ButtonComponent.new(loading: true)) { "Loading" }
-
-      assert_selector "[aria-label='Loading']"
     end
 
     test "merges custom classes" do
@@ -110,13 +104,10 @@ module Elements
       end
     end
 
-    test "includes base accessibility classes" do
+    test "includes base btn class" do
       render_inline(ButtonComponent.new) { "Test" }
 
-      page_html = page.native.to_html
-
-      assert_includes page_html, "focus-visible:"
-      assert_includes page_html, "disabled:"
+      assert_selector "button.btn"
     end
 
     test "works with data attributes" do

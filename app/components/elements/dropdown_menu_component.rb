@@ -36,14 +36,13 @@ module Elements
 
         {
           data: data,
-          class: tw_merge("relative inline-block", @attrs[:class])
+          class: [ "dropdown", @attrs[:class] ].compact.join(" ")
         }.merge(@attrs.except(:class, :data))
       end
 
       def trigger_wrapper
         return unless trigger?
 
-        # Merge Stimulus and ARIA attributes into the trigger attrs
         attrs = @trigger_attrs || {}
         trigger_data = (attrs[:data] || {}).merge(
           dropdown_target: "trigger",
@@ -55,7 +54,6 @@ module Elements
           expanded: "false"
         )
 
-        # Render ButtonComponent with all attributes
         render Elements::ButtonComponent.new(
           variant: @trigger_variant || :outline,
           size: @trigger_size || :default,
@@ -71,7 +69,7 @@ module Elements
         return unless items?
 
         tag.div(**content_attrs) do
-          tag.div(class: content_inner_classes, role: "menu", "aria-orientation": "vertical") do
+          tag.div(class: "py-1", role: "menu", "aria-orientation": "vertical") do
             safe_join(items)
           end
         end
@@ -83,27 +81,14 @@ module Elements
             dropdown_target: "menu",
             state: "closed"
           },
-          class: content_classes
+          class: "dropdown__menu"
         }
-      end
-
-      def content_classes
-        tw_merge(
-          "absolute top-full left-0 z-50 min-w-[14rem] overflow-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md mt-1",
-          "data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95",
-          "data-[state=closed]:pointer-events-none data-[state=closed]:invisible"
-        )
-      end
-
-      def content_inner_classes
-        "py-1"
       end
 
       # Item component for menu items
       class ItemComponent < BaseComponent
         def initialize(href: nil, method: nil, params: {}, inset: false, disabled: false, id: nil, **attrs)
           @href = href
-          # Normalize :get to nil - GET requests should be links, not forms
           @method = method == :get ? nil : method
           @params = params
           @inset = inset
@@ -114,11 +99,8 @@ module Elements
 
         def call
           item_content = if @disabled
-            # Render non-interactive span for disabled items
             tag.span(**disabled_attrs) { content }
           elsif @method
-            # Render form with properly attributed button for POST/PATCH/DELETE actions
-            # Manual form construction for full control over button attributes
             tag.form(**form_wrapper_attrs) do
               safe_join([
                 form_hidden_fields,
@@ -126,14 +108,11 @@ module Elements
               ])
             end
           elsif @href
-            # Render link for GET actions
             link_to(@href, **link_attrs) { content }
           else
-            # Render plain button
             tag.button(**button_attrs) { content }
           end
 
-          # Wrap in span with ID if provided (for Turbo Frame updates)
           if @id
             tag.span(id: @id) { item_content }
           else
@@ -229,15 +208,11 @@ module Elements
           end
 
           def item_classes
-            tw_merge(
-              "relative flex w-full cursor-default select-none items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden transition-colors",
-              "hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground",
-              "disabled:pointer-events-none disabled:opacity-50",
-              "aria-disabled:pointer-events-none aria-disabled:opacity-50",
-              "[&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0",
-              @inset ? "pl-8" : nil,
+            [
+              "dropdown__item",
+              ("dropdown__item--inset" if @inset),
               @attrs[:class]
-            )
+            ].compact.join(" ")
           end
 
           def combined_action
@@ -249,7 +224,7 @@ module Elements
       # Separator component
       class SeparatorComponent < BaseComponent
         def call
-          tag.div(class: "my-1 h-px bg-border", role: "separator")
+          tag.div(class: "dropdown__separator", role: "separator")
         end
       end
 
@@ -268,14 +243,7 @@ module Elements
         private
 
           def label_attrs
-            { class: label_classes }.merge(@attrs.except(:class))
-          end
-
-          def label_classes
-            tw_merge(
-              "px-2 py-1.5 text-sm font-semibold",
-              @attrs[:class]
-            )
+            { class: [ "dropdown__label", @attrs[:class] ].compact.join(" ") }.merge(@attrs.except(:class))
           end
       end
   end

@@ -75,7 +75,7 @@ docs/
 
 ## Styling
 
-The site uses a custom CSS framework (no Tailwind or Bootstrap) with:
+The site uses a custom vanilla CSS framework (no Tailwind or Bootstrap) with:
 
 - **Mist color palette** - Cool gray tones with subtle blue undertones
 - **Automatic dark mode** - Switches based on system preferences

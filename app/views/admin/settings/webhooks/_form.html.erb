@@ -1,58 +1,58 @@
 <%# locals: (webhook:, show_url: true) %>
 
-<%= form_with model: webhook, url: webhook.persisted? ? admin_settings_webhook_path(webhook) : admin_settings_webhooks_path, method: webhook.persisted? ? :patch : :post, class: "space-y-6" do |f| %>
-  <div class="grid gap-6">
-    <div class="grid gap-3">
+<%= form_with model: webhook, url: webhook.persisted? ? admin_settings_webhook_path(webhook) : admin_settings_webhooks_path, method: webhook.persisted? ? :patch : :post, class: "flex flex-column", style: "gap: var(--space-6);" do |f| %>
+  <div class="grid" style="gap: var(--space-6);">
+    <div class="grid" style="gap: var(--space-3);">
       <%= f.label :name, t(".name_label") %>
       <%= f.text_field :name, placeholder: t(".name_placeholder"), autofocus: true %>
-      <p class="text-xs text-muted-foreground"><%= t(".name_hint") %></p>
+      <p class="txt-x-small txt-subtle"><%= t(".name_hint") %></p>
     </div>
 
     <% if show_url %>
-      <div class="grid gap-3">
+      <div class="grid" style="gap: var(--space-3);">
         <%= f.label :url, t(".url_label") %>
         <%= f.url_field :url, placeholder: t(".url_placeholder"), required: true, pattern: "https?://.*", title: t(".url_pattern_title") %>
-        <p class="text-xs text-muted-foreground"><%= t(".url_hint") %></p>
+        <p class="txt-x-small txt-subtle"><%= t(".url_hint") %></p>
       </div>
     <% else %>
-      <div class="grid gap-3">
-        <label class="text-sm font-medium"><%= t(".url_label") %></label>
-        <p class="text-sm text-muted-foreground font-mono bg-muted px-3 py-2 rounded-md"><%= webhook.url %></p>
-        <p class="text-xs text-muted-foreground"><%= t(".url_not_editable") %></p>
+      <div class="grid" style="gap: var(--space-3);">
+        <label class="txt-small font-weight-medium"><%= t(".url_label") %></label>
+        <p class="txt-small txt-subtle fill-shade border-radius" style="font-family: var(--font-mono, monospace); padding-inline: var(--space-3); padding-block: var(--space-2);"><%= webhook.url %></p>
+        <p class="txt-x-small txt-subtle"><%= t(".url_not_editable") %></p>
       </div>
     <% end %>
 
-    <div class="grid gap-3">
+    <div class="grid" style="gap: var(--space-3);">
       <%= f.label :board_id, t(".board_label") %>
       <%= f.select :board_id,
             options_from_collection_for_select(@boards, :id, :name, webhook.board_id),
             { include_blank: t(".all_boards") },
             { class: "input" } %>
-      <p class="text-xs text-muted-foreground"><%= t(".board_hint") %></p>
+      <p class="txt-x-small txt-subtle"><%= t(".board_hint") %></p>
     </div>
 
-    <div class="grid gap-3">
+    <div class="grid" style="gap: var(--space-3);">
       <%= f.label :description, t(".description_label") %>
       <%= f.text_area :description, placeholder: t(".description_placeholder"), rows: 2, maxlength: 500 %>
-      <p class="text-xs text-muted-foreground"><%= t(".description_hint") %></p>
+      <p class="txt-x-small txt-subtle"><%= t(".description_hint") %></p>
     </div>
 
-    <div class="grid gap-3">
-      <label class="text-sm font-medium"><%= t(".subscribed_actions_label") %></label>
-      <p class="text-xs text-muted-foreground mb-2"><%= t(".subscribed_actions_hint") %></p>
-      <div class="space-y-2">
+    <div class="grid" style="gap: var(--space-3);">
+      <label class="txt-small font-weight-medium"><%= t(".subscribed_actions_label") %></label>
+      <p class="txt-x-small txt-subtle" style="margin-block-end: var(--space-2);"><%= t(".subscribed_actions_hint") %></p>
+      <div class="flex flex-column" style="gap: var(--space-2);">
         <% webhook_action_options.each do |action, label| %>
-          <label class="flex items-center gap-3 cursor-pointer">
-            <%= f.check_box :subscribed_actions, { multiple: true, class: "h-4 w-4 rounded border-input" }, action, nil %>
-            <span class="text-sm"><%= label %></span>
+          <label class="flex align-center cursor-pointer" style="gap: var(--space-3);">
+            <%= f.check_box :subscribed_actions, { multiple: true }, action, nil %>
+            <span class="txt-small"><%= label %></span>
           </label>
         <% end %>
       </div>
     </div>
   </div>
 
-  <div class="mt-8 flex items-center justify-end gap-3">
-    <%= link_to t("cancel"), admin_settings_webhooks_path, class: "btn btn-secondary" %>
+  <div class="flex align-center justify-end" style="margin-block-start: var(--space-8); gap: var(--space-3);">
+    <%= link_to t("cancel"), admin_settings_webhooks_path, class: "btn btn--secondary" %>
     <%= render Elements::ButtonComponent.new(type: :submit, variant: :default) do %>
       <%= webhook.persisted? ? t(".save_changes") : t(".create_webhook") %>
     <% end %>

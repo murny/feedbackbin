@@ -1,30 +1,30 @@
 <%= content_for :title, @idea.title %>
 <%= turbo_stream_from @idea %>
 
-<section class="container mx-auto px-4 sm:px-6 mt-6 md:mt-10">
-  <div class="max-w-5xl mx-auto space-y-6">
+<section class="center pad-inline margin-block-start" style="max-inline-size: 64rem;">
+  <div class="flex flex-column" style="gap: var(--space-6);">
     <div>
-      <%= link_to ideas_path, class: "inline-flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground" do %>
-        <%= lucide_icon "chevron-left", class: "h-4 w-4" %>
+      <%= link_to ideas_path, class: "flex-inline align-center gap-half txt-small txt-subtle txt-undecorated" do %>
+        <%= lucide_icon "chevron-left", class: "size-4" %>
         <span><%= t(".back_to_ideas") %></span>
       <% end %>
     </div>
 
     <%= render Elements::CardComponent.new do |c| %>
-      <% c.with_body(class: "p-4 md:p-6 lg:p-8") do %>
-        <div class="flex items-start gap-3 md:gap-4">
-        <div class="pt-1">
+      <% c.with_body(class: "pad") do %>
+        <div class="flex align-start gap" style="--column-gap: var(--space-3);">
+        <div style="padding-block-start: var(--space-1);">
           <%= render partial: "votes/vote_button", locals: { voteable: @idea } %>
         </div>
-        <div class="grow">
-          <div class="flex items-center justify-between gap-2 mb-2">
-            <div class="flex items-center flex-wrap gap-2">
+        <div class="flex-item-grow">
+          <div class="flex align-center justify-space-between gap-half margin-block-end-half">
+            <div class="flex align-center flex-wrap gap-half">
             <% if @idea.board %>
                 <%= render Elements::BadgeComponent.new(
                   variant: :outline,
-                  class: "gap-1.5 text-muted-foreground bg-muted/30 border-border"
+                  class: "gap-half txt-subtle"
                 ) do %>
-                  <span class="w-2 h-2 rounded-full shrink-0" style="background-color: <%= @idea.board.color %>;"></span>
+                  <span class="flex-item-no-shrink" style="inline-size: 0.5rem; block-size: 0.5rem; border-radius: var(--radius-full); background-color: <%= @idea.board.color %>;"></span>
                   <span><%= @idea.board.name %></span>
                 <% end %>
               <% end %>
@@ -39,12 +39,12 @@
               </span>
             </div>
 
-            <div class="flex items-center gap-2">
+            <div class="flex align-center gap-half">
               <%= render "ideas/status_badge", idea: @idea %>
 
               <% if Current.user&.can_administer_idea?(@idea) %>
                 <%= render Elements::DropdownMenuComponent.new do |dropdown| %>
-                  <% dropdown.with_trigger(variant: :ghost, size: :icon, class: "text-muted-foreground") do %>
+                  <% dropdown.with_trigger(variant: :ghost, size: :icon, class: "txt-subtle") do %>
                     <%= lucide_icon("ellipsis") %>
                   <% end %>
 
@@ -77,7 +77,7 @@
                     href: @idea,
                     method: :delete,
                     form: { data: { turbo_confirm: t("are_you_sure") } },
-                    class: "text-destructive"
+                    class: "txt-negative"
                   ) do %>
                     <%= t("delete") %>
                   <% end %>
@@ -86,24 +86,24 @@
             </div>
           </div>
 
-          <h1 class="text-2xl sm:text-3xl font-bold tracking-tight mb-2"><%= @idea.title %></h1>
+          <h1 class="txt-xx-large font-weight-bold margin-block-end-half"><%= @idea.title %></h1>
 
           <%= render "ideas/tags", idea: @idea %>
 
-          <div class="flex items-center gap-2 text-sm mb-6">
-            <%= avatar_tag @idea.creator, class: "rounded-full w-8 h-8" %>
-            <%= link_to @idea.creator.name, @idea.creator, class: "font-medium hover:underline" %>
+          <div class="flex align-center gap-half txt-small margin-block-end">
+            <%= avatar_tag @idea.creator, class: "avatar avatar--sm" %>
+            <%= link_to @idea.creator.name, @idea.creator, class: "font-weight-medium txt-undecorated" %>
             <%= lucide_icon "dot" %>
             <%= time_ago_with_tooltip @idea.created_at %>
           </div>
 
-          <div class="prose max-w-none" data-controller="syntax-highlight">
+          <div class="prose max-width" data-controller="syntax-highlight">
             <%= @idea.description %>
           </div>
 
           <!-- Bottom: user actions and participants -->
-          <div class="mt-6 flex flex-wrap items-center justify-between gap-4">
-            <div class="flex flex-wrap items-center gap-2">
+          <div class="margin-block-start flex flex-wrap align-center justify-space-between gap">
+            <div class="flex flex-wrap align-center gap-half">
               <%= turbo_frame_tag @idea, :watch, src: idea_watch_path(@idea) do %>
                 <%= render Elements::ButtonComponent.new(variant: :outline, disabled: true) do %>
                   <%= lucide_icon "bell-off" %>

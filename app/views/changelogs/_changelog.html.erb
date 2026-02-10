@@ -1,8 +1,8 @@
 <%# locals: (changelog:) %>
 
-<div id="<%= dom_id(changelog) %>" class="px-6">
-  <div class="flex items-center justify-between gap-3 mb-4">
-    <%= link_to changelog_path(changelog), class: "text-sm text-muted-foreground hover:text-foreground font-medium" do %>
+<div id="<%= dom_id(changelog) %>" style="padding-inline: var(--space-6);">
+  <div class="flex align-center justify-space-between" style="gap: var(--space-3); margin-block-end: var(--space-4);">
+    <%= link_to changelog_path(changelog), class: "txt-small txt-subtle font-weight-medium changelog__date-link" do %>
       <%= local_datetime_tag changelog.published_at, style: :datetime %>
     <% end %>
     <%= render Elements::BadgeComponent.new(
@@ -12,11 +12,11 @@
     <% end %>
   </div>
 
-  <h2 class="text-xl font-semibold mb-4 text-foreground leading-tight">
-    <%= link_to changelog.title, changelog_path(changelog), class: "hover:underline" %>
+  <h2 class="txt-x-large font-weight-semibold" style="margin-block-end: var(--space-4);">
+    <%= link_to changelog.title, changelog_path(changelog), class: "changelog__title-link" %>
   </h2>
 
-  <div class="prose prose-sm max-w-none text-muted-foreground leading-relaxed" data-controller="syntax-highlight">
+  <div class="prose txt-subtle" style="max-inline-size: none; font-size: var(--text-small);" data-controller="syntax-highlight">
     <%= changelog.description %>
   </div>
 </div>

@@ -5,7 +5,7 @@
       alt: avatar[:alt],
       fallback: avatar[:fallback],
       size: @size,
-      class: avatar_item_classes
+      ring: @ring
     ) %>
     <% if avatar[:href] %>
       <%= link_to avatar[:href], title: avatar[:title], data: { tooltip: avatar[:title] } do %><%= avatar_component %><% end %>
@@ -18,7 +18,7 @@
     <%= render Elements::AvatarComponent.new(
       fallback: "+#{remaining_count}",
       size: @size,
-      class: "bg-muted text-muted-foreground ring-2 ring-background"
+      ring: @ring
     ) %>
   <% end %>
 <% end %>

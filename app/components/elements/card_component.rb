@@ -12,7 +12,9 @@ module Elements
       FooterComponent.new(**attrs)
     }
 
-    def initialize(**attrs)
+    def initialize(bordered: false, compact: false, **attrs)
+      @bordered = bordered
+      @compact = compact
       @attrs = attrs
     end
 
@@ -32,11 +34,12 @@ module Elements
       end
 
       def card_classes
-        tw_merge(base_classes, @attrs[:class])
-      end
-
-      def base_classes
-        "bg-card text-card-foreground flex flex-col gap-6 rounded-xl border py-6 shadow-sm"
+        [
+          "card",
+          ("card--bordered" if @bordered),
+          ("card--compact" if @compact),
+          @attrs[:class]
+        ].compact.join(" ")
       end
 
       # Header subcomponent
@@ -48,21 +51,18 @@ module Elements
         end
 
         def call
-          tag.div(**header_attrs) do
+          tag.header(**header_attrs) do
             if content.present?
-              # Has action content from block
               text_content = render_text_content
               if text_content.present?
                 safe_join([
                   tag.div { text_content },
-                  tag.div(data: { slot: "card-action" }) { content }
+                  tag.div(class: "card__action", data: { slot: "card-action" }) { content }
                 ])
               else
-                # Only action, no title/description
-                tag.div(data: { slot: "card-action" }) { content }
+                tag.div(class: "card__action", data: { slot: "card-action" }) { content }
               end
             else
-              # No action
               render_text_content
             end
           end
@@ -78,15 +78,7 @@ module Elements
           end
 
           def header_classes
-            tw_merge(base_header_classes, @attrs[:class])
-          end
-
-          def base_header_classes
-            [
-              "@container/card-header grid auto-rows-min grid-rows-[auto_auto] items-start gap-1.5 px-6",
-              "has-[data-slot=card-action]:grid-cols-[1fr_auto]",
-              "[.border-b_&]:pb-6"
-            ].join(" ")
+            [ "card__header", @attrs[:class] ].compact.join(" ")
           end
 
           def render_text_content
@@ -99,13 +91,13 @@ module Elements
           def render_title
             return nil unless @title.present?
 
-            tag.div(@title, data: { slot: "card-title" }, class: "leading-none font-semibold")
+            tag.h2(@title, class: "card__title", data: { slot: "card-title" })
           end
 
           def render_description
             return nil unless @description.present?
 
-            tag.div(@description, data: { slot: "card-description" }, class: "text-muted-foreground text-sm")
+            tag.p(@description, class: "card__description", data: { slot: "card-description" })
           end
       end
 
@@ -116,7 +108,7 @@ module Elements
         end
 
         def call
-          tag.div(**body_attrs) { content }
+          tag.section(**body_attrs) { content }
         end
 
         private
@@ -129,7 +121,7 @@ module Elements
           end
 
           def body_classes
-            tw_merge("px-6 text-sm", @attrs[:class])
+            [ "card__body", @attrs[:class] ].compact.join(" ")
           end
       end
 
@@ -140,7 +132,7 @@ module Elements
         end
 
         def call
-          tag.div(**footer_attrs) { content }
+          tag.footer(**footer_attrs) { content }
         end
 
         private
@@ -153,7 +145,7 @@ module Elements
           end
 
           def footer_classes
-            tw_merge("flex items-center px-6 text-sm", @attrs[:class])
+            [ "card__footer", @attrs[:class] ].compact.join(" ")
           end
       end
   end

@@ -1,0 +1,56 @@
+/* ==========================================================================
+   Filter Bar Component
+
+   Usage:
+     <div class="filter-bar">
+       <a class="filter-bar__link filter-bar__link--active" href="...">All</a>
+       <a class="filter-bar__link" href="...">Open</a>
+     </div>
+
+   A tabbed/pill filter bar reusable across ideas, roadmap, and other lists.
+   ========================================================================== */
+
+@layer components {
+  .filter-bar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    block-size: 2.25rem;
+    inline-size: fit-content;
+    padding: 3px;
+    border-radius: var(--radius-lg);
+    background-color: var(--color-muted);
+    color: var(--color-muted-foreground);
+  }
+
+  .filter-bar__link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    block-size: calc(100% - 1px);
+    padding: var(--space-1) var(--space-3);
+    border: 1px solid transparent;
+    border-radius: var(--radius-md);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+    white-space: nowrap;
+    text-decoration: none;
+    color: var(--color-muted-foreground);
+    transition: all 200ms var(--ease-out);
+
+    &:hover {
+      color: var(--color-foreground);
+      background-color: oklch(from var(--color-muted) l c h / 50%);
+    }
+  }
+
+  .filter-bar__link--active {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    box-shadow: var(--shadow-sm);
+
+    &:hover {
+      background-color: var(--color-background);
+    }
+  }
+}

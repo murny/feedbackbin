@@ -1,24 +1,24 @@
 <% content_for :title, t(".title") %>
 
-<div class="container mx-auto max-w-6xl px-4 py-8">
-  <div class="flex items-center justify-between mb-8">
+<div class="center pad-inline" style="max-inline-size: 72rem; padding-block: var(--space-8);">
+  <div class="flex align-center justify-space-between" style="margin-block-end: var(--space-8);">
     <div>
-      <h1 class="text-2xl font-semibold tracking-tight"><%= t(".heading") %></h1>
-      <p class="text-sm text-muted-foreground"><%= t(".description") %></p>
+      <h1 class="txt-xx-large font-weight-semibold"><%= t(".heading") %></h1>
+      <p class="txt-small txt-subtle"><%= t(".description") %></p>
     </div>
-    <div class="whitespace-nowrap">
+    <div class="txt-nowrap">
       <%= render Elements::ButtonComponent.new(
         variant: :default,
         href: new_admin_invitation_path
       ) do %>
-        <%= lucide_icon "user-plus", class: "mr-2 h-4 w-4" %>
+        <%= lucide_icon "user-plus", class: "size-4", style: "margin-inline-end: var(--space-2);" %>
         <%= t(".new_invitation") %>
       <% end %>
     </div>
   </div>
 
-  <div class="mb-4">
-    <h2 class="text-lg font-medium flex items-center gap-2">
+  <div style="margin-block-end: var(--space-4);">
+    <h2 class="txt-large font-weight-medium flex align-center" style="gap: var(--space-2);">
       <%= t(".pending_invitations") %>
       <%= render Elements::BadgeComponent.new(variant: :default) do %>
         <%= @pagy.count %>

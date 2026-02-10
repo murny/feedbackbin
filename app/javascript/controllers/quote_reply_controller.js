@@ -15,7 +15,7 @@ export default class extends Controller {
 
     // Expand the reply form by clicking the trigger button
     const triggerButton = formContainer.querySelector("[data-reply-form-target='trigger']")
-    if (triggerButton && !triggerButton.classList.contains("hidden")) {
+    if (triggerButton && !triggerButton.classList.contains("display-none")) {
       triggerButton.click()
     }
 

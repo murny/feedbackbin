@@ -10,30 +10,25 @@ class AccountsHelperTest < ActionView::TestCase
   test "account_logo with default size (medium)" do
     logo_html = account_logo(@account)
 
-    # Avatar component uses size-8 class and square shape (rounded-md)
-    assert_includes logo_html, "size-8"
-    assert_includes logo_html, "rounded-md"
-    # Should contain the fallback initials
+    assert_includes logo_html, "avatar"
+    assert_includes logo_html, "avatar--square"
     assert_includes logo_html, "FE"
-    # Should not contain image tag when no logo attached
     assert_no_match(/<img/, logo_html)
   end
 
   test "account_logo with large size" do
     logo_html = account_logo(@account, size: :lg)
 
-    # Large size maps to :lg avatar size (size-12)
-    assert_includes logo_html, "size-12"
-    assert_includes logo_html, "rounded-md"
+    assert_includes logo_html, "avatar--lg"
+    assert_includes logo_html, "avatar--square"
     assert_includes logo_html, "FE"
   end
 
   test "account_logo with small size" do
     logo_html = account_logo(@account, size: :sm)
 
-    # Small size maps to :sm avatar size (size-6)
-    assert_includes logo_html, "size-6"
-    assert_includes logo_html, "rounded-md"
+    assert_includes logo_html, "avatar--sm"
+    assert_includes logo_html, "avatar--square"
     assert_includes logo_html, "FE"
   end
 
@@ -42,12 +37,11 @@ class AccountsHelperTest < ActionView::TestCase
 
     logo_html = account_logo(@account, size: :lg)
 
-    # Should contain image tag
     assert_match(/<img/, logo_html)
     assert_includes logo_html, 'alt="FeedbackBin"'
     assert_includes logo_html, "racecar.jpeg"
-    assert_includes logo_html, "size-12"
-    assert_includes logo_html, "rounded-md"
+    assert_includes logo_html, "avatar--lg"
+    assert_includes logo_html, "avatar--square"
   end
 
   test "account_logo with attached logo image (medium)" do
@@ -58,7 +52,7 @@ class AccountsHelperTest < ActionView::TestCase
     assert_match(/<img/, logo_html)
     assert_includes logo_html, 'alt="FeedbackBin"'
     assert_includes logo_html, "racecar.jpeg"
-    assert_includes logo_html, "size-8"
+    assert_includes logo_html, "avatar"
   end
 
   test "account_logo with attached logo image (small)" do
@@ -69,13 +63,13 @@ class AccountsHelperTest < ActionView::TestCase
     assert_match(/<img/, logo_html)
     assert_includes logo_html, 'alt="FeedbackBin"'
     assert_includes logo_html, "racecar.jpeg"
-    assert_includes logo_html, "size-6"
+    assert_includes logo_html, "avatar--sm"
   end
 
   test "account_logo with custom classes" do
     logo_html = account_logo(@account, size: :lg, class: "custom-class")
 
     assert_includes logo_html, "custom-class"
-    assert_includes logo_html, "size-12"
+    assert_includes logo_html, "avatar--lg"
   end
 end
