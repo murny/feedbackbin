@@ -113,6 +113,8 @@
   .min-content { inline-size: min-content; }
   .fit-content { inline-size: fit-content; }
   .max-inline-size { max-inline-size: 100%; }
+  .content-width { max-inline-size: 80rem; }
+  .min-block-size-screen { min-block-size: 100svh; }
 
   /* ==========================================================================
      Overflow
@@ -395,6 +397,20 @@
 
   /* Divide — borders between children, used in lists/tables */
   .divide-y > * + * { border-block-start: 1px solid var(--color-border); }
+
+  /* Text divider — horizontal line with centered text, e.g. "── Or continue with ──" */
+  .text-divider {
+    display: flex;
+    align-items: center;
+    gap: 1ch;
+
+    &::before,
+    &::after {
+      content: "";
+      flex: 1;
+      border-block-start: 1px solid var(--color-border);
+    }
+  }
 
   /* Icon/element sizing — used extensively for lucide icons and UI elements */
   .size-3 { inline-size: 0.75rem; block-size: 0.75rem; }

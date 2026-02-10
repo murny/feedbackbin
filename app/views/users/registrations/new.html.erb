@@ -12,9 +12,7 @@
     <div class="grid" style="padding-inline: var(--space-6); gap: var(--space-6);">
       <%= render "oauth_providers" %>
 
-      <div class="position-relative txt-align-center txt-small" style="border-block-start: 1px solid var(--color-border); padding-block-start: var(--space-3);">
-        <span class="fill-card txt-subtle position-relative" style="z-index: 1; padding-inline: var(--space-2); margin-block-start: calc(var(--space-3) * -1); display: inline-block; transform: translateY(-50%);"><%= t(".or_continue_with") %></span>
-      </div>
+      <div class="text-divider txt-small txt-subtle"><%= t(".or_continue_with") %></div>
 
       <%= form_with model: @user, url: users_registrations_path, class: "grid", style: "gap: var(--space-6);" do |form| %>
         <%= render "error_messages", resource: @user %>

@@ -5,12 +5,12 @@
 
   <div class="card flex flex-column <%= "animate-shake" if flash[:shake] %>" style="gap: var(--space-6); padding-block: var(--space-6);">
     <header class="txt-align-center" style="padding-inline: var(--space-6);">
-      <h1 class="font-weight-semibold txt-x-large"><%= t(".check_your_email") %></h1>
+      <h1 class="font-weight-bold txt-x-large"><%= t(".check_your_email") %></h1>
       <p class="txt-subtle txt-small margin-block-start-half"><%= t(".enter_code_instructions") %></p>
     </header>
 
     <div class="grid" style="padding-inline: var(--space-6); gap: var(--space-6);">
-      <%= form_with url: session_magic_link_path, method: :post, class: "grid", style: "gap: var(--space-6);", data: { controller: "magic-link" } do |form| %>
+      <%= form_with url: session_magic_link_path, method: :post, data: { controller: "magic-link" } do |form| %>
         <div class="grid" style="gap: var(--space-3);">
           <%= form.label :code, t(".verification_code"), class: "txt-small font-weight-medium" %>
           <%= form.text_field :code,
@@ -23,11 +23,13 @@
                 maxlength: "6",
                 placeholder: t(".code_placeholder"),
                 class: "txt-align-center txt-large txt-uppercase",
-                style: "letter-spacing: 0.1em;",
+                style: "--input-height: 2.75rem; letter-spacing: 0.2em;",
                 data: { "1p_ignore": true, magic_link_target: "input", action: "keydown.enter->magic-link#submitOnEnter paste->magic-link#submitOnPaste" } %>
         </div>
 
-        <%= form.submit t(".verify_code"), class: "btn full-width" %>
+        <div class="margin-block-start">
+          <%= form.submit t(".verify_code"), class: "btn full-width" %>
+        </div>
       <% end %>
 
       <p class="txt-subtle txt-align-center txt-small">

@@ -2,14 +2,13 @@
 <html lang="en">
   <%= render "shared/head" %>
 
-  <%= tag.body class: "flex flex-column",
-        style: "min-block-size: 100svh;",
+  <%= tag.body class: "flex flex-column min-block-size-screen",
         data: {
           controller: "local-time theme-application",
           theme_application_preference_value: "system"
         } do %>
     <%= render "flash" %>
-    <main class="flex-item-grow flex flex-column align-center justify-center gap" style="max-inline-size: none; padding: var(--space-6); --row-gap: var(--space-6);">
+    <main class="flex-item-grow flex flex-column align-center justify-center gap pad-inline" style="--row-gap: var(--space-6);">
       <%= yield %>
     </main>
   <% end %>

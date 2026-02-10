@@ -44,11 +44,11 @@
 
   /* Links */
   a {
-    color: var(--color-link);
-    text-decoration: none;
+    color: var(--color-ink);
+    text-decoration: underline;
 
     &:hover {
-      text-decoration: underline;
+      text-decoration: none;
     }
 
     &:focus-visible {
@@ -100,7 +100,6 @@
 
   /* Main content area */
   main {
-    max-inline-size: 80rem;
     padding-block: 2.5rem var(--block-space-double);
   }
 
