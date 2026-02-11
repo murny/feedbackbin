@@ -42,6 +42,29 @@ jobs:
       - name: Scan for security vulnerabilities in JavaScript dependencies
         run: bin/importmap audit
 
+  scan_secrets:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v6.0.2
+        with:
+          fetch-depth: 0
+
+      - name: Install gitleaks
+        run: curl -sSfL https://raw.githubusercontent.com/gitleaks/gitleaks/master/install.sh | sudo sh -s -- -b /usr/local/bin
+
+      - name: Scan for leaked secrets
+        run: bin/gitleaks-audit
+
+      - name: Upload gitleaks report
+        uses: actions/upload-artifact@v6
+        if: failure()
+        with:
+          name: gitleaks-report
+          path: ${{ github.workspace }}/tmp/gitleaks-report.json
+          if-no-files-found: ignore
+
   lint:
     runs-on: ubuntu-latest
     steps:
