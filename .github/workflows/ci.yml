@@ -51,19 +51,10 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Install gitleaks
-        run: curl -sSfL https://raw.githubusercontent.com/gitleaks/gitleaks/master/install.sh | sudo sh -s -- -b /usr/local/bin
-
       - name: Scan for leaked secrets
-        run: bin/gitleaks-audit
-
-      - name: Upload gitleaks report
-        uses: actions/upload-artifact@v6
-        if: failure()
-        with:
-          name: gitleaks-report
-          path: ${{ github.workspace }}/tmp/gitleaks-report.json
-          if-no-files-found: ignore
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   lint:
     runs-on: ubuntu-latest
