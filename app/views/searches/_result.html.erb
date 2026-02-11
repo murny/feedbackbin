@@ -1,0 +1,30 @@
+<%# locals: (result:) %>
+
+<%= link_to idea_path(result.idea),
+    class: "search-result",
+    data: { turbo: false } do %>
+  <div class="search-result__icon">
+    <% if result.idea? %>
+      <%= lucide_icon "lightbulb", class: "size-4 txt-subtle" %>
+    <% else %>
+      <%= lucide_icon "message-circle", class: "size-4 txt-subtle" %>
+    <% end %>
+  </div>
+  <div class="search-result__content">
+    <div class="search-result__header">
+      <span class="search-result__title"><%= result.display_title %></span>
+      <%= render Elements::BadgeComponent.new(variant: :secondary, class: "flex-item-no-shrink txt-xx-small") do %>
+        <%= result.board.name %>
+      <% end %>
+    </div>
+    <% if result.display_snippet.present? %>
+      <p class="search-result__snippet"><%= result.display_snippet %></p>
+    <% end %>
+    <% if result.comment? %>
+      <span class="search-result__comment-hint">
+        <%= lucide_icon "corner-down-right", class: "size-3" %>
+        <%= t("searches.result.comment_on_idea") %>
+      </span>
+    <% end %>
+  </div>
+<% end %>

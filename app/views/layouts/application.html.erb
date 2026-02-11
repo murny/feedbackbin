@@ -5,9 +5,12 @@
   <%= tag.body class: "flex flex-column",
         style: "min-block-size: 100%;",
         data: {
-          controller: "local-time lightbox theme-application",
+          controller: "local-time lightbox theme-application global-search",
+          global_search_url_value: search_path,
+          global_search_queries_url_value: searches_queries_path,
           theme_application_preference_value: Current.user&.theme || "system"
         } do %>
+    <%= render "searches/dialog" %>
     <% if content_for?(:sidebar) %>
       <!-- Admin layout with sidebar -->
       <%= yield(:sidebar) %>
