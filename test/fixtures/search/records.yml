@@ -1,0 +1,26 @@
+idea_one:
+  account: feedbackbin
+  board: one
+  idea_id: <%= ActiveRecord::FixtureSet.identify(:one) %>
+  searchable_type: Idea
+  searchable_id: <%= ActiveRecord::FixtureSet.identify(:one) %>
+  title: Wish this had dark mode!
+  content: A dark mode would be great for the app
+
+idea_two:
+  account: feedbackbin
+  board: one
+  idea_id: <%= ActiveRecord::FixtureSet.identify(:two) %>
+  searchable_type: Idea
+  searchable_id: <%= ActiveRecord::FixtureSet.identify(:two) %>
+  title: Love the site, can you implement downvotes?
+  content: Downvotes would help prioritize feedback
+
+comment_one:
+  account: feedbackbin
+  board: one
+  idea_id: <%= ActiveRecord::FixtureSet.identify(:one) %>
+  searchable_type: Comment
+  searchable_id: <%= ActiveRecord::FixtureSet.identify(:one) %>
+  title: Wish this had dark mode!
+  content: I agree dark mode would be fantastic

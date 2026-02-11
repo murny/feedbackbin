@@ -20,11 +20,20 @@ module ActiveSupport
     # Run tests in parallel with specified workers
     parallelize(workers: :number_of_processors)
 
-    if ENV["COVERAGE"]
-      parallelize_setup do |worker|
-        SimpleCov.command_name "#{SimpleCov.command_name}-#{worker}"
-      end
+    parallelize_setup do |worker|
+      SimpleCov.command_name "#{SimpleCov.command_name}-#{worker}" if ENV["COVERAGE"]
 
+      # Ensure the FTS5 virtual table exists in each worker's database
+      # (schema.rb cannot represent virtual tables)
+      ActiveRecord::Base.connection.execute(<<~SQL)
+        CREATE VIRTUAL TABLE IF NOT EXISTS search_records_fts USING fts5(
+          title, content,
+          tokenize='porter unicode61'
+        )
+      SQL
+    end
+
+    if ENV["COVERAGE"]
       parallelize_teardown do
         SimpleCov.result
       end

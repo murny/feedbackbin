@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.2].define(version: 2026_02_02_235808) do
+ActiveRecord::Schema[8.2].define(version: 2026_02_06_120002) do
   create_table "account_external_id_sequences", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -240,6 +240,34 @@ ActiveRecord::Schema[8.2].define(version: 2026_02_02_235808) do
     t.index ["reacter_id"], name: "index_reactions_on_reacter_id"
   end
 
+  create_table "search_queries", force: :cascade do |t|
+    t.integer "account_id", null: false
+    t.datetime "created_at", null: false
+    t.string "terms", null: false
+    t.datetime "updated_at", null: false
+    t.integer "user_id", null: false
+    t.index ["account_id", "user_id", "terms"], name: "idx_search_queries_uniqueness", unique: true
+    t.index ["account_id"], name: "index_search_queries_on_account_id"
+    t.index ["user_id"], name: "index_search_queries_on_user_id"
+  end
+
+  create_table "search_records", force: :cascade do |t|
+    t.integer "account_id", null: false
+    t.integer "board_id", null: false
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.bigint "idea_id", null: false
+    t.integer "searchable_id", null: false
+    t.string "searchable_type", null: false
+    t.text "title"
+    t.datetime "updated_at", null: false
+    t.index ["account_id", "searchable_type", "searchable_id"], name: "idx_search_records_uniqueness", unique: true
+    t.index ["account_id"], name: "index_search_records_on_account_id"
+    t.index ["board_id"], name: "index_search_records_on_board_id"
+    t.index ["idea_id"], name: "index_search_records_on_idea_id"
+    t.index ["searchable_type", "searchable_id"], name: "index_search_records_on_searchable"
+  end
+
   create_table "sessions", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.bigint "identity_id", null: false
@@ -369,4 +397,6 @@ ActiveRecord::Schema[8.2].define(version: 2026_02_02_235808) do
     t.index ["active"], name: "index_webhooks_on_active"
     t.index ["board_id"], name: "index_webhooks_on_board_id"
   end
+  execute "CREATE VIRTUAL TABLE search_records_fts USING fts5(\n  title,\n  content,\n  tokenize='porter unicode61'\n)"
+
 end
