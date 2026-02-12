@@ -16,4 +16,12 @@ production:
 
   cleanup_webhook_deliveries:
     command: "Webhook::Delivery.cleanup"
-    schedule: every day at 3am
+    schedule: every 4 hours at minute 51
+
+  cleanup_magic_links:
+    command: "MagicLink.cleanup"
+    schedule: every 4 hours
+
+  delete_unused_tags:
+    class: DeleteUnusedTagsJob
+    schedule: every day at 04:02
