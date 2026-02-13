@@ -9,7 +9,7 @@ This file provides guidance to AI coding assistants when working with code in th
 - `bin/setup --reset` - Sets up the project and resets the database
 - `bin/dev` - Starts the development server
 - `bin/rails server` - Starts Rails server directly
-- `bin/jobs` - Starts background job worker (when using Solid Queue seperately)
+- `bin/jobs` - Starts background job worker (when using Solid Queue separately)
 
 ### Testing
 - `bin/rails test` - Run all Rails tests
