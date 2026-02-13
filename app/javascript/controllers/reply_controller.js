@@ -21,7 +21,7 @@ export default class extends Controller {
   }
 
   get #bodyContent() {
-    return this.#stripMentionAttachments(this.bodyTarget.querySelector(".rich-text-content"))
+    return this.#stripMentionAttachments(this.bodyTarget.querySelector(".lexxy-content"))
   }
 
   #stripMentionAttachments(node) {
