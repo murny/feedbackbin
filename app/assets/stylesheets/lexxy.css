@@ -13,14 +13,14 @@
   --lexxy-color-canvas: var(--color-canvas);
 
   --lexxy-color-accent-dark: var(--color-link);
-  --lexxy-color-accent-medium: color-mix(in oklch, var(--color-link) 70%, white);
-  --lexxy-color-accent-light: color-mix(in oklch, var(--color-link) 15%, white);
-  --lexxy-color-accent-lightest: color-mix(in oklch, var(--color-link) 8%, white);
+  --lexxy-color-accent-medium: color-mix(in oklch, var(--color-link) 70%, var(--color-canvas));
+  --lexxy-color-accent-light: color-mix(in oklch, var(--color-link) 15%, var(--color-canvas));
+  --lexxy-color-accent-lightest: color-mix(in oklch, var(--color-link) 8%, var(--color-canvas));
 
   --lexxy-color-red: var(--color-destructive);
   --lexxy-color-green: var(--color-success);
   --lexxy-color-blue: var(--color-link);
-  --lexxy-color-purple: oklch(0.6 0.15 305);
+  --lexxy-color-purple: var(--color-purple);
 
   --lexxy-color-code-token-att: var(--color-code-token-attr);
   --lexxy-color-code-token-comment: var(--color-code-token-comment);

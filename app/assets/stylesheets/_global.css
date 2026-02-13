@@ -170,6 +170,7 @@
   --color-success-foreground: oklch(0.985 0 0);
   --color-warning: oklch(0.831 0.167 85.594);
   --color-link: oklch(0.488 0.243 264.376);
+  --color-purple: oklch(0.6 0.15 305);
 
   /* Borders & inputs */
   --color-border: oklch(0.922 0 0);
