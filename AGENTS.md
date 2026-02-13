@@ -95,6 +95,10 @@ FeedbackBin is a customer feedback management platform built with Ruby on Rails 
 - **Docker**: Containerized application
 - **Self-hosted**: Designed for self-hosted environments
 
+## Code Style
+
+See [STYLE.md](STYLE.md) for Ruby code style conventions covering method ordering, conditional style, controller patterns, job patterns, and more.
+
 ## Development Notes
 
 ### Custom Components
