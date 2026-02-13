@@ -7,9 +7,9 @@ This file provides guidance to AI coding assistants when working with code in th
 ### Setup and Development
 - `bin/setup` - Sets up the project (install deps, prepare database, clean logs)
 - `bin/setup --reset` - Sets up the project and resets the database
-- `bin/dev` - Starts the development server using foreman (port 3000 by default)
+- `bin/dev` - Starts the development server
 - `bin/rails server` - Starts Rails server directly
-- `bin/jobs` - Starts background job worker
+- `bin/jobs` - Starts background job worker (when using Solid Queue separately)
 
 ### Testing
 - `bin/rails test` - Run all Rails tests
@@ -94,6 +94,10 @@ FeedbackBin is a customer feedback management platform built with Ruby on Rails 
 - **Kamal**: Container-based deployment system
 - **Docker**: Containerized application
 - **Self-hosted**: Designed for self-hosted environments
+
+## Code Style
+
+See [STYLE.md](STYLE.md) for Ruby code style conventions covering method ordering, conditional style, controller patterns, job patterns, and more.
 
 ## Development Notes
 

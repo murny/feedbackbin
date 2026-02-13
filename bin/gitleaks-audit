@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+if ! command -v gitleaks >/dev/null 2>&1; then
+  echo "gitleaks is not installed, please install it first" 1>&2
+  exit 1
+fi
+
+mkdir -p tmp
+report_path="tmp/gitleaks-report.json"
+
+if ! gitleaks git --redact=50 --report-format json --report-path "$report_path"; then
+  echo "gitleaks found potential secrets. Review $report_path for details." 1>&2
+  echo "For remediation steps, see docs/development.md (Security Checks)." 1>&2
+  exit 1
+fi
+
+exit 0

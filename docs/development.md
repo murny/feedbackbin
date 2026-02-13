@@ -111,7 +111,17 @@ bin/bundler-audit
 
 # JavaScript vulnerability check
 bin/importmap audit
+
+# Secret scan (writes report to tmp/gitleaks-report.json)
+bin/gitleaks-audit
 ```
+
+If `bin/gitleaks-audit` fails, inspect `tmp/gitleaks-report.json` and remediate before merging:
+
+1. Revoke and rotate any real secret immediately.
+2. Remove the secret from source and commit a fix.
+3. If the secret was committed, rewrite history to purge it, then rotate credentials.
+4. If it's a false positive, use a documented suppression workflow (for example via tuned gitleaks rules) and explain why in the PR.
 
 ## Database Operations
 
@@ -131,8 +141,18 @@ env RAILS_ENV=test bin/rails db:seed:replant
 
 ## Background Jobs
 
-FeedbackBin uses Solid Queue for background job processing. Start the job
-worker in a separate terminal:
+FeedbackBin uses Solid Queue for background job processing.
+
+By default, `bin/dev` runs with Solid Queue enabled in Puma.
+
+If you want to run jobs in a separate process instead:
+
+```sh
+# Disable in-Puma queue runner for this shell
+SOLID_QUEUE_IN_PUMA=false bin/dev
+```
+
+Then, in a second terminal, start the worker:
 
 ```sh
 bin/jobs
@@ -169,7 +189,7 @@ automatically in your browser.
 | `bin/setup` | Set up the project |
 | `bin/setup --reset` | Set up and reset database |
 | `bin/dev` | Start development server |
-| `bin/jobs` | Start background job worker |
+| `bin/jobs` | Start Solid Queue worker (optional separate process) |
 | `bin/rails test` | Run test suite |
 | `bin/ci` | Run full CI pipeline |
 | `bin/rubocop` | Check Ruby code style |
