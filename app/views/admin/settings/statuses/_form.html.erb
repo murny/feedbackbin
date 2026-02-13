@@ -40,7 +40,7 @@
 
     <div class="border-radius border pad" style="border-color: var(--color-border); background-color: oklch(from var(--color-muted) l c h / 50%);">
       <h4 class="txt-small font-weight-medium" style="margin-block-end: var(--space-2);"><%= t(".preview_label") %></h4>
-      <span class="flex-inline align-center txt-x-small font-weight-semibold" style="border-radius: 9999px; padding-inline: 0.625rem; padding-block: 0.125rem; background-color: <%= status.color %>; color: white;" data-badge-preview-target="previewColor">
+      <span class="badge" style="--badge-background: <%= status.color %>; --badge-color: var(--color-ink-inverted);" data-badge-preview-target="previewColor">
         <span data-badge-preview-target="previewName"><%= status.name %></span>
       </span>
     </div>

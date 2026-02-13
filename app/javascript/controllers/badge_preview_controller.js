@@ -33,7 +33,7 @@ export default class extends Controller {
 
     // Update color
     if (this.hasPreviewColorTarget) {
-      this.previewColorTarget.style.backgroundColor = color
+      this.previewColorTarget.style.setProperty("--badge-background", color)
     }
   }
 }

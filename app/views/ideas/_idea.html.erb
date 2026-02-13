@@ -17,7 +17,7 @@
               <% end %>
             <% end %>
             <%= render Elements::BadgeComponent.new(
-              style: "background-color: #{idea.status_color}; color: white; font-weight: 500;"
+              style: "--badge-background: #{idea.status_color}; --badge-color: var(--color-ink-inverted);"
             ) do %>
               <%= idea.status_name %>
             <% end %>
