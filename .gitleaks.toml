@@ -1,0 +1,10 @@
+[extend]
+useDefault = true
+
+[allowlist]
+paths = [
+  '''tmp/''',
+]
+regexes = [
+  '''https://hooks\.slack\.com/services/T12345678/B12345678/abcdefghijklmnopqrstuvwx''',
+]

@@ -33,7 +33,7 @@ Rails.application.configure do
   # Store uploaded files on the local file system (see config/storage.yml for options).
   config.active_storage.service = :local
 
-  # Use a real queuing backend for Active Job (and separate queues per environment).
+  # Use Solid Queue in development for parity with other environments.
   config.active_job.queue_adapter = :solid_queue
   config.solid_queue.connects_to = { database: { writing: :queue } }
   config.active_job.queue_name_prefix = "feedbackbin_development"
