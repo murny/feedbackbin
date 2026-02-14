@@ -1,0 +1,38 @@
+/* ==========================================================================
+   Container Component
+
+   Usage:
+     <div class="container">...</div>
+     <div class="container container--centered">...</div>
+     <div class="container container--wide">...</div>
+
+   A centered content container with 3 standardized widths:
+   centered, content (default), and wide.
+   ========================================================================== */
+
+@layer components {
+  .container {
+    --container-size-centered: 28rem;
+    --container-size-content: 56rem;
+    --container-size-wide: 80rem;
+    --container-size: var(--container-size-content);
+
+    margin-inline: auto;
+    max-inline-size: var(--container-size);
+    inline-size: 100%;
+  }
+
+  .container--centered {
+    --container-size: var(--container-size-centered);
+
+    #main:has(&) {
+      display: grid;
+      justify-content: center;
+      margin: auto;
+    }
+  }
+
+  .container--wide {
+    --container-size: var(--container-size-wide);
+  }
+}

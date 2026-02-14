@@ -1,7 +1,7 @@
 <%= content_for :title, t(".title") %>
 
 <section class="center pad-inline" style="margin-block-start: var(--space-6);">
-  <div class="center flex flex-column" style="max-inline-size: 56rem; gap: var(--space-6);">
+  <div class="container flex flex-column" style="gap: var(--space-6);">
     <div class="txt-align-center">
       <h1 class="txt-xx-large font-weight-bold" style="margin-block-end: var(--space-2);"><%= t(".title") %></h1>
       <p class="txt-subtle txt-medium"><%= t(".description", name: Rails.application.config.app_name) %></p>

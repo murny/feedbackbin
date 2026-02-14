@@ -1,0 +1,19 @@
+/* ==========================================================================
+   Layout
+   Global page layout primitives shared by app and auth shells.
+   ========================================================================== */
+
+@layer base {
+  :where(#main) {
+    --main-max-inline-size: 80rem;
+    --main-inline-padding: clamp(var(--space-4), 2vw, var(--space-8));
+
+    inline-size: 100%;
+    max-inline-size: var(--main-max-inline-size);
+    margin-inline: auto;
+    padding-inline:
+      max(var(--main-inline-padding), env(safe-area-inset-left))
+      max(var(--main-inline-padding), env(safe-area-inset-right));
+    padding-block: 2.5rem var(--block-space-double);
+  }
+}

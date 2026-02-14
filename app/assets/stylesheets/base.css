@@ -99,11 +99,6 @@
     }
   }
 
-  /* Main content area */
-  main {
-    padding-block: 2.5rem var(--block-space-double);
-  }
-
   /* Horizontal rule */
   hr {
     border: none;

@@ -1,7 +1,7 @@
 <%= content_for :title, @idea.title %>
 <%= turbo_stream_from @idea %>
 
-<section class="center pad-inline margin-block-start" style="max-inline-size: 64rem;">
+<section class="container pad-inline margin-block-start">
   <div class="flex flex-column" style="gap: var(--space-6);">
     <div>
       <%= link_to ideas_path, class: "flex-inline align-center gap-half txt-small txt-subtle txt-undecorated" do %>

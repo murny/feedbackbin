@@ -113,7 +113,6 @@
   .min-content { inline-size: min-content; }
   .fit-content { inline-size: fit-content; }
   .max-inline-size { max-inline-size: 100%; }
-  .content-width { max-inline-size: 80rem; }
   .min-block-size-screen { min-block-size: 100svh; }
 
   /* ==========================================================================

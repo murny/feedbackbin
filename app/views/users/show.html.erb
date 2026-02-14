@@ -1,6 +1,6 @@
 <!-- Back to ideas link -->
 <div class="center pad-inline" style="padding-block: var(--space-4);">
-  <div class="center" style="max-inline-size: 56rem;">
+  <div class="container">
     <%= link_to root_path, class: "flex-inline align-center gap-half txt-small txt-subtle" do %>
       <%= lucide_icon "chevron-left", class: "size-4" %>
       <%= t(".back_to_ideas") %>
@@ -10,7 +10,7 @@
 
 <!-- Main Profile Card -->
 <div class="center pad-inline" style="padding-block-end: var(--space-6);">
-  <div class="center" style="max-inline-size: 56rem;">
+  <div class="container">
     <%= render Elements::CardComponent.new(style: "padding-block-start: 0;") do |c| %>
       <% c.with_body(class: "unpad") do %>
         <!-- User Banner (placeholder) -->
@@ -191,7 +191,7 @@
 
 <!-- Activity Tabs Section -->
 <div class="center pad-inline" style="padding-block-end: var(--space-6);">
-  <div class="center" style="max-inline-size: 56rem;">
+  <div class="container">
     <%= render Elements::CardComponent.new do |c| %>
       <% c.with_body do %>
         <%= render Elements::TabsComponent.new(

@@ -1,7 +1,7 @@
 <% content_for(:title) { t(".title") } %>
 
 <div class="flex flex-column align-center justify-center" style="min-block-size: 100svh; gap: var(--space-6); padding: var(--space-6);">
-  <div class="flex flex-column full-width" style="max-inline-size: 28rem; gap: var(--space-6);">
+  <div class="container container--centered flex flex-column" style="gap: var(--space-6);">
     <%= link_to root_path, class: "flex align-center align-self-center font-weight-medium", style: "gap: var(--space-2);" do %>
       <%= account_logo(@invitation.account) %>
       <span class="font-weight-bold txt-primary txt-x-large"><%= @invitation.account.name %></span>
