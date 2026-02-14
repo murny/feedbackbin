@@ -2,7 +2,7 @@
 
 <div id="<%= dom_id(changelog) %>" style="padding-inline: var(--space-6);">
   <div class="flex align-center justify-space-between" style="gap: var(--space-3); margin-block-end: var(--space-4);">
-    <%= link_to changelog_path(changelog), class: "txt-small txt-subtle font-weight-medium changelog__date-link" do %>
+    <%= link_to changelog_path(changelog), class: "txt-small txt-subtle font-weight-medium" do %>
       <%= local_datetime_tag changelog.published_at, style: :datetime %>
     <% end %>
     <%= render Elements::BadgeComponent.new(
@@ -13,7 +13,7 @@
   </div>
 
   <h2 class="txt-x-large font-weight-semibold" style="margin-block-end: var(--space-4);">
-    <%= link_to changelog.title, changelog_path(changelog), class: "changelog__title-link" %>
+    <%= link_to changelog.title, changelog_path(changelog), class: "txt-undecorated" %>
   </h2>
 
   <div class="prose txt-subtle" style="max-inline-size: none; font-size: var(--text-small);" data-controller="syntax-highlight">

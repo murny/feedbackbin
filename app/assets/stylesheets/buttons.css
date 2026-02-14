@@ -52,7 +52,6 @@
     font-weight: var(--btn-font-weight);
     line-height: var(--leading-none);
     white-space: nowrap;
-    text-decoration: none;
 
     /* Behavior */
     cursor: pointer;

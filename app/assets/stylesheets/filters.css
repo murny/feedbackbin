@@ -34,7 +34,6 @@
     font-size: var(--text-sm);
     font-weight: var(--font-medium);
     white-space: nowrap;
-    text-decoration: none;
     color: var(--color-muted-foreground);
     transition: all 200ms var(--ease-out);
 

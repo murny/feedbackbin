@@ -44,11 +44,12 @@
 
   /* Links */
   a {
-    color: var(--color-ink);
-    text-decoration: underline;
+    text-decoration: none;
 
-    &:hover {
-      text-decoration: none;
+    &:not([class]) {
+      color: var(--color-link);
+      text-decoration: underline;
+      text-decoration-skip-ink: auto;
     }
 
     &:focus-visible {
