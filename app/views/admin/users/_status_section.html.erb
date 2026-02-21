@@ -1,5 +1,5 @@
 <%= turbo_frame_tag dom_id(user, "status_section") do %>
-  <div class="flex align-center justify-space-between" style="gap: var(--space-4);">
+  <div class="flex align-center justify-space-between gap-4">
     <%= render Elements::BadgeComponent.new(
       variant: user.active? ? :default : :destructive
     ) do %>

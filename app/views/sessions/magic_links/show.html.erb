@@ -1,17 +1,17 @@
 <% content_for(:title) { t(".check_your_email") } %>
 
-<div class="center full-width flex flex-column" style="max-inline-size: 24rem; gap: var(--space-6);">
+<div class="container container--centered container--stack">
   <%= render "shared/auth_branding" %>
 
-  <div class="card flex flex-column <%= "animate-shake" if flash[:shake] %>" style="gap: var(--space-6); padding-block: var(--space-6);">
-    <header class="txt-align-center" style="padding-inline: var(--space-6);">
+  <div class="panel <%= "animate-shake" if flash[:shake] %>">
+    <header class="panel__header--centered">
       <h1 class="font-weight-bold txt-x-large"><%= t(".check_your_email") %></h1>
       <p class="txt-subtle txt-small margin-block-start-half"><%= t(".enter_code_instructions") %></p>
     </header>
 
-    <div class="grid" style="padding-inline: var(--space-6); gap: var(--space-6);">
+    <div class="panel__content panel__content--stack">
       <%= form_with url: session_magic_link_path, method: :post, data: { controller: "magic-link" } do |form| %>
-        <div class="grid" style="gap: var(--space-3);">
+        <div class="grid gap-3">
           <%= form.label :code, t(".verification_code"), class: "txt-small font-weight-medium" %>
           <%= form.text_field :code,
                 required: true,
@@ -41,7 +41,7 @@
   </div>
 
   <% if Rails.env.development? && flash[:magic_link_code].present? %>
-    <div class="card pad fill-shade">
+    <div class="panel pad fill-shade">
       <p class="txt-small txt-subtle txt-align-center">
         <span class="txt-x-small txt-uppercase font-weight-bold">Dev</span>
         <%= t(".your_code") %>:

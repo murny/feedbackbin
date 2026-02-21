@@ -46,7 +46,7 @@
     text-align: start;
     font-size: var(--text-small);
     color: var(--color-muted-foreground);
-    background-color: var(--color-card);
+    background-color: var(--color-panel);
     border: 1px solid var(--color-input);
     border-radius: var(--radius-md);
     transition: border-color var(--duration-fast) var(--ease-out),
@@ -60,7 +60,7 @@
 
   /* Rich text area wrapper with focus ring */
   .comment-editor {
-    background-color: var(--color-card);
+    background-color: var(--color-panel);
     border: 1px solid var(--color-input);
     border-radius: var(--radius-md);
     overflow: hidden;

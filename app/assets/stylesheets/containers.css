@@ -1,0 +1,65 @@
+/* ==========================================================================
+   Container Component
+
+   Usage:
+     <div class="container">...</div>
+     <div class="container container--centered">...</div>
+     <div class="container container--wide">...</div>
+
+   A centered content container with 3 standardized widths:
+   centered, content (default), and wide.
+   ========================================================================== */
+
+@layer components {
+  .container {
+    --container-gap: var(--space-6);
+    --container-page-padding-inline: var(--space-4);
+    --container-page-padding-block: var(--space-8);
+
+    --container-size-centered: 42ch;
+    --container-size-content: 56rem;
+    --container-size-wide: var(--layout-max-inline-size);
+    --container-size: var(--container-size-content);
+
+    margin-inline: auto;
+    max-inline-size: var(--container-size);
+    inline-size: 100%;
+  }
+
+  .container--centered {
+    --container-size: var(--container-size-centered);
+
+    #main:has(&) {
+      display: grid;
+      justify-content: center;
+      margin: auto;
+    }
+  }
+
+  .container--wide {
+    --container-size: var(--container-size-wide);
+  }
+
+  .container--stack {
+    display: flex;
+    flex-direction: column;
+    gap: var(--container-gap);
+  }
+
+  .container--section {
+    margin-block-start: var(--space-8);
+  }
+
+  .container--page {
+    padding-inline: var(--container-page-padding-inline);
+    padding-block: var(--container-page-padding-block);
+
+    @media (min-width: 640px) {
+      --container-page-padding-inline: var(--space-6);
+    }
+  }
+
+  .container--padded {
+    padding: var(--space-4) var(--space-6);
+  }
+}

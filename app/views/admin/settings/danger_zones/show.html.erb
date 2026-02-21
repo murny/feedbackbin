@@ -1,9 +1,9 @@
 <% content_for :title, t(".title") %>
 
-<div class="center full-width" style="max-inline-size: 56rem;">
+<div class="container">
   <%= render partial: "admin/settings/header" %>
 
-  <div style="margin-block-start: var(--space-8);">
+  <div class="margin-block-start-double">
     <div style="margin-block-end: var(--space-6);">
       <h2 class="txt-large font-weight-medium" style="color: var(--color-destructive);"><%= t(".title") %></h2>
       <p class="txt-small txt-subtle"><%= t(".page_description") %></p>
@@ -11,11 +11,11 @@
 
     <%= render Elements::AlertComponent.new(variant: :destructive, title: t(".subtitle"), description: t(".description"), icon: "shield-alert") %>
 
-    <div style="margin-block-start: var(--space-8);">
-      <%= render Elements::CardComponent.new do |c| %>
+    <div class="margin-block-start-double">
+      <%= render Elements::PanelComponent.new do |c| %>
         <% c.with_header(title: t(".transfer_ownership_title"), description: t(".transfer_ownership_description")) %>
         <% c.with_body(style: "padding-block: var(--space-4);") do %>
-          <div class="flex align-center" style="gap: var(--space-3);">
+          <div class="flex align-center gap-3">
             <%= image_tag fresh_user_avatar_path(@owner),
                 style: "inline-size: 2.5rem; block-size: 2.5rem; border-radius: 9999px;" %>
 
@@ -36,14 +36,14 @@
       <% end %>
     </div>
 
-    <div style="margin-block-start: var(--space-8);">
-      <%= render Elements::CardComponent.new do |c| %>
+    <div class="margin-block-start-double">
+      <%= render Elements::PanelComponent.new do |c| %>
         <% c.with_header(title: t(".delete_title"), description: t(".delete_description")) %>
         <% c.with_body do %>
             <%= form_with model: Current.account, url: admin_settings_danger_zone_path, method: :delete, class: "flex flex-column", style: "gap: var(--space-4);" do |form| %>
             <%= render "error_messages", resource: form.object %>
 
-            <div class="flex flex-column" style="gap: var(--space-2);">
+            <div class="flex flex-column gap-2">
               <label class="display-block txt-small font-weight-medium">
                 <%= t(".confirmation_label") %>
               </label>
@@ -52,14 +52,14 @@
               </p>
             </div>
 
-            <div class="flex flex-column" style="gap: var(--space-2);">
+            <div class="flex flex-column gap-2">
               <label class="display-block txt-small font-weight-medium" for="account_name">
                 <%= t(".enter_name") %>
               </label>
               <%= form.text_field :name, value: nil, placeholder: Current.account.name, autocomplete: "off", class: "form-input full-width", required: true %>
             </div>
 
-            <div class="flex align-start" style="gap: var(--space-3);">
+            <div class="flex align-start gap-3">
               <%= form.check_box :acknowledge, { required: true, class: "form-checkbox", style: "margin-block-start: var(--space-1);" }, true, false %>
               <label class="txt-small txt-subtle" for="account_acknowledge">
                 <%= t(".acknowledge") %>

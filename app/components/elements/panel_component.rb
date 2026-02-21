@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 module Elements
-  class CardComponent < BaseComponent
+  class PanelComponent < BaseComponent
     renders_one :header, lambda { |title: nil, description: nil, **attrs|
       HeaderComponent.new(title: title, description: description, **attrs)
     }
@@ -19,25 +19,25 @@ module Elements
     end
 
     def call
-      tag.div(**card_attrs) do
+      tag.div(**panel_attrs) do
         safe_join([ header, body, footer ].compact)
       end
     end
 
     private
 
-      def card_attrs
+      def panel_attrs
         {
-          data: (@attrs[:data] || {}).merge(slot: "card"),
-          class: card_classes
+          data: (@attrs[:data] || {}).merge(slot: "panel"),
+          class: panel_classes
         }.merge(@attrs.except(:class, :data))
       end
 
-      def card_classes
+      def panel_classes
         [
-          "card",
-          ("card--bordered" if @bordered),
-          ("card--compact" if @compact),
+          "panel",
+          ("panel--bordered" if @bordered),
+          ("panel--compact" if @compact),
           @attrs[:class]
         ].compact.join(" ")
       end
@@ -57,10 +57,10 @@ module Elements
               if text_content.present?
                 safe_join([
                   tag.div { text_content },
-                  tag.div(class: "card__action", data: { slot: "card-action" }) { content }
+                  tag.div(class: "panel__action", data: { slot: "panel-action" }) { content }
                 ])
               else
-                tag.div(class: "card__action", data: { slot: "card-action" }) { content }
+                tag.div(class: "panel__action", data: { slot: "panel-action" }) { content }
               end
             else
               render_text_content
@@ -72,13 +72,13 @@ module Elements
 
           def header_attrs
             {
-              data: (@attrs[:data] || {}).merge(slot: "card-header"),
+              data: (@attrs[:data] || {}).merge(slot: "panel-header"),
               class: header_classes
             }.merge(@attrs.except(:class, :data))
           end
 
           def header_classes
-            [ "card__header", @attrs[:class] ].compact.join(" ")
+            [ "panel__header", @attrs[:class] ].compact.join(" ")
           end
 
           def render_text_content
@@ -91,13 +91,13 @@ module Elements
           def render_title
             return nil unless @title.present?
 
-            tag.h2(@title, class: "card__title", data: { slot: "card-title" })
+            tag.h2(@title, class: "panel__title", data: { slot: "panel-title" })
           end
 
           def render_description
             return nil unless @description.present?
 
-            tag.p(@description, class: "card__description", data: { slot: "card-description" })
+            tag.p(@description, class: "panel__description", data: { slot: "panel-description" })
           end
       end
 
@@ -115,13 +115,13 @@ module Elements
 
           def body_attrs
             {
-              data: (@attrs[:data] || {}).merge(slot: "card-content"),
+              data: (@attrs[:data] || {}).merge(slot: "panel-content"),
               class: body_classes
             }.merge(@attrs.except(:class, :data))
           end
 
           def body_classes
-            [ "card__body", @attrs[:class] ].compact.join(" ")
+            [ "panel__body", @attrs[:class] ].compact.join(" ")
           end
       end
 
@@ -139,13 +139,13 @@ module Elements
 
           def footer_attrs
             {
-              data: (@attrs[:data] || {}).merge(slot: "card-footer"),
+              data: (@attrs[:data] || {}).merge(slot: "panel-footer"),
               class: footer_classes
             }.merge(@attrs.except(:class, :data))
           end
 
           def footer_classes
-            [ "card__footer", @attrs[:class] ].compact.join(" ")
+            [ "panel__footer", @attrs[:class] ].compact.join(" ")
           end
       end
   end

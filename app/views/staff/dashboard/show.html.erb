@@ -1,12 +1,12 @@
 <div class="flex-1 flex flex-column" style="gap: var(--space-8); padding: var(--space-8); padding-block-start: var(--space-6);">
   <div class="flex align-center justify-space-between">
-    <div class="flex flex-column" style="gap: var(--space-1);">
+    <div class="flex flex-column gap-1">
       <h2 class="txt-xx-large font-weight-bold">Staff Dashboard</h2>
       <p class="txt-subtle">
         System overview and analytics
       </p>
     </div>
-    <div class="flex align-center" style="gap: var(--space-2);">
+    <div class="flex align-center gap-2">
       <%= render Elements::ButtonComponent.new(
         variant: :outline,
         size: :default
@@ -33,54 +33,54 @@
     </nav>
   </div>
 
-  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4" style="gap: var(--space-4);">
-    <div class="card card--stat">
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <div class="panel panel--stat">
       <div class="flex align-center justify-space-between" style="padding: var(--space-6); padding-block-end: var(--space-2);">
-        <div class="card__stat-label">Total Revenue</div>
+        <div class="panel__stat-label">Total Revenue</div>
         <%= lucide_icon "dollar-sign", class: "size-4 txt-subtle" %>
       </div>
       <div style="padding: var(--space-6); padding-block-start: 0;">
-        <div class="card__stat-value" style="font-size: var(--text-x-large);">$45,231.89</div>
+        <div class="panel__stat-value" style="font-size: var(--text-x-large);">$45,231.89</div>
         <p class="txt-xx-small txt-subtle">+20.1% from last month</p>
       </div>
     </div>
 
-    <div class="card card--stat">
+    <div class="panel panel--stat">
       <div class="flex align-center justify-space-between" style="padding: var(--space-6); padding-block-end: var(--space-2);">
-        <div class="card__stat-label">Active Users</div>
+        <div class="panel__stat-label">Active Users</div>
         <%= lucide_icon "users", class: "size-4 txt-subtle" %>
       </div>
       <div style="padding: var(--space-6); padding-block-start: 0;">
-        <div class="card__stat-value" style="font-size: var(--text-x-large);">2,350</div>
+        <div class="panel__stat-value" style="font-size: var(--text-x-large);">2,350</div>
         <p class="txt-xx-small txt-subtle">+18.1% from last month</p>
       </div>
     </div>
 
-    <div class="card card--stat">
+    <div class="panel panel--stat">
       <div class="flex align-center justify-space-between" style="padding: var(--space-6); padding-block-end: var(--space-2);">
-        <div class="card__stat-label">New Signups</div>
+        <div class="panel__stat-label">New Signups</div>
         <%= lucide_icon "credit-card", class: "size-4 txt-subtle" %>
       </div>
       <div style="padding: var(--space-6); padding-block-start: 0;">
-        <div class="card__stat-value" style="font-size: var(--text-x-large);">+1,234</div>
+        <div class="panel__stat-value" style="font-size: var(--text-x-large);">+1,234</div>
         <p class="txt-xx-small txt-subtle">+19% from last month</p>
       </div>
     </div>
 
-    <div class="card card--stat">
+    <div class="panel panel--stat">
       <div class="flex align-center justify-space-between" style="padding: var(--space-6); padding-block-end: var(--space-2);">
-        <div class="card__stat-label">Active Now</div>
+        <div class="panel__stat-label">Active Now</div>
         <%= lucide_icon "activity", class: "size-4 txt-subtle" %>
       </div>
       <div style="padding: var(--space-6); padding-block-start: 0;">
-        <div class="card__stat-value" style="font-size: var(--text-x-large);">573</div>
+        <div class="panel__stat-value" style="font-size: var(--text-x-large);">573</div>
         <p class="txt-xx-small txt-subtle">+201 since last hour</p>
       </div>
     </div>
   </div>
 
   <div class="grid" style="gap: var(--space-4); grid-template-columns: repeat(7, minmax(0, 1fr));">
-    <%= render Elements::CardComponent.new(class: "col-span-4") do |c| %>
+    <%= render Elements::PanelComponent.new(class: "col-span-4") do |c| %>
       <% c.with_header(title: "Overview") %>
       <% c.with_body do %>
       <div class="full-width fill-shade border-radius flex align-center justify-center" style="block-size: 350px;">
@@ -89,10 +89,10 @@
       <% end %>
     <% end %>
 
-    <%= render Elements::CardComponent.new(class: "col-span-3") do |c| %>
+    <%= render Elements::PanelComponent.new(class: "col-span-3") do |c| %>
       <% c.with_header(title: "Recent Activity", description: "You had 265 actions this month.") %>
       <% c.with_body do %>
-      <div class="flex flex-column" style="gap: var(--space-6);">
+      <div class="flex flex-column gap-6">
         <div class="flex align-center">
           <%= render Elements::AvatarComponent.new(
             fallback: "OM",

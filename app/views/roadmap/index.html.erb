@@ -1,10 +1,9 @@
 <% content_for :title, t(".title") %>
 
-<div class="center pad-inline" style="max-inline-size: 96rem; padding-block: var(--space-8);">
-  <!-- Page Header -->
-  <div style="margin-block-end: var(--space-8);">
+<div class="container container--wide container--page">
+  <div class="page-header">
     <h1 class="txt-xx-large font-weight-bold" style="letter-spacing: -0.025em;"><%= t(".title") %></h1>
-    <p class="txt-subtle" style="margin-block-start: var(--space-2);"><%= t(".description") %></p>
+    <p class="txt-subtle margin-block-start-half"><%= t(".description") %></p>
   </div>
 
   <%= turbo_frame_tag "roadmap_content", data: {
@@ -50,10 +49,10 @@
 
     <!-- Empty State (if filters return no results) -->
     <% if @roadmap_data.values.all?(&:empty?) %>
-      <div class="txt-align-center" style="padding-block: var(--space-12);">
+      <div class="page-empty-state">
         <%= lucide_icon "search-x", class: "center", style: "inline-size: 3rem; block-size: 3rem; margin-block-end: var(--space-4); color: var(--color-muted-foreground); opacity: 0.5;" %>
-        <h3 class="txt-medium font-weight-bold" style="margin-block-end: var(--space-2);"><%= t(".no_results_title") %></h3>
-        <p class="txt-subtle" style="margin-block-end: var(--space-4);"><%= t(".no_results_description") %></p>
+        <h3 class="txt-medium font-weight-bold margin-block-end-half"><%= t(".no_results_title") %></h3>
+        <p class="txt-subtle margin-block-end"><%= t(".no_results_description") %></p>
         <%= link_to t(".clear_filters"), roadmap_path, class: "btn btn--primary", data: { turbo_frame: "roadmap_content" } %>
       </div>
     <% else %>

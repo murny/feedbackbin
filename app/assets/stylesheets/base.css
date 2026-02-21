@@ -44,11 +44,12 @@
 
   /* Links */
   a {
-    color: var(--color-ink);
-    text-decoration: underline;
+    text-decoration: none;
 
-    &:hover {
-      text-decoration: none;
+    &:not([class]) {
+      color: var(--color-link);
+      text-decoration: underline;
+      text-decoration-skip-ink: auto;
     }
 
     &:focus-visible {
@@ -96,11 +97,6 @@
       background-color: transparent;
       padding: 0;
     }
-  }
-
-  /* Main content area */
-  main {
-    padding-block: 2.5rem var(--block-space-double);
   }
 
   /* Horizontal rule */

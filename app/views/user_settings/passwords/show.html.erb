@@ -1,11 +1,11 @@
 <% content_for(:title) { t("user_settings.page_titles.password") } %>
 
-<div class="center" style="max-inline-size: 56rem;">
+<div class="container">
   <%= render partial: "user_settings/header" %>
 
-  <div style="margin-block-start: var(--space-8);">
-    <div class="card" style="padding: var(--space-6);">
-      <div class="grid" style="gap: var(--space-6);">
+  <div class="margin-block-start-double">
+    <div class="panel" style="padding: var(--space-6);">
+      <div class="grid gap-6">
         <div>
           <h2 class="txt-large font-weight-medium"><%= t(".change_password") %></h2>
           <p class="txt-small txt-subtle"><%= t(".change_password_description") %></p>
@@ -15,20 +15,20 @@
               url: user_settings_password_path,
               method: :patch,
               data: { controller: "form", action: "keydown.enter->form#submit:prevent" }) do |form| %>
-          <div class="grid" style="gap: var(--space-4);">
-            <div class="grid" style="gap: var(--space-2);">
+          <div class="grid gap-4">
+            <div class="grid gap-2">
               <%= form.label :password_challenge, t(".current_password"), class: "txt-small font-weight-medium" %>
               <%= form.password_field :password_challenge, autocomplete: "current-password", required: true, class: "full-width" %>
               <p class="txt-x-small txt-subtle"><%= t(".current_password_hint") %></p>
             </div>
 
             <div class="grid" style="gap: var(--space-4); grid-template-columns: 1fr;">
-              <div class="grid" style="gap: var(--space-2);">
+              <div class="grid gap-2">
                 <%= form.label :password, t(".new_password"), class: "txt-small font-weight-medium" %>
                 <%= form.password_field :password, autocomplete: "new-password", required: true, class: "full-width" %>
               </div>
 
-              <div class="grid" style="gap: var(--space-2);">
+              <div class="grid gap-2">
                 <%= form.label :password_confirmation, t(".confirm_password"), class: "txt-small font-weight-medium" %>
                 <%= form.password_field :password_confirmation, autocomplete: "new-password", required: true, class: "full-width" %>
               </div>

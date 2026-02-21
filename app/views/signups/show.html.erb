@@ -1,7 +1,7 @@
 <% content_for :title, t(".title") %>
 
-<div class="center full-width flex flex-column" style="max-inline-size: 42rem; gap: var(--space-6);">
-  <div class="txt-align-center flex flex-column" style="gap: var(--space-2);">
+<div class="container container--centered container--stack">
+  <div class="txt-align-center flex flex-column gap-half">
     <h1 class="txt-xx-large font-weight-bold">
       <%= t(".title") %>
     </h1>
@@ -10,7 +10,7 @@
     </p>
   </div>
 
-  <%= render Elements::CardComponent.new do |c| %>
+  <%= render Elements::PanelComponent.new do |c| %>
     <% c.with_body do %>
       <%= form_with(model: @signup,
                     url: signup_path,
@@ -23,14 +23,14 @@
                    ) do |form| %>
         <%= render "error_messages", resource: @signup %>
 
-        <div class="flex flex-column" style="gap: var(--space-8);">
-          <div class="flex flex-column" style="gap: var(--space-4);">
+        <div class="flex flex-column gap-8">
+          <div class="flex flex-column gap-4">
             <div>
               <h3 class="font-weight-medium"><%= t(".account_setup") %></h3>
               <p class="txt-small txt-subtle"><%= t(".account_setup_description") %></p>
             </div>
 
-            <div class="grid" style="gap: var(--space-4);">
+            <div class="grid gap-4">
               <%= render ImageUploadPreviewComponent.new(
                     form: form,
                     field_name: :avatar,
@@ -38,8 +38,8 @@
                     upload_button_text: t(".upload_avatar"),
                     size_hint: t(".avatar_size_hint")) %>
 
-              <div class="grid" style="gap: var(--space-4);">
-                <div class="grid" style="gap: var(--space-2);">
+              <div class="grid gap-4">
+                <div class="grid gap-2">
                   <%= form.label :name, class: "txt-small font-weight-medium" %>
                   <%= form.text_field :name,
                         required: true,
@@ -49,7 +49,7 @@
                   <p class="txt-x-small txt-subtle"><%= t(".name_hint") %></p>
                 </div>
 
-                <div class="grid" style="gap: var(--space-2);">
+                <div class="grid gap-2">
                   <%= form.label :email_address, class: "txt-small font-weight-medium" %>
                   <%= form.email_field :email_address,
                         required: true,
@@ -58,7 +58,7 @@
                   <p class="txt-x-small txt-subtle"><%= t(".email_address_hint") %></p>
                 </div>
 
-                <div class="grid" style="gap: var(--space-2);">
+                <div class="grid gap-2">
                   <%= form.label :password, class: "txt-small font-weight-medium" %>
                   <%= form.password_field :password,
                         required: true,
@@ -70,14 +70,14 @@
             </div>
           </div>
 
-          <div class="flex flex-column" style="gap: var(--space-4);">
+          <div class="flex flex-column gap-4">
             <div>
               <h3 class="font-weight-medium"><%= t(".account_setup_section") %></h3>
               <p class="txt-small txt-subtle"><%= t(".account_setup_description") %></p>
             </div>
 
-            <div class="grid" style="gap: var(--space-4);">
-              <div class="grid" style="gap: var(--space-2);">
+            <div class="grid gap-4">
+              <div class="grid gap-2">
                 <%= form.label :account_name, t(".account_name"), class: "txt-small font-weight-medium" %>
                 <%= form.text_field :account_name,
                       required: true,

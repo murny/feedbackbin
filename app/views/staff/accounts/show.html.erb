@@ -1,8 +1,8 @@
 <% content_for :title, @account.name %>
 
-<div class="flex flex-column" style="gap: var(--space-8);">
-  <div class="flex flex-column sm:flex-row sm:align-center sm:justify-space-between" style="gap: var(--space-4);">
-    <div class="flex flex-column" style="gap: var(--space-1);">
+<div class="flex flex-column gap-8">
+  <div class="flex flex-column sm:flex-row sm:align-center sm:justify-space-between gap-4">
+    <div class="flex flex-column gap-1">
       <h1 class="txt-xx-large font-weight-bold">
         <%= @account.name %>
       </h1>
@@ -18,12 +18,12 @@
     <% end %>
   </div>
 
-  <%= render Elements::CardComponent.new do |c| %>
+  <%= render Elements::PanelComponent.new do |c| %>
     <% c.with_header(title: t(".account_information")) %>
     <% c.with_body do %>
-      <div class="grid grid-cols-1 md:grid-cols-2" style="gap: var(--space-6);">
-      <div class="flex flex-column" style="gap: var(--space-4);">
-        <div class="flex align-center" style="gap: var(--space-4);">
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <div class="flex flex-column gap-4">
+        <div class="flex align-center gap-4">
           <%= account_logo(@account, size: :lg) %>
           <div>
             <h3 class="txt-medium font-weight-bold"><%= @account.name %></h3>
@@ -32,9 +32,9 @@
         </div>
       </div>
 
-      <div class="flex flex-column" style="gap: var(--space-4);">
+      <div class="flex flex-column gap-4">
         <div>
-          <h4 class="txt-small font-weight-medium" style="margin-block-end: var(--space-2);"><%= t(".created") %></h4>
+          <h4 class="txt-small font-weight-medium margin-block-end-half"><%= t(".created") %></h4>
           <div class="txt-small txt-subtle">
             <%= @account.created_at.strftime("%B %d, %Y at %I:%M %p") %>
           </div>

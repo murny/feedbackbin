@@ -1,36 +1,36 @@
 <%# locals: (status:) %>
 
 <%= form_with model: status, url: status.persisted? ? admin_settings_status_path(status) : admin_settings_statuses_path, method: status.persisted? ? :patch : :post, class: "flex flex-column", style: "gap: var(--space-6);", data: { controller: "badge-preview" } do |f| %>
-  <div class="grid" style="gap: var(--space-6);">
-    <div class="grid" style="gap: var(--space-3);">
+  <div class="grid gap-6">
+    <div class="grid gap-3">
       <%= f.label :name, t(".name_label") %>
       <%= f.text_field :name, placeholder: t(".name_placeholder"), data: { badge_preview_target: "nameInput", action: "input->badge-preview#updatePreview" } %>
     </div>
 
-    <div class="grid" style="gap: var(--space-3);">
+    <div class="grid gap-3">
       <%= f.label :color, t(".color_label") %>
-      <div class="flex align-center" style="gap: var(--space-3);">
+      <div class="flex align-center gap-3">
         <%= f.color_field :color, class: "border border-radius cursor-pointer", style: "block-size: 2.5rem; inline-size: 5rem;", data: { badge_preview_target: "colorInput", action: "input->badge-preview#updatePreview" } %>
         <span class="txt-small txt-subtle"><%= t(".color_hint") %></span>
       </div>
     </div>
 
-    <div class="grid" style="gap: var(--space-3);">
+    <div class="grid gap-3">
       <%= f.label :position, t(".position_label") %>
       <%= f.number_field :position, min: 1, placeholder: t(".position_placeholder") %>
       <p class="txt-x-small txt-subtle"><%= t(".position_hint") %></p>
     </div>
 
-    <div class="grid" style="gap: var(--space-3);">
+    <div class="grid gap-3">
       <label class="txt-small font-weight-medium"><%= t(".visibility_label") %></label>
       <div class="flex flex-column border border-radius pad" style="gap: var(--space-3); background-color: oklch(from var(--color-muted) l c h / 30%);">
-        <div class="flex align-center" style="gap: var(--space-2);">
+        <div class="flex align-center gap-2">
           <%= f.check_box :show_on_idea %>
           <%= f.label :show_on_idea, t(".show_on_idea_label"), class: "txt-small font-weight-medium", style: "line-height: 1;" %>
         </div>
         <p class="txt-x-small txt-subtle" style="margin-inline-start: var(--space-6);"><%= t(".show_on_idea_hint") %></p>
 
-        <div class="flex align-center" style="gap: var(--space-2);">
+        <div class="flex align-center gap-2">
           <%= f.check_box :show_on_roadmap %>
           <%= f.label :show_on_roadmap, t(".show_on_roadmap_label"), class: "txt-small font-weight-medium", style: "line-height: 1;" %>
         </div>
@@ -39,7 +39,7 @@
     </div>
 
     <div class="border-radius border pad" style="border-color: var(--color-border); background-color: oklch(from var(--color-muted) l c h / 50%);">
-      <h4 class="txt-small font-weight-medium" style="margin-block-end: var(--space-2);"><%= t(".preview_label") %></h4>
+      <h4 class="txt-small font-weight-medium margin-block-end-half"><%= t(".preview_label") %></h4>
       <span class="badge" style="--badge-background: <%= status.color %>; --badge-color: var(--color-ink-inverted);" data-badge-preview-target="previewColor">
         <span data-badge-preview-target="previewName"><%= status.name %></span>
       </span>

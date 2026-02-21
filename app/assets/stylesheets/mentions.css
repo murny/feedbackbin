@@ -13,7 +13,6 @@
     padding-block: 0.125rem;
     background-color: oklch(from var(--color-primary) l c h / 10%);
     color: var(--color-primary);
-    text-decoration: none;
   }
 
   .mention:hover {

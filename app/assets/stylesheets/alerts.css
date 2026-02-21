@@ -22,8 +22,8 @@
     --alert-gap-x: 0.75rem;
     --alert-gap-y: 0.125rem;
     --alert-radius: var(--radius-lg);
-    --alert-background: var(--color-card);
-    --alert-color: var(--color-card-foreground);
+    --alert-background: var(--color-panel);
+    --alert-color: var(--color-panel-foreground);
     --alert-border-color: var(--color-border);
     --alert-icon-size: 1rem;
 

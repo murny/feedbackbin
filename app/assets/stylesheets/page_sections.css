@@ -1,0 +1,73 @@
+/* ==========================================================================
+   Page Sections
+   Reusable page-level layout helpers for headers, long-form content,
+   and empty states.
+   ========================================================================== */
+
+@layer modules {
+  .page-header {
+    margin-block-end: var(--space-8);
+  }
+
+  .page-header--compact {
+    margin-block-end: var(--space-4);
+  }
+
+  .page-header__title {
+    margin-block-end: var(--space-2);
+  }
+
+  .page-header__meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-3);
+    margin-block-end: var(--space-2);
+  }
+
+  .page-empty-state {
+    text-align: center;
+    padding-block: var(--space-12);
+  }
+
+  .page-content {
+    display: grid;
+    gap: var(--space-8);
+  }
+
+  .page-content__title {
+    font-size: var(--text-3xl);
+    margin-block-end: var(--space-8);
+  }
+
+  .page-content__updated {
+    margin-block-end: var(--space-8);
+  }
+
+  .page-content__section {
+    display: grid;
+    gap: var(--space-4);
+  }
+
+  .page-content__heading {
+    margin-block-end: var(--space-4);
+  }
+
+  .page-content__subheading {
+    margin-block-end: var(--space-3);
+  }
+
+  .page-content__text {
+    margin-block-end: var(--space-4);
+  }
+
+  .page-content__list {
+    list-style-type: disc;
+    padding-inline-start: var(--space-6);
+    margin-block-end: var(--space-4);
+  }
+
+  .page-content__contact {
+    display: grid;
+    gap: var(--space-2);
+  }
+}

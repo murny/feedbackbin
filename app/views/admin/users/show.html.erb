@@ -1,8 +1,8 @@
 <% content_for :title, @user.name %>
 
-<div class="flex flex-column" style="gap: var(--space-8);">
-  <div class="flex flex-column sm:flex-row sm:align-center sm:justify-space-between" style="gap: var(--space-4);">
-    <div class="flex flex-column" style="gap: var(--space-1);">
+<div class="flex flex-column gap-8">
+  <div class="flex flex-column sm:flex-row sm:align-center sm:justify-space-between gap-4">
+    <div class="flex flex-column gap-1">
       <h1 class="txt-xx-large font-weight-bold">
         <%= @user.name %>
       </h1>
@@ -10,7 +10,7 @@
         <%= t(".description") %>
       </p>
     </div>
-    <div class="flex" style="gap: var(--space-2);">
+    <div class="flex gap-2">
       <%= render Elements::ButtonComponent.new(
         href: admin_users_path,
         variant: :outline
@@ -26,10 +26,10 @@
     </div>
   </div>
 
-  <%= render Elements::CardComponent.new do |c| %>
+  <%= render Elements::PanelComponent.new do |c| %>
     <% c.with_header(title: t(".user_info_title")) %>
     <% c.with_body do %>
-      <div class="flex align-start" style="gap: var(--space-6);">
+      <div class="flex align-start gap-6">
       <%= render Elements::AvatarComponent.new(
         src: @user.avatar.attached? ? url_for(@user.avatar) : nil,
         alt: @user.name,
@@ -37,11 +37,11 @@
         fallback: @user.name[0, 2].upcase
       ) %>
 
-      <div class="flex-1 flex flex-column" style="gap: var(--space-4);">
-        <div class="grid grid-cols-1 md:grid-cols-2" style="gap: var(--space-6);">
+      <div class="flex-1 flex flex-column gap-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <h4 class="txt-small font-weight-medium" style="margin-block-end: var(--space-2);"><%= t(".basic_info_title") %></h4>
-            <div class="flex flex-column txt-small" style="gap: var(--space-2);">
+            <h4 class="txt-small font-weight-medium margin-block-end-half"><%= t(".basic_info_title") %></h4>
+            <div class="flex flex-column txt-small gap-2">
               <div><strong><%= t(".name_label") %>:</strong> <%= @user.name %></div>
               <div><strong><%= t(".email_label") %>:</strong> <%= @user&.identity&.email_address %></div>
               <div>
@@ -63,7 +63,7 @@
             </div>
           </div>
 
-          <div class="flex flex-column" style="gap: var(--space-4);">
+          <div class="flex flex-column gap-4">
             <div>
               <h4 class="txt-small font-weight-medium" style="margin-block-end: var(--space-3);"><%= t(".role_label") %></h4>
               <%= render "role_section", user: @user %>
@@ -89,10 +89,10 @@
     <% end %>
   <% end %>
 
-  <%= render Elements::CardComponent.new do |c| %>
+  <%= render Elements::PanelComponent.new do |c| %>
     <% c.with_header(title: t(".activity_stats_title")) %>
     <% c.with_body do %>
-      <div class="grid grid-cols-1 sm:grid-cols-3" style="gap: var(--space-6);">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
       <div class="border border-radius" style="padding: var(--space-4);">
         <div class="txt-x-large font-weight-bold"><%= @total_ideas %></div>
         <div class="txt-small txt-subtle"><%= t(".total_ideas") %></div>
@@ -109,11 +109,11 @@
     <% end %>
   <% end %>
 
-  <%= render Elements::CardComponent.new do |c| %>
+  <%= render Elements::PanelComponent.new do |c| %>
     <% c.with_header(title: t(".recent_ideas_title")) %>
     <% c.with_body do %>
     <% if @recent_ideas.any? %>
-      <div class="flex flex-column" style="gap: var(--space-4);">
+      <div class="flex flex-column gap-4">
         <% @recent_ideas.each do |idea| %>
           <div class="flex align-start border-radius" style="gap: var(--space-3); padding: var(--space-3);">
             <div class="min-width flex-1">
