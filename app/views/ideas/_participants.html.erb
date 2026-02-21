@@ -4,7 +4,7 @@
 <% if participants.any? %>
   <% total_count = idea.participant_ids.count %>
   <% remaining_count = total_count - participants.size %>
-  <div class="flex flex-column align-end" style="gap: var(--space-2);">
+  <div class="flex flex-column align-end gap-2">
     <span class="txt-small txt-subtle"><%= t(".title", count: total_count) %></span>
     <%= render Elements::AvatarGroupComponent.new(
       participants.map { |user| { src: fresh_user_avatar_path(user), alt: user.name, fallback: user.initials, href: user_path(user), title: user.name } },

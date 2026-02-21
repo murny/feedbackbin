@@ -3,13 +3,13 @@
 <div class="container">
   <%= render partial: "admin/settings/header" %>
 
-  <div style="margin-block-start: var(--space-8);">
+  <div class="margin-block-start-double">
     <div class="flex align-center justify-space-between" style="margin-block-end: var(--space-6);">
       <div>
         <h2 class="txt-large font-weight-medium"><%= @webhook.name %></h2>
         <p class="txt-small txt-subtle" style="font-family: var(--font-mono, monospace);"><%= @webhook.url %></p>
       </div>
-      <div class="flex align-center" style="gap: var(--space-2);">
+      <div class="flex align-center gap-2">
         <% if @webhook.active? %>
           <%= button_to t(".deactivate"), admin_settings_webhook_activation_path(@webhook), method: :delete, class: "btn btn--secondary" %>
         <% else %>
@@ -22,9 +22,9 @@
       </div>
     </div>
 
-    <div class="flex flex-column" style="gap: var(--space-6);">
+    <div class="flex flex-column gap-6">
       <%# Status %>
-      <%= render Elements::CardComponent.new do |c| %>
+      <%= render Elements::PanelComponent.new do |c| %>
         <% c.with_body do %>
           <div class="flex align-center justify-space-between">
             <div>
@@ -51,19 +51,19 @@
       <% end %>
 
       <%# Signing Secret %>
-      <%= render Elements::CardComponent.new do |c| %>
+      <%= render Elements::PanelComponent.new do |c| %>
         <% c.with_body do %>
-          <h3 class="txt-small font-weight-medium" style="margin-block-end: var(--space-2);"><%= t(".signing_secret_label") %></h3>
+          <h3 class="txt-small font-weight-medium margin-block-end-half"><%= t(".signing_secret_label") %></h3>
           <code class="display-block fill-shade border-radius txt-small" style="word-break: break-all; padding-inline: var(--space-3); padding-block: var(--space-2); font-family: var(--font-mono, monospace);"><%= @webhook.signing_secret %></code>
-          <p class="txt-x-small txt-subtle" style="margin-block-start: var(--space-2);"><%= t(".signing_secret_hint") %></p>
+          <p class="txt-x-small txt-subtle margin-block-start-half"><%= t(".signing_secret_hint") %></p>
         <% end %>
       <% end %>
 
       <%# Board Scope %>
       <% if @webhook.board.present? %>
-        <%= render Elements::CardComponent.new do |c| %>
+        <%= render Elements::PanelComponent.new do |c| %>
           <% c.with_body do %>
-            <h3 class="txt-small font-weight-medium" style="margin-block-end: var(--space-2);"><%= t(".board_scope") %></h3>
+            <h3 class="txt-small font-weight-medium margin-block-end-half"><%= t(".board_scope") %></h3>
             <p class="txt-small"><%= @webhook.board.name %></p>
             <p class="txt-x-small txt-subtle" style="margin-block-start: var(--space-1);"><%= t(".board_scope_hint") %></p>
           <% end %>
@@ -71,15 +71,15 @@
       <% end %>
 
       <%# Subscribed Events %>
-      <%= render Elements::CardComponent.new do |c| %>
+      <%= render Elements::PanelComponent.new do |c| %>
         <% c.with_body do %>
-          <h3 class="txt-small font-weight-medium" style="margin-block-end: var(--space-2);"><%= t(".subscribed_events") %></h3>
+          <h3 class="txt-small font-weight-medium margin-block-end-half"><%= t(".subscribed_events") %></h3>
           <% if @webhook.subscribed_actions.empty? %>
             <p class="txt-small txt-subtle"><%= t(".no_subscribed_events") %></p>
           <% else %>
-            <ul class="flex flex-column" style="gap: var(--space-1);">
+            <ul class="flex flex-column gap-1">
               <% @webhook.subscribed_actions.each do |action| %>
-                <li class="txt-small flex align-center" style="gap: var(--space-2);">
+                <li class="txt-small flex align-center gap-2">
                   <%= lucide_icon "check", class: "size-4", style: "color: oklch(0.599 0.156 163.224);" %>
                   <%= webhook_action_label(action) %>
                 </li>
@@ -90,9 +90,9 @@
       <% end %>
 
       <%# Recent Deliveries %>
-      <%= render Elements::CardComponent.new do |c| %>
+      <%= render Elements::PanelComponent.new do |c| %>
         <% c.with_body do %>
-          <h3 class="txt-small font-weight-medium" style="margin-block-end: var(--space-2);"><%= t(".recent_deliveries") %></h3>
+          <h3 class="txt-small font-weight-medium margin-block-end-half"><%= t(".recent_deliveries") %></h3>
           <% if @webhook.deliveries.empty? %>
             <p class="txt-small txt-subtle"><%= t(".no_deliveries") %></p>
           <% else %>

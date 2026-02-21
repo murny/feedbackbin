@@ -1,6 +1,6 @@
 <%# locals: (comment:, idea:, top_level_comments:, comment_sort: :oldest) %>
 
-<%= render Elements::CardComponent.new do |c| %>
+<%= render Elements::PanelComponent.new do |c| %>
     <% c.with_body(style: "padding: var(--space-6);") do %>
       <%= turbo_frame_tag "idea_#{idea.id}_comments_section" do %>
         <div class="flex flex-wrap align-center justify-space-between gap-half margin-block-end">

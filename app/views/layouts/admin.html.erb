@@ -12,7 +12,7 @@
   <div data-controller="toggle">
     <!-- Desktop Sidebar -->
     <div class="admin-sidebar">
-      <div class="flex flex-column flex-item-grow overflow-y fill-card pad-inline pad-block-end-half border-inline-end" style="block-size: 100%; gap: var(--space-5);">
+      <div class="flex flex-column flex-item-grow overflow-y fill-panel pad-inline pad-block-end-half border-inline-end" style="block-size: 100%; gap: var(--space-5);">
         <%= render "admin/sidebar" %>
       </div>
     </div>
@@ -53,7 +53,7 @@
               <%= lucide_icon "x", class: "size-6" %>
             </button>
           </div>
-          <div class="flex flex-column flex-item-grow overflow-y fill-card pad-inline pad-block-end-half border-inline-end" style="gap: var(--space-5);">
+          <div class="flex flex-column flex-item-grow overflow-y fill-panel pad-inline pad-block-end-half border-inline-end gap-5">
             <%= render "admin/sidebar", show_icon: true %>
           </div>
         </div>

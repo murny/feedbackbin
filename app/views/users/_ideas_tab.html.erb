@@ -1,12 +1,12 @@
 <% if ideas.any? %>
-  <ul class="flex flex-column" style="gap: var(--space-6);">
+  <ul class="flex flex-column gap-6">
     <% ideas.each do |idea| %>
       <%= render partial: "ideas/idea", locals: { idea: idea } %>
     <% end %>
   </ul>
 <% else %>
-  <div class="txt-align-center txt-subtle" style="padding-block: var(--space-12);">
-    <div style="margin-block-end: var(--space-4);">
+  <div class="txt-align-center txt-subtle pad-block-12">
+    <div class="margin-block-end">
       <%= lucide_icon "lightbulb", class: "center", style: "inline-size: 3rem; block-size: 3rem; opacity: 0.5;" %>
     </div>
     <p class="txt-small"><%= t(".empty_ideas") %></p>

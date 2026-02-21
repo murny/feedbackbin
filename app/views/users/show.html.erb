@@ -11,7 +11,7 @@
 <!-- Main Profile Card -->
 <div class="center pad-inline" style="padding-block-end: var(--space-6);">
   <div class="container">
-    <%= render Elements::CardComponent.new(style: "padding-block-start: 0;") do |c| %>
+    <%= render Elements::PanelComponent.new(style: "padding-block-start: 0;") do |c| %>
       <% c.with_body(class: "unpad") do %>
         <!-- User Banner (placeholder) -->
         <div class="user-profile__banner"></div>
@@ -63,11 +63,11 @@
         <% end %>
 
         <!-- Details Section -->
-        <div style="margin-block-start: var(--space-8);">
-          <h3 class="txt-medium font-weight-bold" style="margin-block-end: var(--space-4);"><%= t(".details") %></h3>
+        <div class="margin-block-start-double">
+          <h3 class="txt-medium font-weight-bold margin-block-end"><%= t(".details") %></h3>
           <dl class="user-profile__detail-grid">
             <%# TODO: Add location field to User model and profile edit form %>
-            <div class="flex align-center" style="gap: var(--space-3);">
+            <div class="flex align-center gap-3">
               <div class="user-profile__detail-icon">
                 <%= lucide_icon "map-pin", class: "size-4 txt-subtle" %>
               </div>
@@ -77,7 +77,7 @@
               </div>
             </div>
 
-            <div class="flex align-center" style="gap: var(--space-3);">
+            <div class="flex align-center gap-3">
               <div class="user-profile__detail-icon">
                 <%= lucide_icon "shield", class: "size-4 txt-subtle" %>
               </div>
@@ -88,7 +88,7 @@
             </div>
 
             <%# TODO: Add website field to User model and profile edit form %>
-            <div class="flex align-center" style="gap: var(--space-3);">
+            <div class="flex align-center gap-3">
               <div class="user-profile__detail-icon">
                 <%= lucide_icon "globe", class: "size-4 txt-subtle" %>
               </div>
@@ -99,7 +99,7 @@
             </div>
 
             <%# TODO: Add twitter_handle field to User model and profile edit form %>
-            <div class="flex align-center" style="gap: var(--space-3);">
+            <div class="flex align-center gap-3">
               <div class="user-profile__detail-icon">
                 <%= lucide_icon "user", class: "size-4 txt-subtle" %>
               </div>
@@ -110,7 +110,7 @@
             </div>
 
             <%# TODO: Add linkedin_handle field to User model and profile edit form %>
-            <div class="flex align-center" style="gap: var(--space-3);">
+            <div class="flex align-center gap-3">
               <div class="user-profile__detail-icon">
                 <%= inline_svg_tag "icons/brand/linkedin.svg", class: "size-4 txt-subtle" %>
               </div>
@@ -121,7 +121,7 @@
             </div>
 
             <%# TODO: Add github_handle field to User model and profile edit form %>
-            <div class="flex align-center" style="gap: var(--space-3);">
+            <div class="flex align-center gap-3">
               <div class="user-profile__detail-icon">
                 <%= inline_svg_tag "icons/brand/github.svg", class: "size-4 txt-subtle" %>
               </div>
@@ -131,7 +131,7 @@
               </div>
             </div>
 
-            <div class="flex align-center" style="gap: var(--space-3);">
+            <div class="flex align-center gap-3">
               <div class="user-profile__detail-icon">
                 <%= lucide_icon "calendar", class: "size-4 txt-subtle" %>
               </div>
@@ -144,9 +144,9 @@
         </div>
 
         <!-- Achievements Section -->
-        <div style="margin-block-start: var(--space-8);">
-          <h3 class="txt-medium font-weight-bold" style="margin-block-end: var(--space-4);"><%= t(".achievements") %></h3>
-          <div class="flex flex-wrap" style="gap: var(--space-2);">
+        <div class="margin-block-start-double">
+          <h3 class="txt-medium font-weight-bold margin-block-end"><%= t(".achievements") %></h3>
+          <div class="flex flex-wrap gap-2">
             <%= render Elements::BadgeComponent.new(variant: :default) do %>
               <%= lucide_icon "trophy" %>
               <%= t(".achievements_top_contributor") %>
@@ -163,7 +163,7 @@
         </div>
 
         <!-- Stats Section -->
-        <div style="margin-block-start: var(--space-8);">
+        <div class="margin-block-start-double">
           <div class="user-profile__stats-grid">
             <div class="user-profile__stat">
               <div class="user-profile__stat-value"><%= @stats[:ideas_count] %></div>
@@ -192,7 +192,7 @@
 <!-- Activity Tabs Section -->
 <div class="center pad-inline" style="padding-block-end: var(--space-6);">
   <div class="container">
-    <%= render Elements::CardComponent.new do |c| %>
+    <%= render Elements::PanelComponent.new do |c| %>
       <% c.with_body do %>
         <%= render Elements::TabsComponent.new(
           items: [

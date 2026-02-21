@@ -3,24 +3,24 @@
 <div class="container">
   <%= render partial: "user_settings/header" %>
 
-  <div style="margin-block-start: var(--space-8);">
-    <div class="card" style="padding: var(--space-6);">
-      <div class="flex flex-column" style="gap: var(--space-6);">
+  <div class="margin-block-start-double">
+    <div class="panel" style="padding: var(--space-6);">
+      <div class="flex flex-column gap-6">
         <div>
           <h2 class="txt-large font-weight-medium"><%= t(".active_devices_sessions") %></h2>
           <p class="txt-small txt-subtle"><%= t(".active_sessions_description") %></p>
         </div>
 
-        <div class="flex flex-column" style="gap: var(--space-4);">
+        <div class="flex flex-column gap-4">
           <% if @sessions.any? %>
             <% @sessions.each do |session| %>
               <div class="flex align-start justify-space-between pad border border-radius">
-                <div class="flex align-start" style="gap: var(--space-4);">
+                <div class="flex align-start gap-4">
                   <div class="flex-item-no-shrink" style="margin-block-start: var(--space-1);">
                     <%= lucide_icon "code", class: "size-5 txt-subtle" %>
                   </div>
-                  <div class="flex flex-column" style="gap: var(--space-1);">
-                    <div class="flex align-center" style="gap: var(--space-2);">
+                  <div class="flex flex-column gap-1">
+                    <div class="flex align-center gap-2">
                       <p class="txt-small font-weight-medium">
                         <%= session.ip_address %>
                       </p>
@@ -59,7 +59,7 @@
             <% end %>
           <% else %>
             <div class="txt-align-center" style="padding-block: var(--space-8);">
-              <div class="flex justify-center" style="margin-block-end: var(--space-4);">
+              <div class="flex justify-center margin-block-end">
                 <%= lucide_icon "code", class: "h-12 w-12 txt-subtle" %>
               </div>
               <h3 class="txt-small font-weight-medium txt-subtle"><%= t(".no_active_sessions") %></h3>

@@ -26,6 +26,7 @@
   .txt-reversed { color: var(--color-ink-inverted); }
   .txt-negative { color: var(--color-negative); }
   .txt-positive { color: var(--color-positive); }
+  .txt-warning { color: var(--color-warning); }
   .txt-subtle { color: var(--color-ink-dark); }
   .txt-alert { color: var(--color-marker); }
   .txt-primary { color: var(--color-primary); }
@@ -97,6 +98,19 @@
     row-gap: var(--row-gap, var(--block-space-half));
   }
 
+  .gap-1 { gap: var(--space-1); }
+  .gap-2 { gap: var(--space-2); }
+  .gap-3 { gap: var(--space-3); }
+  .gap-4 { gap: var(--space-4); }
+  .gap-5 { gap: var(--space-5); }
+  .gap-6 { gap: var(--space-6); }
+  .gap-8 { gap: var(--space-8); }
+
+  .gap-tight {
+    column-gap: var(--column-gap, var(--space-1));
+    row-gap: var(--row-gap, var(--space-1));
+  }
+
   .gap-none {
     --column-gap: 0;
     --row-gap: 0;
@@ -150,12 +164,14 @@
   .pad-double { padding: var(--block-space-double) var(--inline-space-double); }
 
   .pad-block { padding-block: var(--block-space); }
+  .pad-block-12 { padding-block: var(--space-12); }
   .pad-block-start { padding-block-start: var(--block-space); }
   .pad-block-end { padding-block-end: var(--block-space); }
   .pad-block-half { padding-block: var(--block-space-half); }
   .pad-block-start-half { padding-block-start: var(--block-space-half); }
 
   .pad-inline { padding-inline: var(--inline-space); }
+  .pad-inline-6 { padding-inline: var(--space-6); }
   .pad-inline-start { padding-inline-start: var(--inline-space); }
   .pad-inline-end { padding-inline-end: var(--inline-space); }
   .pad-inline-half { padding-inline: var(--inline-space-half); }
@@ -216,7 +232,7 @@
   .fill-selected { background-color: var(--color-selected); }
   .fill-highlight { background-color: var(--color-highlight); }
   .fill-transparent { background-color: transparent; }
-  .fill-card { background-color: var(--color-card); }
+  .fill-panel { background-color: var(--color-panel); }
   .fill-popover { background-color: var(--color-popover); }
   .fill-primary { background-color: var(--color-primary); }
 

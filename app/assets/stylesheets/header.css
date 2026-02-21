@@ -35,7 +35,7 @@
   }
 
   .header__container {
-    max-inline-size: 80rem;
+    max-inline-size: var(--layout-max-inline-size);
     margin-inline: auto;
     padding-inline: var(--space-4);
 

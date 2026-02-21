@@ -2,16 +2,16 @@
 
 <section class="center pad-inline" style="margin-block-start: var(--space-6);">
   <div class="container">
-    <div style="margin-block-end: var(--space-8);">
+    <div class="page-header">
       <%= link_to changelogs_path, class: "flex-inline align-center gap-half txt-small txt-subtle" do %>
         <%= lucide_icon "chevron-left", style: "inline-size: 1rem; block-size: 1rem;" %>
         <span><%= t(".back") %></span>
       <% end %>
     </div>
 
-    <article class="flex flex-column" style="gap: var(--space-6);">
-      <header class="flex flex-column" style="gap: var(--space-4);">
-        <div class="flex align-center" style="gap: var(--space-3);">
+    <article class="flex flex-column gap-6">
+      <header class="flex flex-column gap-4">
+        <div class="flex align-center gap-3">
           <time class="txt-small txt-subtle font-weight-medium">
             <%= local_datetime_tag @changelog.published_at, style: :datetime %>
           </time>

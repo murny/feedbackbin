@@ -158,13 +158,13 @@
 
   html[data-theme="dark"] .pagination__item,
   html[data-theme="dark"] .pagy a:not(.gap) {
-    --pagination-background: var(--color-card);
+    --pagination-background: var(--color-panel);
   }
 
   @media (prefers-color-scheme: dark) {
     html:not([data-theme]) .pagination__item,
     html:not([data-theme]) .pagy a:not(.gap) {
-      --pagination-background: var(--color-card);
+      --pagination-background: var(--color-panel);
     }
   }
 }

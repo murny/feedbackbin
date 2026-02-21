@@ -1,12 +1,12 @@
 <% if votes.any? %>
-  <ul class="flex flex-column" style="gap: var(--space-6);">
+  <ul class="flex flex-column gap-6">
     <% votes.each do |vote| %>
-      <li class="card">
+      <li class="panel">
         <div class="pad-inline">
-          <div class="flex" style="gap: var(--space-3);">
+          <div class="flex gap-3">
             <%= render partial: "votes/vote_button", locals: { voteable: vote.voteable } %>
             <div class="flex-item-grow" style="min-inline-size: 0;">
-              <div style="margin-block-end: var(--space-2);">
+              <div class="margin-block-end-half">
                 <div class="flex align-center" style="gap: var(--space-2); margin-block-end: var(--space-1);">
                   <h2 class="flex-1">
                     <% if vote.voteable_type == "Idea" %>
@@ -38,7 +38,7 @@
                   <%= lucide_icon "dot" %>
                   <p><%= t(".voted") %> <%= local_datetime_tag vote.created_at, style: :relative %></p>
                 </div>
-                <p class="txt-subtle txt-small" style="margin-block-start: var(--space-2);">
+                <p class="txt-subtle txt-small margin-block-start-half">
                   <%= truncate(strip_tags(vote.voteable.content_text.to_s), length: 140) %>
                 </p>
               </div>
@@ -49,8 +49,8 @@
     <% end %>
   </ul>
 <% else %>
-  <div class="txt-align-center txt-subtle" style="padding-block: var(--space-12);">
-    <div style="margin-block-end: var(--space-4);">
+  <div class="txt-align-center txt-subtle pad-block-12">
+    <div class="margin-block-end">
       <%= lucide_icon "heart", class: "center", style: "inline-size: 3rem; block-size: 3rem; opacity: 0.5;" %>
     </div>
     <p class="txt-small"><%= t(".empty_votes") %></p>

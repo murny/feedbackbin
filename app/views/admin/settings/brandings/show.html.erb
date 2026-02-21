@@ -3,24 +3,24 @@
 <div class="container">
   <%= render partial: "admin/settings/header" %>
 
-  <div style="margin-block-start: var(--space-8);">
+  <div class="margin-block-start-double">
     <div style="margin-block-end: var(--space-6);">
       <h2 class="txt-large font-weight-medium"><%= t(".title") %></h2>
       <p class="txt-small txt-subtle"><%= t(".description") %></p>
     </div>
 
-    <%= render Elements::CardComponent.new do |c| %>
+    <%= render Elements::PanelComponent.new do |c| %>
       <% c.with_body do %>
         <%= form_with model: @account, url: admin_settings_branding_path, method: :patch, multipart: true, class: "flex flex-column", style: "gap: var(--space-6);" do |f| %>
             <%= render "error_messages", resource: @account %>
 
-            <div class="grid" style="gap: var(--space-6);">
-              <div class="grid" style="gap: var(--space-3);">
+            <div class="grid gap-6">
+              <div class="grid gap-3">
                 <%= f.label :name, t(".name") %>
                 <%= f.text_field :name %>
               </div>
 
-              <div class="grid" style="gap: var(--space-3);">
+              <div class="grid gap-3">
                 <%= f.label :logo, t(".logo"), class: "txt-small font-weight-medium" %>
                 <%= render ImageUploadPreviewComponent.new(
                       form: f,
@@ -32,21 +32,21 @@
                       size_hint: t(".logo_size_hint")) %>
               </div>
 
-              <div class="grid" style="gap: var(--space-3);">
+              <div class="grid gap-3">
                 <%= f.label :show_company_name, t(".logo_display"), class: "txt-small font-weight-medium" %>
-                <div class="flex flex-column" style="gap: var(--space-2);">
-                  <div class="flex align-center" style="gap: var(--space-2);">
+                <div class="flex flex-column gap-2">
+                  <div class="flex align-center gap-2">
                     <%= f.radio_button :show_company_name, true, style: "inline-size: 1rem; block-size: 1rem;" %>
                     <%= f.label :show_company_name_true, t(".logo_and_name"), class: "font-weight-normal" %>
                   </div>
-                  <div class="flex align-center" style="gap: var(--space-2);">
+                  <div class="flex align-center gap-2">
                     <%= f.radio_button :show_company_name, false, style: "inline-size: 1rem; block-size: 1rem;" %>
                     <%= f.label :show_company_name_false, t(".logo_only"), class: "font-weight-normal" %>
                   </div>
                 </div>
               </div>
 
-              <div class="grid" style="gap: var(--space-3);">
+              <div class="grid gap-3">
                 <%= f.label :logo_link, t(".logo_link"), class: "txt-small font-weight-medium" %>
                 <%= f.url_field :logo_link, placeholder: t(".logo_link_placeholder") %>
                 <p class="txt-x-small txt-subtle">
@@ -54,7 +54,7 @@
                 </p>
               </div>
 
-              <div class="grid" style="gap: var(--space-3);">
+              <div class="grid gap-3">
                 <%= f.label :favicon, t(".favicon"), class: "txt-small font-weight-medium" %>
                 <%= render ImageUploadPreviewComponent.new(
                       form: f,
@@ -68,7 +68,7 @@
                       image_style: "inline-size: 4rem; block-size: 4rem; background-color: var(--color-muted);") %>
               </div>
 
-              <div class="grid" style="gap: var(--space-3);">
+              <div class="grid gap-3">
                 <%= f.label :og_image, t(".og_image"), class: "txt-small font-weight-medium" %>
                 <%= render ImageUploadPreviewComponent.new(
                       form: f,

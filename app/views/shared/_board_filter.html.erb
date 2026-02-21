@@ -1,6 +1,6 @@
 <%# locals: (path_helper:, boards:, selected_board:, turbo_frame:, preserve_params: {}) %>
 
-<div class="flex align-center" style="gap: var(--space-2);">
+<div class="flex align-center gap-2">
   <label class="txt-small font-weight-medium txt-subtle"><%= t(".board_label") %></label>
   <%= render Elements::DropdownMenuComponent.new do |dropdown| %>
     <% dropdown.with_trigger do %>

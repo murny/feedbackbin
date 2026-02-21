@@ -2,7 +2,7 @@
 <%= turbo_stream_from @idea %>
 
 <section class="container pad-inline margin-block-start">
-  <div class="flex flex-column" style="gap: var(--space-6);">
+  <div class="flex flex-column gap-6">
     <div>
       <%= link_to ideas_path, class: "flex-inline align-center gap-half txt-small txt-subtle txt-undecorated" do %>
         <%= lucide_icon "chevron-left", class: "size-4" %>
@@ -10,7 +10,7 @@
       <% end %>
     </div>
 
-    <%= render Elements::CardComponent.new do |c| %>
+    <%= render Elements::PanelComponent.new do |c| %>
       <% c.with_body(class: "pad") do %>
         <div class="flex align-start gap" style="--column-gap: var(--space-3);">
         <div style="padding-block-start: var(--space-1);">

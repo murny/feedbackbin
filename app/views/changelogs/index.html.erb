@@ -1,16 +1,16 @@
 <%= content_for :title, t(".title") %>
 
 <section class="center pad-inline" style="margin-block-start: var(--space-6);">
-  <div class="container flex flex-column" style="gap: var(--space-6);">
+  <div class="container container--stack">
     <div class="txt-align-center">
-      <h1 class="txt-xx-large font-weight-bold" style="margin-block-end: var(--space-2);"><%= t(".title") %></h1>
+      <h1 class="txt-xx-large font-weight-bold page-header__title"><%= t(".title") %></h1>
       <p class="txt-subtle txt-medium"><%= t(".description", name: Rails.application.config.app_name) %></p>
     </div>
 
     <% if @changelogs.empty? %>
-      <%= render Elements::CardComponent.new do |c| %>
+      <%= render Elements::PanelComponent.new do |c| %>
         <% c.with_body(class: "pad") do %>
-        <div class="flex flex-column align-center justify-center txt-align-center" style="padding-block: var(--space-12);">
+        <div class="page-empty-state flex flex-column align-center justify-center">
           <div class="flex align-center justify-center border-radius fill-shade" style="block-size: 5rem; inline-size: 5rem; opacity: 0.5;">
             <%= lucide_icon "scroll-text", style: "inline-size: 2.5rem; block-size: 2.5rem; color: var(--color-muted-foreground);" %>
           </div>
@@ -22,9 +22,9 @@
         <% end %>
       <% end %>
     <% else %>
-      <div class="flex flex-column" style="gap: var(--space-4);">
+      <div class="flex flex-column gap-4">
         <% @changelogs.each do |changelog| %>
-          <%= render Elements::CardComponent.new do |c| %>
+          <%= render Elements::PanelComponent.new do |c| %>
             <% c.with_body do %>
               <%= render changelog %>
             <% end %>

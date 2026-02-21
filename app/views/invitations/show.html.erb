@@ -1,19 +1,19 @@
 <% content_for(:title) { t(".title") } %>
 
 <div class="flex flex-column align-center justify-center" style="min-block-size: 100svh; gap: var(--space-6); padding: var(--space-6);">
-  <div class="container container--centered flex flex-column" style="gap: var(--space-6);">
+  <div class="container container--centered container--stack">
     <%= link_to root_path, class: "flex align-center align-self-center font-weight-medium", style: "gap: var(--space-2);" do %>
       <%= account_logo(@invitation.account) %>
       <span class="font-weight-bold txt-primary txt-x-large"><%= @invitation.account.name %></span>
     <% end %>
 
-    <div class="card flex flex-column" style="gap: var(--space-6); padding-block: var(--space-8);">
-      <div class="pad-inline txt-align-center flex flex-column" style="gap: var(--space-4);">
+    <div class="panel panel--spacious">
+      <div class="pad-inline txt-align-center flex flex-column gap-4">
         <div class="invitation__icon-wrapper">
           <%= lucide_icon "mail", class: "invitation__icon" %>
         </div>
 
-        <div class="flex flex-column" style="gap: var(--space-2);">
+        <div class="flex flex-column gap-2">
           <h1 class="font-weight-bold txt-x-large"><%= t(".heading") %></h1>
           <p class="txt-subtle txt-small">
             <%= t(".invited_by_html", inviter_name: content_tag(:strong, @invitation.invited_by.name)) %>

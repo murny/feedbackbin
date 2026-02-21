@@ -1,23 +1,23 @@
 <%# locals: (ideas:, pagy:) %>
 
-<%= render Elements::CardComponent.new(class: "overflow-hidden") do |c| %>
+<%= render Elements::PanelComponent.new(class: "overflow-hidden") do |c| %>
   <% c.with_body(class: "unpad") do %>
     <div class="overflow-x">
     <table class="full-width txt-small">
       <thead class="border-bottom">
         <tr class="fill-shade">
-          <th class="txt-align-start font-weight-semibold" style="padding-inline: var(--space-6); padding-block: var(--space-4);"><%= t(".idea_column") %></th>
-          <th class="txt-align-start font-weight-semibold" style="padding-inline: var(--space-6); padding-block: var(--space-4);"><%= t(".creator_column") %></th>
-          <th class="txt-align-start font-weight-semibold" style="padding-inline: var(--space-6); padding-block: var(--space-4);"><%= t(".engagement_column") %></th>
-          <th class="txt-align-start font-weight-semibold" style="padding-inline: var(--space-6); padding-block: var(--space-4);"><%= t(".created_column") %></th>
-          <th class="txt-align-center font-weight-semibold" style="padding-inline: var(--space-6); padding-block: var(--space-4);"><%= t(".actions_column") %></th>
+          <th class="txt-align-start font-weight-semibold pad-inline-6 pad-block"><%= t(".idea_column") %></th>
+          <th class="txt-align-start font-weight-semibold pad-inline-6 pad-block"><%= t(".creator_column") %></th>
+          <th class="txt-align-start font-weight-semibold pad-inline-6 pad-block"><%= t(".engagement_column") %></th>
+          <th class="txt-align-start font-weight-semibold pad-inline-6 pad-block"><%= t(".created_column") %></th>
+          <th class="txt-align-center font-weight-semibold pad-inline-6 pad-block"><%= t(".actions_column") %></th>
         </tr>
       </thead>
       <tbody class="divide-y">
         <% if ideas.any? %>
           <% ideas.each do |idea| %>
             <tr>
-              <td style="padding-inline: var(--space-6); padding-block: var(--space-4);">
+              <td class="pad-inline-6 pad-block">
                 <div style="min-inline-size: 0; max-inline-size: 20rem;">
                   <div class="font-weight-medium overflow-ellipsis" style="margin-block-end: var(--space-1);">
                     <%= idea.title %>
@@ -35,8 +35,8 @@
                   <% end %>
                 </div>
               </td>
-              <td style="padding-inline: var(--space-6); padding-block: var(--space-4);">
-                <div class="flex align-center" style="gap: var(--space-3);">
+              <td class="pad-inline-6 pad-block">
+                <div class="flex align-center gap-3">
                   <%= render Elements::AvatarComponent.new(
                     src: idea.creator.avatar.attached? ? url_for(idea.creator.avatar) : nil,
                     alt: idea.creator.name,
@@ -53,19 +53,19 @@
                   </div>
                 </div>
               </td>
-              <td style="padding-inline: var(--space-6); padding-block: var(--space-4);">
-                <div class="flex align-center txt-x-small txt-subtle" style="gap: var(--space-4);">
-                  <div class="flex align-center" style="gap: var(--space-1);">
+              <td class="pad-inline-6 pad-block">
+                <div class="flex align-center txt-x-small txt-subtle gap-4">
+                  <div class="flex align-center gap-1">
                     <%= lucide_icon "heart", class: "size-3" %>
                     <span><%= idea.votes_count %></span>
                   </div>
-                  <div class="flex align-center" style="gap: var(--space-1);">
+                  <div class="flex align-center gap-1">
                     <%= lucide_icon "message-square", class: "size-3" %>
                     <span><%= idea.comments_count %></span>
                   </div>
                 </div>
               </td>
-              <td class="txt-subtle" style="padding-inline: var(--space-6); padding-block: var(--space-4);">
+              <td class="txt-subtle pad-inline-6 pad-block">
                 <div class="txt-small">
                   <%= idea.created_at.strftime("%b %d, %Y") %>
                 </div>
@@ -73,7 +73,7 @@
                   <%= time_ago_in_words(idea.created_at) %> <%= t(".ago") %>
                 </div>
               </td>
-              <td class="txt-align-center" style="padding-inline: var(--space-6); padding-block: var(--space-4);">
+              <td class="txt-align-center pad-inline-6 pad-block">
                 <%= render Elements::ButtonComponent.new(
                   href: admin_idea_path(idea),
                   variant: :outline,
@@ -91,7 +91,7 @@
               <div class="center size-12 fill-shade flex align-center justify-center" style="margin-block-end: var(--space-4); border-radius: 9999px;">
                 <%= lucide_icon "message-square", class: "size-6 txt-subtle" %>
               </div>
-              <h3 class="txt-small font-weight-medium" style="margin-block-end: var(--space-2);"><%= t(".no_ideas_title") %></h3>
+              <h3 class="txt-small font-weight-medium margin-block-end-half"><%= t(".no_ideas_title") %></h3>
               <p class="txt-small txt-subtle">
                 <% if params[:search].present? %>
                   <%= t(".no_ideas_search") %>
@@ -108,7 +108,7 @@
   <% end %>
 <% end %>
 
-<div style="margin-block-start: var(--space-8);">
+<div class="margin-block-start-double">
   <%= tag.div id: ("ideas" if first_page?(pagy.last)), class: "flex flex-column", style: "gap: var(--space-4);" do %>
     <div class="txt-align-center txt-small txt-subtle">
       <%== pagy.info_tag %>

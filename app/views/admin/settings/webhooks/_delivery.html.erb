@@ -1,7 +1,7 @@
 <%# locals: (delivery:) %>
 
 <li id="<%= dom_id(delivery) %>" class="flex align-center justify-space-between" style="padding-block: var(--space-3);">
-  <div class="flex align-center" style="gap: var(--space-3);">
+  <div class="flex align-center gap-3">
     <% if delivery.succeeded? %>
       <%= lucide_icon "check-circle", class: "size-5", style: "color: oklch(0.599 0.156 163.224);" %>
     <% elsif delivery.errored? %>

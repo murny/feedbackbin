@@ -22,8 +22,8 @@
     /* Component API */
     --toast-padding: 1rem;
     --toast-radius: var(--radius-lg);
-    --toast-background: var(--color-card);
-    --toast-color: var(--color-card-foreground);
+    --toast-background: var(--color-panel);
+    --toast-color: var(--color-panel-foreground);
     --toast-border-color: var(--color-border);
     --toast-accent-color: var(--color-border);
     --toast-shadow: var(--shadow-lg);

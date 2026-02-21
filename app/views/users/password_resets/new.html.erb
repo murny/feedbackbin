@@ -1,17 +1,17 @@
 <% content_for(:title) { t(".forgot_your_password") } %>
 
-<div class="container container--centered flex flex-column" style="gap: var(--space-6);">
+<div class="container container--centered container--stack">
   <%= render "shared/auth_branding" %>
 
-  <div class="card flex flex-column" style="gap: var(--space-6); padding-block: var(--space-6);">
-    <header class="txt-align-center" style="padding-inline: var(--space-6);">
+  <div class="panel">
+    <header class="panel__header--centered">
       <h1 class="font-weight-bold txt-x-large"><%= t(".forgot_your_password") %></h1>
       <p class="txt-subtle txt-small margin-block-start-half"><%= t(".description") %></p>
     </header>
 
-    <div class="grid" style="padding-inline: var(--space-6); gap: var(--space-6);">
+    <div class="panel__content panel__content--stack">
       <%= form_with url: users_password_resets_path, class: "grid", style: "gap: var(--space-6);" do |form| %>
-        <div class="grid" style="gap: var(--space-3);">
+        <div class="grid gap-3">
           <%= form.label :email_address, t(".email"), class: "txt-small font-weight-medium" %>
           <%= form.email_field :email_address,
                                required: true,

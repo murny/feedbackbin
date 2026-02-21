@@ -1,15 +1,15 @@
 <% content_for(:title) { t(".check_your_email") } %>
 
-<div class="container container--centered flex flex-column" style="gap: var(--space-6);">
+<div class="container container--centered container--stack">
   <%= render "shared/auth_branding" %>
 
-  <div class="card flex flex-column" style="gap: var(--space-6); padding-block: var(--space-6);">
-    <header class="txt-align-center" style="padding-inline: var(--space-6);">
+  <div class="panel">
+    <header class="panel__header--centered">
       <h1 class="font-weight-bold txt-x-large"><%= t(".check_your_email") %></h1>
       <p class="txt-subtle txt-small margin-block-start-half"><%= t(".verification_instructions") %></p>
     </header>
 
-    <div class="grid" style="padding-inline: var(--space-6); gap: var(--space-6);">
+    <div class="panel__content panel__content--stack">
       <p class="txt-small txt-align-center txt-subtle">
         <%= t(".didnt_receive_email") %>
       </p>

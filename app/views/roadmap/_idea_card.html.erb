@@ -1,12 +1,12 @@
 <%# locals: (idea:) %>
 
 <%= link_to idea, class: "display-block roadmap-idea-card" do %>
-  <div class="border border-radius fill-card" style="padding: var(--space-4);">
+  <div class="panel panel--compact">
     <h3 class="font-weight-medium txt-small overflow-line-clamp" style="--lines: 2; margin-block-end: var(--space-3);">
       <%= idea.title %>
     </h3>
 
-    <div class="flex align-center flex-wrap txt-x-small txt-subtle" style="gap: var(--space-2);">
+    <div class="flex align-center flex-wrap txt-x-small txt-subtle gap-2">
       <%= render Elements::BadgeComponent.new(
         variant: :outline,
         class: "txt-subtle"
@@ -14,7 +14,7 @@
         <%= idea.board.name %>
       <% end %>
 
-      <span class="flex-inline align-center" style="gap: var(--space-1);">
+      <span class="flex-inline align-center gap-1">
         <%= lucide_icon "arrow-up", style: "inline-size: 0.75rem; block-size: 0.75rem;" %>
         <%= idea.votes_count %>
       </span>

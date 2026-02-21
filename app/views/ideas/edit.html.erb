@@ -1,12 +1,12 @@
 <%= content_for :title, t(".title") %>
 
-<div class="container" style="padding: var(--space-4) var(--space-6);">
-  <div class="flex align-center justify-space-between" style="margin-block-end: var(--space-4);">
+<div class="container container--padded">
+  <div class="page-header page-header--compact flex align-center justify-space-between">
     <h1 class="txt-x-large font-weight-semibold"><%= t(".title") %></h1>
     <%= button_to t("delete"), @idea, method: :delete, class: "btn btn--destructive", form: { data: { turbo_confirm: t("are_you_sure") } } %>
   </div>
 
-  <div class="card pad">
+  <div class="panel pad">
     <%= render "form", idea: @idea %>
   </div>
 </div>

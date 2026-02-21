@@ -82,7 +82,7 @@
 
       <%= tag.div id: ("ideas" if first_page?(@pagy.last)), class: "margin-block-end-double" do %>
         <% if @ideas.empty? %>
-          <div class="card">
+          <div class="panel">
             <div class="flex flex-column align-center justify-center txt-align-center pad-double">
               <div class="flex align-center justify-center border-radius fill-shade" style="block-size: 5rem; inline-size: 5rem; border-radius: var(--radius-full);">
                 <%= lucide_icon "message-circle", class: "size-10 txt-subtle" %>
@@ -106,7 +106,7 @@
             </div>
           </div>
         <% else %>
-          <ul role="list" class="flex flex-column" style="gap: var(--space-4);">
+          <ul role="list" class="flex flex-column gap-4">
             <%= render partial: "ideas/idea", collection: @ideas, as: :idea %>
           </ul>
         <% end %>

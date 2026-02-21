@@ -3,13 +3,13 @@
 <div class="container">
   <%= render partial: "admin/settings/header" %>
 
-  <div style="margin-block-start: var(--space-8);">
+  <div class="margin-block-start-double">
     <div style="margin-block-end: var(--space-6);">
       <h2 class="txt-large font-weight-medium"><%= t(".title") %></h2>
       <p class="txt-small txt-subtle"><%= t(".description") %></p>
     </div>
 
-    <%= render Elements::CardComponent.new do |c| %>
+    <%= render Elements::PanelComponent.new do |c| %>
       <% c.with_body do %>
         <%= render "form", status: @status %>
       <% end %>

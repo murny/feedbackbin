@@ -1,16 +1,16 @@
 <% content_for(:title) { t(".select_account") } %>
 
-<div class="container container--centered flex flex-column" style="gap: var(--space-6);">
+<div class="container container--centered container--stack">
   <%= render "shared/auth_branding" %>
 
-  <div class="card flex flex-column" style="gap: var(--space-6); padding-block: var(--space-6);">
+  <div class="panel">
     <% if @accounts.any? %>
-      <header class="txt-align-center" style="padding-inline: var(--space-6);">
+      <header class="panel__header--centered">
         <h1 class="font-weight-semibold txt-x-large"><%= t(".select_account") %></h1>
         <p class="txt-subtle txt-small margin-block-start-half"><%= t(".choose_account_to_continue") %></p>
       </header>
 
-      <div class="grid" style="padding-inline: var(--space-6); gap: var(--space-3);">
+      <div class="panel__content grid gap-3">
         <% @accounts.each do |account| %>
           <%= link_to root_url(script_name: account.slug),
                 class: "flex align-center border border-radius pad",
@@ -24,17 +24,17 @@
         <% end %>
       </div>
     <% else %>
-      <header class="txt-align-center" style="padding-inline: var(--space-6);">
+      <header class="panel__header--centered">
         <h1 class="font-weight-semibold txt-x-large"><%= t(".no_accounts") %></h1>
         <p class="txt-subtle txt-small margin-block-start-half"><%= t(".no_accounts_description") %></p>
       </header>
 
-      <div style="padding-inline: var(--space-6);">
+      <div class="panel__content">
         <%= link_to t(".create_account"), signup_path, class: "btn btn--primary full-width" %>
       </div>
     <% end %>
 
-    <div class="border-top" style="padding-inline: var(--space-6); padding-block-start: var(--space-3);">
+    <div class="panel__content border-top" style="padding-block-start: var(--space-3);">
       <p class="txt-align-center txt-small txt-subtle">
         <%= t(".signed_in_as", email: Current.identity.email_address) %>
       </p>

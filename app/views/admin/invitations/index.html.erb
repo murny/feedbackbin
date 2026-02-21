@@ -1,7 +1,7 @@
 <% content_for :title, t(".title") %>
 
-<div class="container container--wide pad-inline" style="padding-block: var(--space-8);">
-  <div class="flex align-center justify-space-between" style="margin-block-end: var(--space-8);">
+<div class="container container--wide container--page">
+  <div class="page-header flex align-center justify-space-between">
     <div>
       <h1 class="txt-xx-large font-weight-semibold"><%= t(".heading") %></h1>
       <p class="txt-small txt-subtle"><%= t(".description") %></p>
@@ -17,8 +17,8 @@
     </div>
   </div>
 
-  <div style="margin-block-end: var(--space-4);">
-    <h2 class="txt-large font-weight-medium flex align-center" style="gap: var(--space-2);">
+  <div class="page-header page-header--compact">
+    <h2 class="txt-large font-weight-medium flex align-center gap-half">
       <%= t(".pending_invitations") %>
       <%= render Elements::BadgeComponent.new(variant: :default) do %>
         <%= @pagy.count %>
