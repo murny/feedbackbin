@@ -33,7 +33,7 @@ gem "jbuilder"
 gem "lexxy"
 
 # View
-gem "pagy", "~> 43.2"
+gem "pagy", "~> 43.3"
 gem "inline_svg"
 gem "lucide-rails"
 gem "view_component"
