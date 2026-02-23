@@ -18,7 +18,7 @@ module Webhook::Triggerable
 
     # Find webhooks subscribed to a specific action
     scope :triggered_by_action, ->(action) {
-      where("JSON_CONTAINS(subscribed_actions, ?)", "\"#{action}\"")
+      where("EXISTS (SELECT 1 FROM json_each(subscribed_actions) WHERE json_each.value = ?)", action.to_s)
     }
   end
 

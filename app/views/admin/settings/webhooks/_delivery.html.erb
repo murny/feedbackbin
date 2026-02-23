@@ -4,9 +4,9 @@
   <div class="flex align-center" style="gap: var(--space-3);">
     <% if delivery.succeeded? %>
       <%= lucide_icon "check-circle", class: "size-5", style: "color: oklch(0.599 0.156 163.224);" %>
-    <% elsif delivery.errored? %>
+    <% elsif delivery.failed? %>
       <%= lucide_icon "x-circle", class: "size-5", style: "color: var(--color-destructive);" %>
-    <% elsif delivery.in_progress? %>
+    <% elsif delivery.state_in_progress? %>
       <%= lucide_icon "loader", class: "size-5 txt-subtle", style: "animation: spin 1s linear infinite;" %>
     <% else %>
       <%= lucide_icon "clock", class: "size-5 txt-subtle" %>
