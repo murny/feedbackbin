@@ -12,6 +12,12 @@ on:
 permissions:
   contents: read
 
+# Ensure only one deployment runs at a time.
+# Queue the next deploy rather than cancelling it — we never want to skip a migration.
+concurrency:
+  group: deploy-production
+  cancel-in-progress: false
+
 jobs:
   deploy:
     name: Deploy with Kamal
