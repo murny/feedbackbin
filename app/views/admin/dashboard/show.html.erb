@@ -5,16 +5,16 @@
     <h1 class="txt-xx-large font-weight-bold">
       <%= t(".heading", account_name: Current.account.name) %>
     </h1>
-    <p class="txt-small txt-subtle" style="margin-block-start: var(--space-2);">
+    <p class="txt-small txt-subtle margin-block-start-half">
       <%= t(".description") %>
     </p>
   </div>
 </header>
 
 <div style="margin-block-end: var(--space-8);">
-  <h2 class="txt-medium font-weight-bold" style="margin-block-end: var(--space-4);"><%= t(".stats.title") %></h2>
-  <dl class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3" style="gap: var(--space-5);">
-    <div class="card card--stat">
+  <h2 class="txt-medium font-weight-bold margin-block-end"><%= t(".stats.title") %></h2>
+  <dl class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+    <div class="panel panel--stat">
       <div class="pad">
         <div class="flex align-center">
           <div class="flex-item-no-shrink">
@@ -22,15 +22,15 @@
           </div>
           <div class="flex-1" style="margin-inline-start: var(--space-5); inline-size: 0;">
             <dl>
-              <dt class="card__stat-label"><%= t(".stats.total_ideas") %></dt>
-              <dd class="card__stat-value">
+              <dt class="panel__stat-label"><%= t(".stats.total_ideas") %></dt>
+              <dd class="panel__stat-value">
                 <%= number_with_delimiter(@stats[:total_ideas] || 0) %>
               </dd>
             </dl>
           </div>
         </div>
       </div>
-      <div class="card__stat-footer">
+      <div class="panel__stat-footer">
         <span class="txt-subtle"><%= t(".stats.this_month") %>:</span>
         <span class="font-weight-medium">
           <%= number_with_delimiter(@stats[:ideas_this_month] || 0) %>
@@ -38,7 +38,7 @@
       </div>
     </div>
 
-    <div class="card card--stat">
+    <div class="panel panel--stat">
       <div class="pad">
         <div class="flex align-center">
           <div class="flex-item-no-shrink">
@@ -46,15 +46,15 @@
           </div>
           <div class="flex-1" style="margin-inline-start: var(--space-5); inline-size: 0;">
             <dl>
-              <dt class="card__stat-label"><%= t(".stats.total_users") %></dt>
-              <dd class="card__stat-value">
+              <dt class="panel__stat-label"><%= t(".stats.total_users") %></dt>
+              <dd class="panel__stat-value">
                 <%= number_with_delimiter(@stats[:total_users] || 0) %>
               </dd>
             </dl>
           </div>
         </div>
       </div>
-      <div class="card__stat-footer">
+      <div class="panel__stat-footer">
         <span class="txt-subtle"><%= t(".stats.admins") %>:</span>
         <span class="font-weight-medium">
           <%= number_with_delimiter(@stats[:admin_users] || 0) %>
@@ -62,7 +62,7 @@
       </div>
     </div>
 
-    <div class="card card--stat">
+    <div class="panel panel--stat">
       <div class="pad">
         <div class="flex align-center">
           <div class="flex-item-no-shrink">
@@ -70,15 +70,15 @@
           </div>
           <div class="flex-1" style="margin-inline-start: var(--space-5); inline-size: 0;">
             <dl>
-              <dt class="card__stat-label"><%= t(".stats.total_comments") %></dt>
-              <dd class="card__stat-value">
+              <dt class="panel__stat-label"><%= t(".stats.total_comments") %></dt>
+              <dd class="panel__stat-value">
                 <%= number_with_delimiter(@stats[:total_comments] || 0) %>
               </dd>
             </dl>
           </div>
         </div>
       </div>
-      <div class="card__stat-footer">
+      <div class="panel__stat-footer">
         <span class="txt-subtle"><%= t(".stats.this_month") %>:</span>
         <span class="font-weight-medium">
           <%= number_with_delimiter(@stats[:comments_this_month] || 0) %>
@@ -88,10 +88,10 @@
   </dl>
 </div>
 
-<div class="grid grid-cols-1 lg:grid-cols-2" style="gap: var(--space-8);">
-  <div class="card">
-    <div class="card__body">
-      <h3 class="txt-medium font-weight-medium" style="margin-block-end: var(--space-4);">
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+  <div class="panel">
+    <div class="panel__body">
+      <h3 class="txt-medium font-weight-medium margin-block-end">
         <%= t(".recent_ideas.title") %>
       </h3>
 
@@ -103,7 +103,7 @@
                 <% unless index == @recent_ideas.length - 1 %>
                   <span style="position: absolute; inset-inline-start: 1rem; inset-block-start: 1rem; margin-inline-start: -1px; block-size: 100%; inline-size: 2px; background-color: var(--color-border);" aria-hidden="true"></span>
                 <% end %>
-                <div class="position-relative flex" style="gap: var(--space-3);">
+                <div class="position-relative flex gap-3">
                   <div>
                     <span class="size-8 fill-primary flex align-center justify-center" style="border-radius: 9999px; box-shadow: 0 0 0 8px var(--color-background);">
                       <%= lucide_icon "lightbulb", class: "size-4 txt-reversed" %>
@@ -141,18 +141,18 @@
           <% end %>
         </div>
       <% else %>
-        <div class="txt-align-center" style="padding-block: var(--space-12);">
+        <div class="txt-align-center pad-block-12">
           <%= lucide_icon "lightbulb", class: "size-12 txt-subtle center" %>
-          <h3 class="txt-small font-weight-medium" style="margin-block-start: var(--space-2);"><%= t(".recent_ideas.no_ideas_title") %></h3>
+          <h3 class="txt-small font-weight-medium margin-block-start-half"><%= t(".recent_ideas.no_ideas_title") %></h3>
           <p class="txt-small txt-subtle" style="margin-block-start: var(--space-1);"><%= t(".recent_ideas.no_ideas_description") %></p>
         </div>
       <% end %>
     </div>
   </div>
 
-  <div class="card">
-    <div class="card__body">
-      <h3 class="txt-medium font-weight-medium" style="margin-block-end: var(--space-4);">
+  <div class="panel">
+    <div class="panel__body">
+      <h3 class="txt-medium font-weight-medium margin-block-end">
         <%= t(".recent_comments.title") %>
       </h3>
 
@@ -164,7 +164,7 @@
                 <% unless index == @recent_comments.length - 1 %>
                   <span style="position: absolute; inset-inline-start: 1rem; inset-block-start: 1rem; margin-inline-start: -1px; block-size: 100%; inline-size: 2px; background-color: var(--color-border);" aria-hidden="true"></span>
                 <% end %>
-                <div class="position-relative flex" style="gap: var(--space-3);">
+                <div class="position-relative flex gap-3">
                   <div>
                     <span class="size-8 flex align-center justify-center" style="border-radius: 9999px; background-color: var(--color-secondary); box-shadow: 0 0 0 8px var(--color-background);">
                       <%= lucide_icon "message-circle", class: "size-4", style: "color: var(--color-secondary-foreground);" %>
@@ -192,9 +192,9 @@
           <% end %>
         </ul>
       <% else %>
-        <div class="txt-align-center" style="padding-block: var(--space-12);">
+        <div class="txt-align-center pad-block-12">
           <%= lucide_icon "message-circle", class: "size-12 txt-subtle center" %>
-          <h3 class="txt-small font-weight-medium" style="margin-block-start: var(--space-2);"><%= t(".recent_comments.no_comments_title") %></h3>
+          <h3 class="txt-small font-weight-medium margin-block-start-half"><%= t(".recent_comments.no_comments_title") %></h3>
           <p class="txt-small txt-subtle" style="margin-block-start: var(--space-1);"><%= t(".recent_comments.no_comments_description") %></p>
         </div>
       <% end %>

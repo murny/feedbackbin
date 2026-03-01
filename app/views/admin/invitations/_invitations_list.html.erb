@@ -1,12 +1,12 @@
 <%# locals: (invitations:, pagy:) %>
 
 <% if invitations.any? %>
-  <div class="card">
+  <div class="panel">
     <ul role="list" class="divide-y">
       <% invitations.each do |invitation| %>
         <li class="flex align-center justify-space-between" style="gap: var(--space-6); padding-block: var(--space-5); padding-inline: var(--space-6);">
           <div class="flex-1" style="min-inline-size: 0;">
-            <div class="flex align-start" style="gap: var(--space-3);">
+            <div class="flex align-start gap-3">
               <div class="flex-1" style="min-inline-size: 0;">
                 <p class="txt-small font-weight-semibold" style="line-height: 1.5rem;">
                   <%= invitation.email %>
@@ -28,7 +28,7 @@
               </div>
             </div>
           </div>
-          <div class="flex flex-none align-center" style="gap: var(--space-2);">
+          <div class="flex flex-none align-center gap-2">
             <%= button_to_copy_to_clipboard(invitation_url(invitation.token)) do %>
               <%= lucide_icon "copy", class: "size-4" %>
               <span class="visually-hidden"><%= t(".copy_invitation_link") %></span>
@@ -57,10 +57,10 @@
     </ul>
   </div>
 <% else %>
-  <div class="card txt-align-center" style="padding: var(--space-8);">
+  <div class="panel txt-align-center" style="padding: var(--space-8);">
     <%= lucide_icon "mail-check", class: "center txt-subtle", style: "inline-size: 3rem; block-size: 3rem;" %>
-    <h3 class="txt-large font-weight-semibold" style="margin-block-start: var(--space-4);"><%= t(".no_invitations_title") %></h3>
-    <p class="txt-small txt-subtle" style="margin-block-start: var(--space-2);"><%= t(".no_invitations_description") %></p>
+    <h3 class="txt-large font-weight-semibold margin-block-start"><%= t(".no_invitations_title") %></h3>
+    <p class="txt-small txt-subtle margin-block-start-half"><%= t(".no_invitations_description") %></p>
   </div>
 <% end %>
 

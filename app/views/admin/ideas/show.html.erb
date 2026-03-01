@@ -1,8 +1,8 @@
 <% content_for :title, @idea.title %>
 
-<div class="flex flex-column" style="gap: var(--space-8);">
-  <div class="flex flex-column sm:flex-row sm:align-center sm:justify-space-between" style="gap: var(--space-4);">
-    <div class="flex flex-column" style="gap: var(--space-1);">
+<div class="flex flex-column gap-8">
+  <div class="flex flex-column sm:flex-row sm:align-center sm:justify-space-between gap-4">
+    <div class="flex flex-column gap-1">
       <h1 class="txt-xx-large font-weight-bold">
         <%= truncate(@idea.title, length: 60) %>
       </h1>
@@ -18,13 +18,13 @@
     <% end %>
   </div>
 
-  <%= render Elements::CardComponent.new do |c| %>
+  <%= render Elements::PanelComponent.new do |c| %>
     <% c.with_header(title: t(".idea_info_title")) %>
     <% c.with_body do %>
-      <div class="flex flex-column" style="gap: var(--space-6);">
-      <div class="grid grid-cols-1 lg:grid-cols-3" style="gap: var(--space-6);">
+      <div class="flex flex-column gap-6">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div style="grid-column: span 2;">
-          <h3 class="txt-large font-weight-bold" style="margin-block-end: var(--space-4);"><%= @idea.title %></h3>
+          <h3 class="txt-large font-weight-bold margin-block-end"><%= @idea.title %></h3>
 
           <div class="flex align-center" style="gap: var(--space-4); margin-block-end: var(--space-4);">
             <%= render Elements::AvatarComponent.new(
@@ -55,10 +55,10 @@
           </div>
         </div>
 
-        <div class="flex flex-column" style="gap: var(--space-6);">
+        <div class="flex flex-column gap-6">
           <div>
             <h4 class="txt-small font-weight-medium" style="margin-block-end: var(--space-3);"><%= t(".engagement_title") %></h4>
-            <div class="flex flex-column" style="gap: var(--space-3);">
+            <div class="flex flex-column gap-3">
               <div class="flex align-center justify-space-between txt-small">
                 <span class="txt-subtle"><%= t(".votes_label") %></span>
                 <span class="font-weight-medium"><%= @idea.votes_count %></span>
@@ -80,10 +80,10 @@
   <% end %>
 
   <% if @recent_comments.any? %>
-    <%= render Elements::CardComponent.new do |c| %>
+    <%= render Elements::PanelComponent.new do |c| %>
       <% c.with_header(title: t(".recent_comments_title")) %>
       <% c.with_body do %>
-      <div class="flex flex-column" style="gap: var(--space-4);">
+      <div class="flex flex-column gap-4">
         <% @recent_comments.each do |comment| %>
           <div class="flex align-start border border-radius" style="gap: var(--space-3); padding: var(--space-4);">
             <%= render Elements::AvatarComponent.new(
@@ -109,7 +109,7 @@
       <% end %>
     <% end %>
   <% else %>
-    <%= render Elements::CardComponent.new do |c| %>
+    <%= render Elements::PanelComponent.new do |c| %>
       <% c.with_header(title: t(".comments_title")) %>
       <% c.with_body do %>
       <div class="txt-align-center txt-subtle" style="padding-block: var(--space-8);">
