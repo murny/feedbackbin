@@ -1,9 +1,9 @@
 <% content_for :title, t(".title") %>
 
-<div class="center" style="max-inline-size: 56rem;">
+<div class="container">
   <%= render partial: "admin/settings/header" %>
 
-  <div style="margin-block-start: var(--space-8);">
+  <div class="margin-block-start-double">
     <div class="flex align-center justify-space-between" style="margin-block-end: var(--space-6);">
       <div>
         <h2 class="txt-medium font-weight-medium"><%= t(".title") %></h2>
@@ -15,19 +15,19 @@
     </div>
 
     <% if @statuses.any? %>
-      <%= render Elements::CardComponent.new do |c| %>
+      <%= render Elements::PanelComponent.new do |c| %>
         <% c.with_body(class: "unpad") do %>
           <ul role="list" class="divide-y">
           <% @statuses.each do |status| %>
             <li class="flex align-center justify-space-between" style="gap: var(--space-6); padding-block: var(--space-5); padding-inline: var(--space-6);">
-              <div class="flex align-center min-width" style="gap: var(--space-4);">
+              <div class="flex align-center min-width gap-4">
                 <span class="size-6 flex-item-no-shrink" style="border-radius: 9999px; box-shadow: 0 0 0 2px var(--color-background), var(--shadow-sm); background-color: <%= status.color %>;"></span>
                 <div class="min-width" style="flex: 1 1 auto;">
-                  <div class="flex align-center" style="gap: var(--space-2);">
+                  <div class="flex align-center gap-2">
                     <p class="txt-small font-weight-bold">
                       <%= status.name %>
                     </p>
-                    <div class="flex align-center" style="gap: var(--space-1);">
+                    <div class="flex align-center gap-1">
                       <% if status.show_on_idea %>
                         <span class="flex-inline align-center border-radius" style="gap: var(--space-1); padding-inline: var(--space-2); padding-block: 0.125rem; font-size: var(--text-xx-small); font-weight: 500; background-color: oklch(0.97 0.014 254.604); color: oklch(0.488 0.243 264.376); box-shadow: inset 0 0 0 1px oklch(from oklch(0.488 0.243 264.376) l c h / 10%);" title="<%= t(".visible_on_idea") %>">
                           <%= lucide_icon "list", class: "size-3" %>
@@ -53,8 +53,8 @@
                   </div>
                 </div>
               </div>
-              <div class="flex align-center" style="gap: var(--space-4);">
-                <div class="flex" style="gap: var(--space-2);">
+              <div class="flex align-center gap-4">
+                <div class="flex gap-2">
                   <%= link_to edit_admin_settings_status_path(status), class: "txt-small txt-subtle" do %>
                     <%= lucide_icon "pencil", class: "size-5" %>
                     <span class="visually-hidden"><%= t("edit") %></span>
@@ -74,11 +74,11 @@
         <% end %>
       <% end %>
     <% else %>
-      <%= render Elements::CardComponent.new do |c| %>
+      <%= render Elements::PanelComponent.new do |c| %>
         <% c.with_body(class: "txt-align-center", style: "padding: var(--space-8);") do %>
           <%= lucide_icon "tag", class: "size-12 txt-subtle center" %>
-        <h3 class="txt-medium font-weight-bold" style="margin-block-start: var(--space-4);"><%= t(".no_statuses_title") %></h3>
-        <p class="txt-small txt-subtle" style="margin-block-start: var(--space-2);"><%= t(".no_statuses_description") %></p>
+        <h3 class="txt-medium font-weight-bold margin-block-start"><%= t(".no_statuses_title") %></h3>
+        <p class="txt-small txt-subtle margin-block-start-half"><%= t(".no_statuses_description") %></p>
         <div style="margin-block-start: var(--space-6);">
           <%= link_to t(".create_first_status"), new_admin_settings_status_path, class: "btn btn--primary" %>
         </div>

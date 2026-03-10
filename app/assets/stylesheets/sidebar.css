@@ -238,7 +238,6 @@
     color: inherit;
     font-size: var(--text-sm);
     text-align: start;
-    text-decoration: none;
     overflow: hidden;
     outline: none;
     transition: background-color var(--duration-fast) var(--ease-out),

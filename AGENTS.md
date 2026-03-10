@@ -142,7 +142,7 @@ All CSS must be placed in the appropriate `@layer`. The layer order defines spec
 |-------|---------|---------|
 | `reset` | Normalize browser defaults | `* { margin: 0 }` |
 | `base` | Global element styles | `body`, `a`, `kbd` |
-| `components` | Reusable UI patterns | `.btn`, `.card`, `.input` |
+| `components` | Reusable UI patterns | `.btn`, `.panel`, `.input` |
 | `modules` | Page/feature-specific styles | `.ideas-list`, `.settings-form` |
 | `utilities` | Single-purpose helpers (highest priority) | `.flex`, `.txt-small`, `.visually-hidden` |
 
@@ -196,10 +196,10 @@ Components use BEM-inspired naming with CSS custom properties as their API:
 ```
 
 Naming rules:
-- `.block` — the component (`.card`, `.btn`, `.input`)
-- `.block__element` — a child part (`.card__header`, `.card__title`)
-- `.block--modifier` — a variant (`.btn--link`, `.card--notification`)
-- Keep elements flat — never `.card__header__title`, always `.card__title`
+- `.block` — the component (`.panel`, `.btn`, `.input`)
+- `.block__element` — a child part (`.panel__header`, `.panel__title`)
+- `.block--modifier` — a variant (`.btn--link`, `.panel--compact`)
+- Keep elements flat — never `.panel__header__title`, always `.panel__title`
 
 #### Native CSS Nesting
 
@@ -222,10 +222,10 @@ Use native CSS nesting (no preprocessor needed):
 
 Use these freely — they are part of the architecture:
 
-- **`:has()` selectors** for parent-aware styling: `.card:has(.card__closed) { }`
+- **`:has()` selectors** for parent-aware styling: `.panel:has(.panel__closed) { }`
 - **`:where()` selectors** for zero-specificity defaults (easy to override): `.btn:where(:focus-visible) { }`
 - **`:is()` selectors** for grouping: `.btn :is(input[type=radio], input[type=checkbox]) { }`
-- **`color-mix()`** for dynamic colors: `color-mix(in srgb, var(--card-color) 4%, var(--color-canvas))`
+- **`color-mix()`** for dynamic colors: `color-mix(in srgb, var(--panel-color) 4%, var(--color-canvas))`
 - **`@starting-style`** for entry animations on `<dialog>` and popovers
 - **Logical properties** throughout: `padding-inline`, `margin-block-start`, `inline-size` (not `width`/`padding-left`)
 - **Variable fallbacks**: `var(--btn-icon-size, 1.3em)` for sensible defaults
@@ -256,7 +256,8 @@ app/assets/stylesheets/
 ├── layout.css           # Grid layout
 ├── utilities.css        # Utility classes
 ├── buttons.css          # .btn component
-├── cards.css            # .card component
+├── containers.css       # .container layout wrapper
+├── panels.css           # .panel surface component
 ├── inputs.css           # Form controls
 ├── dialog.css           # Dialog/modal animations
 ├── popup.css            # Dropdown menus

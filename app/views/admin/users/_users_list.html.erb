@@ -1,26 +1,26 @@
 <%# locals: (users:, pagy:) %>
 
-<%= render Elements::CardComponent.new(class: "overflow-hidden") do |c| %>
+<%= render Elements::PanelComponent.new(class: "overflow-hidden") do |c| %>
   <% c.with_body(class: "unpad") do %>
     <div class="overflow-x">
     <table class="full-width txt-small">
       <thead class="border-bottom">
         <tr class="fill-shade">
-          <th class="txt-align-start font-weight-semibold" style="padding-inline: var(--space-6); padding-block: var(--space-4);"><%= t(".user_column") %></th>
-          <th class="txt-align-start font-weight-semibold" style="padding-inline: var(--space-6); padding-block: var(--space-4);"><%= t(".role_column") %></th>
-          <th class="txt-align-start font-weight-semibold" style="padding-inline: var(--space-6); padding-block: var(--space-4);"><%= t(".account_status_column") %></th>
-          <th class="txt-align-start font-weight-semibold" style="padding-inline: var(--space-6); padding-block: var(--space-4);"><%= t(".email_status_column") %></th>
-          <th class="txt-align-start font-weight-semibold" style="padding-inline: var(--space-6); padding-block: var(--space-4);"><%= t(".ideas_column") %></th>
-          <th class="txt-align-start font-weight-semibold" style="padding-inline: var(--space-6); padding-block: var(--space-4);"><%= t(".joined_column") %></th>
-          <th class="txt-align-center font-weight-semibold" style="padding-inline: var(--space-6); padding-block: var(--space-4);"><%= t(".actions_column") %></th>
+          <th class="txt-align-start font-weight-semibold pad-inline-6 pad-block"><%= t(".user_column") %></th>
+          <th class="txt-align-start font-weight-semibold pad-inline-6 pad-block"><%= t(".role_column") %></th>
+          <th class="txt-align-start font-weight-semibold pad-inline-6 pad-block"><%= t(".account_status_column") %></th>
+          <th class="txt-align-start font-weight-semibold pad-inline-6 pad-block"><%= t(".email_status_column") %></th>
+          <th class="txt-align-start font-weight-semibold pad-inline-6 pad-block"><%= t(".ideas_column") %></th>
+          <th class="txt-align-start font-weight-semibold pad-inline-6 pad-block"><%= t(".joined_column") %></th>
+          <th class="txt-align-center font-weight-semibold pad-inline-6 pad-block"><%= t(".actions_column") %></th>
         </tr>
       </thead>
       <tbody class="divide-y">
         <% if users.any? %>
           <% users.each do |user| %>
             <tr>
-              <td style="padding-inline: var(--space-6); padding-block: var(--space-4);">
-                <div class="flex align-center" style="gap: var(--space-3);">
+              <td class="pad-inline-6 pad-block">
+                <div class="flex align-center gap-3">
                   <%= render Elements::AvatarComponent.new(
                     src: user.avatar.attached? ? url_for(user.avatar) : nil,
                     alt: user.name,
@@ -37,8 +37,8 @@
                   </div>
                 </div>
               </td>
-              <td style="padding-inline: var(--space-6); padding-block: var(--space-4);">
-                <div class="flex flex-wrap" style="gap: var(--space-1);">
+              <td class="pad-inline-6 pad-block">
+                <div class="flex flex-wrap gap-1">
                   <%= render Elements::BadgeComponent.new(
                     variant: user.admin? ? :default : :secondary
                   ) do %>
@@ -51,21 +51,21 @@
                   <% end %>
                 </div>
               </td>
-              <td style="padding-inline: var(--space-6); padding-block: var(--space-4);">
+              <td class="pad-inline-6 pad-block">
                 <%= render Elements::BadgeComponent.new(
                   variant: user.active? ? :default : :destructive
                 ) do %>
                   <%= user.active? ? t(".active_badge") : t(".deactivated_badge") %>
                 <% end %>
               </td>
-              <td style="padding-inline: var(--space-6); padding-block: var(--space-4);">
+              <td class="pad-inline-6 pad-block">
                 <%= render Elements::BadgeComponent.new(
                   variant: user&.identity&.email_verified_at&.present? ? :default : :outline
                 ) do %>
                   <%= user&.identity&.email_verified_at&.present? ? t(".verified_badge") : t(".unverified_badge") %>
                 <% end %>
               </td>
-              <td style="padding-inline: var(--space-6); padding-block: var(--space-4);">
+              <td class="pad-inline-6 pad-block">
                 <% ideas_count = user.ideas.count %>
                 <% if ideas_count > 0 %>
                   <span class="flex-inline align-center txt-x-small font-weight-medium" style="padding-inline: var(--space-2); padding-block: var(--space-1); border-radius: 9999px; background-color: var(--color-secondary); color: var(--color-secondary-foreground);">
@@ -75,7 +75,7 @@
                   <span class="txt-subtle"><%= t(".no_ideas") %></span>
                 <% end %>
               </td>
-              <td class="txt-subtle" style="padding-inline: var(--space-6); padding-block: var(--space-4);">
+              <td class="txt-subtle pad-inline-6 pad-block">
                 <div class="txt-small">
                   <%= user.created_at.strftime("%b %d, %Y") %>
                 </div>
@@ -83,7 +83,7 @@
                   <%= time_ago_in_words(user.created_at) %> <%= t(".ago") %>
                 </div>
               </td>
-              <td class="txt-align-center" style="padding-inline: var(--space-6); padding-block: var(--space-4);">
+              <td class="txt-align-center pad-inline-6 pad-block">
                 <%= render Elements::ButtonComponent.new(
                   href: admin_user_path(user),
                   variant: :outline,
@@ -101,7 +101,7 @@
               <div class="center size-12 fill-shade flex align-center justify-center" style="margin-block-end: var(--space-4); border-radius: 9999px;">
                 <%= lucide_icon "users", class: "size-6 txt-subtle" %>
               </div>
-              <h3 class="txt-small font-weight-medium" style="margin-block-end: var(--space-2);"><%= t(".no_users_title") %></h3>
+              <h3 class="txt-small font-weight-medium margin-block-end-half"><%= t(".no_users_title") %></h3>
               <p class="txt-small txt-subtle">
                 <% if params[:search].present? %>
                   <%= t(".no_users_search") %>
@@ -118,7 +118,7 @@
   <% end %>
 <% end %>
 
-<div style="margin-block-start: var(--space-8);">
+<div class="margin-block-start-double">
   <%= tag.div id: ("users" if first_page?(pagy.last)), class: "flex flex-column", style: "gap: var(--space-4);" do %>
     <div class="txt-align-center txt-small txt-subtle">
       <%== pagy.info_tag %>

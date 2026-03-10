@@ -1,7 +1,7 @@
 <% content_for :title, t(".title") %>
 
-<div class="flex flex-column" style="gap: var(--space-8);">
-  <div class="flex flex-column" style="gap: var(--space-1);">
+<div class="flex flex-column gap-8">
+  <div class="flex flex-column gap-1">
     <h1 class="txt-xx-large font-weight-bold">
       <%= t(".heading") %>
     </h1>
@@ -10,8 +10,8 @@
     </p>
   </div>
 
-  <div class="flex flex-column" style="gap: var(--space-4);">
-    <div class="flex flex-column sm:flex-row" style="gap: var(--space-4);">
+  <div class="flex flex-column gap-4">
+    <div class="flex flex-column sm:flex-row gap-4">
       <div class="flex-1" style="max-inline-size: 28rem;"
            data-controller="search"
            data-search-delay-value="300"

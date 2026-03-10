@@ -1,17 +1,17 @@
 <% content_for(:title) { t(".update_your_password") } %>
 
-<div class="center full-width flex flex-column" style="max-inline-size: 24rem; gap: var(--space-6);">
+<div class="container container--centered container--stack">
   <%= render "shared/auth_branding" %>
 
-  <div class="card flex flex-column" style="gap: var(--space-6); padding-block: var(--space-6);">
-    <header class="txt-align-center" style="padding-inline: var(--space-6);">
+  <div class="panel">
+    <header class="panel__header--centered">
       <h1 class="font-weight-bold txt-x-large"><%= t(".update_your_password") %></h1>
       <p class="txt-subtle txt-small margin-block-start-half"><%= t(".description") %></p>
     </header>
 
-    <div class="grid" style="padding-inline: var(--space-6); gap: var(--space-6);">
+    <div class="panel__content panel__content--stack">
       <%= form_with url: users_password_reset_path(params[:token]), method: :put, class: "grid", style: "gap: var(--space-6);" do |form| %>
-        <div class="grid" style="gap: var(--space-3);">
+        <div class="grid gap-3">
           <%= form.label :password, t(".new_password"), class: "txt-small font-weight-medium" %>
           <%= form.password_field :password,
                                   required: true,
@@ -22,7 +22,7 @@
                                   maxlength: Identity::MAX_PASSWORD_LENGTH %>
         </div>
 
-        <div class="grid" style="gap: var(--space-3);">
+        <div class="grid gap-3">
           <%= form.label :password_confirmation, t(".confirm_new_password"), class: "txt-small font-weight-medium" %>
           <%= form.password_field :password_confirmation,
                                   required: true,

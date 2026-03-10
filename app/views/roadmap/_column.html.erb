@@ -14,7 +14,7 @@
   </div>
 
   <!-- Ideas List -->
-  <div class="flex flex-column" style="gap: var(--space-3);">
+  <div class="flex flex-column gap-3">
     <% if ideas.any? %>
       <% ideas.each do |idea| %>
         <%= render "idea_card", idea: idea %>

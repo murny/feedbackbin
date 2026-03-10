@@ -19,7 +19,7 @@
     align-items: center;
     inline-size: 100%;
     border-block-start: 4px solid var(--color-border);
-    background-color: var(--color-card);
+    background-color: var(--color-panel);
 
     .alert {
       flex: 1 1 auto;

@@ -1,6 +1,6 @@
 <%= turbo_frame_tag dom_id(user, "role_section") do %>
-  <div class="flex align-center justify-space-between" style="gap: var(--space-4);">
-    <div class="flex flex-wrap" style="gap: var(--space-1);">
+  <div class="flex align-center justify-space-between gap-4">
+    <div class="flex flex-wrap gap-1">
       <%= render Elements::BadgeComponent.new(
         variant: user.admin? ? :default : :secondary
       ) do %>

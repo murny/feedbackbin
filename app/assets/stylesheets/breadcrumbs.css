@@ -60,7 +60,6 @@
 
   .breadcrumb__link {
     color: var(--breadcrumb-link-color);
-    text-decoration: none;
     transition: color var(--duration-fast) var(--ease-out);
 
     &:hover {
