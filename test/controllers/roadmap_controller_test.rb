@@ -25,6 +25,32 @@ class RoadmapControllerTest < ActionDispatch::IntegrationTest
     end
   end
 
+  test "private roadmap redirects unauthenticated users to sign in" do
+    accounts(:feedbackbin).update!(roadmap_public: false)
+
+    get roadmap_url
+
+    assert_redirected_to sign_in_url
+  end
+
+  test "private roadmap allows admin access" do
+    accounts(:feedbackbin).update!(roadmap_public: false)
+    sign_in_as users(:shane)
+
+    get roadmap_url
+
+    assert_response :success
+  end
+
+  test "private roadmap returns forbidden for regular members" do
+    accounts(:feedbackbin).update!(roadmap_public: false)
+    sign_in_as users(:john)
+
+    get roadmap_url
+
+    assert_response :forbidden
+  end
+
   test "displays ideas in their status columns" do
     sign_in_as users(:shane)
 

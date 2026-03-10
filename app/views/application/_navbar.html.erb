@@ -18,11 +18,13 @@
                 class: "header__link",
                 active_class: "header__link--active",
                 inactive_class: "" %>
-          <%= active_link_to t(".links.roadmap"),
-                roadmap_path,
-                class: "header__link",
-                active_class: "header__link--active",
-                inactive_class: "" %>
+          <% if Current.account.roadmap_public? || Current.user&.admin? %>
+            <%= active_link_to t(".links.roadmap"),
+                  roadmap_path,
+                  class: "header__link",
+                  active_class: "header__link--active",
+                  inactive_class: "" %>
+          <% end %>
         </div>
       </div>
 
@@ -161,11 +163,13 @@
             class: "header__mobile-link",
             active_class: "header__mobile-link--active",
             inactive_class: "" %>
-      <%= active_link_to t(".links.roadmap"),
-            roadmap_path,
-            class: "header__mobile-link",
-            active_class: "header__mobile-link--active",
-            inactive_class: "" %>
+      <% if Current.account.roadmap_public? || Current.user&.admin? %>
+        <%= active_link_to t(".links.roadmap"),
+              roadmap_path,
+              class: "header__mobile-link",
+              active_class: "header__mobile-link--active",
+              inactive_class: "" %>
+      <% end %>
     </div>
     <div class="border-top pad-block-start pad-block-end-half">
       <% if authenticated? && Current.user %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.2].define(version: 2026_02_06_120002) do
+ActiveRecord::Schema[8.2].define(version: 2026_03_10_000001) do
   create_table "account_external_id_sequences", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -23,6 +23,7 @@ ActiveRecord::Schema[8.2].define(version: 2026_02_06_120002) do
     t.bigint "external_account_id", null: false
     t.string "logo_link"
     t.string "name", null: false
+    t.boolean "roadmap_public", default: true, null: false
     t.boolean "show_company_name", default: true, null: false
     t.datetime "updated_at", null: false
     t.index ["external_account_id"], name: "index_accounts_on_external_account_id", unique: true
