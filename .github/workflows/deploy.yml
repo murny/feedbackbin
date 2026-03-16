@@ -55,7 +55,7 @@ jobs:
       # Set up SSH agent for server access
       # Kamal needs SSH access to deploy to your servers
       - name: Set up SSH agent
-        uses: webfactory/ssh-agent@v0.9.1
+        uses: webfactory/ssh-agent@v0.10.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
