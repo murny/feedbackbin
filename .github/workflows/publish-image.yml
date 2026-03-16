@@ -55,12 +55,12 @@ jobs:
       # Set up Docker Buildx for advanced build features
       # Enables BuildKit features like better caching and multi-platform builds
       - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3.12.0
+        uses: docker/setup-buildx-action@v4.0.0
 
       # Authenticate to GitHub Container Registry
       # GITHUB_TOKEN is automatically provided by GitHub Actions
       - name: Log in to GitHub Container Registry
-        uses: docker/login-action@v3.7.0
+        uses: docker/login-action@v4.0.0
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
@@ -81,7 +81,7 @@ jobs:
       # This handles smart tagging based on the git ref
       - name: Extract Docker metadata (tags, labels) with arch suffix
         id: meta
-        uses: docker/metadata-action@v5.10.0
+        uses: docker/metadata-action@v6.0.0
         with:
           images: ${{ steps.vars.outputs.canonical }}
           tags: |
@@ -107,7 +107,7 @@ jobs:
       # Build the Docker image and push to GHCR (only on master/tags, not PRs)
       - name: Build and push (${{ matrix.platform }})
         id: build
-        uses: docker/build-push-action@v6.19.2
+        uses: docker/build-push-action@v7.0.0
         with:
           context: .
           file: Dockerfile
@@ -130,7 +130,7 @@ jobs:
       # Only runs when we actually push an image (not on PRs)
       - name: Attest image provenance (per-arch)
         if: github.event_name != 'pull_request'
-        uses: actions/attest-build-provenance@v3.2.0
+        uses: actions/attest-build-provenance@v4.1.0
         with:
           subject-name: ${{ steps.vars.outputs.canonical }}
           subject-digest: ${{ steps.build.outputs.digest }}
@@ -149,10 +149,10 @@ jobs:
       IMAGE_NAME: ${{ github.repository }} # Will be: murny/feedbackbin
     steps:
       - name: Set up Docker Buildx (for imagetools)
-        uses: docker/setup-buildx-action@v3.12.0
+        uses: docker/setup-buildx-action@v4.0.0
 
       - name: Log in to GHCR
-        uses: docker/login-action@v3.7.0
+        uses: docker/login-action@v4.0.0
         with:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
@@ -169,7 +169,7 @@ jobs:
 
       - name: Compute base tags (no suffix)
         id: meta
-        uses: docker/metadata-action@v5.10.0
+        uses: docker/metadata-action@v6.0.0
         with:
           images: ${{ steps.vars.outputs.canonical }}
           tags: |
@@ -215,7 +215,7 @@ jobs:
           done <<< "$tags"
 
       - name: Install Cosign
-        uses: sigstore/cosign-installer@v4.0.0
+        uses: sigstore/cosign-installer@v4.1.0
 
       - name: Cosign sign all tags (keyless OIDC)
         shell: bash
