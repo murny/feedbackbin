@@ -43,3 +43,9 @@ changelog_body_two:
   record: two (Changelog)
   name: description
   body: <p>Added upvotes to the website!</p>
+
+changelog_body_draft:
+  account: feedbackbin
+  record: draft (Changelog)
+  name: description
+  body: <p>This improvement is not yet published.</p>

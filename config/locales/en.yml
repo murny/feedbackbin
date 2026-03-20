@@ -41,6 +41,54 @@ en:
             role:
               account_owner_cannot_change: cannot be changed for account owner
   admin:
+    changelogs:
+      create:
+        successfully_created: Changelog entry was successfully created.
+      destroy:
+        successfully_destroyed: Changelog entry was successfully deleted.
+      edit:
+        back_to_changelogs: Back to Changelogs
+        description: Update the details of this changelog entry.
+        title: Edit Changelog Entry
+      form:
+        body_label: Body
+        body_placeholder: Describe the change...
+        create_changelog: Create Changelog Entry
+        currently_draft: This entry is saved as a draft and not visible to users.
+        currently_published: This entry is published and visible to users.
+        kind_label: Type
+        kind_option_fix: Bug Fix
+        kind_option_improvement: Improvement
+        kind_option_new: New Feature
+        kind_option_update: Update
+        kind_prompt: Select a type
+        publish_label: Publish now
+        save_changes: Save Changes
+        title_label: Title
+        title_placeholder: What's new?
+      index:
+        create_first_changelog: Create Changelog Entry
+        description: Manage changelog entries visible to your users.
+        draft_badge: Draft
+        new_changelog: New Changelog Entry
+        no_changelogs_description: Create your first entry to announce features, improvements, and bug fixes.
+        no_changelogs_title: No changelog entries yet
+        publish_action: Publish
+        published_at: Published %{time}
+        published_badge: Published
+        title: Changelog
+        unpublish_action: Unpublish
+      new:
+        back_to_changelogs: Back to Changelogs
+        description: Create a new entry to announce a feature or update.
+        title: New Changelog Entry
+      publications:
+        create:
+          successfully_published: Changelog entry was published.
+        destroy:
+          successfully_unpublished: Changelog entry was unpublished.
+      update:
+        successfully_updated: Changelog entry was successfully updated.
     dashboard:
       show:
         description: Overview of your application's activity and key metrics
@@ -468,6 +516,7 @@ en:
       title: What's New
     show:
       back: Back
+      edit: Edit in Admin
   comments:
     comment:
       comment_settings: Comment settings

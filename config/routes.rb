@@ -128,6 +128,11 @@ Rails.application.routes.draw do
       end
     end
     resources :ideas, only: [ :index, :show ]
+    resources :changelogs do
+      scope module: :changelogs do
+        resource :publication, only: [ :create, :destroy ]
+      end
+    end
     resources :invitations, only: [ :index, :new, :create, :destroy ] do
       member do
         post :resend

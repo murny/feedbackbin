@@ -64,11 +64,14 @@
           <% end %>
         </li>
         <li>
-          <div class="flex align-center border-radius txt-small font-weight-bold txt-subtle" style="gap: var(--space-3); padding: var(--space-2); cursor: not-allowed;">
+          <%= active_link_to admin_changelogs_path,
+                class: "flex align-center border-radius txt-small font-weight-bold",
+                style: "gap: var(--space-3); padding: var(--space-2);",
+                active_class: "fill-selected",
+                inactive_class: "txt-subtle" do %>
             <%= lucide_icon "megaphone", class: "size-6 flex-item-no-shrink" %>
             <%= t("layouts.admin.navigation.changelog") %>
-            <span class="txt-xx-small fill-shade txt-subtle flex-item-justify-end" style="padding-inline: var(--space-2); padding-block: var(--space-1); border-radius: 9999px;"><%= t("layouts.admin.badges.soon") %></span>
-          </div>
+          <% end %>
         </li>
         <li>
           <div class="txt-xx-small font-weight-bold txt-subtle" style="line-height: 1.5rem; margin-block-start: var(--space-8);">
