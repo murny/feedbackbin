@@ -35,7 +35,7 @@
   }
 
   .header__container {
-    max-inline-size: 80rem;
+    max-inline-size: var(--layout-max-inline-size);
     margin-inline: auto;
     padding-inline: var(--space-4);
 
@@ -59,7 +59,6 @@
     flex-shrink: 0;
     display: flex;
     align-items: center;
-    text-decoration: none;
   }
 
   .header__logo-icon {
@@ -97,7 +96,6 @@
     border-radius: var(--radius-md);
     font-size: var(--text-sm);
     font-weight: var(--font-medium);
-    text-decoration: none;
     color: var(--color-foreground);
     transition: background-color var(--duration-fast) var(--ease-out),
                 color var(--duration-fast) var(--ease-out);
@@ -268,7 +266,6 @@
     border-radius: var(--radius-md);
     font-size: var(--text-base);
     font-weight: var(--font-medium);
-    text-decoration: none;
     color: var(--color-muted-foreground);
     transition: background-color var(--duration-fast) var(--ease-out),
                 color var(--duration-fast) var(--ease-out);
@@ -334,7 +331,6 @@
     border-radius: var(--radius-md);
     font-size: var(--text-sm);
     font-weight: var(--font-medium);
-    text-decoration: none;
     color: inherit;
     transition: background-color var(--duration-fast) var(--ease-out),
                 color var(--duration-fast) var(--ease-out);

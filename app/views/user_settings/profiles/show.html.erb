@@ -1,11 +1,11 @@
 <% content_for(:title) { t("user_settings.page_titles.profile") } %>
 
-<div class="center" style="max-inline-size: 56rem;">
+<div class="container">
   <%= render partial: "user_settings/header" %>
 
-  <div style="margin-block-start: var(--space-8);">
-    <div class="card" style="padding: var(--space-6);">
-      <div class="flex flex-column" style="gap: var(--space-6);">
+  <div class="margin-block-start-double">
+    <div class="panel" style="padding: var(--space-6);">
+      <div class="flex flex-column gap-6">
         <div>
           <h2 class="txt-large font-weight-medium"><%= t(".profile") %></h2>
           <p class="txt-small txt-subtle"><%= t(".profile_description") %></p>
@@ -17,9 +17,9 @@
               data: { controller: "form", action: "keydown.enter->form#submit:prevent" }) do |form| %>
           <%= render "error_messages", resource: form.object %>
 
-          <div class="flex flex-column" style="gap: var(--space-6);">
+          <div class="flex flex-column gap-6">
             <div>
-              <h3 class="font-weight-medium" style="margin-block-end: var(--space-4);"><%= t(".public_avatar") %></h3>
+              <h3 class="font-weight-medium margin-block-end"><%= t(".public_avatar") %></h3>
               <%= render ImageUploadPreviewComponent.new(
                     form: form,
                     field_name: :avatar,
@@ -33,13 +33,13 @@
                     remove_confirmation: t(".remove_avatar_confirm")) %>
             </div>
 
-            <div class="grid" style="gap: var(--space-4);">
-              <div class="grid" style="gap: var(--space-2);">
+            <div class="grid gap-4">
+              <div class="grid gap-2">
                 <%= form.label :name, class: "txt-small font-weight-medium" %>
                 <%= form.text_field :name, autocomplete: "name", class: "full-width" %>
               </div>
 
-              <div class="grid" style="gap: var(--space-2);">
+              <div class="grid gap-2">
                 <%= form.label :bio, class: "txt-small font-weight-medium" %>
                 <%= form.text_area :bio, rows: 4, class: "full-width" %>
                 <p class="txt-x-small txt-subtle">

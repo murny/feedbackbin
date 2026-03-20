@@ -1,10 +1,10 @@
 <%# locals: (idea:) %>
 
-  <li id="<%= dom_id idea %>" class="card card--interactive">
+  <li id="<%= dom_id idea %>" class="panel panel--interactive">
   <div class="pad-inline">
     <div class="flex gap" style="--column-gap: var(--space-3);">
       <%= render partial: "votes/vote_button", locals: { voteable: idea } %>
-      <div class="flex-item-grow flex flex-column" style="gap: var(--space-3);">
+      <div class="flex-item-grow flex flex-column gap-3">
         <div class="flex align-start justify-space-between full-width gap-half margin-block-end-half">
           <h2 class="flex-1">
             <%= link_to idea.title, idea, class: "txt-x-large font-weight-bold overflow-line-clamp txt-undecorated", style: "--lines: 2;" %>

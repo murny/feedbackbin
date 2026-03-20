@@ -1,28 +1,28 @@
 <%# locals: (board:) %>
 
 <%= form_with model: board, url: board.persisted? ? admin_settings_board_path(board) : admin_settings_boards_path, method: board.persisted? ? :patch : :post, class: "flex flex-column", style: "gap: var(--space-6);", data: { controller: "badge-preview" } do |f| %>
-  <div class="grid" style="gap: var(--space-6);">
-    <div class="grid" style="gap: var(--space-3);">
+  <div class="grid gap-6">
+    <div class="grid gap-3">
       <%= f.label :name, t(".name_label") %>
       <%= f.text_field :name, placeholder: t(".name_placeholder"), data: { badge_preview_target: "nameInput", action: "input->badge-preview#updatePreview" } %>
     </div>
 
-    <div class="grid" style="gap: var(--space-3);">
+    <div class="grid gap-3">
       <%= f.label :description, t(".description_label") %>
       <%= f.text_area :description, placeholder: t(".description_placeholder"), rows: 3, maxlength: 500 %>
       <p class="txt-x-small txt-subtle"><%= t(".description_hint") %></p>
     </div>
 
-    <div class="grid" style="gap: var(--space-3);">
+    <div class="grid gap-3">
       <%= f.label :color, t(".color_label") %>
-      <div class="flex align-center" style="gap: var(--space-3);">
+      <div class="flex align-center gap-3">
         <%= f.color_field :color, class: "border border-radius cursor-pointer", style: "block-size: 2.5rem; inline-size: 5rem;", data: { badge_preview_target: "colorInput", action: "input->badge-preview#updatePreview" } %>
         <span class="txt-small txt-subtle"><%= t(".color_hint") %></span>
       </div>
     </div>
 
     <div class="border-radius border pad" style="border-color: var(--color-border); background-color: oklch(from var(--color-muted) l c h / 50%);">
-      <h4 class="txt-small font-weight-medium" style="margin-block-end: var(--space-2);"><%= t(".preview_label") %></h4>
+      <h4 class="txt-small font-weight-medium margin-block-end-half"><%= t(".preview_label") %></h4>
       <%= render Elements::BadgeComponent.new(
         variant: :outline,
         class: "txt-subtle",
