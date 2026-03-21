@@ -7,7 +7,7 @@
         <%= lucide_icon "chevron-left", style: "inline-size: 1rem; block-size: 1rem;" %>
         <span><%= t(".back") %></span>
       <% end %>
-      <% if authenticated? && Current.user&.admin? %>
+      <% if authenticated? && Current.admin? %>
         <%= link_to t(".edit"), edit_admin_changelog_path(@changelog), class: "btn btn--secondary btn--sm" %>
       <% end %>
     </div>
