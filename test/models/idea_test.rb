@@ -70,4 +70,67 @@ class IdeaTest < ActiveSupport::TestCase
     assert_equal "Planned", idea.status_name
     assert_equal statuses(:planned).color, idea.status_color
   end
+
+  test "no official response by default" do
+    assert_nil @idea.official_comment
+    assert_not @idea.official_response?
+  end
+
+  test "official_response? returns true when official_comment is set" do
+    @idea.update!(official_comment: comments(:one))
+
+    assert_predicate @idea, :official_response?
+  end
+
+  test "official comment must belong to the same idea" do
+    other_idea_comment = comments(:two)
+    other_idea_comment.update_columns(idea_id: ideas(:two).id)
+
+    @idea.official_comment = other_idea_comment
+
+    assert_not @idea.valid?
+    assert_equal "must belong to this idea", @idea.errors[:official_comment].first
+  end
+
+  test "official comment on same idea is valid" do
+    @idea.official_comment = comments(:one)
+
+    assert_predicate @idea, :valid?
+  end
+
+  test "set_official_response! sets comment for admin" do
+    @idea.set_official_response!(comments(:one), actor: users(:shane))
+
+    assert_equal comments(:one), @idea.official_comment
+  end
+
+  test "set_official_response! raises for non-admin" do
+    assert_raises(ArgumentError) do
+      @idea.set_official_response!(comments(:one), actor: users(:jane))
+    end
+  end
+
+  test "set_official_response! replaces previous official comment" do
+    @idea.update!(official_comment: comments(:one))
+
+    @idea.set_official_response!(comments(:two), actor: users(:shane))
+
+    assert_equal comments(:two), @idea.reload.official_comment
+  end
+
+  test "clear_official_response! clears comment for admin" do
+    @idea.update!(official_comment: comments(:one))
+
+    @idea.clear_official_response!(actor: users(:shane))
+
+    assert_nil @idea.reload.official_comment
+  end
+
+  test "clear_official_response! raises for non-admin" do
+    @idea.update!(official_comment: comments(:one))
+
+    assert_raises(ArgumentError) do
+      @idea.clear_official_response!(actor: users(:jane))
+    end
+  end
 end

@@ -12,6 +12,10 @@ en:
             parent_id:
               cannot_reply_to_reply: you can only reply to comments, not to other replies
               must_belong_to_same_idea: must belong to the same idea
+        idea:
+          attributes:
+            official_comment:
+              must_belong_to_idea: must belong to this idea
         identity:
           attributes:
             email_address:

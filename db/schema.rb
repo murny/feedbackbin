@@ -136,6 +136,7 @@ ActiveRecord::Schema[8.2].define(version: 2026_03_10_000001) do
     t.integer "comments_count", default: 0, null: false
     t.datetime "created_at", null: false
     t.bigint "creator_id", null: false
+    t.integer "official_comment_id"
     t.boolean "pinned", default: false, null: false
     t.integer "status_id"
     t.string "title", null: false
@@ -144,6 +145,7 @@ ActiveRecord::Schema[8.2].define(version: 2026_03_10_000001) do
     t.index ["account_id"], name: "index_ideas_on_account_id"
     t.index ["board_id"], name: "index_ideas_on_board_id"
     t.index ["creator_id"], name: "index_ideas_on_creator_id"
+    t.index ["official_comment_id"], name: "index_ideas_on_official_comment_id"
     t.index ["pinned"], name: "index_ideas_on_pinned"
     t.index ["status_id"], name: "index_ideas_on_status_id"
   end
@@ -398,6 +400,8 @@ ActiveRecord::Schema[8.2].define(version: 2026_03_10_000001) do
     t.index ["active"], name: "index_webhooks_on_active"
     t.index ["board_id"], name: "index_webhooks_on_board_id"
   end
+
+  add_foreign_key "ideas", "comments", column: "official_comment_id"
   execute "CREATE VIRTUAL TABLE search_records_fts USING fts5(\n  title,\n  content,\n  tokenize='porter unicode61'\n)"
 
 end

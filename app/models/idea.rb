@@ -20,12 +20,14 @@ class Idea < ApplicationRecord
   belongs_to :creator, class_name: "User", default: -> { Current.user }
   belongs_to :board
   belongs_to :status, optional: true
+  belongs_to :official_comment, class_name: "Comment", optional: true
 
   has_many :comments, dependent: :destroy
 
   broadcasts_refreshes
 
   validates :title, presence: true
+  validate :official_comment_must_belong_to_idea, if: :official_comment_id?
 
   scope :ordered_with_pinned, -> { order(pinned: :desc, created_at: :desc) }
   scope :open, -> { where.missing(:status) }
@@ -43,6 +45,20 @@ class Idea < ApplicationRecord
 
   def open?
     status.nil?
+  end
+
+  def official_response?
+    official_comment_id?
+  end
+
+  def set_official_response!(comment, actor:)
+    raise ArgumentError, "actor must be an admin" unless actor.admin?
+    update!(official_comment: comment)
+  end
+
+  def clear_official_response!(actor:)
+    raise ArgumentError, "actor must be an admin" unless actor.admin?
+    update!(official_comment: nil)
   end
 
   def participant_ids
@@ -63,4 +79,12 @@ class Idea < ApplicationRecord
 
     account.users.active.where(id: ids).index_by(&:id).values_at(*ids).compact
   end
+
+  private
+
+    def official_comment_must_belong_to_idea
+      return unless official_comment.present?
+
+      errors.add(:official_comment, :must_belong_to_idea) unless official_comment.idea_id == id
+    end
 end
