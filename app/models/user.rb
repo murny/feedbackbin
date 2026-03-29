@@ -12,7 +12,9 @@ class User < ApplicationRecord
   belongs_to :identity, optional: true
 
   has_many :ideas, dependent: :destroy, foreign_key: :creator_id, inverse_of: :creator
-  has_many :boards, dependent: :destroy, foreign_key: :creator_id, inverse_of: :creator
+  has_many :created_boards, dependent: :destroy, class_name: "Board", foreign_key: :creator_id, inverse_of: :creator
+  has_many :accesses, dependent: :destroy
+  has_many :boards, through: :accesses
   has_many :comments, dependent: :destroy, foreign_key: :creator_id, inverse_of: :creator
   has_many :votes, dependent: :destroy, foreign_key: :voter_id, inverse_of: :voter
   has_many :invitations, dependent: :destroy, foreign_key: :invited_by_id, inverse_of: :invited_by

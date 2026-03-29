@@ -6,6 +6,7 @@ one:
   name: Feature Requests
   description: Feature Requests
   color: "#3b82f6"
+  all_access: true
 
 two:
   account: feedbackbin
@@ -13,3 +14,4 @@ two:
   name: Bug Reports
   description: Bug Reports
   color: "#ef4444"
+  all_access: true
