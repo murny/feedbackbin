@@ -1,6 +1,11 @@
 <%# locals: (comment:, idea:) %>
 
-<% if authenticated? %>
+<% if idea.is_comments_locked? && !Current.user&.admin? %>
+  <p class="margin-block txt-normal txt-subtle">
+    <%= lucide_icon "lock", class: "size-4" %>
+    <%= t(".discussion_locked") %>
+  </p>
+<% elsif authenticated? %>
   <%= turbo_frame_tag "idea_comment_form" do %>
     <div class="flex align-start">
       <%= form_with model: comment, url: idea_comments_path(idea), class: "margin-block full-width" do |form| %>

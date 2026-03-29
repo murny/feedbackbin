@@ -37,6 +37,15 @@
                   <% end %>
                 <% end %>
               </span>
+
+              <span id="idea-comments-locked-badge">
+                <% if @idea.is_comments_locked? %>
+                  <%= render Elements::BadgeComponent.new(variant: :secondary) do %>
+                    <%= lucide_icon "lock" %>
+                    <%= t(".comments_locked") %>
+                  <% end %>
+                <% end %>
+              </span>
             </div>
 
             <div class="flex align-center gap-half">
@@ -68,6 +77,24 @@
                         method: :post
                       ) do %>
                         <%= t(".pin") %>
+                      <% end %>
+                    <% end %>
+
+                    <% if @idea.is_comments_locked? %>
+                      <% dropdown.with_item_content(
+                        id: "idea-comment-lock-button",
+                        href: idea_comment_lock_path(@idea),
+                        method: :delete
+                      ) do %>
+                        <%= t(".unlock_discussion") %>
+                      <% end %>
+                    <% else %>
+                      <% dropdown.with_item_content(
+                        id: "idea-comment-lock-button",
+                        href: idea_comment_lock_path(@idea),
+                        method: :post
+                      ) do %>
+                        <%= t(".lock_discussion") %>
                       <% end %>
                     <% end %>
                   <% end %>

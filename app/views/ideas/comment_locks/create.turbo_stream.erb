@@ -1,0 +1,20 @@
+<%= turbo_stream.update "idea-comment-lock-button" do %>
+  <%= render Elements::DropdownMenuComponent::ItemComponent.new(
+    id: "idea-comment-lock-button",
+    href: idea_comment_lock_path(@idea),
+    method: :delete
+  ) do %>
+    <%= t("ideas.show.unlock_discussion") %>
+  <% end %>
+<% end %>
+
+<%= turbo_stream.update "idea-comments-locked-badge" do %>
+  <%= render Elements::BadgeComponent.new(variant: :secondary) do %>
+    <%= lucide_icon "lock" %>
+    <%= t("ideas.show.comments_locked") %>
+  <% end %>
+<% end %>
+
+<%= turbo_stream.update "idea_comment_form" do %>
+  <%= render partial: "comments/form", locals: { comment: Comment.new, idea: @idea } %>
+<% end %>

@@ -132,5 +132,25 @@ class IdeaTest < ActiveSupport::TestCase
     assert_raises(ArgumentError) do
       @idea.clear_official_response!(actor: users(:jane))
     end
+  test "is_comments_locked defaults to false" do
+    idea = Idea.create!(
+      title: "Test",
+      creator: users(:shane),
+      board: boards(:one)
+    )
+
+    assert_not idea.is_comments_locked?
+  end
+
+  test "can lock and unlock comments" do
+    idea = ideas(:one)
+
+    assert_not idea.is_comments_locked?
+
+    idea.update!(is_comments_locked: true)
+    assert idea.is_comments_locked?
+
+    idea.update!(is_comments_locked: false)
+    assert_not idea.is_comments_locked?
   end
 end

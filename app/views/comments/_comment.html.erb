@@ -1,4 +1,4 @@
-<%# locals: (comment:) %>
+<%# locals: (comment:, idea:) %>
 
 <%= turbo_frame_tag dom_id(comment), class: "display-block pad-block", style: "scroll-margin-block-start: var(--space-4);" do %>
   <% if comment.creator.system? %>
@@ -84,13 +84,14 @@
         </div>
       </div>
 
-      <% if comment.replies.any? || authenticated? %>
+      <% can_reply = authenticated? && (!idea.is_comments_locked? || Current.user.admin?) %>
+      <% if comment.replies.any? || can_reply %>
         <div class="replies-section">
           <div id="<%= dom_id(comment) %>_replies">
             <%= render partial: "comments/reply", collection: comment.replies.ordered, as: :reply %>
           </div>
 
-          <% if authenticated? %>
+          <% if can_reply %>
             <div id="<%= dom_id(comment) %>_reply_form" class="pad">
               <%= render partial: "comments/thread_reply_form", locals: { parent: comment } %>
             </div>

@@ -99,6 +99,7 @@ Rails.application.routes.draw do
       resource :vote, only: [ :update ]
       resource :watch, only: [ :show, :create, :destroy ]
       resource :pin, only: [ :create, :destroy ]
+      resource :comment_lock, only: [ :create, :destroy ]
       resource :status, only: [ :update ]
       resources :taggings, only: [ :new, :create, :destroy ]
 
