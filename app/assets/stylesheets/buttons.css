@@ -103,7 +103,8 @@
 
     /* Disabled state */
     &[disabled],
-    &:disabled {
+    &:disabled,
+    &:has([disabled]) {
       cursor: not-allowed;
       opacity: 0.5;
       pointer-events: none;
@@ -297,9 +298,10 @@
     }
   }
 
-  /* Loading State
+  /* Loading State (via form aria-busy or explicit class)
   /* ------------------------------------------------------------------------ */
 
+  form[aria-busy] .btn:disabled,
   .btn--loading {
     position: relative;
     pointer-events: none;

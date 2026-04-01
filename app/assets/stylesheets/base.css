@@ -189,7 +189,8 @@
 
   /* Printing */
   @media print {
-    .no-print {
+    .no-print,
+    :is(#header, #footer) {
       display: none;
     }
   }
