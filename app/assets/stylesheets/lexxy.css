@@ -38,6 +38,8 @@
   --lexxy-color-table-cell-selected-bg: var(--lexxy-color-accent-lightest);
   --lexxy-color-table-cell-toggle: var(--lexxy-color-accent-lightest);
   --lexxy-color-table-cell-remove: oklch(from var(--color-destructive) l c h / 20%);
+
+  --lexxy-focus-ring-offset: 2px;
 }
 
 @layer components {
@@ -96,7 +98,7 @@
   }
 
   .lexxy-editor__content {
-    padding-block-start: 0.5lh;
+    margin-block-start: 0.5lh;
   }
 
   .lexxy-code-language-picker {
@@ -105,6 +107,10 @@
 
   lexxy-table-tools {
     font-size: var(--text-x-small);
+  }
+
+  .lexxy-prompt-menu {
+    max-inline-size: min(35ch, calc(100% - var(--lexxy-prompt-offset-x)));
   }
 
   [data-lexical-cursor] {
@@ -133,7 +139,9 @@
     }
 
     ol, ul {
-      padding-inline-start: 1ch;
+      &:not(.lexxy-prompt-menu) {
+        padding-inline-start: 1ch;
+      }
     }
 
     blockquote {
@@ -179,9 +187,28 @@
     margin-inline: 0;
   }
 
-  action-text-attachment[content-type^="application/vnd.actiontext.mention"] {
-    img {
-      object-fit: cover;
+  .attachment-gallery {
+    .attachment {
+      display: inline-block;
+      inline-size: calc(33.333% - 0.8ch);
+    }
+
+    &.attachment-gallery--2,
+    &.attachment-gallery--4 {
+      .attachment {
+        inline-size: calc(50% - 0.8ch);
+      }
+    }
+  }
+
+  action-text-attachment[content-type^="application/vnd.actiontext"] {
+    lexxy-node-delete-button {
+      inset-inline-start: -0.25ch;
+
+      .lexxy-floating-controls__group {
+        background-color: var(--color-link);
+        border-radius: 50%;
+      }
     }
   }
 }

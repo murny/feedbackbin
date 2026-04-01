@@ -13,6 +13,7 @@
   body {
     background-color: var(--color-canvas);
     color: var(--color-ink);
+    interpolate-size: allow-keywords;
   }
 
   /* Typography */
@@ -42,6 +43,11 @@
     font-size: var(--text-lg);
   }
 
+  /* Interactive elements */
+  :is(a, button, input, textarea, select, .btn) {
+    touch-action: manipulation;
+  }
+
   /* Links */
   a {
     text-decoration: none;
@@ -63,6 +69,16 @@
   ::selection {
     background-color: var(--color-primary);
     color: var(--color-primary-foreground);
+
+    html[data-theme="dark"] & {
+      background-color: var(--color-accent);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      html:not([data-theme]) & {
+        background-color: var(--color-accent);
+      }
+    }
   }
 
   /* Focus visible - global default */
@@ -85,6 +101,18 @@
     padding-inline: 0.3em;
     padding-block: 0.1em;
     border-radius: var(--radius-sm);
+  }
+
+  kbd {
+    border: 1px solid;
+    border-radius: 0.3em;
+    box-shadow: 0 0.1em 0 currentColor;
+    font-weight: 600;
+    opacity: 0.7;
+    padding: 0 0.4em;
+    text-transform: uppercase;
+    vertical-align: middle;
+    white-space: nowrap;
   }
 
   pre {
@@ -145,6 +173,23 @@
   [disabled] {
     cursor: not-allowed;
     opacity: 0.5;
+  }
+
+  /* Turbo */
+  turbo-frame,
+  turbo-cable-stream-source {
+    display: contents;
+  }
+
+  .turbo-progress-bar {
+    visibility: hidden;
+  }
+
+  /* Printing */
+  @media print {
+    .no-print {
+      display: none;
+    }
   }
 
   /* Scrollbar styling */
