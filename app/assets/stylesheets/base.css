@@ -13,7 +13,9 @@
   body {
     background-color: var(--color-canvas);
     color: var(--color-ink);
-    interpolate-size: allow-keywords;
+    @supports (interpolate-size: allow-keywords) {
+      interpolate-size: allow-keywords;
+    }
   }
 
   /* Typography */
@@ -106,7 +108,7 @@
   kbd {
     border: 1px solid;
     border-radius: 0.3em;
-    box-shadow: 0 0.1em 0 currentColor;
+    box-shadow: 0 0.1em 0 currentcolor;
     font-weight: 600;
     opacity: 0.7;
     padding: 0 0.4em;
