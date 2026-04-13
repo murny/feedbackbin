@@ -107,7 +107,7 @@ jobs:
       # Build the Docker image and push to GHCR (only on master/tags, not PRs)
       - name: Build and push (${{ matrix.platform }})
         id: build
-        uses: docker/build-push-action@v7.0.0
+        uses: docker/build-push-action@v7.1.0
         with:
           context: .
           file: Dockerfile
