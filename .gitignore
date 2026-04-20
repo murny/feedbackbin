@@ -47,5 +47,4 @@
 
 # Claude
 /.claude/*
-!/.claude/agents/
-!/.claude/agents/*.md
+.planning/
