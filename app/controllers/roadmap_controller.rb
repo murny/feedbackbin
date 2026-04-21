@@ -24,7 +24,7 @@ class RoadmapController < ApplicationController
 
     def require_roadmap_access
       return if Current.account.roadmap_public?
-      return if Current.user&.admin?
+      return if Current.admin?
 
       if authenticated?
         head :forbidden

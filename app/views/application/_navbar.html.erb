@@ -18,7 +18,7 @@
                 class: "header__link",
                 active_class: "header__link--active",
                 inactive_class: "" %>
-          <% if Current.account.roadmap_public? || Current.user&.admin? %>
+          <% if Current.account.roadmap_public? || Current.admin? %>
             <%= active_link_to t(".links.roadmap"),
                   roadmap_path,
                   class: "header__link",
@@ -163,7 +163,7 @@
             class: "header__mobile-link",
             active_class: "header__mobile-link--active",
             inactive_class: "" %>
-      <% if Current.account.roadmap_public? || Current.user&.admin? %>
+      <% if Current.account.roadmap_public? || Current.admin? %>
         <%= active_link_to t(".links.roadmap"),
               roadmap_path,
               class: "header__mobile-link",
