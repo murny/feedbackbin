@@ -40,7 +40,7 @@
                 </div>
                 <% if changelog.published? %>
                   <p class="txt-x-small txt-subtle" style="margin-block-start: var(--space-1);">
-                    <%= t(".published_at", time: time_ago_with_tooltip(changelog.published_at)) %>
+                    <%= t(".published_at_html", time: time_ago_with_tooltip(changelog.published_at)) %>
                   </p>
                 <% end %>
               </div>

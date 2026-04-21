@@ -148,5 +148,43 @@ module Admin
 
       assert_response :forbidden
     end
+
+    test "admin of another account cannot access changelogs outside their tenant" do
+      tenanted(accounts(:acme)) do
+        sign_in_as users(:acme_admin)
+
+        get edit_admin_changelog_url(@changelog)
+
+        assert_response :not_found
+
+        patch admin_changelog_url(@changelog), params: { changelog: { title: "pwned", kind: "fix", description: "x" } }
+
+        assert_response :not_found
+
+        assert_no_difference "Changelog.count" do
+          delete admin_changelog_url(@changelog)
+        end
+        assert_response :not_found
+
+        post admin_changelog_publication_url(@draft)
+
+        assert_response :not_found
+        assert_nil @draft.reload.published_at
+
+        delete admin_changelog_publication_url(@changelog)
+
+        assert_response :not_found
+        assert_not_nil @changelog.reload.published_at
+      end
+    end
+
+    test "index does not leak changelogs from other accounts" do
+      other_changelog = accounts(:acme).changelogs.create!(title: "Acme secret", kind: "new", description: "should not leak")
+
+      get admin_changelogs_url
+
+      assert_response :success
+      assert_select "a", text: other_changelog.title, count: 0
+    end
   end
 end

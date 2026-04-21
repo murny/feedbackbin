@@ -5,15 +5,15 @@ module Admin
     before_action :set_changelog, only: [ :edit, :update, :destroy ]
 
     def index
-      @pagy, @changelogs = pagy(Changelog.order(updated_at: :desc))
+      @pagy, @changelogs = pagy(Current.account.changelogs.order(updated_at: :desc))
     end
 
     def new
-      @changelog = Changelog.new
+      @changelog = Current.account.changelogs.new
     end
 
     def create
-      @changelog = Changelog.new(changelog_params)
+      @changelog = Current.account.changelogs.new(changelog_params)
       @changelog.published_at = Time.current if publish_requested?
 
       if @changelog.save
@@ -50,7 +50,7 @@ module Admin
     private
 
       def set_changelog
-        @changelog = Changelog.find(params[:id])
+        @changelog = Current.account.changelogs.find(params[:id])
       end
 
       def changelog_params

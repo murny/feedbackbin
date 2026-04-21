@@ -74,7 +74,7 @@ en:
         no_changelogs_description: Create your first entry to announce features, improvements, and bug fixes.
         no_changelogs_title: No changelog entries yet
         publish_action: Publish
-        published_at: Published %{time}
+        published_at_html: Published %{time}
         published_badge: Published
         title: Changelog
         unpublish_action: Unpublish

@@ -18,7 +18,7 @@ module Admin
       private
 
         def set_changelog
-          @changelog = Changelog.find(params[:changelog_id])
+          @changelog = Current.account.changelogs.find(params[:changelog_id])
         end
     end
   end
