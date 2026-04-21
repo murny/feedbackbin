@@ -83,6 +83,15 @@ module Admin
         assert_predicate accounts(:feedbackbin).reload.og_image, :attached?
       end
 
+      test "should update roadmap_public" do
+        patch admin_settings_branding_url, params: {
+          account: { roadmap_public: false }
+        }
+
+        assert_redirected_to admin_settings_branding_url
+        assert_not accounts(:feedbackbin).reload.roadmap_public
+      end
+
       test "should reject invalid logo_link" do
         patch admin_settings_branding_url, params: {
           account: { logo_link: "javascript:alert('xss')" }

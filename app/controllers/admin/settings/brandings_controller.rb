@@ -28,7 +28,8 @@ module Admin
             :show_company_name,
             :logo_link,
             :favicon,
-            :og_image
+            :og_image,
+            :roadmap_public
           )
         end
     end

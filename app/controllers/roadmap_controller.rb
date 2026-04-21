@@ -2,6 +2,8 @@
 
 class RoadmapController < ApplicationController
   allow_unauthenticated_access only: %i[index]
+  before_action :require_roadmap_access, only: %i[index]
+
   # GET /roadmap
   def index
     @boards = Board.ordered
@@ -19,6 +21,17 @@ class RoadmapController < ApplicationController
   end
 
   private
+
+    def require_roadmap_access
+      return if Current.account.roadmap_public?
+      return if Current.admin?
+
+      if authenticated?
+        head :forbidden
+      else
+        request_authentication
+      end
+    end
 
     def roadmap_data(selected_board, search_query)
       # Get only statuses visible on roadmap, ordered by position

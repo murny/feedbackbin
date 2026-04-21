@@ -232,6 +232,10 @@ en:
           name: Account name
           og_image: Open Graph Image
           og_image_hint: Used when sharing links on social media. Recommended size 1200×630px. Maximum 2MB.
+          roadmap_admin_only: Admin only — visible to admin users only
+          roadmap_public: Public — visible to everyone
+          roadmap_visibility: Roadmap visibility
+          roadmap_visibility_hint: Controls whether the roadmap page is accessible to the public or restricted to admin users.
           save_changes: Save changes
           title: Branding
           upload_favicon: Upload Favicon
