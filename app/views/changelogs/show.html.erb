@@ -2,10 +2,13 @@
 
 <section class="center pad-inline" style="margin-block-start: var(--space-6);">
   <div class="container">
-    <div class="page-header">
+    <div class="page-header flex align-center justify-space-between">
       <%= link_to changelogs_path, class: "flex-inline align-center gap-half txt-small txt-subtle" do %>
         <%= lucide_icon "chevron-left", style: "inline-size: 1rem; block-size: 1rem;" %>
         <span><%= t(".back") %></span>
+      <% end %>
+      <% if authenticated? && Current.admin? %>
+        <%= link_to t(".edit"), edit_admin_changelog_path(@changelog), class: "btn btn--secondary btn--sm" %>
       <% end %>
     </div>
 

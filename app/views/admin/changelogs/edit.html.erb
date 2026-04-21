@@ -1,0 +1,20 @@
+<% content_for :title, t(".title") %>
+
+<div class="container container--page">
+  <div class="page-header">
+    <div class="page-header__meta">
+      <%= link_to admin_changelogs_path, class: "txt-small txt-subtle-link flex-inline align-center" do %>
+        <%= lucide_icon "arrow-left", class: "size-4 margin-inline-end-half" %>
+        <%= t(".back_to_changelogs") %>
+      <% end %>
+    </div>
+    <h1 class="txt-xx-large font-weight-semibold"><%= t(".title") %></h1>
+    <p class="txt-small txt-subtle"><%= t(".description") %></p>
+  </div>
+
+  <%= render Elements::PanelComponent.new do |c| %>
+    <% c.with_body do %>
+      <%= render "form", changelog: @changelog %>
+    <% end %>
+  <% end %>
+</div>
