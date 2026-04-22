@@ -1,9 +1,8 @@
 <%# locals: () %>
 
-<%# TODO: providers list should come from global config %>
 <% omniauth_providers = [ "google", "facebook" ] %>
 <% omniauth_providers << "developer" unless Rails.env.production? %>
-<% omniauth_providers.each do |provider| %>
+<% omniauth_providers.select { |p| omniauth_provider_available?(p) }.each do |provider| %>
   <%= button_to "/auth/#{provider}",
         method: :post,
         data: { turbo: false },
