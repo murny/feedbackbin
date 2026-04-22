@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.2].define(version: 2026_03_10_000001) do
+ActiveRecord::Schema[8.2].define(version: 2026_03_29_000001) do
   create_table "account_external_id_sequences", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -136,6 +136,7 @@ ActiveRecord::Schema[8.2].define(version: 2026_03_10_000001) do
     t.integer "comments_count", default: 0, null: false
     t.datetime "created_at", null: false
     t.bigint "creator_id", null: false
+    t.bigint "official_comment_id"
     t.boolean "pinned", default: false, null: false
     t.integer "status_id"
     t.string "title", null: false
@@ -144,6 +145,7 @@ ActiveRecord::Schema[8.2].define(version: 2026_03_10_000001) do
     t.index ["account_id"], name: "index_ideas_on_account_id"
     t.index ["board_id"], name: "index_ideas_on_board_id"
     t.index ["creator_id"], name: "index_ideas_on_creator_id"
+    t.index ["official_comment_id"], name: "index_ideas_on_official_comment_id"
     t.index ["pinned"], name: "index_ideas_on_pinned"
     t.index ["status_id"], name: "index_ideas_on_status_id"
   end

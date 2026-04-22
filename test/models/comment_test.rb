@@ -129,4 +129,13 @@ class CommentTest < ActiveSupport::TestCase
 
     assert_operator comments.first.votes_count, :>=, comments.last.votes_count
   end
+
+  test "destroying a comment clears official_comment references on ideas" do
+    idea = @comment.idea
+    idea.update!(official_comment: @comment)
+
+    @comment.destroy!
+
+    assert_nil idea.reload.official_comment_id
+  end
 end

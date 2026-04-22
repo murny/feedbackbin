@@ -21,6 +21,7 @@ class Comment < ApplicationRecord
   validate :parent_must_be_top_level_comment, if: :parent_id?
 
   after_create_commit :watch_idea_by_creator
+  before_destroy :clear_official_response_references
 
   scope :ordered, -> { order(created_at: :asc) }
   scope :top_level, -> { where(parent_id: nil) }
@@ -50,5 +51,9 @@ class Comment < ApplicationRecord
 
     def watch_idea_by_creator
       idea.watch_by(creator)
+    end
+
+    def clear_official_response_references
+      Idea.where(official_comment_id: id).update_all(official_comment_id: nil)
     end
 end
