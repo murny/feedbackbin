@@ -24,6 +24,15 @@ ActiveRecord::Schema[8.2].define(version: 2026_03_30_000003) do
     t.index ["board_id", "user_id"], name: "index_accesses_on_board_id_and_user_id", unique: true
     t.index ["user_id", "accessed_at"], name: "index_accesses_on_user_id_and_accessed_at"
   end
+  
+  create_table "account_cancellations", force: :cascade do |t|
+    t.bigint "account_id", null: false
+    t.datetime "created_at", null: false
+    t.bigint "initiated_by_id", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id"], name: "index_account_cancellations_on_account_id", unique: true
+    t.index ["initiated_by_id"], name: "index_account_cancellations_on_initiated_by_id"
+  end
 
   create_table "account_external_id_sequences", force: :cascade do |t|
     t.datetime "created_at", null: false
