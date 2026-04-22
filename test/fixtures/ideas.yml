@@ -26,5 +26,5 @@ locked:
   title: This idea has comments locked
   creator: shane
   board: one
-  is_comments_locked: true
+  comments_locked: true
 

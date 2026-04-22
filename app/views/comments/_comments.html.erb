@@ -22,7 +22,7 @@
         </div>
 
         <%= tag.div id: "idea_#{idea.id}_comments", class: "divide-y" do %>
-          <%= render partial: "comments/comment", collection: top_level_comments, locals: { idea: idea } %>
+          <%= render partial: "comments/comment", collection: top_level_comments %>
         <% end %>
       <% end %>
 

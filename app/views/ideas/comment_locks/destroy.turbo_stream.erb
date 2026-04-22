@@ -8,9 +8,7 @@
   <% end %>
 <% end %>
 
-<%= turbo_stream.update "idea-comments-locked-badge" do %>
-  <%# Empty - removes the badge when unlocked %>
-<% end %>
+<%= turbo_stream.update "idea-comments-locked-badge", "" %>
 
 <%= turbo_stream.update "idea_comment_form" do %>
   <%= render partial: "comments/form", locals: { comment: Comment.new, idea: @idea } %>

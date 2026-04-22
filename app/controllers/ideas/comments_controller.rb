@@ -89,7 +89,7 @@ class Ideas::CommentsController < ApplicationController
     end
 
     def ensure_comments_not_locked
-      return unless @idea.is_comments_locked? && !Current.user&.admin?
+      return unless @idea.comments_locked? && !Current.user&.admin?
 
       respond_to do |format|
         format.html { redirect_to @idea, alert: t(".comments_locked") }

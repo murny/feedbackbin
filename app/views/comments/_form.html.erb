@@ -1,6 +1,6 @@
 <%# locals: (comment:, idea:) %>
 
-<% if idea.is_comments_locked? && !Current.user&.admin? %>
+<% if idea.comments_locked? && !Current.user&.admin? %>
   <p class="margin-block txt-normal txt-subtle">
     <%= lucide_icon "lock", class: "size-4" %>
     <%= t(".discussion_locked") %>

@@ -39,7 +39,7 @@
               </span>
 
               <span id="idea-comments-locked-badge">
-                <% if @idea.is_comments_locked? %>
+                <% if @idea.comments_locked? %>
                   <%= render Elements::BadgeComponent.new(variant: :secondary) do %>
                     <%= lucide_icon "lock" %>
                     <%= t(".comments_locked") %>
@@ -80,7 +80,7 @@
                       <% end %>
                     <% end %>
 
-                    <% if @idea.is_comments_locked? %>
+                    <% if @idea.comments_locked? %>
                       <% dropdown.with_item_content(
                         id: "idea-comment-lock-button",
                         href: idea_comment_lock_path(@idea),

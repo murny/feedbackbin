@@ -134,10 +134,10 @@ ActiveRecord::Schema[8.2].define(version: 2026_03_29_000001) do
     t.bigint "account_id", null: false
     t.integer "board_id", null: false
     t.integer "comments_count", default: 0, null: false
+    t.boolean "comments_locked", default: false, null: false
     t.datetime "created_at", null: false
     t.bigint "creator_id", null: false
     t.bigint "official_comment_id"
-    t.boolean "is_comments_locked", default: false, null: false
     t.boolean "pinned", default: false, null: false
     t.integer "status_id"
     t.string "title", null: false
@@ -145,9 +145,9 @@ ActiveRecord::Schema[8.2].define(version: 2026_03_29_000001) do
     t.integer "votes_count", default: 0, null: false
     t.index ["account_id"], name: "index_ideas_on_account_id"
     t.index ["board_id"], name: "index_ideas_on_board_id"
+    t.index ["comments_locked"], name: "index_ideas_on_comments_locked"
     t.index ["creator_id"], name: "index_ideas_on_creator_id"
     t.index ["official_comment_id"], name: "index_ideas_on_official_comment_id"
-    t.index ["is_comments_locked"], name: "index_ideas_on_is_comments_locked"
     t.index ["pinned"], name: "index_ideas_on_pinned"
     t.index ["status_id"], name: "index_ideas_on_status_id"
   end

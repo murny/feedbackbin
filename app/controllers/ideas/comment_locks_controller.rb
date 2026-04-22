@@ -7,7 +7,7 @@ module Ideas
 
     # POST /ideas/:idea_id/comment_lock
     def create
-      @idea.update!(is_comments_locked: true)
+      @idea.update!(comments_locked: true)
 
       respond_to do |format|
         format.html { redirect_to @idea, notice: t(".locked") }
@@ -17,7 +17,7 @@ module Ideas
 
     # DELETE /ideas/:idea_id/comment_lock
     def destroy
-      @idea.update!(is_comments_locked: false)
+      @idea.update!(comments_locked: false)
 
       respond_to do |format|
         format.html { redirect_to @idea, notice: t(".unlocked") }
