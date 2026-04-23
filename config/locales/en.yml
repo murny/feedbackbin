@@ -583,10 +583,11 @@ en:
         unlocked: Discussion has been unlocked.
     comments:
       create:
-        comments_locked: Discussion is locked.
         successfully_created: Comment was successfully created.
       destroy:
         successfully_destroyed: Comment was successfully deleted.
+      ensure_comments_not_locked:
+        comments_locked: Discussion is locked.
       update:
         successfully_updated: Comment was successfully updated.
       votes:
