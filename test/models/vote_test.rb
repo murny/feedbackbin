@@ -3,7 +3,7 @@
 require "test_helper"
 
 class VoteTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @vote = votes(:one)
   end
 

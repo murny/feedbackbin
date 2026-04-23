@@ -3,7 +3,7 @@
 require "test_helper"
 
 class IdeaTest < ActiveSupport::TestCase
-  def setup
+  setup do
     Current.session = sessions(:shane_chrome)
     @idea = ideas(:one)
   end
@@ -132,6 +132,7 @@ class IdeaTest < ActiveSupport::TestCase
     assert_raises(ArgumentError) do
       @idea.clear_official_response!(actor: users(:jane))
     end
+  end
 
   test "comments_locked defaults to false" do
     idea = Idea.create!(
