@@ -92,7 +92,7 @@ class Ideas::CommentsController < ApplicationController
       return unless @idea.comments_locked? && !Current.user&.admin?
 
       respond_to do |format|
-        format.html { redirect_to @idea, alert: t(".comments_locked") }
+        format.html { redirect_to @idea, alert: t("ideas.comments.create.comments_locked") }
         format.turbo_stream { head :forbidden }
         format.json { head :forbidden }
       end
