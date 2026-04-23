@@ -3,7 +3,7 @@
 require "test_helper"
 
 class IdeaTest < ActiveSupport::TestCase
-  def setup
+  setup do
     Current.session = sessions(:shane_chrome)
     @idea = ideas(:one)
   end
@@ -132,5 +132,29 @@ class IdeaTest < ActiveSupport::TestCase
     assert_raises(ArgumentError) do
       @idea.clear_official_response!(actor: users(:jane))
     end
+  end
+
+  test "comments_locked defaults to false" do
+    idea = Idea.create!(
+      title: "Test",
+      creator: users(:shane),
+      board: boards(:one)
+    )
+
+    assert_not idea.comments_locked?
+  end
+
+  test "can lock and unlock comments" do
+    idea = ideas(:one)
+
+    assert_not idea.comments_locked?
+
+    idea.update!(comments_locked: true)
+
+    assert_predicate idea, :comments_locked?
+
+    idea.update!(comments_locked: false)
+
+    assert_not idea.comments_locked?
   end
 end

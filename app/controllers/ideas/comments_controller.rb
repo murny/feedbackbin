@@ -7,6 +7,7 @@ class Ideas::CommentsController < ApplicationController
 
   before_action :set_comment, only: %i[show edit update destroy]
   before_action :ensure_permission_to_administer_comment, only: %i[edit update destroy]
+  before_action :ensure_comments_not_locked, only: %i[create]
 
   def show
     render "comments/show"
@@ -85,6 +86,16 @@ class Ideas::CommentsController < ApplicationController
 
     def ensure_permission_to_administer_comment
       head :forbidden unless Current.user&.can_administer_comment?(@comment)
+    end
+
+    def ensure_comments_not_locked
+      return unless @idea.comments_locked? && !Current.user&.admin?
+
+      respond_to do |format|
+        format.html { redirect_to @idea, alert: t("ideas.comments.create.comments_locked") }
+        format.turbo_stream { head :forbidden }
+        format.json { head :forbidden }
+      end
     end
 
     def comment_params

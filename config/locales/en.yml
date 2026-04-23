@@ -540,6 +540,7 @@ en:
         top: Top
     form:
       comment_placeholder: Write a comment...
+      discussion_locked: Discussion is locked.
     reply:
       copy_link: Copy link
       quote_reply: Quote reply
@@ -575,8 +576,14 @@ en:
     was: was
     you: You
   ideas:
+    comment_locks:
+      create:
+        locked: Discussion has been locked.
+      destroy:
+        unlocked: Discussion has been unlocked.
     comments:
       create:
+        comments_locked: Discussion is locked.
         successfully_created: Comment was successfully created.
       destroy:
         successfully_destroyed: Comment was successfully deleted.
@@ -624,9 +631,12 @@ en:
         unpinned: Idea has been unpinned.
     show:
       back_to_ideas: Back to Ideas
+      comments_locked: Locked
+      lock_discussion: Lock discussion
       pin: Pin
       pinned: Pinned
       share: Share
+      unlock_discussion: Unlock discussion
       unpin: Unpin
       watch: Watch
     statuses:

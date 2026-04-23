@@ -3,7 +3,7 @@
 require "test_helper"
 
 class IdentityTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @identity = identities(:jane)
   end
 

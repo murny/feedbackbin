@@ -21,3 +21,10 @@ three:
   board: two
   status: in_progress
 
+locked:
+  account: feedbackbin
+  title: This idea has comments locked
+  creator: shane
+  board: one
+  comments_locked: true
+

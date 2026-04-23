@@ -3,7 +3,7 @@
 require "test_helper"
 
 class Idea::ParticipantsTest < ActiveSupport::TestCase
-  def setup
+  setup do
     Current.session = sessions(:shane_chrome)
   end
 

@@ -3,7 +3,7 @@
 require "test_helper"
 
 class StatusTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @status = statuses(:complete)
   end
 

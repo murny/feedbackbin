@@ -84,13 +84,14 @@
         </div>
       </div>
 
-      <% if comment.replies.any? || authenticated? %>
+      <% can_reply = authenticated? && (!comment.idea.comments_locked? || Current.user.admin?) %>
+      <% if comment.replies.any? || can_reply %>
         <div class="replies-section">
           <div id="<%= dom_id(comment) %>_replies">
             <%= render partial: "comments/reply", collection: comment.replies.ordered, as: :reply %>
           </div>
 
-          <% if authenticated? %>
+          <% if can_reply %>
             <div id="<%= dom_id(comment) %>_reply_form" class="pad">
               <%= render partial: "comments/thread_reply_form", locals: { parent: comment } %>
             </div>

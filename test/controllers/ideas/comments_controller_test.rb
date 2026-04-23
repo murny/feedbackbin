@@ -94,4 +94,39 @@ class Ideas::CommentsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :forbidden
   end
+
+  test "should not create comment on locked idea for regular user" do
+    locked_idea = ideas(:locked)
+    sign_in_as users(:jane)
+
+    assert_no_difference "Comment.count" do
+      post idea_comments_url(locked_idea), params: { comment: { body: "Hello!" } }
+    end
+
+    assert_response :redirect
+    assert_redirected_to idea_url(locked_idea)
+    assert_equal I18n.t("ideas.comments.create.comments_locked"), flash[:alert]
+  end
+
+  test "admin can comment on locked idea" do
+    locked_idea = ideas(:locked)
+    sign_in_as users(:admin)
+
+    assert_difference "Comment.count" do
+      post idea_comments_url(locked_idea), params: { comment: { body: "Admin comment on locked idea" } }
+    end
+
+    assert_response :redirect
+  end
+
+  test "owner can comment on locked idea" do
+    locked_idea = ideas(:locked)
+    sign_in_as users(:shane)
+
+    assert_difference "Comment.count" do
+      post idea_comments_url(locked_idea), params: { comment: { body: "Owner comment on locked idea" } }
+    end
+
+    assert_response :redirect
+  end
 end

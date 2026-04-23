@@ -3,7 +3,7 @@
 require "test_helper"
 
 class SessionTest < ActiveSupport::TestCase
-  def setup
+  setup do
     @session = sessions(:shane_chrome)
   end
 
