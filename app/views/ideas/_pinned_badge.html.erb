@@ -1,0 +1,9 @@
+<%# locals: (idea:) %>
+<span id="idea-pinned-badge">
+  <% if idea.pinned? %>
+    <%= render Elements::BadgeComponent.new(variant: :secondary) do %>
+      <%= lucide_icon "map-pin" %>
+      <%= t("ideas.show.pinned") %>
+    <% end %>
+  <% end %>
+</span>

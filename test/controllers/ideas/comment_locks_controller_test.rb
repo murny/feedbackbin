@@ -56,4 +56,35 @@ class Ideas::CommentLocksControllerTest < ActionDispatch::IntegrationTest
     assert_response :redirect
     assert_not @idea.reload.comments_locked?
   end
+
+  test "should lock discussion via turbo stream" do
+    sign_in_as users(:admin)
+
+    post idea_comment_lock_url(@idea), as: :turbo_stream
+
+    assert_response :success
+    assert_equal "text/vnd.turbo-stream.html", @response.media_type
+    assert_predicate @idea.reload, :comments_locked?
+
+    assert_match "turbo-stream", @response.body
+    assert_match "idea-comment-lock-button", @response.body
+    assert_match "idea-comments-locked-badge", @response.body
+    assert_match "idea_comment_form", @response.body
+  end
+
+  test "should unlock discussion via turbo stream" do
+    @idea.update!(comments_locked: true)
+    sign_in_as users(:admin)
+
+    delete idea_comment_lock_url(@idea), as: :turbo_stream
+
+    assert_response :success
+    assert_equal "text/vnd.turbo-stream.html", @response.media_type
+    assert_not @idea.reload.comments_locked?
+
+    assert_match "turbo-stream", @response.body
+    assert_match "idea-comment-lock-button", @response.body
+    assert_match "idea-comments-locked-badge", @response.body
+    assert_match "idea_comment_form", @response.body
+  end
 end

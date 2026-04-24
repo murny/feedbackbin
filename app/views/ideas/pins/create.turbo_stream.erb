@@ -1,4 +1,4 @@
-<%= turbo_stream.update "idea-pin-button" do %>
+<%= turbo_stream.replace "idea-pin-button", method: :morph do %>
   <%= render Elements::DropdownMenuComponent::ItemComponent.new(
     id: "idea-pin-button",
     href: idea_pin_path(@idea),
@@ -8,9 +8,4 @@
   <% end %>
 <% end %>
 
-<%= turbo_stream.update "idea-pinned-badge" do %>
-  <%= render Elements::BadgeComponent.new(variant: :secondary) do %>
-    <%= lucide_icon "map-pin" %>
-    <%= t("ideas.show.pinned") %>
-  <% end %>
-<% end %>
+<%= turbo_stream.replace "idea-pinned-badge", partial: "ideas/pinned_badge", method: :morph, locals: { idea: @idea } %>
