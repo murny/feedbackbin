@@ -22,7 +22,7 @@ class Board < ApplicationRecord
   scope :all_access, -> { where(all_access: true) }
 
   # Callbacks
-  after_create_commit :grant_creator_access
+  after_create :grant_creator_access
 
   def access_for(user)
     accesses.find_by(user: user)
@@ -33,6 +33,8 @@ class Board < ApplicationRecord
   end
 
   def accessed_by(user)
+    return unless accessible_to?(user)
+
     access = accesses.find_or_create_by!(user: user, account: account)
     access.touch(:accessed_at)
     access

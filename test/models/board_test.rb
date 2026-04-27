@@ -86,7 +86,7 @@ class BoardTest < ActiveSupport::TestCase
 
   # accessible_to?
   test "accessible_to? is true for all_access board" do
-    assert @board.all_access?
+    assert_predicate @board, :all_access?
     assert @board.accessible_to?(users(:admin))
   end
 
@@ -127,8 +127,15 @@ class BoardTest < ActiveSupport::TestCase
       @board.accessed_by(users(:shane))
       original_access.reload
 
-      assert original_access.accessed_at > original_accessed_at
+      assert_operator original_access.accessed_at, :>, original_accessed_at
     end
+  end
+
+  test "accessed_by returns nil and does not create access when user is not authorized" do
+    @board.update!(all_access: false)
+
+    assert_nil @board.accessed_by(users(:admin))
+    assert_nil @board.access_for(users(:admin))
   end
 
   # Creator access callback

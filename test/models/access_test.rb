@@ -37,7 +37,22 @@ class AccessTest < ActiveSupport::TestCase
   end
 
   test "invalid with unknown involvement" do
-    assert_raises(ArgumentError) { @access.involvement = :invalid }
+    @access.involvement = :invalid
+
+    assert_not @access.valid?
+    assert_includes @access.errors[:involvement], "is not included in the list"
+  end
+
+  # Tenant consistency
+  test "invalid when user belongs to different account than board" do
+    cross_tenant = Access.new(
+      account: accounts(:feedbackbin),
+      board: boards(:one),
+      user: users(:acme_admin)
+    )
+
+    assert_not cross_tenant.valid?
+    assert_includes cross_tenant.errors[:base], "account, board, and user must belong to the same account"
   end
 
   # Uniqueness
@@ -60,6 +75,6 @@ class AccessTest < ActiveSupport::TestCase
 
     ordered = Access.ordered_by_recently_accessed
 
-    assert ordered.index(recent) < ordered.index(older)
+    assert_operator ordered.index(recent), :<, ordered.index(older)
   end
 end
