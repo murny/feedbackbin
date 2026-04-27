@@ -29,23 +29,9 @@
                 <% end %>
               <% end %>
 
-              <span id="idea-pinned-badge">
-                <% if @idea.pinned? %>
-                  <%= render Elements::BadgeComponent.new(variant: :secondary) do %>
-                    <%= lucide_icon "map-pin" %>
-                    <%= t(".pinned") %>
-                  <% end %>
-                <% end %>
-              </span>
+              <%= render "ideas/pinned_badge", idea: @idea %>
 
-              <span id="idea-comments-locked-badge">
-                <% if @idea.comments_locked? %>
-                  <%= render Elements::BadgeComponent.new(variant: :secondary) do %>
-                    <%= lucide_icon "lock" %>
-                    <%= t(".comments_locked") %>
-                  <% end %>
-                <% end %>
-              </span>
+              <%= render "ideas/comments_locked_badge", idea: @idea %>
             </div>
 
             <div class="flex align-center gap-half">

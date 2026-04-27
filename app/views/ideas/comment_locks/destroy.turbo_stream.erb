@@ -1,4 +1,4 @@
-<%= turbo_stream.update "idea-comment-lock-button" do %>
+<%= turbo_stream.replace "idea-comment-lock-button", method: :morph do %>
   <%= render Elements::DropdownMenuComponent::ItemComponent.new(
     id: "idea-comment-lock-button",
     href: idea_comment_lock_path(@idea),
@@ -8,8 +8,6 @@
   <% end %>
 <% end %>
 
-<%= turbo_stream.update "idea-comments-locked-badge", "" %>
+<%= turbo_stream.replace "idea-comments-locked-badge", partial: "ideas/comments_locked_badge", method: :morph, locals: { idea: @idea } %>
 
-<%= turbo_stream.update "idea_comment_form" do %>
-  <%= render partial: "comments/form", locals: { comment: Comment.new, idea: @idea } %>
-<% end %>
+<%= turbo_stream.replace "idea_comment_form", partial: "comments/form", method: :morph, locals: { comment: Comment.new, idea: @idea } %>

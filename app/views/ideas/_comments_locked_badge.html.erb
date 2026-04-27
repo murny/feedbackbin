@@ -1,0 +1,9 @@
+<%# locals: (idea:) %>
+<span id="idea-comments-locked-badge">
+  <% if idea.comments_locked? %>
+    <%= render Elements::BadgeComponent.new(variant: :secondary) do %>
+      <%= lucide_icon "lock" %>
+      <%= t("ideas.show.comments_locked") %>
+    <% end %>
+  <% end %>
+</span>
