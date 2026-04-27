@@ -113,6 +113,8 @@
   --ease-out: cubic-bezier(0, 0, 0.2, 1);
   --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-out-overshoot: cubic-bezier(0.25, 1.75, 0.5, 1);
+  --ease-out-overshoot-subtle: cubic-bezier(0.25, 1.25, 0.5, 1);
 
   /* ==========================================================================
      Layout

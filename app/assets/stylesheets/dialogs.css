@@ -18,6 +18,11 @@
    ========================================================================== */
 
 @layer components {
+  /* Prevent page scrolling when modal dialog is open */
+  html:has(dialog:modal) {
+    overflow: hidden;
+  }
+
   /* Dialog (native <dialog> element)
   /* ------------------------------------------------------------------------ */
 
@@ -35,13 +40,18 @@
 
     /* Initial hidden state */
     opacity: 0;
-    transition: opacity var(--duration-normal) var(--ease-out),
-                display var(--duration-normal) var(--ease-out) allow-discrete,
-                overlay var(--duration-normal) var(--ease-out) allow-discrete;
+    transform: scale(0.85);
+    transform-origin: center;
+    transition-behavior: allow-discrete;
+    transition-duration: calc(var(--duration-normal) / 2);
+    transition-property: display, opacity, overlay, transform;
+    transition-timing-function: var(--ease-out);
 
     /* Open state */
     &[open] {
       opacity: 1;
+      transform: scale(1);
+      transition-duration: var(--duration-normal);
 
       .dialog__content {
         transform: translate(-50%, -50%) scale(1);
@@ -49,6 +59,7 @@
 
       &::backdrop {
         opacity: 1;
+        transition-duration: var(--duration-normal);
       }
     }
 
@@ -56,15 +67,17 @@
     &::backdrop {
       background-color: oklch(0 0 0 / 50%);
       opacity: 0;
-      transition: opacity var(--duration-normal) var(--ease-out),
-                  display var(--duration-normal) var(--ease-out) allow-discrete,
-                  overlay var(--duration-normal) var(--ease-out) allow-discrete;
+      transition-behavior: allow-discrete;
+      transition-duration: calc(var(--duration-normal) / 2);
+      transition-property: display, opacity, overlay;
+      transition-timing-function: var(--ease-out);
     }
 
     /* Starting style for open animation */
     @starting-style {
       &[open] {
         opacity: 0;
+        transform: scale(0.85);
 
         .dialog__content {
           transform: translate(-50%, -50%) scale(0.95);

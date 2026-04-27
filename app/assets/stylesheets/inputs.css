@@ -66,6 +66,31 @@
       font-size: var(--text-sm);
     }
 
+    /* Prevent mobile Safari from zooming on focus (16px minimum) */
+    @supports (hanging-punctuation: first) and (font: -apple-system-body) and (-webkit-appearance: none) {
+      @media (hover: none) {
+        font-size: max(16px, 1em);
+      }
+    }
+
+    /* Autofill styling */
+    &:autofill,
+    &:-webkit-autofill,
+    &:-webkit-autofill:hover,
+    &:-webkit-autofill:focus {
+      -webkit-text-fill-color: var(--color-foreground);
+      -webkit-box-shadow: 0 0 0px 1000px var(--color-accent) inset;
+    }
+
+    /* Number input: remove spinners */
+    &[type='number'] {
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+    }
+
     /* Placeholder */
     &::placeholder {
       color: var(--color-muted-foreground);
