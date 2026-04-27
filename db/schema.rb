@@ -10,7 +10,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.2].define(version: 2026_03_29_000001) do
+ActiveRecord::Schema[8.2].define(version: 2026_03_30_000003) do
+  create_table "accesses", force: :cascade do |t|
+    t.datetime "accessed_at"
+    t.bigint "account_id", null: false
+    t.bigint "board_id", null: false
+    t.datetime "created_at", null: false
+    t.integer "involvement", default: 0, null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
+    t.index ["account_id", "board_id"], name: "index_accesses_on_account_id_and_board_id"
+    t.index ["account_id"], name: "index_accesses_on_account_id"
+    t.index ["board_id", "user_id"], name: "index_accesses_on_board_id_and_user_id", unique: true
+    t.index ["user_id", "accessed_at"], name: "index_accesses_on_user_id_and_accessed_at"
+  end
+
   create_table "account_external_id_sequences", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -77,6 +91,7 @@ ActiveRecord::Schema[8.2].define(version: 2026_03_29_000001) do
 
   create_table "boards", force: :cascade do |t|
     t.bigint "account_id", null: false
+    t.boolean "all_access", default: true, null: false
     t.string "color", null: false
     t.datetime "created_at", null: false
     t.bigint "creator_id", null: false

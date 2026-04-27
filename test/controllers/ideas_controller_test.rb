@@ -58,7 +58,8 @@ class IdeasControllerTest < ActionDispatch::IntegrationTest
   test "authenticated user visiting new account gets auto-provisioned and can create idea" do
     # Create a new account where the user doesn't have a membership yet
     new_account = Account.create!(name: "Non-Member Test Account")
-    new_account.boards.create!(name: "Test Board", color: "#3B82F6")
+    creator = new_account.users.create!(name: "Setup", role: :owner)
+    new_account.boards.create!(name: "Test Board", color: "#3B82F6", creator: creator)
 
     shane = users(:shane)
 

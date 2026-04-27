@@ -1,0 +1,27 @@
+shane_feature_requests:
+  account: feedbackbin
+  board: one
+  user: shane
+  involvement: 1
+  accessed_at: <%= 1.day.ago.to_fs(:db) %>
+
+shane_bug_reports:
+  account: feedbackbin
+  board: two
+  user: shane
+  involvement: 1
+  accessed_at: <%= 2.days.ago.to_fs(:db) %>
+
+jane_feature_requests:
+  account: feedbackbin
+  board: one
+  user: jane
+  involvement: 0
+  accessed_at: <%= 3.days.ago.to_fs(:db) %>
+
+john_feature_requests:
+  account: feedbackbin
+  board: one
+  user: john
+  involvement: 0
+  accessed_at: <%= 4.days.ago.to_fs(:db) %>

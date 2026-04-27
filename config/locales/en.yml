@@ -3,6 +3,10 @@ en:
   activerecord:
     errors:
       models:
+        access:
+          attributes:
+            base:
+              tenant_mismatch: account, board, and user must belong to the same account
         account:
           attributes:
             boards:
