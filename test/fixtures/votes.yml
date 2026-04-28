@@ -2,3 +2,8 @@ one:
   account: feedbackbin
   voter: shane
   voteable: one (Idea)
+
+acme_one:
+  account: acme
+  voter: acme_admin
+  voteable: acme_one (Idea)

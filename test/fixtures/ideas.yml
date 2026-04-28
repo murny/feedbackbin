@@ -28,3 +28,9 @@ locked:
   board: one
   comments_locked: true
 
+acme_one:
+  account: acme
+  title: Acme-scoped idea for isolation testing
+  creator: acme_admin
+  board: acme_one
+

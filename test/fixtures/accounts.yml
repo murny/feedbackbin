@@ -5,3 +5,7 @@ feedbackbin:
 acme:
   name: "Acme Corp"
   external_account_id: 1000002
+
+cleanstate:
+  name: "CleanState"
+  external_account_id: 1000003
