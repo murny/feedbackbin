@@ -1,5 +1,8 @@
 # frozen_string_literal: true
 
+require "active_support/testing/time_helpers"
+include ActiveSupport::Testing::TimeHelpers
+
 # This file should ensure the existence of records required to run the application in every environment (production,
 # development, test). The code here should be idempotent so that it can be executed at any point in every environment.
 # The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
@@ -100,6 +103,7 @@ else
   puts "🌱 Seeding accounts..."
 
   seed_account("feedbackbin")
+  seed_account("acme")
   seed_account("cleanstate")
 
   puts "✅ Seeding complete!"
