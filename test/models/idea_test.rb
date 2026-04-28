@@ -157,4 +157,23 @@ class IdeaTest < ActiveSupport::TestCase
 
     assert_not idea.comments_locked?
   end
+
+  test "ideas are scoped to their account via association" do
+    feedbackbin_idea = ideas(:one)
+
+    assert_includes accounts(:feedbackbin).ideas, feedbackbin_idea
+    assert_not_includes accounts(:acme).ideas, feedbackbin_idea
+  end
+
+  test "acme account scope cannot find a feedbackbin idea" do
+    feedbackbin_idea = ideas(:one)
+
+    assert_raises(ActiveRecord::RecordNotFound) do
+      accounts(:acme).ideas.find(feedbackbin_idea.id)
+    end
+  end
+
+  test "acme account scope returns its own ideas" do
+    assert_includes accounts(:acme).ideas, ideas(:acme_one)
+  end
 end

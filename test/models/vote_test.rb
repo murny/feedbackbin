@@ -31,4 +31,19 @@ class VoteTest < ActiveSupport::TestCase
     assert_not vote.valid?
     assert_equal "has already been taken", vote.errors[:voter_id].first
   end
+
+  test "votes are scoped to their account via association" do
+    feedbackbin_vote = votes(:one)
+
+    assert_includes accounts(:feedbackbin).votes, feedbackbin_vote
+    assert_not_includes accounts(:acme).votes, feedbackbin_vote
+  end
+
+  test "acme account scope cannot find a feedbackbin vote" do
+    feedbackbin_vote = votes(:one)
+
+    assert_raises(ActiveRecord::RecordNotFound) do
+      accounts(:acme).votes.find(feedbackbin_vote.id)
+    end
+  end
 end

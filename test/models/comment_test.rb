@@ -138,4 +138,19 @@ class CommentTest < ActiveSupport::TestCase
 
     assert_nil idea.reload.official_comment_id
   end
+
+  test "comments are scoped to their account via association" do
+    feedbackbin_comment = comments(:one)
+
+    assert_includes accounts(:feedbackbin).comments, feedbackbin_comment
+    assert_not_includes accounts(:acme).comments, feedbackbin_comment
+  end
+
+  test "acme account scope cannot find a feedbackbin comment" do
+    feedbackbin_comment = comments(:one)
+
+    assert_raises(ActiveRecord::RecordNotFound) do
+      accounts(:acme).comments.find(feedbackbin_comment.id)
+    end
+  end
 end
