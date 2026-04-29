@@ -73,3 +73,78 @@ create_board("General Discussion", color: "#22c55e").tap do |board|
     description: "This is a space for collecting and discussing product feedback. Feel free to submit ideas, vote on features you'd like to see, and join the conversation!",
     board: board)
 end
+
+template_titles = [
+  "Add keyboard shortcuts for common actions",
+  "Improve search result ranking",
+  "Better mobile navigation",
+  "Export data as CSV",
+  "Dark mode for the admin dashboard",
+  "Bulk edit ideas by tag",
+  "Email digest of top feedback",
+  "Slack notifications for new ideas",
+  "Custom email domain for notifications",
+  "Inline idea preview on hover",
+  "Real-time vote count updates",
+  "Threaded replies in comments",
+  "Image uploads on comments",
+  "Merge duplicate ideas",
+  "Idea detail SEO improvements",
+  "Translate feedback into other languages",
+  "Add a public status page",
+  "Webhook for idea status changes",
+  "Better pagination on long lists",
+  "Sticky filter bar on scroll",
+  "Idea templates for bug reports",
+  "Board-level permissions",
+  "Filter by creator",
+  "Filter by tag combination",
+  "Permalinks to comments",
+  "Show related ideas",
+  "Trending ideas this week",
+  "Follow an idea for updates",
+  "Hide closed ideas by default",
+  "Add a changelog RSS feed"
+]
+
+authors = [ shane, jane, john, eric ]
+all_boards = Board.all.to_a
+
+# Synthetic voter pool. Votes are unique per (voter, voteable), so the
+# 4 named authors alone cap any idea at 4 votes. 50 synthetic voters let
+# the 20-50 power-law tier actually materialize without polluting idea
+# authorship or comment authorship (those still sample from `authors`).
+voters = authors + 50.times.map { |n|
+  find_or_create_user("Volume Voter #{n + 1}", "voter#{n + 1}@volume.example.com")
+}
+
+170.times do |i|
+  travel_back
+
+  title = "#{template_titles.sample} (request ##{i + 1})"
+  travel(-rand(1..90).days) do
+    idea = create_idea(title,
+      description: "Template feedback entry for testing volume. Request number #{i + 1}.",
+      board: all_boards.sample,
+      creator: authors.sample)
+
+    vote_count = case rand(100)
+    when 0..5   then rand(20..50)
+    when 6..25  then rand(5..15)
+    when 26..65 then rand(1..4)
+    else             0
+    end
+
+    vote_count.times { upvote(idea, voter: voters.sample) }
+
+    comment_count = case rand(100)
+    when 0..10  then rand(5..10)
+    when 11..40 then rand(1..3)
+    else             0
+    end
+
+    comment_count.times do
+      create_comment(idea, "Comment on #{title}.", creator: authors.sample)
+    end
+  end
+end
