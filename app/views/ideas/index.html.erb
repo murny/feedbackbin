@@ -114,8 +114,8 @@
 
       <% if @pagy.last > 1 %>
         <div class="flex align-center justify-space-between pad-inline pad-block-half">
-          <%== pagy.info_tag %>
-          <%== pagy.series_nav(link_extra: 'data-turbo-frame="ideas_content"') %>
+          <%== @pagy.info_tag %>
+          <%== @pagy.series_nav(link_extra: 'data-turbo-frame="ideas_content"') %>
         </div>
       <% end %>
     <% end %>
