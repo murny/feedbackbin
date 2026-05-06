@@ -24,7 +24,8 @@ module Account::Cancellable
     with_lock do
       if cancelled?
         run_callbacks :reactivate do
-          cancellation.destroy
+          cancellation.destroy!
+          association(:cancellation).reset
         end
       end
     end
