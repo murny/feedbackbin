@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.2].define(version: 2026_03_30_000003) do
+ActiveRecord::Schema[8.2].define(version: 2026_04_20_140000) do
   create_table "accesses", force: :cascade do |t|
     t.datetime "accessed_at"
     t.bigint "account_id", null: false
@@ -24,7 +24,7 @@ ActiveRecord::Schema[8.2].define(version: 2026_03_30_000003) do
     t.index ["board_id", "user_id"], name: "index_accesses_on_board_id_and_user_id", unique: true
     t.index ["user_id", "accessed_at"], name: "index_accesses_on_user_id_and_accessed_at"
   end
-  
+
   create_table "account_cancellations", force: :cascade do |t|
     t.bigint "account_id", null: false
     t.datetime "created_at", null: false
