@@ -7,10 +7,10 @@ module OauthHelper
       !Rails.env.production?
     when "google"
       creds = Rails.application.credentials
-      creds.google_app_id.present? && creds.google_app_secret.present?
+      Rails.env.test? || (creds.google_app_id.present? && creds.google_app_secret.present?)
     when "facebook"
       creds = Rails.application.credentials
-      creds.facebook_app_id.present? && creds.facebook_app_secret.present?
+      Rails.env.test? || (creds.facebook_app_id.present? && creds.facebook_app_secret.present?)
     else
       false
     end
