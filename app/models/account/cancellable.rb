@@ -35,8 +35,9 @@ module Account::Cancellable
     cancellation.present?
   end
 
-  # Self-cancel is gated to multi-tenant deployments; in single-tenant
-  # mode the lone account cancelling itself would brick the install.
+  # Self-cancel is only allowed in multi-tenant deployments. In
+  # single-tenant mode the lone account cancelling itself would
+  # leave the install with no usable account.
   def cancellable?
     Account.accepting_signups?
   end
