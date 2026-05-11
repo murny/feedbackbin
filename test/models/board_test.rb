@@ -60,7 +60,7 @@ class BoardTest < ActiveSupport::TestCase
     Board.create!(name: "Zebra", color: "#3b82f6", creator: users(:shane))
     Board.create!(name: "Alpha", color: "#10b981", creator: users(:shane))
 
-    ordered = Board.ordered
+    ordered = accounts(:feedbackbin).boards.ordered
 
     assert_equal "Alpha", ordered.first.name
     assert_equal "Zebra", ordered.last.name

@@ -65,20 +65,22 @@ else
     end
   end
 
-  def create_idea(title, board:, description: nil, creator: Current.user)
-    board.ideas.create!(title:, description:, creator:)
+  def create_idea(title, board:, description: nil, creator: Current.user, created_at: nil)
+    board.ideas.create!(title:, description:, creator:, created_at:)
   end
 
-  def create_comment(idea, body, creator: Current.user)
-    idea.comments.create!(body:, creator:)
+  def create_comment(idea, body, creator: Current.user, created_at: nil)
+    idea.comments.create!(body:, creator:, created_at:)
   end
 
   def create_reply(comment, body, creator: Current.user)
     comment.replies.create!(body:, idea: comment.idea, creator:)
   end
 
-  def upvote(voteable, voter: Current.user)
-    voteable.votes.find_or_create_by!(voter:)
+  def upvote(voteable, voter: Current.user, created_at: nil)
+    voteable.votes.find_or_create_by!(voter:) do |vote|
+      vote.created_at = created_at if created_at
+    end
   end
 
   def create_status(name, color:, position:, show_on_idea: true, show_on_roadmap: true)
@@ -100,6 +102,7 @@ else
   puts "🌱 Seeding accounts..."
 
   seed_account("feedbackbin")
+  seed_account("acme")
   seed_account("cleanstate")
 
   puts "✅ Seeding complete!"

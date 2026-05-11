@@ -1,14 +1,13 @@
 # frozen_string_literal: true
 
 Rails.application.config.middleware.use OmniAuth::Builder do
-  provider :developer unless Rails.env.production?
+  provider :developer if Oauth::Providers.available.include?("developer")
 
-  provider :google_oauth2,
-    Rails.application.credentials.google_app_id,
-    Rails.application.credentials.google_app_secret,
-    name: "google"
+  if Oauth::Providers.available.include?("google")
+    provider :google_oauth2, Rails.application.credentials.google_app_id, Rails.application.credentials.google_app_secret, name: "google"
+  end
 
-  provider :facebook,
-    Rails.application.credentials.facebook_app_id,
-    Rails.application.credentials.facebook_app_secret
+  if Oauth::Providers.available.include?("facebook")
+    provider :facebook, Rails.application.credentials.facebook_app_id, Rails.application.credentials.facebook_app_secret
+  end
 end

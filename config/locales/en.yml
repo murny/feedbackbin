@@ -617,6 +617,8 @@ en:
       description: Share your ideas and help us improve
       empty_idea_description: Be the first to share an idea!
       empty_idea_title: No ideas yet
+      no_boards_description: An admin needs to finish setting up boards before ideas can be submitted.
+      no_boards_title: We're not collecting ideas yet
       search_placeholder: Search ideas...
       sort_by_label: Sort by
       sort_latest: Latest

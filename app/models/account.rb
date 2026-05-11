@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class Account < ApplicationRecord
-  include MultiTenantable, Searchable, Seedable
+  include Cancellable, MultiTenantable, Searchable, Seedable
 
   ALLOWED_IMAGE_CONTENT_TYPES = %w[ image/jpeg image/png image/gif image/webp ].freeze
 
@@ -50,10 +50,12 @@ class Account < ApplicationRecord
     user&.owner?
   end
 
-  # TODO: We will implement cancellation next in future commits.
-  # Check if account is active (always true for now, can be expanded for account suspension)
   def active?
-    true
+    !cancelled? && !importing?
+  end
+
+  def importing?
+    false
   end
 
   # Allow `record.account` to work when record IS an Account (e.g., for attachments)

@@ -1,0 +1,3 @@
+# Account::Cancellation fixtures.
+# Intentionally empty; cancellable_test.rb creates cancellations inline via account.cancel(initiated_by: user).
+# Any row added here MUST include an explicit account: key.

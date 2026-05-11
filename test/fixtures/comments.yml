@@ -13,3 +13,8 @@ reply_one:
   creator: jane
   idea: one
   parent: two
+
+acme_one:
+  account: acme
+  creator: acme_admin
+  idea: acme_one

@@ -15,3 +15,10 @@ two:
   description: Bug Reports
   color: "#ef4444"
   all_access: true
+
+acme_one:
+  account: acme
+  creator: acme_admin
+  name: Acme Features
+  description: Acme Feature Requests
+  color: "#6366f1"

@@ -82,9 +82,7 @@
             </div>
 
             <div class="form__group form__group--spacious">
-              <% omniauth_providers = [ "google", "facebook" ] %>
-              <% omniauth_providers << "developer" unless Rails.env.production? %>
-              <% omniauth_providers.each do |provider| %>
+              <% Oauth::Providers.available.each do |provider| %>
                 <div class="flex align-center justify-space-between pad border border-radius">
                   <div class="flex align-center gap">
                     <%= inline_svg_tag "icons/brand/#{provider}.svg", class: "size-5" %>
