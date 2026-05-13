@@ -635,7 +635,7 @@ DEPENDENCIES
   omniauth-facebook
   omniauth-google-oauth2
   omniauth-rails_csrf_protection
-  pagy (~> 43.2)
+  pagy
   propshaft
   puma (~> 8.0)
   rails!
