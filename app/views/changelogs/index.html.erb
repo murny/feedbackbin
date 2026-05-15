@@ -35,8 +35,8 @@
 
     <% if @pagy.last > 1 %>
       <div class="flex align-center justify-space-between pad-inline" style="padding-block: var(--space-3);">
-        <%== pagy.info_tag %>
-        <%== pagy.series_nav %>
+        <%== @pagy.info_tag %>
+        <%== @pagy.series_nav %>
       </div>
     <% end %>
   </div>
