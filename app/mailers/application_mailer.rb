@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 class ApplicationMailer < ActionMailer::Base
-  default from: -> { ENV.fetch("MAILER_FROM_ADDRESS", "FeedbackBin <support@feedbackbin.com>") }
+  default from: ENV.fetch("MAILER_FROM_ADDRESS", "FeedbackBin <support@feedbackbin.com>")
   layout "mailer"
 
   private
