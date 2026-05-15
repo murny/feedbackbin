@@ -4,128 +4,129 @@
   <%= render partial: "user_settings/header" %>
 
   <div class="container--stack container--section">
-        <div class="panel">
-          <div class="container--stack">
-            <div>
-              <h2 class="txt-large font-weight-medium"><%= t(".email_address") %></h2>
-              <p class="txt-small txt-subtle"><%= t(".email_address_hint") %></p>
-            </div>
+    <div class="panel">
+      <div class="container--stack">
+        <div>
+          <h2 class="txt-large font-weight-medium"><%= t(".email_address") %></h2>
+          <p class="txt-small txt-subtle"><%= t(".email_address_hint") %></p>
+        </div>
 
-            <%= form_with(model: @identity, scope: :identity,
+        <%= form_with(model: @identity, scope: :identity,
                   url: user_settings_email_path,
                   method: :patch,
                   class: "form",
                   data: { controller: "form", action: "keydown.enter->form#submit:prevent" }) do |form| %>
-              <div class="form__group form__group--comfortable">
-                <div class="form__group form__group--tight">
-                  <%= form.label :email_address, class: "txt-small font-weight-medium" %>
-                  <%= form.email_field :email_address, required: true, autocomplete: "email", placeholder: t(".email_address_placeholder"), class: "full-width" %>
-                  <div class="flex align-center justify-space-between">
-                    <p class="txt-x-small txt-subtle"><%= t(".email_address_hint") %></p>
-                    <% if @user.identity.email_verified_at.present? %>
-                      <div class="flex align-center gap-tight txt-positive">
-                        <%= lucide_icon "circle-check", class: "size-4" %>
-                        <span class="txt-x-small font-weight-medium"><%= t(".verified") %></span>
-                      </div>
-                    <% else %>
-                      <div class="flex align-center gap-tight txt-alert">
-                        <%= lucide_icon "circle-alert", class: "size-4" %>
-                        <span class="txt-x-small font-weight-medium"><%= t(".unverified") %></span>
-                      </div>
-                    <% end %>
+          <div class="form__group form__group--comfortable">
+            <div class="form__group form__group--tight">
+              <%= form.label :email_address, class: "txt-small font-weight-medium" %>
+              <%= form.email_field :email_address, required: true, autocomplete: "email", placeholder: t(".email_address_placeholder"), class: "full-width" %>
+              <div class="flex align-center justify-space-between">
+                <p class="txt-x-small txt-subtle"><%= t(".email_address_hint") %></p>
+                <% if @user.identity.email_verified_at.present? %>
+                  <div class="flex align-center gap-tight txt-positive">
+                    <%= lucide_icon "circle-check", class: "size-4" %>
+                    <span class="txt-x-small font-weight-medium"><%= t(".verified") %></span>
                   </div>
-                </div>
-
-                <% if @identity.has_password? %>
-                  <div class="form__group form__group--tight">
-                    <%= form.label :password_challenge, t(".current_password"), class: "txt-small font-weight-medium" %>
-                    <%= form.password_field :password_challenge, autocomplete: "current-password", required: true, class: "full-width" %>
+                <% else %>
+                  <div class="flex align-center gap-tight txt-alert">
+                    <%= lucide_icon "circle-alert", class: "size-4" %>
+                    <span class="txt-x-small font-weight-medium"><%= t(".unverified") %></span>
                   </div>
                 <% end %>
               </div>
+            </div>
 
-              <div class="form__actions form__actions--end form__actions--spacious form__actions--offset-lg">
-                <%= form.submit t(".update_email_address"), class: "btn" %>
+            <% if @identity.has_password? %>
+              <div class="form__group form__group--tight">
+                <%= form.label :password_challenge, t(".current_password"), class: "txt-small font-weight-medium" %>
+                <%= form.password_field :password_challenge, autocomplete: "current-password", required: true, class: "full-width" %>
               </div>
             <% end %>
           </div>
-        </div>
 
-        <% unless @user.identity.email_verified_at.present? %>
-          <div class="panel panel--warning txt-alert">
-            <div class="flex">
-              <div class="flex-item-no-shrink">
-                <%= lucide_icon "triangle-alert", class: "size-5" %>
-              </div>
-              <div class="margin-inline-start">
-                <h3 class="txt-small font-weight-medium">
-                  <%= t(".email_not_verified") %>
-                </h3>
-                <div class="txt-small margin-block-start-half">
-                  <p><%= t(".email_verification_description") %></p>
-                </div>
-                <div class="margin-block-start">
-                  <%= button_to t(".resend_verification_email"), users_email_verification_path,
-                        method: :post,
-                        class: "btn btn--sm" %>
-                </div>
-              </div>
-            </div>
+          <div class="form__actions form__actions--end form__actions--spacious form__actions--offset-lg">
+            <%= form.submit t(".update_email_address"), class: "btn" %>
           </div>
         <% end %>
+      </div>
+    </div>
 
-        <div class="panel">
-          <div class="container--stack">
-            <div>
-              <h2 class="txt-large font-weight-medium"><%= t(".connected_accounts") %></h2>
-              <p class="txt-small txt-subtle"><%= t(".connected_accounts_description") %></p>
+    <% unless @user.identity.email_verified_at.present? %>
+      <div class="panel panel--warning txt-alert">
+        <div class="flex">
+          <div class="flex-item-no-shrink">
+            <%= lucide_icon "triangle-alert", class: "size-5" %>
+          </div>
+          <div class="margin-inline-start">
+            <h3 class="txt-small font-weight-medium">
+              <%= t(".email_not_verified") %>
+            </h3>
+            <div class="txt-small margin-block-start-half">
+              <p><%= t(".email_verification_description") %></p>
             </div>
+            <div class="margin-block-start">
+              <%= button_to t(".resend_verification_email"), users_email_verification_path,
+                        method: :post,
+                        class: "btn btn--sm" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
 
-            <div class="form__group form__group--spacious">
-              <% Oauth::Providers.available.each do |provider| %>
-                <div class="flex align-center justify-space-between pad border border-radius">
-                  <div class="flex align-center gap">
-                    <%= inline_svg_tag "icons/brand/#{provider}.svg", class: "size-5" %>
-                    <div>
-                      <span class="txt-small font-weight-medium"><%= OmniAuth::Utils.camelize(provider) %></span>
-                      <% if (connected_account = @identity_connected_accounts.find_by(provider_name: provider)) %>
-                        <p class="txt-x-small txt-subtle"><%= t(".connected_account_label") %></p>
-                      <% else %>
-                        <p class="txt-x-small txt-subtle"><%= t(".not_connected") %></p>
-                      <% end %>
-                    </div>
-                  </div>
-                  <div class="flex-item-no-shrink">
+    <div class="panel">
+      <div class="container--stack">
+        <div>
+          <h2 class="txt-large font-weight-medium"><%= t(".connected_accounts") %></h2>
+          <p class="txt-small txt-subtle"><%= t(".connected_accounts_description") %></p>
+        </div>
+
+        <div class="form__group form__group--spacious">
+          <% Oauth::Providers.available.each do |provider| %>
+            <div class="flex align-center justify-space-between pad border border-radius">
+              <div class="flex align-center gap">
+                <%= inline_svg_tag "icons/brand/#{provider}.svg", class: "size-5" %>
+                <div>
+                  <span class="txt-small font-weight-medium"><%= OmniAuth::Utils.camelize(provider) %></span>
+                  <p class="txt-x-small txt-subtle">
                     <% if (connected_account = @identity_connected_accounts.find_by(provider_name: provider)) %>
-                      <%= button_to t(".disconnect"), user_settings_connected_account_path(connected_account),
+                      <%= t(".connected_account_label") %>
+                    <% else %>
+                      <%= t(".not_connected") %>
+                    <% end %>
+                  </p>
+                </div>
+              </div>
+              <div class="flex-item-no-shrink">
+                <% if (connected_account = @identity_connected_accounts.find_by(provider_name: provider)) %>
+                  <%= button_to t(".disconnect"), user_settings_connected_account_path(connected_account),
                             method: :delete,
                             class: "btn btn--destructive btn--sm",
                             form: { data: { turbo_confirm: t(".disconnect_confirm") } } %>
-                    <% else %>
-                      <%= button_to t(".connect"), "/auth/#{provider}",
+                <% else %>
+                  <%= button_to t(".connect"), "/auth/#{provider}",
                             method: :post,
                             data: { turbo: false, disable_with: t(".redirecting") },
                             class: "btn btn--sm" %>
-                    <% end %>
-                  </div>
-                </div>
-              <% end %>
+                <% end %>
+              </div>
             </div>
-          </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel--danger txt-negative">
+      <div class="form__group form__group--comfortable">
+        <div>
+          <h2 class="txt-large font-weight-medium"><%= t(".delete_account") %></h2>
+          <p class="txt-small"><%= t(".delete_account_description") %></p>
         </div>
 
-        <div class="panel panel--danger txt-negative">
-          <div class="form__group form__group--comfortable">
-            <div>
-              <h2 class="txt-large font-weight-medium"><%= t(".delete_account") %></h2>
-              <p class="txt-small"><%= t(".delete_account_description") %></p>
-            </div>
-
-            <div class="margin-block-start">
-              <%= button_to user_path(@user), method: :delete, data: { turbo_confirm: t(".delete_account_confirm") }, class: "btn btn--destructive" do %>
-                <%= t(".delete_my_account") %>
-              <% end %>
-            </div>
+        <div class="margin-block-start">
+          <%= button_to user_path(@user), method: :delete, data: { turbo_confirm: t(".delete_account_confirm") }, class: "btn btn--destructive" do %>
+            <%= t(".delete_my_account") %>
+          <% end %>
         </div>
       </div>
     </div>

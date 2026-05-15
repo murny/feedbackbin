@@ -8,19 +8,21 @@
       <p class="txt-x-small txt-subtle"><%= t(".name_hint") %></p>
     </div>
 
-    <% if show_url %>
-      <div class="grid gap-3">
+    <div class="grid gap-3">
+      <% if show_url %>
+
         <%= f.label :url, t(".url_label") %>
         <%= f.url_field :url, placeholder: t(".url_placeholder"), required: true, pattern: "https?://.*", title: t(".url_pattern_title") %>
         <p class="txt-x-small txt-subtle"><%= t(".url_hint") %></p>
-      </div>
-    <% else %>
-      <div class="grid gap-3">
+
+      <% else %>
+
         <label class="txt-small font-weight-medium"><%= t(".url_label") %></label>
         <p class="txt-small txt-subtle fill-shade border-radius" style="font-family: var(--font-mono, monospace); padding-inline: var(--space-3); padding-block: var(--space-2);"><%= webhook.url %></p>
         <p class="txt-x-small txt-subtle"><%= t(".url_not_editable") %></p>
-      </div>
-    <% end %>
+
+      <% end %>
+    </div>
 
     <div class="grid gap-3">
       <%= f.label :board_id, t(".board_label") %>

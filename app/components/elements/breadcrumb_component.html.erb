@@ -3,15 +3,16 @@
     <% processed_items.each_with_index do |item, index| %>
       <% is_last = last_item?(index) %>
 
-      <% if item[:is_ellipsis] %>
-        <li data-slot="breadcrumb-item" class="breadcrumb__item">
+      <li data-slot="breadcrumb-item" class="breadcrumb__item">
+        <% if item[:is_ellipsis] %>
+
           <span data-slot="breadcrumb-ellipsis" class="breadcrumb__ellipsis">
             <%= helpers.lucide_icon "ellipsis" %>
             <span class="visually-hidden"><%= t(".more") %></span>
           </span>
-        </li>
-      <% else %>
-        <li data-slot="breadcrumb-item" class="breadcrumb__item">
+
+        <% else %>
+
           <% if item[:path].present? %>
             <%= link_to item[:text], item[:path],
                 data: { slot: "breadcrumb-link" },
@@ -23,8 +24,9 @@
               <%= item[:text] %>
             </span>
           <% end %>
-        </li>
-      <% end %>
+
+        <% end %>
+      </li>
 
       <% unless is_last %>
         <li data-slot="breadcrumb-separator" role="presentation" aria-hidden="true" class="breadcrumb__separator">

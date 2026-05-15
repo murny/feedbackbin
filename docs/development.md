@@ -90,6 +90,35 @@ bin/erb_lint --lint-all
 bin/erb_lint --lint-all -a
 ```
 
+### Herb (optional editor tooling)
+
+[Herb](https://herb-tools.dev) is a Prism-based HTML+ERB toolchain. We use the Ruby gem for local parser checks, and the language server for editor diagnostics. `erb_lint` remains the canonical linter in CI.
+
+The Ruby gem (already in the `Gemfile`) gives you parser + structural validation with no extra setup:
+
+```sh
+# Parse-check all ERB templates (Ruby-only, no Node required)
+bin/herb analyze app/
+```
+
+For the full rule-based linter, formatter, and language server, install the Node packages per-developer. These are not committed to the repo and not run in CI.
+
+```sh
+# Install the linter + formatter globally (one-time, requires Node.js)
+npm install -g @herb-tools/linter @herb-tools/formatter
+
+# Lint with the configurable rule set
+bin/herb lint app/
+
+# Auto-correct fixable offenses (review the diff before committing)
+bin/herb lint app/ --fix
+```
+
+Editor integration is also installed per-developer:
+
+- **VS Code**: install the [`marcoroth.herb-lsp`](https://marketplace.visualstudio.com/items?itemName=marcoroth.herb-lsp) extension (bundles the language server, no separate npm install needed)
+- **Zed / Neovim / others**: supported via the Herb language server (`bin/herb lsp`, requires `@herb-tools/language-server` on PATH)
+
 ### Internationalization
 
 ```sh
