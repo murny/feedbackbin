@@ -3,13 +3,25 @@
 require "test_helper"
 
 class ApplicationMailerTest < ActionMailer::TestCase
-  test "default from falls back to FeedbackBin support address when MAILER_FROM_ADDRESS is unset" do
-    skip "applies only when MAILER_FROM_ADDRESS is unset at boot" if ENV.key?("MAILER_FROM_ADDRESS")
-
-    assert_equal "FeedbackBin <support@feedbackbin.com>", ApplicationMailer.default[:from]
+  class TestMailer < ApplicationMailer
+    def hello
+      mail to: "recipient@example.com", subject: "hi", body: "body"
+    end
   end
 
-  test "default from is resolved at class load time (deploy-level config, not runtime)" do
-    skip "ENV.fetch in `default from:` is evaluated once at class load. Integration check happens at deploy time via MAILER_FROM_ADDRESS env var."
+  test "from falls back to support address when MAILER_FROM_ADDRESS is unset" do
+    ENV.delete("MAILER_FROM_ADDRESS")
+    mail = TestMailer.hello
+
+    assert_equal [ "support@feedbackbin.com" ], mail.from
+  end
+
+  test "from uses MAILER_FROM_ADDRESS env var when set" do
+    ENV["MAILER_FROM_ADDRESS"] = "Custom <ops@example.com>"
+    mail = TestMailer.hello
+
+    assert_equal [ "ops@example.com" ], mail.from
+  ensure
+    ENV.delete("MAILER_FROM_ADDRESS")
   end
 end
