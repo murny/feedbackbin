@@ -135,8 +135,8 @@ voters = authors + 50.times.map { |n|
   else             0
   end
 
-  vote_count.times do
-    upvote(idea, voter: voters.sample, created_at: rand(idea_created_at..Time.current))
+  voters.sample([ vote_count, voters.size ].min).each do |voter|
+    upvote(idea, voter: voter, created_at: rand(idea_created_at..Time.current))
   end
 
   comment_count = case rand(100)
