@@ -4,6 +4,8 @@ require "test_helper"
 
 class ApplicationMailerTest < ActionMailer::TestCase
   test "default from falls back to FeedbackBin support address when MAILER_FROM_ADDRESS is unset" do
+    skip "applies only when MAILER_FROM_ADDRESS is unset at boot" if ENV.key?("MAILER_FROM_ADDRESS")
+
     assert_equal "FeedbackBin <support@feedbackbin.com>", ApplicationMailer.default[:from]
   end
 
