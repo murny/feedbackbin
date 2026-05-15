@@ -69,4 +69,12 @@ class Account::CancellableTest < ActiveSupport::TestCase
 
     assert_not @account.cancelled?
   end
+
+  test "rejects initiated_by from a different account" do
+    other_account_user = users(:acme_admin)
+    cancellation = Account::Cancellation.new(account: @account, initiated_by: other_account_user)
+
+    assert_not cancellation.valid?
+    assert_includes cancellation.errors[:initiated_by], "must belong to the same account"
+  end
 end
