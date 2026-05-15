@@ -36,9 +36,7 @@ class SmokeTest < ApplicationSystemTestCase
     visit idea_url(@unvoted_idea, script_name: @account.slug)
 
     initial_count = @unvoted_idea.reload.votes_count
-    within ".vote" do
-      first("button").click
-    end
+    click_button(class: "vote__trigger")
 
     assert_selector ".vote__count", text: (initial_count + 1).to_s
   end
