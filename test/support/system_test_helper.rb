@@ -10,9 +10,7 @@ module SystemTestHelper
     fill_in "Password", with: password
     click_button "Sign in"
 
-    # Wait for the redirect off the sign-in page. The session cookie is set on
-    # the redirect response, so once we leave /sign_in the next visit is safe.
-    assert_no_current_path %r{/sign_in}, wait: 5
+    assert_text "You have signed in successfully.", wait: 5
   end
 
   # Default account for system tests
