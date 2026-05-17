@@ -30,61 +30,63 @@
     <% c.with_header(title: t(".user_info_title")) %>
     <% c.with_body do %>
       <div class="flex align-start gap-6">
-      <%= render Elements::AvatarComponent.new(
+        <%= render Elements::AvatarComponent.new(
         src: @user.avatar.attached? ? url_for(@user.avatar) : nil,
         alt: @user.name,
         size: :xl,
         fallback: @user.name[0, 2].upcase
       ) %>
 
-      <div class="flex-1 flex flex-column gap-4">
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div>
-            <h4 class="txt-small font-weight-medium margin-block-end-half"><%= t(".basic_info_title") %></h4>
-            <div class="flex flex-column txt-small gap-2">
-              <div><strong><%= t(".name_label") %>:</strong> <%= @user.name %></div>
-              <div><strong><%= t(".email_label") %>:</strong> <%= @user&.identity&.email_address %></div>
-              <div>
-                <strong><%= t(".joined_label") %>:</strong>
-                <%= @user.created_at.strftime("%B %d, %Y") %>
-                (<%= time_ago_in_words(@user.created_at) %> <%= t(".ago") %>)
+        <div class="flex-1 flex flex-column gap-4">
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <h4 class="txt-small font-weight-medium margin-block-end-half"><%= t(".basic_info_title") %></h4>
+              <div class="flex flex-column txt-small gap-2">
+                <div><strong><%= t(".name_label") %>:</strong> <%= @user.name %></div>
+                <div><strong><%= t(".email_label") %>:</strong> <%= @user&.identity&.email_address %></div>
+                <div>
+                  <strong><%= t(".joined_label") %>:</strong>
+                  <%= @user.created_at.strftime("%B %d, %Y") %>
+                  (<%= time_ago_in_words(@user.created_at) %> <%= t(".ago") %>)
+                </div>
+                <div>
+                  <% if @last_session %>
+
+                    <strong><%= t(".last_sign_in") %>:</strong>
+                    <%= time_ago_in_words(@last_session.last_active_at) %> <%= t(".ago") %>
+
+                  <% else %>
+
+                    <strong><%= t(".last_sign_in") %>:</strong>
+                    <span class="txt-subtle"><%= t(".never_signed_in") %></span>
+
+                  <% end %>
+                </div>
               </div>
-              <% if @last_session %>
-                <div>
-                  <strong><%= t(".last_sign_in") %>:</strong>
-                  <%= time_ago_in_words(@last_session.last_active_at) %> <%= t(".ago") %>
-                </div>
-              <% else %>
-                <div>
-                  <strong><%= t(".last_sign_in") %>:</strong>
-                  <span class="txt-subtle"><%= t(".never_signed_in") %></span>
-                </div>
-              <% end %>
-            </div>
-          </div>
-
-          <div class="flex flex-column gap-4">
-            <div>
-              <h4 class="txt-small font-weight-medium" style="margin-block-end: var(--space-3);"><%= t(".role_label") %></h4>
-              <%= render "role_section", user: @user %>
             </div>
 
-            <div>
-              <h4 class="txt-small font-weight-medium" style="margin-block-end: var(--space-3);"><%= t(".account_status_label") %></h4>
-              <%= render "status_section", user: @user %>
-            </div>
+            <div class="flex flex-column gap-4">
+              <div>
+                <h4 class="txt-small font-weight-medium" style="margin-block-end: var(--space-3);"><%= t(".role_label") %></h4>
+                <%= render "role_section", user: @user %>
+              </div>
 
-            <div>
-              <h4 class="txt-small font-weight-medium" style="margin-block-end: var(--space-3);"><%= t(".email_verification_label") %></h4>
-              <%= render Elements::BadgeComponent.new(
+              <div>
+                <h4 class="txt-small font-weight-medium" style="margin-block-end: var(--space-3);"><%= t(".account_status_label") %></h4>
+                <%= render "status_section", user: @user %>
+              </div>
+
+              <div>
+                <h4 class="txt-small font-weight-medium" style="margin-block-end: var(--space-3);"><%= t(".email_verification_label") %></h4>
+                <%= render Elements::BadgeComponent.new(
                 variant: @user.identity.email_verified_at.present? ? :default : :outline
               ) do %>
-                <%= @user.identity.email_verified_at.present? ? t(".verified_badge") : t(".unverified_badge") %>
-              <% end %>
+                  <%= @user.identity.email_verified_at.present? ? t(".verified_badge") : t(".unverified_badge") %>
+                <% end %>
+              </div>
             </div>
           </div>
         </div>
-      </div>
       </div>
     <% end %>
   <% end %>
@@ -93,18 +95,18 @@
     <% c.with_header(title: t(".activity_stats_title")) %>
     <% c.with_body do %>
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-      <div class="border border-radius" style="padding: var(--space-4);">
-        <div class="txt-x-large font-weight-bold"><%= @total_ideas %></div>
-        <div class="txt-small txt-subtle"><%= t(".total_ideas") %></div>
-      </div>
-      <div class="border border-radius" style="padding: var(--space-4);">
-        <div class="txt-x-large font-weight-bold"><%= @total_comments %></div>
-        <div class="txt-small txt-subtle"><%= t(".total_comments") %></div>
-      </div>
-      <div class="border border-radius" style="padding: var(--space-4);">
-        <div class="txt-x-large font-weight-bold"><%= @total_votes %></div>
-        <div class="txt-small txt-subtle"><%= t(".total_votes") %></div>
-      </div>
+        <div class="border border-radius" style="padding: var(--space-4);">
+          <div class="txt-x-large font-weight-bold"><%= @total_ideas %></div>
+          <div class="txt-small txt-subtle"><%= t(".total_ideas") %></div>
+        </div>
+        <div class="border border-radius" style="padding: var(--space-4);">
+          <div class="txt-x-large font-weight-bold"><%= @total_comments %></div>
+          <div class="txt-small txt-subtle"><%= t(".total_comments") %></div>
+        </div>
+        <div class="border border-radius" style="padding: var(--space-4);">
+          <div class="txt-x-large font-weight-bold"><%= @total_votes %></div>
+          <div class="txt-small txt-subtle"><%= t(".total_votes") %></div>
+        </div>
       </div>
     <% end %>
   <% end %>
@@ -112,32 +114,32 @@
   <%= render Elements::PanelComponent.new do |c| %>
     <% c.with_header(title: t(".recent_ideas_title")) %>
     <% c.with_body do %>
-    <% if @recent_ideas.any? %>
-      <div class="flex flex-column gap-4">
-        <% @recent_ideas.each do |idea| %>
-          <div class="flex align-start border-radius" style="gap: var(--space-3); padding: var(--space-3);">
-            <div class="min-width flex-1">
-              <div class="font-weight-medium overflow-ellipsis"><%= idea.title %></div>
-              <div class="txt-small txt-subtle">
-                <%= time_ago_in_words(idea.created_at) %> <%= t(".ago") %>
-              </div>
-              <% if idea.board %>
-                <%= render Elements::BadgeComponent.new(variant: :outline) do %>
-                  <%= idea.board.name %>
+      <% if @recent_ideas.any? %>
+        <div class="flex flex-column gap-4">
+          <% @recent_ideas.each do |idea| %>
+            <div class="flex align-start border-radius" style="gap: var(--space-3); padding: var(--space-3);">
+              <div class="min-width flex-1">
+                <div class="font-weight-medium overflow-ellipsis"><%= idea.title %></div>
+                <div class="txt-small txt-subtle">
+                  <%= time_ago_in_words(idea.created_at) %> <%= t(".ago") %>
+                </div>
+                <% if idea.board %>
+                  <%= render Elements::BadgeComponent.new(variant: :outline) do %>
+                    <%= idea.board.name %>
+                  <% end %>
                 <% end %>
-              <% end %>
+              </div>
+              <div class="txt-xx-small txt-subtle">
+                <%= pluralize(idea.votes_count, t(".vote_singular"), t(".vote_plural")) %> • <%= pluralize(idea.comments_count, t(".comment_singular"), t(".comment_plural")) %>
+              </div>
             </div>
-            <div class="txt-xx-small txt-subtle">
-              <%= pluralize(idea.votes_count, t(".vote_singular"), t(".vote_plural")) %> • <%= pluralize(idea.comments_count, t(".comment_singular"), t(".comment_plural")) %>
-            </div>
-          </div>
-        <% end %>
-      </div>
-    <% else %>
-      <div class="txt-align-center txt-subtle" style="padding-block: var(--space-8);">
-        <%= t(".no_ideas") %>
-      </div>
-    <% end %>
+          <% end %>
+        </div>
+      <% else %>
+        <div class="txt-align-center txt-subtle" style="padding-block: var(--space-8);">
+          <%= t(".no_ideas") %>
+        </div>
+      <% end %>
     <% end %>
   <% end %>
 </div>

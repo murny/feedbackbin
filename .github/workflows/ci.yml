@@ -86,6 +86,9 @@ jobs:
       - name: Lint ERB files for consistent style
         run: bin/erb_lint --lint-all
 
+      - name: Analyze ERB files for parser and structural errors
+        run: bin/herb analyze app/
+
       - name: Lint en.yml with i18n-tasks
         run: bin/i18n-tasks health en
 

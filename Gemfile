@@ -61,6 +61,7 @@ group :development, :test do
   # Linters
   gem "erb_lint", require: false
   gem "erblint-github", require: false
+  gem "herb", require: false
   gem "i18n-tasks", require: false
 
   gem "rubocop", require: false

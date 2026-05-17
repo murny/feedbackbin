@@ -21,6 +21,9 @@ This file provides guidance to AI coding assistants when working with code in th
 - `bin/rubocop -a` - Auto-correct Ruby style offenses
 - `bin/erb_lint --lint-all` - Check ERB templates
 - `bin/erb_lint --lint-all -a` - Auto-correct ERB templates (use with caution)
+- `bin/herb analyze app/` - Parse-check ERB templates with Herb (optional; `erb_lint` stays canonical)
+- `bin/herb lint app/` - Lint with Herb's full rule set (requires `npm i -g @herb-tools/linter`)
+- `bin/herb lint app/ --fix` - Auto-correct Herb offenses (review diff before committing)
 - `bin/i18n-tasks health` - Check I18n file health
 - `bin/i18n-tasks normalize` - Normalize I18n files
 

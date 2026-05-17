@@ -40,7 +40,7 @@
         </div>
 
         <%# Magic Link Panel (index 0, shown by default) %>
-        <div data-tabs-target="panel" <%= 'class="display-none"' if @mode == :password %>>
+        <div data-tabs-target="panel" class="<%= "display-none" if @mode == :password %>">
           <%= form_with url: session_magic_link_requests_path, data: { action: "submit->email-sync#sync" } do |form| %>
             <%= form.hidden_field :email_address, data: { email_sync_target: "destination" } %>
             <%= form.submit t(".send_magic_link"), class: "btn full-width" %>
@@ -54,7 +54,7 @@
         </div>
 
         <%# Password Panel (index 1, hidden by default) %>
-        <div data-tabs-target="panel" <%= 'class="display-none"' unless @mode == :password %>>
+        <div data-tabs-target="panel" class="<%= "display-none" unless @mode == :password %>">
           <%= form_with url: session_path, data: { action: "submit->email-sync#sync" } do |form| %>
             <%= form.hidden_field :email_address, data: { email_sync_target: "destination" } %>
 

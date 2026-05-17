@@ -8,6 +8,7 @@ CI.run do
   group "Checks", parallel: 2 do
     step "Style: Ruby", "bin/rubocop"
     step "Style: ERB", "bin/erb_lint --lint-all"
+    step "Style: ERB (Herb analyze)", "bin/herb analyze app/"
     step "Style: I18n", "bin/i18n-tasks health en"
 
     step "Security: Gem audit", "bin/bundler-audit"
