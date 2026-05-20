@@ -10,6 +10,8 @@ CI.run do
     step "Style: ERB", "bin/erb_lint --lint-all"
     step "Style: ERB (Herb analyze)", "bin/herb analyze app/"
     step "Style: I18n", "bin/i18n-tasks health en"
+    step "Style: GitHub Actions (actionlint)", "actionlint"
+    step "Style: GitHub Actions (zizmor)", "zizmor ."
 
     step "Security: Gem audit", "bin/bundler-audit"
     step "Security: Importmap vulnerability audit", "bin/importmap audit"

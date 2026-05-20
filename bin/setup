@@ -92,12 +92,12 @@ step "Installing Ruby" mise install --yes
 eval "$(mise hook-env -s bash)"
 
 if which pacman >/dev/null 2>&1; then
-  packages=(imagemagick openslide libvips gitleaks)
+  packages=(imagemagick openslide libvips libheif libwebp libjxl libraw poppler-glib libcgif ffmpeg rav1e svt-av1 gitleaks)
   if ! pacman -Q "${packages[@]}" >/dev/null 2>&1; then
     step "Installing packages" sudo pacman -S --noconfirm --needed "${packages[@]}"
   fi
 elif which brew >/dev/null 2>&1; then
-  packages=(imagemagick openslide vips gitleaks)
+  packages=(imagemagick openslide vips ffmpeg gitleaks)
   missing_packages=()
   for pkg in "${packages[@]}"; do
     if ! brew list "$pkg" &>/dev/null; then
@@ -108,6 +108,18 @@ elif which brew >/dev/null 2>&1; then
     step "Installing packages" brew install "${missing_packages[@]}"
   fi
 fi
+
+for tool in actionlint shellcheck zizmor; do
+  if ! command -v "$tool" &>/dev/null; then
+    if command -v brew &>/dev/null; then
+      step "Installing $tool" brew install "$tool"
+    elif command -v pacman &>/dev/null; then
+      step "Installing $tool" sudo pacman -S --noconfirm "$tool"
+    else
+      echo "Warning: install $tool manually to run workflow linters" >&2
+    fi
+  fi
+done
 
 bundle config set --local auto_install true
 step "Installing RubyGems" bundle install
