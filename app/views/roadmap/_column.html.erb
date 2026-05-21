@@ -3,10 +3,10 @@
 <div class="roadmap-column">
   <!-- Column Header -->
   <div class="flex align-center" style="margin-block-end: var(--space-4); gap: var(--space-2);">
-    <div class="roadmap-column__status-dot"
-         style="background-color: <%= status.color %>;"></div>
     <h2 class="txt-medium font-weight-bold">
-      <%= status.name %>
+      <%= render Elements::BadgeComponent.new(color: status.color, tone: :soft, with_dot: true) do %>
+        <%= status.name %>
+      <% end %>
     </h2>
     <span class="txt-small txt-subtle">
       (<%= ideas.size %>)
