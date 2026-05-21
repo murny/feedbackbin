@@ -3,15 +3,32 @@
 module Elements
   class BadgeComponent < BaseComponent
     VARIANTS = %i[default primary secondary destructive outline success warning].freeze
+    TONES    = %i[solid soft].freeze
 
     def initialize(
-      variant: :default,
+      variant: nil,
+      color: nil,
+      tone: nil,
+      with_dot: false,
       href: nil,
       **attrs
     )
-      @variant = validate_option(variant, VARIANTS, "variant")
-      @href = href
-      @attrs = attrs
+      if color && variant
+        raise ArgumentError, "BadgeComponent: pass variant: (semantic) OR color: (runtime), not both"
+      end
+      if tone && !color
+        raise ArgumentError, "BadgeComponent: tone: is only valid with color:"
+      end
+
+      @color    = color
+      @tone     = tone || (color ? :solid : nil)
+      @variant  = variant || (color ? nil : :default)
+      @with_dot = with_dot
+      @href     = href
+      @attrs    = attrs
+
+      validate_option(@variant, VARIANTS, "variant") if @variant
+      validate_option(@tone,    TONES,    "tone")    if @tone
     end
 
     def call
@@ -31,21 +48,25 @@ module Elements
       end
 
       def badge_attrs
-        @attrs.merge(
-          class: badge_classes,
-          data: @attrs[:data] || {}
-        )
+        attrs = @attrs.merge(class: badge_classes, data: @attrs[:data] || {})
+        return attrs unless @color
+
+        style = [ "--badge-color-source: #{@color};", @attrs[:style] ].compact.join(" ")
+        attrs.merge(style: style)
       end
 
       def badge_classes
         [
           "badge",
           variant_class,
+          ("badge--with-dot" if @with_dot),
           @attrs[:class]
         ].compact.join(" ")
       end
 
       def variant_class
+        return "badge--#{@tone}" if @tone
+
         case @variant
         when :default, :primary then "badge--primary"
         when :secondary then "badge--secondary"

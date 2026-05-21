@@ -6,7 +6,16 @@
      <span class="badge badge--secondary">Secondary</span>
      <a href="#" class="badge badge--outline">Clickable</a>
 
-   Variants: badge--primary, badge--secondary, badge--outline, badge--destructive
+   Variants (semantic, token-driven):
+     badge--primary, badge--secondary, badge--outline,
+     badge--destructive, badge--success, badge--warning
+
+   Tones (runtime, pair with --badge-color-source):
+     badge--solid — raw color, ink-inverted text (emphasis pills)
+     badge--soft  — color-mix() against canvas for contrast safety (muted)
+
+   Modifier:
+     badge--with-dot — circle indicator colored from --badge-color-source
    ========================================================================== */
 
 @layer components {
@@ -152,5 +161,54 @@
   .badge--warning {
     --badge-background: var(--color-warning, oklch(0.8 0.15 85));
     --badge-color: var(--color-ink);
+  }
+
+  /* Tone: Solid (runtime color piped via --badge-color-source)
+     Use for emphasis pills (e.g. an idea's current status). Falls back to the
+     primary token if no source is set.
+  /* ------------------------------------------------------------------------ */
+
+  .badge--solid {
+    --badge-color-source: var(--color-primary);
+    --badge-background:   var(--badge-color-source);
+    --badge-color:        var(--color-ink-inverted);
+    --badge-border-color: transparent;
+  }
+
+  /* Tone: Soft (color-mix() against canvas/ink for contrast safety)
+     Use for muted occurrences (dropdown options, list cells). Derives a
+     readable bg/text/border from --badge-color-source so admin-picked pale
+     colors stay legible.
+  /* ------------------------------------------------------------------------ */
+
+  .badge--soft {
+    --badge-color-source: var(--color-muted);
+    --badge-background:   color-mix(in oklab, var(--badge-color-source) 18%, var(--color-canvas));
+    --badge-color:        color-mix(in oklab, var(--badge-color-source) 75%, var(--color-ink));
+    --badge-border-color: color-mix(in oklab, var(--badge-color-source) 50%, var(--color-canvas));
+  }
+
+  html[data-theme="dark"] .badge--soft {
+    --badge-background: color-mix(in oklab, var(--badge-color-source) 30%, var(--color-canvas));
+    --badge-color:      color-mix(in oklab, var(--badge-color-source) 80%, var(--color-ink-inverted));
+  }
+
+  @media (prefers-color-scheme: dark) {
+    html:not([data-theme]) .badge--soft {
+      --badge-background: color-mix(in oklab, var(--badge-color-source) 30%, var(--color-canvas));
+      --badge-color:      color-mix(in oklab, var(--badge-color-source) 80%, var(--color-ink-inverted));
+    }
+  }
+
+  /* Modifier: dot indicator (pairs naturally with badge--soft)
+  /* ------------------------------------------------------------------------ */
+
+  .badge--with-dot::before {
+    content: "";
+    display: inline-block;
+    inline-size: 0.5rem;
+    block-size: 0.5rem;
+    border-radius: var(--radius-full);
+    background-color: var(--badge-color-source, currentColor);
   }
 }

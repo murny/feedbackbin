@@ -10,7 +10,7 @@ module Elements
       end
     end
 
-    # @label Variants
+    # @label Variants (semantic, token-driven)
     def variants
       render_with_template
     end
@@ -20,21 +20,20 @@ module Elements
       render_with_template
     end
 
+    # @label Tones (runtime color, solid vs soft side by side)
+    def tones
+      render_with_template
+    end
+
+    # @label With Dot
+    def with_dot
+      render_with_template
+    end
+
     # @label As Link
     def as_link
       render Elements::BadgeComponent.new(href: "#", variant: :secondary) do
         "Clickable Badge"
-      end
-    end
-
-    # @label Custom Styled
-    def custom_styled
-      render Elements::BadgeComponent.new(
-        variant: :default,
-        class: "text-white font-medium",
-        style: "background-color: #8B5CF6;"
-      ) do
-        "Custom Color"
       end
     end
   end
