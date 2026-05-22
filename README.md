@@ -17,6 +17,16 @@
 > **Note:** FeedbackBin is in active development towards its first stable release.
 > While functional, it's not yet production-ready. Star the repo to follow along!
 
+## What it is
+
+An open-source alternative to Canny, Featurebase, and Nolt. Self-hosted, refreshingly simple.
+
+Feedback tools got bloated. FeedbackBin focuses on the boring core:
+
+- **Collect ideas** from your users; let them vote and discuss in threaded comments.
+- **Track progress** on a public roadmap with custom statuses like Planned, In Progress, and Shipped.
+- **Announce what shipped** with a changelog tied back to the ideas that asked for it.
+
 ## Running Your Own Instance
 
 If you want to run your own FeedbackBin instance without modifying the code, you

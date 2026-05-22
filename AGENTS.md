@@ -60,7 +60,9 @@ FeedbackBin is a customer feedback management platform built with Ruby on Rails 
 ### Authentication & Authorization
 - Global Identity (email-based) can have Users in multiple Accounts
 - Users belong to an Account and have roles: owner, admin, member, system, bot
-- OAuth integration (Google, Facebook) via Omniauth
+  - `system`: auto-created service user used to attribute system-generated content (seeds, automated activity)
+  - `bot`: reserved for AI agents and automation (moderation, content generation, scripted interactions)
+- Primary auth path is passwordless **magic links**; password auth and OAuth (Google, Facebook via Omniauth) are alternates
 - Sessions managed via signed cookies
 - Role-based access via `Role` model
 
@@ -75,15 +77,15 @@ FeedbackBin is a customer feedback management platform built with Ruby on Rails 
 
 ### Key Patterns and Conventions
 - **Concerns**: Shared behavior in `app/models/concerns/` and `app/controllers/concerns/`
-- **Current Context**: Thread-safe current user/organization via `Current` model
+- **Current Context**: Thread-safe current user/account via `Current` model
 - **Form Builders**: Custom form builder in `app/helpers/form_builders/`
 - **Broadcasting**: Real-time updates using Turbo Streams over WebSocket
-- **Multi-tenancy**: Organization-scoped data access
+- **Multi-tenancy**: Account-scoped data access via `Current.account`
 
 ### Controller Structure
 - RESTful controllers following Rails conventions
 - Authentication handled via `Authentication` concern
-- Organization context set via `SetCurrentOrganization` concern
+- Account context set per-request by the `AccountSlug::Extractor` Rack middleware (`config/initializers/tenanting/account_slug.rb`), which wraps each request in `Current.with_account(...)` based on the `/:external_account_id` URL prefix. Background jobs preserve account context via the `ActiveJob` initializer.
 - Authorization via role-based guards (`ensure_admin`, `ensure_owner`) in `Authorization` concern
 - Resource-level permissions via `can_administer_*` and `can_change?` methods on `User::Role`
 
