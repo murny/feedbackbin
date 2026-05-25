@@ -151,8 +151,24 @@ module Elements
 
     test "invalid tone raises ArgumentError" do
       assert_raises(ArgumentError) do
-        BadgeComponent.new(color: "#abc", tone: :neon)
+        BadgeComponent.new(color: "#aabbcc", tone: :neon)
       end
+    end
+
+    test "color: rejects non-hex values" do
+      error = assert_raises(ArgumentError) do
+        BadgeComponent.new(color: "red")
+      end
+
+      assert_match(/color: must be a 6-digit hex/, error.message)
+    end
+
+    test "color: rejects CSS injection attempts" do
+      error = assert_raises(ArgumentError) do
+        BadgeComponent.new(color: "#aabbcc; background: url(x)")
+      end
+
+      assert_match(/color: must be a 6-digit hex/, error.message)
     end
   end
 end

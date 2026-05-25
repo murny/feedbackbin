@@ -2,8 +2,9 @@
 
 module Elements
   class BadgeComponent < BaseComponent
-    VARIANTS = %i[default primary secondary destructive outline success warning].freeze
-    TONES    = %i[solid soft].freeze
+    VARIANTS     = %i[default primary secondary destructive outline success warning].freeze
+    TONES        = %i[solid soft].freeze
+    COLOR_FORMAT = /\A#\h{6}\z/
 
     def initialize(
       variant: nil,
@@ -18,6 +19,9 @@ module Elements
       end
       if tone && !color
         raise ArgumentError, "BadgeComponent: tone: is only valid with color:"
+      end
+      if color && color !~ COLOR_FORMAT
+        raise ArgumentError, "BadgeComponent: color: must be a 6-digit hex like #RRGGBB, got #{color.inspect}"
       end
 
       @color    = color
