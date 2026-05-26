@@ -19,8 +19,7 @@
    ========================================================================== */
 
 @layer components {
-  /* Base
-  /* ------------------------------------------------------------------------ */
+  /* Base */
 
   .badge {
     /* Component API - these variables can be customized by variants */
@@ -165,8 +164,7 @@
 
   /* Tone: Solid (runtime color piped via --badge-color-source)
      Use for emphasis pills (e.g. an idea's current status). Falls back to the
-     primary token if no source is set.
-  /* ------------------------------------------------------------------------ */
+     primary token if no source is set. */
 
   .badge--solid {
     --badge-color-source: var(--color-primary);
@@ -178,8 +176,7 @@
   /* Tone: Soft (color-mix() against canvas/ink for contrast safety)
      Use for muted occurrences (dropdown options, list cells). Derives a
      readable bg/text/border from --badge-color-source so admin-picked pale
-     colors stay legible.
-  /* ------------------------------------------------------------------------ */
+     colors stay legible. */
 
   .badge--soft {
     --badge-color-source: var(--color-muted);
@@ -200,8 +197,7 @@
     }
   }
 
-  /* Modifier: dot indicator (pairs naturally with badge--soft)
-  /* ------------------------------------------------------------------------ */
+  /* Modifier: dot indicator (pairs naturally with badge--soft) */
 
   .badge--with-dot::before {
     content: "";
