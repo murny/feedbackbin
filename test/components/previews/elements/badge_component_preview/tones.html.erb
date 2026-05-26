@@ -1,0 +1,33 @@
+<%#
+  Runtime-color mode: pair color: with tone:.
+  :solid renders the raw color with ink-inverted text (emphasis pills).
+  :soft  derives a contrast-safe bg/text/border via color-mix(in oklab, ...)
+         so admin-picked pales (yellow, mint, blush) stay legible.
+%>
+
+<div class="flex flex-column gap-3">
+  <% [
+    [ "#3b82f6", "Blue"        ],
+    [ "#8b5cf6", "Purple"      ],
+    [ "#10b981", "Green"       ],
+    [ "#f59e0b", "Amber"       ],
+    [ "#ef4444", "Red"         ],
+    [ "#1e3a8a", "Navy"        ],
+    [ "#6b7280", "Gray"        ],
+    [ "#fef3c7", "Pale yellow" ],
+    [ "#bbf7d0", "Pale green"  ],
+    [ "#fecaca", "Pale red"    ]
+  ].each do |hex, label| %>
+    <div class="flex align-center gap-4">
+      <span class="txt-x-small txt-subtle" style="inline-size: 7rem;">
+        <code><%= hex %></code>
+      </span>
+      <%= render Elements::BadgeComponent.new(color: hex, tone: :solid) do %>
+        <%= label %>
+      <% end %>
+      <%= render Elements::BadgeComponent.new(color: hex, tone: :soft) do %>
+        <%= label %>
+      <% end %>
+    </div>
+  <% end %>
+</div>

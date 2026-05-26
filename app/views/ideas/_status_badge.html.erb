@@ -3,12 +3,10 @@
 <span id="idea-status-badge">
   <% if Current.user&.admin? %>
     <%= render Elements::DropdownMenuComponent.new do |dropdown| %>
-      <% dropdown.with_trigger(
-        type: "button",
-        class: "flex-inline align-center txt-reversed txt-x-small font-weight-semibold",
-        style: "background-color: #{idea.status_color}; border-radius: 9999px; padding-inline: 0.625rem; padding-block: 0.125rem; transition: opacity var(--duration-fast);"
-      ) do %>
-        <%= idea.status_name %>
+      <% dropdown.with_trigger(variant: :ghost, size: :sm, type: "button") do %>
+        <%= render Elements::BadgeComponent.new(color: idea.status_color) do %>
+          <%= idea.status_name %>
+        <% end %>
       <% end %>
 
       <% dropdown.with_item_content(
@@ -18,8 +16,9 @@
         params: { status_id: nil },
         class: idea.open? ? "fill-selected" : nil
       ) do %>
-        <span class="flex-item-no-shrink" style="inline-size: 0.75rem; block-size: 0.75rem; border-radius: 50%; background-color: <%= Idea::DEFAULT_STATUS_COLOR %>;"></span>
-        <span><%= t("ideas.default_status") %></span>
+        <%= render Elements::BadgeComponent.new(color: Idea::DEFAULT_STATUS_COLOR, tone: :soft, with_dot: true) do %>
+          <%= t("ideas.default_status") %>
+        <% end %>
         <% if idea.open? %>
           <span class="margin-inline-start-auto">
             <%= lucide_icon("check", class: "size-4") %>
@@ -35,8 +34,9 @@
           params: { status_id: status.id },
           class: status.id == idea.status_id ? "fill-selected" : nil
         ) do %>
-          <span class="flex-item-no-shrink" style="inline-size: 0.75rem; block-size: 0.75rem; border-radius: 50%; background-color: <%= status.color %>;"></span>
-          <span><%= status.name %></span>
+          <%= render Elements::BadgeComponent.new(color: status.color, tone: :soft, with_dot: true) do %>
+            <%= status.name %>
+          <% end %>
           <% if status.id == idea.status_id %>
             <span class="margin-inline-start-auto">
               <%= lucide_icon("check", class: "size-4") %>
@@ -46,7 +46,7 @@
       <% end %>
     <% end %>
   <% else %>
-    <%= render Elements::BadgeComponent.new(class: "txt-reversed font-weight-medium", style: "background-color: #{idea.status_color};") do %>
+    <%= render Elements::BadgeComponent.new(color: idea.status_color) do %>
       <%= idea.status_name %>
     <% end %>
   <% end %>

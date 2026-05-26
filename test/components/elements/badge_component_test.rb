@@ -91,5 +91,84 @@ module Elements
       assert_no_selector "span.badge--secondary"
       assert_no_selector "span.badge--destructive"
     end
+
+    test "color: defaults tone to :solid and inlines --badge-color-source" do
+      render_inline(BadgeComponent.new(color: "#10b981")) { "Test" }
+
+      assert_selector "span.badge--solid"
+      assert_selector "span[style*='--badge-color-source: #10b981']"
+      assert_no_selector "span.badge--primary"
+    end
+
+    test "color: with tone :soft applies soft class and inlines source" do
+      render_inline(BadgeComponent.new(color: "#8b5cf6", tone: :soft)) { "Test" }
+
+      assert_selector "span.badge--soft"
+      assert_selector "span[style*='--badge-color-source: #8b5cf6']"
+    end
+
+    test "color: merges with caller-provided style" do
+      render_inline(BadgeComponent.new(color: "#10b981", style: "margin-inline-start: 1rem;")) { "Test" }
+
+      assert_selector "span[style*='--badge-color-source: #10b981']"
+      assert_selector "span[style*='margin-inline-start: 1rem']"
+    end
+
+    test "passing both variant: and color: raises ArgumentError" do
+      error = assert_raises(ArgumentError) do
+        BadgeComponent.new(variant: :secondary, color: "#10b981")
+      end
+
+      assert_match(/variant: \(semantic\) OR color: \(runtime\), not both/, error.message)
+    end
+
+    test "passing tone: without color: raises ArgumentError" do
+      error = assert_raises(ArgumentError) do
+        BadgeComponent.new(tone: :soft)
+      end
+
+      assert_match(/tone: is only valid with color:/, error.message)
+    end
+
+    test "with_dot: true adds badge--with-dot modifier" do
+      render_inline(BadgeComponent.new(color: "#3b82f6", tone: :soft, with_dot: true)) { "Test" }
+
+      assert_selector "span.badge--with-dot"
+      assert_selector "span.badge--soft"
+    end
+
+    test "with_dot: false (default) omits the dot modifier" do
+      render_inline(BadgeComponent.new(color: "#3b82f6", tone: :soft)) { "Test" }
+
+      assert_no_selector "span.badge--with-dot"
+    end
+
+    test "without color: does not inject --badge-color-source into style" do
+      render_inline(BadgeComponent.new(variant: :secondary)) { "Test" }
+
+      assert_no_selector "span[style*='--badge-color-source']"
+    end
+
+    test "invalid tone raises ArgumentError" do
+      assert_raises(ArgumentError) do
+        BadgeComponent.new(color: "#aabbcc", tone: :neon)
+      end
+    end
+
+    test "color: rejects non-hex values" do
+      error = assert_raises(ArgumentError) do
+        BadgeComponent.new(color: "red")
+      end
+
+      assert_match(/color: must be a 6-digit hex/, error.message)
+    end
+
+    test "color: rejects CSS injection attempts" do
+      error = assert_raises(ArgumentError) do
+        BadgeComponent.new(color: "#aabbcc; background: url(x)")
+      end
+
+      assert_match(/color: must be a 6-digit hex/, error.message)
+    end
   end
 end

@@ -16,9 +16,7 @@
                 <%= t(".pinned") %>
               <% end %>
             <% end %>
-            <%= render Elements::BadgeComponent.new(
-              style: "--badge-background: #{idea.status_color}; --badge-color: var(--color-ink-inverted);"
-            ) do %>
+            <%= render Elements::BadgeComponent.new(color: idea.status_color) do %>
               <%= idea.status_name %>
             <% end %>
           </div>

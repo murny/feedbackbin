@@ -45,7 +45,7 @@
                 <%= @idea.board.name %>
               <% end %>
             <% end %>
-            <%= render Elements::BadgeComponent.new(variant: :outline) do %>
+            <%= render Elements::BadgeComponent.new(color: @idea.status_color, tone: :soft) do %>
               <%= @idea.status_name %>
             <% end %>
           </div>

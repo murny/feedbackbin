@@ -27,10 +27,7 @@
                       <%= idea.board.name %>
                     <% end %>
                   <% end %>
-                  <%= render Elements::BadgeComponent.new(
-                    variant: :outline,
-                    style: "margin-inline-start: var(--space-2);"
-                  ) do %>
+                  <%= render Elements::BadgeComponent.new(color: idea.status_color, tone: :soft, style: "margin-inline-start: var(--space-2);") do %>
                     <%= idea.status_name %>
                   <% end %>
                 </div>

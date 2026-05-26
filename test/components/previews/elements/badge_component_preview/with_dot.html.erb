@@ -1,0 +1,19 @@
+<%#
+  with_dot: true adds a circle indicator before the badge content, colored
+  from --badge-color-source. Pairs naturally with tone: :soft for list rows
+  and dropdown items.
+%>
+
+<div class="flex flex-wrap gap-3">
+  <% [
+    [ "#3b82f6", "Open"        ],
+    [ "#8b5cf6", "Planned"     ],
+    [ "#f59e0b", "In Progress" ],
+    [ "#10b981", "Complete"    ],
+    [ "#ef4444", "Wontfix"     ]
+  ].each do |hex, label| %>
+    <%= render Elements::BadgeComponent.new(color: hex, tone: :soft, with_dot: true) do %>
+      <%= label %>
+    <% end %>
+  <% end %>
+</div>

@@ -15,13 +15,6 @@
     }
   }
 
-  .roadmap-column__status-dot {
-    inline-size: 0.75rem;
-    block-size: 0.75rem;
-    border-radius: 9999px;
-    flex-shrink: 0;
-  }
-
   .roadmap-column__empty {
     text-align: center;
     padding-block: var(--space-12);
