@@ -1,0 +1,21 @@
+<%#
+  Variants change padding scale, title size, and description max-width.
+  Default is the full-page-ish form; compact suits sidebars / small cells;
+  inline is for narrow column headers; page is for primary landing surfaces.
+%>
+
+<div class="flex flex-column gap-6">
+  <% %i[default compact inline page].each do |variant| %>
+    <div>
+      <h4 class="txt-small font-weight-semibold txt-subtle margin-block-end-2">
+        :<%= variant %>
+      </h4>
+      <%= render Elements::EmptyStateComponent.new(
+        icon: "inbox",
+        title: "No ideas yet",
+        description: "Be the first to share an idea!",
+        variant: variant
+      ) %>
+    </div>
+  <% end %>
+</div>
