@@ -48,12 +48,22 @@ module Elements
       assert_selector ".empty-state.empty-state--default"
     end
 
-    test "applies the requested variant modifier class for :compact, :inline, :page" do
-      %i[compact inline page].each do |variant|
-        render_inline(EmptyStateComponent.new(icon: "inbox", title: "No items", variant: variant))
+    test "applies the compact variant modifier class" do
+      render_inline(EmptyStateComponent.new(icon: "inbox", title: "No items", variant: :compact))
 
-        assert_selector ".empty-state.empty-state--#{variant}"
-      end
+      assert_selector ".empty-state.empty-state--compact"
+    end
+
+    test "applies the inline variant modifier class" do
+      render_inline(EmptyStateComponent.new(icon: "inbox", title: "No items", variant: :inline))
+
+      assert_selector ".empty-state.empty-state--inline"
+    end
+
+    test "applies the page variant modifier class" do
+      render_inline(EmptyStateComponent.new(icon: "inbox", title: "No items", variant: :page))
+
+      assert_selector ".empty-state.empty-state--page"
     end
 
     test "raises ArgumentError for an invalid variant" do

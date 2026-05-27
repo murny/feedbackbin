@@ -30,7 +30,7 @@ module Elements
         [
           "empty-state",
           "empty-state--#{@variant}",
-          @attrs[:class]
+          *Array.wrap(@attrs[:class])
         ].compact.join(" ")
       end
   end

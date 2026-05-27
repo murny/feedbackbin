@@ -2,10 +2,11 @@
    Empty State Component
 
    Usage:
-     <%= render "shared/empty_state",
-                icon: "inbox",
-                title: t("..."),
-                description: t("...") %>
+     <%= render Elements::EmptyStateComponent.new(
+           icon: "inbox",
+           title: t("..."),
+           description: t("...")
+         ) %>
 
    Variants: empty-state--default, empty-state--compact,
              empty-state--inline, empty-state--page
