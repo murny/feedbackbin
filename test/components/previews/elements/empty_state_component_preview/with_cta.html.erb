@@ -1,0 +1,17 @@
+<%#
+  CTA slot accepts any block — typically a link or button. Use for empty
+  states where the user can take action (e.g. "Create your first idea").
+%>
+
+<%= render Elements::EmptyStateComponent.new(
+  icon: "inbox",
+  title: "No ideas yet",
+  description: "Be the first to share an idea!"
+) do |c| %>
+  <% c.with_cta do %>
+    <%= render Elements::ButtonComponent.new(href: "#", variant: :default) do %>
+      <%= lucide_icon "plus" %>
+      Share an idea
+    <% end %>
+  <% end %>
+<% end %>

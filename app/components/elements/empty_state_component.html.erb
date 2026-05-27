@@ -1,0 +1,12 @@
+<%= tag.div(**container_attrs) do %>
+  <div class="empty-state__icon flex align-center justify-center">
+    <%= helpers.lucide_icon @icon, class: "size-10 txt-subtle" %>
+  </div>
+  <h3 class="empty-state__title"><%= @title %></h3>
+  <% if @description.present? %>
+    <p class="empty-state__description"><%= @description %></p>
+  <% end %>
+  <% if cta? %>
+    <div class="empty-state__cta"><%= cta %></div>
+  <% end %>
+<% end %>

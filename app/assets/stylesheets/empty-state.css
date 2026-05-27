@@ -1,0 +1,75 @@
+/* ==========================================================================
+   Empty State Component
+
+   Usage:
+     <%= render Elements::EmptyStateComponent.new(
+           icon: "inbox",
+           title: t("..."),
+           description: t("...")
+         ) %>
+
+   Variants: empty-state--default, empty-state--compact,
+             empty-state--inline, empty-state--page
+   ========================================================================== */
+
+@layer components {
+  .empty-state {
+    --empty-state-padding-block: var(--space-12);
+    --empty-state-padding-inline: 0;
+    --empty-state-title-size: var(--text-base);
+    --empty-state-description-max-inline-size: 24rem;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding-block: var(--empty-state-padding-block);
+    padding-inline: var(--empty-state-padding-inline);
+  }
+
+  .empty-state--compact {
+    --empty-state-padding-block: var(--space-8);
+  }
+
+  .empty-state--inline {
+    --empty-state-padding-block: var(--space-6);
+    --empty-state-padding-inline: var(--space-3);
+  }
+
+  .empty-state--page {
+    --empty-state-padding-block: var(--space-16);
+    --empty-state-title-size: var(--text-xl);
+    --empty-state-description-max-inline-size: 28rem;
+  }
+
+  .empty-state__icon {
+    --empty-state-icon-size: 5rem;
+
+    inline-size: var(--empty-state-icon-size);
+    block-size: var(--empty-state-icon-size);
+    background-color: var(--color-ink-lightest);
+    border-radius: var(--radius-full);
+    margin-inline: auto;
+  }
+
+  .empty-state__title {
+    font-size: var(--empty-state-title-size);
+    font-weight: var(--font-bold);
+    line-height: var(--leading-tight);
+    margin-block-start: var(--space-6);
+  }
+
+  .empty-state__description {
+    font-size: var(--text-sm);
+    font-weight: var(--font-normal);
+    line-height: var(--leading-normal);
+    color: var(--color-ink-light);
+    max-inline-size: var(--empty-state-description-max-inline-size);
+    margin-block-start: var(--space-2);
+    margin-inline: auto;
+  }
+
+  .empty-state__cta {
+    margin-block-start: var(--space-4);
+  }
+}
