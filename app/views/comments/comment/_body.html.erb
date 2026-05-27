@@ -1,0 +1,14 @@
+<%# locals: (comment:, replies_summary: false) %>
+<div class="txt-subtle" data-controller="syntax-highlight">
+  <%= comment.body %>
+</div>
+
+<div class="margin-block-start-half flex align-center justify-space-between gap">
+  <%= render "reactions/reactions", reactable: comment %>
+
+  <% if replies_summary && comment.replies.any? %>
+    <span class="txt-small txt-subtle">
+      <%= t("comments.comment.replies_count", count: comment.replies.size) %>
+    </span>
+  <% end %>
+</div>

@@ -3,71 +3,28 @@
 <%= turbo_frame_tag reply, class: "display-block", style: "scroll-margin-block-start: var(--space-4);" do %>
   <div class="reply-thread">
     <div class="flex-1 min-width">
-      <div class="flex justify-space-between align-center margin-block-end-half">
-        <div class="flex align-center">
-          <%= avatar_tag reply.creator, class: "avatar avatar--sm", alt: reply.creator.name, style: "margin-inline-end: var(--space-2);" %>
-
-          <p class="flex-inline flex-column align-start margin-inline-end txt-small txt-ink">
-            <span class="font-weight-medium"><%= reply.creator.name %></span>
-            <%= link_to idea_path(reply.idea, anchor: dom_id(reply)), class: "txt-x-small txt-subtle txt-underline", data: { turbo_frame: "_top" } do %>
-              <%= local_datetime_tag reply.created_at, style: :datetime %>
-            <% end %>
-          </p>
-        </div>
-        <%= render Elements::DropdownMenuComponent.new do |dropdown| %>
-          <% dropdown.with_trigger(variant: :ghost, size: :icon, class: "txt-subtle") do %>
-            <%= lucide_icon("ellipsis") %>
-            <span class="visually-hidden"><%= t(".reply_settings") %></span>
-          <% end %>
-
-          <% if Current.user&.can_administer_comment?(reply) %>
-            <% dropdown.with_item_content(href: edit_idea_comment_path(reply.idea, reply)) do %>
-              <%= t("edit") %>
-            <% end %>
-            <% dropdown.with_item_content(
-              href: idea_comment_path(reply.idea, reply),
-              method: :delete,
-              form: { data: { turbo_confirm: t("are_you_sure") } }
-            ) do %>
-              <%= t("remove") %>
-            <% end %>
-          <% end %>
-
-          <% dropdown.with_item_content(
-            href: "#",
-            data: {
-              controller: "copy-to-clipboard",
-              copy_to_clipboard_content_value: idea_url(reply.idea, anchor: dom_id(reply)),
-              action: "click->copy-to-clipboard#copy"
-            }
-          ) do %>
-            <%= t(".copy_link") %>
-          <% end %>
-
-          <% dropdown.with_item_content(
-            href: "#",
-            data: {
-              controller: "quote-reply",
-              quote_reply_text_value: reply.body.to_plain_text,
-              quote_reply_form_id_value: "#{dom_id(reply.parent)}_reply_form",
-              action: "click->quote-reply#quote"
-            }
-          ) do %>
-            <%= t(".quote_reply") %>
-          <% end %>
-
-          <% dropdown.with_item_content(href: "#") do %>
-            <%= t("report") %>
-          <% end %>
+      <%= render "comments/comment/header",
+                 comment: reply,
+                 timestamp_size: :x_small,
+                 trigger_label: t("comments.reply.reply_settings"),
+                 copy_link_label: t("comments.reply.copy_link") do |dropdown| %>
+        <% dropdown.with_item_content(
+          href: "#",
+          data: {
+            controller: "quote-reply",
+            quote_reply_text_value: reply.body.to_plain_text,
+            quote_reply_form_id_value: "#{dom_id(reply.parent)}_reply_form",
+            action: "click->quote-reply#quote"
+          }
+        ) do %>
+          <%= t("comments.reply.quote_reply") %>
         <% end %>
-      </div>
+      <% end %>
 
-      <div class="txt-small txt-subtle" data-controller="syntax-highlight">
-        <%= reply.body %>
-      </div>
-
-      <div class="margin-block-start-half">
-        <%= render "reactions/reactions", reactable: reply %>
+      <div class="txt-small">
+        <%= render "comments/comment/body",
+                   comment: reply,
+                   replies_summary: false %>
       </div>
     </div>
   </div>
