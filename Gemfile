@@ -50,6 +50,7 @@ gem "tzinfo-data", platforms: %i[windows jruby]
 gem "bootsnap", require: false
 
 gem "image_processing", ">= 1.2"
+gem "ruby-vips", "~> 2.0", require: false
 
 gem "benchmark" # indirect dependency, being removed from Ruby 3.5 stdlib so here to quash warnings
 
