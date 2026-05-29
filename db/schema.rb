@@ -10,15 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.2].define(version: 2026_04_20_140000) do
+ActiveRecord::Schema[8.2].define(version: 2026_05_29_000003) do
   create_table "accesses", force: :cascade do |t|
     t.datetime "accessed_at"
     t.bigint "account_id", null: false
     t.bigint "board_id", null: false
     t.datetime "created_at", null: false
-    t.integer "involvement", default: 0, null: false
     t.datetime "updated_at", null: false
     t.bigint "user_id", null: false
+    t.string "involvement", default: "access_only", null: false
     t.index ["account_id", "board_id"], name: "index_accesses_on_account_id_and_board_id"
     t.index ["account_id"], name: "index_accesses_on_account_id"
     t.index ["board_id", "user_id"], name: "index_accesses_on_board_id_and_user_id", unique: true
@@ -216,8 +216,8 @@ ActiveRecord::Schema[8.2].define(version: 2026_04_20_140000) do
     t.datetime "created_at", null: false
     t.datetime "expires_at", null: false
     t.integer "identity_id", null: false
-    t.integer "purpose", default: 0, null: false
     t.datetime "updated_at", null: false
+    t.string "purpose", default: "sign_in", null: false
     t.index ["code"], name: "index_magic_links_on_code", unique: true
     t.index ["expires_at"], name: "index_magic_links_on_expires_at"
     t.index ["identity_id"], name: "index_magic_links_on_identity_id"
@@ -349,9 +349,9 @@ ActiveRecord::Schema[8.2].define(version: 2026_04_20_140000) do
     t.string "name", limit: 255, null: false
     t.string "preferred_language"
     t.string "role", default: "member", null: false
-    t.integer "theme", default: 0, null: false
     t.string "time_zone"
     t.datetime "updated_at", null: false
+    t.string "theme", default: "system", null: false
     t.index ["account_id", "identity_id"], name: "index_users_on_account_id_and_identity_id", unique: true
     t.index ["account_id", "role"], name: "index_users_on_account_id_and_role"
     t.index ["identity_id"], name: "index_users_on_identity_id"

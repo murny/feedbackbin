@@ -6,7 +6,7 @@ class MagicLink < ApplicationRecord
 
   belongs_to :identity
 
-  enum :purpose, %w[sign_in sign_up], prefix: :for, default: :sign_in
+  enum :purpose, %w[ sign_in sign_up ].index_by(&:itself), prefix: :for, default: :sign_in
 
   scope :active, -> { where(expires_at: Time.current...) }
   scope :stale, -> { where(expires_at: ..Time.current) }
