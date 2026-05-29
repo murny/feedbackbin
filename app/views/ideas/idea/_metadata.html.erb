@@ -1,0 +1,19 @@
+<%# locals: (idea:) %>
+
+<div class="flex align-center gap-half margin-block-end-half">
+  <%= render Elements::BadgeComponent.new(
+    variant: :outline,
+    class: "gap-half txt-subtle"
+  ) do %>
+    <span class="border-radius flex-item-no-shrink" style="inline-size: 0.5rem; block-size: 0.5rem; border-radius: var(--radius-full); background-color: <%= idea.board.color %>;"></span>
+    <span><%= idea.board.name %></span>
+  <% end %>
+</div>
+
+<% if idea.tags.any? %>
+  <div class="flex flex-wrap gap-half margin-block-end-half">
+    <% idea.tags.each do |tag| %>
+      <%= render "tags/tag", tag: tag, idea: idea, removable: false %>
+    <% end %>
+  </div>
+<% end %>
