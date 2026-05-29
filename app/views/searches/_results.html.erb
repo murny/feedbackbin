@@ -3,10 +3,11 @@
 <% if query.blank? && recent_queries.any? %>
   <%= render "searches/recent_queries", recent_queries: recent_queries %>
 <% elsif query.present? && results.empty? %>
-  <div class="search-empty">
-    <%= lucide_icon "search-x", class: "size-8 txt-subtle" %>
-    <p class="txt-small txt-subtle"><%= t("searches.results.no_results") %></p>
-  </div>
+  <%= render Elements::EmptyStateComponent.new(
+    icon: "search-x",
+    title: t("searches.results.no_results"),
+    variant: :inline
+  ) %>
 <% else %>
   <div class="search-results-list">
     <% results.each do |result| %>

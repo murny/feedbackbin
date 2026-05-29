@@ -8,7 +8,7 @@ module Elements
 
     def initialize(
       icon:,
-      title:,
+      title: nil,
       description: nil,
       variant: :default,
       **attrs

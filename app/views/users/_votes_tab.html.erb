@@ -49,10 +49,9 @@
     <% end %>
   </ul>
 <% else %>
-  <div class="txt-align-center txt-subtle pad-block-12">
-    <div class="margin-block-end">
-      <%= lucide_icon "heart", class: "center", style: "inline-size: 3rem; block-size: 3rem; opacity: 0.5;" %>
-    </div>
-    <p class="txt-small"><%= t(".empty_votes") %></p>
-  </div>
+  <%= render Elements::EmptyStateComponent.new(
+    icon: "heart",
+    title: t(".empty_votes"),
+    variant: :compact
+  ) %>
 <% end %>

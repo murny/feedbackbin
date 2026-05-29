@@ -10,15 +10,11 @@
     <% if @changelogs.empty? %>
       <%= render Elements::PanelComponent.new do |c| %>
         <% c.with_body(class: "pad") do %>
-        <div class="page-empty-state flex flex-column align-center justify-center">
-          <div class="flex align-center justify-center border-radius fill-shade" style="block-size: 5rem; inline-size: 5rem; opacity: 0.5;">
-            <%= lucide_icon "scroll-text", style: "inline-size: 2.5rem; block-size: 2.5rem; color: var(--color-muted-foreground);" %>
-          </div>
-          <h3 class="txt-medium font-weight-bold" style="margin-block-start: var(--space-6);"><%= t(".empty_placeholder") %></h3>
-          <p class="txt-small txt-subtle" style="margin-block-start: var(--space-2); max-inline-size: 24rem;">
-            <%= t(".empty_description") %>
-          </p>
-        </div>
+          <%= render Elements::EmptyStateComponent.new(
+            icon: "scroll-text",
+            title: t(".empty_placeholder"),
+            description: t(".empty_description")
+          ) %>
         <% end %>
       <% end %>
     <% else %>

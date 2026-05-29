@@ -16,6 +16,13 @@ module Elements
       assert_selector ".empty-state__icon svg.size-10.txt-subtle"
     end
 
+    test "omits the title heading when no title is given" do
+      render_inline(EmptyStateComponent.new(icon: "inbox", description: "Try again"))
+
+      assert_no_selector "h3.empty-state__title"
+      assert_selector "p.empty-state__description", text: "Try again"
+    end
+
     test "renders the description paragraph when description is present" do
       render_inline(EmptyStateComponent.new(icon: "inbox", title: "No items", description: "Try again"))
 
