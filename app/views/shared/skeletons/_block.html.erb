@@ -1,0 +1,6 @@
+<%# locals: (lines: 1, width: "100%") %>
+<div class="skeleton-block flex flex-column gap-2" role="status" aria-live="polite" aria-label="<%= t("shared.skeletons.block.loading_label") %>">
+  <% lines.times do %>
+    <span class="skeleton skeleton--text" style="inline-size: <%= width %>;" aria-hidden="true"></span>
+  <% end %>
+</div>
