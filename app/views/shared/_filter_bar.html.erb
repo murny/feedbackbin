@@ -1,0 +1,40 @@
+<%# locals: (path_helper:, boards:, statuses:, selected_board:, search:, search_placeholder:, sort_options:, active_status_id:, turbo_frame:, params:, all_ideas_label:, sort_by_label:) %>
+<div class="filter-bar-shell flex flex-column gap" style="--row-gap: var(--space-4);">
+  <div class="flex flex-column gap" style="--row-gap: var(--space-4);">
+    <%= render "shared/board_filter",
+               path_helper: path_helper,
+               boards: boards,
+               selected_board: selected_board,
+               turbo_frame: turbo_frame,
+               preserve_params: { sort: params[:sort], direction: params[:direction], status_id: active_status_id, search: search } %>
+
+    <%= render "shared/search_filter",
+               path_helper: path_helper,
+               search_value: search,
+               turbo_frame: turbo_frame,
+               placeholder: search_placeholder,
+               preserve_params: { board_id: params[:board_id], status_id: active_status_id, sort: params[:sort], direction: params[:direction] } %>
+  </div>
+
+  <%= render "shared/filter_bar/status_tabs",
+             statuses: statuses,
+             path_helper: path_helper,
+             active_status_id: active_status_id,
+             turbo_frame: turbo_frame,
+             all_ideas_label: all_ideas_label,
+             preserve_params: { board_id: params[:board_id], sort: params[:sort], direction: params[:direction], search: search } %>
+
+  <div class="flex align-center gap-half txt-small">
+    <span class="txt-subtle font-weight-medium"><%= sort_by_label %></span>
+    <div class="flex align-center gap-half border border-radius fill pad-block-end-half" style="padding: var(--space-1);">
+      <% Array(sort_options).each do |option| %>
+        <%= ideas_sort_link text: option[:text],
+                            sort_field: option[:sort_field],
+                            direction: option[:direction] || "desc",
+                            params: params,
+                            path_helper: path_helper,
+                            turbo_frame: turbo_frame %>
+      <% end %>
+    </div>
+  </div>
+</div>

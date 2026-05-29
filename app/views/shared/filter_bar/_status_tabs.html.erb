@@ -1,0 +1,16 @@
+<%# locals: (statuses:, path_helper:, active_status_id:, turbo_frame:, all_ideas_label:, preserve_params: {}) %>
+<div class="filter-bar">
+  <%= link_to all_ideas_label,
+              send(path_helper, **clean_params(**preserve_params, status_id: nil)),
+              class: "filter-bar__link #{active_status_id.blank? ? 'filter-bar__link--active' : ''}".strip,
+              aria: { current: active_status_id.blank? ? "page" : nil },
+              data: { turbo_frame: turbo_frame } %>
+  <% statuses.each do |status| %>
+    <% active = active_status_id.to_s == status.id.to_s %>
+    <%= link_to status.name,
+                send(path_helper, **clean_params(**preserve_params, status_id: status.id)),
+                class: "filter-bar__link #{active ? 'filter-bar__link--active' : ''}".strip,
+                aria: { current: active ? "page" : nil },
+                data: { turbo_frame: turbo_frame } %>
+  <% end %>
+</div>
