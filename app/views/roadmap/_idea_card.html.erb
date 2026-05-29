@@ -7,12 +7,7 @@
     </h3>
 
     <div class="flex align-center flex-wrap txt-x-small txt-subtle gap-2">
-      <%= render Elements::BadgeComponent.new(
-        variant: :outline,
-        class: "txt-subtle"
-      ) do %>
-        <%= idea.board.name %>
-      <% end %>
+      <%= render "ideas/idea/metadata", idea: idea, inline: true %>
 
       <span class="flex-inline align-center gap-1">
         <%= lucide_icon "arrow-up", style: "inline-size: 0.75rem; block-size: 0.75rem;" %>

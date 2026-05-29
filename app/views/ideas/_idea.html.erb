@@ -22,24 +22,7 @@
           </div>
         </div>
 
-        <!-- Board and metadata row -->
-        <div class="flex align-center gap-half margin-block-end-half">
-          <%= render Elements::BadgeComponent.new(
-            variant: :outline,
-            class: "gap-half txt-subtle"
-          ) do %>
-            <span class="border-radius flex-item-no-shrink" style="inline-size: 0.5rem; block-size: 0.5rem; border-radius: var(--radius-full); background-color: <%= idea.board.color %>;"></span>
-            <span><%= idea.board.name %></span>
-          <% end %>
-        </div>
-
-        <% if idea.tags.any? %>
-          <div class="flex flex-wrap gap-half margin-block-end-half">
-            <% idea.tags.each do |tag| %>
-              <%= render "tags/tag", tag: tag, idea: idea, removable: false %>
-            <% end %>
-          </div>
-        <% end %>
+        <%= render "ideas/idea/metadata", idea: idea %>
 
         <div class="margin-block-start-half flex align-center gap-half txt-x-small">
           <%= avatar_tag idea.creator, class: "avatar avatar--sm", alt: idea.creator.name %>
@@ -55,25 +38,7 @@
           <%= truncate(strip_tags(idea.description.to_s), length: 250, separator: " ") %>
         </p>
 
-        <!-- Comments section moved to bottom -->
-        <div class="flex align-center justify-space-between pad-block-start-half" style="padding-inline-end: var(--space-2);">
-          <% participants = idea.participants(limit: 5) %>
-          <% if participants.any? %>
-            <%= render Elements::AvatarGroupComponent.new(
-              participants.map { |user| { src: fresh_user_avatar_path(user), alt: user.name, fallback: user.initials, href: user_path(user), title: user.name } },
-              hover_effect: true
-            ) %>
-          <% end %>
-          <div class="flex align-center gap-half">
-            <div>
-              <span class="visually-hidden"><%= t(".total_comments") %></span>
-              <svg class="size-6 txt-subtle" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 12.76c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.076-4.076a1.526 1.526 0 011.037-.443 48.282 48.282 0 005.68-.494c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
-              </svg>
-            </div>
-            <div class="txt-small"><%= idea.comments_count %></div>
-          </div>
-        </div>
+        <%= render "ideas/idea/footer", idea: idea %>
       </div>
     </div>
   </div>
