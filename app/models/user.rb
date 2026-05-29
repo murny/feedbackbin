@@ -21,7 +21,7 @@ class User < ApplicationRecord
   has_many :notifications, dependent: :destroy
   has_many :mentions, dependent: :destroy, foreign_key: :mentionee_id, inverse_of: :mentionee
 
-  enum :theme, { system: 0, light: 1, dark: 2 }, default: :system, prefix: true, validate: true
+  enum :theme, %w[ system light dark ].index_by(&:itself), default: :system, prefix: true, validate: true
 
   validates :name, presence: true
 

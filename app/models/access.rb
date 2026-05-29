@@ -7,7 +7,7 @@ class Access < ApplicationRecord
   belongs_to :user
 
   # Enums
-  enum :involvement, { access_only: 0, watching: 1 }, default: :access_only, prefix: true, validate: true
+  enum :involvement, %w[ access_only watching ].index_by(&:itself), default: :access_only, prefix: true, validate: true
 
   # Validations
   validates :user_id, uniqueness: { scope: :board_id }

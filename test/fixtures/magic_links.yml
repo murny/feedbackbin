@@ -3,17 +3,17 @@
 valid:
   identity: jane
   code: ABC123
-  purpose: 0
+  purpose: sign_in
   expires_at: <%= 15.minutes.from_now %>
 
 expired:
   identity: jane
   code: XYZ789
-  purpose: 0
+  purpose: sign_in
   expires_at: <%= 1.hour.ago %>
 
 sign_up:
   identity: jane
   code: DEF456
-  purpose: 1
+  purpose: sign_up
   expires_at: <%= 15.minutes.from_now %>
