@@ -15,6 +15,16 @@ class IdeasControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "index renders empty state when no ideas exist for the account" do
+    Idea.where(account: accounts(:feedbackbin)).destroy_all
+
+    get ideas_url
+
+    assert_response :success
+    assert_includes response.body, "empty-state__title"
+    assert_includes response.body, I18n.t("ideas.index.empty_idea_title")
+  end
+
   test "should get new" do
     get new_idea_url
 
