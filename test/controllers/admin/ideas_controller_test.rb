@@ -44,5 +44,13 @@ module Admin
 
       assert_redirected_to sign_in_path
     end
+
+    test "index renders shared empty-state when no ideas exist" do
+      get admin_ideas_path, params: { search: "zzzz_no_match_zzzz" }
+
+      assert_response :success
+      assert_match(/empty-state__title/, @response.body)
+      assert_includes @response.body, I18n.t("admin.ideas.ideas_list.no_ideas_title")
+    end
   end
 end
