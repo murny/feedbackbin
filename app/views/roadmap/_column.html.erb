@@ -22,9 +22,9 @@
     <% else %>
       <%= render Elements::EmptyStateComponent.new(
         icon: "inbox",
-        title: "",
         description: t(".no_ideas"),
-        variant: :inline
+        variant: :inline,
+        class: "roadmap-column__empty"
       ) %>
     <% end %>
   </div>

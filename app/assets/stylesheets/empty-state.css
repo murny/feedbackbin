@@ -69,6 +69,10 @@
     margin-inline: auto;
   }
 
+  .empty-state__icon + .empty-state__description {
+    margin-block-start: var(--space-6);
+  }
+
   .empty-state__cta {
     margin-block-start: var(--space-4);
   }
