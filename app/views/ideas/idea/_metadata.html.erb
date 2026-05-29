@@ -1,6 +1,7 @@
-<%# locals: (idea:) %>
+<%# locals: (idea:, inline: false) %>
+<% spacing = inline ? "" : " margin-block-end-half" %>
 
-<div class="flex align-center gap-half margin-block-end-half">
+<div class="flex align-center gap-half<%= spacing %>">
   <%= render Elements::BadgeComponent.new(
     variant: :outline,
     class: "gap-half txt-subtle"
@@ -11,7 +12,7 @@
 </div>
 
 <% if idea.tags.any? %>
-  <div class="flex flex-wrap gap-half margin-block-end-half">
+  <div class="flex flex-wrap gap-half<%= spacing %>">
     <% idea.tags.each do |tag| %>
       <%= render "tags/tag", tag: tag, idea: idea, removable: false %>
     <% end %>
