@@ -84,18 +84,13 @@
           <% end %>
         <% else %>
           <tr>
-            <td colspan="5" class="txt-align-center" style="padding-inline: var(--space-6); padding-block: var(--space-12);">
-              <div class="center size-12 fill-shade flex align-center justify-center" style="margin-block-end: var(--space-4); border-radius: 9999px;">
-                <%= lucide_icon "message-square", class: "size-6 txt-subtle" %>
-              </div>
-              <h3 class="txt-small font-weight-medium margin-block-end-half"><%= t(".no_ideas_title") %></h3>
-              <p class="txt-small txt-subtle">
-                <% if params[:search].present? %>
-                  <%= t(".no_ideas_search") %>
-                <% else %>
-                  <%= t(".no_ideas_empty") %>
-                <% end %>
-              </p>
+            <td colspan="5">
+              <%= render Elements::EmptyStateComponent.new(
+                    icon: "message-square",
+                    title: t(".no_ideas_title"),
+                    description: (params[:search].present? ? t(".no_ideas_search") : t(".no_ideas_empty")),
+                    variant: :compact
+                  ) %>
             </td>
           </tr>
         <% end %>

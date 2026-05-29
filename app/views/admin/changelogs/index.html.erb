@@ -85,13 +85,16 @@
     <% end %>
   <% else %>
     <%= render Elements::PanelComponent.new do |c| %>
-      <% c.with_body(class: "txt-align-center", style: "padding: var(--space-8);") do %>
-        <%= lucide_icon "megaphone", class: "size-12 txt-subtle center" %>
-        <h3 class="txt-medium font-weight-bold margin-block-start"><%= t(".no_changelogs_title") %></h3>
-        <p class="txt-small txt-subtle margin-block-start-half"><%= t(".no_changelogs_description") %></p>
-        <div style="margin-block-start: var(--space-6);">
-          <%= link_to t(".create_first_changelog"), new_admin_changelog_path, class: "btn btn--primary" %>
-        </div>
+      <% c.with_body do %>
+        <%= render Elements::EmptyStateComponent.new(
+              icon: "megaphone",
+              title: t(".no_changelogs_title"),
+              description: t(".no_changelogs_description")
+            ) do |empty| %>
+          <% empty.with_cta do %>
+            <%= link_to t(".create_first_changelog"), new_admin_changelog_path, class: "btn btn--primary" %>
+          <% end %>
+        <% end %>
       <% end %>
     <% end %>
   <% end %>

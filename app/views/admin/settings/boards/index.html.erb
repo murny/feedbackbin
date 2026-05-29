@@ -60,13 +60,16 @@
       <% end %>
     <% else %>
       <%= render Elements::PanelComponent.new do |c| %>
-        <% c.with_body(class: "txt-align-center", style: "padding: var(--space-8);") do %>
-          <%= lucide_icon "folder", class: "center size-12 txt-subtle" %>
-        <h3 class="txt-large font-weight-semibold margin-block-start"><%= t(".no_boards_title") %></h3>
-        <p class="txt-small txt-subtle margin-block-start-half"><%= t(".no_boards_description") %></p>
-        <div style="margin-block-start: var(--space-6);">
-          <%= link_to t(".create_first_board"), new_admin_settings_board_path, class: "btn btn--primary" %>
-        </div>
+        <% c.with_body do %>
+          <%= render Elements::EmptyStateComponent.new(
+                icon: "folder",
+                title: t(".no_boards_title"),
+                description: t(".no_boards_description")
+              ) do |empty| %>
+            <% empty.with_cta do %>
+              <%= link_to t(".create_first_board"), new_admin_settings_board_path, class: "btn btn--primary" %>
+            <% end %>
+          <% end %>
         <% end %>
       <% end %>
     <% end %>

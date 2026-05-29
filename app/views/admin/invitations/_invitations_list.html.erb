@@ -57,11 +57,11 @@
     </ul>
   </div>
 <% else %>
-  <div class="panel txt-align-center" style="padding: var(--space-8);">
-    <%= lucide_icon "mail-check", class: "center txt-subtle", style: "inline-size: 3rem; block-size: 3rem;" %>
-    <h3 class="txt-large font-weight-semibold margin-block-start"><%= t(".no_invitations_title") %></h3>
-    <p class="txt-small txt-subtle margin-block-start-half"><%= t(".no_invitations_description") %></p>
-  </div>
+  <%= render Elements::EmptyStateComponent.new(
+        icon: "mail-check",
+        title: t(".no_invitations_title"),
+        description: t(".no_invitations_description")
+      ) %>
 <% end %>
 
 <% if pagy.last > 1 %>
