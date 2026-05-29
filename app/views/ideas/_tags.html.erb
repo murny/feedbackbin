@@ -19,7 +19,9 @@
               style="box-shadow: var(--shadow-md); min-inline-size: 20rem; max-inline-size: 28rem;"
               data-dialog-target="dialog"
               data-action="turbo:before-morph-attribute->dialog#preventCloseOnMorphing turbo:submit-end->dialog#close">
-        <%= turbo_frame_tag idea, :tagging, src: new_idea_tagging_path(idea), loading: :lazy, refresh: :morph %>
+        <%= turbo_frame_tag idea, :tagging, src: new_idea_tagging_path(idea), loading: :lazy, refresh: :morph do %>
+          <%= render "shared/skeletons/block", lines: 1, width: "8rem" %>
+        <% end %>
       </dialog>
     </div>
   <% end %>

@@ -114,4 +114,11 @@ class IdeasControllerTest < ActionDispatch::IntegrationTest
       assert_redirected_to sign_in_url
     end
   end
+
+  test "index filters by status_id and marks active filter link with aria-current=page" do
+    get ideas_url(status_id: statuses(:planned).id)
+
+    assert_response :success
+    assert_select "a[aria-current=page]", text: /Planned/
+  end
 end

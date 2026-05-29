@@ -876,6 +876,9 @@ en:
     board_filter:
       all_boards: All Boards
       board_label: Board
+    skeletons:
+      block:
+        loading_label: Loading...
   signups:
     create:
       account_created: Your account has been created successfully.
