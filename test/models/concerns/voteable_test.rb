@@ -30,6 +30,20 @@ class VoteableTest < ActiveSupport::TestCase
     assert @comment.voted_by?(@user)
   end
 
+  test "vote increments votes_count" do
+    assert_difference -> { @comment.reload.votes_count }, 1 do
+      @comment.vote(@user)
+    end
+  end
+
+  test "vote does not increment votes_count for a duplicate vote" do
+    @comment.vote(@user)
+
+    assert_no_difference -> { @comment.reload.votes_count } do
+      @comment.vote(@user)
+    end
+  end
+
   test "vote does not create duplicate votes for the same user" do
     @comment.vote(@user)
 
@@ -52,8 +66,22 @@ class VoteableTest < ActiveSupport::TestCase
     assert_not @comment.voted_by?(@user)
   end
 
+  test "unvote decrements votes_count" do
+    @comment.vote(@user)
+
+    assert_difference -> { @comment.reload.votes_count }, -1 do
+      @comment.unvote(@user)
+    end
+  end
+
   test "unvote does nothing if user has not voted the comment" do
     assert_no_difference -> { @comment.votes.count } do
+      @comment.unvote(@user)
+    end
+  end
+
+  test "unvote does not change votes_count if user has not voted" do
+    assert_no_difference -> { @comment.reload.votes_count } do
       @comment.unvote(@user)
     end
   end

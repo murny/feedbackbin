@@ -46,6 +46,33 @@ class CommentTest < ActiveSupport::TestCase
     assert_equal @reply, @comment.replies.first
   end
 
+  test "creating a comment increments the idea's comments_count" do
+    idea = @comment.idea
+
+    assert_difference -> { idea.reload.comments_count }, 1 do
+      idea.comments.create!(body: "Another comment", creator: users(:shane))
+    end
+  end
+
+  test "destroying a comment decrements the idea's comments_count" do
+    idea = @comment.idea
+
+    assert_difference -> { idea.reload.comments_count }, -1 do
+      @comment.destroy!
+    end
+  end
+
+  test "destroying a comment with replies decrements comments_count for the comment and its replies" do
+    idea = @comment.idea
+    @comment.replies.create!(body: "A reply", idea: idea, creator: users(:shane))
+
+    expected = -idea.comments.where(id: [ @comment.id ] + @comment.replies.ids).count
+
+    assert_difference -> { idea.reload.comments_count }, expected do
+      @comment.destroy!
+    end
+  end
+
   test "should not allow replies to replies (max 1 level nesting)" do
     reply = comments(:reply_one)
 

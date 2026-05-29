@@ -13,11 +13,15 @@ module Voteable
   end
 
   def vote(voter)
-    votes.where(voter: voter).first_or_create
+    votes.where(voter: voter).first_or_create.tap do |vote|
+      increment!(:votes_count) if vote.previously_new_record?
+    end
   end
 
   def unvote(voter)
-    votes.where(voter: voter).destroy_all
+    votes.where(voter: voter).destroy_all.tap do |destroyed|
+      decrement!(:votes_count, destroyed.size) if destroyed.any?
+    end
   end
 
   # Returns the main content text for display (description for Ideas, body for Comments)
