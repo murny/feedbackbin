@@ -57,11 +57,15 @@
     </ul>
   </div>
 <% else %>
-  <%= render Elements::EmptyStateComponent.new(
-        icon: "mail-check",
-        title: t(".no_invitations_title"),
-        description: t(".no_invitations_description")
-      ) %>
+  <%= render Elements::PanelComponent.new do |c| %>
+    <% c.with_body do %>
+      <%= render Elements::EmptyStateComponent.new(
+            icon: "mail-check",
+            title: t(".no_invitations_title"),
+            description: t(".no_invitations_description")
+          ) %>
+    <% end %>
+  <% end %>
 <% end %>
 
 <% if pagy.last > 1 %>
