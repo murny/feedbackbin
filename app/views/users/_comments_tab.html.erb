@@ -43,10 +43,9 @@
     <% end %>
   </ul>
 <% else %>
-  <div class="txt-align-center txt-subtle pad-block-12">
-    <div class="margin-block-end">
-      <%= lucide_icon "message-circle", class: "center", style: "inline-size: 3rem; block-size: 3rem; opacity: 0.5;" %>
-    </div>
-    <p class="txt-small"><%= t(".empty_comments") %></p>
-  </div>
+  <%= render Elements::EmptyStateComponent.new(
+    icon: "message-circle",
+    title: t(".empty_comments"),
+    variant: :compact
+  ) %>
 <% end %>

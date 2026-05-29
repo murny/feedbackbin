@@ -1,0 +1,33 @@
+/* ==========================================================================
+   Filter Bar -- A11y & Weight Refinements
+
+   Extends the .filter-bar / .filter-bar__link primitive in filters.css with
+   the Phase 2 accessibility additions:
+     - :focus-visible outline (was missing)
+     - Active link weight promoted to bold per UI-SPEC § Typography
+     - Inactive link weight explicit (normal) per UI-SPEC § Typography
+
+   Selectors use the descendant form (.filter-bar .filter-bar__link) to win
+   over the single-class rules in filters.css regardless of asset load order.
+   ========================================================================== */
+
+@layer components {
+  .filter-bar {
+    --filter-bar-active-weight:   var(--font-bold);
+    --filter-bar-inactive-weight: var(--font-normal);
+    --filter-bar-focus-offset:    2px;
+  }
+
+  .filter-bar .filter-bar__link {
+    font-weight: var(--filter-bar-inactive-weight);
+
+    &:focus-visible {
+      outline: var(--focus-ring-width) solid var(--focus-ring-color);
+      outline-offset: var(--filter-bar-focus-offset);
+    }
+  }
+
+  .filter-bar .filter-bar__link--active {
+    font-weight: var(--filter-bar-active-weight);
+  }
+}

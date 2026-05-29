@@ -27,84 +27,46 @@
       action: "turbo:frame-load->search#searchComplete"
     } do %>
         <div class="margin-block-end">
-          <!-- Filters -->
-          <div class="flex flex-column gap margin-block-end" style="--row-gap: var(--space-4);">
-            <%= render "shared/board_filter",
-            path_helper: :ideas_path,
-            boards: @boards,
-            selected_board: @board,
-            turbo_frame: "ideas_content",
-            preserve_params: {
-              sort: params[:sort],
-              direction: params[:direction],
-              status_id: params[:status_id],
-              search: @search
-            } %>
-
-            <%= render "shared/search_filter",
-            path_helper: :ideas_path,
-            search_value: @search,
-            turbo_frame: "ideas_content",
-            placeholder: t(".search_placeholder"),
-            preserve_params: {
-              board_id: params[:board_id],
-              status_id: params[:status_id],
-              sort: params[:sort],
-              direction: params[:direction]
-            } %>
-          </div>
-        </div>
-
-        <!-- Status Filter Tabs -->
-        <div class="margin-block-end">
-          <div class="filter-bar">
-            <%= link_to t(".all_ideas"), ideas_path(**clean_params(board_id: params[:board_id], sort: params[:sort], direction: params[:direction], search: @search)),
-              class: "filter-bar__link #{ params[:status_id].blank? ? 'filter-bar__link--active' : '' }",
-              data: { turbo_frame: "ideas_content" } %>
-            <% @statuses.each do |status| %>
-              <%= link_to status.name, ideas_path(**clean_params(status_id: status.id, board_id: params[:board_id], sort: params[:sort], direction: params[:direction], search: @search)),
-                class: "filter-bar__link #{ params[:status_id] == status.id.to_s ? 'filter-bar__link--active' : '' }",
-                data: { turbo_frame: "ideas_content" } %>
-            <% end %>
-          </div>
-        </div>
-
-        <!-- Sort Options -->
-        <div class="margin-block-end">
-          <div class="flex align-center gap-half txt-small">
-            <span class="txt-subtle font-weight-medium"><%= t(".sort_by_label") %></span>
-            <div class="flex align-center gap-half border border-radius fill pad-block-end-half" style="padding: var(--space-1);">
-              <%= ideas_sort_link text: t(".sort_latest"), sort_field: "created_at", direction: "desc", params: params, turbo_frame: "ideas_content" %>
-              <%= ideas_sort_link text: t(".sort_top"), sort_field: "votes_count", direction: "desc", params: params, turbo_frame: "ideas_content" %>
-              <%= ideas_sort_link text: t(".sort_most_commented"), sort_field: "comments_count", direction: "desc", params: params, turbo_frame: "ideas_content" %>
-            </div>
-          </div>
+          <%= render "shared/filter_bar",
+                     path_helper: :ideas_path,
+                     boards: @boards,
+                     statuses: @statuses,
+                     selected_board: @board,
+                     search: @search,
+                     search_placeholder: t(".search_placeholder"),
+                     sort_options: [
+                       { text: t(".sort_latest"),         sort_field: "created_at",     direction: "desc" },
+                       { text: t(".sort_top"),            sort_field: "votes_count",    direction: "desc" },
+                       { text: t(".sort_most_commented"), sort_field: "comments_count", direction: "desc" }
+                     ],
+                     active_status_id: params[:status_id],
+                     turbo_frame: "ideas_content",
+                     params: params,
+                     all_ideas_label: t(".all_ideas"),
+                     sort_by_label: t(".sort_by_label") %>
         </div>
 
         <%= tag.div id: ("ideas" if first_page?(@pagy.last)), class: "margin-block-end-double" do %>
           <% if @ideas.empty? %>
             <div class="panel">
-              <div class="flex flex-column align-center justify-center txt-align-center pad-double">
-                <div class="flex align-center justify-center border-radius fill-shade" style="block-size: 5rem; inline-size: 5rem; border-radius: var(--radius-full);">
-                  <%= lucide_icon "message-circle", class: "size-10 txt-subtle" %>
-                </div>
-                <h3 class="margin-block-start txt-large font-weight-bold"><%= t(".empty_idea_title") %></h3>
-                <p class="margin-block-start-half txt-small txt-subtle" style="max-inline-size: 24rem;">
-                  <%= t(".empty_idea_description") %>
-                </p>
-                <div class="margin-block-start">
+              <%= render Elements::EmptyStateComponent.new(
+                icon: "message-circle",
+                title: t(".empty_idea_title"),
+                description: t(".empty_idea_description")
+              ) do |c| %>
+                <% c.with_cta do %>
                   <%= render Elements::ButtonComponent.new(
-                  variant: :default,
-                  size: :default,
-                  href: new_idea_path(board_id: @board&.id),
-                  class: "gap-half",
-                  data: { turbo_frame: "_top" }
-                ) do %>
+                    variant: :default,
+                    size: :default,
+                    href: new_idea_path(board_id: @board&.id),
+                    class: "gap-half",
+                    data: { turbo_frame: "_top" }
+                  ) do %>
                     <%= lucide_icon "plus", class: "size-4" %>
                     <%= t("ideas.new.title") %>
                   <% end %>
-                </div>
-              </div>
+                <% end %>
+              <% end %>
             </div>
           <% else %>
             <ul role="list" class="flex flex-column gap-4">
@@ -125,15 +87,12 @@
   <% else %>
 
     <div>
-      <div class="flex flex-column align-center justify-center txt-align-center" style="padding-block: var(--space-16);">
-        <div class="flex align-center justify-center fill-shade" style="block-size: 5rem; inline-size: 5rem; border-radius: var(--radius-full);">
-          <%= lucide_icon "inbox", class: "size-10 txt-subtle" %>
-        </div>
-        <h3 class="margin-block-start txt-x-large font-weight-bold"><%= t(".no_boards_title") %></h3>
-        <p class="margin-block-start-half txt-small txt-subtle" style="max-inline-size: 28rem;">
-          <%= t(".no_boards_description") %>
-        </p>
-      </div>
+      <%= render Elements::EmptyStateComponent.new(
+        icon: "inbox",
+        title: t(".no_boards_title"),
+        description: t(".no_boards_description"),
+        variant: :page
+      ) %>
     </div>
 
   <% end %>

@@ -49,12 +49,16 @@
 
     <!-- Empty State (if filters return no results) -->
     <% if @roadmap_data.values.all?(&:empty?) %>
-      <div class="page-empty-state">
-        <%= lucide_icon "search-x", class: "center", style: "inline-size: 3rem; block-size: 3rem; margin-block-end: var(--space-4); color: var(--color-muted-foreground); opacity: 0.5;" %>
-        <h3 class="txt-medium font-weight-bold margin-block-end-half"><%= t(".no_results_title") %></h3>
-        <p class="txt-subtle margin-block-end"><%= t(".no_results_description") %></p>
-        <%= link_to t(".clear_filters"), roadmap_path, class: "btn btn--primary", data: { turbo_frame: "roadmap_content" } %>
-      </div>
+      <%= render Elements::EmptyStateComponent.new(
+        icon: "search-x",
+        title: t(".no_results_title"),
+        description: t(".no_results_description"),
+        variant: :page
+      ) do |c| %>
+        <% c.with_cta do %>
+          <%= link_to t(".clear_filters"), roadmap_path, class: "btn btn--primary", data: { turbo_frame: "roadmap_content" } %>
+        <% end %>
+      <% end %>
     <% else %>
       <!-- Kanban Board -->
       <div class="<%= roadmap_grid_classes(@column_count) %>">

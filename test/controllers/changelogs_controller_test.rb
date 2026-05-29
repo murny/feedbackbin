@@ -10,6 +10,16 @@ class ChangelogsControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 
+  test "index renders empty state when no changelogs exist for the account" do
+    Changelog.where(account: accounts(:feedbackbin)).destroy_all
+
+    get changelogs_url
+
+    assert_response :success
+    assert_includes response.body, "empty-state__title"
+    assert_includes response.body, I18n.t("changelogs.index.empty_placeholder")
+  end
+
   test "should get show" do
     changelog = changelogs(:one)
 

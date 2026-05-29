@@ -20,10 +20,12 @@
         <%= render "idea_card", idea: idea %>
       <% end %>
     <% else %>
-      <div class="roadmap-column__empty">
-        <%= lucide_icon "inbox", class: "center", style: "inline-size: 2.5rem; block-size: 2.5rem; margin-block-end: var(--space-3); color: var(--color-muted-foreground); opacity: 0.5;" %>
-        <p class="txt-small txt-subtle"><%= t(".no_ideas") %></p>
-      </div>
+      <%= render Elements::EmptyStateComponent.new(
+        icon: "inbox",
+        description: t(".no_ideas"),
+        variant: :inline,
+        class: "roadmap-column__empty"
+      ) %>
     <% end %>
   </div>
 </div>

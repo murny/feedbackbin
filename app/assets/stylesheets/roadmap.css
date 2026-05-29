@@ -16,8 +16,8 @@
   }
 
   .roadmap-column__empty {
-    text-align: center;
-    padding-block: var(--space-12);
+    --empty-state-padding-block: var(--space-12);
+
     border: 2px dashed var(--color-border);
     border-radius: var(--radius-lg);
     background-color: oklch(from var(--color-muted) l c h / 20%);

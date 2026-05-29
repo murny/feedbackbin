@@ -1,0 +1,46 @@
+/* ==========================================================================
+   Skeleton Component
+
+   Usage:
+     <span class="skeleton skeleton--text"></span>
+     <span class="skeleton skeleton--circle"></span>
+     <span class="skeleton skeleton--title"></span>
+
+   Render inside lazy turbo frames as default content:
+     <%= turbo_frame_tag idea, :tagging, src: ..., loading: :lazy do %>
+       <%= render "shared/skeletons/block", lines: 1, width: "8rem" %>
+     <% end %>
+   ========================================================================== */
+
+@layer components {
+  .skeleton {
+    --skeleton-base:      color-mix(in srgb, var(--color-muted) 70%, var(--color-canvas));
+    --skeleton-highlight: color-mix(in srgb, var(--color-muted) 35%, var(--color-canvas));
+
+    display: block;
+    background: linear-gradient(
+      90deg,
+      var(--skeleton-base) 0%,
+      var(--skeleton-highlight) 50%,
+      var(--skeleton-base) 100%
+    );
+    background-size: 200% 100%;
+    border-radius: var(--radius-md);
+    animation: skeleton-shimmer 1.4s ease-in-out infinite;
+  }
+
+  .skeleton--circle { border-radius: var(--radius-full); }
+  .skeleton--text   { block-size: 0.875rem; border-radius: var(--radius-sm); }
+  .skeleton--title  { block-size: 1.25rem; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .skeleton { animation: none; }
+  }
+
+  dialog:not([open]) .skeleton { animation: none; }
+
+  @keyframes skeleton-shimmer {
+    0%   { background-position: 200% 0; }
+    100% { background-position: -200% 0; }
+  }
+}
