@@ -27,58 +27,23 @@
       action: "turbo:frame-load->search#searchComplete"
     } do %>
         <div class="margin-block-end">
-          <!-- Filters -->
-          <div class="flex flex-column gap margin-block-end" style="--row-gap: var(--space-4);">
-            <%= render "shared/board_filter",
-            path_helper: :ideas_path,
-            boards: @boards,
-            selected_board: @board,
-            turbo_frame: "ideas_content",
-            preserve_params: {
-              sort: params[:sort],
-              direction: params[:direction],
-              status_id: params[:status_id],
-              search: @search
-            } %>
-
-            <%= render "shared/search_filter",
-            path_helper: :ideas_path,
-            search_value: @search,
-            turbo_frame: "ideas_content",
-            placeholder: t(".search_placeholder"),
-            preserve_params: {
-              board_id: params[:board_id],
-              status_id: params[:status_id],
-              sort: params[:sort],
-              direction: params[:direction]
-            } %>
-          </div>
-        </div>
-
-        <!-- Status Filter Tabs -->
-        <div class="margin-block-end">
-          <div class="filter-bar">
-            <%= link_to t(".all_ideas"), ideas_path(**clean_params(board_id: params[:board_id], sort: params[:sort], direction: params[:direction], search: @search)),
-              class: "filter-bar__link #{ params[:status_id].blank? ? 'filter-bar__link--active' : '' }",
-              data: { turbo_frame: "ideas_content" } %>
-            <% @statuses.each do |status| %>
-              <%= link_to status.name, ideas_path(**clean_params(status_id: status.id, board_id: params[:board_id], sort: params[:sort], direction: params[:direction], search: @search)),
-                class: "filter-bar__link #{ params[:status_id] == status.id.to_s ? 'filter-bar__link--active' : '' }",
-                data: { turbo_frame: "ideas_content" } %>
-            <% end %>
-          </div>
-        </div>
-
-        <!-- Sort Options -->
-        <div class="margin-block-end">
-          <div class="flex align-center gap-half txt-small">
-            <span class="txt-subtle font-weight-medium"><%= t(".sort_by_label") %></span>
-            <div class="flex align-center gap-half border border-radius fill pad-block-end-half" style="padding: var(--space-1);">
-              <%= ideas_sort_link text: t(".sort_latest"), sort_field: "created_at", direction: "desc", params: params, turbo_frame: "ideas_content" %>
-              <%= ideas_sort_link text: t(".sort_top"), sort_field: "votes_count", direction: "desc", params: params, turbo_frame: "ideas_content" %>
-              <%= ideas_sort_link text: t(".sort_most_commented"), sort_field: "comments_count", direction: "desc", params: params, turbo_frame: "ideas_content" %>
-            </div>
-          </div>
+          <%= render "shared/filter_bar",
+                     path_helper: :ideas_path,
+                     boards: @boards,
+                     statuses: @statuses,
+                     selected_board: @board,
+                     search: @search,
+                     search_placeholder: t(".search_placeholder"),
+                     sort_options: [
+                       { text: t(".sort_latest"),         sort_field: "created_at",     direction: "desc" },
+                       { text: t(".sort_top"),            sort_field: "votes_count",    direction: "desc" },
+                       { text: t(".sort_most_commented"), sort_field: "comments_count", direction: "desc" }
+                     ],
+                     active_status_id: params[:status_id],
+                     turbo_frame: "ideas_content",
+                     params: params,
+                     all_ideas_label: t(".all_ideas"),
+                     sort_by_label: t(".sort_by_label") %>
         </div>
 
         <%= tag.div id: ("ideas" if first_page?(@pagy.last)), class: "margin-block-end-double" do %>
