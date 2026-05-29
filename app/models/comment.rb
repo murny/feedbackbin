@@ -8,7 +8,7 @@ class Comment < ApplicationRecord
 
   belongs_to :account, default: -> { Current.account }
   belongs_to :creator, class_name: "User", default: -> { Current.user }
-  belongs_to :idea, counter_cache: true, touch: true
+  belongs_to :idea, touch: true
 
   belongs_to :parent, class_name: "Comment", optional: true
   has_many :replies, class_name: "Comment", foreign_key: :parent_id, dependent: :destroy, inverse_of: :parent
@@ -20,8 +20,10 @@ class Comment < ApplicationRecord
   validates :body, presence: true
   validate :parent_must_be_top_level_comment, if: :parent_id?
 
+  after_create :increment_idea_comments_count
   after_create_commit :watch_idea_by_creator
   before_destroy :clear_official_response_references
+  after_destroy :decrement_idea_comments_count
 
   scope :ordered, -> { order(created_at: :asc) }
   scope :top_level, -> { where(parent_id: nil) }
@@ -51,6 +53,16 @@ class Comment < ApplicationRecord
 
     def watch_idea_by_creator
       idea.watch_by(creator)
+    end
+
+    def increment_idea_comments_count
+      idea.increment!(:comments_count)
+    end
+
+    def decrement_idea_comments_count
+      return if destroyed_by_association&.foreign_key == "idea_id"
+
+      idea.decrement!(:comments_count)
     end
 
     def clear_official_response_references
