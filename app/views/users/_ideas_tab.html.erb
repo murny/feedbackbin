@@ -5,10 +5,9 @@
     <% end %>
   </ul>
 <% else %>
-  <div class="txt-align-center txt-subtle pad-block-12">
-    <div class="margin-block-end">
-      <%= lucide_icon "lightbulb", class: "center", style: "inline-size: 3rem; block-size: 3rem; opacity: 0.5;" %>
-    </div>
-    <p class="txt-small"><%= t(".empty_ideas") %></p>
-  </div>
+  <%= render Elements::EmptyStateComponent.new(
+    icon: "lightbulb",
+    title: t(".empty_ideas"),
+    variant: :compact
+  ) %>
 <% end %>

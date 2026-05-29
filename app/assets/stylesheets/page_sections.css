@@ -24,11 +24,6 @@
     margin-block-end: var(--space-2);
   }
 
-  .page-empty-state {
-    text-align: center;
-    padding-block: var(--space-12);
-  }
-
   .page-content {
     display: grid;
     gap: var(--space-8);
