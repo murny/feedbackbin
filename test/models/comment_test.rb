@@ -231,4 +231,49 @@ class CommentTest < ActiveSupport::TestCase
     assert_includes visible_ids, comments(:one).id
     assert_not_includes visible_ids, comments(:internal_one).id
   end
+
+  test "creating an internal comment does not increment idea.comments_count" do
+    idea = @comment.idea
+
+    assert_no_difference -> { idea.reload.comments_count } do
+      idea.comments.create!(body: "Internal note", creator: users(:shane), internal: true)
+    end
+  end
+
+  test "destroying an internal comment does not decrement idea.comments_count" do
+    idea = @comment.idea
+    internal = idea.comments.create!(body: "Internal note", creator: users(:shane), internal: true)
+    baseline = idea.reload.comments_count
+
+    assert_no_difference -> { idea.reload.comments_count } do
+      internal.destroy!
+    end
+
+    assert_equal baseline, idea.reload.comments_count
+  end
+
+  test "non-admin cannot reply to an internal comment" do
+    internal = comments(:internal_one)
+    reply = Comment.new(
+      body: "Public reply to internal",
+      idea: internal.idea,
+      parent: internal,
+      creator: users(:jane)
+    )
+
+    assert_not reply.valid?, "Expected validation to reject a non-admin reply under an internal parent (WR-03)"
+    assert_includes reply.errors[:parent_id], I18n.t("activerecord.errors.models.comment.attributes.parent_id.cannot_reply_to_internal")
+  end
+
+  test "admin can reply to an internal comment" do
+    internal = comments(:internal_one)
+    reply = Comment.new(
+      body: "Admin reply to internal",
+      idea: internal.idea,
+      parent: internal,
+      creator: users(:admin)
+    )
+
+    assert_predicate reply, :valid?
+  end
 end
