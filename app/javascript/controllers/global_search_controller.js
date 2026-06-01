@@ -28,6 +28,7 @@ export default class extends Controller {
     this.dialogTarget.showModal()
     this.inputTarget.focus()
     this.inputTarget.select()
+    this.#loadEmptyState()
   }
 
   close() {
@@ -49,9 +50,31 @@ export default class extends Controller {
     this.#performSearch()
   }
 
+  async #loadEmptyState() {
+    try {
+      const url = new URL(this.urlValue, window.location.origin)
+      const response = await fetch(url, {
+        headers: {
+          Accept: "text/vnd.turbo-stream.html",
+          "X-CSRF-Token": document.querySelector("meta[name='csrf-token']")?.content
+        }
+      })
+
+      if (response.ok) {
+        const html = await response.text()
+        Turbo.renderStreamMessage(html)
+      }
+    } catch (error) {
+      console.error("Empty-state load failed:", error)
+    }
+  }
+
   async #performSearch() {
     const query = this.inputTarget.value.trim()
-    if (query === "") return
+    if (query === "") {
+      this.#loadEmptyState()
+      return
+    }
 
     try {
       const url = new URL(this.urlValue, window.location.origin)
