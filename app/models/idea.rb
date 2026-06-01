@@ -33,6 +33,27 @@ class Idea < ApplicationRecord
   scope :open, -> { where.missing(:status) }
   scope :with_status, -> { where.associated(:status) }
 
+  def self.similar_to(title, account: Current.account, limit: 3)
+    return none if title.blank? || title.strip.length < 3
+
+    sanitized = Search::Query.sanitize(title)
+    return none if sanitized.blank?
+
+    prefixed = sanitized.split(/\s+/).reject(&:blank?).map { |t| "#{t}*" }.join(" ")
+    return none if prefixed.blank?
+
+    fts_rows = Search::Record::Fts.matching_ranked(prefixed).pluck(:rowid, "rank")
+    return none if fts_rows.empty?
+
+    ranked_record_ids = fts_rows.map(&:first)
+    idea_ids = Search::Record
+      .where(account: account, id: ranked_record_ids, searchable_type: "Idea")
+      .pluck(:searchable_id)
+    return none if idea_ids.empty?
+
+    where(id: idea_ids).sort_by { |i| idea_ids.index(i.id) }.first(limit)
+  end
+
   # Returns the status name, or "Open" if no status assigned
   def status_name
     status&.name || I18n.t("ideas.default_status")

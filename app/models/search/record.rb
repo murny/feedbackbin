@@ -17,15 +17,16 @@ class Search::Record < ApplicationRecord
     sanitized = Search::Query.sanitize(query)
     return none if sanitized.blank?
 
-    matching_ids = Search::Record::Fts.matching(sanitized).pluck(:rowid)
-    return none if matching_ids.empty?
+    fts_rows = Search::Record::Fts.matching_ranked(sanitized).pluck(:rowid, "rank")
+    return none if fts_rows.empty?
 
-    scope = where(account: account, id: matching_ids)
+    ids_in_rank_order = fts_rows.map(&:first)
+    scope = where(account: account, id: ids_in_rank_order).includes(:idea, :board)
     scope = scope.where(board: board) if board.present?
-    scope.includes(:idea, :board).order(
-      Arel.sql("CASE searchable_type WHEN 'Idea' THEN 0 ELSE 1 END"),
-      created_at: :desc
-    ).limit(RESULT_LIMIT)
+
+    records = scope.to_a
+    records.sort_by! { |r| ids_in_rank_order.index(r.id) }
+    records.first(RESULT_LIMIT)
   end
 
   def self.upsert_for(searchable)

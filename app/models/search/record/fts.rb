@@ -24,6 +24,21 @@ class Search::Record::Fts < ApplicationRecord
     where("search_records_fts MATCH ?", query)
   end
 
+  def self.matching_ranked(query)
+    select(
+      "rowid",
+      Arel.sql("bm25(search_records_fts) AS rank")
+    ).where("search_records_fts MATCH ?", query)
+     .order(Arel.sql("rank ASC"))
+  end
+
+  def self.prefix_matching_ranked(query)
+    prefixed = query.to_s.split(/\s+/).reject(&:blank?).map { |t| "#{t}*" }.join(" ")
+    return none if prefixed.blank?
+
+    matching_ranked(prefixed)
+  end
+
   def self.matching_with_highlights(query)
     select(
       "rowid",
