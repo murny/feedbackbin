@@ -185,4 +185,44 @@ class Ideas::CommentsControllerTest < ActionDispatch::IntegrationTest
     assert_nil @comment.edited_at
     assert_equal original_body, @comment.body.to_plain_text
   end
+
+  test "admin can create internal comment" do
+    sign_in_as users(:admin)
+
+    assert_difference "Comment.count" do
+      post idea_comments_url(@idea), params: { comment: { body: "Admin internal note", internal: true } }
+    end
+
+    assert_response :redirect
+    assert Comment.last.internal
+  end
+
+  test "member cannot create internal comment - param stripped" do
+    sign_in_as users(:jane)
+
+    assert_difference "Comment.count" do
+      post idea_comments_url(@idea), params: { comment: { body: "Sneaky internal attempt", internal: true } }
+    end
+
+    assert_response :redirect
+    refute Comment.last.internal
+  end
+
+  test "admin sees internal comments on idea show" do
+    sign_in_as users(:admin)
+
+    get idea_url(@idea)
+
+    assert_response :success
+    assert_includes response.body, comments(:internal_one).body.to_plain_text
+  end
+
+  test "member does not see internal comments on idea show" do
+    sign_in_as users(:jane)
+
+    get idea_url(@idea)
+
+    assert_response :success
+    assert_not_includes response.body, comments(:internal_one).body.to_plain_text
+  end
 end

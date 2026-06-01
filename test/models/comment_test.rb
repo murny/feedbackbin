@@ -191,4 +191,44 @@ class CommentTest < ActiveSupport::TestCase
 
     assert_predicate @comment, :edited?
   end
+
+  test "new Comment has internal false by default" do
+    refute Comment.new.internal
+  end
+
+  test "public_only scope excludes internal comments" do
+    assert_empty Comment.public_only.where(id: comments(:internal_one).id)
+    assert_includes Comment.public_only.where(id: comments(:one).id), comments(:one)
+  end
+
+  test "internal_only scope returns only internal comments" do
+    assert_includes Comment.internal_only.where(id: comments(:internal_one).id), comments(:internal_one)
+    assert_empty Comment.internal_only.where(id: comments(:one).id)
+  end
+
+  test "visible_to admin returns internal comments" do
+    visible = Comment.visible_to(users(:admin)).where(id: comments(:internal_one).id)
+
+    assert_includes visible, comments(:internal_one)
+  end
+
+  test "visible_to owner returns internal comments" do
+    visible = Comment.visible_to(users(:shane)).where(id: comments(:internal_one).id)
+
+    assert_includes visible, comments(:internal_one)
+  end
+
+  test "visible_to member returns only public comments" do
+    visible_ids = Comment.visible_to(users(:jane)).where(id: [ comments(:one).id, comments(:internal_one).id ]).ids
+
+    assert_includes visible_ids, comments(:one).id
+    assert_not_includes visible_ids, comments(:internal_one).id
+  end
+
+  test "visible_to nil returns only public comments" do
+    visible_ids = Comment.visible_to(nil).where(id: [ comments(:one).id, comments(:internal_one).id ]).ids
+
+    assert_includes visible_ids, comments(:one).id
+    assert_not_includes visible_ids, comments(:internal_one).id
+  end
 end

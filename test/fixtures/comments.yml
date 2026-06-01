@@ -14,6 +14,12 @@ reply_one:
   idea: one
   parent: two
 
+internal_one:
+  account: feedbackbin
+  creator: shane
+  idea: one
+  internal: true
+
 acme_one:
   account: acme
   creator: acme_admin
