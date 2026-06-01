@@ -123,4 +123,30 @@ class MentioningTest < ActiveSupport::TestCase
 
     assert_equal 0, idea.mentions.count
   end
+
+  test "cross_account mentionee id is stripped from mentions sync" do
+    idea = ideas(:one)
+    out_of_account_user = users(:acme_admin)
+
+    rich_text_with_cross_account_mention = <<~HTML
+      <div>Hello <action-text-attachment sgid="#{out_of_account_user.attachable_sgid}"></action-text-attachment>!</div>
+    HTML
+
+    idea.update!(description: rich_text_with_cross_account_mention)
+
+    assert_equal 0, idea.mentions.count
+  end
+
+  test "same_account mentionee creates a mention row" do
+    comment = comments(:one)
+    in_account_user = users(:john)
+
+    rich_text_with_mention = <<~HTML
+      <div>Hello <action-text-attachment sgid="#{in_account_user.attachable_sgid}"></action-text-attachment>!</div>
+    HTML
+
+    comment.update!(body: rich_text_with_mention)
+
+    assert_equal 1, comment.mentions.where(mentionee: in_account_user).count
+  end
 end
