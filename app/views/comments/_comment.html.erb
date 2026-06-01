@@ -36,7 +36,15 @@
       <% if comment.replies.any? || can_reply %>
         <div class="replies-section">
           <div id="<%= dom_id(comment) %>_replies">
-            <%= render partial: "comments/reply", collection: comment.replies.ordered, as: :reply %>
+            <% replies = comment.replies.ordered.to_a %>
+            <% inline_replies = replies.first(3) %>
+            <% collapsed_replies = replies.drop(3) %>
+            <%= render partial: "comments/reply", collection: inline_replies, as: :reply %>
+            <% if replies.size >= 5 && collapsed_replies.any? %>
+              <%= render "comments/comment/collapsed_replies_toggle",
+                         comment: comment,
+                         collapsed_replies: collapsed_replies %>
+            <% end %>
           </div>
 
           <% if can_reply %>

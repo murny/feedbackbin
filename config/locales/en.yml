@@ -531,6 +531,14 @@ en:
       edit: Edit in Admin
   comments:
     comment:
+      collapsed_replies_toggle:
+        hide_replies: Hide replies
+        replies_hidden_sr:
+          one: 1 reply hidden
+          other: "%{count} replies hidden"
+        show_more_replies:
+          one: Show 1 more reply
+          other: Show %{count} more replies
       comment_settings: Comment settings
       copy_link: Copy link
       header:

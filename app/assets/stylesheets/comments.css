@@ -76,4 +76,38 @@
     margin-inline-start: var(--space-2);
     line-height: var(--leading-snug);
   }
+
+  /* Collapsed replies toggle - "Show N more replies" trigger */
+  .replies-toggle {
+    inline-size: 100%;
+    min-block-size: 2.75rem;
+    justify-content: flex-start;
+    gap: var(--space-2);
+    padding-inline: var(--space-3);
+    padding-block: var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+  }
+
+  .replies-toggle__icon {
+    transition: transform var(--duration-fast) var(--ease-out);
+  }
+
+  .replies-toggle[aria-expanded="true"] .replies-toggle__icon {
+    transform: rotate(180deg);
+  }
+
+  .replies-toggle__label--hide,
+  .replies-toggle[aria-expanded="true"] .replies-toggle__label--show {
+    display: none;
+  }
+
+  .replies-toggle[aria-expanded="true"] .replies-toggle__label--hide {
+    display: inline;
+  }
+
+  /* Collapsed replies region - hidden via aria-hidden, animated open by toggle controller */
+  .replies-collapsed[aria-hidden="true"] {
+    display: none;
+  }
 }

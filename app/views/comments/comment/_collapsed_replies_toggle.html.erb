@@ -1,0 +1,28 @@
+<%# locals: (comment:, collapsed_replies:) %>
+
+<div data-controller="toggle">
+  <button type="button"
+          class="replies-toggle btn btn--ghost"
+          data-toggle-target="trigger"
+          data-action="click->toggle#toggle"
+          aria-controls="<%= dom_id(comment, :extra_replies) %>"
+          aria-expanded="false">
+    <%= lucide_icon "chevron-down", class: "replies-toggle__icon" %>
+    <span class="replies-toggle__label replies-toggle__label--show">
+      <%= t(".show_more_replies", count: collapsed_replies.size) %>
+    </span>
+    <span class="replies-toggle__label replies-toggle__label--hide">
+      <%= t(".hide_replies") %>
+    </span>
+    <span class="visually-hidden">
+      <%= t(".replies_hidden_sr", count: collapsed_replies.size) %>
+    </span>
+  </button>
+
+  <div id="<%= dom_id(comment, :extra_replies) %>"
+       data-toggle-target="toggleable"
+       aria-hidden="true"
+       class="replies-collapsed">
+    <%= render partial: "comments/reply", collection: collapsed_replies, as: :reply %>
+  </div>
+</div>
