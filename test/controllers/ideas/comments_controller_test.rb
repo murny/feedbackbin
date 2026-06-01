@@ -129,4 +129,60 @@ class Ideas::CommentsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :redirect
   end
+
+  test "update by author stamps edited_at when body present" do
+    sign_in_as @user
+
+    assert_nil @comment.edited_at
+
+    patch idea_comment_url(@idea, @comment), params: { comment: { body: "Edited body" } }
+
+    assert_response :redirect
+    @comment.reload
+
+    assert_not_nil @comment.edited_at
+    assert_equal "Edited body", @comment.body.to_plain_text
+  end
+
+  test "admin can edit any comment and stamps edited_at" do
+    sign_in_as users(:admin)
+
+    assert_nil @comment.edited_at
+    assert_not_equal users(:admin), @comment.creator
+
+    patch idea_comment_url(@idea, @comment), params: { comment: { body: "Admin-edited body" } }
+
+    assert_response :redirect
+    @comment.reload
+
+    assert_not_nil @comment.edited_at
+    assert_equal "Admin-edited body", @comment.body.to_plain_text
+  end
+
+  test "third party cannot edit comment" do
+    sign_in_as users(:john)
+
+    assert_nil @comment.edited_at
+
+    patch idea_comment_url(@idea, @comment), params: { comment: { body: "Forbidden edit" } }
+
+    assert_response :forbidden
+    @comment.reload
+
+    assert_nil @comment.edited_at
+  end
+
+  test "update without body in params does not stamp edited_at" do
+    sign_in_as @user
+
+    assert_nil @comment.edited_at
+    original_body = @comment.body.to_plain_text
+
+    patch idea_comment_url(@idea, @comment), params: { comment: { parent_id: nil } }
+
+    @comment.reload
+
+    assert_nil @comment.edited_at
+    assert_equal original_body, @comment.body.to_plain_text
+  end
 end
