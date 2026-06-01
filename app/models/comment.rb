@@ -19,6 +19,7 @@ class Comment < ApplicationRecord
 
   validates :body, presence: true
   validate :parent_must_be_top_level_comment, if: :parent_id?
+  validate :reply_to_internal_only_by_staff, if: :parent_id?
 
   after_create :increment_idea_comments_count
   after_create_commit :watch_idea_by_creator
@@ -61,15 +62,24 @@ class Comment < ApplicationRecord
       end
     end
 
+    def reply_to_internal_only_by_staff
+      return unless parent&.internal? && !creator&.admin?
+
+      errors.add(:parent_id, :cannot_reply_to_internal)
+    end
+
     def watch_idea_by_creator
       idea.watch_by(creator)
     end
 
     def increment_idea_comments_count
+      return if internal?
+
       idea.increment!(:comments_count)
     end
 
     def decrement_idea_comments_count
+      return if internal?
       return if destroyed_by_association&.foreign_key == "idea_id"
 
       idea.decrement!(:comments_count)
