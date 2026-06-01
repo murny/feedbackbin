@@ -41,5 +41,20 @@ module FeedbackExperience
       assert_no_css ".comment--internal"
       assert_no_text @internal_body
     end
+
+    test "admin checking internal checkbox restructures the editor surface via :has() (CR-05)" do
+      sign_in_as(users(:admin))
+      visit idea_url(@idea, script_name: @account.slug)
+
+      assert_selector ".comment-form .comment-editor"
+      assert_selector ".comment-form input[name='comment[internal]']"
+
+      check "comment[internal]"
+
+      assert_selector ".comment-form input[name='comment[internal]']:checked"
+      assert_selector ".comment-form:has(input[name='comment[internal]']:checked) .comment-editor",
+                      visible: :visible,
+                      wait: 1
+    end
   end
 end
