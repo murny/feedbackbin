@@ -10,9 +10,15 @@ class Visit < ApplicationRecord
   def self.record(idea:, user:)
     return unless user.present?
 
-    visit = find_or_initialize_by(account: Current.account, user: user, idea: idea)
-    visit.visited_at = Time.current
-    visit.save!
-    visit
+    Visit.upsert(
+      {
+        account_id: Current.account.id,
+        user_id: user.id,
+        idea_id: idea.id,
+        visited_at: Time.current
+      },
+      unique_by: :idx_visits_uniqueness,
+      update_only: [ :visited_at ]
+    )
   end
 end
