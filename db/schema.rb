@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.2].define(version: 2026_06_01_200002) do
+ActiveRecord::Schema[8.2].define(version: 2026_06_01_200003) do
   create_table "accesses", force: :cascade do |t|
     t.bigint "account_id", null: false
     t.bigint "board_id", null: false
@@ -131,9 +131,11 @@ ActiveRecord::Schema[8.2].define(version: 2026_06_01_200002) do
     t.datetime "updated_at", null: false
     t.integer "votes_count", default: 0
     t.datetime "edited_at"
+    t.boolean "internal", default: false, null: false
     t.index ["account_id"], name: "index_comments_on_account_id"
     t.index ["creator_id"], name: "index_comments_on_creator_id"
     t.index ["idea_id"], name: "index_comments_on_idea_id"
+    t.index ["internal"], name: "index_comments_on_internal"
     t.index ["parent_id"], name: "index_comments_on_parent_id"
   end
 

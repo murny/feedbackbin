@@ -43,7 +43,7 @@ class IdeasController < ApplicationController
   def show
     @comment_sort = params[:comment_sort]&.to_sym || :oldest
 
-    @top_level_comments = @idea.comments
+    @top_level_comments = @idea.comments.visible_to(Current.user)
                              .top_level
                              .sorted_by(@comment_sort)
                              .includes(:creator, :reactions, replies: [ :creator, :reactions ])

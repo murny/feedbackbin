@@ -9,5 +9,9 @@ class Comment
     def search_content = body.to_plain_text
     def search_board_id = idea.board_id
     def search_idea_id = idea_id
+
+    def searchable?
+      !internal?
+    end
   end
 end
