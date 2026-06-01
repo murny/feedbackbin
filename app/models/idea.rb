@@ -46,12 +46,16 @@ class Idea < ApplicationRecord
     return none if fts_rows.empty?
 
     ranked_record_ids = fts_rows.map(&:first)
-    idea_ids = Search::Record
-      .where(account: account, id: ranked_record_ids, searchable_type: "Idea")
-      .pluck(:searchable_id)
-    return none if idea_ids.empty?
 
-    where(id: idea_ids).sort_by { |i| idea_ids.index(i.id) }.first(limit)
+    record_id_to_idea_id = Search::Record
+      .where(account: account, id: ranked_record_ids, searchable_type: "Idea")
+      .pluck(:id, :searchable_id)
+      .to_h
+
+    ordered_idea_ids = ranked_record_ids.map { |rid| record_id_to_idea_id[rid] }.compact
+    return none if ordered_idea_ids.empty?
+
+    where(id: ordered_idea_ids).sort_by { |i| ordered_idea_ids.index(i.id) }.first(limit)
   end
 
   # Returns the status name, or "Open" if no status assigned

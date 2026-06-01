@@ -218,4 +218,23 @@ class IdeaTest < ActiveSupport::TestCase
 
     assert_equal 1, results.size
   end
+
+  test "similar_to preserves bm25 ranking when multiple ideas match" do
+    Search::Record.destroy_all
+
+    body_only = Idea.create!(
+      title: "Voting feature suggestion",
+      description: "Please add downvotes so unpopular ideas can sink.",
+      creator: users(:shane),
+      board: boards(:one)
+    )
+    Search::Record.upsert_for(ideas(:two)) # title contains "downvotes"
+    Search::Record.upsert_for(body_only)   # only description contains "downvotes"
+
+    results = Idea.similar_to("downvotes", account: accounts(:feedbackbin))
+
+    assert_equal 2, results.size
+    assert_equal ideas(:two), results.first
+    assert_equal body_only, results.last
+  end
 end
