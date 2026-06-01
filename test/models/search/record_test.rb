@@ -83,22 +83,22 @@ class Search::RecordTest < ActiveSupport::TestCase
     assert_empty results
   end
 
-  test "search orders ideas before comments" do
+  test "search orders results by bm25 relevance" do
     Search::Record.destroy_all
-    Search::Record.upsert_for(@idea)
-
-    comment = comments(:one)
-    Search::Record.upsert_for(comment)
+    Search::Record.upsert_for(ideas(:one))   # "Wish this had dark mode!" -- single "dark" occurrence in title
+    Search::Record.upsert_for(ideas(:two))   # "Love the site, can you implement downvotes?" -- no dark
+    Search::Record.upsert_for(ideas(:three)) # "Allow visitors to post without having to sign in" -- no dark
 
     results = Search::Record.search("dark", account: @account).to_a
 
-    assert_operator results.size, :>=, 2, "Expected at least 2 results, got #{results.size}"
+    assert_not_empty results
+    # bm25 ranks the only record matching "dark" first
+    assert_equal ideas(:one).id, results.first.idea_id
+  end
 
-    idea_idx = results.index { |r| r.searchable_type == "Idea" }
-    comment_idx = results.index { |r| r.searchable_type == "Comment" }
+  test "search returns none for pure-punctuation query" do
+    results = Search::Record.search("???", account: @account)
 
-    assert_not_nil idea_idx, "Expected an Idea in results"
-    assert_not_nil comment_idx, "Expected a Comment in results"
-    assert_operator idea_idx, :<, comment_idx
+    assert_empty results
   end
 end

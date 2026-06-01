@@ -176,4 +176,46 @@ class IdeaTest < ActiveSupport::TestCase
   test "acme account scope returns its own ideas" do
     assert_includes accounts(:acme).ideas, ideas(:acme_one)
   end
+
+  test "similar_to returns none for blank query" do
+    assert_empty Idea.similar_to("", account: accounts(:feedbackbin))
+    assert_empty Idea.similar_to(nil, account: accounts(:feedbackbin))
+  end
+
+  test "similar_to returns none for query shorter than 3 chars" do
+    assert_empty Idea.similar_to("ab", account: accounts(:feedbackbin))
+  end
+
+  test "similar_to returns matching ideas in bm25 order" do
+    Search::Record.destroy_all
+    Search::Record.upsert_for(ideas(:one))   # "Wish this had dark mode!"
+    Search::Record.upsert_for(ideas(:two))   # "Love the site, can you implement downvotes?"
+    Search::Record.upsert_for(ideas(:three)) # "Allow visitors to post without having to sign in"
+
+    results = Idea.similar_to("dark", account: accounts(:feedbackbin))
+
+    assert_includes results, ideas(:one)
+    assert_equal ideas(:one), results.first
+  end
+
+  test "similar_to respects account scope" do
+    Search::Record.destroy_all
+    Search::Record.upsert_for(ideas(:one))      # feedbackbin: "Wish this had dark mode!"
+    Search::Record.upsert_for(ideas(:acme_one)) # acme: "Acme-scoped idea for isolation testing"
+
+    feedbackbin_results = Idea.similar_to("Acme", account: accounts(:feedbackbin))
+
+    assert_not_includes feedbackbin_results, ideas(:acme_one)
+  end
+
+  test "similar_to returns at most `limit` results" do
+    Search::Record.destroy_all
+    Search::Record.upsert_for(ideas(:one))
+    Search::Record.upsert_for(ideas(:two))
+    Search::Record.upsert_for(ideas(:three))
+
+    results = Idea.similar_to("the", account: accounts(:feedbackbin), limit: 1)
+
+    assert_equal 1, results.size
+  end
 end
