@@ -46,6 +46,21 @@ class VisitTest < ActiveSupport::TestCase
     end
   end
 
+  test "Visit.record does not raise RecordNotUnique when row insert races" do
+    Visit.where(user: @user, idea: @idea).destroy_all
+    Visit.create!(account: @account, user: @user, idea: @idea, visited_at: 1.hour.ago)
+
+    Visit.stubs(:find_or_initialize_by).returns(
+      Visit.new(account: @account, user: @user, idea: @idea, visited_at: Time.current)
+    )
+
+    assert_nothing_raised do
+      Visit.record(idea: @idea, user: @user)
+    end
+
+    assert_equal 1, Visit.where(account: @account, user: @user, idea: @idea).count
+  end
+
   test "Visit.recent orders by visited_at DESC" do
     Visit.destroy_all
     older = Visit.create!(account: @account, user: @user, idea: ideas(:one), visited_at: 2.hours.ago)
