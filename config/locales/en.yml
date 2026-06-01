@@ -533,8 +533,9 @@ en:
     comment:
       comment_settings: Comment settings
       copy_link: Copy link
-      edited_indicator: edited
-      edited_title: Last edited %{absolute}
+      header:
+        edited_indicator: edited
+        edited_title: Last edited %{absolute}
       replies_count:
         one: "%{count} reply"
         other: "%{count} replies"

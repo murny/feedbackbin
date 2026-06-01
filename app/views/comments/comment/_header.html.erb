@@ -9,6 +9,12 @@
       <%= link_to idea_path(comment.idea, anchor: dom_id(comment)), class: "txt-#{timestamp_size} txt-subtle txt-underline", data: { turbo_frame: "_top" } do %>
         <%= local_datetime_tag comment.created_at, style: :datetime %>
       <% end %>
+      <% if comment.edited? %>
+        <span class="comment__edited txt-x-small txt-subtle">
+          <%= t(".edited_indicator") %>
+          <%= local_datetime_tag comment.edited_at, style: :datetime, title: t(".edited_title", absolute: l(comment.edited_at, format: :long)) %>
+        </span>
+      <% end %>
     </p>
   </div>
   <%= render Elements::DropdownMenuComponent.new do |dropdown| %>

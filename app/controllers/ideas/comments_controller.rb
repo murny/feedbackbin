@@ -43,6 +43,7 @@ class Ideas::CommentsController < ApplicationController
   def update
     respond_to do |format|
       if @comment.update(comment_params)
+        @comment.update_column(:edited_at, Time.current) if params.dig(:comment, :body).present?
         notice = t(".successfully_updated")
         format.html do
           flash[:notice] = notice
