@@ -27,6 +27,29 @@ class Search::Result
     searchable_type == "Comment"
   end
 
+  def changelog?
+    searchable_type == "Changelog"
+  end
+
+  def type_key
+    case searchable_type
+    when "Idea" then "idea"
+    when "Comment" then "comment"
+    when "Changelog" then "changelog"
+    end
+  end
+
+  def display_url
+    case searchable_type
+    when "Idea"
+      Rails.application.routes.url_helpers.idea_path(idea, script_name: Current.account&.slug)
+    when "Comment"
+      Rails.application.routes.url_helpers.idea_path(idea, anchor: "comment_#{searchable.id}", script_name: Current.account&.slug)
+    when "Changelog"
+      Rails.application.routes.url_helpers.changelog_path(searchable, script_name: Current.account&.slug)
+    end
+  end
+
   private
 
     def escape_fts_highlight(html)

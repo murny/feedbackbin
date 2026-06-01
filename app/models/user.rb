@@ -20,6 +20,7 @@ class User < ApplicationRecord
   has_many :invitations, dependent: :destroy, foreign_key: :invited_by_id, inverse_of: :invited_by
   has_many :notifications, dependent: :destroy
   has_many :mentions, dependent: :destroy, foreign_key: :mentionee_id, inverse_of: :mentionee
+  has_many :visits, dependent: :destroy
 
   enum :theme, %w[ system light dark ].index_by(&:itself), default: :system, prefix: true, validate: true
 

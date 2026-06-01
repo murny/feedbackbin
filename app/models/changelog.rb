@@ -3,6 +3,8 @@
 class Changelog < ApplicationRecord
   TYPES = %w[new fix improvement update]
 
+  include Changelog::Searchable
+
   belongs_to :account, default: -> { Current.account }
   has_rich_text :description
 

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.2].define(version: 2026_06_01_190251) do
+ActiveRecord::Schema[8.2].define(version: 2026_06_01_200002) do
   create_table "accesses", force: :cascade do |t|
     t.bigint "account_id", null: false
     t.bigint "board_id", null: false
@@ -283,10 +283,10 @@ ActiveRecord::Schema[8.2].define(version: 2026_06_01_190251) do
 
   create_table "search_records", force: :cascade do |t|
     t.integer "account_id", null: false
-    t.integer "board_id", null: false
+    t.integer "board_id"
     t.text "content"
     t.datetime "created_at", null: false
-    t.bigint "idea_id", null: false
+    t.bigint "idea_id"
     t.integer "searchable_id", null: false
     t.string "searchable_type", null: false
     t.text "title"
@@ -356,6 +356,20 @@ ActiveRecord::Schema[8.2].define(version: 2026_06_01_190251) do
     t.index ["account_id", "identity_id"], name: "index_users_on_account_id_and_identity_id", unique: true
     t.index ["account_id", "role"], name: "index_users_on_account_id_and_role"
     t.index ["identity_id"], name: "index_users_on_identity_id"
+  end
+
+  create_table "visits", force: :cascade do |t|
+    t.integer "account_id", null: false
+    t.integer "user_id", null: false
+    t.bigint "idea_id", null: false
+    t.datetime "visited_at", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["account_id", "user_id", "idea_id"], name: "idx_visits_uniqueness", unique: true
+    t.index ["account_id"], name: "index_visits_on_account_id"
+    t.index ["idea_id"], name: "index_visits_on_idea_id"
+    t.index ["user_id", "account_id", "visited_at"], name: "index_visits_on_user_id_and_account_id_and_visited_at"
+    t.index ["user_id"], name: "index_visits_on_user_id"
   end
 
   create_table "votes", force: :cascade do |t|

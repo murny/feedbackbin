@@ -49,6 +49,8 @@ class IdeasController < ApplicationController
                              .includes(:creator, :reactions, replies: [ :creator, :reactions ])
 
     @comment = Comment.new
+
+    Visit.record(idea: @idea, user: Current.user) if Current.user.present?
   end
 
   # GET /ideas/new
