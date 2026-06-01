@@ -80,4 +80,49 @@ class Notifier::CommentEventNotifierTest < ActiveSupport::TestCase
 
     assert ideas(:one).watched_by?(users(:jane))
   end
+
+  test "internal comment_created excludes non-staff watchers" do
+    ideas(:one).watch_by(users(:john)) # member-role watcher
+
+    event = events(:comment_created)
+    event.eventable.update!(internal: true)
+
+    notifications = Notifier.for(event).notify
+
+    assert_not_includes notifications.map(&:user), users(:john)
+  end
+
+  test "internal comment_created notifies admin watcher" do
+    ideas(:one).watch_by(users(:admin))
+
+    event = events(:comment_created)
+    event.eventable.update!(internal: true)
+
+    notifications = Notifier.for(event).notify
+
+    assert_includes notifications.map(&:user), users(:admin)
+  end
+
+  test "internal comment_created notifies owner watcher" do
+    ideas(:one).watch_by(users(:shane)) # owner role
+
+    event = events(:comment_created)
+    event.eventable.update!(internal: true)
+
+    notifications = Notifier.for(event).notify
+
+    assert_includes notifications.map(&:user), users(:shane)
+  end
+
+  test "public comment_created still notifies non-staff watchers (regression)" do
+    ideas(:one).watch_by(users(:john)) # member-role watcher
+
+    event = events(:comment_created)
+
+    refute event.eventable.internal
+
+    notifications = Notifier.for(event).notify
+
+    assert_includes notifications.map(&:user), users(:john)
+  end
 end
