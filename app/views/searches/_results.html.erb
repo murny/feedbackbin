@@ -1,7 +1,7 @@
-<%# locals: (results:, query:, recent_queries: []) %>
+<%# locals: (results:, query:, recent_queries: [], recent_visits: []) %>
 
-<% if query.blank? && recent_queries.any? %>
-  <%= render "searches/recent_queries", recent_queries: recent_queries %>
+<% if query.blank? %>
+  <%= render "searches/empty_state", recent_visits: recent_visits, recent_queries: recent_queries %>
 <% elsif query.present? && results.empty? %>
   <%= render Elements::EmptyStateComponent.new(
     icon: "search-x",

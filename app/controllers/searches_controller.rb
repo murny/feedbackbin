@@ -14,6 +14,11 @@ class SearchesController < ApplicationController
     end
 
     @recent_queries = Current.user ? Search::Query.where(account: Current.account, user: Current.user).recent : []
+    @recent_visits = if Current.user
+      Current.user.visits.recent.where(account: Current.account).limit(5).includes(:idea)
+    else
+      Visit.none
+    end
 
     respond_to do |format|
       format.html

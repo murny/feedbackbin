@@ -1,0 +1,19 @@
+<%# locals: (recent_visits:, recent_queries:) %>
+
+<% if recent_visits.empty? && recent_queries.empty? %>
+  <%= render Elements::EmptyStateComponent.new(
+    icon: "compass",
+    title: t("searches.dialog.cold_start_title"),
+    description: t("searches.dialog.cold_start_description"),
+    variant: :inline
+  ) %>
+<% else %>
+  <div class="search-empty search-empty--two-column">
+    <% if recent_visits.any? %>
+      <%= render "searches/recent_visits", recent_visits: recent_visits %>
+    <% end %>
+    <% if recent_queries.any? %>
+      <%= render "searches/recent_queries", recent_queries: recent_queries %>
+    <% end %>
+  </div>
+<% end %>

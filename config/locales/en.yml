@@ -815,13 +815,20 @@ en:
       title: Roadmap
   searches:
     dialog:
-      aria_label: Search
-      placeholder: Search ideas and comments...
+      aria_label: Search ideas, comments, and changelogs
+      cold_start_description: Find any idea, comment, or changelog by keyword.
+      cold_start_title: Start typing to search
+      placeholder: Search ideas, comments, and changelogs...
       recent_searches: Recent searches
+      recent_visits: Recently viewed
     form:
       placeholder: Search ideas and comments...
     result:
       comment_on_idea: Comment on idea
+      types:
+        changelog: Changelog
+        comment: Comment
+        idea: Idea
     results:
       no_results: No results found
     show:

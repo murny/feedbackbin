@@ -197,6 +197,40 @@
     }
   }
 
+  /* Search Empty State (two-column: recent visits | recent searches)
+  /* ------------------------------------------------------------------------ */
+
+  .search-empty--two-column {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: var(--space-6);
+  }
+
+  @media (max-width: 640px) {
+    .search-empty--two-column {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  /* Search Result Type Badge
+  /* ------------------------------------------------------------------------ */
+
+  .search-result__type-badge {
+    text-transform: capitalize;
+  }
+
+  /* Highlight inside search snippets / titles (FEED-07)
+  /* ------------------------------------------------------------------------ */
+
+  .search-result mark,
+  .search-recent mark {
+    background-color: color-mix(in oklab, var(--color-marker) 35%, var(--color-canvas));
+    color: var(--color-ink);
+    padding-inline: 0.125rem;
+    border-radius: var(--radius-sm);
+    font-weight: var(--font-medium);
+  }
+
   /* Search Page (full page search)
   /* ------------------------------------------------------------------------ */
 

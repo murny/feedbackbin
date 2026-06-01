@@ -1,20 +1,23 @@
 <%# locals: (result:) %>
 
-<%= link_to idea_path(result.idea),
+<% icon = { "Idea" => "lightbulb", "Comment" => "message-circle", "Changelog" => "package-2" }[result.searchable_type] %>
+<%= link_to result.display_url,
     class: "search-result",
-    data: { turbo: false } do %>
+    id: dom_id(result.searchable, :search_result),
+    data: { turbo: false, navigable_list_target: "item" } do %>
   <div class="search-result__icon">
-    <% if result.idea? %>
-      <%= lucide_icon "lightbulb", class: "size-4 txt-subtle" %>
-    <% else %>
-      <%= lucide_icon "message-circle", class: "size-4 txt-subtle" %>
-    <% end %>
+    <%= lucide_icon icon, class: "size-4 txt-subtle" %>
   </div>
   <div class="search-result__content">
     <div class="search-result__header">
       <span class="search-result__title"><%= result.display_title %></span>
-      <%= render Elements::BadgeComponent.new(variant: :secondary, class: "flex-item-no-shrink txt-xx-small") do %>
-        <%= result.board.name %>
+      <%= render Elements::BadgeComponent.new(variant: :secondary, class: "search-result__type-badge flex-item-no-shrink txt-xx-small") do %>
+        <%= t("searches.result.types.#{result.type_key}") %>
+      <% end %>
+      <% if result.board.present? %>
+        <%= render Elements::BadgeComponent.new(variant: :secondary, class: "flex-item-no-shrink txt-xx-small") do %>
+          <%= result.board.name %>
+        <% end %>
       <% end %>
     </div>
     <% if result.display_snippet.present? %>

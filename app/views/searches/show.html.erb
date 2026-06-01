@@ -21,5 +21,5 @@
     <p class="search-page__count"><%= t("searches.show.results_count", count: @results.size) %></p>
   <% end %>
 
-  <%= render "searches/results", results: @results, query: @query, recent_queries: @recent_queries %>
+  <%= render "searches/results", results: @results, query: @query, recent_queries: @recent_queries, recent_visits: @recent_visits %>
 </div>
