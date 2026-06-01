@@ -16,6 +16,16 @@
         </span>
       <% end %>
     </p>
+    <% if comment.internal? %>
+      <%= render Elements::BadgeComponent.new(
+        color: "#B45309",
+        tone: :soft,
+        class: "txt-x-small",
+        title: t(".internal_badge_title")
+      ) do %>
+        <%= t(".internal_badge") %>
+      <% end %>
+    <% end %>
   </div>
   <%= render Elements::DropdownMenuComponent.new do |dropdown| %>
     <% dropdown.with_trigger(variant: :ghost, size: :icon, class: "txt-subtle") do %>

@@ -544,6 +544,8 @@ en:
       header:
         edited_indicator: edited
         edited_title: Last edited %{absolute}
+        internal_badge: Internal
+        internal_badge_title: Visible to admins and owners only
       replies_count:
         one: "%{count} reply"
         other: "%{count} replies"
@@ -556,6 +558,8 @@ en:
     form:
       comment_placeholder: Write a comment...
       discussion_locked: Discussion is locked.
+      internal_toggle: Make this an internal comment
+      internal_toggle_help: Only admins and owners can see internal comments. No notifications go to voters or watchers.
       mention_prompt_label: Mention someone in your account
     reply:
       copy_link: Copy link

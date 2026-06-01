@@ -15,6 +15,15 @@
             <%= rich_text_prompts %>
           <% end %>
         </div>
+        <% if Current.user&.admin? %>
+          <div class="form__group form__group--tight margin-block-start">
+            <div class="flex align-center gap-2">
+              <%= form.check_box :internal %>
+              <%= form.label :internal, t(".internal_toggle"), class: "txt-small font-weight-medium", style: "line-height: 1;" %>
+            </div>
+            <p class="form__helper txt-x-small txt-subtle"><%= t(".internal_toggle_help") %></p>
+          </div>
+        <% end %>
         <div class="margin-block-start flex align-center gap justify-end">
           <%= form.submit class: "btn btn--primary" %>
           <%= link_to "Cancel", idea_comment_path(idea, comment), class: "btn btn--secondary" if form.object.persisted? %>

@@ -110,4 +110,15 @@
   .replies-collapsed[aria-hidden="true"] {
     display: none;
   }
+
+  /* Internal comment shell - amber-tinted background + inline-start accent for staff-only annotations */
+  .comment--internal {
+    background-color: color-mix(in oklab, #B45309 8%, var(--color-canvas));
+    border-inline-start: 4px solid color-mix(in oklab, #B45309 60%, var(--color-canvas));
+  }
+
+  /* Editor preview hook - when admin checks "Make internal", the editor border picks up an amber tint */
+  .comment-editor:has(input[name="comment[internal]"]:checked) {
+    border-color: color-mix(in oklab, #B45309 60%, var(--color-canvas));
+  }
 }
