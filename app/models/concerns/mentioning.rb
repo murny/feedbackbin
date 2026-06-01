@@ -33,6 +33,7 @@ module Mentioning
       body = rich_text&.body
 
       mentioned_user_ids = extract_mentioned_user_ids(body)
+      mentioned_user_ids &= account.user_ids
       current_mentionee_ids = mentions.pluck(:mentionee_id)
 
       new_mentionee_ids = mentioned_user_ids - current_mentionee_ids

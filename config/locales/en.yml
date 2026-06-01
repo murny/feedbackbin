@@ -548,6 +548,7 @@ en:
     form:
       comment_placeholder: Write a comment...
       discussion_locked: Discussion is locked.
+      mention_prompt_label: Mention someone in your account
     reply:
       copy_link: Copy link
       quote_reply: Quote reply

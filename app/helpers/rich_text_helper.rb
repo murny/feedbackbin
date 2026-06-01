@@ -2,7 +2,11 @@
 
 module RichTextHelper
   def mentions_prompt
-    content_tag "lexxy-prompt", "", trigger: "@", src: prompts_users_path, name: "mention"
+    content_tag "lexxy-prompt", "",
+      trigger: "@",
+      src: prompts_users_path,
+      name: "mention",
+      "aria-label": I18n.t("comments.form.mention_prompt_label")
   end
 
   def tags_prompt
