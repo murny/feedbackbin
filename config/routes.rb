@@ -95,6 +95,10 @@ Rails.application.routes.draw do
   end
 
   resources :ideas do
+    collection do
+      get :similar, to: "ideas/similar#index"
+    end
+
     scope module: :ideas do
       resource :vote, only: [ :update ]
       resource :watch, only: [ :show, :create, :destroy ]

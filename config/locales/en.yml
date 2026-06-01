@@ -649,6 +649,9 @@ en:
       unlock_discussion: Unlock discussion
       unpin: Unpin
       watch: Watch
+    similar_ideas:
+      heading: Similar ideas
+      subheading: These ideas already exist. Add your vote or comment instead?
     statuses:
       update:
         success: Status was successfully updated.
