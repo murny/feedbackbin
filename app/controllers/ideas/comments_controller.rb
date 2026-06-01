@@ -41,9 +41,14 @@ class Ideas::CommentsController < ApplicationController
   end
 
   def update
+    previous_plain_text = @comment.body.to_plain_text
+    body_param_provided = params.dig(:comment, :body).present?
+
     respond_to do |format|
       if @comment.update(comment_params)
-        @comment.update_column(:edited_at, Time.current) if params.dig(:comment, :body).present?
+        if body_param_provided && @comment.body.to_plain_text != previous_plain_text
+          @comment.update_column(:edited_at, Time.current)
+        end
         notice = t(".successfully_updated")
         format.html do
           flash[:notice] = notice
@@ -100,7 +105,8 @@ class Ideas::CommentsController < ApplicationController
     end
 
     def comment_params
-      permitted = [ :body, :parent_id ]
+      permitted = [ :body ]
+      permitted << :parent_id if action_name == "create"
       permitted << :internal if Current.user&.admin?
       params.expect(comment: permitted)
     end

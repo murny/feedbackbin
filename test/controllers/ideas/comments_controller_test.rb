@@ -186,6 +186,50 @@ class Ideas::CommentsControllerTest < ActionDispatch::IntegrationTest
     assert_equal original_body, @comment.body.to_plain_text
   end
 
+  test "update with identical body does not stamp edited_at" do
+    sign_in_as @user
+    original_plain = @comment.body.to_plain_text
+
+    assert_nil @comment.edited_at
+
+    patch idea_comment_url(@idea, @comment), params: { comment: { body: original_plain } }
+
+    assert_response :redirect
+    @comment.reload
+
+    assert_nil @comment.edited_at, "Re-submitting the same body should NOT stamp edited_at (D-02 audit-trail intent)"
+  end
+
+  test "admin toggling internal without changing body does not stamp edited_at" do
+    sign_in_as users(:admin)
+    @comment.update_column(:internal, false)
+    original_plain = @comment.body.to_plain_text
+
+    assert_nil @comment.edited_at
+
+    patch idea_comment_url(@idea, @comment), params: { comment: { body: original_plain, internal: true } }
+
+    assert_response :redirect
+    @comment.reload
+
+    assert_nil @comment.edited_at, "Toggling :internal without a body change must not stamp edited_at"
+    assert @comment.internal, "Internal flag should have flipped to true"
+  end
+
+  test "reparenting on update is rejected" do
+    sign_in_as @user
+    target_parent = comments(:two)
+
+    assert_nil @comment.parent_id
+
+    patch idea_comment_url(@idea, @comment), params: { comment: { body: @comment.body.to_plain_text, parent_id: target_parent.id } }
+
+    assert_response :redirect
+    @comment.reload
+
+    assert_nil @comment.parent_id, "parent_id must not be re-assignable on update (WR-02 defense-in-depth)"
+  end
+
   test "admin can create internal comment" do
     sign_in_as users(:admin)
 
