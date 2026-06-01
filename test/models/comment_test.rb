@@ -180,4 +180,15 @@ class CommentTest < ActiveSupport::TestCase
       accounts(:acme).comments.find(feedbackbin_comment.id)
     end
   end
+
+  test "edited? returns false when edited_at is nil" do
+    assert_nil @comment.edited_at
+    assert_not @comment.edited?
+  end
+
+  test "edited? returns true when edited_at is set" do
+    @comment.edited_at = Time.current
+
+    assert_predicate @comment, :edited?
+  end
 end
