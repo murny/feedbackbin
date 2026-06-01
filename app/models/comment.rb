@@ -39,6 +39,10 @@ class Comment < ApplicationRecord
     end
   end
 
+  def edited?
+    edited_at.present?
+  end
+
   private
 
     def parent_must_be_top_level_comment

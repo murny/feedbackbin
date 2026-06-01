@@ -70,4 +70,10 @@
     border-color: var(--color-ring);
     box-shadow: 0 0 0 2px oklch(from var(--color-ring) l c h / 50%);
   }
+
+  /* Edited indicator - inline meta label in comment header */
+  .comment__edited {
+    margin-inline-start: var(--space-2);
+    line-height: var(--leading-snug);
+  }
 }

@@ -10,14 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.2].define(version: 2026_05_29_000003) do
+ActiveRecord::Schema[8.2].define(version: 2026_06_01_190251) do
   create_table "accesses", force: :cascade do |t|
-    t.datetime "accessed_at"
     t.bigint "account_id", null: false
     t.bigint "board_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "accessed_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.bigint "user_id", null: false
     t.string "involvement", default: "access_only", null: false
     t.index ["account_id", "board_id"], name: "index_accesses_on_account_id_and_board_id"
     t.index ["account_id"], name: "index_accesses_on_account_id"
@@ -27,8 +27,8 @@ ActiveRecord::Schema[8.2].define(version: 2026_05_29_000003) do
 
   create_table "account_cancellations", force: :cascade do |t|
     t.bigint "account_id", null: false
-    t.datetime "created_at", null: false
     t.bigint "initiated_by_id", null: false
+    t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["account_id"], name: "index_account_cancellations_on_account_id", unique: true
     t.index ["initiated_by_id"], name: "index_account_cancellations_on_initiated_by_id"
@@ -46,9 +46,9 @@ ActiveRecord::Schema[8.2].define(version: 2026_05_29_000003) do
     t.bigint "external_account_id", null: false
     t.string "logo_link"
     t.string "name", null: false
-    t.boolean "roadmap_public", default: true, null: false
     t.boolean "show_company_name", default: true, null: false
     t.datetime "updated_at", null: false
+    t.boolean "roadmap_public", default: true, null: false
     t.index ["external_account_id"], name: "index_accounts_on_external_account_id", unique: true
   end
 
@@ -100,13 +100,13 @@ ActiveRecord::Schema[8.2].define(version: 2026_05_29_000003) do
 
   create_table "boards", force: :cascade do |t|
     t.bigint "account_id", null: false
-    t.boolean "all_access", default: true, null: false
     t.string "color", null: false
     t.datetime "created_at", null: false
     t.bigint "creator_id", null: false
     t.text "description"
     t.string "name", null: false
     t.datetime "updated_at", null: false
+    t.boolean "all_access", default: true, null: false
     t.index ["account_id", "name"], name: "index_boards_on_account_id_and_name", unique: true
     t.index ["account_id"], name: "index_boards_on_account_id"
     t.index ["creator_id"], name: "index_boards_on_creator_id"
@@ -130,6 +130,7 @@ ActiveRecord::Schema[8.2].define(version: 2026_05_29_000003) do
     t.bigint "parent_id"
     t.datetime "updated_at", null: false
     t.integer "votes_count", default: 0
+    t.datetime "edited_at"
     t.index ["account_id"], name: "index_comments_on_account_id"
     t.index ["creator_id"], name: "index_comments_on_creator_id"
     t.index ["idea_id"], name: "index_comments_on_idea_id"
@@ -158,7 +159,6 @@ ActiveRecord::Schema[8.2].define(version: 2026_05_29_000003) do
     t.bigint "account_id", null: false
     t.integer "board_id", null: false
     t.integer "comments_count", default: 0, null: false
-    t.boolean "comments_locked", default: false, null: false
     t.datetime "created_at", null: false
     t.bigint "creator_id", null: false
     t.bigint "official_comment_id"
@@ -167,6 +167,7 @@ ActiveRecord::Schema[8.2].define(version: 2026_05_29_000003) do
     t.string "title", null: false
     t.datetime "updated_at", null: false
     t.integer "votes_count", default: 0, null: false
+    t.boolean "comments_locked", default: false, null: false
     t.index ["account_id"], name: "index_ideas_on_account_id"
     t.index ["board_id"], name: "index_ideas_on_board_id"
     t.index ["comments_locked"], name: "index_ideas_on_comments_locked"
