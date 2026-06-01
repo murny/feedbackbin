@@ -10,20 +10,22 @@
     <div class="flex align-start">
       <%= form_with model: comment, url: idea_comments_path(idea), class: "margin-block full-width" do |form| %>
         <%= render "error_messages", resource: form.object %>
-        <div class="comment-editor">
-          <%= form.rich_text_area :body, id: "idea_#{idea.id}_new_comment_body", placeholder: t(".comment_placeholder") do %>
-            <%= rich_text_prompts %>
+        <div class="comment-form">
+          <div class="comment-editor">
+            <%= form.rich_text_area :body, id: "idea_#{idea.id}_new_comment_body", placeholder: t(".comment_placeholder") do %>
+              <%= rich_text_prompts %>
+            <% end %>
+          </div>
+          <% if Current.user&.admin? %>
+            <div class="form__group form__group--tight margin-block-start">
+              <div class="flex align-center gap-2">
+                <%= form.check_box :internal %>
+                <%= form.label :internal, t(".internal_toggle"), class: "txt-small font-weight-medium", style: "line-height: 1;" %>
+              </div>
+              <p class="form__helper txt-x-small txt-subtle"><%= t(".internal_toggle_help") %></p>
+            </div>
           <% end %>
         </div>
-        <% if Current.user&.admin? %>
-          <div class="form__group form__group--tight margin-block-start">
-            <div class="flex align-center gap-2">
-              <%= form.check_box :internal %>
-              <%= form.label :internal, t(".internal_toggle"), class: "txt-small font-weight-medium", style: "line-height: 1;" %>
-            </div>
-            <p class="form__helper txt-x-small txt-subtle"><%= t(".internal_toggle_help") %></p>
-          </div>
-        <% end %>
         <div class="margin-block-start flex align-center gap justify-end">
           <%= form.submit class: "btn btn--primary" %>
           <%= link_to "Cancel", idea_comment_path(idea, comment), class: "btn btn--secondary" if form.object.persisted? %>

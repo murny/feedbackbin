@@ -117,8 +117,10 @@
     border-inline-start: 4px solid color-mix(in oklab, #B45309 60%, var(--color-canvas));
   }
 
-  /* Editor preview hook - when admin checks "Make internal", the editor border picks up an amber tint */
-  .comment-editor:has(input[name="comment[internal]"]:checked) {
+  /* Editor preview hook - when admin checks "Make internal", the editor border picks up an amber tint.
+     The :has() predicate matches the shared .comment-form parent (the editor and checkbox are siblings,
+     not ancestor/descendant; the .comment-form wrap enables the cross-sibling match). */
+  .comment-form:has(input[name="comment[internal]"]:checked) .comment-editor {
     border-color: color-mix(in oklab, #B45309 60%, var(--color-canvas));
   }
 }
