@@ -237,4 +237,32 @@ class IdeaTest < ActiveSupport::TestCase
     assert_equal ideas(:two), results.first
     assert_equal body_only, results.last
   end
+
+  test "similar_to excludes the named idea id" do
+    Search::Record.destroy_all
+
+    body_only = Idea.create!(
+      title: "Voting feature suggestion",
+      description: "Please add downvotes so unpopular ideas can sink.",
+      creator: users(:shane),
+      board: boards(:one)
+    )
+    Search::Record.upsert_for(ideas(:two)) # title contains "downvotes"
+    Search::Record.upsert_for(body_only)   # description contains "downvotes"
+
+    results = Idea.similar_to("downvotes", account: accounts(:feedbackbin), exclude: ideas(:two).id)
+
+    assert_not_includes results, ideas(:two)
+    assert_includes results, body_only
+  end
+
+  test "similar_to with exclude: nil returns same results as omitting exclude" do
+    Search::Record.destroy_all
+    Search::Record.upsert_for(ideas(:one))
+
+    with_nil = Idea.similar_to("dark", account: accounts(:feedbackbin), exclude: nil)
+    without_kwarg = Idea.similar_to("dark", account: accounts(:feedbackbin))
+
+    assert_equal without_kwarg, with_nil
+  end
 end
