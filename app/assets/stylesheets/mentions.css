@@ -4,6 +4,10 @@
    ========================================================================== */
 
 @layer modules {
+  action-text-attachment:has(> .mention) {
+    display: inline;
+  }
+
   .mention {
     display: inline-flex;
     align-items: center;
