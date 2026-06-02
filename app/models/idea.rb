@@ -33,7 +33,7 @@ class Idea < ApplicationRecord
   scope :open, -> { where.missing(:status) }
   scope :with_status, -> { where.associated(:status) }
 
-  def self.similar_to(title, account: Current.account, limit: 3)
+  def self.similar_to(title, account: Current.account, limit: 3, exclude: nil)
     return none if title.blank? || title.strip.length < 3
 
     sanitized = Search::Query.sanitize(title)
@@ -53,6 +53,7 @@ class Idea < ApplicationRecord
       .to_h
 
     ordered_idea_ids = ranked_record_ids.map { |rid| record_id_to_idea_id[rid] }.compact
+    ordered_idea_ids -= [ exclude.to_i ] unless exclude.nil?
     return none if ordered_idea_ids.empty?
 
     where(id: ordered_idea_ids).sort_by { |i| ordered_idea_ids.index(i.id) }.first(limit)
