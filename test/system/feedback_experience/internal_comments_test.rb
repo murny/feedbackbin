@@ -56,5 +56,32 @@ module FeedbackExperience
                       visible: :visible,
                       wait: 1
     end
+
+    test "checked internal-comment checkbox renders a non-transparent background (CR-10)" do
+      sign_in_as(users(:admin))
+      visit idea_url(@idea, script_name: @account.slug)
+
+      assert_selector "input[name='comment[internal]']"
+
+      check "comment[internal]"
+
+      assert_selector "input[name='comment[internal]']:checked"
+
+      bg = nil
+      Timeout.timeout(2) do
+        loop do
+          bg = page.evaluate_script(
+            "getComputedStyle(document.querySelector(\"input[name='comment[internal]']:checked\")).backgroundColor"
+          )
+          break if bg && bg != "rgba(0, 0, 0, 0)" && bg != "transparent" && bg !~ /\/ 0(\.0+)?\)/
+          sleep 0.05
+        end
+      end
+
+      refute_equal "rgba(0, 0, 0, 0)", bg,
+                   "checkbox :checked background should not be transparent (got #{bg.inspect})"
+      refute_equal "transparent", bg,
+                   "checkbox :checked background should not be transparent (got #{bg.inspect})"
+    end
   end
 end
