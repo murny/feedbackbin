@@ -11,16 +11,23 @@
         { class: "select" } %>
   </div>
 
-  <div class="form__group form__group--spacious"
-       data-controller="similar-ideas"
-       data-similar-ideas-url-value="<%= similar_ideas_path %>">
-    <%= form.label :title %>
-    <%= form.text_field :title,
-                        autofocus: true,
-                        placeholder: t(".title_placeholder"),
-                        data: { similar_ideas_target: "input", action: "input->similar-ideas#search" } %>
-    <%= turbo_frame_tag "similar_ideas", data: { similar_ideas_target: "frame" }, "aria-live": "polite" %>
-  </div>
+  <% if idea.new_record? %>
+    <div class="form__group form__group--spacious"
+         data-controller="similar-ideas"
+         data-similar-ideas-url-value="<%= similar_ideas_path %>">
+      <%= form.label :title %>
+      <%= form.text_field :title,
+                          autofocus: true,
+                          placeholder: t(".title_placeholder"),
+                          data: { similar_ideas_target: "input", action: "input->similar-ideas#search" } %>
+      <%= turbo_frame_tag "similar_ideas", data: { similar_ideas_target: "frame" }, "aria-live": "polite" %>
+    </div>
+  <% else %>
+    <div class="form__group form__group--spacious">
+      <%= form.label :title %>
+      <%= form.text_field :title, autofocus: true, placeholder: t(".title_placeholder") %>
+    </div>
+  <% end %>
 
   <div class="form__group form__group--spacious">
     <%= form.label :description %>
