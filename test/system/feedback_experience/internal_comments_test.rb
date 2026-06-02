@@ -83,5 +83,27 @@ module FeedbackExperience
       refute_equal "transparent", bg,
                    "checkbox :checked background should not be transparent (got #{bg.inspect})"
     end
+
+    test "internal comment amber fills outer panel and excludes replies-section (CR-11)" do
+      sign_in_as(users(:admin))
+      visit idea_url(@idea, script_name: @account.slug)
+
+      assert_selector ".comment--internal"
+      assert_selector ".comment--internal .replies-section"
+
+      outer_bg = page.evaluate_script(
+        "getComputedStyle(document.querySelector('.comment--internal')).backgroundColor"
+      )
+      replies_bg = page.evaluate_script(
+        "getComputedStyle(document.querySelector('.comment--internal .replies-section')).backgroundColor"
+      )
+
+      refute_equal "rgba(0, 0, 0, 0)", outer_bg,
+                   "outer .comment--internal background should be amber-tinted (got #{outer_bg.inspect})"
+      refute_equal "transparent", outer_bg,
+                   "outer .comment--internal background should be amber-tinted (got #{outer_bg.inspect})"
+      refute_equal outer_bg, replies_bg,
+                   "replies-section should NOT inherit the comment--internal amber tint (outer=#{outer_bg.inspect}, replies=#{replies_bg.inspect})"
+    end
   end
 end
