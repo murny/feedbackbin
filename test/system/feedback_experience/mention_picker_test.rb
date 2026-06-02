@@ -50,5 +50,28 @@ module FeedbackExperience
       assert_equal "inline", display,
         "action-text-attachment wrapper should render inline (got #{display.inspect})"
     end
+
+    test "clicking a rendered @mention navigates to user profile (CR-13)" do
+      mentioned = users(:jane)
+      body_html = <<~HTML
+        <div>Discussion <action-text-attachment sgid="#{mentioned.attachable_sgid}" content-type="application/vnd.actiontext.signed-id"></action-text-attachment> needs review</div>
+      HTML
+      Comment.create!(account: @account, creator: @user, idea: @idea, body: body_html)
+
+      sign_in_as(@user)
+
+      visit idea_url(@idea, script_name: @account.slug)
+
+      expected_path = user_path(mentioned, script_name: @account.slug)
+
+      assert_selector "a.mention[href='#{expected_path}']"
+
+      find("a.mention[href='#{expected_path}']").click
+
+      assert_equal user_path(mentioned, script_name: @account.slug), current_path,
+        "expected top-level navigation to user profile (got #{current_path.inspect})"
+      refute_text "Content missing"
+      assert_text mentioned.name
+    end
   end
 end
