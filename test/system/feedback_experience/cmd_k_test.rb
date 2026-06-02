@@ -33,8 +33,8 @@ module FeedbackExperience
 
       assert_selector "dialog.search-dialog[open]"
       assert_selector ".search-empty--two-column"
-      assert_text "Recently viewed"
-      assert_text "Recent searches"
+      assert_text(/recently viewed/i)
+      assert_text(/recent searches/i)
     end
 
     test "empty state shows cold-start when no visits and no queries" do

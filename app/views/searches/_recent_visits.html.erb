@@ -1,7 +1,7 @@
 <%# locals: (recent_visits:) %>
 
 <div class="search-recent">
-  <p class="search-recent__label"><%= t("searches.dialog.recent_visits") %></p>
+  <h3 class="search-recent__label"><%= t("searches.dialog.recent_visits") %></h3>
   <div class="search-recent__list">
     <% recent_visits.each do |visit| %>
       <%= link_to idea_path(visit.idea),

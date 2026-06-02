@@ -163,17 +163,20 @@
   }
 
   .search-recent__label {
-    padding: var(--space-2);
-    padding-block-end: 0.375rem;
+    padding: var(--space-2) var(--space-3);
+    padding-block-end: var(--space-2);
+    margin: 0;
     font-size: var(--text-xs);
     font-weight: var(--font-medium);
     color: var(--color-muted-foreground);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
   }
 
   .search-recent__list {
     display: flex;
     flex-direction: column;
-    gap: 0.125rem;
+    gap: var(--space-1);
   }
 
   .search-recent__item {
@@ -181,7 +184,7 @@
     inline-size: 100%;
     align-items: center;
     gap: var(--space-2);
-    padding: 0.375rem var(--space-2);
+    padding: var(--space-2) var(--space-3);
     border: none;
     border-radius: var(--radius-md);
     background-color: transparent;
@@ -196,6 +199,10 @@
       background-color: var(--color-accent);
       color: var(--color-accent-foreground);
     }
+  }
+
+  .search-recent__item:not(:last-child) {
+    border-block-end: 1px solid color-mix(in oklab, var(--color-border) 50%, transparent);
   }
 
   /* Search Empty State (two-column: recent visits | recent searches)

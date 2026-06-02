@@ -1,7 +1,7 @@
 <%# locals: (recent_queries:) %>
 
 <div class="search-recent">
-  <p class="search-recent__label"><%= t("searches.dialog.recent_searches") %></p>
+  <h3 class="search-recent__label"><%= t("searches.dialog.recent_searches") %></h3>
   <div class="search-recent__list">
     <% recent_queries.each do |query| %>
       <button type="button"
