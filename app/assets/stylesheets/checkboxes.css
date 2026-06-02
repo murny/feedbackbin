@@ -20,6 +20,7 @@
 
     /* Structure */
     appearance: none;
+    position: relative;
     inline-size: var(--checkbox-size);
     block-size: var(--checkbox-size);
     flex-shrink: 0;
@@ -59,12 +60,11 @@
 
     &:checked::after {
       content: '';
-      display: block;
-      inline-size: 0.875rem;
-      block-size: 0.875rem;
+      position: absolute;
+      inset: 0;
       background-color: var(--color-primary-foreground);
-      mask-image: var(--check-icon);
-      mask-size: 0.875rem;
+      mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><polyline points='3 8 7 12 13 4' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>");
+      mask-size: 0.75rem;
       mask-repeat: no-repeat;
       mask-position: center;
     }
