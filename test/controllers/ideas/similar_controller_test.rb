@@ -47,4 +47,20 @@ class Ideas::SimilarControllerTest < ActionDispatch::IntegrationTest
     assert_not_includes response.body, @idea.title
     assert_includes response.body, duplicate.title
   end
+
+  test "new form renders similar_ideas turbo frame" do
+    get new_idea_url
+
+    assert_response :success
+    assert_includes response.body, 'id="similar_ideas"'
+    assert_includes response.body, 'data-controller="similar-ideas"'
+  end
+
+  test "edit form does not render similar_ideas turbo frame" do
+    get edit_idea_url(@idea)
+
+    assert_response :success
+    assert_not_includes response.body, 'id="similar_ideas"'
+    assert_not_includes response.body, 'data-controller="similar-ideas"'
+  end
 end
