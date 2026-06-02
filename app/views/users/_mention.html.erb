@@ -1,4 +1,4 @@
-<%= link_to user_path(user), class: "mention", target: "_top" do %>
+<%= link_to user_path(user), class: "mention", data: { turbo_frame: "_top" } do %>
   <%= image_tag fresh_user_avatar_path(user), alt: user.name, class: "mention__avatar" %>
   <span class="mention__name"><%= user.first_name %></span>
 <% end %>

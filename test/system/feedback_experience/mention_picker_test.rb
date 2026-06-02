@@ -68,8 +68,8 @@ module FeedbackExperience
 
       find("a.mention[href='#{expected_path}']").click
 
-      assert_equal user_path(mentioned, script_name: @account.slug), current_path,
-        "expected top-level navigation to user profile (got #{current_path.inspect})"
+      assert_current_path user_path(mentioned, script_name: @account.slug),
+        wait: Capybara.default_max_wait_time
       refute_text "Content missing"
       assert_text mentioned.name
     end
