@@ -29,5 +29,26 @@ module FeedbackExperience
       assert prompt_src.ends_with?(expected_path),
         "expected lexxy-prompt src #{prompt_src.inspect} to end with #{expected_path.inspect}"
     end
+
+    test "rendered @mention wrapper has inline display (CR-12)" do
+      mentioned = users(:jane)
+      body_html = <<~HTML
+        <div>Hello <action-text-attachment sgid="#{mentioned.attachable_sgid}" content-type="application/vnd.actiontext.signed-id"></action-text-attachment> world</div>
+      HTML
+      Comment.create!(account: @account, creator: @user, idea: @idea, body: body_html)
+
+      sign_in_as(@user)
+
+      visit idea_url(@idea, script_name: @account.slug)
+
+      assert_selector "action-text-attachment .mention"
+
+      display = page.evaluate_script(
+        "getComputedStyle(document.querySelector('action-text-attachment:has(.mention)')).display"
+      )
+
+      assert_equal "inline", display,
+        "action-text-attachment wrapper should render inline (got #{display.inspect})"
+    end
   end
 end
