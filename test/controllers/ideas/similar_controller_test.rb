@@ -32,4 +32,19 @@ class Ideas::SimilarControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_not_includes response.body, ideas(:acme_one).title
   end
+
+  test "excludes idea_id from results when passed" do
+    duplicate = Idea.create!(
+      title: "Wish this had dark theme support too",
+      creator: users(:shane),
+      board: boards(:one)
+    )
+    Search::Record.upsert_for(duplicate)
+
+    get similar_ideas_url, params: { title: "dark", idea_id: @idea.id }
+
+    assert_response :success
+    assert_not_includes response.body, @idea.title
+    assert_includes response.body, duplicate.title
+  end
 end
