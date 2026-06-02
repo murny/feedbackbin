@@ -112,11 +112,15 @@
   }
 
   /* Internal comment shell - amber-tinted background + inline-start accent for staff-only annotations.
-     Scoped to .panel__body so the tint stops before the sibling .replies-section (the nested reply form
-     Turbo Frame must not look "internal" when only the parent comment is). */
-  .comment--internal > .panel__body {
+     Applied to the outer .panel; the explicit .replies-section override below restores the muted canvas
+     tint for nested reply children, preserving the WR-09 boundary. */
+  .comment--internal {
     background-color: color-mix(in oklab, #B45309 8%, var(--color-canvas));
     border-inline-start: 4px solid color-mix(in oklab, #B45309 60%, var(--color-canvas));
+  }
+
+  .comment--internal .replies-section {
+    background-color: oklch(from var(--color-muted) l c h / 30%);
   }
 
   /* Editor preview hook - when admin checks "Make internal", the editor picks up an amber tint.
