@@ -111,8 +111,10 @@
     display: none;
   }
 
-  /* Internal comment shell - amber-tinted background + inline-start accent for staff-only annotations */
-  .comment--internal {
+  /* Internal comment shell - amber-tinted background + inline-start accent for staff-only annotations.
+     Scoped to .panel__body so the tint stops before the sibling .replies-section (the nested reply form
+     Turbo Frame must not look "internal" when only the parent comment is). */
+  .comment--internal > .panel__body {
     background-color: color-mix(in oklab, #B45309 8%, var(--color-canvas));
     border-inline-start: 4px solid color-mix(in oklab, #B45309 60%, var(--color-canvas));
   }
