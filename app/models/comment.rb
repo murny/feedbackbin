@@ -25,6 +25,7 @@ class Comment < ApplicationRecord
 
   after_create :increment_idea_comments_count
   after_create_commit :watch_idea_by_creator
+  before_update :stamp_edited_at_if_body_text_changed
   before_destroy :clear_official_response_references
   after_destroy :decrement_idea_comments_count
 
@@ -89,5 +90,12 @@ class Comment < ApplicationRecord
 
     def clear_official_response_references
       Idea.where(official_comment_id: id).update_all(official_comment_id: nil)
+    end
+
+    def stamp_edited_at_if_body_text_changed
+      return unless body&.body_changed?
+      return if body.body_was&.to_plain_text.to_s == body.body.to_plain_text.to_s
+
+      self.edited_at = Time.current
     end
 end

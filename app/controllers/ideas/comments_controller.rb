@@ -41,14 +41,8 @@ class Ideas::CommentsController < ApplicationController
   end
 
   def update
-    previous_plain_text = @comment.body.to_plain_text
-    body_param_provided = params.dig(:comment, :body).present?
-
     respond_to do |format|
       if @comment.update(comment_params)
-        if body_param_provided && @comment.body.to_plain_text != previous_plain_text
-          @comment.update_column(:edited_at, Time.current)
-        end
         notice = t(".successfully_updated")
         format.html do
           flash[:notice] = notice
