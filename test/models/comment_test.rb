@@ -90,6 +90,15 @@ class CommentTest < ActiveSupport::TestCase
     assert_predicate reply, :valid?
   end
 
+  test "parent_id is readonly after creation" do
+    reply = comments(:reply_one)
+    other_top_level = comments(:two)
+
+    assert_raises(ActiveRecord::ReadonlyAttributeError) do
+      reply.update(parent_id: other_top_level.id)
+    end
+  end
+
   test "should not allow reply to comment from different idea" do
     comment_on_idea_one = comments(:one)
     different_idea = ideas(:two)

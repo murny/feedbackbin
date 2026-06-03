@@ -17,6 +17,8 @@ class Comment < ApplicationRecord
   has_rich_text :body
   mentionable_rich_text :body
 
+  attr_readonly :parent_id
+
   validates :body, presence: true
   validate :parent_must_be_top_level_comment, if: :parent_id?
   validate :reply_to_internal_only_by_staff, if: :parent_id?
