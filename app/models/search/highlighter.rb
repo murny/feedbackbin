@@ -4,7 +4,7 @@ class Search::Highlighter
   def self.build_results(records, query)
     return [] if records.empty?
 
-    sanitized = Search::Query.sanitize(query)
+    sanitized = Search::Record.sanitize_query(query)
     return records.map { |r| Search::Result.new(record: r) } if sanitized.blank?
 
     fts_rows = Search::Record::Fts.matching_with_highlights(sanitized)

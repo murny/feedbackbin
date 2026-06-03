@@ -36,7 +36,7 @@ class Idea < ApplicationRecord
   def self.similar_to(title, account: Current.account, limit: 3, exclude: nil)
     return none if title.blank? || title.strip.length < 3
 
-    sanitized = Search::Query.sanitize(title)
+    sanitized = Search::Record.sanitize_query(title)
     return none if sanitized.blank?
 
     prefixed = sanitized.split(/\s+/).reject(&:blank?).map { |t| "#{t}*" }.join(" ")

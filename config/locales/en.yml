@@ -824,7 +824,6 @@ en:
       cold_start_description: Find any idea, comment, or changelog by keyword.
       cold_start_title: Start typing to search
       placeholder: Search ideas, comments, and changelogs...
-      recent_searches: Recent searches
       recent_visits: Recently viewed
     form:
       placeholder: Search ideas and comments...

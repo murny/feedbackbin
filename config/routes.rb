@@ -90,9 +90,6 @@ Rails.application.routes.draw do
   end
 
   resource :search, only: [ :show ], controller: "searches"
-  namespace :searches do
-    resources :queries, only: [ :create ]
-  end
 
   resources :ideas do
     collection do

@@ -19,11 +19,9 @@ module FeedbackExperience
       assert_selector "dialog.search-dialog[open]"
     end
 
-    test "empty state shows two columns when user has visits and queries" do
+    test "empty state shows recently viewed when user has visits" do
       Visit.where(user: @user).destroy_all
       Visit.create!(account: @account, user: @user, idea: ideas(:one), visited_at: 5.minutes.ago)
-      Search::Query.where(user: @user).destroy_all
-      Search::Query.create!(account: @account, user: @user, terms: "dark")
 
       sign_in_as(@user)
 
@@ -32,15 +30,12 @@ module FeedbackExperience
       find("body").send_keys [ :meta, "k" ]
 
       assert_selector "dialog.search-dialog[open]"
-      assert_selector ".search-empty--two-column"
       assert_text(/recently viewed/i)
-      assert_text(/recent searches/i)
     end
 
-    test "empty state shows cold-start when no visits and no queries" do
+    test "empty state shows cold-start when no visits" do
       fresh_user = users(:john)
       Visit.where(user: fresh_user).destroy_all
-      Search::Query.where(user: fresh_user).destroy_all
 
       sign_in_as(fresh_user)
 

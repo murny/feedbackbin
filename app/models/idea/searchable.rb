@@ -9,7 +9,7 @@ class Idea
       def search(query)
         return all if query.blank?
 
-        sanitized = Search::Query.sanitize(query)
+        sanitized = Search::Record.sanitize_query(query)
         return all if sanitized.blank?
 
         matching_ids = Search::Record::Fts.matching(sanitized).pluck(:rowid)
