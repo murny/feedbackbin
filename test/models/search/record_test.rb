@@ -101,4 +101,68 @@ class Search::RecordTest < ActiveSupport::TestCase
 
     assert_empty results
   end
+
+  test "search populates result_title with FTS5 highlight marks" do
+    Search::Record.destroy_all
+    Search::Record.upsert_for(@idea)
+
+    record = Search::Record.search("dark", account: @account).first
+
+    assert_match(/<mark>dark<\/mark>/i, record.result_title)
+  end
+
+  test "search populates result_content with FTS5 snippet" do
+    Search::Record.destroy_all
+    Search::Record.upsert_for(ideas(:one))
+
+    record = Search::Record.search("dark", account: @account).first
+
+    assert_not_nil record.result_content
+  end
+
+  test "display_title returns highlighted title when present" do
+    record = Search::Record.upsert_for(@idea)
+    record.result_title = "<mark>dark</mark> mode"
+
+    assert_equal "<mark>dark</mark> mode", record.display_title
+  end
+
+  test "display_title falls back to raw title when no highlight" do
+    record = Search::Record.upsert_for(@idea)
+
+    assert_equal @idea.title, record.display_title
+  end
+
+  test "display_snippet returns escaped snippet when present" do
+    record = Search::Record.upsert_for(@idea)
+    record.result_content = "a <mark>dark</mark> snippet"
+
+    assert_equal "a <mark>dark</mark> snippet", record.display_snippet
+  end
+
+  test "display_snippet escapes HTML in user content while preserving mark tags" do
+    record = Search::Record.upsert_for(@idea)
+    record.result_content = "danger <script>alert(1)</script> <mark>dark</mark>"
+
+    snippet = record.display_snippet
+
+    assert_includes snippet, "<mark>dark</mark>"
+    assert_includes snippet, "&lt;script&gt;"
+    assert_not_includes snippet, "<script>"
+  end
+
+  test "type predicates reflect searchable_type" do
+    idea_record    = Search::Record.upsert_for(ideas(:one))
+    comment_record = Search::Record.upsert_for(comments(:one))
+
+    assert_predicate idea_record, :idea?
+    assert_not idea_record.comment?
+    assert_predicate comment_record, :comment?
+    assert_not comment_record.idea?
+  end
+
+  test "type_key returns lowercase string for searchable_type" do
+    assert_equal "idea", Search::Record.upsert_for(ideas(:one)).type_key
+    assert_equal "comment", Search::Record.upsert_for(comments(:one)).type_key
+  end
 end

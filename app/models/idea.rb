@@ -36,10 +36,10 @@ class Idea < ApplicationRecord
   def self.similar_to(title, account: Current.account, limit: 3, exclude: nil)
     return none if title.blank? || title.strip.length < 3
 
-    sanitized = Search::Record.sanitize_query(title)
-    return none if sanitized.blank?
+    query = Search::Query.wrap(title)
+    return none if query.blank?
 
-    prefixed = sanitized.split(/\s+/).reject(&:blank?).map { |t| "#{t}*" }.join(" ")
+    prefixed = query.to_s.split(/\s+/).reject(&:blank?).map { |t| "#{t}*" }.join(" ")
     return none if prefixed.blank?
 
     fts_rows = Search::Record::Fts.matching_ranked(prefixed).pluck(:rowid, "rank")

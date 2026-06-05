@@ -38,16 +38,4 @@ class Search::Record::Fts < ApplicationRecord
 
     matching_ranked(prefixed)
   end
-
-  def self.matching_with_highlights(query)
-    select(
-      "rowid",
-      Arel.sql(sanitize_sql_array([
-        "highlight(search_records_fts, 0, '<mark>', '</mark>') AS highlighted_title"
-      ])),
-      Arel.sql(sanitize_sql_array([
-        "snippet(search_records_fts, 1, '<mark>', '</mark>', '...', 40) AS snippet"
-      ]))
-    ).where("search_records_fts MATCH ?", query)
-  end
 end
