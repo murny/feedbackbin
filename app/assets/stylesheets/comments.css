@@ -115,8 +115,8 @@
      Applied to the outer .panel; the explicit .replies-section override below restores the muted canvas
      tint for nested reply children, preserving the WR-09 boundary. */
   .comment--internal {
-    background-color: color-mix(in oklab, #B45309 8%, var(--color-canvas));
-    border-inline-start: 4px solid color-mix(in oklab, #B45309 60%, var(--color-canvas));
+    background-color: color-mix(in oklab, var(--color-warning) 8%, var(--color-canvas));
+    border-inline-start: 4px solid color-mix(in oklab, var(--color-warning) 60%, var(--color-canvas));
   }
 
   .comment--internal .replies-section {
@@ -127,7 +127,7 @@
      The :has() predicate matches the shared .comment-form parent (the editor and checkbox are siblings,
      not ancestor/descendant; the .comment-form wrap enables the cross-sibling match). */
   .comment-form:has(input[name="comment[internal]"]:checked) .comment-editor {
-    border: 2px solid color-mix(in oklab, #B45309 80%, var(--color-canvas));
-    background-color: color-mix(in oklab, #B45309 6%, var(--color-canvas));
+    border: 2px solid color-mix(in oklab, var(--color-warning) 80%, var(--color-canvas));
+    background-color: color-mix(in oklab, var(--color-warning) 6%, var(--color-canvas));
   }
 }
