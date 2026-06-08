@@ -4,6 +4,12 @@ require "application_system_test_case"
 
 module FeedbackExperience
   class CmdKTest < ApplicationSystemTestCase
+    # global_search_controller.js#handleGlobalKeydown uses metaKey on macOS
+    # (per isAppleDevice) and ctrlKey elsewhere. CI runs on Ubuntu, so the
+    # browser's navigator.platform is "Linux", not "MacIntel" — the test
+    # must mirror that to actually trigger the handler.
+    MODIFIER_KEY = (RbConfig::CONFIG["host_os"] =~ /darwin/i) ? :meta : :control
+
     setup do
       @account = accounts(:feedbackbin)
       @user = users(:shane)
@@ -14,7 +20,7 @@ module FeedbackExperience
 
       visit ideas_url(script_name: @account.slug)
 
-      find("body").send_keys [ :meta, "k" ]
+      find("body").send_keys [ MODIFIER_KEY, "k" ]
 
       assert_selector "dialog.search-dialog[open]"
     end
@@ -27,7 +33,7 @@ module FeedbackExperience
 
       visit ideas_url(script_name: @account.slug)
 
-      find("body").send_keys [ :meta, "k" ]
+      find("body").send_keys [ MODIFIER_KEY, "k" ]
 
       assert_selector "dialog.search-dialog[open]"
       assert_text(/recently viewed/i)
@@ -41,7 +47,7 @@ module FeedbackExperience
 
       visit ideas_url(script_name: @account.slug)
 
-      find("body").send_keys [ :meta, "k" ]
+      find("body").send_keys [ MODIFIER_KEY, "k" ]
 
       assert_selector "dialog.search-dialog[open]"
       assert_text "Start typing to search"
@@ -57,7 +63,7 @@ module FeedbackExperience
 
       visit ideas_url(script_name: @account.slug)
 
-      find("body").send_keys [ :meta, "k" ]
+      find("body").send_keys [ MODIFIER_KEY, "k" ]
       find("input.search-dialog__input").set("dark")
 
       assert_selector ".search-result__type-badge", text: "Idea"

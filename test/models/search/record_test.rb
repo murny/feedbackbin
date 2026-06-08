@@ -85,15 +85,23 @@ class Search::RecordTest < ActiveSupport::TestCase
 
   test "search orders results by bm25 relevance" do
     Search::Record.destroy_all
-    Search::Record.upsert_for(ideas(:one))   # "Wish this had dark mode!" -- single "dark" occurrence in title
-    Search::Record.upsert_for(ideas(:two))   # "Love the site, can you implement downvotes?" -- no dark
-    Search::Record.upsert_for(ideas(:three)) # "Allow visitors to post without having to sign in" -- no dark
+
+    body_only_match = Idea.create!(
+      title: "Voting feature suggestion",
+      description: "Please add dark-mode-aware voting controls so toggles match the canvas tone.",
+      creator: users(:shane),
+      board: boards(:one)
+    )
+
+    Search::Record.upsert_for(ideas(:one))     # title match: "Wish this had dark mode!"
+    Search::Record.upsert_for(body_only_match) # body-only match
 
     results = Search::Record.search("dark", account: @account).to_a
 
-    assert_not_empty results
-    # bm25 ranks the only record matching "dark" first
-    assert_equal ideas(:one).id, results.first.idea_id
+    assert_equal 2, results.size
+    assert_equal ideas(:one).id, results.first.idea_id,
+      "title match should outrank body-only match in bm25 ordering"
+    assert_equal body_only_match.id, results.last.idea_id
   end
 
   test "search returns none for pure-punctuation query" do
