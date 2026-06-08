@@ -210,6 +210,7 @@ class IdeaTest < ActiveSupport::TestCase
 
   test "similar_to returns at most `limit` results" do
     Search::Record.destroy_all
+    ideas(:two).update!(status: statuses(:planned))
     Search::Record.upsert_for(ideas(:one))
     Search::Record.upsert_for(ideas(:two))
     Search::Record.upsert_for(ideas(:three))
@@ -221,6 +222,7 @@ class IdeaTest < ActiveSupport::TestCase
 
   test "similar_to preserves bm25 ranking when multiple ideas match" do
     Search::Record.destroy_all
+    ideas(:two).update!(status: statuses(:planned))
 
     body_only = Idea.create!(
       title: "Voting feature suggestion",
@@ -236,6 +238,29 @@ class IdeaTest < ActiveSupport::TestCase
     assert_equal 2, results.size
     assert_equal ideas(:two), results.first
     assert_equal body_only, results.last
+  end
+
+  test "similar_to excludes ideas with hidden statuses" do
+    Search::Record.destroy_all
+    hidden_status = statuses(:complete) # show_on_idea: false
+    ideas(:one).update!(status: hidden_status)
+    Search::Record.upsert_for(ideas(:one))
+
+    results = Idea.similar_to("dark", account: accounts(:feedbackbin))
+
+    assert_not_includes results, ideas(:one),
+      "ideas with status.show_on_idea: false should be excluded from dedup suggestions"
+  end
+
+  test "similar_to includes ideas with no status" do
+    Search::Record.destroy_all
+    ideas(:one).update!(status: nil)
+    Search::Record.upsert_for(ideas(:one))
+
+    results = Idea.similar_to("dark", account: accounts(:feedbackbin))
+
+    assert_includes results, ideas(:one),
+      "ideas with no status should still appear in dedup suggestions"
   end
 
   test "similar_to excludes the named idea id" do

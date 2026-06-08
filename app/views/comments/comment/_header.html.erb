@@ -18,8 +18,7 @@
     </p>
     <% if comment.internal? %>
       <%= render Elements::BadgeComponent.new(
-        color: "#B45309",
-        tone: :soft,
+        variant: :warning,
         class: "txt-x-small",
         title: t(".internal_badge_title")
       ) do %>

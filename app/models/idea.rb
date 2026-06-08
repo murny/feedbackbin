@@ -32,6 +32,10 @@ class Idea < ApplicationRecord
   scope :ordered_with_pinned, -> { order(pinned: :desc, created_at: :desc) }
   scope :open, -> { where.missing(:status) }
   scope :with_status, -> { where.associated(:status) }
+  scope :visible_on_idea_page, -> {
+    left_outer_joins(:status).where(statuses: { show_on_idea: true })
+      .or(left_outer_joins(:status).where(status_id: nil))
+  }
 
   def self.similar_to(title, account: Current.account, limit: 3, exclude: nil)
     return none if title.blank? || title.strip.length < 3
@@ -56,7 +60,7 @@ class Idea < ApplicationRecord
     ordered_idea_ids -= [ exclude.to_i ] unless exclude.nil?
     return none if ordered_idea_ids.empty?
 
-    where(id: ordered_idea_ids).sort_by { |i| ordered_idea_ids.index(i.id) }.first(limit)
+    visible_on_idea_page.where(id: ordered_idea_ids).sort_by { |i| ordered_idea_ids.index(i.id) }.first(limit)
   end
 
   # Returns the status name, or "Open" if no status assigned

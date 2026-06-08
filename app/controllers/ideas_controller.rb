@@ -23,14 +23,10 @@ class IdeasController < ApplicationController
 
     ideas = ideas.sort_by_params(sort_column(Idea), sort_direction)
 
-    # Apply status filtering if provided, otherwise default to visible on idea
     if params[:status_id].present?
       ideas = ideas.where(status_id: params[:status_id])
     else
-      # By default, only show ideas with statuses visible on idea page OR open ideas (no status)
-      ideas = ideas.left_outer_joins(:status).where(statuses: { show_on_idea: true }).or(
-        ideas.left_outer_joins(:status).where(status_id: nil)
-      )
+      ideas = ideas.visible_on_idea_page
     end
 
     # Order with pinned ideas first

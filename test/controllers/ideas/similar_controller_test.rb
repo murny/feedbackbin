@@ -14,7 +14,9 @@ class Ideas::SimilarControllerTest < ActionDispatch::IntegrationTest
     get similar_ideas_url, params: { title: "dark" }
 
     assert_response :success
-    assert_includes response.body, @idea.title
+    # Title is rendered with <mark> wrapping the matched term, so assert on the
+    # surrounding text and the highlight markup separately.
+    assert_match %r{Wish this had <mark>dark</mark> mode!}, response.body
   end
 
   test "returns empty frame when title below min length" do
@@ -44,8 +46,8 @@ class Ideas::SimilarControllerTest < ActionDispatch::IntegrationTest
     get similar_ideas_url, params: { title: "dark", idea_id: @idea.id }
 
     assert_response :success
-    assert_not_includes response.body, @idea.title
-    assert_includes response.body, duplicate.title
+    assert_not_includes response.body, "Wish this had <mark>dark</mark> mode!"
+    assert_match %r{Wish this had <mark>dark</mark> theme support too}, response.body
   end
 
   test "new form renders similar_ideas turbo frame" do
