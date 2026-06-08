@@ -28,11 +28,11 @@ class Search::Record < ApplicationRecord
       scope = matching(query.to_s)
         .where(account: account)
         .includes(:idea, :board, :searchable)
-        .select("search_records.*", *search_fields(query))
+        .select("search_records.*", *search_fields)
         .order(Arel.sql("bm25(search_records_fts) ASC"))
         .limit(RESULT_LIMIT)
       scope = scope.where(board: board) if board.present?
-      scope.to_a
+      scope
     end
 
     def matching(query)
@@ -65,7 +65,7 @@ class Search::Record < ApplicationRecord
 
     private
 
-      def search_fields(query)
+      def search_fields
         opening = connection.quote(OPENING_MARK)
         closing = connection.quote(CLOSING_MARK)
         ellipsis = connection.quote(SNIPPET_ELLIPSIS)
@@ -85,15 +85,15 @@ class Search::Record < ApplicationRecord
     escape_fts_highlight(result_content) || content&.truncate(150)
   end
 
-  def display_url
+  def source
     case searchable_type
-    when "Idea"
-      Rails.application.routes.url_helpers.idea_path(idea, script_name: Current.account&.slug)
-    when "Comment"
-      Rails.application.routes.url_helpers.idea_path(idea, anchor: "comment_#{searchable.id}", script_name: Current.account&.slug)
-    when "Changelog"
-      Rails.application.routes.url_helpers.changelog_path(searchable, script_name: Current.account&.slug)
+    when "Idea", "Comment" then idea
+    when "Changelog"       then searchable
     end
+  end
+
+  def source_anchor
+    "comment_#{searchable.id}" if comment?
   end
 
   def type_key

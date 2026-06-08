@@ -173,4 +173,21 @@ class Search::RecordTest < ActiveSupport::TestCase
     assert_equal "idea", Search::Record.upsert_for(ideas(:one)).type_key
     assert_equal "comment", Search::Record.upsert_for(comments(:one)).type_key
   end
+
+  test "source returns the linkable record per searchable_type" do
+    idea_record    = Search::Record.upsert_for(ideas(:one))
+    comment_record = Search::Record.upsert_for(comments(:one))
+
+    assert_equal ideas(:one), idea_record.source
+    assert_equal comments(:one).idea, comment_record.source,
+      "comment results should link to the parent idea, not the comment itself"
+  end
+
+  test "source_anchor is set only for comment results" do
+    idea_record    = Search::Record.upsert_for(ideas(:one))
+    comment_record = Search::Record.upsert_for(comments(:one))
+
+    assert_nil idea_record.source_anchor
+    assert_equal "comment_#{comments(:one).id}", comment_record.source_anchor
+  end
 end

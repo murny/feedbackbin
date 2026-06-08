@@ -1,7 +1,7 @@
 <%# locals: (result:) %>
 
 <% icon = { "Idea" => "lightbulb", "Comment" => "message-circle", "Changelog" => "package-2" }[result.searchable_type] %>
-<%= link_to result.display_url,
+<%= link_to polymorphic_path(result.source, anchor: result.source_anchor),
     class: "search-result",
     id: dom_id(result.searchable, :search_result),
     data: { turbo: false, navigable_list_target: "item" } do %>
