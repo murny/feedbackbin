@@ -14,6 +14,7 @@ en:
         comment:
           attributes:
             parent_id:
+              cannot_reply_to_internal: cannot reply to an internal comment
               cannot_reply_to_reply: you can only reply to comments, not to other replies
               must_belong_to_same_idea: must belong to the same idea
         idea:
@@ -531,8 +532,21 @@ en:
       edit: Edit in Admin
   comments:
     comment:
+      collapsed_replies_toggle:
+        hide_replies: Hide replies
+        replies_hidden_sr:
+          one: 1 reply hidden
+          other: "%{count} replies hidden"
+        show_more_replies:
+          one: Show 1 more reply
+          other: Show %{count} more replies
       comment_settings: Comment settings
       copy_link: Copy link
+      header:
+        edited_indicator: edited
+        edited_title: Last edited %{absolute}
+        internal_badge: Internal
+        internal_badge_title: Visible to admins and owners only
       replies_count:
         one: "%{count} reply"
         other: "%{count} replies"
@@ -545,6 +559,9 @@ en:
     form:
       comment_placeholder: Write a comment...
       discussion_locked: Discussion is locked.
+      internal_toggle: Make this an internal comment
+      internal_toggle_help: Only admins and owners can see internal comments. No notifications go to voters or watchers.
+      mention_prompt_label: Mention someone in your account
     reply:
       copy_link: Copy link
       quote_reply: Quote reply
@@ -645,6 +662,9 @@ en:
       unlock_discussion: Unlock discussion
       unpin: Unpin
       watch: Watch
+    similar_ideas:
+      heading: Similar ideas
+      subheading: These ideas already exist. Add your vote or comment instead?
     statuses:
       update:
         success: Status was successfully updated.
@@ -800,13 +820,19 @@ en:
       title: Roadmap
   searches:
     dialog:
-      aria_label: Search
-      placeholder: Search ideas and comments...
-      recent_searches: Recent searches
+      aria_label: Search ideas, comments, and changelogs
+      cold_start_description: Find any idea, comment, or changelog by keyword.
+      cold_start_title: Start typing to search
+      placeholder: Search ideas, comments, and changelogs...
+      recent_visits: Recently viewed
     form:
       placeholder: Search ideas and comments...
     result:
       comment_on_idea: Comment on idea
+      types:
+        changelog: Changelog
+        comment: Comment
+        idea: Idea
     results:
       no_results: No results found
     show:

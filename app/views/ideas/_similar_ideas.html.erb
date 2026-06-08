@@ -1,0 +1,19 @@
+<%# locals: (ideas:, query:) %>
+<%= turbo_frame_tag "similar_ideas" do %>
+  <% if ideas.any? %>
+    <div class="similar-ideas panel panel--compact">
+      <p class="similar-ideas__heading"><%= t(".heading") %></p>
+      <p class="similar-ideas__subheading txt-subtle txt-small"><%= t(".subheading") %></p>
+      <ul class="similar-ideas__list">
+        <% terms = query.to_s.split(/\s+/) %>
+        <% ideas.each do |idea| %>
+          <li class="similar-ideas__item">
+            <%= link_to idea_path(idea), data: { turbo_frame: "_top" } do %>
+              <%= terms.any? ? highlight(idea.title, terms) : idea.title %>
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+<% end %>

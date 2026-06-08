@@ -1,51 +1,49 @@
 # frozen_string_literal: true
 
-class Search::Query < ApplicationRecord
-  self.table_name = "search_queries"
+class Search::Query
+  attr_reader :terms
 
-  belongs_to :account
-  belongs_to :user
+  def self.wrap(query)
+    query.is_a?(self) ? query : new(query)
+  end
 
-  scope :recent, -> { order(updated_at: :desc).limit(5) }
+  def initialize(terms)
+    @terms = sanitize(terms)
+  end
 
-  def self.track(terms, user:)
-    sanitized = sanitize(terms)
-    return if sanitized.blank?
+  def valid?
+    terms.present?
+  end
 
-    record = find_or_initialize_by(
-      account: Current.account,
-      user: user,
-      terms: sanitized
-    )
-    if record.new_record?
-      record.save!
-    else
-      record.touch
+  def blank?
+    !valid?
+  end
+
+  def present?
+    valid?
+  end
+
+  def to_s
+    terms.to_s
+  end
+
+  private
+
+    def sanitize(terms)
+      return "" if terms.blank?
+
+      sanitized = terms.to_s.strip
+      sanitized = sanitized.gsub(/[^\w\s"*-]/u, "")
+      sanitized = fix_unbalanced_quotes(sanitized)
+      sanitized = strip_bare_operators(sanitized)
+      sanitized.squish
     end
-    record
-  end
 
-  def self.sanitize(terms)
-    return "" if terms.blank?
-
-    sanitized = terms.to_s.strip
-    sanitized = sanitized.gsub(/[^\w\s"*-]/u, "")
-    sanitized = fix_unbalanced_quotes(sanitized)
-    sanitized = strip_bare_operators(sanitized)
-    sanitized.squish
-  end
-
-  def self.strip_bare_operators(str)
-    str.gsub(/(?<!\w)[*-](?!\w)/, "")
-  end
-
-  def self.fix_unbalanced_quotes(str)
-    if str.count('"').odd?
-      str.delete('"')
-    else
-      str
+    def fix_unbalanced_quotes(str)
+      str.count('"').odd? ? str.delete('"') : str
     end
-  end
 
-  private_class_method :fix_unbalanced_quotes, :strip_bare_operators
+    def strip_bare_operators(str)
+      str.gsub(/(?<!\w)[*-](?!\w)/, "")
+    end
 end

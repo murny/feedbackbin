@@ -1,0 +1,15 @@
+<%# locals: (recent_visits:) %>
+
+<div class="search-recent">
+  <h3 class="search-recent__label"><%= t("searches.dialog.recent_visits") %></h3>
+  <div class="search-recent__list">
+    <% recent_visits.each do |visit| %>
+      <%= link_to idea_path(visit.idea),
+          class: "search-recent__item",
+          data: { turbo_frame: "_top" } do %>
+        <%= lucide_icon "lightbulb", class: "size-4 txt-subtle" %>
+        <span class="overflow-ellipsis"><%= visit.idea.title %></span>
+      <% end %>
+    <% end %>
+  </div>
+</div>

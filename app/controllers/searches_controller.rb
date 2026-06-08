@@ -4,16 +4,19 @@ class SearchesController < ApplicationController
   allow_unauthenticated_access
 
   def show
-    @query = Search::Query.sanitize(params[:q])
+    @query = Search::Query.wrap(params[:q])
 
-    if @query.present?
-      records = Search::Record.search(@query, account: Current.account)
-      @results = Search::Highlighter.build_results(records, @query)
+    @results = if @query.present?
+      Current.user ? Current.user.search(@query) : Search::Record.search(@query, account: Current.account)
     else
-      @results = []
+      []
     end
 
-    @recent_queries = Current.user ? Search::Query.where(account: Current.account, user: Current.user).recent : []
+    @recent_visits = if Current.user
+      Current.user.visits.recent.where(account: Current.account).limit(5).includes(:idea)
+    else
+      Visit.none
+    end
 
     respond_to do |format|
       format.html

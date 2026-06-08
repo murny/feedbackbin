@@ -20,6 +20,8 @@
 
     /* Structure */
     appearance: none;
+    display: inline-grid;
+    place-content: center;
     inline-size: var(--checkbox-size);
     block-size: var(--checkbox-size);
     flex-shrink: 0;
@@ -35,6 +37,17 @@
     transition: box-shadow var(--duration-fast) var(--ease-out),
                 border-color var(--duration-fast) var(--ease-out),
                 background-color var(--duration-fast) var(--ease-out);
+
+    &::before {
+      content: '';
+      inline-size: 0.65em;
+      block-size: 0.65em;
+      background-color: var(--color-primary-foreground);
+      clip-path: polygon(14% 44%, 0 65%, 50% 100%, 100% 16%, 80% 0%, 43% 62%);
+      transform: scale(0);
+      transform-origin: center;
+      transition: transform var(--duration-fast) var(--ease-out);
+    }
 
     &:focus-visible {
       border-color: var(--color-ring);
@@ -57,16 +70,8 @@
       border-color: var(--color-primary);
     }
 
-    &:checked::after {
-      content: '';
-      display: block;
-      inline-size: 0.875rem;
-      block-size: 0.875rem;
-      background-color: var(--color-primary-foreground);
-      mask-image: var(--check-icon);
-      mask-size: 0.875rem;
-      mask-repeat: no-repeat;
-      mask-position: center;
+    &:checked::before {
+      transform: scale(1) rotate(10deg);
     }
 
     html[data-theme="dark"] & {

@@ -17,11 +17,15 @@ class Comment < ApplicationRecord
   has_rich_text :body
   mentionable_rich_text :body
 
+  attr_readonly :parent_id
+
   validates :body, presence: true
   validate :parent_must_be_top_level_comment, if: :parent_id?
+  validate :reply_to_internal_only_by_staff, if: :parent_id?
 
   after_create :increment_idea_comments_count
   after_create_commit :watch_idea_by_creator
+  before_update :stamp_edited_at_if_body_text_changed
   before_destroy :clear_official_response_references
   after_destroy :decrement_idea_comments_count
 
@@ -30,6 +34,8 @@ class Comment < ApplicationRecord
   scope :by_oldest, -> { order(created_at: :asc) }
   scope :by_newest, -> { order(created_at: :desc) }
   scope :by_top, -> { order(votes_count: :desc, created_at: :asc) }
+  scope :public_only, -> { where(internal: false) }
+  scope :internal_only, -> { where(internal: true) }
 
   def self.sorted_by(sort_option)
     case sort_option&.to_sym
@@ -37,6 +43,14 @@ class Comment < ApplicationRecord
     when :top then by_top
     else by_oldest
     end
+  end
+
+  def self.visible_to(user)
+    user&.admin? ? all : public_only
+  end
+
+  def edited?
+    edited_at.present?
   end
 
   private
@@ -51,15 +65,24 @@ class Comment < ApplicationRecord
       end
     end
 
+    def reply_to_internal_only_by_staff
+      return unless parent&.internal? && !creator&.admin?
+
+      errors.add(:parent_id, :cannot_reply_to_internal)
+    end
+
     def watch_idea_by_creator
       idea.watch_by(creator)
     end
 
     def increment_idea_comments_count
+      return if internal?
+
       idea.increment!(:comments_count)
     end
 
     def decrement_idea_comments_count
+      return if internal?
       return if destroyed_by_association&.foreign_key == "idea_id"
 
       idea.decrement!(:comments_count)
@@ -67,5 +90,12 @@ class Comment < ApplicationRecord
 
     def clear_official_response_references
       Idea.where(official_comment_id: id).update_all(official_comment_id: nil)
+    end
+
+    def stamp_edited_at_if_body_text_changed
+      return unless body&.body_changed?
+      return if body.body_was&.to_plain_text.to_s == body.body.to_plain_text.to_s
+
+      self.edited_at = Time.current
     end
 end

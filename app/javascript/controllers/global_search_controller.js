@@ -7,7 +7,6 @@ export default class extends Controller {
   static targets = ["dialog", "input", "results"]
   static values = {
     url: String,
-    queriesUrl: String,
     delay: { type: Number, default: 200 }
   }
 
@@ -28,6 +27,7 @@ export default class extends Controller {
     this.dialogTarget.showModal()
     this.inputTarget.focus()
     this.inputTarget.select()
+    this.#loadEmptyState()
   }
 
   close() {
@@ -43,15 +43,31 @@ export default class extends Controller {
     }
   }
 
-  selectRecentQuery(event) {
-    const query = event.currentTarget.dataset.query
-    this.inputTarget.value = query
-    this.#performSearch()
+  async #loadEmptyState() {
+    try {
+      const url = new URL(this.urlValue, window.location.origin)
+      const response = await fetch(url, {
+        headers: {
+          Accept: "text/vnd.turbo-stream.html",
+          "X-CSRF-Token": document.querySelector("meta[name='csrf-token']")?.content
+        }
+      })
+
+      if (response.ok) {
+        const html = await response.text()
+        Turbo.renderStreamMessage(html)
+      }
+    } catch (error) {
+      console.error("Empty-state load failed:", error)
+    }
   }
 
   async #performSearch() {
     const query = this.inputTarget.value.trim()
-    if (query === "") return
+    if (query === "") {
+      this.#loadEmptyState()
+      return
+    }
 
     try {
       const url = new URL(this.urlValue, window.location.origin)
@@ -67,28 +83,10 @@ export default class extends Controller {
       if (response.ok) {
         const html = await response.text()
         Turbo.renderStreamMessage(html)
-
-        if (query.length >= 3) {
-          this.#trackQuery(query)
-        }
       }
     } catch (error) {
       console.error("Search request failed:", error)
     }
-  }
-
-  async #trackQuery(query) {
-    const csrfToken = document.querySelector("meta[name='csrf-token']")?.content
-    if (!csrfToken) return
-
-    fetch(this.queriesUrlValue, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/x-www-form-urlencoded",
-        "X-CSRF-Token": csrfToken
-      },
-      body: `terms=${encodeURIComponent(query)}`
-    })
   }
 
   #handleGlobalKeydown(event) {

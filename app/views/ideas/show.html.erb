@@ -101,8 +101,6 @@
 
           <h1 class="txt-xx-large font-weight-bold margin-block-end-half"><%= @idea.title %></h1>
 
-          <%= render "ideas/tags", idea: @idea %>
-
           <div class="flex align-center gap-half txt-small margin-block-end">
             <%= avatar_tag @idea.creator, class: "avatar avatar--sm" %>
             <%= link_to @idea.creator.name, @idea.creator, class: "font-weight-medium txt-undecorated" %>
@@ -114,7 +112,10 @@
             <%= @idea.description %>
           </div>
 
-          <!-- Bottom: user actions and participants -->
+          <div class="margin-block-start">
+            <%= render "ideas/tags", idea: @idea %>
+          </div>
+
           <div class="margin-block-start flex flex-wrap align-center justify-space-between gap">
             <div class="flex flex-wrap align-center gap-half">
               <%= turbo_frame_tag @idea, :watch, src: idea_watch_path(@idea) do %>
@@ -127,11 +128,10 @@
                 <%= lucide_icon "share" %>
                 <%= t(".share") %>
               <% end %>
+              <% if Current.user&.can_administer_idea?(@idea) %>
+                <%= render "tags/tagging_menu", idea: @idea %>
+              <% end %>
             </div>
-
-            <% if Current.user&.can_administer_idea?(@idea) %>
-              <%= render "tags/tagging_menu", idea: @idea %>
-            <% end %>
 
             <%= render "ideas/participants", idea: @idea %>
           </div>

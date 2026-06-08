@@ -176,4 +176,118 @@ class IdeaTest < ActiveSupport::TestCase
   test "acme account scope returns its own ideas" do
     assert_includes accounts(:acme).ideas, ideas(:acme_one)
   end
+
+  test "similar_to returns none for blank query" do
+    assert_empty Idea.similar_to("", account: accounts(:feedbackbin))
+    assert_empty Idea.similar_to(nil, account: accounts(:feedbackbin))
+  end
+
+  test "similar_to returns none for query shorter than 3 chars" do
+    assert_empty Idea.similar_to("ab", account: accounts(:feedbackbin))
+  end
+
+  test "similar_to returns matching ideas in bm25 order" do
+    Search::Record.destroy_all
+    Search::Record.upsert_for(ideas(:one))   # "Wish this had dark mode!"
+    Search::Record.upsert_for(ideas(:two))   # "Love the site, can you implement downvotes?"
+    Search::Record.upsert_for(ideas(:three)) # "Allow visitors to post without having to sign in"
+
+    results = Idea.similar_to("dark", account: accounts(:feedbackbin))
+
+    assert_includes results, ideas(:one)
+    assert_equal ideas(:one), results.first
+  end
+
+  test "similar_to respects account scope" do
+    Search::Record.destroy_all
+    Search::Record.upsert_for(ideas(:one))      # feedbackbin: "Wish this had dark mode!"
+    Search::Record.upsert_for(ideas(:acme_one)) # acme: "Acme-scoped idea for isolation testing"
+
+    feedbackbin_results = Idea.similar_to("Acme", account: accounts(:feedbackbin))
+
+    assert_not_includes feedbackbin_results, ideas(:acme_one)
+  end
+
+  test "similar_to returns at most `limit` results" do
+    Search::Record.destroy_all
+    ideas(:two).update!(status: statuses(:planned))
+    Search::Record.upsert_for(ideas(:one))
+    Search::Record.upsert_for(ideas(:two))
+    Search::Record.upsert_for(ideas(:three))
+
+    results = Idea.similar_to("the", account: accounts(:feedbackbin), limit: 1)
+
+    assert_equal 1, results.size
+  end
+
+  test "similar_to preserves bm25 ranking when multiple ideas match" do
+    Search::Record.destroy_all
+    ideas(:two).update!(status: statuses(:planned))
+
+    body_only = Idea.create!(
+      title: "Voting feature suggestion",
+      description: "Please add downvotes so unpopular ideas can sink.",
+      creator: users(:shane),
+      board: boards(:one)
+    )
+    Search::Record.upsert_for(ideas(:two)) # title contains "downvotes"
+    Search::Record.upsert_for(body_only)   # only description contains "downvotes"
+
+    results = Idea.similar_to("downvotes", account: accounts(:feedbackbin))
+
+    assert_equal 2, results.size
+    assert_equal ideas(:two), results.first
+    assert_equal body_only, results.last
+  end
+
+  test "similar_to excludes ideas with hidden statuses" do
+    Search::Record.destroy_all
+    hidden_status = statuses(:complete) # show_on_idea: false
+    ideas(:one).update!(status: hidden_status)
+    Search::Record.upsert_for(ideas(:one))
+
+    results = Idea.similar_to("dark", account: accounts(:feedbackbin))
+
+    assert_not_includes results, ideas(:one),
+      "ideas with status.show_on_idea: false should be excluded from dedup suggestions"
+  end
+
+  test "similar_to includes ideas with no status" do
+    Search::Record.destroy_all
+    ideas(:one).update!(status: nil)
+    Search::Record.upsert_for(ideas(:one))
+
+    results = Idea.similar_to("dark", account: accounts(:feedbackbin))
+
+    assert_includes results, ideas(:one),
+      "ideas with no status should still appear in dedup suggestions"
+  end
+
+  test "similar_to excludes the named idea id" do
+    Search::Record.destroy_all
+
+    body_only = Idea.create!(
+      title: "Voting feature suggestion",
+      description: "Please add downvotes so unpopular ideas can sink.",
+      creator: users(:shane),
+      board: boards(:one)
+    )
+    Search::Record.upsert_for(ideas(:two)) # title contains "downvotes"
+    Search::Record.upsert_for(body_only)   # description contains "downvotes"
+
+    results = Idea.similar_to("downvotes", account: accounts(:feedbackbin), exclude: ideas(:two).id)
+
+    assert_not_includes results, ideas(:two)
+    assert_includes results, body_only
+  end
+
+  test "similar_to with exclude: nil returns same results as omitting exclude" do
+    Search::Record.destroy_all
+    Search::Record.upsert_for(ideas(:one))
+
+    with_nil = Idea.similar_to("dark", account: accounts(:feedbackbin), exclude: nil)
+    without_kwarg = Idea.similar_to("dark", account: accounts(:feedbackbin))
+
+    assert_equal without_kwarg, with_nil
+  end
 end

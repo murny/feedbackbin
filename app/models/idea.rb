@@ -32,6 +32,36 @@ class Idea < ApplicationRecord
   scope :ordered_with_pinned, -> { order(pinned: :desc, created_at: :desc) }
   scope :open, -> { where.missing(:status) }
   scope :with_status, -> { where.associated(:status) }
+  scope :visible_on_idea_page, -> {
+    left_outer_joins(:status).where(statuses: { show_on_idea: true })
+      .or(left_outer_joins(:status).where(status_id: nil))
+  }
+
+  def self.similar_to(title, account: Current.account, limit: 3, exclude: nil)
+    return none if title.blank? || title.strip.length < 3
+
+    query = Search::Query.wrap(title)
+    return none if query.blank?
+
+    prefixed = query.to_s.split(/\s+/).reject(&:blank?).map { |t| "#{t}*" }.join(" ")
+    return none if prefixed.blank?
+
+    fts_rows = Search::Record::Fts.matching_ranked(prefixed).pluck(:rowid, "rank")
+    return none if fts_rows.empty?
+
+    ranked_record_ids = fts_rows.map(&:first)
+
+    record_id_to_idea_id = Search::Record
+      .where(account: account, id: ranked_record_ids, searchable_type: "Idea")
+      .pluck(:id, :searchable_id)
+      .to_h
+
+    ordered_idea_ids = ranked_record_ids.map { |rid| record_id_to_idea_id[rid] }.compact
+    ordered_idea_ids -= [ exclude.to_i ] unless exclude.nil?
+    return none if ordered_idea_ids.empty?
+
+    visible_on_idea_page.where(id: ordered_idea_ids).sort_by { |i| ordered_idea_ids.index(i.id) }.first(limit)
+  end
 
   # Returns the status name, or "Open" if no status assigned
   def status_name

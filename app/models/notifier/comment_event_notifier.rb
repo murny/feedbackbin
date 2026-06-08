@@ -23,8 +23,9 @@ class Notifier::CommentEventNotifier < Notifier
     def recipients
       case source.action.to_s
       when "comment_created"
-        # Notify all idea watchers except the person who made the comment
-        idea.watchers.where.not(id: creator.id).to_a
+        watchers = idea.watchers.where.not(id: creator.id)
+        watchers = watchers.where(role: [ :owner, :admin ]) if comment.internal?
+        watchers.to_a
       else
         []
       end

@@ -1,0 +1,12 @@
+<%# locals: (recent_visits:) %>
+
+<% if recent_visits.empty? %>
+  <%= render Elements::EmptyStateComponent.new(
+    icon: "compass",
+    title: t("searches.dialog.cold_start_title"),
+    description: t("searches.dialog.cold_start_description"),
+    variant: :inline
+  ) %>
+<% else %>
+  <%= render "searches/recent_visits", recent_visits: recent_visits %>
+<% end %>

@@ -32,6 +32,12 @@ reply_body_one:
   name: body
   body: <p>Great idea!</p>
 
+comment_body_internal_one:
+  account: feedbackbin
+  record: internal_one (Comment)
+  name: body
+  body: "<p>Internal-only triage note - dup of FBB-42.</p>"
+
 changelog_body_one:
   account: feedbackbin
   record: one (Changelog)

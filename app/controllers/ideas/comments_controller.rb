@@ -99,6 +99,9 @@ class Ideas::CommentsController < ApplicationController
     end
 
     def comment_params
-      params.expect(comment: [ :body, :parent_id ])
+      permitted = [ :body ]
+      permitted << :parent_id if action_name == "create"
+      permitted << :internal if Current.user&.admin?
+      params.expect(comment: permitted)
     end
 end

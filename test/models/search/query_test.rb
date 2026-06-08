@@ -3,81 +3,53 @@
 require "test_helper"
 
 class Search::QueryTest < ActiveSupport::TestCase
-  setup do
-    @user = users(:shane)
+  test "wrap returns existing Search::Query unchanged" do
+    query = Search::Query.new("dark")
+
+    assert_same query, Search::Query.wrap(query)
   end
 
-  test "track creates a new query record" do
-    assert_difference "Search::Query.count" do
-      Search::Query.track("new search term", user: @user)
-    end
+  test "wrap builds a Search::Query from a string" do
+    query = Search::Query.wrap("dark mode")
+
+    assert_kind_of Search::Query, query
+    assert_equal "dark mode", query.to_s
   end
 
-  test "track touches existing query on duplicate" do
-    query = Search::Query.track("existing term", user: @user)
-    original_updated_at = query.updated_at
-
-    travel 1.minute do
-      Search::Query.track("existing term", user: @user)
-    end
-
-    assert_operator query.reload.updated_at, :>, original_updated_at
+  test "valid? false for blank input" do
+    assert_not Search::Query.new(nil).valid?
+    assert_not Search::Query.new("").valid?
+    assert_not Search::Query.new("   ").valid?
   end
 
-  test "track returns nil for blank terms" do
-    result = Search::Query.track("", user: @user)
-
-    assert_nil result
+  test "valid? true for word input" do
+    assert_predicate Search::Query.new("dark"), :valid?
   end
 
-  test "sanitize strips invalid characters" do
-    assert_equal "hello world", Search::Query.sanitize("hello! @world#")
+  test "valid? false for pure-punctuation input" do
+    assert_not Search::Query.new("???").valid?
+    assert_not Search::Query.new("!!!").valid?
   end
 
-  test "sanitize fixes unbalanced quotes" do
-    assert_equal "hello world", Search::Query.sanitize('hello "world')
+  test "sanitizes invalid characters" do
+    assert_equal "dark mode", Search::Query.new("dark$@! mode").to_s
   end
 
-  test "sanitize preserves balanced quotes" do
-    assert_equal '"hello world"', Search::Query.sanitize('"hello world"')
+  test "drops unbalanced quotes" do
+    assert_equal "dark mode", Search::Query.new('"dark mode').to_s
+    assert_equal '"dark mode"', Search::Query.new('"dark mode"').to_s
   end
 
-  test "sanitize squishes whitespace" do
-    assert_equal "hello world", Search::Query.sanitize("  hello   world  ")
+  test "strips bare operators" do
+    assert_equal "dark mode", Search::Query.new("- * dark mode").to_s
   end
 
-  test "sanitize strips standalone asterisk" do
-    assert_equal "", Search::Query.sanitize("*")
+  test "preserves prefix wildcards" do
+    assert_equal "dark*", Search::Query.new("dark*").to_s
   end
 
-  test "sanitize strips standalone dash" do
-    assert_equal "", Search::Query.sanitize("-")
-  end
-
-  test "sanitize strips trailing bare asterisk" do
-    assert_equal "hello", Search::Query.sanitize("hello *")
-  end
-
-  test "sanitize strips trailing bare dash" do
-    assert_equal "hello", Search::Query.sanitize("hello -")
-  end
-
-  test "sanitize preserves prefix wildcard attached to word" do
-    assert_equal "*test", Search::Query.sanitize("*test")
-  end
-
-  test "sanitize preserves suffix wildcard attached to word" do
-    assert_equal "test*", Search::Query.sanitize("test*")
-  end
-
-  test "sanitize preserves prefix dash attached to word" do
-    assert_equal "-test", Search::Query.sanitize("-test")
-  end
-
-  test "recent scope returns last 5 ordered by updated_at desc" do
-    queries = Search::Query.where(user: @user, account: accounts(:feedbackbin)).recent
-
-    assert_operator queries.size, :<=, 5
-    assert_equal queries.sort_by { |q| -q.updated_at.to_i }, queries.to_a
+  test "blank? mirrors valid?" do
+    assert_predicate Search::Query.new(""), :blank?
+    assert_not Search::Query.new("dark").blank?
   end
 end

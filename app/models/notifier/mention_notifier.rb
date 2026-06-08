@@ -17,7 +17,14 @@ class Notifier::MentionNotifier < Notifier
 
     def recipients
       return [] if source.self_mention?
+      return [] if internal_comment_to_non_staff?
 
       [ source.mentionee ]
+    end
+
+    def internal_comment_to_non_staff?
+      return false unless source.source.is_a?(Comment) && source.source.internal?
+
+      !source.mentionee.admin?
     end
 end

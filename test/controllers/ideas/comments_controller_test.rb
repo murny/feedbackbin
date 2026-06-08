@@ -129,4 +129,144 @@ class Ideas::CommentsControllerTest < ActionDispatch::IntegrationTest
 
     assert_response :redirect
   end
+
+  test "update by author stamps edited_at when body present" do
+    sign_in_as @user
+
+    assert_nil @comment.edited_at
+
+    patch idea_comment_url(@idea, @comment), params: { comment: { body: "Edited body" } }
+
+    assert_response :redirect
+    @comment.reload
+
+    assert_not_nil @comment.edited_at
+    assert_equal "Edited body", @comment.body.to_plain_text
+  end
+
+  test "admin can edit any comment and stamps edited_at" do
+    sign_in_as users(:admin)
+
+    assert_nil @comment.edited_at
+    assert_not_equal users(:admin), @comment.creator
+
+    patch idea_comment_url(@idea, @comment), params: { comment: { body: "Admin-edited body" } }
+
+    assert_response :redirect
+    @comment.reload
+
+    assert_not_nil @comment.edited_at
+    assert_equal "Admin-edited body", @comment.body.to_plain_text
+  end
+
+  test "third party cannot edit comment" do
+    sign_in_as users(:john)
+
+    assert_nil @comment.edited_at
+
+    patch idea_comment_url(@idea, @comment), params: { comment: { body: "Forbidden edit" } }
+
+    assert_response :forbidden
+    @comment.reload
+
+    assert_nil @comment.edited_at
+  end
+
+  test "update without body in params does not stamp edited_at" do
+    sign_in_as @user
+
+    assert_nil @comment.edited_at
+    original_body = @comment.body.to_plain_text
+
+    patch idea_comment_url(@idea, @comment), params: { comment: { parent_id: nil } }
+
+    @comment.reload
+
+    assert_nil @comment.edited_at
+    assert_equal original_body, @comment.body.to_plain_text
+  end
+
+  test "update with identical body does not stamp edited_at" do
+    sign_in_as @user
+    original_plain = @comment.body.to_plain_text
+
+    assert_nil @comment.edited_at
+
+    patch idea_comment_url(@idea, @comment), params: { comment: { body: original_plain } }
+
+    assert_response :redirect
+    @comment.reload
+
+    assert_nil @comment.edited_at, "Re-submitting the same body should NOT stamp edited_at (D-02 audit-trail intent)"
+  end
+
+  test "admin toggling internal without changing body does not stamp edited_at" do
+    sign_in_as users(:admin)
+    @comment.update_column(:internal, false)
+    original_plain = @comment.body.to_plain_text
+
+    assert_nil @comment.edited_at
+
+    patch idea_comment_url(@idea, @comment), params: { comment: { body: original_plain, internal: true } }
+
+    assert_response :redirect
+    @comment.reload
+
+    assert_nil @comment.edited_at, "Toggling :internal without a body change must not stamp edited_at"
+    assert @comment.internal, "Internal flag should have flipped to true"
+  end
+
+  test "reparenting on update is rejected" do
+    sign_in_as @user
+    target_parent = comments(:two)
+
+    assert_nil @comment.parent_id
+
+    patch idea_comment_url(@idea, @comment), params: { comment: { body: @comment.body.to_plain_text, parent_id: target_parent.id } }
+
+    assert_response :redirect
+    @comment.reload
+
+    assert_nil @comment.parent_id, "parent_id must not be re-assignable on update (WR-02 defense-in-depth)"
+  end
+
+  test "admin can create internal comment" do
+    sign_in_as users(:admin)
+
+    assert_difference "Comment.count" do
+      post idea_comments_url(@idea), params: { comment: { body: "Admin internal note", internal: true } }
+    end
+
+    assert_response :redirect
+    assert Comment.last.internal
+  end
+
+  test "member cannot create internal comment - param stripped" do
+    sign_in_as users(:jane)
+
+    assert_difference "Comment.count" do
+      post idea_comments_url(@idea), params: { comment: { body: "Sneaky internal attempt", internal: true } }
+    end
+
+    assert_response :redirect
+    refute Comment.last.internal
+  end
+
+  test "admin sees internal comments on idea show" do
+    sign_in_as users(:admin)
+
+    get idea_url(@idea)
+
+    assert_response :success
+    assert_includes response.body, comments(:internal_one).body.to_plain_text
+  end
+
+  test "member does not see internal comments on idea show" do
+    sign_in_as users(:jane)
+
+    get idea_url(@idea)
+
+    assert_response :success
+    assert_not_includes response.body, comments(:internal_one).body.to_plain_text
+  end
 end

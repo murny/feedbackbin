@@ -1,4 +1,5 @@
 <%# locals: (comment:) %>
+<% return if comment.internal? && !Current.user&.admin? %>
 
 <%= turbo_frame_tag dom_id(comment), class: "display-block pad-block", style: "scroll-margin-block-start: var(--space-4);" do %>
   <% if comment.creator.system? %>
@@ -14,7 +15,7 @@
       </div>
     </div>
   <% else %>
-    <div class="panel panel--compact txt-normal">
+    <div class="panel panel--compact txt-normal <%= "comment--internal" if comment.internal? %>">
       <div class="panel__body">
         <div class="flex">
           <div class="margin-inline-end">
@@ -36,7 +37,15 @@
       <% if comment.replies.any? || can_reply %>
         <div class="replies-section">
           <div id="<%= dom_id(comment) %>_replies">
-            <%= render partial: "comments/reply", collection: comment.replies.ordered, as: :reply %>
+            <% replies = comment.replies.ordered.to_a %>
+            <% if replies.size >= 5 %>
+              <%= render partial: "comments/reply", collection: replies.first(3), as: :reply %>
+              <%= render "comments/comment/collapsed_replies_toggle",
+                         comment: comment,
+                         collapsed_replies: replies.drop(3) %>
+            <% else %>
+              <%= render partial: "comments/reply", collection: replies, as: :reply %>
+            <% end %>
           </div>
 
           <% if can_reply %>

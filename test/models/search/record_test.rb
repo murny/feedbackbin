@@ -83,22 +83,111 @@ class Search::RecordTest < ActiveSupport::TestCase
     assert_empty results
   end
 
-  test "search orders ideas before comments" do
+  test "search orders results by bm25 relevance" do
     Search::Record.destroy_all
-    Search::Record.upsert_for(@idea)
 
-    comment = comments(:one)
-    Search::Record.upsert_for(comment)
+    body_only_match = Idea.create!(
+      title: "Voting feature suggestion",
+      description: "Please add dark-mode-aware voting controls so toggles match the canvas tone.",
+      creator: users(:shane),
+      board: boards(:one)
+    )
+
+    Search::Record.upsert_for(ideas(:one))     # title match: "Wish this had dark mode!"
+    Search::Record.upsert_for(body_only_match) # body-only match
 
     results = Search::Record.search("dark", account: @account).to_a
 
-    assert_operator results.size, :>=, 2, "Expected at least 2 results, got #{results.size}"
+    assert_equal 2, results.size
+    assert_equal ideas(:one).id, results.first.idea_id,
+      "title match should outrank body-only match in bm25 ordering"
+    assert_equal body_only_match.id, results.last.idea_id
+  end
 
-    idea_idx = results.index { |r| r.searchable_type == "Idea" }
-    comment_idx = results.index { |r| r.searchable_type == "Comment" }
+  test "search returns none for pure-punctuation query" do
+    results = Search::Record.search("???", account: @account)
 
-    assert_not_nil idea_idx, "Expected an Idea in results"
-    assert_not_nil comment_idx, "Expected a Comment in results"
-    assert_operator idea_idx, :<, comment_idx
+    assert_empty results
+  end
+
+  test "search populates result_title with FTS5 highlight marks" do
+    Search::Record.destroy_all
+    Search::Record.upsert_for(@idea)
+
+    record = Search::Record.search("dark", account: @account).first
+
+    assert_match(/<mark>dark<\/mark>/i, record.result_title)
+  end
+
+  test "search populates result_content with FTS5 snippet" do
+    Search::Record.destroy_all
+    Search::Record.upsert_for(ideas(:one))
+
+    record = Search::Record.search("dark", account: @account).first
+
+    assert_not_nil record.result_content
+  end
+
+  test "display_title returns highlighted title when present" do
+    record = Search::Record.upsert_for(@idea)
+    record.result_title = "<mark>dark</mark> mode"
+
+    assert_equal "<mark>dark</mark> mode", record.display_title
+  end
+
+  test "display_title falls back to raw title when no highlight" do
+    record = Search::Record.upsert_for(@idea)
+
+    assert_equal @idea.title, record.display_title
+  end
+
+  test "display_snippet returns escaped snippet when present" do
+    record = Search::Record.upsert_for(@idea)
+    record.result_content = "a <mark>dark</mark> snippet"
+
+    assert_equal "a <mark>dark</mark> snippet", record.display_snippet
+  end
+
+  test "display_snippet escapes HTML in user content while preserving mark tags" do
+    record = Search::Record.upsert_for(@idea)
+    record.result_content = "danger <script>alert(1)</script> <mark>dark</mark>"
+
+    snippet = record.display_snippet
+
+    assert_includes snippet, "<mark>dark</mark>"
+    assert_includes snippet, "&lt;script&gt;"
+    assert_not_includes snippet, "<script>"
+  end
+
+  test "type predicates reflect searchable_type" do
+    idea_record    = Search::Record.upsert_for(ideas(:one))
+    comment_record = Search::Record.upsert_for(comments(:one))
+
+    assert_predicate idea_record, :idea?
+    assert_not idea_record.comment?
+    assert_predicate comment_record, :comment?
+    assert_not comment_record.idea?
+  end
+
+  test "type_key returns lowercase string for searchable_type" do
+    assert_equal "idea", Search::Record.upsert_for(ideas(:one)).type_key
+    assert_equal "comment", Search::Record.upsert_for(comments(:one)).type_key
+  end
+
+  test "source returns the linkable record per searchable_type" do
+    idea_record    = Search::Record.upsert_for(ideas(:one))
+    comment_record = Search::Record.upsert_for(comments(:one))
+
+    assert_equal ideas(:one), idea_record.source
+    assert_equal comments(:one).idea, comment_record.source,
+      "comment results should link to the parent idea, not the comment itself"
+  end
+
+  test "source_anchor is set only for comment results" do
+    idea_record    = Search::Record.upsert_for(ideas(:one))
+    comment_record = Search::Record.upsert_for(comments(:one))
+
+    assert_nil idea_record.source_anchor
+    assert_equal "comment_#{comments(:one).id}", comment_record.source_anchor
   end
 end

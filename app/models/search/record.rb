@@ -5,6 +5,13 @@ class Search::Record < ApplicationRecord
 
   RESULT_LIMIT = 20
 
+  OPENING_MARK = "<mark>"
+  CLOSING_MARK = "</mark>"
+  SNIPPET_ELLIPSIS = "..."
+
+  attribute :result_title, :string
+  attribute :result_content, :string
+
   belongs_to :account
   belongs_to :board, optional: true
   belongs_to :idea, optional: true
@@ -13,45 +20,104 @@ class Search::Record < ApplicationRecord
   after_save :upsert_fts_record
   after_destroy :remove_fts_record
 
-  def self.search(query, account:, board: nil)
-    sanitized = Search::Query.sanitize(query)
-    return none if sanitized.blank?
+  class << self
+    def search(query, account:, board: nil)
+      query = Search::Query.wrap(query)
+      return none if query.blank?
 
-    matching_ids = Search::Record::Fts.matching(sanitized).pluck(:rowid)
-    return none if matching_ids.empty?
+      scope = matching(query.to_s)
+        .where(account: account)
+        .includes(:idea, :board, :searchable)
+        .select("search_records.*", *search_fields)
+        .order(Arel.sql("bm25(search_records_fts) ASC"))
+        .limit(RESULT_LIMIT)
+      scope = scope.where(board: board) if board.present?
+      scope
+    end
 
-    scope = where(account: account, id: matching_ids)
-    scope = scope.where(board: board) if board.present?
-    scope.includes(:idea, :board).order(
-      Arel.sql("CASE searchable_type WHEN 'Idea' THEN 0 ELSE 1 END"),
-      created_at: :desc
-    ).limit(RESULT_LIMIT)
+    def matching(query)
+      joins("INNER JOIN search_records_fts ON search_records_fts.rowid = search_records.id")
+        .where("search_records_fts MATCH ?", query)
+    end
+
+    def upsert_for(searchable)
+      record = find_or_initialize_by(
+        searchable_type: searchable.class.name,
+        searchable_id: searchable.id
+      )
+      record.assign_attributes(
+        account_id: searchable.account_id,
+        board_id: searchable.search_board_id,
+        idea_id: searchable.search_idea_id,
+        title: searchable.search_title,
+        content: searchable.search_record_content
+      )
+      record.save!
+      record
+    end
+
+    def remove_for(searchable)
+      find_by(
+        searchable_type: searchable.class.name,
+        searchable_id: searchable.id
+      )&.destroy
+    end
+
+    private
+
+      def search_fields
+        opening = connection.quote(OPENING_MARK)
+        closing = connection.quote(CLOSING_MARK)
+        ellipsis = connection.quote(SNIPPET_ELLIPSIS)
+
+        [
+          Arel.sql("highlight(search_records_fts, 0, #{opening}, #{closing}) AS result_title"),
+          Arel.sql("snippet(search_records_fts, 1, #{opening}, #{closing}, #{ellipsis}, 40) AS result_content")
+        ]
+      end
   end
 
-  def self.upsert_for(searchable)
-    record = find_or_initialize_by(
-      searchable_type: searchable.class.name,
-      searchable_id: searchable.id
-    )
-    record.assign_attributes(
-      account_id: searchable.account_id,
-      board_id: searchable.search_board_id,
-      idea_id: searchable.search_idea_id,
-      title: searchable.search_title,
-      content: searchable.search_record_content
-    )
-    record.save!
-    record
+  def display_title
+    escape_fts_highlight(result_title) || title
   end
 
-  def self.remove_for(searchable)
-    find_by(
-      searchable_type: searchable.class.name,
-      searchable_id: searchable.id
-    )&.destroy
+  def display_snippet
+    escape_fts_highlight(result_content) || content&.truncate(150)
   end
+
+  def source
+    case searchable_type
+    when "Idea", "Comment" then idea
+    when "Changelog"       then searchable
+    end
+  end
+
+  def source_anchor
+    "comment_#{searchable.id}" if comment?
+  end
+
+  def type_key
+    case searchable_type
+    when "Idea" then "idea"
+    when "Comment" then "comment"
+    when "Changelog" then "changelog"
+    end
+  end
+
+  def idea?      = searchable_type == "Idea"
+  def comment?   = searchable_type == "Comment"
+  def changelog? = searchable_type == "Changelog"
 
   private
+
+    def escape_fts_highlight(html)
+      return nil if html.blank?
+
+      CGI.escapeHTML(html)
+        .gsub(CGI.escapeHTML(OPENING_MARK), OPENING_MARK)
+        .gsub(CGI.escapeHTML(CLOSING_MARK), CLOSING_MARK)
+        .html_safe
+    end
 
     def upsert_fts_record
       Search::Record::Fts.upsert(id, title, content)

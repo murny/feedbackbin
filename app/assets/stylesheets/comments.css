@@ -70,4 +70,64 @@
     border-color: var(--color-ring);
     box-shadow: 0 0 0 2px oklch(from var(--color-ring) l c h / 50%);
   }
+
+  /* Edited indicator - inline meta label in comment header */
+  .comment__edited {
+    margin-inline-start: var(--space-2);
+    line-height: var(--leading-snug);
+  }
+
+  /* Collapsed replies toggle - "Show N more replies" trigger */
+  .replies-toggle {
+    inline-size: 100%;
+    min-block-size: 2.75rem;
+    justify-content: flex-start;
+    gap: var(--space-2);
+    padding-inline: var(--space-3);
+    padding-block: var(--space-2);
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
+  }
+
+  .replies-toggle__icon {
+    transition: transform var(--duration-fast) var(--ease-out);
+  }
+
+  .replies-toggle[aria-expanded="true"] .replies-toggle__icon {
+    transform: rotate(180deg);
+  }
+
+  .replies-toggle__label--hide,
+  .replies-toggle[aria-expanded="true"] .replies-toggle__label--show {
+    display: none;
+  }
+
+  .replies-toggle[aria-expanded="true"] .replies-toggle__label--hide {
+    display: inline;
+  }
+
+  /* Collapsed replies region - hidden via aria-hidden, animated open by toggle controller */
+  .replies-collapsed[aria-hidden="true"] {
+    display: none;
+  }
+
+  /* Internal comment shell - amber-tinted background + inline-start accent for staff-only annotations.
+     Applied to the outer .panel; the explicit .replies-section override below restores the muted canvas
+     tint for nested reply children, preserving the WR-09 boundary. */
+  .comment--internal {
+    background-color: color-mix(in oklab, var(--color-warning) 8%, var(--color-canvas));
+    border-inline-start: 4px solid color-mix(in oklab, var(--color-warning) 60%, var(--color-canvas));
+  }
+
+  .comment--internal .replies-section {
+    background-color: oklch(from var(--color-muted) l c h / 30%);
+  }
+
+  /* Editor preview hook - when admin checks "Make internal", the editor picks up an amber tint.
+     The :has() predicate matches the shared .comment-form parent (the editor and checkbox are siblings,
+     not ancestor/descendant; the .comment-form wrap enables the cross-sibling match). */
+  .comment-form:has(input[name="comment[internal]"]:checked) .comment-editor {
+    border: 2px solid color-mix(in oklab, var(--color-warning) 80%, var(--color-canvas));
+    background-color: color-mix(in oklab, var(--color-warning) 6%, var(--color-canvas));
+  }
 }
