@@ -1,0 +1,22 @@
+<%= turbo_frame_tag "linked_ideas_results" do %>
+  <% if @ideas.any? %>
+    <ul class="linked-ideas-picker__results" role="listbox">
+      <% @ideas.each do |idea| %>
+        <li>
+          <button type="button"
+                  class="linked-ideas-picker__result"
+                  data-action="click->linked-ideas-picker#add"
+                  data-linked-ideas-picker-id-param="<%= idea.id %>"
+                  data-linked-ideas-picker-title-param="<%= idea.title %>">
+            <span class="txt-subtle">#<%= idea.id %></span>
+            <%= truncate(idea.title, length: 60) %>
+          </button>
+        </li>
+      <% end %>
+    </ul>
+  <% elsif params[:filter].present? %>
+    <p class="txt-small txt-subtle">
+      <%= t("admin.changelogs.linked_ideas.index.no_results") %>
+    </p>
+  <% end %>
+<% end %>

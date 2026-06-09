@@ -54,7 +54,7 @@ module Admin
       end
 
       def changelog_params
-        params.require(:changelog).permit(:title, :description, :kind)
+        params.require(:changelog).permit(:title, :description, :kind, idea_ids: [])
       end
 
       def publish_requested?
