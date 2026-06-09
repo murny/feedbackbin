@@ -1,22 +1,28 @@
 <%# locals: (idea:) %>
 
 <%= link_to idea, class: "display-block roadmap-idea-card" do %>
-  <div class="panel panel--compact">
-    <h3 class="font-weight-medium txt-small overflow-line-clamp" style="--lines: 2; margin-block-end: var(--space-3);">
-      <%= idea.title %>
-    </h3>
+  <article class="panel panel--compact">
+    <header class="flex align-center gap-2" style="margin-block-end: var(--space-2);">
+      <%= avatar_tag idea.creator, class: "avatar avatar--xs" %>
+      <h3 class="font-weight-medium txt-small overflow-line-clamp" style="--lines: 2;">
+        <%= idea.title %>
+      </h3>
+    </header>
 
-    <div class="flex align-center flex-wrap txt-x-small txt-subtle gap-2">
+    <footer class="flex align-center flex-wrap gap-2 txt-x-small txt-subtle">
       <%= render "ideas/idea/metadata", idea: idea, inline: true %>
 
-      <span class="flex-inline align-center gap-1">
-        <%= lucide_icon "arrow-up", style: "inline-size: 0.75rem; block-size: 0.75rem;" %>
+      <span class="flex-inline align-center gap-1" title="<%= t(".vote_count", count: idea.votes_count) %>">
+        <%= lucide_icon "arrow-up", class: "size-3" %>
         <%= idea.votes_count %>
       </span>
 
-      <span title="<%= l(idea.created_at, format: :long) %>">
-        <%= time_ago_in_words(idea.created_at) %> <%= t(".ago") %>
+      <span class="flex-inline align-center gap-1" title="<%= t(".comment_count", count: idea.comments_count) %>">
+        <%= lucide_icon "message-square", class: "size-3" %>
+        <%= idea.comments_count %>
       </span>
-    </div>
-  </div>
+
+      <span class="margin-inline-start-auto"><%= time_ago_with_tooltip idea.created_at %></span>
+    </footer>
+  </article>
 <% end %>

@@ -807,7 +807,12 @@ en:
     column:
       no_ideas: No ideas in this status
     idea_card:
-      ago: ago
+      comment_count:
+        one: 1 comment
+        other: "%{count} comments"
+      vote_count:
+        one: 1 vote
+        other: "%{count} votes"
     index:
       clear_filters: Clear Filters
       description: Track features being planned, in progress, and completed
