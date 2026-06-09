@@ -8,6 +8,9 @@ class Changelog < ApplicationRecord
   belongs_to :account, default: -> { Current.account }
   has_rich_text :description
 
+  has_many :changelog_ideas, dependent: :destroy
+  has_many :ideas, through: :changelog_ideas
+
   validates :kind, presence: true, inclusion: { in: TYPES }
   validates :title, presence: true
   validates :description, presence: true
