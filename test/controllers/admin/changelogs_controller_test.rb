@@ -142,6 +142,23 @@ module Admin
       assert_equal [ ideas(:two).id ], @changelog.reload.idea_ids
     end
 
+    test "update clears existing links when no idea_ids submitted" do
+      assert_equal [ ideas(:one).id ], @changelog.reload.idea_ids
+
+      patch admin_changelog_url(@changelog), params: {
+        changelog: {
+          title: @changelog.title,
+          kind: @changelog.kind,
+          description: "Updated content",
+          publish: "1",
+          idea_ids: [ "" ]
+        }
+      }
+
+      assert_redirected_to admin_changelogs_path
+      assert_empty @changelog.reload.ideas
+    end
+
     test "update silently drops foreign-account idea_ids via AR scoping" do
       foreign_idea = ideas(:acme_one)
 

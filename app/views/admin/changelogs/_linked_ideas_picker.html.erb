@@ -8,6 +8,7 @@
 
   <div class="linked-ideas-picker__chips flex flex-wrap gap-2"
        data-linked-ideas-picker-target="chips">
+    <%= hidden_field_tag "changelog[idea_ids][]", "" %>
     <% changelog.ideas.each do |idea| %>
       <span class="badge" data-linked-ideas-picker-chip>
         <%= idea.title %>
