@@ -11,10 +11,10 @@ module RoadmapHelper
       when 3 then "grid-cols-3"
       else "grid-cols-1" # Fallback
       end
-      "grid #{grid_class} gap-6 pb-4"
+      "roadmap-grid grid #{grid_class} gap-6 pb-4"
     else
       # Use flexbox with horizontal scroll for 4+ columns
-      "flex gap-6 overflow-x-auto pb-4"
+      "roadmap-grid flex gap-6 overflow-x-auto pb-4"
     end
   end
 end

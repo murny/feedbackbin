@@ -38,3 +38,27 @@
     box-shadow: var(--shadow-md);
   }
 }
+
+@layer modules {
+  @media (max-width: 768px) {
+    .roadmap-grid {
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-6);
+      overflow-x: visible;
+    }
+
+    .roadmap-column {
+      inline-size: 100%;
+      flex-shrink: 1;
+    }
+
+    .roadmap-column__header {
+      position: sticky;
+      inset-block-start: 0;
+      background-color: var(--color-canvas);
+      z-index: 1;
+      padding-block: var(--space-2);
+    }
+  }
+}
