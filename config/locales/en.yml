@@ -668,6 +668,8 @@ en:
         pinned: Idea has been pinned.
       destroy:
         unpinned: Idea has been unpinned.
+    shipped_banner:
+      shipped_in_html: Shipped in %{changelog} %{when}
     show:
       back_to_ideas: Back to Ideas
       comments_locked: Locked

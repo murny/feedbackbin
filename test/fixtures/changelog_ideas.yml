@@ -7,3 +7,8 @@ draft_to_idea_one:
   account: feedbackbin
   changelog: draft
   idea: one
+
+draft_to_idea_two:
+  account: feedbackbin
+  changelog: draft
+  idea: two
