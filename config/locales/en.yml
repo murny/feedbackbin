@@ -597,6 +597,14 @@ en:
     unknown_item: unknown item
     was: was
     you: You
+  idea_status_change_mailer:
+    status_changed:
+      greeting: Hi %{name},
+      signature: You are receiving this because you voted on or are watching this idea.
+      status_changed: The status of '%{title}' changed from %{old_status} to %{new_status}.
+      status_changed_html: The status of <strong>%{title}</strong> changed from <strong>%{old_status}</strong> to <strong>%{new_status}</strong>.
+      subject: Status update on '%{title}'
+      view_idea: View the idea
   ideas:
     comment_locks:
       create:

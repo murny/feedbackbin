@@ -1,0 +1,9 @@
+<%= t(".greeting", name: @recipient.name) %>
+
+<%= t(".status_changed", title: @idea.title, old_status: @old_status, new_status: @new_status) %>
+
+<%= t(".view_idea") %>:
+<%= idea_url(@idea) %>
+
+---
+<%= t(".signature") %>

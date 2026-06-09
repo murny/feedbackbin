@@ -1,0 +1,7 @@
+<p><%= t(".greeting", name: @recipient.name) %></p>
+
+<p><%= t(".status_changed_html", title: @idea.title, old_status: @old_status, new_status: @new_status) %></p>
+
+<p><strong><%= link_to t(".view_idea"), idea_url(@idea), class: "button" %></strong></p>
+
+<p><%= t(".signature") %></p>
