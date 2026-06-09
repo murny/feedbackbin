@@ -530,6 +530,7 @@ en:
     show:
       back: Back
       edit: Edit in Admin
+      published_on_label: Published on
   comments:
     comment:
       collapsed_replies_toggle:
