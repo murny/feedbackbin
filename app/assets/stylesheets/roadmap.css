@@ -22,20 +22,29 @@
   }
 
   .roadmap-column__empty {
-    --empty-state-padding-block: var(--space-6);
-    --empty-state-icon-size: 3rem;
+    --empty-state-padding-block: var(--space-3);
+    --empty-state-icon-size: 2rem;
 
     border: 2px dashed var(--color-border);
     border-radius: var(--radius-lg);
     background-color: oklch(from var(--color-muted) l c h / 20%);
+    min-block-size: 6rem;
   }
 
   .roadmap-idea-card > article {
+    --panel-padding-inline: var(--space-5);
+    --panel-padding-block: var(--space-4);
     --panel-gap: var(--space-3);
 
-    padding-inline: var(--panel-padding-inline);
+    padding: var(--panel-padding-block) var(--panel-padding-inline);
     transition: border-color var(--duration-fast), box-shadow var(--duration-fast);
     block-size: 100%;
+  }
+
+  .roadmap-idea-card > article > header,
+  .roadmap-idea-card > article > footer {
+    padding-inline: 0;
+    margin-inline: 0;
   }
 
   .roadmap-idea-card:hover > article {
