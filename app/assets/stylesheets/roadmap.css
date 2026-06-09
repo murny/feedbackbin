@@ -33,6 +33,11 @@
     block-size: 100%;
   }
 
+  .roadmap-idea-card > article > header,
+  .roadmap-idea-card > article > footer {
+    padding-inline: var(--panel-padding-inline);
+  }
+
   .roadmap-idea-card:hover > article {
     border-color: var(--color-primary);
     box-shadow: var(--shadow-md);
@@ -69,5 +74,6 @@
     background-color: var(--color-canvas);
     z-index: 1;
     padding-block: var(--space-2);
+    padding-inline: var(--space-2);
   }
 }
