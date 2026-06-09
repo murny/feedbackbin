@@ -1,0 +1,9 @@
+one_to_idea_one:
+  account: feedbackbin
+  changelog: one
+  idea: one
+
+draft_to_idea_one:
+  account: feedbackbin
+  changelog: draft
+  idea: one
