@@ -1,28 +1,26 @@
 <%# locals: (idea:) %>
 
-<%= link_to idea, class: "display-block roadmap-idea-card" do %>
-  <article class="panel panel--compact">
-    <header class="flex align-center gap-2">
-      <%= avatar_tag idea.creator, class: "avatar avatar--xs" %>
-      <h3 class="font-weight-medium txt-small overflow-line-clamp" style="--lines: 2;">
-        <%= idea.title %>
-      </h3>
-    </header>
+<article class="panel panel--compact roadmap-idea-card">
+  <header class="flex align-center gap-2">
+    <%= avatar_tag idea.creator, class: "avatar avatar--xs" %>
+    <h3 class="font-weight-medium txt-small overflow-line-clamp" style="--lines: 2;">
+      <%= link_to idea.title, idea, class: "roadmap-idea-card__link" %>
+    </h3>
+  </header>
 
-    <footer class="flex align-center flex-wrap gap-2 txt-x-small txt-subtle">
-      <%= render "ideas/idea/metadata", idea: idea, inline: true %>
+  <footer class="flex align-center flex-wrap gap-2 txt-x-small txt-subtle">
+    <%= render "ideas/idea/metadata", idea: idea, inline: true %>
 
-      <span class="flex-inline align-center gap-1" title="<%= t(".vote_count", count: idea.votes_count) %>">
-        <%= lucide_icon "arrow-up", class: "size-3" %>
-        <%= idea.votes_count %>
-      </span>
+    <span class="flex-inline align-center gap-1" title="<%= t(".vote_count", count: idea.votes_count) %>">
+      <%= lucide_icon "arrow-up", class: "size-3" %>
+      <%= idea.votes_count %>
+    </span>
 
-      <span class="flex-inline align-center gap-1" title="<%= t(".comment_count", count: idea.comments_count) %>">
-        <%= lucide_icon "message-square", class: "size-3" %>
-        <%= idea.comments_count %>
-      </span>
+    <span class="flex-inline align-center gap-1" title="<%= t(".comment_count", count: idea.comments_count) %>">
+      <%= lucide_icon "message-square", class: "size-3" %>
+      <%= idea.comments_count %>
+    </span>
 
-      <span class="margin-inline-start-auto"><%= time_ago_with_tooltip idea.created_at %></span>
-    </footer>
-  </article>
-<% end %>
+    <span class="margin-inline-start-auto"><%= time_ago_with_tooltip idea.created_at %></span>
+  </footer>
+</article>
