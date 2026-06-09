@@ -17,11 +17,13 @@
 
   .roadmap-column__header {
     padding-block-end: var(--space-2);
+    padding-inline: var(--space-2);
     border-block-end: 1px solid color-mix(in srgb, var(--color-border) 50%, transparent);
   }
 
   .roadmap-column__empty {
-    --empty-state-padding-block: var(--space-12);
+    --empty-state-padding-block: var(--space-6);
+    --empty-state-icon-size: 3rem;
 
     border: 2px dashed var(--color-border);
     border-radius: var(--radius-lg);
@@ -29,13 +31,11 @@
   }
 
   .roadmap-idea-card > article {
+    --panel-gap: var(--space-3);
+
+    padding-inline: var(--panel-padding-inline);
     transition: border-color var(--duration-fast), box-shadow var(--duration-fast);
     block-size: 100%;
-  }
-
-  .roadmap-idea-card > article > header,
-  .roadmap-idea-card > article > footer {
-    padding-inline: var(--panel-padding-inline);
   }
 
   .roadmap-idea-card:hover > article {
