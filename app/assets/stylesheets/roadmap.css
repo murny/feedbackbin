@@ -31,20 +31,13 @@
     min-block-size: 6rem;
   }
 
-  .roadmap-idea-card > article {
-    --panel-padding-inline: var(--space-5);
-    --panel-padding-block: var(--space-4);
+  a.roadmap-idea-card > article.panel {
     --panel-gap: var(--space-3);
 
-    padding: var(--panel-padding-block) var(--panel-padding-inline);
+    padding-block: 1rem;
+    padding-inline: 1.25rem;
     transition: border-color var(--duration-fast), box-shadow var(--duration-fast);
     block-size: 100%;
-  }
-
-  .roadmap-idea-card > article > header,
-  .roadmap-idea-card > article > footer {
-    padding-inline: 0;
-    margin-inline: 0;
   }
 
   .roadmap-idea-card:hover > article {
