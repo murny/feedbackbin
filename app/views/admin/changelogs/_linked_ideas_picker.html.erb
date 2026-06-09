@@ -1,36 +1,16 @@
 <%# locals: (form:, changelog:) %>
 
-<div class="form__group form__group--spacious"
-     data-controller="linked-ideas-picker"
-     data-linked-ideas-picker-url-value="<%= admin_changelog_linked_ideas_path(changelog) %>"
-     data-linked-ideas-picker-min-length-value="2">
+<div class="form__group form__group--spacious">
   <%= form.label :idea_ids, t(".label") %>
 
-  <div class="linked-ideas-picker__chips flex flex-wrap gap-2"
-       data-linked-ideas-picker-target="chips">
-    <%= hidden_field_tag "changelog[idea_ids][]", "" %>
-    <% changelog.ideas.each do |idea| %>
-      <span class="badge" data-linked-ideas-picker-chip>
-        <%= idea.title %>
-        <button type="button"
-                class="linked-ideas-picker__remove"
-                aria-label="<%= t(".remove_label") %>"
-                data-action="click->linked-ideas-picker#remove">×</button>
-        <input type="hidden" name="changelog[idea_ids][]" value="<%= idea.id %>">
-      </span>
-    <% end %>
-  </div>
-
-  <%= text_field_tag :linked_ideas_filter, nil,
-                     class: "form-input",
-                     autocomplete: "off",
-                     placeholder: t(".placeholder"),
-                     data: {
-                       linked_ideas_picker_target: "input",
-                       action: "input->linked-ideas-picker#search"
-                     } %>
-
-  <%= turbo_frame_tag "linked_ideas_results",
-                      data: { linked_ideas_picker_target: "frame" },
-                      "aria-live": "polite" %>
+  <%= form.select :idea_ids,
+                  changelog.ideas.map { |idea| [ "##{idea.id} #{idea.title}", idea.id ] },
+                  { selected: changelog.ideas.map(&:id) },
+                  multiple: true,
+                  placeholder: t(".placeholder"),
+                  data: {
+                    controller: "combobox",
+                    combobox_url_value: linked_ideas_admin_changelogs_path,
+                    combobox_no_results_value: t(".no_results")
+                  } %>
 </div>

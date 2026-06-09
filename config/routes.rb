@@ -131,9 +131,11 @@ Rails.application.routes.draw do
     end
     resources :ideas, only: [ :index, :show ]
     resources :changelogs, only: %i[index new create edit update destroy] do
+      collection do
+        get :linked_ideas, to: "changelogs/linked_ideas#index"
+      end
       scope module: :changelogs do
         resource :publication, only: [ :create, :destroy ]
-        resources :linked_ideas, only: :index
       end
     end
     resources :invitations, only: [ :index, :new, :create, :destroy ] do

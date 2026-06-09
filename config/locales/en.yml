@@ -87,13 +87,10 @@ en:
         published_badge: Published
         title: Changelog
         unpublish_action: Unpublish
-      linked_ideas:
-        index:
-          no_results: No ideas match your search.
       linked_ideas_picker:
         label: Linked ideas
+        no_results: No ideas match your search.
         placeholder: Search ideas to link…
-        remove_label: Remove linked idea
       new:
         back_to_changelogs: Back to Changelogs
         description: Create a new entry to announce a feature or update.

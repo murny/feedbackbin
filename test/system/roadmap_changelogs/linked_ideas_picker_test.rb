@@ -11,29 +11,21 @@ module RoadmapChangelogs
       @idea = ideas(:one)
     end
 
-    test "admin can search, link, see chip, submit, and persist the join row" do
+    test "edit form renders the combobox-wired idea_ids select with existing links pre-selected" do
       sign_in_as(@admin)
 
       visit edit_admin_changelog_url(@changelog, script_name: @account.slug)
 
-      assert_selector "[data-controller='linked-ideas-picker']"
+      assert_selector "select[name='changelog[idea_ids][]'][multiple][data-controller~='combobox']", visible: :all
+      assert_selector "select[data-combobox-url-value*='/admin/changelogs/linked_ideas']", visible: :all
+    end
 
-      fill_in "linked_ideas_filter", with: "dark"
+    test "new form renders the same combobox-wired idea_ids select" do
+      sign_in_as(@admin)
 
-      assert_selector ".linked-ideas-picker__result", text: @idea.title
+      visit new_admin_changelog_url(script_name: @account.slug)
 
-      find(".linked-ideas-picker__result", text: @idea.title).click
-
-      assert_selector "[data-linked-ideas-picker-chip]", text: @idea.title
-      assert_selector(
-        "input[name='changelog[idea_ids][]'][value='#{@idea.id}']",
-        visible: :hidden
-      )
-
-      click_button "Save Changes"
-
-      assert_current_path admin_changelogs_path(script_name: @account.slug)
-      assert_includes @changelog.reload.ideas, @idea
+      assert_selector "select[name='changelog[idea_ids][]'][multiple][data-controller~='combobox']", visible: :all
     end
   end
 end

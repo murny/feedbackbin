@@ -19,9 +19,7 @@
         { class: "select" } %>
   </div>
 
-  <% if changelog.persisted? %>
-    <%= render "linked_ideas_picker", form: f, changelog: changelog %>
-  <% end %>
+  <%= render "linked_ideas_picker", form: f, changelog: changelog %>
 
   <div class="form__group form__group--spacious">
     <%= f.label :description, t(".body_label") %>

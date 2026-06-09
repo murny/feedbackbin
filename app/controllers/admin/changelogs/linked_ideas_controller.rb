@@ -5,10 +5,8 @@ module Admin
     class LinkedIdeasController < Admin::BaseController
       MAX_RESULTS = 10
 
-      before_action :set_changelog
-
       def index
-        @ideas = if filter_param.present?
+        ideas = if filter_param.present?
           sanitized_filter = ActiveRecord::Base.sanitize_sql_like(filter_param)
           Current.account.ideas
             .where("title LIKE ?", "%#{sanitized_filter}%")
@@ -18,17 +16,13 @@ module Admin
           Idea.none
         end
 
-        render layout: false
+        render json: ideas.map { |idea| { value: idea.id, text: "##{idea.id} #{idea.title}" } }
       end
 
       private
 
-        def set_changelog
-          @changelog = Current.account.changelogs.find(params[:changelog_id])
-        end
-
         def filter_param
-          params[:filter]
+          params[:q] || params[:filter]
         end
     end
   end
