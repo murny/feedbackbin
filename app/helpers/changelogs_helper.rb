@@ -13,6 +13,6 @@ module ChangelogsHelper
   end
 
   def unread_changelogs_class(user)
-    "inline-block w-2 h-2 mr-1.5 rounded-full bg-red-500 content-['']" if Changelog.unread?(user)
+    "header__changelog-link--unread" if Changelog.unread?(user)
   end
 end
