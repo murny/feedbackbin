@@ -15,6 +15,11 @@
     }
   }
 
+  .roadmap-column__header {
+    padding-block-end: var(--space-2);
+    border-block-end: 1px solid color-mix(in srgb, var(--color-border) 50%, transparent);
+  }
+
   .roadmap-column__empty {
     --empty-state-padding-block: var(--space-12);
 
@@ -23,11 +28,12 @@
     background-color: oklch(from var(--color-muted) l c h / 20%);
   }
 
-  .roadmap-idea-card > div {
+  .roadmap-idea-card > article {
     transition: border-color var(--duration-fast), box-shadow var(--duration-fast);
+    block-size: 100%;
   }
 
-  .roadmap-idea-card:hover > div {
+  .roadmap-idea-card:hover > article {
     border-color: var(--color-primary);
     box-shadow: var(--shadow-md);
   }

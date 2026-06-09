@@ -1,19 +1,15 @@
 <%# locals: (status:, ideas:) %>
 
 <div class="roadmap-column">
-  <!-- Column Header -->
-  <div class="flex align-center" style="margin-block-end: var(--space-4); gap: var(--space-2);">
-    <h2 class="txt-medium font-weight-bold">
+  <header class="roadmap-column__header flex align-center justify-space-between gap-2" style="margin-block-end: var(--space-3);">
+    <h2 class="txt-medium font-weight-semibold">
       <%= render Elements::BadgeComponent.new(color: status.color, tone: :soft, with_dot: true) do %>
         <%= status.name %>
       <% end %>
     </h2>
-    <span class="txt-small txt-subtle">
-      (<%= ideas.size %>)
-    </span>
-  </div>
+    <span class="txt-small txt-subtle font-weight-medium"><%= ideas.size %></span>
+  </header>
 
-  <!-- Ideas List -->
   <div class="flex flex-column gap-3">
     <% if ideas.any? %>
       <% ideas.each do |idea| %>
