@@ -39,26 +39,35 @@
   }
 }
 
-@layer modules {
-  @media (max-width: 768px) {
-    .roadmap-grid {
-      display: flex;
-      flex-direction: column;
-      gap: var(--space-6);
-      overflow-x: visible;
-    }
+/*
+ * Mobile vertical-stack rules are intentionally unlayered.
+ * The roadmap grid utility classes (.grid, .grid-cols-N, .flex, .overflow-x-auto)
+ * live in @layer utilities. Per the cascade-layer spec, unlayered rules
+ * win over any explicit layer, which is exactly what we need to override
+ * the desktop grid/flex layout at narrow viewports.
+ */
+@media (max-width: 768px) {
+  .roadmap-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    overflow-x: visible;
+  }
 
-    .roadmap-column {
-      inline-size: 100%;
-      flex-shrink: 1;
-    }
+  .roadmap-grid.grid {
+    grid-template-columns: none;
+  }
 
-    .roadmap-column__header {
-      position: sticky;
-      inset-block-start: 0;
-      background-color: var(--color-canvas);
-      z-index: 1;
-      padding-block: var(--space-2);
-    }
+  .roadmap-column {
+    inline-size: 100%;
+    flex-shrink: 1;
+  }
+
+  .roadmap-column__header {
+    position: sticky;
+    inset-block-start: 0;
+    background-color: var(--color-canvas);
+    z-index: 1;
+    padding-block: var(--space-2);
   }
 }
