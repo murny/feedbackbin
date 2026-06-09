@@ -1,0 +1,148 @@
+/* ==========================================================================
+   TomSelect Combobox
+
+   Tom Select base styles mapped to project tokens. Loaded by combobox
+   Stimulus controller. See app/javascript/controllers/combobox_controller.js.
+   ========================================================================== */
+
+@import url("https://esm.sh/tom-select@2.6.1/dist/css/tom-select.min.css");
+
+@layer components {
+  .ts-control {
+    align-items: center;
+    background-color: var(--color-canvas);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    color: var(--color-ink);
+    display: inline-flex;
+    font-size: var(--text-sm);
+    line-height: inherit;
+    min-block-size: 2.25rem;
+    padding: var(--space-2) var(--space-3);
+    inline-size: 100%;
+
+    > input {
+      color: inherit;
+      font-size: inherit;
+    }
+  }
+
+  .ts-dropdown {
+    background-color: var(--color-canvas);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-md);
+    color: var(--color-ink);
+    font-size: var(--text-sm);
+    line-height: inherit;
+    transition-behavior: allow-discrete;
+    transition-duration: var(--duration-normal);
+    transition-property: display, opacity, transform;
+    opacity: 0;
+    transform: scale(0.95);
+
+    .dropdown-active & {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    @starting-style {
+      .dropdown-active & {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+    }
+
+    .ts-dropdown-content:not(:has(.optgroup)) {
+      padding: var(--space-1);
+    }
+
+    .optgroup:not(:first-child) {
+      border-block-start: 1px solid var(--color-border);
+    }
+
+    .optgroup {
+      padding: var(--space-1);
+    }
+
+    .optgroup-header {
+      background-color: inherit;
+      color: var(--color-muted-foreground);
+      font-size: var(--text-xs);
+      padding: var(--space-2) var(--space-2);
+    }
+
+    .create,
+    .no-results {
+      padding: var(--space-2) var(--space-2);
+      color: var(--color-muted-foreground);
+    }
+
+    .option {
+      border: 1px solid transparent;
+      border-radius: var(--radius-md);
+      padding: var(--space-2) var(--space-2);
+    }
+
+    [data-selectable].option {
+      cursor: default;
+    }
+
+    .active {
+      background-color: var(--color-muted);
+      color: inherit !important;
+    }
+
+    .highlight {
+      background-color: transparent !important;
+    }
+
+    .spinner {
+      margin: var(--space-2) 0 0;
+    }
+
+    .spinner::after {
+      border-block-color: var(--color-border);
+    }
+  }
+
+  .ts-wrapper.single .ts-control {
+    background-color: var(--color-canvas) !important;
+    cursor: text;
+
+    input {
+      cursor: inherit;
+    }
+  }
+
+  .ts-wrapper.multi .ts-control {
+    flex-wrap: wrap;
+    gap: var(--space-1);
+
+    > .item {
+      background: var(--color-muted);
+      border-radius: var(--radius-md);
+      color: inherit;
+      line-height: var(--leading-tight);
+      padding-block: var(--space-1);
+      padding-inline: var(--space-2);
+    }
+  }
+
+  .disabled .ts-control {
+    opacity: 0.5;
+  }
+
+  .disabled .ts-control * {
+    cursor: not-allowed !important;
+  }
+
+  .invalid .ts-control {
+    border-color: var(--color-destructive);
+  }
+
+  [data-controller~="combobox"] {
+    clip: rect(0 0 0 0);
+    position: absolute;
+  }
+}
