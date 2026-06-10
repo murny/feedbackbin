@@ -659,6 +659,8 @@ en:
       sort_most_commented: Most Commented
       sort_top: Top
       title: Ideas
+    mention_banner:
+      mentioned_in_html: Mentioned in %{changelog}
     new:
       title: New Idea
     participants:
@@ -669,8 +671,6 @@ en:
         pinned: Idea has been pinned.
       destroy:
         unpinned: Idea has been unpinned.
-    mention_banner:
-      mentioned_in_html: Mentioned in %{changelog}
     show:
       back_to_ideas: Back to Ideas
       comments_locked: Locked
