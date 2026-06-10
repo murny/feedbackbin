@@ -670,7 +670,7 @@ en:
       destroy:
         unpinned: Idea has been unpinned.
     shipped_banner:
-      mentioned_in_html: Mentioned in %{changelog} %{when}
+      mentioned_in_html: Mentioned in %{changelog}
     show:
       back_to_ideas: Back to Ideas
       comments_locked: Locked
