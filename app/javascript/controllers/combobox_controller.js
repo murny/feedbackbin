@@ -35,6 +35,7 @@ export default class extends Controller {
     return {
       render: this.#render,
       load: this.#loadSetting,
+      plugins: [ "remove_button" ],
       persist: false,
       createOnBlur: true,
       create: true
@@ -44,7 +45,8 @@ export default class extends Controller {
   get #selectSettings() {
     return {
       render: this.#render,
-      load: this.#loadSetting
+      load: this.#loadSetting,
+      plugins: [ "remove_button" ]
     }
   }
 
