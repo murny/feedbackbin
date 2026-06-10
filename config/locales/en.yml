@@ -534,6 +534,10 @@ en:
     show:
       back: Back
       edit: Edit in Admin
+      linked_ideas_heading: Related ideas
+      linked_ideas_intro:
+        one: This release ships %{count} idea from your community.
+        other: This release ships %{count} ideas from your community.
       published_on_label: Published on
   comments:
     comment:

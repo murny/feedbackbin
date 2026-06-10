@@ -37,6 +37,29 @@
       <div class="prose prose-lg" style="max-inline-size: none; line-height: 1.625;" data-controller="syntax-highlight">
         <%= @changelog.description %>
       </div>
+
+      <% linked_ideas = @changelog.ideas.to_a %>
+      <% if linked_ideas.any? %>
+        <section class="changelog-linked-ideas flex flex-column gap-3">
+          <header class="flex flex-column gap-1">
+            <h2 class="txt-medium font-weight-semibold"><%= t(".linked_ideas_heading") %></h2>
+            <p class="txt-small txt-subtle">
+              <%= t(".linked_ideas_intro", count: linked_ideas.size) %>
+            </p>
+          </header>
+
+          <ul class="changelog-linked-ideas__list flex flex-column gap-2 list-unstyled">
+            <% linked_ideas.each do |idea| %>
+              <li>
+                <%= link_to idea, class: "changelog-linked-ideas__item flex align-center gap-2", data: { turbo_frame: "_top" } do %>
+                  <%= lucide_icon "lightbulb", class: "size-4 txt-subtle flex-item-no-shrink" %>
+                  <span class="font-weight-medium"><%= idea.title %></span>
+                <% end %>
+              </li>
+            <% end %>
+          </ul>
+        </section>
+      <% end %>
     </article>
   </div>
 </section>
