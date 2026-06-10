@@ -8,7 +8,10 @@
         <span><%= t(".back") %></span>
       <% end %>
       <% if authenticated? && Current.admin? %>
-        <%= link_to t(".edit"), edit_admin_changelog_path(@changelog), class: "btn btn--secondary btn--sm" %>
+        <%= render Elements::ButtonComponent.new(variant: :outline, size: :sm, href: edit_admin_changelog_path(@changelog), data: { turbo_frame: "_top" }) do %>
+          <%= lucide_icon "pencil" %>
+          <%= t(".edit") %>
+        <% end %>
       <% end %>
     </div>
 
