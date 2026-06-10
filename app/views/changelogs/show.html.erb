@@ -48,12 +48,13 @@
             </p>
           </header>
 
-          <ul class="changelog-linked-ideas__list flex flex-column gap-2 list-unstyled">
+          <ul role="list" class="changelog-linked-ideas__list flex flex-column gap-1">
             <% linked_ideas.each do |idea| %>
               <li>
-                <%= link_to idea, class: "changelog-linked-ideas__item flex align-center gap-2", data: { turbo_frame: "_top" } do %>
+                <%= link_to idea, class: "changelog-linked-ideas__item flex align-center gap-3", data: { turbo_frame: "_top" } do %>
                   <%= lucide_icon "lightbulb", class: "size-4 txt-subtle flex-item-no-shrink" %>
-                  <span class="font-weight-medium"><%= idea.title %></span>
+                  <span class="changelog-linked-ideas__title font-weight-medium"><%= idea.title %></span>
+                  <%= lucide_icon "arrow-up-right", class: "size-4 txt-subtle flex-item-no-shrink margin-inline-start-auto" %>
                 <% end %>
               </li>
             <% end %>
