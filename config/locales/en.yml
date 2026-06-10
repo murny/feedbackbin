@@ -669,7 +669,7 @@ en:
         pinned: Idea has been pinned.
       destroy:
         unpinned: Idea has been unpinned.
-    shipped_banner:
+    mention_banner:
       mentioned_in_html: Mentioned in %{changelog}
     show:
       back_to_ideas: Back to Ideas

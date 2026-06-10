@@ -24,7 +24,7 @@ class Idea < ApplicationRecord
 
   has_many :comments, dependent: :destroy
   has_many :changelog_ideas, dependent: :destroy
-  has_many :shipped_changelogs, -> { published.order(published_at: :desc) },
+  has_many :mentioned_in_changelogs, -> { published.order(published_at: :desc) },
            through: :changelog_ideas, source: :changelog
 
   broadcasts_refreshes
