@@ -3,10 +3,10 @@
 <% if shipped.any? %>
   <% changelog = shipped.first %>
   <aside class="shipped-banner flex align-center gap-2" role="status">
-    <%= lucide_icon "check-circle", class: "size-4" %>
+    <%= lucide_icon "megaphone", class: "size-4" %>
     <p class="txt-small">
       <%= t(
-        ".shipped_in_html",
+        ".mentioned_in_html",
         changelog: link_to(changelog.title, changelog_path(changelog), class: "txt-undecorated font-weight-medium"),
         when: time_ago_with_tooltip(changelog.published_at)
       ) %>
