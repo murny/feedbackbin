@@ -50,6 +50,6 @@ class Notifier::IdeaEventNotifier < Notifier
       watcher_ids = idea.watchers.where.not(id: creator.id).pluck(:id)
       voter_ids   = idea.voters.active.where.not(role: [ :system, :bot ]).where.not(id: creator.id).pluck(:id)
       ids = (watcher_ids | voter_ids)
-      User.where(id: ids).to_a
+      idea.account.users.where(id: ids).to_a
     end
 end
