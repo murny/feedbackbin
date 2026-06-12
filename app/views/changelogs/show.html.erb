@@ -21,9 +21,7 @@
           <span class="flex-inline align-center gap-1 txt-medium font-weight-semibold">
             <%= lucide_icon "calendar", class: "size-4" %>
             <span class="visually-hidden"><%= t(".published_on_label") %></span>
-            <time>
-              <%= local_datetime_tag @changelog.published_at, style: :datetime %>
-            </time>
+            <%= local_datetime_tag @changelog.published_at, style: :datetime %>
           </span>
           <%= render Elements::BadgeComponent.new(
             variant: changelog_badge_variant(@changelog.kind)
