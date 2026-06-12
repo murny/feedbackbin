@@ -10,6 +10,8 @@
       <% end %>
     </div>
 
+    <%= render "mention_banner", idea: @idea %>
+
     <%= render Elements::PanelComponent.new do |c| %>
       <% c.with_body(class: "pad") do %>
         <div class="flex align-start gap" style="--column-gap: var(--space-3);">

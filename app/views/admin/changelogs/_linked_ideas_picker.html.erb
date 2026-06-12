@@ -1,0 +1,16 @@
+<%# locals: (form:, changelog:) %>
+
+<div class="form__group form__group--spacious">
+  <%= form.label :idea_ids, t(".label") %>
+
+  <%= form.select :idea_ids,
+                  changelog.ideas.map { |idea| [ "##{idea.id} #{idea.title}", idea.id ] },
+                  { selected: changelog.ideas.map(&:id) },
+                  multiple: true,
+                  placeholder: t(".placeholder"),
+                  data: {
+                    controller: "combobox",
+                    combobox_url_value: linked_ideas_admin_changelogs_path,
+                    combobox_no_results_value: t(".no_results")
+                  } %>
+</div>

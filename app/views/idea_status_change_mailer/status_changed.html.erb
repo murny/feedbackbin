@@ -1,0 +1,11 @@
+<p><%= t(".greeting", name: @recipient.name) %></p>
+
+<p><%= t(".status_changed_html", title: @idea.title, old_status: @old_status, new_status: @new_status) %></p>
+
+<p>
+  <%= render Elements::ButtonComponent.new(href: idea_url(@idea), variant: :default) do %>
+    <%= t(".view_idea") %>
+  <% end %>
+</p>
+
+<p><%= t(".signature") %></p>

@@ -54,7 +54,9 @@ module Admin
       end
 
       def changelog_params
-        params.require(:changelog).permit(:title, :description, :kind)
+        permitted = params.require(:changelog).permit(:title, :description, :kind, idea_ids: [])
+        permitted[:idea_ids] = Current.account.ideas.where(id: permitted[:idea_ids].to_a.compact_blank).pluck(:id)
+        permitted
       end
 
       def publish_requested?

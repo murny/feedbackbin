@@ -41,7 +41,7 @@ class RoadmapController < ApplicationController
       ideas = Idea
         .where(status_id: statuses.pluck(:id))
         .includes(:creator, :board, :tags)
-        .select(:id, :title, :votes_count, :board_id, :status_id, :creator_id, :created_at)
+        .select(:id, :title, :votes_count, :comments_count, :board_id, :status_id, :creator_id, :created_at)
 
       # Apply board filter if selected
       ideas = ideas.where(board_id: selected_board.id) if selected_board.present?

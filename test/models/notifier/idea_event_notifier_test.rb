@@ -3,10 +3,13 @@
 require "test_helper"
 
 class Notifier::IdeaEventNotifierTest < ActiveSupport::TestCase
+  include ActionMailer::TestHelper
+
   setup do
     Current.session = sessions(:shane_chrome)
     Watch.destroy_all
     Notification.destroy_all
+    Vote.where(voteable: ideas(:one)).destroy_all
   end
 
   test "idea_created notifies board creator when different from idea creator" do
@@ -98,5 +101,60 @@ class Notifier::IdeaEventNotifierTest < ActiveSupport::TestCase
 
     assert_not_includes notifications.map(&:user), users(:system)
     assert_includes notifications.map(&:user), users(:jane)
+  end
+
+  test "idea_status_changed notifies voters in addition to watchers" do
+    ideas(:one).watch_by(users(:jane))
+    ideas(:one).vote(users(:john))
+
+    event = events(:idea_status_changed)
+    notifications = Notifier.for(event).notify
+
+    assert_equal 2, notifications.count
+    assert_includes notifications.map(&:user), users(:jane)
+    assert_includes notifications.map(&:user), users(:john)
+  end
+
+  test "idea_status_changed dedupes a user who is both voter and watcher" do
+    ideas(:one).watch_by(users(:jane))
+    ideas(:one).vote(users(:jane))
+
+    event = events(:idea_status_changed)
+    notifications = Notifier.for(event).notify
+
+    assert_equal 1, notifications.count
+    assert_equal users(:jane), notifications.first.user
+  end
+
+  test "idea_status_changed does not notify system voters" do
+    ideas(:one).vote(users(:system))
+    ideas(:one).watch_by(users(:jane))
+
+    event = events(:idea_status_changed)
+    notifications = Notifier.for(event).notify
+
+    assert_not_includes notifications.map(&:user), users(:system)
+    assert_includes notifications.map(&:user), users(:jane)
+  end
+
+  test "idea_status_changed enqueues one mailer job per recipient" do
+    ideas(:one).watch_by(users(:jane))
+    ideas(:one).vote(users(:john))
+
+    event = events(:idea_status_changed)
+
+    assert_enqueued_emails 2 do
+      Notifier.for(event).notify
+    end
+  end
+
+  test "idea_board_changed does not enqueue any mailer jobs" do
+    ideas(:one).watch_by(users(:jane))
+
+    event = events(:idea_board_changed)
+
+    assert_enqueued_emails 0 do
+      Notifier.for(event).notify
+    end
   end
 end

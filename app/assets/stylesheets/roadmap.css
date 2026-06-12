@@ -15,20 +15,84 @@
     }
   }
 
+  .roadmap-column__header {
+    padding-block-end: var(--space-2);
+    padding-inline: var(--space-2);
+    border-block-end: 1px solid color-mix(in srgb, var(--color-border) 50%, transparent);
+  }
+
   .roadmap-column__empty {
-    --empty-state-padding-block: var(--space-12);
+    --empty-state-padding-block: var(--space-3);
+    --empty-state-icon-size: 2rem;
 
     border: 2px dashed var(--color-border);
     border-radius: var(--radius-lg);
     background-color: oklch(from var(--color-muted) l c h / 20%);
+    min-block-size: 6rem;
   }
 
-  .roadmap-idea-card > div {
+  .roadmap-idea-card {
+    --panel-gap: var(--space-3);
+
+    position: relative;
+    padding-block: 1rem;
+    padding-inline: 1.25rem;
     transition: border-color var(--duration-fast), box-shadow var(--duration-fast);
+    block-size: 100%;
   }
 
-  .roadmap-idea-card:hover > div {
+  .roadmap-idea-card:hover {
     border-color: var(--color-primary);
     box-shadow: var(--shadow-md);
+  }
+
+  .roadmap-idea-card__link {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  .roadmap-idea-card__link::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+  }
+
+  .roadmap-idea-card > * {
+    position: relative;
+  }
+}
+
+/*
+ * Mobile vertical-stack rules are intentionally unlayered.
+ * The roadmap grid utility classes (.grid, .grid-cols-N, .flex, .overflow-x-auto)
+ * live in @layer utilities. Per the cascade-layer spec, unlayered rules
+ * win over any explicit layer, which is exactly what we need to override
+ * the desktop grid/flex layout at narrow viewports.
+ */
+@media (max-width: 768px) {
+  .roadmap-grid {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-6);
+    overflow-x: visible;
+  }
+
+  .roadmap-grid.grid {
+    grid-template-columns: none;
+  }
+
+  .roadmap-column {
+    inline-size: 100%;
+    flex-shrink: 1;
+  }
+
+  .roadmap-column__header {
+    position: sticky;
+    inset-block-start: 0;
+    background-color: var(--color-canvas);
+    z-index: 1;
+    padding-block: var(--space-2);
+    padding-inline: var(--space-2);
   }
 }

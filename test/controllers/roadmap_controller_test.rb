@@ -96,4 +96,64 @@ class RoadmapControllerTest < ActionDispatch::IntegrationTest
     # Newer idea should appear before older idea in HTML
     assert_operator response.body.index("Newer Idea"), :<, response.body.index("Older Idea")
   end
+
+  test "card renders creator avatar" do
+    sign_in_as users(:shane)
+    ideas(:one).update!(status: statuses(:planned))
+
+    get roadmap_url
+
+    assert_response :success
+    assert_match(/<img[^>]+class="avatar avatar--xs"/, response.body)
+  end
+
+  test "card renders vote count container with title and svg icon" do
+    sign_in_as users(:shane)
+    ideas(:one).update!(status: statuses(:planned))
+
+    get roadmap_url
+
+    assert_response :success
+    assert_select "article.panel span[title*='vote'] svg"
+  end
+
+  test "card renders comment count container with title and svg icon" do
+    sign_in_as users(:shane)
+    ideas(:one).update!(status: statuses(:planned))
+
+    get roadmap_url
+
+    assert_response :success
+    assert_select "article.panel span[title*='omment'] svg"
+  end
+
+  test "card includes board badge" do
+    sign_in_as users(:shane)
+    ideas(:one).update!(status: statuses(:planned), board: boards(:one))
+
+    get roadmap_url
+
+    assert_response :success
+    assert_select "article.panel .badge"
+    assert_match(/#{Regexp.escape(boards(:one).name)}/, response.body)
+  end
+
+  test "column header renders status dot via BadgeComponent with_dot" do
+    get roadmap_url
+
+    assert_response :success
+    assert_select ".roadmap-column__header .badge.badge--with-dot"
+  end
+
+  test "column header renders idea count without parentheses" do
+    sign_in_as users(:shane)
+    ideas(:one).update!(status: statuses(:planned))
+
+    get roadmap_url
+
+    assert_response :success
+    headers = css_select(".roadmap-column__header").map(&:to_html).join
+
+    assert_no_match(/\(\s*\d+\s*\)/, headers, "Column headers should not wrap counts in parentheses")
+  end
 end

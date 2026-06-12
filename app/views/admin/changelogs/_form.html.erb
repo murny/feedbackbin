@@ -19,6 +19,8 @@
         { class: "select" } %>
   </div>
 
+  <%= render "linked_ideas_picker", form: f, changelog: changelog %>
+
   <div class="form__group form__group--spacious">
     <%= f.label :description, t(".body_label") %>
     <div class="panel panel--compact panel--flush panel--flat panel--clip">

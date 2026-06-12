@@ -346,6 +346,15 @@
     }
   }
 
+  .header__changelog-link--unread::before {
+    content: "";
+    display: inline-block;
+    inline-size: 0.5rem;
+    block-size: 0.5rem;
+    border-radius: var(--radius-full);
+    background-color: var(--color-destructive);
+  }
+
   .header__changelog-text {
     display: none;
 

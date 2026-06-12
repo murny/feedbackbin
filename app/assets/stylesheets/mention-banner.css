@@ -1,0 +1,43 @@
+/* ==========================================================================
+   Mention Banner Module
+
+   Renders above the idea title when a published changelog mentions the
+   idea. Surface color recipe mirrors .alert--success (alerts.css:119-127).
+   ========================================================================== */
+
+@layer modules {
+  .mention-banner {
+    /* Component API */
+    --mention-banner-color: var(--color-success);
+    --mention-banner-border-color: var(--color-success);
+    --mention-banner-background: oklch(from var(--color-success) l c h / 10%);
+    --mention-banner-padding-inline: var(--space-4);
+    --mention-banner-padding-block: var(--space-3);
+    --mention-banner-radius: var(--radius-md);
+
+    background-color: var(--mention-banner-background);
+    border: 1px solid var(--mention-banner-border-color);
+    border-radius: var(--mention-banner-radius);
+    color: var(--mention-banner-color);
+    padding-inline: var(--mention-banner-padding-inline);
+    padding-block: var(--mention-banner-padding-block);
+  }
+
+  .mention-banner__link {
+    color: inherit;
+    font-weight: var(--font-semibold);
+    text-decoration: underline;
+    text-underline-offset: 0.15em;
+    text-decoration-thickness: 1px;
+    transition: text-decoration-thickness var(--duration-fast);
+  }
+
+  .mention-banner__link:hover {
+    text-decoration-thickness: 2px;
+  }
+
+  .mention-banner__when {
+    margin-inline-start: var(--space-1);
+    opacity: 0.7;
+  }
+}

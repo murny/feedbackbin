@@ -87,6 +87,10 @@ en:
         published_badge: Published
         title: Changelog
         unpublish_action: Unpublish
+      linked_ideas_picker:
+        label: Linked ideas
+        no_results: No ideas match your search.
+        placeholder: Search ideas to link…
       new:
         back_to_changelogs: Back to Changelogs
         description: Create a new entry to announce a feature or update.
@@ -530,6 +534,11 @@ en:
     show:
       back: Back
       edit: Edit in Admin
+      linked_ideas_heading: Related ideas
+      linked_ideas_intro:
+        one: This release ships %{count} idea from your community.
+        other: This release ships %{count} ideas from your community.
+      published_on_label: Published on
   comments:
     comment:
       collapsed_replies_toggle:
@@ -596,6 +605,14 @@ en:
     unknown_item: unknown item
     was: was
     you: You
+  idea_status_change_mailer:
+    status_changed:
+      greeting: Hi %{name},
+      signature: You are receiving this because you voted on or are watching this idea.
+      status_changed: The status of '%{title}' changed from %{old_status} to %{new_status}.
+      status_changed_html: The status of <strong>%{title}</strong> changed from <strong>%{old_status}</strong> to <strong>%{new_status}</strong>.
+      subject: Status update on '%{title}'
+      view_idea: View the idea
   ideas:
     comment_locks:
       create:
@@ -642,6 +659,8 @@ en:
       sort_most_commented: Most Commented
       sort_top: Top
       title: Ideas
+    mention_banner:
+      mentioned_in_html: Mentioned in %{changelog}
     new:
       title: New Idea
     participants:
@@ -806,7 +825,12 @@ en:
     column:
       no_ideas: No ideas in this status
     idea_card:
-      ago: ago
+      comment_count:
+        one: 1 comment
+        other: "%{count} comments"
+      vote_count:
+        one: 1 vote
+        other: "%{count} votes"
     index:
       clear_filters: Clear Filters
       description: Track features being planned, in progress, and completed

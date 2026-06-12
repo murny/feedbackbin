@@ -8,6 +8,8 @@ pin "@hotwired/stimulus", to: "stimulus.min.js"
 pin "@hotwired/stimulus-loading", to: "stimulus-loading.js"
 pin "lexxy"
 pin "@rails/actiontext", to: "actiontext.esm.js"
+pin "tom-select", to: "https://esm.sh/tom-select@2.6.1/popular?standalone"
+pin "@rails/request.js", to: "https://esm.sh/@rails/request.js@0.0.13?standalone"
 
 pin_all_from "app/javascript/controllers", under: "controllers"
 pin_all_from "app/javascript/helpers", under: "helpers"

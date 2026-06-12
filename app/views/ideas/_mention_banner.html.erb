@@ -1,0 +1,18 @@
+<%# locals: (idea:) %>
+<% mentions = idea.mentioned_in_changelogs.to_a %>
+<% if mentions.any? %>
+  <% changelog = mentions.first %>
+  <aside class="mention-banner flex align-center gap-2" role="status">
+    <%= lucide_icon "megaphone", class: "size-4 flex-item-no-shrink" %>
+    <p class="txt-small">
+      <%= t(
+        ".mentioned_in_html",
+        changelog: link_to(changelog.title, changelog_path(changelog), class: "mention-banner__link", data: { turbo_frame: "_top" })
+      ) %>
+      <span class="mention-banner__when" aria-hidden="true">·</span>
+      <span class="mention-banner__when">
+        <%= time_ago_with_tooltip(changelog.published_at) %>
+      </span>
+    </p>
+  </aside>
+<% end %>
