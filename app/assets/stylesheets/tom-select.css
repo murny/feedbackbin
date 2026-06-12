@@ -5,7 +5,7 @@
    Stimulus controller. See app/javascript/controllers/combobox_controller.js.
    ========================================================================== */
 
-@import url("https://esm.sh/tom-select@2.6.1/dist/css/tom-select.min.css");
+@import "https://esm.sh/tom-select@2.6.1/dist/css/tom-select.min.css" layer(base);
 
 @layer components {
   .ts-control {
@@ -90,11 +90,11 @@
 
     .active {
       background-color: var(--color-muted);
-      color: inherit !important;
+      color: inherit;
     }
 
     .highlight {
-      background-color: transparent !important;
+      background-color: transparent;
     }
 
     .spinner {
@@ -107,7 +107,7 @@
   }
 
   .ts-wrapper.single .ts-control {
-    background-color: var(--color-canvas) !important;
+    background-color: var(--color-canvas);
     cursor: text;
 
     input {
@@ -134,7 +134,7 @@
   }
 
   .disabled .ts-control * {
-    cursor: not-allowed !important;
+    cursor: not-allowed;
   }
 
   .invalid .ts-control {
@@ -142,7 +142,7 @@
   }
 
   [data-controller~="combobox"] {
-    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
     position: absolute;
   }
 }
