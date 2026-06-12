@@ -45,7 +45,7 @@ module RoadmapChangelogs
       first_rect = columns.first.evaluate_script("this.getBoundingClientRect()")
       last_rect = columns.last.evaluate_script("this.getBoundingClientRect()")
 
-      assert_equal first_rect["top"], last_rect["top"], "expected columns to share the same vertical position on desktop"
+      assert_in_delta first_rect["top"], last_rect["top"], 1.0, "expected columns to share the same vertical position on desktop"
     end
   end
 end

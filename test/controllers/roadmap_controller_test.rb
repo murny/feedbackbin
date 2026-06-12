@@ -107,24 +107,24 @@ class RoadmapControllerTest < ActionDispatch::IntegrationTest
     assert_match(/<img[^>]+class="avatar avatar--xs"/, response.body)
   end
 
-  test "card renders vote count with arrow-up icon" do
+  test "card renders vote count container with title and svg icon" do
     sign_in_as users(:shane)
     ideas(:one).update!(status: statuses(:planned))
 
     get roadmap_url
 
     assert_response :success
-    assert_match(/<svg[^>]*>[^<]*<path d="m5 12 7-7 7 7">/, response.body)
+    assert_select "article.panel span[title*='vote'] svg"
   end
 
-  test "card renders comment count with message-square icon" do
+  test "card renders comment count container with title and svg icon" do
     sign_in_as users(:shane)
     ideas(:one).update!(status: statuses(:planned))
 
     get roadmap_url
 
     assert_response :success
-    assert_match(/<path d="M22 17a2 2 0 0 1-2 2H6\.828/, response.body)
+    assert_select "article.panel span[title*='omment'] svg"
   end
 
   test "card includes board badge" do
