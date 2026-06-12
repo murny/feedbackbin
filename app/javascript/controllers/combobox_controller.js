@@ -26,9 +26,18 @@ export default class extends Controller {
   }
 
   async load(query, callback) {
-    const response = await get(this.urlValue, { responseKind: "json", query: { q: query } })
-    const jsonResponse = await response.json
-    callback(jsonResponse)
+    try {
+      const response = await get(this.urlValue, { responseKind: "json", query: { q: query } })
+      if (!response.ok) {
+        callback()
+        return
+      }
+      const jsonResponse = await response.json
+      callback(jsonResponse)
+    } catch (error) {
+      console.error("Combobox load failed:", error)
+      callback()
+    }
   }
 
   get #inputSettings() {
