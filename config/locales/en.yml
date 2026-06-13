@@ -600,6 +600,7 @@ en:
       changed_title: renamed
       commented_on: commented on
       created: created
+      mentioned_in_changelog: linked to changelog
       moved: moved
     to: to
     unknown_item: unknown item
