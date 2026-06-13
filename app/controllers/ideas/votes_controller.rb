@@ -24,6 +24,17 @@ class Ideas::VotesController < ApplicationController
         render "votes/update"
       end
     end
+  rescue ActiveRecord::RecordInvalid
+    respond_to do |format|
+      format.html do
+        flash[:alert] = t(".error")
+        redirect_to @voteable
+      end
+      format.turbo_stream do
+        flash.now[:alert] = t(".error")
+        render "votes/update", status: :unprocessable_entity
+      end
+    end
   end
 
   private
