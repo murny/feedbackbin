@@ -3,13 +3,15 @@
 
    Usage:
      <div class="vote">
-       <button class="vote__trigger btn btn--secondary">
+       <button class="vote__trigger btn btn--ghost" aria-pressed="true">
          <svg class="vote__icon">...</svg>
          <span class="vote__count">42</span>
        </button>
      </div>
 
-   Vertical vote button with responsive sizing.
+   Vertical vote button with responsive sizing. The pressed/voted state is
+   conveyed via aria-pressed="true" on the trigger; CSS attribute selectors
+   drive the filled tone and the vote-cast / count-bump animations.
    ========================================================================== */
 
 @layer components {
@@ -34,10 +36,16 @@
     }
   }
 
+  .vote__trigger[aria-pressed="true"] {
+    --btn-background: var(--color-secondary);
+    --btn-color: var(--color-secondary-foreground);
+  }
+
   .vote__icon {
     inline-size: 0.75rem;
     block-size: 0.75rem;
     margin-block-end: var(--space-1);
+    transition: transform var(--duration-normal) var(--ease-out-overshoot-subtle);
 
     @media (min-width: 768px) {
       inline-size: 1rem;
@@ -46,10 +54,46 @@
   }
 
   .vote__count {
+    display: inline-block;
     font-size: var(--text-lg);
     font-weight: var(--font-bold);
     text-align: center;
     min-inline-size: 2ch;
     color: var(--color-foreground);
+  }
+
+  .vote__trigger[aria-pressed="true"] .vote__icon {
+    animation: vote-cast var(--duration-normal) var(--ease-out-overshoot-subtle);
+  }
+
+  .vote__trigger[aria-pressed="true"] .vote__count {
+    animation: count-bump var(--duration-normal) var(--ease-out-overshoot-subtle);
+  }
+
+  @keyframes vote-cast {
+    0% {
+      transform: translateY(0) scale(1);
+    }
+    40% {
+      transform: translateY(-2px) scale(1.15);
+    }
+    100% {
+      transform: translateY(0) scale(1);
+    }
+  }
+
+  @keyframes count-bump {
+    0% {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
+    40% {
+      transform: translateY(-2px) scale(1.1);
+      opacity: 0.85;
+    }
+    100% {
+      transform: translateY(0) scale(1);
+      opacity: 1;
+    }
   }
 }

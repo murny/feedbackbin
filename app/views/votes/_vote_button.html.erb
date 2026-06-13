@@ -1,22 +1,15 @@
 <%# locals: (voteable:) %>
 
-<div class="vote">
+<div class="vote" data-controller="vote">
   <% if authenticated? %>
     <%= turbo_frame_tag voteable, :vote_button do %>
-      <% if voteable.voted_by?(Current.user) %>
-        <%= button_to voteable_vote_path(voteable),
-              method: :patch,
-              class: "vote__trigger btn btn--secondary" do %>
-          <%= lucide_icon "chevron-up", class: "vote__icon" %>
-          <span class="vote__count"><%= voteable.votes_count %></span>
-        <% end %>
-      <% else %>
-        <%= button_to voteable_vote_path(voteable),
-              method: :patch,
-              class: "vote__trigger btn btn--ghost" do %>
-          <%= lucide_icon "chevron-up", class: "vote__icon" %>
-          <span class="vote__count"><%= voteable.votes_count %></span>
-        <% end %>
+      <%= button_to voteable_vote_path(voteable),
+            method: :patch,
+            class: "vote__trigger btn btn--ghost",
+            data: { action: "click->vote#toggle" },
+            "aria-pressed": voteable.voted_by?(Current.user).to_s do %>
+        <%= lucide_icon "chevron-up", class: "vote__icon" %>
+        <span class="vote__count"><%= voteable.votes_count %></span>
       <% end %>
     <% end %>
   <% else %>
