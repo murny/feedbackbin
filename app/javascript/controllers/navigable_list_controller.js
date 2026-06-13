@@ -249,6 +249,18 @@ export default class extends Controller {
         this.#handleArrowKey(event, selectMethod)
       }
     },
+    j(event) {
+      if (this.supportsVerticalNavigationValue) {
+        const selectMethod = this.reverseNavigationValue ? this.#selectPrevious.bind(this) : this.#selectNext.bind(this)
+        this.#handleArrowKey(event, selectMethod)
+      }
+    },
+    k(event) {
+      if (this.supportsVerticalNavigationValue) {
+        const selectMethod = this.reverseNavigationValue ? this.#selectNext.bind(this) : this.#selectPrevious.bind(this)
+        this.#handleArrowKey(event, selectMethod)
+      }
+    },
     ArrowRight(event) {
       if (this.supportsHorizontalNavigationValue) {
         this.#handleArrowKey(event, this.#selectNext.bind(this))

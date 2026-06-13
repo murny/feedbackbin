@@ -69,11 +69,18 @@ module Ux
 
       assert_current_path idea_path(idea, script_name: @account.slug)
 
-      page.execute_script("window.history.back()")
+      page.go_back
 
       assert_current_path ideas_path(script_name: @account.slug)
 
-      focused_id = page.evaluate_script("document.activeElement && document.activeElement.id")
+      focused_id = nil
+      Timeout.timeout(Capybara.default_max_wait_time) do
+        loop do
+          focused_id = page.evaluate_script("document.activeElement && document.activeElement.id")
+          break if focused_id == target_id
+          sleep 0.1
+        end
+      end
 
       assert_equal target_id, focused_id
     end
