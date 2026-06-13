@@ -926,6 +926,17 @@ en:
     board_filter:
       all_boards: All Boards
       board_label: Board
+    keyboard_shortcuts_dialog:
+      close: Close keyboard shortcuts
+      cmd: "⌘"
+      navigate_lists: Navigate between items
+      navigation: Navigation
+      open_focused: Open focused item
+      open_search: Open search
+      search: Search
+      title: Keyboard shortcuts
+      vote_focused: Vote on focused item
+      voting: Voting
     skeletons:
       block:
         loading_label: Loading...

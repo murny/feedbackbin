@@ -10,6 +10,7 @@
           theme_application_preference_value: Current.user&.theme || "system"
         } do %>
     <%= render "searches/dialog" %>
+    <%= render "shared/keyboard_shortcuts_dialog" %>
     <% if content_for?(:sidebar) %>
       <!-- Admin layout with sidebar -->
       <%= yield(:sidebar) %>
