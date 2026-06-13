@@ -615,6 +615,9 @@ en:
       subject: Status update on '%{title}'
       view_idea: View the idea
   ideas:
+    activity_timeline:
+      heading: Activity
+      show_all: Show all activity
     comment_locks:
       create:
         locked: Discussion has been locked.

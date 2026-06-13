@@ -46,6 +46,13 @@ class IdeasController < ApplicationController
 
     @comment = Comment.new
 
+    @recent_events = @idea.events
+                          .where.not(action: %w[idea_created comment_created])
+                          .where(account_id: Current.account.id)
+                          .includes(:creator)
+                          .order(created_at: :desc)
+    @recent_events = @recent_events.limit(10) unless params[:all_activity]
+
     Visit.record(idea: @idea, user: Current.user) if Current.user.present?
   end
 

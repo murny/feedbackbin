@@ -1,0 +1,34 @@
+<%# locals: (idea:, events:) %>
+<%= turbo_frame_tag "idea_#{idea.id}_activity" do %>
+  <% if events.any? %>
+    <% scoped_total = idea.events.where.not(action: %w[idea_created comment_created]).count %>
+    <section class="activity-timeline" aria-labelledby="activity_timeline_heading_<%= idea.id %>">
+      <h2 id="activity_timeline_heading_<%= idea.id %>" class="activity-timeline__heading txt-medium font-weight-semibold">
+        <%= t(".heading") %>
+      </h2>
+
+      <ol class="activity-timeline__list">
+        <% events.each do |event| %>
+          <li class="activity-timeline__entry" id="<%= dom_id event %>">
+            <span class="activity-timeline__icon">
+              <%= lucide_icon activity_timeline_icon_for(event), class: "size-4" %>
+            </span>
+            <div class="activity-timeline__body">
+              <p class="activity-timeline__description">
+                <%= event.description_for(Current.user).to_html %>
+              </p>
+              <%= time_ago_with_tooltip event.created_at, class: "activity-timeline__timestamp txt-x-small txt-subtle" %>
+            </div>
+          </li>
+        <% end %>
+      </ol>
+
+      <% if scoped_total > events.size %>
+        <%= link_to t(".show_all"),
+              idea_path(idea, all_activity: true),
+              class: "activity-timeline__show-all",
+              data: { turbo_frame: "idea_#{idea.id}_activity" } %>
+      <% end %>
+    </section>
+  <% end %>
+<% end %>
