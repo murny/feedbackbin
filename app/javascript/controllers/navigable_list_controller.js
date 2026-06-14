@@ -182,16 +182,26 @@ export default class extends Controller {
   }
 
   #selectPrevious() {
-    const index = this.#visibleItems.indexOf(this.currentItem)
-    if (index > 0) {
-      this.#setCurrentFrom(this.#visibleItems[index - 1])
+    const items = this.#visibleItems
+    if (!items.length) { return }
+    const index = items.indexOf(this.currentItem)
+    if (index < 0) {
+      const focused = items.find(item => item === document.activeElement || item.contains(document.activeElement))
+      this.#setCurrentFrom(focused || items[items.length - 1])
+    } else if (index > 0) {
+      this.#setCurrentFrom(items[index - 1])
     }
   }
 
   #selectNext() {
-    const index = this.#visibleItems.indexOf(this.currentItem)
-    if (index >= 0 && index < this.#visibleItems.length - 1) {
-      this.#setCurrentFrom(this.#visibleItems[index + 1])
+    const items = this.#visibleItems
+    if (!items.length) { return }
+    const index = items.indexOf(this.currentItem)
+    if (index < 0) {
+      const focused = items.find(item => item === document.activeElement || item.contains(document.activeElement))
+      this.#setCurrentFrom(focused || items[0])
+    } else if (index < items.length - 1) {
+      this.#setCurrentFrom(items[index + 1])
     }
   }
 
@@ -205,7 +215,9 @@ export default class extends Controller {
 
   #clickCurrentItem(event) {
     if (this.actionableItemsValue && this.currentItem && this.#visibleItems.length && this.#isFocusContainedOnNavigableItem) {
-      const clickableElement = this.currentItem.querySelector("a,button") || this.currentItem
+      const clickableElement = this.currentItem.querySelector("[data-navigable-list-primary-action]") ||
+                               this.currentItem.querySelector("a,button") ||
+                               this.currentItem
       clickableElement.click()
       event.preventDefault()
     }

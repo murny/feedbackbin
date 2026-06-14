@@ -1,6 +1,9 @@
 <%# locals: (idea:) %>
 
-<article class="panel panel--compact roadmap-idea-card">
+<article id="<%= dom_id idea %>"
+         class="panel panel--compact roadmap-idea-card"
+         data-navigable-list-target="item"
+         tabindex="-1">
   <header class="flex align-center gap-2">
     <%= avatar_tag idea.creator, class: "avatar avatar--xs" %>
     <h3 class="font-weight-medium txt-small overflow-line-clamp" style="--lines: 2;">

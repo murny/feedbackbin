@@ -1,7 +1,11 @@
 <%# locals: (comment:) %>
 <% return if comment.internal? && !Current.user&.admin? %>
 
-<%= turbo_frame_tag dom_id(comment), class: "display-block pad-block", style: "scroll-margin-block-start: var(--space-4);" do %>
+<%= turbo_frame_tag dom_id(comment),
+      class: "display-block pad-block",
+      style: "scroll-margin-block-start: var(--space-4);",
+      data: { navigable_list_target: "item" },
+      tabindex: "-1" do %>
   <% if comment.creator.system? %>
     <div class="system-comment">
       <div class="flex align-center gap-half">

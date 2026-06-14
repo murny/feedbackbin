@@ -69,7 +69,12 @@
               <% end %>
             </div>
           <% else %>
-            <ul role="list" class="flex flex-column gap-4">
+            <ul role="list" class="flex flex-column gap-4"
+                data-controller="navigable-list"
+                data-navigable-list-actionable-items-value="true"
+                data-navigable-list-prevent-handled-keys-value="true"
+                data-navigable-list-auto-select-value="false"
+                data-action="keydown@window->navigable-list#navigate">
               <%= render partial: "ideas/idea", collection: @ideas, as: :idea %>
             </ul>
           <% end %>
