@@ -10,8 +10,6 @@ module Ux
     end
 
     test "j moves focus to next idea in the list" do
-      skip "wired in 05-02"
-
       sign_in_as(@user)
 
       visit ideas_url(script_name: @account.slug)
@@ -22,8 +20,6 @@ module Ux
     end
 
     test "k moves focus to previous idea" do
-      skip "wired in 05-02"
-
       sign_in_as(@user)
 
       visit ideas_url(script_name: @account.slug)
@@ -36,8 +32,6 @@ module Ux
     end
 
     test "enter on focused idea navigates to detail page" do
-      skip "wired in 05-02"
-
       sign_in_as(@user)
 
       visit ideas_url(script_name: @account.slug)
@@ -46,6 +40,22 @@ module Ux
       find("body").send_keys(:enter)
 
       assert_current_path %r{/ideas/\d+}
+    end
+
+    test "v on focused idea casts a vote via the row vote form" do
+      sign_in_as(@user)
+
+      idea = ideas(:one)
+      idea.votes.where(voter: @user).destroy_all
+      initial_count = idea.votes.where(voter: @user).count
+
+      visit ideas_url(script_name: @account.slug)
+
+      target_id = "idea_#{idea.id}"
+      find("##{target_id}").send_keys("v")
+
+      assert_selector "##{target_id} [aria-pressed='true']"
+      assert_equal initial_count + 1, idea.votes.where(voter: @user).count
     end
 
     test "back navigation restores focus to last visited item" do
