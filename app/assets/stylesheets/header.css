@@ -362,4 +362,30 @@
       display: block;
     }
   }
+
+  /* Mobile tap-target floor
+  /* ------------------------------------------------------------------------ */
+
+  @media (max-width: 768px) {
+    .header__mobile-link {
+      display: flex;
+      align-items: center;
+      min-block-size: 44px;
+    }
+
+    .header__icon-btn,
+    .header__mobile-toggle-btn {
+      min-block-size: 44px;
+      min-inline-size: 44px;
+    }
+
+    .header__changelog-link {
+      min-block-size: 44px;
+    }
+
+    .header__search-trigger {
+      min-block-size: 44px;
+      block-size: auto;
+    }
+  }
 }

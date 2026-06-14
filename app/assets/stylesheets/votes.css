@@ -30,6 +30,10 @@
     padding: var(--space-2);
     min-inline-size: 50px;
 
+    @media (max-width: 768px) {
+      min-block-size: 44px;
+    }
+
     @media (min-width: 768px) {
       padding-inline: var(--space-3);
       min-inline-size: 60px;

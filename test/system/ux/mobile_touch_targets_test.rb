@@ -54,6 +54,7 @@ module Ux
       find("body").send_keys("?")
 
       assert_selector "dialog#keyboard-shortcuts-dialog[open]"
+      wait_for_transform_settled("dialog#keyboard-shortcuts-dialog")
 
       height = bounding_height(".dialog__close")
       width = bounding_width(".dialog__close")
@@ -75,16 +76,28 @@ module Ux
 
     private
 
-    def bounding_height(selector)
-      page.evaluate_script(
-        "document.querySelector(#{selector.to_json}).getBoundingClientRect().height"
-      )
-    end
+      def bounding_height(selector)
+        page.evaluate_script(
+          "document.querySelector(#{selector.to_json}).getBoundingClientRect().height"
+        )
+      end
 
-    def bounding_width(selector)
-      page.evaluate_script(
-        "document.querySelector(#{selector.to_json}).getBoundingClientRect().width"
-      )
-    end
+      def bounding_width(selector)
+        page.evaluate_script(
+          "document.querySelector(#{selector.to_json}).getBoundingClientRect().width"
+        )
+      end
+
+      def wait_for_transform_settled(selector, timeout: 2.0)
+        deadline = Time.now + timeout
+        while Time.now < deadline
+          transform = page.evaluate_script(
+            "getComputedStyle(document.querySelector(#{selector.to_json})).transform"
+          )
+          return if transform == "none" || transform == "matrix(1, 0, 0, 1, 0, 0)"
+
+          sleep 0.05
+        end
+      end
   end
 end
