@@ -21,7 +21,14 @@
           <% end %>
         </div>
 
-        <%= tag.div id: "idea_#{idea.id}_comments", class: "divide-y" do %>
+        <%= tag.div id: "idea_#{idea.id}_comments",
+                    class: "divide-y",
+                    data: {
+                      controller: "navigable-list",
+                      navigable_list_actionable_items_value: "false",
+                      navigable_list_auto_select_value: "false",
+                      action: "keydown@window->navigable-list#navigate"
+                    } do %>
           <%= render partial: "comments/comment", collection: top_level_comments %>
         <% end %>
       <% end %>

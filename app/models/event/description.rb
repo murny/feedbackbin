@@ -74,6 +74,8 @@ class Event::Description
         moved_sentence(creator, idea_title)
       when "idea_title_changed"
         renamed_sentence(creator, idea_title)
+      when "idea_mentioned_in_changelog"
+        mentioned_in_changelog_sentence(creator, idea_title)
       end
     end
 
@@ -87,5 +89,9 @@ class Event::Description
 
     def renamed_sentence(creator, idea_title)
       %(#{creator} #{I18n.t('events.actions.changed_title')} #{idea_title} (#{I18n.t('events.was')}: "#{h event.old_title}"))
+    end
+
+    def mentioned_in_changelog_sentence(creator, idea_title)
+      %(#{creator} #{I18n.t('events.actions.mentioned_in_changelog')} #{idea_title} "#{h event.changelog_title}")
     end
 end

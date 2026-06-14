@@ -121,4 +121,83 @@ class IdeasControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_select "a[aria-current=page]", text: /Planned/
   end
+
+  test "show renders activity timeline section" do
+    Event.create!(
+      account: accounts(:feedbackbin),
+      board: @idea.board,
+      creator: users(:shane),
+      eventable: @idea,
+      action: "idea_status_changed",
+      particulars: { old_status: "Open", new_status: "In Progress" }
+    )
+
+    get idea_url(@idea)
+
+    assert_response :success
+    assert_select ".activity-timeline"
+    assert_select ".activity-timeline__entry"
+  end
+
+  test "show all_activity param expands beyond the default limit of 10" do
+    @idea.events.destroy_all
+
+    12.times do |i|
+      Event.create!(
+        account: accounts(:feedbackbin),
+        board: @idea.board,
+        creator: users(:shane),
+        eventable: @idea,
+        action: "idea_title_changed",
+        particulars: { old_title: "Title #{i}", new_title: "Title #{i + 1}" }
+      )
+    end
+
+    get idea_url(@idea)
+
+    assert_response :success
+    assert_select ".activity-timeline__entry", count: 10
+
+    get idea_url(@idea, all_activity: true)
+
+    assert_response :success
+    assert_select ".activity-timeline__entry", count: 12
+  end
+
+  test "timeline excludes idea_created and comment_created events" do
+    Event.create!(
+      account: accounts(:feedbackbin),
+      board: @idea.board,
+      creator: users(:shane),
+      eventable: @idea,
+      action: "idea_status_changed",
+      particulars: { old_status: "Open", new_status: "In Progress" }
+    )
+
+    get idea_url(@idea)
+
+    assert_response :success
+    timeline = css_select(".activity-timeline").first
+
+    assert_not_nil timeline
+    assert_no_match(/idea_created|comment_created/, timeline.to_s)
+  end
+
+  test "timeline does not leak cross-account events" do
+    cross_account_idea = ideas(:acme_one)
+    cross_account_event = Event.create!(
+      account: accounts(:acme),
+      board: cross_account_idea.board,
+      creator: users(:acme_admin),
+      eventable: cross_account_idea,
+      action: "idea_mentioned_in_changelog",
+      particulars: { changelog_id: 999, changelog_title: "Should Not Appear" }
+    )
+
+    get idea_url(@idea)
+
+    assert_response :success
+    assert_no_match(/Should Not Appear/, response.body)
+    assert_no_match(/event_#{cross_account_event.id}\b/, response.body)
+  end
 end

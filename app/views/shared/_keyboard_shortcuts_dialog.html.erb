@@ -1,0 +1,61 @@
+<%# locals: () %>
+
+<dialog id="keyboard-shortcuts-dialog"
+        class="dialog dialog--shortcuts"
+        data-controller="keyboard-shortcuts"
+        data-keyboard-shortcuts-target="dialog"
+        aria-labelledby="keyboard-shortcuts-title"
+        aria-modal="true">
+  <article class="dialog__content">
+    <header class="dialog__header">
+      <h2 id="keyboard-shortcuts-title" class="dialog__title"><%= t(".title") %></h2>
+    </header>
+    <section class="dialog__body shortcuts-grid">
+      <section>
+        <h3 class="shortcuts-grid__heading"><%= t(".navigation") %></h3>
+        <dl>
+          <div class="shortcuts-grid__row">
+            <dt>
+              <kbd class="kbd">J</kbd>
+              /
+              <kbd class="kbd">K</kbd>
+            </dt>
+            <dd><%= t(".navigate_lists") %></dd>
+          </div>
+          <div class="shortcuts-grid__row">
+            <dt><kbd class="kbd">Enter</kbd></dt>
+            <dd><%= t(".open_focused") %></dd>
+          </div>
+        </dl>
+      </section>
+      <section>
+        <h3 class="shortcuts-grid__heading"><%= t(".voting") %></h3>
+        <dl>
+          <div class="shortcuts-grid__row">
+            <dt><kbd class="kbd">V</kbd></dt>
+            <dd><%= t(".vote_focused") %></dd>
+          </div>
+        </dl>
+      </section>
+      <section>
+        <h3 class="shortcuts-grid__heading"><%= t(".search") %></h3>
+        <dl>
+          <div class="shortcuts-grid__row">
+            <dt>
+              <kbd class="kbd"><%= t(".cmd") %></kbd>
+              +
+              <kbd class="kbd">K</kbd>
+            </dt>
+            <dd><%= t(".open_search") %></dd>
+          </div>
+        </dl>
+      </section>
+    </section>
+    <button type="button"
+            class="dialog__close"
+            data-action="click->keyboard-shortcuts#close"
+            aria-label="<%= t(".close") %>">
+      <%= lucide_icon "x" %>
+    </button>
+  </article>
+</dialog>

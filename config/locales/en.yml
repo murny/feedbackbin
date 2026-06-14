@@ -500,6 +500,7 @@ en:
       terms: Terms
     navbar:
       brand_name: FeedbackBin
+      close_menu: Close menu
       links:
         admin_dashboard: Admin Dashboard
         ideas: Ideas
@@ -510,7 +511,8 @@ en:
         staff: Staff
         whats_new: What's new?
         your_profile: Your profile
-      open_main_menu: Open main menu
+      main_menu: Main menu
+      open_menu: Open menu
       open_user_menu: Open user menu
       search_placeholder: Search...
       search_shortcut_modifier: "⌘"
@@ -600,6 +602,7 @@ en:
       changed_title: renamed
       commented_on: commented on
       created: created
+      mentioned_in_changelog: linked to changelog
       moved: moved
     to: to
     unknown_item: unknown item
@@ -614,6 +617,9 @@ en:
       subject: Status update on '%{title}'
       view_idea: View the idea
   ideas:
+    activity_timeline:
+      heading: Activity
+      show_all: Show all activity
     comment_locks:
       create:
         locked: Discussion has been locked.
@@ -629,6 +635,7 @@ en:
         successfully_updated: Comment was successfully updated.
       votes:
         update:
+          error: Couldn't update your vote. Please try again.
           successfully_unvoted: Your vote has been removed.
           successfully_voted: Your vote has been recorded.
     create:
@@ -702,6 +709,7 @@ en:
       successfully_updated: Idea was successfully updated.
     votes:
       update:
+        error: Couldn't update your vote. Please try again.
         successfully_unvoted: Your vote has been removed.
         successfully_voted: Your vote has been recorded.
     watches:
@@ -926,6 +934,17 @@ en:
     board_filter:
       all_boards: All Boards
       board_label: Board
+    keyboard_shortcuts_dialog:
+      close: Close keyboard shortcuts
+      cmd: "⌘"
+      navigate_lists: Navigate between items
+      navigation: Navigation
+      open_focused: Open focused item
+      open_search: Open search
+      search: Search
+      title: Keyboard shortcuts
+      vote_focused: Vote on focused item
+      voting: Voting
     skeletons:
       block:
         loading_label: Loading...
