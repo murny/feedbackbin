@@ -15,15 +15,11 @@
         <div class="header__nav">
           <%= active_link_to t(".links.ideas"),
                 ideas_path,
-                class: "header__link",
-                active_class: "header__link--active",
-                inactive_class: "" %>
+                class: "header__link" %>
           <% if Current.account.roadmap_public? || Current.admin? %>
             <%= active_link_to t(".links.roadmap"),
                   roadmap_path,
-                  class: "header__link",
-                  active_class: "header__link--active",
-                  inactive_class: "" %>
+                  class: "header__link" %>
           <% end %>
         </div>
       </div>
@@ -160,15 +156,11 @@
     <div class="header__mobile-menu">
           <%= active_link_to t(".links.ideas"),
             ideas_path,
-            class: "header__mobile-link",
-            active_class: "header__mobile-link--active",
-            inactive_class: "" %>
+            class: "header__mobile-link" %>
       <% if Current.account.roadmap_public? || Current.admin? %>
         <%= active_link_to t(".links.roadmap"),
               roadmap_path,
-              class: "header__mobile-link",
-              active_class: "header__mobile-link--active",
-              inactive_class: "" %>
+              class: "header__mobile-link" %>
       <% end %>
     </div>
     <div class="border-top pad-block-start pad-block-end-half">
