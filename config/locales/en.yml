@@ -500,6 +500,7 @@ en:
       terms: Terms
     navbar:
       brand_name: FeedbackBin
+      close_menu: Close menu
       links:
         admin_dashboard: Admin Dashboard
         ideas: Ideas
@@ -510,7 +511,8 @@ en:
         staff: Staff
         whats_new: What's new?
         your_profile: Your profile
-      open_main_menu: Open main menu
+      main_menu: Main menu
+      open_menu: Open menu
       open_user_menu: Open user menu
       search_placeholder: Search...
       search_shortcut_modifier: "⌘"
