@@ -184,12 +184,11 @@ class IdeasControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "timeline does not leak cross-account events" do
-    cross_account_idea = ideas(:acme_one)
     cross_account_event = Event.create!(
       account: accounts(:acme),
-      board: cross_account_idea.board,
-      creator: users(:acme_admin),
-      eventable: cross_account_idea,
+      board: @idea.board,
+      creator: users(:shane),
+      eventable: @idea,
       action: "idea_mentioned_in_changelog",
       particulars: { changelog_id: 999, changelog_title: "Should Not Appear" }
     )
