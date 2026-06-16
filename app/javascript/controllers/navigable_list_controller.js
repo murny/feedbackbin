@@ -207,6 +207,7 @@ export default class extends Controller {
 
   #handleArrowKey(event, fn) {
     if (event.shiftKey || event.metaKey || event.ctrlKey) { return }
+    if (!this.#isFocusContainedOnNavigableItem) { return }
     fn.call()
     if (this.preventHandledKeysValue) {
       event.preventDefault()
@@ -267,12 +268,14 @@ export default class extends Controller {
         this.#handleArrowKey(event, selectMethod)
       }
     },
+    J(event) { this.#keyHandlers.j.call(this, event) },
     k(event) {
       if (this.supportsVerticalNavigationValue) {
         const selectMethod = this.reverseNavigationValue ? this.#selectNext.bind(this) : this.#selectPrevious.bind(this)
         this.#handleArrowKey(event, selectMethod)
       }
     },
+    K(event) { this.#keyHandlers.k.call(this, event) },
     ArrowRight(event) {
       if (this.supportsHorizontalNavigationValue) {
         this.#handleArrowKey(event, this.#selectNext.bind(this))
