@@ -16,10 +16,6 @@ class ChangelogIdea < ApplicationRecord
     def track_mention_if_published
       return unless changelog.published?
 
-      idea.track_event(
-        :mentioned_in_changelog,
-        changelog_id: changelog.id,
-        changelog_title: changelog.title
-      )
+      changelog.track_mention_event_for(idea)
     end
 end

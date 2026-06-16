@@ -29,20 +29,26 @@ class Changelog < ApplicationRecord
     most_recent_changelog && (user.nil? || user.changelogs_read_at&.before?(most_recent_changelog))
   end
 
+  def track_mention_event_for(idea, creator: nil)
+    with_lock do
+      return if already_emitted_for?(idea)
+
+      idea.track_event(
+        :mentioned_in_changelog,
+        creator: creator || Current.user || account.system_user,
+        changelog_id: id,
+        changelog_title: title
+      )
+    end
+  end
+
   private
 
     def emit_pending_mention_events
       creator = Current.user || account.system_user
 
       changelog_ideas.includes(:idea).each do |changelog_idea|
-        next if already_emitted_for?(changelog_idea.idea)
-
-        changelog_idea.idea.track_event(
-          :mentioned_in_changelog,
-          creator: creator,
-          changelog_id: id,
-          changelog_title: title
-        )
+        track_mention_event_for(changelog_idea.idea, creator: creator)
       end
     end
 
