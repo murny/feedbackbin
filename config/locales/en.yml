@@ -635,7 +635,6 @@ en:
         successfully_updated: Comment was successfully updated.
       votes:
         update:
-          error: Couldn't update your vote. Please try again.
           successfully_unvoted: Your vote has been removed.
           successfully_voted: Your vote has been recorded.
     create:
@@ -709,7 +708,6 @@ en:
       successfully_updated: Idea was successfully updated.
     votes:
       update:
-        error: Couldn't update your vote. Please try again.
         successfully_unvoted: Your vote has been removed.
         successfully_voted: Your vote has been recorded.
     watches:

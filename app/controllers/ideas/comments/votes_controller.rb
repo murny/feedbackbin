@@ -9,25 +9,20 @@ class Ideas::Comments::VotesController < ApplicationController
   def update
     if @voteable.voted_by?(Current.user)
       @voteable.unvote(Current.user)
-      flash.now[:notice] = t(".successfully_unvoted")
+      notice = t(".successfully_unvoted")
     else
       @voteable.vote(Current.user)
-      flash.now[:notice] = t(".successfully_voted")
+      notice = t(".successfully_voted")
     end
 
     respond_to do |format|
-      format.html { redirect_to idea_comment_path(@idea, @comment) }
-      format.turbo_stream { render "votes/update" }
-    end
-  rescue ActiveRecord::RecordInvalid
-    respond_to do |format|
       format.html do
-        flash[:alert] = t(".error")
+        flash[:notice] = notice
         redirect_to idea_comment_path(@idea, @comment)
       end
       format.turbo_stream do
-        flash.now[:alert] = t(".error")
-        render "votes/update", status: :unprocessable_entity
+        flash.now[:notice] = notice
+        render "votes/update"
       end
     end
   end

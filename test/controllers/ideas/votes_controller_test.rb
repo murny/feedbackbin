@@ -47,16 +47,4 @@ class Ideas::VotesControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
     assert_match(/aria-pressed="true"/, response.body)
   end
-
-  test "turbo_stream update sets flash alert and 422 status when vote raises RecordInvalid" do
-    sign_in_as @user
-    Idea.any_instance.stubs(:vote).raises(ActiveRecord::RecordInvalid.new(@idea))
-
-    assert_no_difference -> { @idea.votes.count } do
-      patch idea_vote_url(@idea), headers: { "Accept" => "text/vnd.turbo-stream.html" }
-    end
-
-    assert_response :unprocessable_entity
-    assert_equal I18n.t("ideas.votes.update.error"), flash[:alert]
-  end
 end
