@@ -38,4 +38,13 @@ class Ideas::VotesControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to sign_in_url
   end
+
+  test "turbo_stream response includes aria-pressed=true after a successful vote" do
+    sign_in_as @user
+
+    patch idea_vote_url(@idea), headers: { "Accept" => "text/vnd.turbo-stream.html" }
+
+    assert_response :success
+    assert_match(/aria-pressed="true"/, response.body)
+  end
 end

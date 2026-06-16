@@ -112,4 +112,24 @@ class Event::DescriptionTest < ActiveSupport::TestCase
     assert_includes description.to_html, "&lt;b&gt;"
     assert_not_includes description.to_html, "<b>old"
   end
+
+  test "renders mentioned_in_changelog with html-escaped changelog title" do
+    event = Event.create!(
+      account: accounts(:feedbackbin),
+      board: boards(:one),
+      creator: users(:shane),
+      eventable: ideas(:one),
+      action: "idea_mentioned_in_changelog",
+      particulars: {
+        changelog_id: changelogs(:one).id,
+        changelog_title: "<script>alert('xss')</script>"
+      }
+    )
+
+    description = event.description_for(users(:shane))
+
+    assert_includes description.to_html, I18n.t("events.actions.mentioned_in_changelog")
+    assert_includes description.to_html, "&lt;script&gt;"
+    assert_not_includes description.to_html, "<script>alert"
+  end
 end

@@ -355,4 +355,18 @@
     pointer-events: none;
   }
 
+  /* Mobile tap-target floor
+  /* ------------------------------------------------------------------------ */
+
+  @media (max-width: 768px) {
+    .btn:not(.btn--sm, .btn--link, .btn--icon) {
+      min-block-size: 44px;
+    }
+
+    .btn--icon:not(.btn--sm) {
+      min-block-size: 44px;
+      min-inline-size: 44px;
+    }
+  }
+
 }

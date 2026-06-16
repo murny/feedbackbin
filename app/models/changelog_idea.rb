@@ -8,4 +8,14 @@ class ChangelogIdea < ApplicationRecord
   attr_readonly :changelog_id, :idea_id
 
   validates :idea_id, uniqueness: { scope: :changelog_id }
+
+  after_create_commit :track_mention_if_published
+
+  private
+
+    def track_mention_if_published
+      return unless changelog.published?
+
+      changelog.track_mention_event_for(idea)
+    end
 end

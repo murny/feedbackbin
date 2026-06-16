@@ -10,7 +10,13 @@
     <span class="txt-small txt-subtle font-weight-medium"><%= ideas.size %></span>
   </header>
 
-  <div class="flex flex-column gap-3">
+  <div class="flex flex-column gap-3"
+       data-controller="navigable-list"
+       data-navigable-list-actionable-items-value="true"
+       data-navigable-list-prevent-handled-keys-value="true"
+       data-navigable-list-auto-select-value="false"
+       data-navigable-list-only-act-on-focused-items-value="true"
+       data-action="keydown@window->navigable-list#navigate">
     <% if ideas.any? %>
       <% ideas.each do |idea| %>
         <%= render "idea_card", idea: idea %>

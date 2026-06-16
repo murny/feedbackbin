@@ -8,7 +8,7 @@
            <div class="header__actions header__actions--start">
              <a class="header__logo" href="/">...</a>
              <div class="header__nav">
-               <a class="header__link header__link--active" href="/">...</a>
+               <a class="header__link" href="/" aria-current="page">...</a>
              </div>
            </div>
            <div class="header__actions header__actions--end">...</div>
@@ -106,7 +106,12 @@
     }
   }
 
-  .header__link--active {
+  .header__link[aria-current="page"] {
+    background-color: var(--color-accent);
+    color: var(--color-accent-foreground);
+  }
+
+  .sidebar__link[aria-current="page"] {
     background-color: var(--color-accent);
     color: var(--color-accent-foreground);
   }
@@ -276,7 +281,7 @@
     }
   }
 
-  .header__mobile-link--active {
+  .header__mobile-link[aria-current="page"] {
     background-color: var(--color-accent);
     color: var(--color-accent-foreground);
   }
@@ -360,6 +365,32 @@
 
     @media (min-width: 768px) {
       display: block;
+    }
+  }
+
+  /* Mobile tap-target floor
+  /* ------------------------------------------------------------------------ */
+
+  @media (max-width: 768px) {
+    .header__mobile-link {
+      display: flex;
+      align-items: center;
+      min-block-size: 44px;
+    }
+
+    .header__icon-btn,
+    .header__mobile-toggle-btn {
+      min-block-size: 44px;
+      min-inline-size: 44px;
+    }
+
+    .header__changelog-link {
+      min-block-size: 44px;
+    }
+
+    .header__search-trigger {
+      min-block-size: 44px;
+      block-size: auto;
     }
   }
 }

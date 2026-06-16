@@ -1,0 +1,66 @@
+/* ==========================================================================
+   Activity Timeline Component
+
+   Renders between the idea description and the comments section. Linear-style
+   vertical rail with the latest events at the top.
+   ========================================================================== */
+
+@layer components {
+  .activity-timeline {
+    margin-block: var(--space-6);
+  }
+
+  .activity-timeline__heading {
+    margin-block-end: var(--space-3);
+  }
+
+  .activity-timeline__list {
+    list-style: none;
+    padding-inline-start: 0;
+    margin-block: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+  }
+
+  .activity-timeline__entry {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: var(--space-3);
+    padding-inline-start: var(--space-3);
+    border-inline-start: 1px solid var(--color-border);
+  }
+
+  .activity-timeline__icon {
+    display: flex;
+    align-items: center;
+    color: var(--color-muted-foreground);
+  }
+
+  .activity-timeline__body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+  }
+
+  .activity-timeline__description {
+    color: var(--color-foreground);
+    font-size: var(--text-sm);
+    margin: 0;
+  }
+
+  .activity-timeline__timestamp {
+    color: var(--color-muted-foreground);
+  }
+
+  .activity-timeline__show-all {
+    display: inline-flex;
+    margin-block-start: var(--space-3);
+    color: var(--color-link);
+    text-decoration: underline;
+
+    &:hover {
+      filter: brightness(0.9);
+    }
+  }
+}

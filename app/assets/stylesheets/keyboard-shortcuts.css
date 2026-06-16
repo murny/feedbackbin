@@ -1,0 +1,59 @@
+/* ==========================================================================
+   Keyboard Shortcuts Cheatsheet
+
+   .kbd            - inline keycap badge
+   .shortcuts-grid - cheatsheet body grid
+   .dialog--shortcuts overrides the dialog content max width
+   ========================================================================== */
+
+@layer components {
+  .kbd {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-1);
+    padding-inline: 0.4em;
+    padding-block: 0.1em;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-sm);
+    background-color: var(--color-muted);
+    color: var(--color-muted-foreground);
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    font-weight: var(--font-medium);
+    user-select: none;
+  }
+
+  .shortcuts-grid {
+    display: grid;
+    gap: var(--space-4);
+    grid-template-columns: 1fr;
+
+    @media (min-width: 640px) {
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    }
+  }
+
+  .shortcuts-grid__heading {
+    font-size: var(--text-medium);
+    font-weight: var(--font-semibold);
+    margin-block-end: var(--space-2);
+  }
+
+  .shortcuts-grid__row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2);
+    padding-block: var(--space-1);
+  }
+
+  .shortcuts-grid__row dd {
+    color: var(--color-muted-foreground);
+    font-size: var(--text-small);
+    text-align: end;
+  }
+
+  .dialog--shortcuts .dialog__content {
+    --dialog-max-width: 32rem;
+  }
+}

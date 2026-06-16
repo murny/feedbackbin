@@ -182,21 +182,37 @@ export default class extends Controller {
   }
 
   #selectPrevious() {
-    const index = this.#visibleItems.indexOf(this.currentItem)
-    if (index > 0) {
-      this.#setCurrentFrom(this.#visibleItems[index - 1])
+    const items = this.#visibleItems
+    if (!items.length) { return }
+    const index = this.#currentIndexOrFocused(items)
+    if (index < 0) {
+      this.#setCurrentFrom(items[items.length - 1])
+    } else if (index > 0) {
+      this.#setCurrentFrom(items[index - 1])
     }
   }
 
   #selectNext() {
-    const index = this.#visibleItems.indexOf(this.currentItem)
-    if (index >= 0 && index < this.#visibleItems.length - 1) {
-      this.#setCurrentFrom(this.#visibleItems[index + 1])
+    const items = this.#visibleItems
+    if (!items.length) { return }
+    const index = this.#currentIndexOrFocused(items)
+    if (index < 0) {
+      this.#setCurrentFrom(items[0])
+    } else if (index < items.length - 1) {
+      this.#setCurrentFrom(items[index + 1])
     }
+  }
+
+  #currentIndexOrFocused(items) {
+    const currentIndex = items.indexOf(this.currentItem)
+    if (currentIndex >= 0) { return currentIndex }
+    const focused = items.find(item => item === document.activeElement || item.contains(document.activeElement))
+    return focused ? items.indexOf(focused) : -1
   }
 
   #handleArrowKey(event, fn) {
     if (event.shiftKey || event.metaKey || event.ctrlKey) { return }
+    if (!this.#isFocusContainedOnNavigableItem) { return }
     fn.call()
     if (this.preventHandledKeysValue) {
       event.preventDefault()
@@ -205,7 +221,9 @@ export default class extends Controller {
 
   #clickCurrentItem(event) {
     if (this.actionableItemsValue && this.currentItem && this.#visibleItems.length && this.#isFocusContainedOnNavigableItem) {
-      const clickableElement = this.currentItem.querySelector("a,button") || this.currentItem
+      const clickableElement = this.currentItem.querySelector("[data-navigable-list-primary-action]") ||
+                               this.currentItem.querySelector("a,button") ||
+                               this.currentItem
       clickableElement.click()
       event.preventDefault()
     }
@@ -249,6 +267,20 @@ export default class extends Controller {
         this.#handleArrowKey(event, selectMethod)
       }
     },
+    j(event) {
+      if (this.supportsVerticalNavigationValue) {
+        const selectMethod = this.reverseNavigationValue ? this.#selectPrevious.bind(this) : this.#selectNext.bind(this)
+        this.#handleArrowKey(event, selectMethod)
+      }
+    },
+    J(event) { this.#keyHandlers.j.call(this, event) },
+    k(event) {
+      if (this.supportsVerticalNavigationValue) {
+        const selectMethod = this.reverseNavigationValue ? this.#selectNext.bind(this) : this.#selectPrevious.bind(this)
+        this.#handleArrowKey(event, selectMethod)
+      }
+    },
+    K(event) { this.#keyHandlers.k.call(this, event) },
     ArrowRight(event) {
       if (this.supportsHorizontalNavigationValue) {
         this.#handleArrowKey(event, this.#selectNext.bind(this))

@@ -38,11 +38,18 @@ class ActiveLinksHelperTest < ActionView::TestCase
     assert_equal '<a class="link-primary" href="/block-class">Block Link with Classes</a>', block_link
   end
 
-  test "adds an active class by default when on active page" do
+  test "active_link_to emits aria-current=page when path is current" do
     request.path = "/active-page"
     active_link = active_link_to("Link active", "/active-page")
 
-    assert_equal '<a class="active" href="/active-page">Link active</a>', active_link
+    assert_includes active_link, 'aria-current="page"'
+  end
+
+  test "active_link_to does not emit aria-current when path is inactive" do
+    request.path = "/some-other-page"
+    inactive_link = active_link_to("Link inactive", "/active-page")
+
+    assert_not_includes inactive_link, "aria-current"
   end
 
   test "adds custom active class when on active page" do
@@ -53,7 +60,8 @@ class ActiveLinksHelperTest < ActionView::TestCase
       active_class: "custom-active-class"
     )
 
-    assert_equal '<a class="custom-active-class" href="/active-page">Custom active class</a>', active_link_with_active_class
+    assert_includes active_link_with_active_class, 'class="custom-active-class"'
+    assert_includes active_link_with_active_class, 'aria-current="page"'
   end
 
   test "add custom inactive class when not on active page" do
@@ -66,10 +74,10 @@ class ActiveLinksHelperTest < ActionView::TestCase
     assert_equal '<a class="custom-inactive-class" href="/not-active-page">Custom inactive class</a>', active_link_with_inactive_class
   end
 
-  test "adds active class when on a page that starts with the starts_with option" do
+  test "adds aria-current when on a page that starts with the starts_with option" do
     request.path = "/posts/1/comments/1"
     starts_with_link = active_link_to("Starts with", "/starts", starts_with: "/posts")
 
-    assert_equal '<a class="active" href="/starts">Starts with</a>', starts_with_link
+    assert_includes starts_with_link, 'aria-current="page"'
   end
 end

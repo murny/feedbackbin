@@ -11,12 +11,13 @@ module ActiveLinksHelper
     url = url_for(options)
     active = active_link?(url, html_options.delete(:starts_with))
 
-    # Append the active or inactive class options depending on the active state
+    html_options["aria-current"] = "page" if active
+
     html_options[:class] = Array.wrap(html_options[:class])
-    active_class = html_options.delete(:active_class) || "active"
-    inactive_class = html_options.delete(:inactive_class) || ""
-    classes = active ? active_class : inactive_class
-    html_options[:class] << classes unless classes.empty?
+    active_class = html_options.delete(:active_class)
+    inactive_class = html_options.delete(:inactive_class)
+    legacy_classes = active ? active_class : inactive_class
+    html_options[:class] << legacy_classes if legacy_classes.present?
     html_options.except!(:class) if html_options[:class].empty?
 
     if block

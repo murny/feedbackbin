@@ -5,11 +5,12 @@
   <%= tag.body class: "flex flex-column",
         style: "min-block-size: 100%;",
         data: {
-          controller: "local-time lightbox theme-application global-search",
+          controller: "local-time lightbox theme-application global-search focus-restoration vote-shortcut",
           global_search_url_value: search_path,
           theme_application_preference_value: Current.user&.theme || "system"
         } do %>
     <%= render "searches/dialog" %>
+    <%= render "shared/keyboard_shortcuts_dialog" %>
     <% if content_for?(:sidebar) %>
       <!-- Admin layout with sidebar -->
       <%= yield(:sidebar) %>

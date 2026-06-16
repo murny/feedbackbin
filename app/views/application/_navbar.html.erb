@@ -1,6 +1,6 @@
 <%# locals: () %>
 
-<nav class="header" id="header" data-controller="toggle">
+<nav class="header" id="header" data-controller="dialog" data-dialog-modal-value="true">
   <div class="header__container">
     <div class="header__content">
       <div class="header__actions header__actions--start">
@@ -15,15 +15,11 @@
         <div class="header__nav">
           <%= active_link_to t(".links.ideas"),
                 ideas_path,
-                class: "header__link",
-                active_class: "header__link--active",
-                inactive_class: "" %>
+                class: "header__link" %>
           <% if Current.account.roadmap_public? || Current.admin? %>
             <%= active_link_to t(".links.roadmap"),
                   roadmap_path,
-                  class: "header__link",
-                  active_class: "header__link--active",
-                  inactive_class: "" %>
+                  class: "header__link" %>
           <% end %>
         </div>
       </div>
@@ -54,19 +50,14 @@
         </div>
       <% end %>
       <div class="header__mobile-toggle">
-        <!-- Mobile menu button -->
         <button type="button"
                 class="header__mobile-toggle-btn"
                 aria-controls="mobile-menu"
-                data-toggle-target="trigger"
-                data-action="click->toggle#toggle touch->toggle#toggle">
-          <span class="visually-hidden"><%= t(".open_main_menu") %></span>
+                aria-label="<%= t(".open_menu") %>"
+                data-action="click->dialog#open">
+          <span class="visually-hidden"><%= t(".open_menu") %></span>
           <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
             <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-          </svg>
-
-          <svg class="display-none size-3" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true" data-toggle-target="toggleable">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </button>
       </div>
@@ -148,70 +139,74 @@
     </div>
   </div>
 
-  <!-- Mobile menu, show/hide based on menu state. -->
-  <div class="display-none" id="mobile-menu"
-        data-toggle-target="toggleable"
-        data-transition-enter="transition-all ease-linear duration-300"
-        data-transition-enter-from="opacity-0 h-0"
-        data-transition-enter-to="opacity-100"
-        data-transition-leave="transition-all ease-linear duration-300"
-        data-transition-leave-from="opacity-100"
-        data-transition-leave-to="opacity-0">
-    <div class="header__mobile-menu">
+  <dialog id="mobile-menu"
+          class="drawer drawer--inline-start"
+          data-dialog-target="dialog"
+          data-action="turbo:before-visit@window->dialog#close keydown.esc->dialog#close"
+          aria-label="<%= t(".main_menu") %>">
+    <div class="drawer__content">
+      <header class="drawer__header">
+        <button type="button"
+                class="drawer__close"
+                data-action="click->dialog#close"
+                aria-label="<%= t(".close_menu") %>">
+          <%= lucide_icon "x", class: "size-6" %>
+        </button>
+      </header>
+      <nav class="drawer__nav">
+        <div class="header__mobile-menu">
           <%= active_link_to t(".links.ideas"),
-            ideas_path,
-            class: "header__mobile-link",
-            active_class: "header__mobile-link--active",
-            inactive_class: "" %>
-      <% if Current.account.roadmap_public? || Current.admin? %>
-        <%= active_link_to t(".links.roadmap"),
-              roadmap_path,
-              class: "header__mobile-link",
-              active_class: "header__mobile-link--active",
-              inactive_class: "" %>
-      <% end %>
-    </div>
-    <div class="border-top pad-block-start pad-block-end-half">
-      <% if authenticated? && Current.user %>
-        <div class="header__mobile-user">
-          <div class="header__mobile-user-avatar">
-            <%= image_tag fresh_user_avatar_path(Current.user), role: "presentation", class: "avatar avatar--lg", alt: "" %>
-          </div>
-          <div class="header__mobile-user-info">
-            <div class="txt-small txt-subtle"><%= t(".signed_in_as") %></div>
-            <div class="font-weight-medium"><%= Current.user.name %></div>
-          </div>
-          <button type="button" class="header__icon-btn margin-inline-start-auto">
-            <span class="visually-hidden"><%= t(".view_notifications") %></span>
-            <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
-            </svg>
-          </button>
-        </div>
-        <div class="header__mobile-menu margin-block-start-half">
-          <%= link_to t(".links.your_profile"),
-                user_path(Current.user),
+                ideas_path,
                 class: "header__mobile-link" %>
-          <%= link_to t(".links.settings"),
-                user_settings_profile_path,
-                class: "header__mobile-link" %>
-        </div>
-        <div class="header__mobile-menu margin-block-start-half border-top pad-block-start-half">
-          <% if Current.admin? && Current.account %>
-            <%= link_to t(".links.admin_dashboard"),
-                  admin_root_path,
+          <% if Current.account.roadmap_public? || Current.admin? %>
+            <%= active_link_to t(".links.roadmap"),
+                  roadmap_path,
                   class: "header__mobile-link" %>
           <% end %>
         </div>
-        <div class="header__mobile-menu margin-block-start-half border-top pad-block-start-half">
-          <%= button_to t(".sign_out"), session_path, method: :delete, class: "header__mobile-link" %>
+        <div class="border-top pad-block-start pad-block-end-half">
+          <% if authenticated? && Current.user %>
+            <div class="header__mobile-user">
+              <div class="header__mobile-user-avatar">
+                <%= image_tag fresh_user_avatar_path(Current.user), role: "presentation", class: "avatar avatar--lg", alt: "" %>
+              </div>
+              <div class="header__mobile-user-info">
+                <div class="txt-small txt-subtle"><%= t(".signed_in_as") %></div>
+                <div class="font-weight-medium"><%= Current.user.name %></div>
+              </div>
+              <button type="button" class="header__icon-btn margin-inline-start-auto">
+                <span class="visually-hidden"><%= t(".view_notifications") %></span>
+                <svg class="size-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+                </svg>
+              </button>
+            </div>
+            <div class="header__mobile-menu margin-block-start-half">
+              <%= link_to t(".links.your_profile"),
+                    user_path(Current.user),
+                    class: "header__mobile-link" %>
+              <%= link_to t(".links.settings"),
+                    user_settings_profile_path,
+                    class: "header__mobile-link" %>
+            </div>
+            <div class="header__mobile-menu margin-block-start-half border-top pad-block-start-half">
+              <% if Current.admin? && Current.account %>
+                <%= link_to t(".links.admin_dashboard"),
+                      admin_root_path,
+                      class: "header__mobile-link" %>
+              <% end %>
+            </div>
+            <div class="header__mobile-menu margin-block-start-half border-top pad-block-start-half">
+              <%= button_to t(".sign_out"), session_path, method: :delete, class: "header__mobile-link" %>
+            </div>
+          <% else %>
+            <div class="header__mobile-menu">
+              <%= link_to t(".sign_in"), sign_in_path, class: "header__mobile-link" %>
+              <%= link_to t(".sign_up"), users_sign_up_path, class: "header__mobile-link" %>
+            </div>
+          <% end %>
         </div>
-      <% else %>
-        <div class="header__mobile-menu">
-          <%= link_to t(".sign_in"), sign_in_path, class: "header__mobile-link" %>
-          <%= link_to t(".sign_up"), users_sign_up_path, class: "header__mobile-link" %>
-        </div>
-      <% end %>
+      </nav>
     </div>
-  </div>
+  </dialog>
 </nav>

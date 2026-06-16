@@ -1,0 +1,118 @@
+/* ==========================================================================
+   Drawer Component
+
+   Usage:
+     <dialog class="drawer drawer--inline-start"
+             data-controller="dialog"
+             data-dialog-modal-value="true">
+       <div class="drawer__content">
+         <header class="drawer__header">
+           <button class="drawer__close">×</button>
+         </header>
+         <nav class="drawer__nav">...</nav>
+       </div>
+     </dialog>
+
+   Open with: dialogEl.showModal()
+   Slides in from the inline-start edge with a backdrop fade.
+   ========================================================================== */
+
+@layer components {
+  .drawer {
+    padding: 0;
+    border: none;
+    margin: 0;
+    max-inline-size: min(85vw, 20rem);
+    inline-size: 100%;
+    block-size: 100dvh;
+    max-block-size: 100dvh;
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    inset-inline-start: 0;
+    inset-block: 0;
+    margin-inline-end: auto;
+    transform: translateX(-100%);
+    transition-behavior: allow-discrete;
+    transition-duration: var(--duration-normal);
+    transition-property: display, transform, overlay;
+    transition-timing-function: var(--ease-out);
+
+    &[open] {
+      transform: translateX(0);
+    }
+
+    &::backdrop {
+      background-color: oklch(0 0 0 / 50%);
+      opacity: 0;
+      transition-behavior: allow-discrete;
+      transition-duration: var(--duration-normal);
+      transition-property: display, opacity, overlay;
+      transition-timing-function: var(--ease-out);
+    }
+
+    &[open]::backdrop {
+      opacity: 1;
+    }
+
+    @starting-style {
+      &[open] {
+        transform: translateX(-100%);
+      }
+
+      &[open]::backdrop {
+        opacity: 0;
+      }
+    }
+  }
+
+  .drawer--inline-start {
+    inset-inline-start: 0;
+    inset-inline-end: auto;
+  }
+
+  .drawer__content {
+    display: flex;
+    flex-direction: column;
+    block-size: 100%;
+    padding: var(--space-4);
+    overflow-y: auto;
+  }
+
+  .drawer__header {
+    display: flex;
+    justify-content: flex-end;
+    margin-block-end: var(--space-3);
+  }
+
+  .drawer__close {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-block-size: 44px;
+    min-inline-size: 44px;
+    padding: var(--space-2);
+    background-color: transparent;
+    color: var(--color-foreground);
+    border: none;
+    border-radius: var(--radius-sm);
+    cursor: pointer;
+    opacity: 0.7;
+    transition: opacity var(--duration-fast) var(--ease-out);
+
+    &:hover {
+      opacity: 1;
+    }
+
+    &:focus-visible {
+      outline: var(--focus-ring-width) solid var(--focus-ring-color);
+      outline-offset: var(--focus-ring-offset);
+      opacity: 1;
+    }
+  }
+
+  .drawer__nav {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+}

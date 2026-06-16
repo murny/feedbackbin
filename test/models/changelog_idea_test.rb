@@ -57,4 +57,74 @@ class ChangelogIdeaTest < ActiveSupport::TestCase
 
     assert_equal Current.account, changelog_idea.account
   end
+
+  # Event emission
+  test "creates idea_mentioned_in_changelog event when changelog is already published" do
+    published_changelog = changelogs(:two)
+    idea = ideas(:three)
+
+    assert_predicate published_changelog, :published?
+    assert_difference -> { idea.events.where(action: "idea_mentioned_in_changelog").count }, 1 do
+      ChangelogIdea.create!(changelog: published_changelog, idea: idea)
+    end
+
+    event = idea.events.where(action: "idea_mentioned_in_changelog").last
+
+    assert_equal published_changelog.id, event.particulars["changelog_id"]
+    assert_equal published_changelog.title, event.particulars["changelog_title"]
+  end
+
+  test "does not create event when changelog is draft" do
+    draft_changelog = Changelog.create!(
+      account: accounts(:feedbackbin),
+      kind: "improvement",
+      title: "Pending publication",
+      description: "Drafting"
+    )
+    idea = ideas(:three)
+
+    assert_not draft_changelog.published?
+    assert_no_difference -> { idea.events.where(action: "idea_mentioned_in_changelog").count } do
+      ChangelogIdea.create!(changelog: draft_changelog, idea: idea)
+    end
+  end
+
+  test "publishing a draft changelog with linked ideas backfills events" do
+    draft_changelog = changelogs(:draft)
+    idea_one = ideas(:one)
+    idea_two = ideas(:two)
+
+    initial_one = idea_one.events.where(action: "idea_mentioned_in_changelog").count
+    initial_two = idea_two.events.where(action: "idea_mentioned_in_changelog").count
+
+    draft_changelog.update!(published_at: Time.current)
+
+    assert_equal initial_one + 1, idea_one.events.where(action: "idea_mentioned_in_changelog").count
+    assert_equal initial_two + 1, idea_two.events.where(action: "idea_mentioned_in_changelog").count
+
+    backfilled = idea_one.events.where(action: "idea_mentioned_in_changelog").last
+
+    assert_equal draft_changelog.id, backfilled.particulars["changelog_id"]
+  end
+
+  test "republishing an already-published changelog does not duplicate events" do
+    published_changelog = changelogs(:one)
+    idea = ideas(:one)
+
+    published_changelog.update!(published_at: nil)
+    published_changelog.update!(published_at: Time.current)
+
+    first_pass_count = idea.events.where(action: "idea_mentioned_in_changelog")
+                           .select { |e| e.particulars["changelog_id"] == published_changelog.id }
+                           .count
+
+    published_changelog.update!(published_at: nil)
+    published_changelog.update!(published_at: Time.current)
+
+    second_pass_count = idea.events.where(action: "idea_mentioned_in_changelog")
+                            .select { |e| e.particulars["changelog_id"] == published_changelog.id }
+                            .count
+
+    assert_equal first_pass_count, second_pass_count
+  end
 end
