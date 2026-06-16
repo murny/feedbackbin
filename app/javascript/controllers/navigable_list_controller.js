@@ -184,10 +184,9 @@ export default class extends Controller {
   #selectPrevious() {
     const items = this.#visibleItems
     if (!items.length) { return }
-    const index = items.indexOf(this.currentItem)
+    const index = this.#currentIndexOrFocused(items)
     if (index < 0) {
-      const focused = items.find(item => item === document.activeElement || item.contains(document.activeElement))
-      this.#setCurrentFrom(focused || items[items.length - 1])
+      this.#setCurrentFrom(items[items.length - 1])
     } else if (index > 0) {
       this.#setCurrentFrom(items[index - 1])
     }
@@ -196,13 +195,19 @@ export default class extends Controller {
   #selectNext() {
     const items = this.#visibleItems
     if (!items.length) { return }
-    const index = items.indexOf(this.currentItem)
+    const index = this.#currentIndexOrFocused(items)
     if (index < 0) {
-      const focused = items.find(item => item === document.activeElement || item.contains(document.activeElement))
-      this.#setCurrentFrom(focused || items[0])
+      this.#setCurrentFrom(items[0])
     } else if (index < items.length - 1) {
       this.#setCurrentFrom(items[index + 1])
     }
+  }
+
+  #currentIndexOrFocused(items) {
+    const currentIndex = items.indexOf(this.currentItem)
+    if (currentIndex >= 0) { return currentIndex }
+    const focused = items.find(item => item === document.activeElement || item.contains(document.activeElement))
+    return focused ? items.indexOf(focused) : -1
   }
 
   #handleArrowKey(event, fn) {
