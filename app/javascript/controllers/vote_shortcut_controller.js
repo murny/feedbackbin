@@ -17,7 +17,7 @@ export default class extends Controller {
     const focusedItem = document.activeElement?.closest("[data-navigable-list-target~='item']")
     if (!focusedItem) return
 
-    const voteForm = focusedItem.querySelector("form[action*='/vote']")
+    const voteForm = focusedItem.querySelector("form[action$='/vote']")
     if (!voteForm) return
 
     event.preventDefault()
