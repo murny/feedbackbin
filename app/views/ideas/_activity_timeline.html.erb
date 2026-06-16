@@ -1,7 +1,6 @@
-<%# locals: (idea:, events:) %>
+<%# locals: (idea:, events:, total_events:) %>
 <%= turbo_frame_tag "idea_#{idea.id}_activity" do %>
   <% if events.any? %>
-    <% scoped_total = idea.events.where.not(action: %w[idea_created comment_created]).count %>
     <section class="activity-timeline" aria-labelledby="activity_timeline_heading_<%= idea.id %>">
       <h2 id="activity_timeline_heading_<%= idea.id %>" class="activity-timeline__heading txt-medium font-weight-semibold">
         <%= t(".heading") %>
@@ -23,7 +22,7 @@
         <% end %>
       </ol>
 
-      <% if scoped_total > events.size %>
+      <% if total_events > events.size %>
         <%= link_to t(".show_all"),
               idea_path(idea, all_activity: true),
               class: "activity-timeline__show-all",

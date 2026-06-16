@@ -142,7 +142,7 @@
       <% end %>
     <% end %>
 
-    <%= render "ideas/activity_timeline", idea: @idea, events: @recent_events %>
+    <%= render "ideas/activity_timeline", idea: @idea, events: @recent_events, total_events: @recent_events_total %>
 
     <%= render partial: "comments/comments", locals: {
       comment: @comment,
