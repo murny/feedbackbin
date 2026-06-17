@@ -1074,12 +1074,14 @@ en:
       password: Password
       preferences: Preferences
       public_profile: Public Profile
+      watches: Watching
     page_titles:
       account: Account Settings
       active_sessions: Active Sessions
       password: Password Settings
       preferences: Preferences
       profile: Profile Settings
+      watches: Watching
     passwords:
       show:
         change_password: Change password
@@ -1117,6 +1119,25 @@ en:
         upload_new_avatar: Upload new avatar
     settings_description: Manage your account settings and set preferences.
     settings_title: Settings
+    watches:
+      show:
+        bulk_cancel: Keep watching
+        bulk_confirm_action: Yes, unwatch all
+        bulk_confirm_body: You'll stop receiving notifications for all %{count} ideas you're currently watching. You can always start watching individual ideas again.
+        bulk_confirm_title: Stop watching all ideas?
+        bulk_success: Unwatched %{count} ideas
+        bulk_unwatch: Unwatch all ideas
+        description: Ideas you'll get notifications about. Auto-added when you create, vote, or comment.
+        empty_cta: Browse ideas
+        empty_description: When you create, vote on, or comment on an idea, it will appear here so you can keep tabs on updates.
+        empty_title: You're not watching any ideas yet
+        error: We couldn't update your watchlist. Please try again.
+        rewatch_success: Watching %{title} again
+        row_meta: Watching since %{date} · %{votes} votes · %{comments} comments
+        title: Watching
+        unwatch_action: Unwatch idea
+        unwatch_success: Unwatched %{title}
+        unwatch_tooltip: Stop notifications for this idea
   users:
     avatars:
       destroy:

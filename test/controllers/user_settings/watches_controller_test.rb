@@ -28,9 +28,10 @@ module UserSettings
     test "destroy raises RecordNotFound for another user's watch (T-06-05)" do
       other_watch = watches(:shane_watching_one)
 
-      assert_raises(ActiveRecord::RecordNotFound) do
-        delete user_settings_watch_url(other_watch)
-      end
+      delete user_settings_watch_url(other_watch)
+
+      assert_response :not_found
+      assert other_watch.reload.watching?
     end
 
     test "bulk sets all the user's watching rows to watching=false" do
