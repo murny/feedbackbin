@@ -31,6 +31,42 @@ module Admin
                .limit(5)
                .to_a
       end
+
+      @ideas_this_week = Rails.cache.fetch("account_#{account.id}/dashboard_ideas_this_week/v1", expires_in: 10.minutes) do
+        account.ideas
+               .includes(:creator, :board, :status)
+               .where(created_at: 7.days.ago..)
+               .order(created_at: :desc)
+               .limit(5)
+               .to_a
+      end
+
+      @top_voted_ideas = Rails.cache.fetch("account_#{account.id}/dashboard_top_voted/v1", expires_in: 10.minutes) do
+        account.ideas
+               .includes(:creator, :board, :status)
+               .order(votes_count: :desc, created_at: :desc)
+               .limit(5)
+               .to_a
+      end
+
+      @trending_ideas = Rails.cache.fetch("account_#{account.id}/dashboard_trending/v1", expires_in: 10.minutes) do
+        trending_counts = account.votes
+                                 .where(voteable_type: "Idea", created_at: 7.days.ago..)
+                                 .group(:voteable_id)
+                                 .order(Arel.sql("COUNT(*) DESC"))
+                                 .limit(5)
+                                 .count
+
+        ordered_idea_ids = trending_counts.keys
+        next [] if ordered_idea_ids.empty?
+
+        by_id = account.ideas
+                       .includes(:creator, :board, :status)
+                       .where(id: ordered_idea_ids)
+                       .index_by(&:id)
+
+        ordered_idea_ids.map { |id| by_id[id] }.compact.to_a
+      end
     end
   end
 end

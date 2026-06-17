@@ -7,12 +7,15 @@ module Admin
     setup do
       @admin = users(:shane)
       @account = accounts(:feedbackbin)
-      Rails.cache.clear
       sign_in_as @admin
     end
 
-    teardown do
-      Rails.cache.clear
+    def with_memory_cache
+      original = Rails.cache
+      Rails.cache = ActiveSupport::Cache::MemoryStore.new
+      yield
+    ensure
+      Rails.cache = original
     end
 
     test "should get show" do
@@ -22,27 +25,34 @@ module Admin
     end
 
     test "show caches @ideas_this_week with up to 5 recent ideas" do
-      get admin_root_url
+      with_memory_cache do
+        get admin_root_url
 
-      assert_response :success
-      cached = Rails.cache.read("account_#{@account.id}/dashboard_ideas_this_week/v1")
-      assert_kind_of Array, cached
-      assert_operator cached.size, :<=, 5
-      cached.each do |idea|
-        assert_kind_of Idea, idea
-        assert_operator idea.created_at, :>=, 7.days.ago
+        assert_response :success
+        cached = Rails.cache.read("account_#{@account.id}/dashboard_ideas_this_week/v1")
+
+        assert_kind_of Array, cached
+        assert_operator cached.size, :<=, 5
+        cached.each do |idea|
+          assert_kind_of Idea, idea
+          assert_operator idea.created_at, :>=, 7.days.ago
+        end
       end
     end
 
     test "show caches @top_voted_ideas ordered by votes_count desc" do
-      get admin_root_url
+      with_memory_cache do
+        get admin_root_url
 
-      assert_response :success
-      cached = Rails.cache.read("account_#{@account.id}/dashboard_top_voted/v1")
-      assert_kind_of Array, cached
-      assert_operator cached.size, :<=, 5
-      vote_counts = cached.map(&:votes_count)
-      assert_equal vote_counts.sort.reverse, vote_counts, "expected top_voted ideas to be sorted by votes_count desc"
+        assert_response :success
+        cached = Rails.cache.read("account_#{@account.id}/dashboard_top_voted/v1")
+
+        assert_kind_of Array, cached
+        assert_operator cached.size, :<=, 5
+        vote_counts = cached.map(&:votes_count)
+
+        assert_equal vote_counts.sort.reverse, vote_counts, "expected top_voted ideas to be sorted by votes_count desc"
+      end
     end
 
     test "show caches @trending_ideas based on last-7-day votes" do
@@ -56,39 +66,46 @@ module Admin
       end
       @account.votes.create!(voter: users(:shane), voteable: another_idea, created_at: 2.days.ago)
 
-      Rails.cache.clear
+      with_memory_cache do
+        get admin_root_url
 
-      get admin_root_url
+        assert_response :success
+        cached = Rails.cache.read("account_#{@account.id}/dashboard_trending/v1")
 
-      assert_response :success
-      cached = Rails.cache.read("account_#{@account.id}/dashboard_trending/v1")
-      assert_kind_of Array, cached
-      assert_operator cached.size, :<=, 5
-      assert_equal trending_idea.id, cached.first.id, "expected the most-voted idea in last 7 days to be first"
+        assert_kind_of Array, cached
+        assert_operator cached.size, :<=, 5
+        assert_equal trending_idea.id, cached.first.id, "expected the most-voted idea in last 7 days to be first"
+      end
     end
 
     test "trending metric uses account-scoped cache key" do
-      get admin_root_url
+      with_memory_cache do
+        get admin_root_url
 
-      assert_response :success
-      assert Rails.cache.exist?("account_#{@account.id}/dashboard_trending/v1"),
-        "expected account-scoped trending cache key to be populated"
+        assert_response :success
+        assert Rails.cache.exist?("account_#{@account.id}/dashboard_trending/v1"),
+          "expected account-scoped trending cache key to be populated"
+      end
     end
 
     test "ideas_this_week metric uses account-scoped cache key with v1 suffix" do
-      get admin_root_url
+      with_memory_cache do
+        get admin_root_url
 
-      assert_response :success
-      assert Rails.cache.exist?("account_#{@account.id}/dashboard_ideas_this_week/v1"),
-        "expected account-scoped ideas_this_week cache key to be populated"
+        assert_response :success
+        assert Rails.cache.exist?("account_#{@account.id}/dashboard_ideas_this_week/v1"),
+          "expected account-scoped ideas_this_week cache key to be populated"
+      end
     end
 
     test "top_voted metric uses account-scoped cache key with v1 suffix" do
-      get admin_root_url
+      with_memory_cache do
+        get admin_root_url
 
-      assert_response :success
-      assert Rails.cache.exist?("account_#{@account.id}/dashboard_top_voted/v1"),
-        "expected account-scoped top_voted cache key to be populated"
+        assert_response :success
+        assert Rails.cache.exist?("account_#{@account.id}/dashboard_top_voted/v1"),
+          "expected account-scoped top_voted cache key to be populated"
+      end
     end
   end
 end
