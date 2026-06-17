@@ -1,0 +1,8 @@
+<%= t(".heading") %>
+
+<%= t(".lead", commenter: @commenter.name, title: @idea.title) %>
+
+<%= @comment.body.to_plain_text %>
+
+<%= t(".cta") %>:
+<%= idea_url(@idea, anchor: "comment_#{@comment.id}") %>
