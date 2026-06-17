@@ -3,6 +3,8 @@
 require "test_helper"
 
 class Notifier::CommentEventNotifierTest < ActiveSupport::TestCase
+  include ActionMailer::TestHelper
+
   setup do
     Current.session = sessions(:shane_chrome)
     Watch.destroy_all
@@ -87,7 +89,10 @@ class Notifier::CommentEventNotifierTest < ActiveSupport::TestCase
     event = events(:comment_created)
     event.eventable.update!(internal: true)
 
-    notifications = Notifier.for(event).notify
+    notifications = nil
+    assert_enqueued_emails 0 do
+      notifications = Notifier.for(event).notify
+    end
 
     assert_not_includes notifications.map(&:user), users(:john)
   end
@@ -124,5 +129,16 @@ class Notifier::CommentEventNotifierTest < ActiveSupport::TestCase
     notifications = Notifier.for(event).notify
 
     assert_includes notifications.map(&:user), users(:john)
+  end
+
+  test "comment_created enqueues one IdeaCommentMailer job per recipient" do
+    ideas(:one).watch_by(users(:shane))
+    ideas(:one).watch_by(users(:john))
+
+    event = events(:comment_created)
+
+    assert_enqueued_emails 2 do
+      Notifier.for(event).notify
+    end
   end
 end

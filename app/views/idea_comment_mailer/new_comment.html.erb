@@ -1,0 +1,11 @@
+<p><%= t(".heading") %></p>
+
+<p><%= t(".lead", commenter: @commenter.name, title: @idea.title) %></p>
+
+<blockquote><%= @comment.body.to_plain_text %></blockquote>
+
+<p>
+  <%= render Elements::ButtonComponent.new(href: idea_url(@idea, anchor: "comment_#{@comment.id}"), variant: :default) do %>
+    <%= t(".cta") %>
+  <% end %>
+</p>
