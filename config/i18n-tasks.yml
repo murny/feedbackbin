@@ -124,6 +124,7 @@ ignore_unused:
   - 'activerecord.errors.models.*'
   - 'errors.messages.*'
   - 'pagy.*'
+  - 'admin.dashboard.show.actionable.{ideas_this_week,top_voted,trending}_label'
 # - 'activerecord.attributes.*'
 # - '{devise,kaminari,will_paginate}.*'
 # - 'simple_form.{yes,no}'

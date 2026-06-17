@@ -1,0 +1,61 @@
+<% label_key = "admin.dashboard.show.actionable.#{metric}_label" %>
+<% icon_name =
+     case metric
+     when :ideas_this_week then "clock"
+     when :top_voted then "trending-up"
+     when :trending then "flame"
+     end %>
+<% tile_attrs = { class: "panel panel--stat", data: { actionable_metric: metric } } %>
+<% tile_attrs["aria-describedby"] = "trending-hint" if metric == :trending %>
+<%= tag.div(**tile_attrs) do %>
+  <div class="pad">
+    <div class="flex align-center">
+      <div class="flex-item-no-shrink">
+        <%= lucide_icon icon_name, class: "size-8 txt-primary" %>
+      </div>
+      <div class="flex-1" style="margin-inline-start: var(--space-5); inline-size: 0;">
+        <dl>
+          <dt class="panel__stat-label"><%= t(label_key) %></dt>
+          <dd>
+            <% if ideas.present? %>
+              <ul class="list-style-none" style="margin-block-start: var(--space-3);">
+                <% ideas.each do |idea| %>
+                  <li class="flex align-center gap-3" style="margin-block-end: var(--space-3);">
+                    <%= render Elements::AvatarComponent.new(
+                          src: idea.creator.avatar.attached? ? url_for(idea.creator.avatar) : nil,
+                          alt: idea.creator.name,
+                          size: :sm,
+                          fallback: idea.creator.name[0, 2].upcase
+                        ) %>
+                    <div class="flex-1" style="min-inline-size: 0;">
+                      <p class="txt-small font-weight-medium overflow-ellipsis">
+                        <%= link_to idea.title, idea_path(idea) %>
+                      </p>
+                    </div>
+                    <%= render Elements::BadgeComponent.new(variant: :secondary) do %>
+                      <%= idea.votes_count.to_s %>
+                    <% end %>
+                  </li>
+                <% end %>
+              </ul>
+            <% else %>
+              <p class="txt-small txt-subtle" style="margin-block-start: var(--space-3);">
+                <%= t("admin.dashboard.show.actionable.empty_title") %>
+              </p>
+              <p class="txt-x-small txt-subtle">
+                <%= t("admin.dashboard.show.actionable.empty_description") %>
+              </p>
+            <% end %>
+          </dd>
+        </dl>
+      </div>
+    </div>
+  </div>
+  <% if metric == :trending %>
+    <div class="panel__stat-footer">
+      <small id="trending-hint" class="txt-small txt-subtle">
+        <%= t("admin.dashboard.show.actionable.trending_hint") %>
+      </small>
+    </div>
+  <% end %>
+<% end %>

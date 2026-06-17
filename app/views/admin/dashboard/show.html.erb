@@ -11,6 +11,13 @@
   </div>
 </header>
 
+<%= render partial: "admin/dashboard/actionable_section",
+           locals: {
+             ideas_this_week: @ideas_this_week,
+             top_voted_ideas: @top_voted_ideas,
+             trending_ideas: @trending_ideas
+           } %>
+
 <div style="margin-block-end: var(--space-8);">
   <h2 class="txt-medium font-weight-bold margin-block-end"><%= t(".stats.title") %></h2>
   <dl class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
