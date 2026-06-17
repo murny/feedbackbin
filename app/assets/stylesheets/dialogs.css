@@ -34,9 +34,13 @@
     max-inline-size: none;
     max-block-size: none;
 
-    /* Positioning */
+    /* Positioning — explicit viewport sizing overrides UA `width: fit-content`,
+       which otherwise collapses to 0 because `.dialog__content` is fixed-positioned
+       (out of flow) and leaves the <dialog> with no in-flow content to size against. */
     position: fixed;
     inset: 0;
+    inline-size: 100vw;
+    block-size: 100vh;
 
     /* Initial hidden state */
     opacity: 0;
