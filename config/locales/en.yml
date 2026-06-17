@@ -104,6 +104,15 @@ en:
         successfully_updated: Changelog entry was successfully updated.
     dashboard:
       show:
+        actionable:
+          description: What needs your attention this week
+          empty_description: Once people start submitting and voting, you'll see what to act on here.
+          empty_title: No activity yet
+          ideas_this_week_label: Ideas this week
+          title: Actionable
+          top_voted_label: Top voted
+          trending_hint: Votes in the last 7 days
+          trending_label: Trending
         description: Overview of your application's activity and key metrics
         heading: Admin Dashboard
         recent_comments:

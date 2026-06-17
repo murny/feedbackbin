@@ -122,7 +122,7 @@ module Admin
 
       assert_response :success
       assert_select "section[aria-labelledby='actionable-heading']" do
-        assert_select ".panel--stat", count: 3 + 3
+        assert_select ".panel--stat", count: 3
         assert_select "[data-actionable-metric='ideas_this_week']"
         assert_select "[data-actionable-metric='top_voted']"
         assert_select "[data-actionable-metric='trending']"
