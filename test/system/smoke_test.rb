@@ -50,4 +50,14 @@ class SmokeTest < ApplicationSystemTestCase
 
     assert_text "Smoke test comment body."
   end
+
+  test "watching an idea via the bell button" do
+    sign_in_as(@user)
+
+    visit idea_url(@unvoted_idea, script_name: @account.slug)
+    find('button[aria-label="Watch this idea"]').click
+
+    assert_selector 'button[aria-label="Unwatch this idea"]'
+    assert @unvoted_idea.reload.watched_by?(@user)
+  end
 end
