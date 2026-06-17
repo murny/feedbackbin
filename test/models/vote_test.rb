@@ -46,4 +46,54 @@ class VoteTest < ActiveSupport::TestCase
       accounts(:acme).votes.find(feedbackbin_vote.id)
     end
   end
+
+  test "auto-watches idea when user votes on an idea" do
+    Current.session = sessions(:shane_chrome)
+    Watch.destroy_all
+
+    idea = ideas(:two)
+    voter = users(:jane)
+
+    assert_not idea.watched_by?(voter)
+
+    Vote.create!(voter: voter, voteable: idea)
+
+    assert idea.watched_by?(voter)
+  end
+
+  test "does not auto-watch when voting on a Comment" do
+    Current.session = sessions(:shane_chrome)
+    Watch.destroy_all
+
+    comment = comments(:one)
+    voter = users(:john)
+
+    assert_no_difference -> { Watch.where(user: voter).count } do
+      Vote.create!(voter: voter, voteable: comment)
+    end
+  end
+
+  test "does not auto-watch for system voter" do
+    Current.session = sessions(:shane_chrome)
+    Watch.destroy_all
+
+    idea = ideas(:two)
+    system_voter = users(:system)
+
+    assert_no_difference -> { Watch.where(user: system_voter, idea: idea).count } do
+      Vote.create!(voter: system_voter, voteable: idea)
+    end
+  end
+
+  test "does not auto-watch for bot voter" do
+    Current.session = sessions(:shane_chrome)
+    Watch.destroy_all
+
+    idea = ideas(:two)
+    bot_voter = users(:bot)
+
+    assert_no_difference -> { Watch.where(user: bot_voter, idea: idea).count } do
+      Vote.create!(voter: bot_voter, voteable: idea)
+    end
+  end
 end
