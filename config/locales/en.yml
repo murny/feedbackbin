@@ -1006,6 +1006,15 @@ en:
   ui:
     toast:
       dismiss: Dismiss
+  unsubscribes:
+    show:
+      body: You'll stop getting notifications about %{idea_title}.
+      expired_body: Sign in and manage your watched ideas from settings.
+      expired_cta: Sign in
+      expired_title: This unsubscribe link has expired
+      manage: Manage all watched ideas
+      rewatch: Watch again
+      title: You've been unsubscribed
   user_settings:
     accounts:
       show:
