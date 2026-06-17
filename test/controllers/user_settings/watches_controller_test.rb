@@ -31,11 +31,11 @@ module UserSettings
       delete user_settings_watch_url(other_watch)
 
       assert_response :not_found
-      assert other_watch.reload.watching?
+      assert_predicate other_watch.reload, :watching?
     end
 
     test "bulk sets all the user's watching rows to watching=false" do
-      assert @user.watches.watching.count >= 2
+      assert_operator @user.watches.watching.count, :>=, 2
 
       delete bulk_user_settings_watches_url
 
@@ -47,7 +47,8 @@ module UserSettings
     test "bulk does NOT touch other users' watches (T-06-05 isolation)" do
       shane = users(:shane)
       shane_watching_before = shane.watches.watching.count
-      assert shane_watching_before >= 1
+
+      assert_operator shane_watching_before, :>=, 1
 
       delete bulk_user_settings_watches_url
 

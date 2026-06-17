@@ -1081,7 +1081,6 @@ en:
       password: Password Settings
       preferences: Preferences
       profile: Profile Settings
-      watches: Watching
     passwords:
       show:
         change_password: Change password
@@ -1131,8 +1130,6 @@ en:
         empty_cta: Browse ideas
         empty_description: When you create, vote on, or comment on an idea, it will appear here so you can keep tabs on updates.
         empty_title: You're not watching any ideas yet
-        error: We couldn't update your watchlist. Please try again.
-        rewatch_success: Watching %{title} again
         row_meta: Watching since %{date} · %{votes} votes · %{comments} comments
         title: Watching
         unwatch_action: Unwatch idea
