@@ -4,6 +4,7 @@ class UnsubscribesController < ApplicationController
   allow_unauthenticated_access only: :destroy_by_token
   skip_before_action :require_account, only: :destroy_by_token
   skip_before_action :ensure_signup_completed, only: :destroy_by_token
+  skip_forgery_protection only: :destroy_by_token
 
   def destroy_by_token
     payload = Rails.application.message_verifier(:watch_unsubscribe).verified(params[:token])

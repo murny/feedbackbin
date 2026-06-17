@@ -620,11 +620,17 @@ en:
   idea_comment_mailer:
     new_comment:
       cta: View the discussion
+      footer_manage: Manage all watched ideas
+      footer_reason: You're getting this because you're watching %{title}.
+      footer_unwatch: Unwatch this idea
       heading: New comment on an idea you're watching
       lead: "%{commenter} just commented on %{title}:"
       subject: "%{commenter} commented on %{title}"
   idea_status_change_mailer:
     status_changed:
+      footer_manage: Manage all watched ideas
+      footer_reason: You're getting this because you voted on or are watching %{title}.
+      footer_unwatch: Unwatch this idea
       greeting: Hi %{name},
       signature: You are receiving this because you voted on or are watching this idea.
       status_changed: The status of '%{title}' changed from %{old_status} to %{new_status}.

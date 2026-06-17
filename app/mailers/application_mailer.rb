@@ -3,6 +3,7 @@
 class ApplicationMailer < ActionMailer::Base
   default from: ENV.fetch("MAILER_FROM_ADDRESS", "FeedbackBin <support@feedbackbin.com>")
   layout "mailer"
+  helper :application
 
   private
 
