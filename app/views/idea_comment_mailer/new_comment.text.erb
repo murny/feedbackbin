@@ -6,3 +6,12 @@
 
 <%= t(".cta") %>:
 <%= idea_url(@idea, anchor: "comment_#{@comment.id}") %>
+
+---
+<%= t(".footer_reason", title: @idea.title) %>
+
+<%= t(".footer_unwatch") %>:
+<%= unsubscribe_destroy_by_token_url(token: unwatch_token_for(@idea, @recipient)) %>
+
+<%= t(".footer_manage") %>:
+<%= user_settings_watches_url %>

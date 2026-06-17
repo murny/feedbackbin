@@ -1,0 +1,18 @@
+<% content_for(:title) { t("unsubscribes.show.expired_title") } %>
+
+<div class="container">
+  <div class="margin-block-start-double">
+    <div class="panel" style="padding: var(--space-6);">
+      <div class="flex flex-column gap-6">
+        <div>
+          <h2 class="txt-large font-weight-medium"><%= t("unsubscribes.show.expired_title") %></h2>
+          <p class="txt-small txt-subtle"><%= t("unsubscribes.show.expired_body") %></p>
+        </div>
+
+        <div>
+          <%= link_to t("unsubscribes.show.expired_cta"), sign_in_path, class: "btn btn--primary" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

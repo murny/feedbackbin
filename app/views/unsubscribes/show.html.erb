@@ -1,0 +1,22 @@
+<% content_for(:title) { t(".title") } %>
+
+<div class="container">
+  <div class="margin-block-start-double">
+    <div class="panel" style="padding: var(--space-6);">
+      <div class="flex flex-column gap-6">
+        <div>
+          <h2 class="txt-large font-weight-medium"><%= t(".title") %></h2>
+          <p class="txt-small txt-subtle"><%= t(".body", idea_title: @idea.title) %></p>
+        </div>
+
+        <div class="flex gap-3">
+          <%= render Elements::ButtonComponent.new(variant: :primary, href: idea_watch_path(@idea), method: :post) do %>
+            <%= t(".rewatch") %>
+          <% end %>
+
+          <%= link_to t(".manage"), user_settings_watches_url, class: "btn btn--outline" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
