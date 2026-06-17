@@ -107,5 +107,35 @@ module Admin
           "expected account-scoped top_voted cache key to be populated"
       end
     end
+
+    test "show renders the Actionable section above the existing stats grid" do
+      get admin_root_url
+
+      assert_response :success
+      assert_select "section[aria-labelledby='actionable-heading']" do
+        assert_select "h2#actionable-heading", text: I18n.t("admin.dashboard.show.actionable.title")
+      end
+    end
+
+    test "show renders three actionable tiles with metric labels" do
+      get admin_root_url
+
+      assert_response :success
+      assert_select "section[aria-labelledby='actionable-heading']" do
+        assert_select ".panel--stat", count: 3 + 3
+        assert_select "[data-actionable-metric='ideas_this_week']"
+        assert_select "[data-actionable-metric='top_voted']"
+        assert_select "[data-actionable-metric='trending']"
+      end
+    end
+
+    test "trending tile is described by a votes-in-last-7-days hint" do
+      get admin_root_url
+
+      assert_response :success
+      assert_select "[data-actionable-metric='trending'][aria-describedby='trending-hint']"
+      assert_select "#trending-hint",
+        text: I18n.t("admin.dashboard.show.actionable.trending_hint")
+    end
   end
 end
