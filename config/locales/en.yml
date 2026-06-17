@@ -733,8 +733,10 @@ en:
         successfully_voted: Your vote has been recorded.
     watches:
       watch_button:
-        watch: Watch
-        watching: Watching
+        tooltip_off: Get notified about comments and status changes
+        tooltip_on: You'll be notified about new activity
+        unwatch_action: Unwatch this idea
+        watch_action: Watch this idea
   identity_mailer:
     email_change_confirmation:
       confirm_email_change: Confirm your email change

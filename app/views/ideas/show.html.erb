@@ -121,9 +121,16 @@
           <div class="margin-block-start flex flex-wrap align-center justify-space-between gap">
             <div class="flex flex-wrap align-center gap-half">
               <%= turbo_frame_tag @idea, :watch, src: idea_watch_path(@idea) do %>
-                <%= render Elements::ButtonComponent.new(variant: :outline, disabled: true) do %>
+                <%= render Elements::ButtonComponent.new(
+                      variant: :ghost,
+                      size: :icon,
+                      disabled: true,
+                      class: "watch-toggle",
+                      "aria-busy": "true",
+                      "aria-label": t(".watch")
+                    ) do %>
                   <%= lucide_icon "bell-off" %>
-                  <%= t(".watch") %>
+                  <span class="visually-hidden"><%= t(".watch") %></span>
                 <% end %>
               <% end %>
               <%= render Elements::ButtonComponent.new(variant: :outline) do %>

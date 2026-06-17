@@ -1,0 +1,13 @@
+@layer components {
+  .watch-toggle {
+    --watch-toggle-color: var(--color-ink-light);
+
+    &[aria-pressed="true"] {
+      --watch-toggle-color: var(--color-primary);
+    }
+
+    & svg {
+      color: var(--watch-toggle-color);
+    }
+  }
+}
