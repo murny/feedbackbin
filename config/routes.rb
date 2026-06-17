@@ -52,11 +52,6 @@ Rails.application.routes.draw do
     resource :password, only: [ :show, :update ]
     resource :preferences, only: [ :show, :update ]
     resource :profile, only: [ :show, :update ]
-    resources :watches, only: [ :index, :destroy ] do
-      collection do
-        delete :bulk
-      end
-    end
 
     root to: redirect("/user_settings/profile")
   end

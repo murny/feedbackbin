@@ -12,6 +12,3 @@
 
 <%= t(".footer_unwatch") %>:
 <%= unsubscribe_destroy_by_token_url(token: unwatch_token_for(@idea, @recipient)) %>
-
-<%= t(".footer_manage") %>:
-<%= user_settings_watches_url %>

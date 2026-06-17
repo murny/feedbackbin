@@ -49,12 +49,10 @@ class IdeaCommentMailerTest < ActionMailer::TestCase
     assert_match(/method="post"/i, html_part)
   end
 
-  test "new_comment text body includes a bare unsubscribe URL and manage URL" do
+  test "new_comment text body includes a bare unsubscribe URL" do
     text_part = @mail.text_part&.body&.encoded || @mail.body.encoded
     expected_unsub = Rails.application.routes.url_helpers.unsubscribe_destroy_by_token_path(script_name: Current.account.slug)
-    expected_manage = Rails.application.routes.url_helpers.user_settings_watches_path(script_name: Current.account.slug)
 
     assert_match expected_unsub, text_part
-    assert_match expected_manage, text_part
   end
 end

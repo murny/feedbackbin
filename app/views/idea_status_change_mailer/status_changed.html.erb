@@ -16,6 +16,4 @@
   <form action="<%= unsubscribe_destroy_by_token_url(token: unwatch_token_for(@idea, @recipient)) %>" method="post" style="display: inline;">
     <button type="submit" style="background: none; border: 0; color: #06c; padding: 0; cursor: pointer; text-decoration: underline; font: inherit;"><%= t(".footer_unwatch") %></button>
   </form>
-  ·
-  <%= link_to t(".footer_manage"), user_settings_watches_url %>
 </p>

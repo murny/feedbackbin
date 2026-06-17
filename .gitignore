@@ -51,3 +51,4 @@
 # Claude
 /.claude/*
 .planning/
+.gstack/
