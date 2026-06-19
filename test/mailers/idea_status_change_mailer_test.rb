@@ -42,15 +42,15 @@ class IdeaStatusChangeMailerTest < ActionMailer::TestCase
     html_part = @mail.html_part&.body&.encoded || @mail.body.encoded
     expected_path = Rails.application.routes.url_helpers.unsubscribe_path(script_name: Current.account.slug)
 
-    assert_match expected_path, html_part
+    assert_match %r{#{Regexp.escape(expected_path)}\?token=[^"&\s]+}, html_part
     assert_match(/<a [^>]*href=["'][^"']*#{Regexp.escape(expected_path)}/, html_part)
     refute_match(/<form\b/i, html_part)
   end
 
-  test "status_changed text body includes a bare unsubscribe URL" do
+  test "status_changed text body includes a bare unsubscribe URL with a non-empty token" do
     text_part = @mail.text_part&.body&.encoded || @mail.body.encoded
     expected_unsub = Rails.application.routes.url_helpers.unsubscribe_path(script_name: Current.account.slug)
 
-    assert_match expected_unsub, text_part
+    assert_match %r{#{Regexp.escape(expected_unsub)}\?token=\S+}, text_part
   end
 end

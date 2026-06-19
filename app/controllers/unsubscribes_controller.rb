@@ -4,6 +4,10 @@ class UnsubscribesController < ApplicationController
   allow_unauthenticated_access only: [ :show, :destroy_by_token ]
   skip_before_action :require_account, only: [ :show, :destroy_by_token ]
   skip_before_action :ensure_signup_completed, only: [ :show, :destroy_by_token ]
+
+  # One-click unsubscribe must be callable from any origin (mail clients, RFC 8058
+  # List-Unsubscribe-Post). The signed message_verifier token (watch_id + user_id +
+  # idea_id, 30-day expiry, uniform 410 Gone on mismatch) replaces CSRF protection.
   skip_forgery_protection only: :destroy_by_token
 
   def show

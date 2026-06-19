@@ -53,7 +53,7 @@ module Admin
         trending_counts = account.votes
                                  .where(voteable_type: "Idea", created_at: 7.days.ago..)
                                  .group(:voteable_id)
-                                 .order(Arel.sql("COUNT(*) DESC"))
+                                 .order(Arel.sql("COUNT(*) DESC, voteable_id ASC"))
                                  .limit(5)
                                  .count
 
