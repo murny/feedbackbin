@@ -10,11 +10,11 @@
         </div>
 
         <div class="flex gap-3">
-          <%= render Elements::ButtonComponent.new(variant: :primary, href: unsubscribe_destroy_by_token_path(token: params[:token]), method: :post) do %>
-            <%= t(".confirm") %>
+          <%= render Elements::ButtonComponent.new(variant: :primary, href: idea_watch_path(@idea), method: :post) do %>
+            <%= t(".rewatch") %>
           <% end %>
 
-          <%= link_to t(".cancel"), idea_url(@idea), class: "btn btn--outline" %>
+          <%= link_to t(".back_to_idea"), idea_url(@idea), class: "btn btn--outline" %>
         </div>
       </div>
     </div>

@@ -1013,14 +1013,20 @@ en:
     toast:
       dismiss: Dismiss
   unsubscribes:
-    show:
+    done:
       back_to_idea: Back to idea
       body: You'll stop getting notifications about %{idea_title}.
-      expired_body: This unsubscribe link has expired. Sign in and unwatch the idea directly.
-      expired_cta: Sign in
-      expired_title: This unsubscribe link has expired
       rewatch: Watch again
       title: You've been unsubscribed
+    expired:
+      body: This unsubscribe link has expired. Sign in and unwatch the idea directly.
+      cta: Sign in
+      title: This unsubscribe link has expired
+    show:
+      body: We'll stop sending you emails about %{idea_title}.
+      cancel: Cancel
+      confirm: Unsubscribe
+      title: Unsubscribe from updates on this idea?
   user_settings:
     accounts:
       show:

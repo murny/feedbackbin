@@ -38,17 +38,18 @@ class IdeaStatusChangeMailerTest < ActionMailer::TestCase
     assert_match "voted on or are watching", @mail.body.encoded
   end
 
-  test "status_changed HTML body includes a POST unwatch link with a signed token" do
+  test "status_changed HTML body includes a GET unwatch link with a signed token" do
     html_part = @mail.html_part&.body&.encoded || @mail.body.encoded
-    expected_path = Rails.application.routes.url_helpers.unsubscribe_destroy_by_token_path(script_name: Current.account.slug)
+    expected_path = Rails.application.routes.url_helpers.unsubscribe_path(script_name: Current.account.slug)
 
     assert_match expected_path, html_part
-    assert_match(/method="post"/i, html_part)
+    assert_match(/<a [^>]*href=["'][^"']*#{Regexp.escape(expected_path)}/, html_part)
+    refute_match(/<form\b/i, html_part)
   end
 
   test "status_changed text body includes a bare unsubscribe URL" do
     text_part = @mail.text_part&.body&.encoded || @mail.body.encoded
-    expected_unsub = Rails.application.routes.url_helpers.unsubscribe_destroy_by_token_path(script_name: Current.account.slug)
+    expected_unsub = Rails.application.routes.url_helpers.unsubscribe_path(script_name: Current.account.slug)
 
     assert_match expected_unsub, text_part
   end

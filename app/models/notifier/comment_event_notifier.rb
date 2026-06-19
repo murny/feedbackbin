@@ -11,7 +11,7 @@ class Notifier::CommentEventNotifier < Notifier
 
   def notify
     super.tap do |notifications|
-      return notifications unless source.action.to_s == "comment_created"
+      next unless source.action.to_s == "comment_created"
 
       notifications.each do |notification|
         IdeaCommentMailer
