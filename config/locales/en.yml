@@ -104,6 +104,15 @@ en:
         successfully_updated: Changelog entry was successfully updated.
     dashboard:
       show:
+        actionable:
+          description: What needs your attention this week
+          empty_description: Once people start submitting and voting, you'll see what to act on here.
+          empty_title: No activity yet
+          ideas_this_week_label: Ideas this week
+          title: Actionable
+          top_voted_label: Top voted
+          trending_hint: Votes in the last 7 days
+          trending_label: Trending
         description: Overview of your application's activity and key metrics
         heading: Admin Dashboard
         recent_comments:
@@ -608,8 +617,18 @@ en:
     unknown_item: unknown item
     was: was
     you: You
+  idea_comment_mailer:
+    new_comment:
+      cta: View the discussion
+      footer_reason: You're getting this because you're watching %{title}.
+      footer_unwatch: Unwatch this idea
+      heading: New comment on an idea you're watching
+      lead: "%{commenter} just commented on %{title}:"
+      subject: "%{commenter} commented on %{title}"
   idea_status_change_mailer:
     status_changed:
+      footer_reason: You're getting this because you voted on or are watching %{title}.
+      footer_unwatch: Unwatch this idea
       greeting: Hi %{name},
       signature: You are receiving this because you voted on or are watching this idea.
       status_changed: The status of '%{title}' changed from %{old_status} to %{new_status}.
@@ -712,8 +731,10 @@ en:
         successfully_voted: Your vote has been recorded.
     watches:
       watch_button:
-        watch: Watch
-        watching: Watching
+        tooltip_off: Get notified about comments and status changes
+        tooltip_on: You'll be notified about new activity
+        unwatch_action: Unwatch this idea
+        watch_action: Watch this idea
   identity_mailer:
     email_change_confirmation:
       confirm_email_change: Confirm your email change
@@ -991,6 +1012,21 @@ en:
   ui:
     toast:
       dismiss: Dismiss
+  unsubscribes:
+    done:
+      back_to_idea: Back to idea
+      body: You'll stop getting notifications about %{idea_title}.
+      rewatch: Watch again
+      title: You've been unsubscribed
+    expired:
+      body: This unsubscribe link has expired. Sign in and unwatch the idea directly.
+      cta: Sign in
+      title: This unsubscribe link has expired
+    show:
+      body: We'll stop sending you emails about %{idea_title}.
+      cancel: Cancel
+      confirm: Unsubscribe
+      title: Unsubscribe from updates on this idea?
   user_settings:
     accounts:
       show:

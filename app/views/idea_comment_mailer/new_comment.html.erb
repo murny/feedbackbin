@@ -1,0 +1,17 @@
+<p><%= t(".heading") %></p>
+
+<p><%= t(".lead", commenter: @commenter.name, title: @idea.title) %></p>
+
+<blockquote><%= @comment.body.to_plain_text %></blockquote>
+
+<p>
+  <%= render Elements::ButtonComponent.new(href: idea_url(@idea, anchor: "comment_#{@comment.id}"), variant: :default) do %>
+    <%= t(".cta") %>
+  <% end %>
+</p>
+
+<hr>
+<p style="font-size: 12px; color: #666;">
+  <%= t(".footer_reason", title: @idea.title) %>
+  <a href="<%= unsubscribe_url(token: unwatch_token_for(@idea, @recipient)) %>" style="color: #06c; text-decoration: underline;"><%= t(".footer_unwatch") %></a>
+</p>

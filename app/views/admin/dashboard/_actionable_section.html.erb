@@ -1,0 +1,16 @@
+<section aria-labelledby="actionable-heading" style="margin-block-end: var(--space-8);">
+  <h2 id="actionable-heading" class="txt-medium font-weight-bold margin-block-end">
+    <%= t("admin.dashboard.show.actionable.title") %>
+  </h2>
+  <p class="txt-small txt-subtle margin-block-end">
+    <%= t("admin.dashboard.show.actionable.description") %>
+  </p>
+  <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+    <%= render partial: "admin/dashboard/actionable_tile",
+               locals: { metric: :ideas_this_week, ideas: ideas_this_week } %>
+    <%= render partial: "admin/dashboard/actionable_tile",
+               locals: { metric: :top_voted, ideas: top_voted_ideas } %>
+    <%= render partial: "admin/dashboard/actionable_tile",
+               locals: { metric: :trending, ideas: trending_ideas } %>
+  </div>
+</section>

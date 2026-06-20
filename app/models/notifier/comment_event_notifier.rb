@@ -9,6 +9,19 @@
 class Notifier::CommentEventNotifier < Notifier
   delegate :creator, to: :source
 
+  def notify
+    super.tap do |notifications|
+      next unless source.action.to_s == "comment_created"
+
+      notifications.each do |notification|
+        IdeaCommentMailer
+          .with(comment: comment, recipient: notification.user)
+          .new_comment
+          .deliver_later
+      end
+    end
+  end
+
   private
 
     def comment

@@ -57,6 +57,13 @@ Rails.application.routes.draw do
   end
 
   # =============================================================================
+  # Unsubscribe (signed-token confirmation; works without authenticated session)
+  # =============================================================================
+
+  get  "unsubscribe",                   to: "unsubscribes#show",              as: :unsubscribe
+  post "unsubscribe/destroy_by_token",  to: "unsubscribes#destroy_by_token",  as: :unsubscribe_destroy_by_token
+
+  # =============================================================================
   # User Resources
   # =============================================================================
 

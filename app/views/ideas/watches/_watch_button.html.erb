@@ -1,13 +1,31 @@
 <div id="<%= dom_id(idea, :watch_button) %>">
   <% if idea.watched_by?(Current.user) %>
-    <%= render Elements::ButtonComponent.new(variant: :outline, href: idea_watch_path(idea), method: :delete) do %>
+    <%= render Elements::ButtonComponent.new(
+          variant: :ghost,
+          size: :icon,
+          href: idea_watch_path(idea),
+          method: :delete,
+          class: "watch-toggle",
+          "aria-pressed": "true",
+          "aria-label": t(".unwatch_action"),
+          title: t(".tooltip_on")
+        ) do %>
       <%= lucide_icon "bell" %>
-      <%= t(".watching") %>
+      <span class="visually-hidden"><%= t(".unwatch_action") %></span>
     <% end %>
   <% else %>
-    <%= render Elements::ButtonComponent.new(variant: :outline, href: idea_watch_path(idea), method: :post) do %>
+    <%= render Elements::ButtonComponent.new(
+          variant: :ghost,
+          size: :icon,
+          href: idea_watch_path(idea),
+          method: :post,
+          class: "watch-toggle",
+          "aria-pressed": "false",
+          "aria-label": t(".watch_action"),
+          title: t(".tooltip_off")
+        ) do %>
       <%= lucide_icon "bell-off" %>
-      <%= t(".watch") %>
+      <span class="visually-hidden"><%= t(".watch_action") %></span>
     <% end %>
   <% end %>
 </div>

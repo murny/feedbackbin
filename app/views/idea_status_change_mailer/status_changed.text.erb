@@ -7,3 +7,9 @@
 
 ---
 <%= t(".signature") %>
+
+---
+<%= t(".footer_reason", title: @idea.title) %>
+
+<%= t(".footer_unwatch") %>:
+<%= unsubscribe_url(token: unwatch_token_for(@idea, @recipient)) %>

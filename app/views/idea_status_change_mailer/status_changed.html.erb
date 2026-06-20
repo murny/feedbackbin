@@ -9,3 +9,9 @@
 </p>
 
 <p><%= t(".signature") %></p>
+
+<hr>
+<p style="font-size: 12px; color: #666;">
+  <%= t(".footer_reason", title: @idea.title) %>
+  <a href="<%= unsubscribe_url(token: unwatch_token_for(@idea, @recipient)) %>" style="color: #06c; text-decoration: underline;"><%= t(".footer_unwatch") %></a>
+</p>
