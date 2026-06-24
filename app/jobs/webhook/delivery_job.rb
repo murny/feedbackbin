@@ -14,7 +14,7 @@ class Webhook::DeliveryJob < ApplicationJob
   queue_as :webhooks
 
   # Retry configuration for transient failures
-  retry_on StandardError, wait: :exponentially_longer, attempts: 3
+  retry_on StandardError, wait: :polynomially_longer, attempts: 3
 
   # Execute the webhook delivery
   # @param delivery [Webhook::Delivery] The delivery to execute
