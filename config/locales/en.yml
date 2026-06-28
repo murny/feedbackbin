@@ -657,6 +657,7 @@ en:
           successfully_unvoted: Your vote has been removed.
           successfully_voted: Your vote has been recorded.
     create:
+      rate_limited: You're posting ideas too quickly. Try again in a bit.
       successfully_created: Idea was successfully created.
     default_status: Open
     destroy:

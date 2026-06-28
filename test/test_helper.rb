@@ -47,6 +47,7 @@ module ActiveSupport
 
     setup do
       Current.account = accounts(:feedbackbin)
+      Rails.cache.clear
     end
 
     teardown do

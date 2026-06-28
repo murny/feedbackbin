@@ -39,6 +39,17 @@ class IdeasControllerTest < ActionDispatch::IntegrationTest
     assert_redirected_to idea_url(Idea.last)
   end
 
+  test "create is rate-limited at 10 per hour" do
+    idea_params = { idea: { description: @idea.description, title: @idea.title, board_id: @idea.board_id } }
+
+    10.times { post ideas_url, params: idea_params }
+
+    post ideas_url, params: idea_params
+
+    assert_redirected_to new_idea_url
+    assert_equal I18n.t("ideas.create.rate_limited"), flash[:alert]
+  end
+
   test "should show idea" do
     get idea_url(@idea)
 

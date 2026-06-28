@@ -7,6 +7,8 @@ class IdeasController < ApplicationController
   before_action :set_boards, only: %i[index new edit create update]
   before_action :ensure_permission_to_administer_idea, only: %i[edit update destroy]
 
+  rate_limit to: 10, within: 1.hour, only: :create, with: -> { redirect_to new_idea_path, alert: t("ideas.create.rate_limited") }
+
   # GET /ideas or /ideas.json
   def index
     ideas = Current.account.ideas.includes(:creator, :board, :status, :tags, comments: :creator)
