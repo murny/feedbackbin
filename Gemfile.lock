@@ -248,7 +248,7 @@ GEM
     jbuilder (2.15.1)
       actionview (>= 7.0.0)
       activesupport (>= 7.0.0)
-    json (2.20.0)
+    json (2.21.1)
     jwt (3.2.0)
       base64
     kamal (2.12.0)
@@ -393,7 +393,7 @@ GEM
       actionpack (>= 4.2)
       omniauth (~> 2.0)
     ostruct (0.6.3)
-    pagy (43.5.6)
+    pagy (43.6.0)
       json
       uri
       yaml
@@ -763,7 +763,7 @@ CHECKSUMS
   io-console (0.8.2) sha256=d6e3ae7a7cc7574f4b8893b4fca2162e57a825b223a177b7afa236c5ef9814cc
   irb (1.18.0) sha256=de9454a0703a54704b9811a5ef31a60c86949fbf4013fcf244fabc7c775248e3
   jbuilder (2.15.1) sha256=2430bec28fb0cebacb5875b1009cf9d8bc3c303ccb810c4c8b062a4b51457637
-  json (2.20.0) sha256=9362bc6e55a952b056abf9167cf053358181c904cb70cd6eee0808ea830fc32b
+  json (2.21.1) sha256=13a43df75d95641443f5702dff350f237164a9d811ff0f2c2800d4d980220583
   jwt (3.2.0) sha256=5419b1fe37b1da0982bd07051f573a8b8789ab724c2aa7e785e4784a3ed217d7
   kamal (2.12.0) sha256=c51d1ab085e515470f98d0c0f043637122b5ebf76e8b610cb1fbbed0b7f9b8fa
   language_server-protocol (3.17.0.5) sha256=fd1e39a51a28bf3eec959379985a72e296e9f9acfce46f6a79d31ca8760803cc
@@ -812,7 +812,7 @@ CHECKSUMS
   omniauth-oauth2 (1.9.0) sha256=ed15f6d9d20991807ce114cc5b9c1453bce3645b64e51c68c90cff5ff153fee8
   omniauth-rails_csrf_protection (2.0.1) sha256=c6e3204d7e3925bb537cb52d50fdfc9f05293f1a9d87c5d4ab4ca3a39ba8c32d
   ostruct (0.6.3) sha256=95a2ed4a4bd1d190784e666b47b2d3f078e4a9efda2fccf18f84ddc6538ed912
-  pagy (43.5.6) sha256=4d46d262826e055d69713fbbd2c42257cc1d0e87c13a1221764c15d30e46ff85
+  pagy (43.6.0) sha256=2ae1ff353f81a0ff8a0b20b163edfa751d7d21b786fa1aa496c4417bc1e5e7ab
   parallel (2.1.0) sha256=b35258865c2e31134c5ecb708beaaf6772adf9d5efae28e93e99260877b09356
   parser (3.3.11.1) sha256=d17ace7aabe3e72c3cc94043714be27cc6f852f104d81aa284c2281aecc65d54
   pp (0.6.4) sha256=dfcb0fce700c41456265922884f9fe195d7fbb0674a3578e6c0f69588e82b570
