@@ -199,4 +199,39 @@ class IdeasControllerTest < ActionDispatch::IntegrationTest
     assert_no_match(/Should Not Appear/, response.body)
     assert_no_match(/event_#{cross_account_event.id}\b/, response.body)
   end
+
+  test "show renders mention banner when idea is linked to a published changelog" do
+    changelog = changelogs(:one)
+
+    get idea_url(@idea)
+
+    assert_select ".mention-banner a[href=?]", changelog_path(changelog), text: changelog.title
+  end
+
+  test "show omits mention banner when idea is only linked to draft changelogs" do
+    get idea_url(ideas(:two))
+
+    assert_select ".mention-banner", count: 0
+  end
+
+  test "show collapses replies beyond the first three when a comment has five or more" do
+    parent = comments(:two)
+    parent.replies.delete_all
+    5.times { |i| Comment.create!(account: @idea.account, idea: @idea, parent: parent, creator: users(:shane), body: "Reply #{i + 1}") }
+
+    get idea_url(@idea)
+
+    assert_select ".replies-toggle[aria-expanded=false]", text: I18n.t("comments.comment.collapsed_replies_toggle.show_more_replies", count: 2)
+    assert_select ".replies-collapsed[aria-hidden=true]"
+  end
+
+  test "show does not collapse replies when a comment has fewer than five" do
+    parent = comments(:two)
+    parent.replies.delete_all
+    4.times { |i| Comment.create!(account: @idea.account, idea: @idea, parent: parent, creator: users(:shane), body: "Reply #{i + 1}") }
+
+    get idea_url(@idea)
+
+    assert_select ".replies-toggle", count: 0
+  end
 end
