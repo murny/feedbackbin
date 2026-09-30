@@ -221,7 +221,7 @@ class IdeasControllerTest < ActionDispatch::IntegrationTest
 
     get idea_url(@idea)
 
-    assert_select ".replies-toggle[aria-expanded=false]", text: I18n.t("comments.comment.collapsed_replies_toggle.show_more_replies", count: 2)
+    assert_select ".replies-toggle[aria-expanded=false]", text: /#{I18n.t("comments.comment.collapsed_replies_toggle.show_more_replies", count: 2)}/
     assert_select ".replies-collapsed[aria-hidden=true]"
   end
 
