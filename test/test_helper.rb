@@ -100,11 +100,11 @@ class ActionView::TestCase
   # Set up controller default_url_options with account script_name for helper tests
   setup do
     if Current.account.present?
-      @controller.class.default_url_options[:script_name] = Current.account.slug
+      @controller.class.default_url_options = @controller.class.default_url_options.merge(script_name: Current.account.slug)
     end
   end
 
   teardown do
-    @controller.class.default_url_options.delete(:script_name)
+    @controller.class.default_url_options = @controller.class.default_url_options.except(:script_name)
   end
 end
