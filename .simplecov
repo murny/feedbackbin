@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-SimpleCov.start :rails do
+SimpleCov.configure do
   formatter SimpleCov::Formatter::MultiFormatter.new([
     SimpleCov::Formatter::HTMLFormatter,
     SimpleCov::Formatter::JSONFormatter

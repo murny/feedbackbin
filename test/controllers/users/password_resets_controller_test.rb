@@ -7,7 +7,7 @@ module Users
     setup do
       @identity = identities(:shane)
       # Password resets controller uses disallow_account_scope
-      integration_session.default_url_options[:script_name] = ""
+      integration_session.default_url_options = integration_session.default_url_options.merge(script_name: "")
     end
 
     test "should get new" do
