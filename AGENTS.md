@@ -14,7 +14,7 @@ This file provides guidance to AI coding assistants when working with code in th
 ### Testing
 - `bin/rails test` - Run all Rails tests
 - `bin/rails test:system` - Run system tests only
-- `env RAILS_ENV=test bin/rails db:seed:replant` - Test seed data
+- `bin/rails db:seed:replant` - Check seeds run cleanly (CI runs this in development)
 
 ### Linting and Code Quality
 - `bin/rubocop` - Check Ruby code style
@@ -46,12 +46,21 @@ FeedbackBin is a customer feedback management platform built with Ruby on Rails 
 - **Comment**: Threaded discussions on feedback ideas
 - **Boards**: Organization of feedback ideas into logical groups
 - **Status**: Status tracking for feedback ideas lifecycle
+- **Identity**: Global email-based login that owns Users across Accounts
+- **Vote**, **Reaction**: Upvotes on ideas and comments; emoji reactions on comments
+- **Tag**, **Tagging**: Free-form labels on ideas
+- **Changelog**, **ChangelogIdea**: Shipped announcements linked back to the ideas they close
+- **Watch**, **Notification**: Per-user idea subscriptions and in-app/email notifications
+- **Event**: Activity log driving the idea timeline, notifications, and webhooks
+- **Webhook**: Outbound HTTP deliveries for integrations
+- **Mention**: @mentions in ideas and comments
+- **Invitation**, **MagicLink**: Account invites and passwordless sign-in codes
 
 ### Key Rails Features Used
 - **Hotwire/Turbo**: SPA-like interactions without JavaScript frameworks
 - **Stimulus.js**: Minimal JavaScript controllers for enhanced interactions
-- **ActiveStorage**: File uploads (avatars, logos)
-- **ActionText**: Rich text content for ideas and comments
+- **ActiveStorage**: File uploads (avatars, logos, favicons, social images)
+- **ActionText**: Rich text content for ideas, comments, and changelogs (edited with Lexxy)
 - **Solid Queue**: Background job processing
 - **Solid Cache**: Application caching
 - **Solid Cable**: WebSocket connections
@@ -62,9 +71,9 @@ FeedbackBin is a customer feedback management platform built with Ruby on Rails 
 - Users belong to an Account and have roles: owner, admin, member, system, bot
   - `system`: auto-created service user used to attribute system-generated content (seeds, automated activity)
   - `bot`: reserved for AI agents and automation (moderation, content generation, scripted interactions)
-- Primary auth path is passwordless **magic links**; password auth and OAuth (Google, Facebook via Omniauth) are alternates
+- Primary auth path is passwordless **magic links**; password auth and OAuth (Google, Facebook via Omniauth, plus a `developer` provider outside production) are alternates
 - Sessions managed via signed cookies
-- Role-based access via `Role` model
+- Role-based access via the `User::Role` concern (string-backed `role` enum)
 
 ### UI Framework
 - **Vanilla CSS**: No Sass, no PostCSS, no Tailwind — pure modern CSS with native features
@@ -239,7 +248,7 @@ Use these freely — they are part of the architecture:
 
 #### Utility Classes (Minimal)
 
-~60 focused utility classes in `utilities.css` for layout and text. Use them in markup for simple layout needs:
+Focused utility classes in `utilities.css` for layout and text. Use them in markup for simple layout needs:
 
 ```html
 <div class="flex gap">
@@ -264,8 +273,9 @@ app/assets/stylesheets/
 ├── containers.css       # .container layout wrapper
 ├── panels.css           # .panel surface component
 ├── inputs.css           # Form controls
-├── dialog.css           # Dialog/modal animations
-├── popup.css            # Dropdown menus
+├── dialogs.css          # Dialog/modal animations
+├── dropdowns.css        # Dropdown menus
+├── popovers.css         # Popovers
 └── ...                  # One file per component/module
 ```
 
