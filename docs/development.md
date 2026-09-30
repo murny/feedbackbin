@@ -18,8 +18,11 @@ bin/setup
 ```
 
 This will:
+- Install [mise](https://mise.jdx.dev), [gum](https://github.com/charmbracelet/gum), and the GitHub CLI if missing (via Homebrew or pacman)
+- Install the Ruby version from `.ruby-version` with mise
+- Install system packages (libvips, ImageMagick, ffmpeg, gitleaks) and workflow linters (actionlint, shellcheck, zizmor)
 - Install Ruby dependencies via Bundler
-- Prepare the database
+- Prepare the database and seed it with sample data if empty
 - Clean up logs and temp files
 
 Then run the development server:
@@ -38,13 +41,21 @@ To reset the database and re-seed with sample data:
 bin/setup --reset
 ```
 
+To also delete uploaded files and SQLite databases under `storage/`:
+
+```sh
+bin/setup --clean --reset
+```
+
 ## Logging In
 
 FeedbackBin uses passwordless magic link authentication in development. To log in:
 
 1. Enter an email address (e.g., `shane@example.com`)
-2. Check the Rails console for the magic link
-3. Click the link or copy the verification code
+2. The verification code is shown on the next page in development
+3. Enter the code, or open the email at [http://localhost:3000/letter_opener](http://localhost:3000/letter_opener) and click the link
+
+A "Developer" OAuth provider is also available outside production for signing in without email.
 
 ## Running Tests
 
@@ -164,8 +175,8 @@ bin/rails db:seed
 # Reset database (drops, creates, migrates, seeds)
 bin/rails db:reset
 
-# Prepare test database
-env RAILS_ENV=test bin/rails db:seed:replant
+# Re-seed from scratch (checks that seeds run cleanly, as CI does)
+bin/rails db:seed:replant
 ```
 
 ## Background Jobs
@@ -191,8 +202,8 @@ bin/jobs
 
 You can view email previews at [http://localhost:3000/rails/mailers](http://localhost:3000/rails/mailers).
 
-In development, emails are captured by the `letter_opener` gem and will open
-automatically in your browser.
+In development, emails are captured by `letter_opener_web`. View sent emails
+at [http://localhost:3000/letter_opener](http://localhost:3000/letter_opener).
 
 ## Project Structure
 

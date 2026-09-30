@@ -26,6 +26,7 @@ Feedback tools got bloated. FeedbackBin focuses on the boring core:
 - **Collect ideas** from your users; let them vote and discuss in threaded comments.
 - **Track progress** on a public roadmap with custom statuses like Planned, In Progress, and Shipped.
 - **Announce what shipped** with a changelog tied back to the ideas that asked for it.
+- **Keep everyone in the loop** with email and in-app notifications, @mentions, search, and webhooks.
 
 ## Running Your Own Instance
 
