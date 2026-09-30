@@ -1,0 +1,5 @@
+<ul role="list" class="flex flex-column gap-4">
+  <% ideas.each do |idea| %>
+    <%= render Ideas::CardComponent.new(idea: idea) %>
+  <% end %>
+</ul>

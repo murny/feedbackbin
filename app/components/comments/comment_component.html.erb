@@ -1,0 +1,80 @@
+<%= turbo_frame_tag dom_id(@comment),
+      class: "display-block pad-block",
+      style: "scroll-margin-block-start: var(--space-4);",
+      data: { navigable_list_target: "item" },
+      tabindex: "-1" do %>
+  <% if @comment.creator.system? %>
+    <div class="system-comment">
+      <div class="flex align-center gap-half">
+        <%= helpers.lucide_icon("info", class: "size-4 txt-subtle") %>
+        <div class="flex-1">
+          <p class="system-comment__content">
+            <%= sanitize(@comment.body, tags: %w[strong]) %>
+          </p>
+        </div>
+        <%= helpers.local_datetime_tag @comment.created_at, style: :datetime, class: "txt-x-small txt-subtle" %>
+      </div>
+    </div>
+  <% else %>
+    <div class="panel panel--compact txt-normal <%= "comment--internal" if @comment.internal? %>">
+      <div class="panel__body">
+        <div class="flex">
+          <div class="margin-inline-end">
+            <%= render partial: "votes/vote_button", locals: { voteable: @comment } %>
+          </div>
+          <div class="flex-1 min-width">
+            <%= render "comments/comment/header",
+                       comment: @comment,
+                       timestamp_size: :small,
+                       trigger_label: t("comments.comment.comment_settings") %>
+            <%= render "comments/comment/body",
+                       comment: @comment,
+                       replies_summary: true %>
+          </div>
+        </div>
+      </div>
+
+      <% if @comment.replies.any? || can_reply? %>
+        <div class="replies-section">
+          <div id="<%= dom_id(@comment) %>_replies">
+            <%= render partial: "comments/reply", collection: visible_replies, as: :reply %>
+            <% if collapse_replies? %>
+              <div data-controller="toggle">
+                <button type="button"
+                        class="replies-toggle btn btn--ghost"
+                        data-toggle-target="trigger"
+                        data-action="click->toggle#toggle"
+                        aria-controls="<%= dom_id(@comment, :extra_replies) %>"
+                        aria-expanded="false">
+                  <%= helpers.lucide_icon "chevron-down", class: "replies-toggle__icon" %>
+                  <span class="replies-toggle__label replies-toggle__label--show">
+                    <%= t("comments.comment.collapsed_replies_toggle.show_more_replies", count: collapsed_replies.size) %>
+                  </span>
+                  <span class="replies-toggle__label replies-toggle__label--hide">
+                    <%= t("comments.comment.collapsed_replies_toggle.hide_replies") %>
+                  </span>
+                  <span class="visually-hidden replies-toggle__label replies-toggle__label--show">
+                    <%= t("comments.comment.collapsed_replies_toggle.replies_hidden_sr", count: collapsed_replies.size) %>
+                  </span>
+                </button>
+
+                <div id="<%= dom_id(@comment, :extra_replies) %>"
+                     data-toggle-target="toggleable"
+                     aria-hidden="true"
+                     class="replies-collapsed">
+                  <%= render partial: "comments/reply", collection: collapsed_replies, as: :reply %>
+                </div>
+              </div>
+            <% end %>
+          </div>
+
+          <% if can_reply? %>
+            <div id="<%= dom_id(@comment) %>_reply_form" class="pad">
+              <%= render partial: "comments/thread_reply_form", locals: { parent: @comment } %>
+            </div>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  <% end %>
+<% end %>

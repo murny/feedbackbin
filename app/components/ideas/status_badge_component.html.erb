@@ -1,27 +1,25 @@
-<%# locals: (idea:) %>
-
 <span id="idea-status-badge">
   <% if Current.user&.admin? %>
     <%= render Elements::DropdownMenuComponent.new do |dropdown| %>
       <% dropdown.with_trigger(variant: :ghost, size: :sm, type: "button") do %>
-        <%= render Elements::BadgeComponent.new(color: idea.status_color) do %>
-          <%= idea.status_name %>
+        <%= render Elements::BadgeComponent.new(color: @idea.status_color) do %>
+          <%= @idea.status_name %>
         <% end %>
       <% end %>
 
       <% dropdown.with_item_content(
         id: "idea-status-open",
-        href: idea_status_path(idea),
+        href: helpers.idea_status_path(@idea),
         method: :patch,
         params: { status_id: nil },
-        class: idea.open? ? "fill-selected" : nil
+        class: @idea.open? ? "fill-selected" : nil
       ) do %>
         <%= render Elements::BadgeComponent.new(color: Idea::DEFAULT_STATUS_COLOR, tone: :soft, with_dot: true) do %>
           <%= t("ideas.default_status") %>
         <% end %>
-        <% if idea.open? %>
+        <% if @idea.open? %>
           <span class="margin-inline-start-auto">
-            <%= lucide_icon("check", class: "size-4") %>
+            <%= helpers.lucide_icon("check", class: "size-4") %>
           </span>
         <% end %>
       <% end %>
@@ -29,25 +27,25 @@
       <% Status.ordered.each do |status| %>
         <% dropdown.with_item_content(
           id: "idea-status-#{status.id}",
-          href: idea_status_path(idea),
+          href: helpers.idea_status_path(@idea),
           method: :patch,
           params: { status_id: status.id },
-          class: status.id == idea.status_id ? "fill-selected" : nil
+          class: status.id == @idea.status_id ? "fill-selected" : nil
         ) do %>
           <%= render Elements::BadgeComponent.new(color: status.color, tone: :soft, with_dot: true) do %>
             <%= status.name %>
           <% end %>
-          <% if status.id == idea.status_id %>
+          <% if status.id == @idea.status_id %>
             <span class="margin-inline-start-auto">
-              <%= lucide_icon("check", class: "size-4") %>
+              <%= helpers.lucide_icon("check", class: "size-4") %>
             </span>
           <% end %>
         <% end %>
       <% end %>
     <% end %>
   <% else %>
-    <%= render Elements::BadgeComponent.new(color: idea.status_color) do %>
-      <%= idea.status_name %>
+    <%= render Elements::BadgeComponent.new(color: @idea.status_color) do %>
+      <%= @idea.status_name %>
     <% end %>
   <% end %>
 </span>

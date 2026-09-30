@@ -37,7 +37,7 @@
             </div>
 
             <div class="flex align-center gap-half">
-              <%= render "ideas/status_badge", idea: @idea %>
+              <%= render Ideas::StatusBadgeComponent.new(idea: @idea) %>
 
               <% if Current.user&.can_administer_idea?(@idea) %>
                 <%= render Elements::DropdownMenuComponent.new do |dropdown| %>

@@ -1,0 +1,5 @@
+<div class="divide-y">
+  <% comments.each do |comment| %>
+    <%= render Comments::CommentComponent.new(comment: comment) %>
+  <% end %>
+</div>
