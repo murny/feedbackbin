@@ -7,6 +7,13 @@ class ApplicationMailer < ActionMailer::Base
 
   private
 
+    def set_unwatch_headers(idea, recipient)
+      if token = view_context.unwatch_token_for(idea, recipient)
+        headers["List-Unsubscribe"] = "<#{unsubscribe_destroy_by_token_url(token: token)}>"
+        headers["List-Unsubscribe-Post"] = "List-Unsubscribe=One-Click"
+      end
+    end
+
     def default_url_options
       if Current.account
         super.merge(script_name: Current.account.slug)

@@ -7,6 +7,8 @@ class IdeaCommentMailer < ApplicationMailer
     @idea = @comment.idea
     @commenter = @comment.creator
 
+    set_unwatch_headers(@idea, @recipient)
+
     mail(
       to: @recipient.identity.email_address,
       subject: t(".subject", commenter: @commenter.name, title: @idea.title)
