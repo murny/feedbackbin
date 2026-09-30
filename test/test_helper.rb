@@ -2,7 +2,10 @@
 
 ENV["RAILS_ENV"] ||= "test"
 
-require "simplecov" if ENV["COVERAGE"]
+if ENV["COVERAGE"]
+  require "simplecov"
+  SimpleCov.start :rails
+end
 
 require_relative "../config/environment"
 require "rails/test_help"
@@ -64,7 +67,7 @@ class ActionDispatch::IntegrationTest
   # Set up integration session with account script_name for URL generation and routing
   setup do
     if Current.account.present?
-      integration_session.default_url_options[:script_name] = Current.account.slug
+      integration_session.default_url_options = integration_session.default_url_options.merge(script_name: Current.account.slug)
     end
   end
 
@@ -72,11 +75,11 @@ class ActionDispatch::IntegrationTest
   def untenanted
     original_script_name = integration_session.default_url_options[:script_name]
     original_account = Current.account
-    integration_session.default_url_options[:script_name] = ""
+    integration_session.default_url_options = integration_session.default_url_options.merge(script_name: "")
     Current.account = nil
     yield
   ensure
-    integration_session.default_url_options[:script_name] = original_script_name
+    integration_session.default_url_options = integration_session.default_url_options.merge(script_name: original_script_name)
     Current.account = original_account
   end
 
@@ -84,11 +87,11 @@ class ActionDispatch::IntegrationTest
   def tenanted(account)
     original_script_name = integration_session.default_url_options[:script_name]
     original_account = Current.account
-    integration_session.default_url_options[:script_name] = account.slug
+    integration_session.default_url_options = integration_session.default_url_options.merge(script_name: account.slug)
     Current.account = account
     yield
   ensure
-    integration_session.default_url_options[:script_name] = original_script_name
+    integration_session.default_url_options = integration_session.default_url_options.merge(script_name: original_script_name)
     Current.account = original_account
   end
 end
@@ -97,11 +100,11 @@ class ActionView::TestCase
   # Set up controller default_url_options with account script_name for helper tests
   setup do
     if Current.account.present?
-      @controller.class.default_url_options[:script_name] = Current.account.slug
+      @controller.class.default_url_options = @controller.class.default_url_options.merge(script_name: Current.account.slug)
     end
   end
 
   teardown do
-    @controller.class.default_url_options.delete(:script_name)
+    @controller.class.default_url_options = @controller.class.default_url_options.except(:script_name)
   end
 end

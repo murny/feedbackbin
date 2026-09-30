@@ -9,13 +9,13 @@ module Users
       @identity = @user.identity
       @identity.update!(email_verified_at: nil)
       # Email verifications controller uses disallow_account_scope
-      integration_session.default_url_options[:script_name] = ""
+      integration_session.default_url_options = integration_session.default_url_options.merge(script_name: "")
     end
 
     test "should send a verification email" do
       sign_in_as(@user)
       # After sign_in_as, reset script_name to empty for disallow_account_scope controller
-      integration_session.default_url_options[:script_name] = ""
+      integration_session.default_url_options = integration_session.default_url_options.merge(script_name: "")
 
       assert_enqueued_email_with IdentityMailer, :email_verification, args: [ @identity ] do
         post users_email_verification_url

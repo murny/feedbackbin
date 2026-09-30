@@ -6,7 +6,7 @@ class Sessions::MagicLinksControllerTest < ActionDispatch::IntegrationTest
   setup do
     @user = users(:jane)
     @identity = @user.identity
-    integration_session.default_url_options[:script_name] = ""
+    integration_session.default_url_options = integration_session.default_url_options.merge(script_name: "")
   end
 
   test "show redirects without pending authentication" do

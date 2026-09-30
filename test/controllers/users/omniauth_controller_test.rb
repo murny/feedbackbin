@@ -7,7 +7,7 @@ module Users
     setup do
       OmniAuth.config.test_mode = true
       # OmniAuth controller uses disallow_account_scope - run all tests untenanted
-      integration_session.default_url_options[:script_name] = ""
+      integration_session.default_url_options = integration_session.default_url_options.merge(script_name: "")
     end
 
     test "should handle previously connected identity account" do

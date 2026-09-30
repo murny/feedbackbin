@@ -7,7 +7,7 @@ module Sessions
     setup do
       @user = users(:jane)
       @identity = @user.identity
-      integration_session.default_url_options[:script_name] = ""
+      integration_session.default_url_options = integration_session.default_url_options.merge(script_name: "")
     end
 
     test "create with existing identity sends magic link and redirects" do
