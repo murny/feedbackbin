@@ -49,53 +49,82 @@ bin/setup
 
 ### Deploy Configuration
 
-Edit `config/deploy.yml` with your server details. The key settings are:
+`config/deploy.yml` is set up for feedbackbin.com. Change these settings for
+your instance:
 
 ```yaml
+image: ghcr.io/your-github-username/feedbackbin
+
 servers:
   web:
-    - your-server-hostname  # SSH-accessible hostname or IP
-
-ssh:
-  user: root  # Or your SSH user
+    - your-server-ip  # SSH-accessible hostname or IP (Kamal connects as root by default)
 
 proxy:
   ssl: true
-  host: feedbackbin.example.com  # Your domain
+  host: feedback.example.com  # Your domain
+
+registry:
+  server: ghcr.io
+  username: your-github-username
+  password:
+    - KAMAL_REGISTRY_PASSWORD
 
 env:
+  secret:
+    - RAILS_MASTER_KEY
   clear:
-    # Public environment variables
-    RAILS_ENV: production
+    SOLID_QUEUE_IN_PUMA: true
+    BASE_URL: https://feedback.example.com
+    SMTP_ADDRESS: smtp.example.com
+    SMTP_DOMAIN: example.com
 ```
+
+See the [Docker Deployment Guide](docker-deployment.md#environment-variables)
+for every supported environment variable.
+
+### Credentials
+
+The repository's `config/credentials.yml.enc` belongs to feedbackbin.com and
+can't be decrypted without its key. Replace it with your own:
+
+```sh
+rm config/credentials.yml.enc
+bin/rails credentials:edit
+```
+
+This creates `config/master.key` (git-ignored) and a new encrypted credentials
+file containing a `secret_key_base`. Add your SMTP login and, optionally, OAuth
+keys:
+
+```yaml
+smtp:
+  user_name: your_smtp_username
+  password: your_smtp_password
+
+google_app_id: ...
+google_app_secret: ...
+facebook_app_id: ...
+facebook_app_secret: ...
+```
+
+`SMTP_USERNAME` and `SMTP_PASSWORD` environment variables take precedence over
+the `smtp` credentials if you'd rather pass them as Kamal secrets.
 
 ### Secrets
 
-Create a `.kamal/secrets` file for sensitive configuration. **Do not commit
-this file to git!**
+`.kamal/secrets` is committed to git and holds no secret values itself. It
+reads them from your environment and `config/master.key` at deploy time:
 
 ```sh
-# Add to .gitignore if not already there
-echo ".kamal/secrets" >> .gitignore
+KAMAL_REGISTRY_PASSWORD=$KAMAL_REGISTRY_PASSWORD
+RAILS_MASTER_KEY=$(cat config/master.key)
 ```
 
-Create the secrets file:
-
-```ini
-SECRET_KEY_BASE=your_secret_key_here
-RAILS_MASTER_KEY=your_master_key_here
-SMTP_USERNAME=your_smtp_username
-SMTP_PASSWORD=your_smtp_password
-```
-
-Generate values:
+Export a GitHub personal access token with `write:packages` scope before
+deploying:
 
 ```sh
-# Generate SECRET_KEY_BASE
-bin/rails secret
-
-# RAILS_MASTER_KEY is in config/master.key (create if missing)
-bin/rails credentials:edit
+export KAMAL_REGISTRY_PASSWORD=ghp_your_token
 ```
 
 ### Using a Password Manager
@@ -143,42 +172,14 @@ proxy:
 
 ### SMTP Email
 
-Configure email for authentication and notifications:
-
-```yaml
-env:
-  clear:
-    SMTP_ADDRESS: smtp.example.com
-    SMTP_PORT: 587
-  secret:
-    - SMTP_USERNAME
-    - SMTP_PASSWORD
-```
+Set `SMTP_ADDRESS` (and optionally `SMTP_PORT`, `SMTP_DOMAIN`) under
+`env.clear`, and the login in credentials as shown above.
 
 ### File Storage
 
-By default, uploaded files are stored on the server. For S3 or compatible
-storage:
-
-```yaml
-env:
-  clear:
-    ACTIVE_STORAGE_SERVICE: s3
-    S3_BUCKET: your-bucket-name
-    S3_REGION: us-east-1
-  secret:
-    - S3_ACCESS_KEY_ID
-    - S3_SECRET_ACCESS_KEY
-```
-
-For S3-compatible services (Cloudflare R2, MinIO, etc.):
-
-```yaml
-env:
-  clear:
-    S3_ENDPOINT: https://your-endpoint.com
-    S3_FORCE_PATH_STYLE: true
-```
+Uploaded files (avatars, logos) and the SQLite databases live in the
+`feedbackbin_storage` Docker volume mounted at `/rails/storage`. Back this
+volume up regularly.
 
 ## Useful Commands
 
@@ -217,7 +218,7 @@ bin/kamal app logs
 ```
 
 Common issues:
-- Missing secrets in `.kamal/secrets`
+- `KAMAL_REGISTRY_PASSWORD` not exported, or `config/master.key` missing
 - SSH connection problems
 - Docker build failures
 
