@@ -21,8 +21,8 @@ module Ideas
       end
 
       assert_selector "span#idea-status-badge #idea-status-open"
-      assert_selector "#idea-status-#{idea.status_id}.fill-selected"
-      assert_no_selector "#idea-status-open.fill-selected"
+      assert_selector "#idea-status-#{idea.status_id} .fill-selected"
+      assert_no_selector "#idea-status-open .fill-selected"
     end
   end
 end
