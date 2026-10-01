@@ -236,10 +236,9 @@ export default class extends Controller {
   #toggleCurrentItem(event) {
     if (this.actionableItemsValue && this.currentItem && this.#visibleItems.length) {
       const toggleable = this.currentItem.querySelector("input[type=checkbox]")
-      const isDisabled = toggleable.hasAttribute("disabled")
 
       if (toggleable) {
-        if (!isDisabled) {
+        if (!toggleable.hasAttribute("disabled")) {
           toggleable.checked = !toggleable.checked
           toggleable.dispatchEvent(new Event('change', { bubbles: true }))
         }
