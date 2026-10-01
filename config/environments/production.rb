@@ -59,19 +59,30 @@ Rails.application.configure do
   # Set this to true and configure the email server for immediate delivery to raise delivery errors.
   # config.action_mailer.raise_delivery_errors = false
 
-  # Set host to be used by links generated in mailer templates.
-  config.action_mailer.default_url_options = { host: "feedbackbin.com" }
+  # Configure SMTP via environment variables, falling back to smtp/* credentials for the login.
+  if smtp_address = ENV["SMTP_ADDRESS"].presence
+    config.action_mailer.delivery_method = :smtp
+    config.action_mailer.smtp_settings = {
+      address: smtp_address,
+      port: ENV.fetch("SMTP_PORT", ENV["SMTP_TLS"] == "true" ? "465" : "587").to_i,
+      domain: ENV.fetch("SMTP_DOMAIN", nil),
+      user_name: ENV.fetch("SMTP_USERNAME") { Rails.application.credentials.dig(:smtp, :user_name) },
+      password: ENV.fetch("SMTP_PASSWORD") { Rails.application.credentials.dig(:smtp, :password) },
+      authentication: ENV.fetch("SMTP_AUTHENTICATION", "plain"),
+      tls: ENV["SMTP_TLS"] == "true",
+      openssl_verify_mode: ENV["SMTP_SSL_VERIFY_MODE"]
+    }
+  end
 
-  # Specify outgoing SMTP server. Remember to add smtp/* credentials via rails credentials:edit.
-  config.action_mailer.smtp_settings = {
-    user_name: Rails.application.credentials.dig(:smtp, :user_name),
-    password: Rails.application.credentials.dig(:smtp, :password),
-    address: "smtp.sendgrid.net",
-    port: 587,
-    domain: "feedbackbin.com",
-    authentication: :plain,
-    enable_starttls_auto: true
-  }
+  # Set BASE_URL to the instance's public URL (e.g. https://feedback.example.com) for links in emails.
+  if base_url = ENV["BASE_URL"].presence
+    uri = URI.parse(base_url)
+    url_options = { host: uri.host, protocol: uri.scheme }
+    url_options[:port] = uri.port if uri.port != uri.default_port
+
+    routes.default_url_options = url_options
+    config.action_mailer.default_url_options = url_options
+  end
 
   # Enable locale fallbacks for I18n (makes lookups for any locale fall back to
   # the I18n.default_locale when a translation cannot be found).
