@@ -8,6 +8,8 @@ class IdeaStatusChangeMailer < ApplicationMailer
     @old_status = @event.particulars["old_status"]
     @new_status = @event.particulars["new_status"]
 
+    set_unwatch_headers(@idea, @recipient)
+
     mail(
       to: @recipient.identity.email_address,
       subject: t(".subject", title: @idea.title)

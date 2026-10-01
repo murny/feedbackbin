@@ -56,4 +56,18 @@ class IdeaCommentMailerTest < ActionMailer::TestCase
 
     assert_match %r{#{Regexp.escape(expected_unsub)}\?token=\S+}, text_part
   end
+
+  test "new_comment sets one-click List-Unsubscribe headers" do
+    expected_path = Rails.application.routes.url_helpers.unsubscribe_destroy_by_token_path(script_name: Current.account.slug)
+
+    assert_match %r{\A<http.*#{Regexp.escape(expected_path)}\?token=[^>]+>\z}, @mail["List-Unsubscribe"].value
+    assert_equal "List-Unsubscribe=One-Click", @mail["List-Unsubscribe-Post"].value
+  end
+
+  test "new_comment omits List-Unsubscribe headers when the recipient is not watching" do
+    mail = IdeaCommentMailer.with(comment: @comment, recipient: users(:john)).new_comment
+
+    assert_nil mail["List-Unsubscribe"]
+    assert_nil mail["List-Unsubscribe-Post"]
+  end
 end
